@@ -10,11 +10,7 @@ namespace VT079
     {
 
         Player player;
-        public bool IAA { get; set; }
-        public bool DOG { get; set; }
-        public bool SCP { get; set; }
-        public bool RAD { get; set; }
-        public bool RIP { get; set; }
+        public int chat { get; set; }
 
         private void Awake()
         {
@@ -28,16 +24,46 @@ namespace VT079
         {
             DissonanceUserSetup dissonanceUserSetup = player.gameObject.GetComponent<DissonanceUserSetup>();
 
-            if (SCP)
+            if (chat == 1)
+            {
                 dissonanceUserSetup.SCPChat = true;
-            if (RIP)
+                dissonanceUserSetup.SpectatorChat = false;
+                dissonanceUserSetup.RadioAsHuman = false;
+                dissonanceUserSetup.SpeakerAs079 = false;
+                dissonanceUserSetup.MimicAs939 = false;
+            }
+            if (chat == 2)
+            {
+                dissonanceUserSetup.SCPChat = false;
                 dissonanceUserSetup.SpectatorChat = true;
-            if (RAD)
+                dissonanceUserSetup.RadioAsHuman = false;
+                dissonanceUserSetup.SpeakerAs079 = false;
+                dissonanceUserSetup.MimicAs939 = false;
+            }
+            if (chat == 3)
+            {
+                dissonanceUserSetup.SCPChat = false;
+                dissonanceUserSetup.SpectatorChat = false;
                 dissonanceUserSetup.RadioAsHuman = true;
-            if (IAA)
+                dissonanceUserSetup.SpeakerAs079 = false;
+                dissonanceUserSetup.MimicAs939 = false;
+            }
+            if (chat == 4)
+            {
+                dissonanceUserSetup.SCPChat = false;
+                dissonanceUserSetup.SpectatorChat = false;
+                dissonanceUserSetup.RadioAsHuman = false;
                 dissonanceUserSetup.SpeakerAs079 = true;
-            if (DOG)
+                dissonanceUserSetup.MimicAs939 = false;
+            }
+            if (chat == 5)
+            {
+                dissonanceUserSetup.SCPChat = false;
+                dissonanceUserSetup.SpectatorChat = false;
+                dissonanceUserSetup.RadioAsHuman = false;
+                dissonanceUserSetup.SpeakerAs079 = false;
                 dissonanceUserSetup.MimicAs939 = true;
+            }
         }
 
 

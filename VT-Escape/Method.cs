@@ -6,17 +6,8 @@ using System.Reflection;
 
 namespace VTEscape
 {
-    public static class Method
+    public static class Extanction   
     {
-        public static void PlayAmbientSound(int id)
-        {
-            foreach (var player in Server.Get.Players)
-            {
-                player.GetComponent<AmbientSoundPlayer>().CallMethod("RpcPlaySound", id);
-
-            }
-        }
-
         public static object CallMethod(this object o, string methodName, params object[] args)
         {
             var mi = o.GetType().GetMethod(methodName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
@@ -33,7 +24,19 @@ namespace VTEscape
             FieldInfo field = element.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
             return (T)field.GetValue(element);
         }
-        public static IEnumerator<float> WarHeadEscape(int waitforready = 3)
+    }
+    public class Method
+    {
+        public void PlayAmbientSound(int id)
+        {
+            foreach (var player in Server.Get.Players)
+            {
+                player.GetComponent<AmbientSoundPlayer>().CallMethod("RpcPlaySound", id);
+
+            }
+        }
+
+        public IEnumerator<float> WarHeadEscape(int waitforready = 3)
         {
             yield return Timing.WaitForSeconds(10f);
             while (waitforready > 0)

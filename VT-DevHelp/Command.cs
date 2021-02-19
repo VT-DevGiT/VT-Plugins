@@ -11,7 +11,7 @@ namespace VT079
       Name = "DevDoorInfo",
       Aliases = new[] { "Fdoor" },
       Description = "For find door",
-      Permission = "",
+      Permission = "synapse.command.Dev",
       Platforms = new[] { Platform.RemoteAdmin },
       Usage = ""
       )]
@@ -35,7 +35,7 @@ namespace VT079
      Name = "DevTest",
      Aliases = new[] { "Test" },
      Description = "For TEST",
-     Permission = "",
+     Permission = "synapse.command.Dev",
      Platforms = new[] { Platform.RemoteAdmin },
      Usage = ""
      )]
@@ -54,7 +54,7 @@ namespace VT079
         Name = "DevitemInfo",
         Aliases = new[] { "Iteam" },
         Description = "Dev iteam info",
-        Permission = "",
+        Permission = "synapse.command.Dev",
         Platforms = new[] { Platform.RemoteAdmin },
         Usage = ""
         )]
@@ -86,7 +86,7 @@ namespace VT079
     Name = "DevDecont",
     Aliases = new[] { "" },
     Description = "Dev Decont Test",
-    Permission = "",
+    Permission = "synapse.command.Dev",
     Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole },
     Usage = ""
     )]
@@ -105,7 +105,7 @@ namespace VT079
        Name = "DevSong",
        Aliases = new[] { "Song" },
        Description = "Dev Song Test",
-       Permission = "",
+       Permission = "synapse.command.Dev",
        Platforms = new[] { Platform.RemoteAdmin },
        Usage = ""
        )]
@@ -126,15 +126,62 @@ namespace VT079
         }
     }
 
+
     [CommandInformation(
+        Name = "DevRestart",
+        Aliases = new[] { "Restart" },
+        Description = "Un Plugin Crash ? pas problême c'est la pour toi !",
+        Permission = "synapse.command.Dev",
+        Platforms = new[] { Platform.RemoteAdmin },
+        Usage = "Utlise le si ta le serveur qui Crash pas autrement"
+        )]
+    public class Restart : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+            switch (context.Arguments.FirstElement())
+            {
+                case "Server":
+                    foreach (var player in Server.Get.Players)
+                    {
+                        player.BroadcastMessage("Restart");
+                    }
+                    Server.Get.Reload();
+                    Server.Get.GameConsole.TypeCommand("Restart");
+                    break;
+                case "Alert":
+                    foreach (var player in Server.Get.Players)
+                    {
+                        player.BroadcastMessage("Restart");
+                    }
+                    break;
+                case "Plugin":
+                    Server.Get.Reload();
+                    break;
+                case "Port":
+                    if (context.Arguments.Count > 1)
+                    Server.Get.Port = ushort.Parse(context.Arguments.Array[2]);
+                    break;
+                case "Slots":
+                    if (context.Arguments.Count > 1)
+                        Server.Get.Slots = int.Parse(context.Arguments.Array[2]);
+                    break;
+            }
+            return result;
+        }
+    }
+
+
+        [CommandInformation(
         Name = "DevChat",
         Aliases = new[] { "Chat" },
         Description = "Dev Chat Test",
-        Permission = "",
+        Permission = "synapse.command.Dev",
         Platforms = new[] { Platform.RemoteAdmin },
         Usage = "SCP, RIP, RAD, 079, 939, NONE"
         )]
-    public class Chat : ISynapseCommand
+    public class DevChat : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
         {
@@ -145,31 +192,27 @@ namespace VT079
             switch (context.Arguments.FirstElement())
             {
                 case "SCP":
-                    Chat.SCP = true;
+                    Chat.chat = 1;
                     break;
 
                 case "RIP":
-                    Chat.RIP = true;
+                    Chat.chat = 2;
                     break;
 
                 case "RAD":
-                    Chat.RAD = true;
+                    Chat.chat = 3;
                     break;
 
                 case "079":
-                    Chat.IAA = true;
+                    Chat.chat = 4;
                     break;
 
                 case "939":
-                    Chat.DOG = true;
+                    Chat.chat = 5;
                     break;
 
                 case "NONE":
-                    Chat.SCP = false;
-                    Chat.RIP = false;
-                    Chat.RAD = false;
-                    Chat.IAA = false;
-                    Chat.DOG = false;
+                    Chat.chat = 0;
                     break;
 
             }

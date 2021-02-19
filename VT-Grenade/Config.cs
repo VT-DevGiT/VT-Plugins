@@ -15,6 +15,7 @@ namespace VTGrenad
         {
             (int)RoleType.ClassD,
             (int)RoleType.Scientist,
+            (int)RoleType.Spectator,
         };
 
         [Description("Config grenade")]

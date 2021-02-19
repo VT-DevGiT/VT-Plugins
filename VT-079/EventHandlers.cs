@@ -37,7 +37,7 @@ namespace VT079
                 porte.Locked = false;
             }
             if (Plugin.Config.Scp079AdvenceRecontain)
-                ev.Allow = false;
+            ev.Allow = false;
         }
     }
 }

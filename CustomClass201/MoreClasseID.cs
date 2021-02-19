@@ -13,7 +13,7 @@
         NTFVirologue = 108,
         UTR = 109,//SpawnGarde
         CHIMastodonte = 110, 
-        CHIExpertPyrotechnieIC = 111, 
+        CHIExpertPyrotechnie = 111, 
         CHILeader = 112, 
         CHIHacker = 113, 
         CHIKamikaze = 114, 

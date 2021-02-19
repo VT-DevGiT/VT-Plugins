@@ -34,6 +34,7 @@ namespace CustomClass
 
         public static void SpawnUnRole(this PlayerSetClassEventArgs ev, RoleType ancienRole, MoreClasseID nouveauRole, int spawnChance, Func<int> MaxRole, int maxTotal = 0, int minActuClass = 0)
         {
+            Server.Get.Logger
             var playerClass = Server.Get.Players.Where(p => p.RoleID == (int)ancienRole);
             if (ev.Player.RoleID == (int)ancienRole && playerClass.Count() > minActuClass)
             {

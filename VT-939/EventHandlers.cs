@@ -13,9 +13,7 @@ namespace Better939
 
         private void OnSpeck(PlayerSpeakEventArgs ev)
         {
-            if (!Plugin.Config.Scp939CanSeeVoiceChatting) return;
-
-            if (ev.Player.Team != (int)Team.SCP && !ev.SpectatorChat)
+            if (ev.Player.TeamID != (int)Team.RIP)
                 ev.Player.Hub.footstepSync.CmdScp939Noise(25f);
         }
 

@@ -21,16 +21,16 @@ namespace CustomClass
         {
             if (RespawnPlayer.Contains(ev.Player))
             {
-                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigCHILeader.SpawnChance, () => GetMaxValue(PluginClass.ConfigCHILeader.GetType()), PluginClass.ConfigCHILeader.RequiredPlayers);
-                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigCHIKamikaze.SpawnChance, () => GetMaxValue(PluginClass.ConfigCHIKamikaze.GetType()), PluginClass.ConfigCHIKamikaze.RequiredPlayers);
-                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigCHIHacker.SpawnChance, () => GetMaxValue(PluginClass.ConfigCHIHacker.GetType()), PluginClass.ConfigCHIHacker.RequiredPlayers);
-                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigCHIExpertPyrotechnie.SpawnChance, () => GetMaxValue(PluginClass.ConfigCHIExpertPyrotechnie.GetType()), PluginClass.ConfigCHIExpertPyrotechnie.RequiredPlayers);
-                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigCHIMastondonte.SpawnChance, () => GetMaxValue(PluginClass.ConfigCHIMastondonte.GetType()), PluginClass.ConfigCHIMastondonte.RequiredPlayers);
-                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigCHISPY.SpawnChance, () => GetMaxValue(PluginClass.ConfigCHISPY.GetType()), PluginClass.ConfigCHISPY.RequiredPlayers);
-                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigNTFExpertPyrotechnie.SpawnChance, () => GetMaxValue(PluginClass.ConfigNTFExpertPyrotechnie.GetType()), PluginClass.ConfigNTFExpertPyrotechnie.RequiredPlayers);
-                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigNTFExpertReconfinement.SpawnChance, () => GetMaxValue(PluginClass.ConfigNTFExpertReconfinement.GetType()), PluginClass.ConfigNTFExpertReconfinement.RequiredPlayers);
-                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigNTFInfirmier.SpawnChance, () => GetMaxValue(PluginClass.ConfigNTFInfirmier.GetType()), PluginClass.ConfigNTFInfirmier.RequiredPlayers);
-                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigNTFVirologue.SpawnChance, () => GetMaxValue(PluginClass.ConfigNTFVirologue.GetType()), PluginClass.ConfigNTFVirologue.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.ChaosInsurgency, MoreClasseID.CHILeader, PluginClass.ConfigCHILeader.SpawnChance, () => GetMaxValue(PluginClass.ConfigCHILeader.GetType()), PluginClass.ConfigCHILeader.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.ChaosInsurgency, MoreClasseID.CHIKamikaze, PluginClass.ConfigCHIKamikaze.SpawnChance, () => GetMaxValue(PluginClass.ConfigCHIKamikaze.GetType()), PluginClass.ConfigCHIKamikaze.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.ChaosInsurgency, MoreClasseID.CHIHacker, PluginClass.ConfigCHIHacker.SpawnChance, () => GetMaxValue(PluginClass.ConfigCHIHacker.GetType()), PluginClass.ConfigCHIHacker.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.ChaosInsurgency, MoreClasseID.CHIExpertPyrotechnie, PluginClass.ConfigCHIExpertPyrotechnie.SpawnChance, () => GetMaxValue(PluginClass.ConfigCHIExpertPyrotechnie.GetType()), PluginClass.ConfigCHIExpertPyrotechnie.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.ChaosInsurgency, MoreClasseID.CHIMastodonte, PluginClass.ConfigCHIMastondonte.SpawnChance, () => GetMaxValue(PluginClass.ConfigCHIMastondonte.GetType()), PluginClass.ConfigCHIMastondonte.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.NtfCadet, MoreClasseID.CHISPY, PluginClass.ConfigCHISPY.SpawnChance, () => GetMaxValue(PluginClass.ConfigCHISPY.GetType()), PluginClass.ConfigCHISPY.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.NtfLieutenant, MoreClasseID.NTFExpertPyrotechnie, PluginClass.ConfigNTFExpertPyrotechnie.SpawnChance, () => GetMaxValue(PluginClass.ConfigNTFExpertPyrotechnie.GetType()), PluginClass.ConfigNTFExpertPyrotechnie.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.NtfLieutenant, MoreClasseID.NTFExpertReconfinement, PluginClass.ConfigNTFExpertReconfinement.SpawnChance, () => GetMaxValue(PluginClass.ConfigNTFExpertReconfinement.GetType()), PluginClass.ConfigNTFExpertReconfinement.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.NtfLieutenant, MoreClasseID.NTFInfirmier, PluginClass.ConfigNTFInfirmier.SpawnChance, () => GetMaxValue(PluginClass.ConfigNTFInfirmier.GetType()), PluginClass.ConfigNTFInfirmier.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.NtfLieutenant, MoreClasseID.NTFVirologue, PluginClass.ConfigNTFVirologue.SpawnChance, () => GetMaxValue(PluginClass.ConfigNTFVirologue.GetType()), PluginClass.ConfigNTFVirologue.RequiredPlayers);
             }
         }
 

@@ -34,7 +34,7 @@ namespace Better939
             }
         }
 
-
+        /*
         [HarmonyPatch(typeof(Scp939_VisionController), nameof(Scp939_VisionController.UpdateVisions))]
         public static class Scp939VisionAhpRemovePatch
         {
@@ -59,7 +59,7 @@ namespace Better939
                 return false;
             }
         }
-
+        */
         public static void SendCustomTargetRpc(this Player target, NetworkIdentity behaviorOwner, Type targetType, string rpcName, object[] values)
         {
             NetworkWriter writer = NetworkWriterPool.GetWriter();

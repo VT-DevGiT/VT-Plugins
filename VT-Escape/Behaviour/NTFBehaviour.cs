@@ -1,5 +1,8 @@
-﻿using Mirror;
+﻿using MEC;
+using Mirror;
+using Synapse;
 using Synapse.Api;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -25,27 +28,31 @@ namespace VTEscape
                 if (Vector3.Distance(base.transform.position, base.GetComponent<Escape>().worldPosition) <= Escape.radius)//AdvencedEscape.Config.rayonSortie)
                 {
                     var configEscape = Plugin.Config.EscapeList.FirstOrDefault(p => player.RoleID == (int)p.Role
-                        && EscapeEnum.MTF == p.Escape && player.Cuffer == p.Handcuffed);
+                        && EscapeEnum.MTF == p.Escape && player.IsCuffed == p.Handcuffed);
                     if (configEscape != null)
                     {
                         if (configEscape.StartWarHead == true)
-                            Method.WarHeadEscape(3);
+                            Timing.RunCoroutine(new Method().WarHeadEscape(3));
                         if (configEscape.EscapeMessage != null)
                             Map.Get.Cassie(configEscape.EscapeMessage, false);
                         player.Inventory.Clear();
-                        player.RoleID = (int)configEscape.Role;
+                        Server.Get.Logger.Info($"{player.NickName}");
+                        Server.Get.Logger.Info($"{(int)configEscape.NewRole}");
+                        player.RoleID = (int)configEscape.NewRole;
+                        _timer = 0f;
                         return;
                     }
                     configEscape = Plugin.Config.EscapeList.FirstOrDefault(p => player.TeamID == (int)p.Team
-                        && EscapeEnum.MTF == p.Escape && player.Cuffer == p.Handcuffed);
+                        && EscapeEnum.MTF == p.Escape && player.IsCuffed == p.Handcuffed);
                     if (configEscape != null)
                     {
                         if (configEscape.StartWarHead == true)
-                            Method.WarHeadEscape(3);
+                            Timing.RunCoroutine(new Method().WarHeadEscape(3)); 
                         if (configEscape.EscapeMessage != null)
                             Map.Get.Cassie(configEscape.EscapeMessage, false);
                         player.Inventory.Clear();
-                        player.RoleID = (int)configEscape.Role;
+                        player.RoleID = (int)configEscape.NewRole;
+                        _timer = 0f;
                         return;
                     }
                     player.Inventory.Clear();
