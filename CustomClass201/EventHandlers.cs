@@ -14,17 +14,57 @@ namespace CustomClass
         {
             Server.Get.Events.Round.SpawnPlayersEvent += OnSpawn;
             Server.Get.Events.Round.TeamRespawnEvent += OnReSpawn;
+            Server.Get.Events.Player.PlayerSetClassEvent += OnClass;
         }
 
-        private List<int> ListTeamRSC = new List<int>() { (int)MoreClasseID.Concierge, (int)MoreClasseID.ScientifiqueSuperviseur, (int)MoreClasseID.DirecteurSite };
+        private void OnClass(PlayerSetClassEventArgs ev)
+        {
+            if (RespawnPlayer.Contains(ev.Player))
+            {
+                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigCHILeader.SpawnChance, () => GetMaxValue(PluginClass.ConfigCHILeader.GetType()), PluginClass.ConfigCHILeader.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigCHIKamikaze.SpawnChance, () => GetMaxValue(PluginClass.ConfigCHIKamikaze.GetType()), PluginClass.ConfigCHIKamikaze.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigCHIHacker.SpawnChance, () => GetMaxValue(PluginClass.ConfigCHIHacker.GetType()), PluginClass.ConfigCHIHacker.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigCHIExpertPyrotechnie.SpawnChance, () => GetMaxValue(PluginClass.ConfigCHIExpertPyrotechnie.GetType()), PluginClass.ConfigCHIExpertPyrotechnie.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigCHIMastondonte.SpawnChance, () => GetMaxValue(PluginClass.ConfigCHIMastondonte.GetType()), PluginClass.ConfigCHIMastondonte.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigCHISPY.SpawnChance, () => GetMaxValue(PluginClass.ConfigCHISPY.GetType()), PluginClass.ConfigCHISPY.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigNTFExpertPyrotechnie.SpawnChance, () => GetMaxValue(PluginClass.ConfigNTFExpertPyrotechnie.GetType()), PluginClass.ConfigNTFExpertPyrotechnie.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigNTFExpertReconfinement.SpawnChance, () => GetMaxValue(PluginClass.ConfigNTFExpertReconfinement.GetType()), PluginClass.ConfigNTFExpertReconfinement.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigNTFInfirmier.SpawnChance, () => GetMaxValue(PluginClass.ConfigNTFInfirmier.GetType()), PluginClass.ConfigNTFInfirmier.RequiredPlayers);
+                ev.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigNTFVirologue.SpawnChance, () => GetMaxValue(PluginClass.ConfigNTFVirologue.GetType()), PluginClass.ConfigNTFVirologue.RequiredPlayers);
+            }
+        }
 
+        private Dictionary<Type, int> dictMaxPossible = new Dictionary<Type, int>();
+        private int GetMaxValue(Type type)
+        {
+            if (dictMaxPossible.ContainsKey(type))
+            {
+                int result = dictMaxPossible[type];
+                if (result > 0)
+                {
+                    dictMaxPossible[type] = dictMaxPossible[type] - 1;
+                }
+                return result;
+            }
+            return 0;
+        }
+
+        private List<Player> RespawnPlayer = new List<Player>();
         private void OnReSpawn(TeamRespawnEventArgs ev)
         {
-            Server.Get.Logger.Info($"{ev.Players} - {ev.Team} {ev.TeamID}");
-            ev.Players.SpawnUnRole(RoleType.ChaosInsurgency, MoreClasseID.CHILeader, PluginClass.ConfigCHILeader.SpawnChance, 1);
-            ev.Players.SpawnUnRole(RoleType.ChaosInsurgency, MoreClasseID.CHIMastodonte, PluginClass.ConfigCHIMastondonte.SpawnChance, 2, 3, 4);
-            SpawnNtf(ev);
-            SpawnCHI(ev);
+            // Reset du max
+            dictMaxPossible[PluginClass.ConfigCHILeader.GetType()] = PluginClass.ConfigCHILeader.MaxRespawn;
+            dictMaxPossible[PluginClass.ConfigCHIKamikaze.GetType()] = PluginClass.ConfigCHILeader.MaxRespawn;
+            dictMaxPossible[PluginClass.ConfigCHIHacker.GetType()] = PluginClass.ConfigCHILeader.MaxRespawn;
+            dictMaxPossible[PluginClass.ConfigCHIExpertPyrotechnie.GetType()] = PluginClass.ConfigCHILeader.MaxRespawn;
+            dictMaxPossible[PluginClass.ConfigCHIMastondonte.GetType()] = PluginClass.ConfigCHILeader.MaxRespawn;
+            dictMaxPossible[PluginClass.ConfigCHISPY.GetType()] = PluginClass.ConfigCHILeader.MaxRespawn;
+            dictMaxPossible[PluginClass.ConfigNTFExpertPyrotechnie.GetType()] = PluginClass.ConfigCHILeader.MaxRespawn;
+            dictMaxPossible[PluginClass.ConfigNTFExpertReconfinement.GetType()] = PluginClass.ConfigCHILeader.MaxRespawn;
+            dictMaxPossible[PluginClass.ConfigNTFInfirmier.GetType()] = PluginClass.ConfigCHILeader.MaxRespawn;
+            dictMaxPossible[PluginClass.ConfigNTFVirologue.GetType()] = PluginClass.ConfigCHILeader.MaxRespawn;
+            RespawnPlayer.Clear();
+            RespawnPlayer.AddRange(ev.Players);
         }
 
         private void OnSpawn(Synapse.Api.Events.SynapseEventArguments.SpawnPlayersEventArgs ev)
@@ -33,62 +73,33 @@ namespace CustomClass
             if (ev.SpawnPlayers != null)
             {
                 // Role avec nombre limite
-                ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigDirecteurSite.SpawnChance, 1, 0 , 1);
-                ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.Concierge, PluginClass.ConfigConcierge.SpawnChance, 2, 0, 5);
-                ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.SCP507, PluginClass.ConfigSCP507.SpawnChance, 1, 0, 5);
-                ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.SCP999, PluginClass.ConfigSCP999.SpawnChance, 1, 0, 5);
-                ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.CHIIntrus, PluginClass.ConfigCHIntrus.SpawnChance, 1);
-                ev.SpawnPlayers.SpawnUnRole(RoleType.Scientist, MoreClasseID.ScientifiqueSuperviseur, PluginClass.ConfigScientifiqueSuperviseur.SpawnChance, 1, 0, 2);
-                ev.SpawnPlayers.SpawnUnRole(RoleType.FacilityGuard, MoreClasseID.GardeSuperviseur, PluginClass.ConfigGardeSuperviseur.SpawnChance, 1, 0, 2);
-                ev.SpawnPlayers.SpawnUnRole(RoleType.FacilityGuard, MoreClasseID.Technicien, PluginClass.ConfigTechnicien.SpawnChance, 1, 0, 2);
-                ev.SpawnPlayers.SpawnUnRole(RoleType.FacilityGuard, MoreClasseID.UTR, PluginClass.ConfigRoboticTaticalUnity.SpawnChance, 1, 0, 3);
-                ev.SpawnPlayers.SpawnUnRole(RoleType.NtfCadet, MoreClasseID.CHISPY, PluginClass.ConfigCHISPY.SpawnChance, 1, 2, 5);
+                ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigDirecteurSite.SpawnChance, PluginClass.ConfigDirecteurSite.MaxAlive, PluginClass.ConfigDirecteurSite.RequiredPlayers);
+                ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.Concierge, PluginClass.ConfigConcierge.SpawnChance, PluginClass.ConfigConcierge.MaxAlive, PluginClass.ConfigConcierge.RequiredPlayers);
+                ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.SCP507, PluginClass.ConfigSCP507.SpawnChance, PluginClass.ConfigSCP507.MaxAlive, PluginClass.ConfigSCP507.RequiredPlayers);
+                ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.SCP999, PluginClass.ConfigSCP999.SpawnChance, PluginClass.ConfigSCP999.MaxAlive, PluginClass.ConfigSCP999.RequiredPlayers);
+                ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.CHIIntrus, PluginClass.ConfigCHIntrus.SpawnChance, PluginClass.ConfigCHIntrus.MaxAlive, PluginClass.ConfigCHIntrus.RequiredPlayers);
+                ev.SpawnPlayers.SpawnUnRole(RoleType.Scientist, MoreClasseID.ScientifiqueSuperviseur, PluginClass.ConfigScientifiqueSuperviseur.SpawnChance, PluginClass.ConfigScientifiqueSuperviseur.MaxAlive, PluginClass.ConfigScientifiqueSuperviseur.RequiredPlayers);
+                ev.SpawnPlayers.SpawnUnRole(RoleType.FacilityGuard, MoreClasseID.GardeSuperviseur, PluginClass.ConfigGardeSuperviseur.SpawnChance, PluginClass.ConfigGardeSuperviseur.MaxAlive, PluginClass.ConfigGardeSuperviseur.RequiredPlayers);
+                ev.SpawnPlayers.SpawnUnRole(RoleType.FacilityGuard, MoreClasseID.Technicien, PluginClass.ConfigTechnicien.SpawnChance, PluginClass.ConfigTechnicien.MaxAlive, PluginClass.ConfigTechnicien.RequiredPlayers);
+                ev.SpawnPlayers.SpawnUnRole(RoleType.FacilityGuard, MoreClasseID.UTR, PluginClass.ConfigRoboticTaticalUnity.SpawnChance, PluginClass.ConfigRoboticTaticalUnity.MaxAlive, PluginClass.ConfigRoboticTaticalUnity.RequiredPlayers);
+                
                 if (ev.SpawnPlayers.Where(p => p.Value == (int)RoleType.Scientist).Count() > 1 || Server.Get.Players.Any(p => p.RoleID == (int)RoleType.Scientist))
                 {
                     ev.SpawnPlayers.SpawnUnRole(RoleType.Scientist, MoreClasseID.ScientifiqueSuperviseur, PluginClass.ConfigScientifiqueSuperviseur.SpawnChance);
                 }
                 if (ev.SpawnPlayers.Count() > 25)
                 {
-                    ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.SCP008, PluginClass.ConfigSCP008.SpawnChance, 1, 1, 7);
-                    ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.SCP966, PluginClass.ConfigSCP966.SpawnChance, 1, 2, 7);
+                    ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.SCP008, PluginClass.ConfigSCP008.SpawnChance, PluginClass.ConfigSCP008.MaxAlive, PluginClass.ConfigSCP008.RequiredPlayers);
+                    ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.SCP966, PluginClass.ConfigSCP966.SpawnChance, PluginClass.ConfigSCP966.MaxAlive, PluginClass.ConfigSCP966.RequiredPlayers);
                 }
                 else
                 {
-                    ev.SpawnPlayers.SpawnUnRoleSCP(MoreClasseID.SCP008, PluginClass.ConfigSCP008.SpawnChance, 1);
-                    ev.SpawnPlayers.SpawnUnRoleSCP(MoreClasseID.SCP966, PluginClass.ConfigSCP966.SpawnChance, 2);
+                    ev.SpawnPlayers.SpawnUnRoleSCP(MoreClasseID.SCP008, PluginClass.ConfigSCP008.SpawnChance, PluginClass.ConfigSCP008.MaxAlive);
+                    ev.SpawnPlayers.SpawnUnRoleSCP(MoreClasseID.SCP966, PluginClass.ConfigSCP966.SpawnChance, PluginClass.ConfigSCP966.MaxAlive);
                 }
             }
         }
 
-        private void SpawnCHI(TeamRespawnEventArgs ev)
-        {
-            var playerClass = ev.Players.Where(p => p.RoleID == (int)RoleType.ChaosInsurgency);
-            foreach (var player in ev.Players)
-            {
-                int chance = UnityEngine.Random.Range(1, 100);
-                var listPossible = new List<MoreClasseID>();
-                listPossible.AddPossibleRole(chance, PluginClass.ConfigCHIExpertPyrotechnie.SpawnChance, MoreClasseID.CHIExpertPyrotechnieIC);
-                listPossible.AddPossibleRole(chance, PluginClass.ConfigCHIHacker.SpawnChance, MoreClasseID.CHIHacker);
-                listPossible.AddPossibleRole(chance, PluginClass.ConfigCHIKamikaze.SpawnChance, MoreClasseID.CHIKamikaze);
-                player.AssignRole(listPossible);
 
-            }
-        }
-
-        private void SpawnNtf(TeamRespawnEventArgs ev)
-        {
-            var playerClass = ev.Players.Where(p => p.RoleID == (int)RoleType.NtfLieutenant);
-            foreach (var player in ev.Players)
-            {
-                int chance = UnityEngine.Random.Range(1, 100);
-                var listPossible = new List<MoreClasseID>();
-                listPossible.AddPossibleRole(chance, PluginClass.ConfigNTFExpertPyrotechnie.SpawnChance, MoreClasseID.NTFExpertPyrotechnie);
-                listPossible.AddPossibleRole(chance, PluginClass.ConfigNTFExpertReconfinement.SpawnChance, MoreClasseID.NTFExpertReconfinement);
-                listPossible.AddPossibleRole(chance, PluginClass.ConfigNTFInfirmier.SpawnChance, MoreClasseID.NTFInfirmier);
-                listPossible.AddPossibleRole(chance, PluginClass.ConfigNTFVirologue.SpawnChance, MoreClasseID.NTFVirologue);
-                player.AssignRole(listPossible);
-
-            }
-        }
     }
 }

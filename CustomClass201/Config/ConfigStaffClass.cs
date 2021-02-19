@@ -16,9 +16,6 @@ namespace CustomClass.Config
         [Description("The Items the class spawns with")]
         public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.Medkit, 35, 0, 0, 0, Vector3.one) };
 
-        [Description("The Chance of which the class spawns")]
-        public int SpawnChance = 25;
-
         [Description("The Amount of Players Required in order to have the Chanche that the class can spawn")]
         public int RequiredPlayers = 0;
 

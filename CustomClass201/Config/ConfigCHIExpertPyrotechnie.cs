@@ -19,6 +19,13 @@ namespace CustomClass.Config
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 25;
 
+        [Description("Max alive at the same time")]
+        public int MaxAlive = 1;
+
+        [Description("max of this role which can spawn into a respawn")]
+        public int MaxRespawn = 1;
+
+
         [Description("The Amount of Players Required in order to have the Chanche that the class can spawn")]
         public int RequiredPlayers = 0;
 
