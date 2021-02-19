@@ -13,32 +13,18 @@ namespace CustomClass
         public EventHandlers()
         {
             Server.Get.Events.Round.SpawnPlayersEvent += OnSpawn;
-            Server.Get.Events.Player.PlayerSetClassEvent += OnSetClass;
+            Server.Get.Events.Round.TeamRespawnEvent += OnReSpawn;
         }
 
         private List<int> ListTeamRSC = new List<int>() { (int)MoreClasseID.Concierge, (int)MoreClasseID.ScientifiqueSuperviseur, (int)MoreClasseID.DirecteurSite };
 
-        private void OnSetClass(Synapse.Api.Events.SynapseEventArguments.PlayerSetClassEventArgs ev)
+        private void OnReSpawn(TeamRespawnEventArgs ev)
         {
-            if (ListTeamRSC.Contains(ev.Player.RoleID) && (ev.Player.CustomRole is BasePlayerScript script) && !script.Spawned)
-            {
-                script.Spawned = true;
-                if (ev.Player.RoleID == (int)MoreClasseID.Concierge)
-                {
-                    ev.Position = PluginClass.ConfigConcierge.SpawnPoint.Parse().Position;
-                }
-                else if (ev.Player.RoleID == (int)MoreClasseID.ScientifiqueSuperviseur)
-                {
-                    ev.Position = PluginClass.ConfigScientifiqueSuperviseur.SpawnPoint.Parse().Position;
-                }
-                else if (ev.Player.RoleID == (int)MoreClasseID.DirecteurSite)
-                {
-                    ev.Position = PluginClass.ConfigDirecteurSite.SpawnPoint.Parse().Position;
-                }
-
-
-
-            }
+            Server.Get.Logger.Info($"{ev.Players} - {ev.Team} {ev.TeamID}");
+            ev.Players.SpawnUnRole(RoleType.ChaosInsurgency, MoreClasseID.CHILeader, PluginClass.ConfigCHILeader.SpawnChance, 1);
+            ev.Players.SpawnUnRole(RoleType.ChaosInsurgency, MoreClasseID.CHIMastodonte, PluginClass.ConfigCHIMastondonte.SpawnChance, 2, 3, 4);
+            SpawnNtf(ev);
+            SpawnCHI(ev);
         }
 
         private void OnSpawn(Synapse.Api.Events.SynapseEventArguments.SpawnPlayersEventArgs ev)
@@ -57,10 +43,6 @@ namespace CustomClass
                 ev.SpawnPlayers.SpawnUnRole(RoleType.FacilityGuard, MoreClasseID.Technicien, PluginClass.ConfigTechnicien.SpawnChance, 1, 0, 2);
                 ev.SpawnPlayers.SpawnUnRole(RoleType.FacilityGuard, MoreClasseID.UTR, PluginClass.ConfigRoboticTaticalUnity.SpawnChance, 1, 0, 3);
                 ev.SpawnPlayers.SpawnUnRole(RoleType.NtfCadet, MoreClasseID.CHISPY, PluginClass.ConfigCHISPY.SpawnChance, 1, 2, 5);
-                ev.SpawnPlayers.SpawnUnRole(RoleType.ChaosInsurgency, MoreClasseID.CHIMastodonte, PluginClass.ConfigCHIMastondonte.SpawnChance, 2, 3, 4);
-                ev.SpawnPlayers.SpawnUnRole(RoleType.ChaosInsurgency, MoreClasseID.CHILeader, PluginClass.ConfigCHILeader.SpawnChance, 1);
-                SpawnNtf(ev);
-                SpawnCHI(ev);
                 if (ev.SpawnPlayers.Where(p => p.Value == (int)RoleType.Scientist).Count() > 1 || Server.Get.Players.Any(p => p.RoleID == (int)RoleType.Scientist))
                 {
                     ev.SpawnPlayers.SpawnUnRole(RoleType.Scientist, MoreClasseID.ScientifiqueSuperviseur, PluginClass.ConfigScientifiqueSuperviseur.SpawnChance);
@@ -78,25 +60,25 @@ namespace CustomClass
             }
         }
 
-        private void SpawnCHI(SpawnPlayersEventArgs ev)
+        private void SpawnCHI(TeamRespawnEventArgs ev)
         {
-            var playerClass = ev.SpawnPlayers.Where(p => p.Value == (int)RoleType.ChaosInsurgency);
-            foreach (KeyValuePair<Synapse.Api.Player, int> pair in playerClass)
+            var playerClass = ev.Players.Where(p => p.RoleID == (int)RoleType.ChaosInsurgency);
+            foreach (var player in ev.Players)
             {
                 int chance = UnityEngine.Random.Range(1, 100);
                 var listPossible = new List<MoreClasseID>();
                 listPossible.AddPossibleRole(chance, PluginClass.ConfigCHIExpertPyrotechnie.SpawnChance, MoreClasseID.CHIExpertPyrotechnieIC);
                 listPossible.AddPossibleRole(chance, PluginClass.ConfigCHIHacker.SpawnChance, MoreClasseID.CHIHacker);
                 listPossible.AddPossibleRole(chance, PluginClass.ConfigCHIKamikaze.SpawnChance, MoreClasseID.CHIKamikaze);
-                ev.SpawnPlayers.AssignRole(pair, listPossible);
+                player.AssignRole(listPossible);
 
             }
         }
 
-        private void SpawnNtf(SpawnPlayersEventArgs ev)
+        private void SpawnNtf(TeamRespawnEventArgs ev)
         {
-            var playerClass = ev.SpawnPlayers.Where(p => p.Value == (int)RoleType.NtfLieutenant);
-            foreach (KeyValuePair<Synapse.Api.Player, int> pair in playerClass)
+            var playerClass = ev.Players.Where(p => p.RoleID == (int)RoleType.NtfLieutenant);
+            foreach (var player in ev.Players)
             {
                 int chance = UnityEngine.Random.Range(1, 100);
                 var listPossible = new List<MoreClasseID>();
@@ -104,7 +86,7 @@ namespace CustomClass
                 listPossible.AddPossibleRole(chance, PluginClass.ConfigNTFExpertReconfinement.SpawnChance, MoreClasseID.NTFExpertReconfinement);
                 listPossible.AddPossibleRole(chance, PluginClass.ConfigNTFInfirmier.SpawnChance, MoreClasseID.NTFInfirmier);
                 listPossible.AddPossibleRole(chance, PluginClass.ConfigNTFVirologue.SpawnChance, MoreClasseID.NTFVirologue);
-                ev.SpawnPlayers.AssignRole(pair, listPossible);
+                player.AssignRole(listPossible);
 
             }
         }

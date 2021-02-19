@@ -10,9 +10,9 @@ namespace CustomClass.PlayerScript
 
         protected override List<int> FriendsList => new List<int> { (int)Team.CHI, (int)Team.CDP };
 
-        protected override RoleType RoleType => throw new NotImplementedException();
+        protected override RoleType RoleType => RoleType.ChaosInsurgency;
 
-        protected override int RoleTeam => throw new NotImplementedException();
+        protected override int RoleTeam => (int)Team.CHI;
 
         protected override int RoleId => (int)MoreClasseID.CHIKamikaze;
 

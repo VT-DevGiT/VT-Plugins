@@ -2,7 +2,6 @@
 using Synapse.Api.Plugin;
 using Synapse.Translation;
 
-
 namespace VTProget_X
 {
 
@@ -32,35 +31,55 @@ Version = "v.1.1.0"
         public static Config Config;
 
         [SynapseTranslation]
-        public static SynapseTranslation<Translation> Translation;
+        public static SynapseTranslation<PluginTranslation> PluginTranslation;
 
         public override void Load()
         {
             Instance = this;
             base.Load();
-            Translation.AddTranslation(new VTProget_X.Translation());
-            Translation.AddTranslation(new VTProget_X.Translation
+            PluginTranslation.AddTranslation(new VTProget_X.PluginTranslation());
+            PluginTranslation.AddTranslation(new VTProget_X.PluginTranslation
             {
-                IntercomGeneralInformation = "─────────── Centre d'information FIM ───────────\n " +
-                                             "Durée de la brèche : %roundTime%\n" +
-                                             "SCP restant(s) : %nSCP%\n " +
-                                             "Classe D Restant(s) : %nClassD%\n" +
-                                             "Personnel(s) à évacuée réstant(s) : %nPersonnelle%\n" +
-                                             "VIP à évacuée réstant(s) : %nVIP%\n" +
-                                             "Personnel(s) militaire(s) déployé : %nFIM% \n" +
-                                             "Puissance des générateurs actif(s) : %TotalVoltage% kVA\n " +
-                                             "Statut de l'ogive nucléaire Oméga : PRÊTE\n " +
-                                             "Statut de l'ogive nucléaire ALpha : %AlfaWarheadMessage%\n " +
-                                             "Statut du briseur de fémur pour SCP-106 : %isContain% \n " +
-                                             "Statut des portes tesla : %TeslaEnabled% \n " +
-                                             "Statut de la décontamination : %DecontMessage%\n " +
-                                             "Temps avent la décontamination : %decont%\n" +
-                                             "%nextRespawnMessage%\n" +
-                                             "─────────────────────────────────────\n",
-                IntercomScpInformation = "",
-                IntercomNoScpInformation = "",
+               IntercomGeneralInformation = 
+@"─────────── Centre d'information FIM ───────────
+Durée de la brèche : %RoundTime%
+SCP restant(s) : %nSCP%
+Classe D Restant(s) : %nCDP%
+Personnel(s) à évacuée réstant(s) : %nRSC%
+VIP à évacuée réstant(s) : %nVIP%
+Personnel(s) militaire(s) déployé : %nMTF%
+Puissance des générateurs actif(s) : %TotalVoltage% kVA
+Statut de l'ogive nucléaire Oméga : PRÊTE
+Statut de l'ogive nucléaire ALpha : %AlfaWarheadStatut%
+Statut du briseur de fémur pour SCP-106 : %IsContain%
+Statut des portes tesla : %Tesla%
+Statut de la décontamination : %DecontMessage%
+Temps avent la décontamination : %DecontTime%
+%RespawnMessage%
+─────────────────────────────────────
+%IntercomStatue%",
+                IntercomScpInformation = "%Name% : Zone %Zone% : Room %Room%",
+                IntercomScpInformation079 = "%Name% : Tier %Tier%",
+                IntercomNoScpInformation = "PAS DE SCP RESTANT",
+                TeslaOn = "ACTIVÉES",
+                TeslaOff = "DÉSSACTIVÉES",
+                SCP106Ready = "ACTIVÉES",
+                SCP106Use = "UTILISÉ",
+                SCP106Empty = "VIDE",
+                IntercomStatueRestart = "Temps avant redémarrage : %Temps%",
+                IntercomStatuePlayer = "%Player% Diffuse : %Temps%",
+                IntercomStatueAdmin = "%Player% Diffuse (prioritaire)",
+                IntercomStatueReady = "Intercom prêt à l'emploi.",
+                IntercomStatueMute = "Accès refusé",
+                DecontMessageNotEnoughEnergy = "PAS ASSEZ D'ÉNERGIE",
+                DecontMessageReady = "PRÊTE",
+                DecontMessageInProgress = "ENCOURS",
+                DecontMessageFinished = "FINALISÉE",
+                AlfaWarheadMessageReady = "PRÊTE",
+                AlfaWarheadMessageDisabled = "DÉSACTIVÉE",
+                RespawnMessageMTF = "la division %Name% arrivera dans %Temps%",
+                RespawnMessageNoMTF = "Aucune escouade n'est en route",
             }, "FRENCH");
-
             new EventHandlers();
         }
     }

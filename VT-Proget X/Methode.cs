@@ -42,7 +42,7 @@ namespace VTProget_X
 
         public static int Voltage()
         {
-            int totalvoltagefloat = 0f;
+            int totalvoltagefloat = 0;
             foreach (var i in Generator079.Generators)
             {
                 totalvoltagefloat += (int)i.localVoltage;
@@ -108,19 +108,19 @@ namespace VTProget_X
                 int leftautowarhead;
                 int nextRespawnTime;
                 int nSCP;
-                int nClassD;
-                int nPersonnelle;
+                int nCDP;
+                int nRSC;
                 int nVIP;
                 int nFIM;
+                int Voltage;
                 bool isContain;
                 bool isAlreadyUsed;
                 string roundTime;
-                string Voltage;
                 string DecontTime;
                 string TeslaMessage;
                 string SCP106Message;
                 string AlfaWarheadMessage;
-                string nextRespawnMessage;
+                string RespawnMessage;
                 string scpListMessage = string.Empty;
                 string IntercomStatueMessage;
                 string DecontMessage;
@@ -128,12 +128,12 @@ namespace VTProget_X
 
                 var _intercom = Server.Get.Host.GetComponent<Intercom>();
 
+                #region int&bool
                 nSCP = RoundSummary.singleton.CountTeam(Team.SCP);
-                nClassD = RoundSummary.singleton.CountTeam(Team.CDP);
-                nPersonnelle = RoundSummary.singleton.CountTeam(Team.RSC) + RoundSummary.singleton.CountRole(RoleType.FacilityGuard);
+                nCDP = RoundSummary.singleton.CountTeam(Team.CDP);
+                nRSC = RoundSummary.singleton.CountTeam(Team.RSC) + RoundSummary.singleton.CountRole(RoleType.FacilityGuard);
                 nVIP = 0;
                 nFIM = RoundSummary.singleton.CountTeam(Team.MTF) - RoundSummary.singleton.CountRole(RoleType.FacilityGuard);
-                AlfaWarheadMessage = AlphaWarheadOutsitePanel.nukeside.enabled ? "PRÊTE" : "DÉSACTIVÉE";
                 leftdecont = (int)((Math.Truncate((15f * 60) * 100f) / 100f) - (Math.Truncate(DecontaminationController.GetServerTime * 100f) / 100f));
                 leftautowarhead = AlphaWarheadController.Host != null
                     ? (int)Mathf.Clamp(AlphaWarheadController.Host.timeToDetonation - RoundSummary.roundTime, 0, AlphaWarheadController.Host.timeToDetonation)
@@ -144,27 +144,37 @@ namespace VTProget_X
                 isContain = PlayerManager.localPlayer.GetComponent<CharacterClassManager>().GetFieldValue<LureSubjectContainer>("_lureSpj").allowContain;
                 isAlreadyUsed = OneOhSixContainer.used;
                 leftdecont = Mathf.Clamp(leftdecont, 0, leftdecont);
+                #endregion
+
+                #region AlfaWarheadMessage
+                if (AlphaWarheadOutsitePanel.nukeside.enabled)
+                    AlfaWarheadMessage = Plugin.PluginTranslation.ActiveTranslation.AlfaWarheadMessageReady;
+                else
+                    AlfaWarheadMessage = Plugin.PluginTranslation.ActiveTranslation.AlfaWarheadMessageDisabled;
+
+                #endregion
 
                 #region DecontaMessage
                 if (Methode.Voltage() < 100)
-                    DecontMessage = "PAS ASSEZ D'ÉNERGIE";
+                    DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageNotEnoughEnergy;
                 else
                 {
                     if (!Plugin.Instance.DeconatmiantionendProgress)
-                        DecontMessage = "PRÊTE";
+                        DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageReady;
                     else if (!Plugin.Instance.DeconatmiantinEnd)
-                        DecontMessage = "ENCOURS";
+                        DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageInProgress;
                     else
-                        DecontMessage = "FINALISÉE";
+                        DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageFinished;
                 }
 
                 #endregion
 
                 #region RespawnMessage
                 if (RespawnManager.Singleton.NextKnownTeam == SpawnableTeamType.NineTailedFox)
-                    nextRespawnMessage = $"la division {RespawnManager.Singleton.NamingManager.name} arrivera dans  {nextRespawnTime / 60:00}:{nextRespawnTime % 60:00}";
+                    RespawnMessage = Plugin.PluginTranslation.ActiveTranslation.RespawnMessageMTF
+                        .Replace("%Name%", RespawnManager.Singleton.NamingManager.name).Replace("%Temps%", $"t-{ nextRespawnTime / 60:00}:{ nextRespawnTime % 60:00}");
                 else
-                    nextRespawnMessage = $"Aucune escouade n'est en route";
+                    RespawnMessage = Plugin.PluginTranslation.ActiveTranslation.RespawnMessageNoMTF;
                 #endregion
 
                 #region SCPListMessage
@@ -172,9 +182,14 @@ namespace VTProget_X
                 foreach (var scp in listScp)
                 {
                     if (scp.RoleType == RoleType.Scp079)
-                        scpListMessage += $"{scp.RoleName} : Tier {scp.Hub.scp079PlayerScript.Lvl}\n";
+                        scpListMessage += Plugin.PluginTranslation.ActiveTranslation.IntercomScpInformation
+                            .Replace("%Name%", scp.RoleName)
+                            .Replace("%Tier%", scp.Hub.scp079PlayerScript.Lvl.ToString());
                     else
-                        scpListMessage += $"{scp.RoleName} : Zone {scp.Zone} : Room {scp.Room.RoomName}\n";
+                        scpListMessage += Plugin.PluginTranslation.ActiveTranslation.IntercomScpInformation
+                            .Replace("%Name%", scp.RoleName)
+                            .Replace("%Zone%", scp.Zone.ToString())
+                            .Replace("%Room%", scp.Room.RoomName);
                 }
                 #endregion
 
@@ -182,90 +197,89 @@ namespace VTProget_X
 
                 if (_intercom.Muted)
                 {
-                    IntercomStatueMessage = "Accès refusé";
+                    IntercomStatueMessage = Plugin.PluginTranslation.ActiveTranslation.IntercomStatueMute;
                 }
                 else if (Intercom.AdminSpeaking)
                 {
-                    IntercomStatueMessage = $"{_intercom.GetPlayer().NickName} Diffuse (prioritaire)";
+                    IntercomStatueMessage = Plugin.PluginTranslation.ActiveTranslation.IntercomStatueAdmin.
+                        Replace("%Player%", _intercom.GetPlayer().NickName);
                 }
                 else if (_intercom.remainingCooldown > 0f)
                 {
-                    IntercomStatueMessage = $"Temps avant redémarrage : { Mathf.CeilToInt(_intercom.remainingCooldown)} seconde(s)";
+                    IntercomStatueMessage = Plugin.PluginTranslation.ActiveTranslation.IntercomStatueRestart.
+                        Replace("%Temps%", _intercom.remainingCooldown.ToString());
                 }
                 else if (_intercom.speaker != null)
                 {
-                    IntercomStatueMessage = $"{_intercom.speaker.GetPlayer().NickName} Diffuse : {Mathf.CeilToInt(_intercom.speechRemainingTime)} seconde(s)";
+                    IntercomStatueMessage = Plugin.PluginTranslation.ActiveTranslation.IntercomStatuePlayer.
+                        Replace("%Player%", _intercom.GetPlayer().NickName).Replace("%Temps%", _intercom.speechRemainingTime.ToString());
                 }
                 else
                 {
-                    IntercomStatueMessage = "Intercom prêt à l'emploi.";
+                    IntercomStatueMessage = Plugin.PluginTranslation.ActiveTranslation.IntercomStatueReady;
                 }
                 #endregion
 
                 #region GeneratorVoltage
-                Voltage = $"{Methode.Voltage():0000}";
+                Voltage = Methode.Voltage();
                 #endregion
 
                 #region SCP106Message
                 if (isContain)
-                { 
+                {
                     if (isAlreadyUsed)
-                        SCP106Message = "UTILISÉ";
+                        SCP106Message = Plugin.PluginTranslation.ActiveTranslation.SCP106Use;
                     else
-                        SCP106Message = "PRÊT";
+                        SCP106Message = Plugin.PluginTranslation.ActiveTranslation.SCP106Ready;
                 }
                 else
                 {
-                    SCP106Message = "VIDE";
+                    SCP106Message = Plugin.PluginTranslation.ActiveTranslation.SCP106Empty;
                 }
                 #endregion
 
                 #region Tesla
                 if (Plugin.Instance.TeslaEnabled)
-                    TeslaMessage = "ACTIVÉES";
+                    TeslaMessage = Plugin.PluginTranslation.ActiveTranslation.TeslaOn;
                 else
-                    TeslaMessage = "DÉSACTIVÉES";
+                    TeslaMessage = Plugin.PluginTranslation.ActiveTranslation.TeslaOff;
                 #endregion
 
                 #region DecontTime
-                DecontTime = $"{leftdecont / 60:00}:{leftdecont % 60:00}";
-
+                DecontTime = $"T-{leftdecont / 60:00}:{leftdecont % 60:00}";
                 #endregion
 
                 #region BrecheTime
-                roundTime = $"{ RoundSummary.roundTime / 60:00}:{ RoundSummary.roundTime % 60:00}";
+                roundTime = $"T+{ RoundSummary.roundTime / 60:00}:{ RoundSummary.roundTime % 60:00}";
                 #endregion
 
 
-
+                
                 switch (screen)
                 {
                     case screenEnum.GeneralInfo:
-                        ScreenMessage = string.Concat(
-                        $"─────────── Centre d'information FIM ───────────\n",
-                        $"Durée de la brèche : {roundTime}\n",
-                        $"SCP restant(s) : {nSCP}\n",
-                        $"Classe D Restant(s) : {nClassD}\n",
-                        $"Personnel(s) à évacuée réstant(s) : {nPersonnelle}\n",
-                        $"VIP à évacuée réstant(s) : {nVIP}\n",
-                        $"Personnel(s) militaire(s) déployé : {nFIM} \n",
-                        $"Puissance des générateurs actif(s) : {Voltage}kVA\n",
-                        $"Statut de l'ogive nucléaire Oméga : PRÊTE\n",
-                        $"Statut de l'ogive nucléaire ALpha : {AlfaWarheadMessage}\n",
-                        $"Statut du briseur de fémur pour SCP-106 : {SCP106Message}\n",
-                        $"Statut des portes tesla : {TeslaMessage} \n",
-                        $"Statut de la décontamination : {DecontMessage}\n",
-                        $"Temps avent la décontamination : {DecontTime}\n",
-                        $"{nextRespawnMessage}\n",
-                        $"─────────────────────────────────────\n");
-                        
-                        ScreenMessage += IntercomStatueMessage;
+                        ScreenMessage = Plugin.PluginTranslation.ActiveTranslation.IntercomGeneralInformation
+                            .Replace("\\n", "\n")
+                            .Replace("%RoundTime%", roundTime)
+                            .Replace("%nSCP%", nSCP.ToString())
+                            .Replace("%nCDP%", nCDP.ToString())
+                            .Replace("%nRSC%", nRSC.ToString())
+                            .Replace("%nVIP%", nVIP.ToString())
+                            .Replace("%nMTF%", nFIM.ToString())
+                            .Replace("%TotalVoltage%", Voltage.ToString())
+                            .Replace("%AlfaWarheadStatut%", AlfaWarheadMessage)
+                            .Replace("%Tesla%", TeslaMessage)
+                            .Replace("%IsContain%", SCP106Message)
+                            .Replace("%DecontMessage%", DecontMessage)
+                            .Replace("%DecontTime%", DecontTime.ToString())
+                            .Replace("%RespawnMessage%", RespawnMessage)
+                            .Replace("%IntercomStatue%", IntercomStatueMessage);
                         Map.Get.IntercomText = ScreenMessage;
                         break;
 
                     case screenEnum.ListScp:
                         ScreenMessage = string.Concat(
-                        $"{(scpListMessage.Any() ? scpListMessage : "PAS DE SCP RESTANT")}\n",
+                        $"{(scpListMessage.Any() ? scpListMessage : Plugin.PluginTranslation.ActiveTranslation.IntercomNoScpInformation)}\n",
                         $"─────────────────────────────────────\n");
                         ScreenMessage += IntercomStatueMessage;
                         Map.Get.IntercomText = ScreenMessage;
@@ -273,15 +287,15 @@ namespace VTProget_X
 
                     case screenEnum.Custom:
                         ScreenMessage = string.Concat(
-                            "<color=#9300FF>Azarus</color>\n",
-                            "───────────────────────────────────── \n ",
-                            "           I LIKE TRAIN !! "
+                            $"<color=#9300FF>Azarus</color>\n",
+                            $"───────────────────────────────────── \n ",
+                            $"           [Insérée Message] "
                             );
                         Map.Get.IntercomText = ScreenMessage;
                         break;
 
                     case screenEnum.Defaux:
-                        Map.Get.IntercomText = "I LIKE TRAIN !";
+                        Map.Get.IntercomText = $"Error Please Screen {DateTime.Now}";
                         break;
                 }
             }

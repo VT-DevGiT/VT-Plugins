@@ -1,4 +1,5 @@
 ﻿using Synapse;
+using Synapse.Api;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,11 +15,11 @@ namespace CustomClass
             }
         }
 
-        public static void AssignRole(this Dictionary<Synapse.Api.Player, int> dictionaire, KeyValuePair<Synapse.Api.Player, int> pair, List<MoreClasseID> listPossible)
+        public static void AssignRole(this Synapse.Api.Player player, List<MoreClasseID> listPossible)
         {
             if (listPossible.Any())
             {
-                dictionaire[pair.Key] = (int)listPossible[UnityEngine.Random.Range(0, listPossible.Count - 1)];
+                player.RoleID = (int)listPossible[UnityEngine.Random.Range(0, listPossible.Count - 1)];
             }
         }
 
@@ -43,6 +44,39 @@ namespace CustomClass
                     }
                 }
             }
+        }
+
+        public static void SpawnUnRole(this List<Player> players, RoleType ancienRole, MoreClasseID nouveauRole, int spawnChance, int maxSpawnRole = -1, int maxTotal = 0, int minActuClass = 0)
+        {
+            Server.Get.Logger.Info($"SpawnUnRoleStart");
+            Server.Get.Logger.Info($"players {players.Count()}");
+            Server.Get.Logger.Info($"players {players[0].RoleID}");
+            var playerClass = players.Where(p => p.RoleID == (int)ancienRole);
+            Server.Get.Logger.Info($"playerClass {playerClass.Count()}");
+            if (playerClass.Count() > minActuClass)
+            {
+                
+                if (maxSpawnRole < 0 || Server.Get.Players.Where(p => p.RoleID == (int)nouveauRole).Count() < System.Math.Max(maxSpawnRole, maxTotal))
+                {
+                    int max = maxSpawnRole;
+                    while (max > 0 && playerClass.Any())
+                    {
+                        Server.Get.Logger.Info($"{playerClass.Count()}");
+                        int chance = UnityEngine.Random.Range(1, 100);
+                        if (chance <= spawnChance)
+                        {
+                            Server.Get.Logger.Info($"true");
+                            var joueur = playerClass.ElementAt(UnityEngine.Random.Range(0, playerClass.Count() - 1));
+                            joueur.RoleID = (int)nouveauRole;
+                            playerClass = players.Where(p => p.RoleID == (int)ancienRole);
+                        }
+                        else
+                            Server.Get.Logger.Info($"false");
+                        max--;
+                    }
+                }
+            }
+            Server.Get.Logger.Info($"SpawnUnRoleEnd");
         }
 
         public static void SpawnUnRoleSCP(this Dictionary<Synapse.Api.Player, int> dictionaire, MoreClasseID nouveauRole, int spawnChance, int maxTotal = -1)
