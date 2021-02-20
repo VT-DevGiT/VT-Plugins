@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Synapse.Api;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -6,7 +7,6 @@ public class SerializedItemProba
 {
     public SerializedItemProba(Synapse.Api.Items.SynapseItem item)
     {
-        synapIteam = true;
         ID = item.ID;
         Durabillity = item.Durabillity;
         Barrel = item.Barrel;
@@ -18,7 +18,7 @@ public class SerializedItemProba
         Proba = 0;
     }
 
-    public SerializedItemProba(bool synapIteam, int id, float durabillity, int barrel, int sight, int other, Vector3 scale, float proba)
+    public SerializedItemProba(int id, float durabillity, int barrel, int sight, int other, Vector3 scale, float proba)
     {
         ID = id;
         Durabillity = durabillity;
@@ -35,7 +35,6 @@ public class SerializedItemProba
     {
 
     }
-    public bool synapIteam { get; set; }
     public float Proba { get; set; }
     public int ID { get; set; }
     public float Durabillity { get; set; }
@@ -51,7 +50,7 @@ public class SerializedItemProba
         System.Random rand = new System.Random();
         if (rand.Next(0, 100) <= Proba)
         {
-            return new Synapse.Api.Items.SynapseItem(ID, Durabillity, Sight, Barrel, Other) { Scale = new Vector3(XSize, YSize, ZSize) };
+          return new Synapse.Api.Items.SynapseItem(ID, Durabillity, Sight, Barrel, Other) { Scale = new Vector3(XSize, YSize, ZSize) };
         }
         else
         {

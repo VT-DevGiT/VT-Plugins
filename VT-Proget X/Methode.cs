@@ -91,13 +91,7 @@ namespace VTProget_X
 
         public static void PlayAmbientSound(int id)
         {
-            foreach (var player in Server.Get.Players)
-            {
-                player.GetComponent<AmbientSoundPlayer>().CallMethod("RpcPlaySound", id);
-                //player.GetComponent<AmbientSoundPlayer>().RpcPlaySound(id);
-            }
-            //PlayerManager.localPlayer.GetComponent<AmbientSoundPlayer>().CallMethod("RpcPlaySound", id);
-            //PlayerManager.localPlayer.GetComponent<AmbientSoundPlayer>().RpcPlaySound(Mathf.Clamp(id, 0, 31));
+            PlayerManager.localPlayer.GetComponent<AmbientSoundPlayer>().CallMethod("RpcPlaySound", id);
         }
 
         public static void SendInterComInfoGeneral(screenEnum screen)

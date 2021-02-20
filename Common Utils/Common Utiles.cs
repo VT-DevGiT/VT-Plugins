@@ -53,7 +53,7 @@ Version = "v.1.0.0"
                     var obj = item.Parse();
                     if (obj != null)
                     {
-                        player.Inventory.AddItem(obj);
+                        obj.PickUp(player);
                         nbCree++;
                     }
                 }

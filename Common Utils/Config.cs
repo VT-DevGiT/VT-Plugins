@@ -39,6 +39,7 @@ namespace Common_Utiles
         public int LieutenantHealth = -1;
         public int NtfSciHealth = -1;
         public int CommanderHealth = -1;
+        public int InsurgéHealth = -1;
         public int Scp049 = -1;
         public int Scp0492 = -1;
         public int Scp096 = -1;

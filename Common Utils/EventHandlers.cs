@@ -73,6 +73,13 @@ namespace Common_Utiles
                             ev.Player.MaxHealth = CommonUtiles.Config.CommanderHealth;
                         }
                         break;
+                    case (int)RoleType.ChaosInsurgency:
+                        if (CommonUtiles.Config.ChaosHealth != -1)
+                        {
+                            ev.Player.Health = CommonUtiles.Config.ChaosHealth;
+                            ev.Player.MaxHealth = CommonUtiles.Config.ChaosHealth;
+                        }
+                        break;
                     case (int)RoleType.Scp049:
                         if (CommonUtiles.Config.Scp049 != -1)
                         {
@@ -121,10 +128,6 @@ namespace Common_Utiles
                             ev.Player.Health = CommonUtiles.Config.Scp93989;
                             ev.Player.MaxHealth = CommonUtiles.Config.Scp93989;
                         }
-                        break;
-                    default:
-                        ev.Player.Health = 100;
-                        ev.Player.MaxHealth = 100;
                         break;
                 }
             });

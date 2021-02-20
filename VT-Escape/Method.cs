@@ -29,11 +29,7 @@ namespace VTEscape
     {
         public void PlayAmbientSound(int id)
         {
-            foreach (var player in Server.Get.Players)
-            {
-                player.GetComponent<AmbientSoundPlayer>().CallMethod("RpcPlaySound", id);
-
-            }
+           PlayerManager.localPlayer.GetComponent<AmbientSoundPlayer>().CallMethod("RpcPlaySound", id);
         }
 
         public IEnumerator<float> WarHeadEscape(int waitforready = 3)

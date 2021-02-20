@@ -1,28 +1,42 @@
 ﻿using Grenades;
 using HarmonyLib;
+using Interactables.Interobjects.DoorUtils;
 using Synapse;
 
 namespace VTGrenad
 {
 
     [HarmonyPatch(typeof(Grenade), nameof(Grenade.OnCollisionEnter))]
-    public static class FlashGrenadePatch
+    internal static class FlashGrenadePatch
     {
-        public static void Prefix(Grenade __instance)
+        private static void Prefix(Grenade __instance)
         {
-            Server.Get.Logger.Info("FlashGrenadePatch");
+            foreach(var player in Server.Get.Players)
+            {
+                player.SendBroadcast(2, "FlashGrenadePatch");
+            }
+            Synapse.Api.Logger.Get.Info("FlashGrenadePatch");
             if (!Plugin.Config.FlashbangFuseWithCollision) return;
             if (__instance is FlashGrenade)
-                __instance.NetworkfuseTime -= __instance.fuseDuration;
+                __instance.NetworkfuseTime = 0;
         }
     }
 
     [HarmonyPatch(typeof(FragGrenade), nameof(FragGrenade.ChangeIntoGrenade))]
-    public static class FragGrenadeChainPatch
+    internal static class FragGrenadeChainPatch
     {
-        public static bool Prefix(FragGrenade __instance, Pickup item, ref bool __result)
+        private static bool Prepare()
         {
-            Server.Get.Logger.Info("FragGrenadeChainPatch");
+            Synapse.Api.Logger.Get.Info("FragGrenadeChainPatch");
+            return true;
+        }
+        private static bool Prefix(FragGrenade __instance, Pickup item, ref bool __result)
+        {
+            foreach (var player in Server.Get.Players)
+            {
+                player.SendBroadcast(2, "FragGrenadeChainPatch");
+            }
+            Synapse.Api.Logger.Get.Info("FragGrenadeChainPatch");
             if (!Plugin.Config.ChaineFuseFragGrenad) return true;
             Plugin.SpawnGrenade(item.position);
             item.Delete();
@@ -30,5 +44,6 @@ namespace VTGrenad
             return false;
         }
     }
+    
 
 }

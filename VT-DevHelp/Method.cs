@@ -7,10 +7,7 @@ namespace VT079
     {
         public static void PlayAmbientSound(int id)
         {
-            foreach (var player in Server.Get.Players)
-            {
-                player.GetComponent<AmbientSoundPlayer>().CallMethod("RpcPlaySound", id);
-            }
+            PlayerManager.localPlayer.GetComponent<AmbientSoundPlayer>().CallMethod("RpcPlaySound", id);
         }
 
         public static object CallMethod(this object o, string methodName, params object[] args)

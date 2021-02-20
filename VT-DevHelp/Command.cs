@@ -17,6 +17,7 @@ namespace VT079
       )]
     public class ClassInfoCommand : ISynapseCommand
     {
+
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
@@ -145,28 +146,24 @@ namespace VT079
                 case "Server":
                     foreach (var player in Server.Get.Players)
                     {
-                        player.BroadcastMessage("Restart");
+                        player.SendBroadcast(2, "@Restart");
                     }
+                    result.State = CommandResultState.Ok;
                     Server.Get.Reload();
-                    Server.Get.GameConsole.TypeCommand("Restart");
+                    Server.Get.GameConsole.TypeCommand("ForceStart");
                     break;
                 case "Alert":
                     foreach (var player in Server.Get.Players)
                     {
-                        player.BroadcastMessage("Restart");
+                        player.SendBroadcast(5, "Restart");
                     }
+                    result.State = CommandResultState.Ok;
                     break;
                 case "Plugin":
                     Server.Get.Reload();
+                    result.State = CommandResultState.Ok;
                     break;
-                case "Port":
-                    if (context.Arguments.Count > 1)
-                    Server.Get.Port = ushort.Parse(context.Arguments.Array[2]);
-                    break;
-                case "Slots":
-                    if (context.Arguments.Count > 1)
-                        Server.Get.Slots = int.Parse(context.Arguments.Array[2]);
-                    break;
+
             }
             return result;
         }
