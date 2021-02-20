@@ -15,8 +15,8 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.CHIHacker;
 
-        protected override string RoleName => PluginClass.ConfigCHIHacker.RoleName;
+        protected override string RoleName => Plugin.ConfigCHIHacker.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigCHIHacker;
+        protected override AbstractConfigSection Config => Plugin.ConfigCHIHacker;
     }
 }

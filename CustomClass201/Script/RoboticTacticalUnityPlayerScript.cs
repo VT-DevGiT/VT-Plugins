@@ -15,8 +15,8 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.UTR;
 
-        protected override string RoleName => PluginClass.ConfigRoboticTaticalUnity.RoleName;
+        protected override string RoleName => Plugin.ConfigRoboticTaticalUnity.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigRoboticTaticalUnity;
+        protected override AbstractConfigSection Config => Plugin.ConfigRoboticTaticalUnity;
     }
 }

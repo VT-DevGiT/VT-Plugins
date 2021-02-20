@@ -15,8 +15,8 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.SCP008;
 
-        protected override string RoleName => PluginClass.ConfigSCP008.RoleName;
+        protected override string RoleName => Plugin.ConfigSCP008.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigSCP008;
+        protected override AbstractConfigSection Config => Plugin.ConfigSCP008;
     }
 }

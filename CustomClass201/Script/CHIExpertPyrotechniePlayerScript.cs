@@ -15,8 +15,8 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.CHIExpertPyrotechnie;
 
-        protected override string RoleName => PluginClass.ConfigCHIExpertPyrotechnie.RoleName;
+        protected override string RoleName => Plugin.ConfigCHIExpertPyrotechnie.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigCHIExpertPyrotechnie;
+        protected override AbstractConfigSection Config => Plugin.ConfigCHIExpertPyrotechnie;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
+using Synapse.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,23 @@ namespace CustomClass
 {
     public static class Extension
     {
-        public static void SpawnUnRole(this Dictionary<Synapse.Api.Player, int> dictionaire, RoleType ancienRole, MoreClasseID nouveauRole, int spawnChance, int maxTotal = 0, int minActuClass = 0) 
+        public static  T GetConfigValue<T>(this AbstractConfigSection Config,string Name, T defaultValue)
+        {
+            T value = defaultValue;
+            if (Config != null && Config.GetType().GetField(Name) != null)
+            {
+                value = (T)Config.GetType().GetField(Name).GetValue(Config);
+            }
+            return value;
+        }
+
+        public static Dictionary<MoreClasseID, int> RespawnedPlayer = new Dictionary<MoreClasseID, int>();
+        public static void SpawnUnRole(this Dictionary<Synapse.Api.Player, int> dictionaire, RoleType ancienRole, MoreClasseID nouveauRole, AbstractConfigSection config) 
         {
             var playerClass = dictionaire.Where(p => p.Value == (int)ancienRole);
+            int spawnChance = config.GetConfigValue<int>("SpawnChance", 0);
+            int maxTotal = config.GetConfigValue<int>("MaxAlive", 0);
+            int minActuClass = config.GetConfigValue<int>("RequiredPlayers", 0);
             if (playerClass.Count() > minActuClass)
             {
                 if (Server.Get.Players.Where(p => p.RoleID == (int)nouveauRole).Count() <  maxTotal)
@@ -32,21 +47,24 @@ namespace CustomClass
             }
         }
 
-        public static void SpawnUnRole(this PlayerSetClassEventArgs ev, RoleType ancienRole, MoreClasseID nouveauRole, int spawnChance, Func<int> MaxRole, int maxTotal = 0, int minActuClass = 0)
+        public static void SpawnUnRole(this PlayerSetClassEventArgs ev, RoleType ancienRole, MoreClasseID nouveauRole, AbstractConfigSection config)
         {
-            Server.Get.Logger
+            var player = ev.Player;
             var playerClass = Server.Get.Players.Where(p => p.RoleID == (int)ancienRole);
-            if (ev.Player.RoleID == (int)ancienRole && playerClass.Count() > minActuClass)
+            int spawnChance = config.GetConfigValue<int>("SpawnChance", 0);
+            int maxRespawn = config.GetConfigValue<int>("MaxRespawn", 0);
+            int maxTotal = config.GetConfigValue<int>("MaxAlive", 0);
+            int minActuClass = config.GetConfigValue<int>("RequiredPlayers", 0);
+            int respawned = RespawnedPlayer.ContainsKey(nouveauRole) ? RespawnedPlayer[nouveauRole] : 0; 
+            if (player.RoleID == (int)ancienRole && playerClass.Count() > minActuClass && maxRespawn > respawned)
             {
                 if (Server.Get.Players.Where(p => p.RoleID == (int)nouveauRole).Count() < maxTotal)
                 {
                     int chance = UnityEngine.Random.Range(1, 100);
                     if (chance <= spawnChance)
                     {
-                        if (MaxRole.Invoke() > 0)
-                        {
-                            ev.Role = (RoleType)nouveauRole;
-                        }
+                        ev.Role = (RoleType)nouveauRole;
+                        RespawnedPlayer[nouveauRole] = respawned + 1;
                     }
                 }
             }

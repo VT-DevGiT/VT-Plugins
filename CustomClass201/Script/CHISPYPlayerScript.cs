@@ -16,7 +16,7 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.CHISPY;
 
-        protected override string RoleName => PluginClass.ConfigCHISPY.RoleName;
+        protected override string RoleName => Plugin.ConfigCHISPY.RoleName;
 
         protected override AbstractConfigSection Config => throw new NotImplementedException();
     }

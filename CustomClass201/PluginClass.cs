@@ -14,9 +14,9 @@ namespace CustomClass
         SynapseMinor = 4,
         SynapsePatch = 1,
         Version = "v.1.0.0")]
-    public class PluginClass : AbstractPlugin
+    public class Plugin : AbstractPlugin
     {
-        public static PluginClass Plugin;
+        public static Plugin Plugin;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass201")]
         public static Config201 Config201;

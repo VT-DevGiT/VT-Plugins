@@ -15,8 +15,8 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.CHIMastodonte;
 
-        protected override string RoleName => PluginClass.ConfigCHIMastondonte.RoleName;
+        protected override string RoleName => Plugin.ConfigCHIMastondonte.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigCHIMastondonte;
+        protected override AbstractConfigSection Config => Plugin.ConfigCHIMastondonte;
     }
 }

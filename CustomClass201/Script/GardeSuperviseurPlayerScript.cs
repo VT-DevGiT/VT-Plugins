@@ -15,8 +15,8 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.GardeSuperviseur;
 
-        protected override string RoleName => PluginClass.ConfigGardeSuperviseur.RoleName;
+        protected override string RoleName => Plugin.ConfigGardeSuperviseur.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigGardeSuperviseur;
+        protected override AbstractConfigSection Config => Plugin.ConfigGardeSuperviseur;
     }
 }

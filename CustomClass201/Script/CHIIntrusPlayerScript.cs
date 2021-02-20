@@ -15,8 +15,8 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.CHIIntrus;
 
-        protected override string RoleName => PluginClass.ConfigCHIntrus.RoleName;
+        protected override string RoleName => Plugin.ConfigCHIntrus.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigCHIntrus;
+        protected override AbstractConfigSection Config => Plugin.ConfigCHIntrus;
     }
 }

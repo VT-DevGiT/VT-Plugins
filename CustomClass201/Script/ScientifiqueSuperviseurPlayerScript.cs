@@ -15,8 +15,8 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.ScientifiqueSuperviseur;
 
-        protected override string RoleName => PluginClass.ConfigScientifiqueSuperviseur.RoleName;
+        protected override string RoleName => Plugin.ConfigScientifiqueSuperviseur.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigScientifiqueSuperviseur;
+        protected override AbstractConfigSection Config => Plugin.ConfigScientifiqueSuperviseur;
     }
 }

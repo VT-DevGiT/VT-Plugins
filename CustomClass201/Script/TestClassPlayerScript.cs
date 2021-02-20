@@ -15,8 +15,8 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.TestClass;
 
-        protected override string RoleName => PluginClass.ConfigTestClass.RoleName;
+        protected override string RoleName => Plugin.ConfigTestClass.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigTestClass;
+        protected override AbstractConfigSection Config => Plugin.ConfigTestClass;
     }
 }

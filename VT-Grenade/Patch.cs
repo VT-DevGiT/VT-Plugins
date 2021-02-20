@@ -32,10 +32,6 @@ namespace VTGrenad
         }
         private static bool Prefix(FragGrenade __instance, Pickup item, ref bool __result)
         {
-            foreach (var player in Server.Get.Players)
-            {
-                player.SendBroadcast(2, "FragGrenadeChainPatch");
-            }
             Synapse.Api.Logger.Get.Info("FragGrenadeChainPatch");
             if (!Plugin.Config.ChaineFuseFragGrenad) return true;
             Plugin.SpawnGrenade(item.position);

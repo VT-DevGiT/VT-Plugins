@@ -17,6 +17,6 @@ namespace CustomClass.PlayerScript
 
         protected override string RoleName => "Test 201";
 
-        protected override AbstractConfigSection Config => PluginClass.Config201;
+        protected override AbstractConfigSection Config => Plugin.Config201;
     }
 }

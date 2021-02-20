@@ -15,8 +15,8 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.NTFVirologue;
 
-        protected override string RoleName => PluginClass.ConfigNTFVirologue.RoleName;
+        protected override string RoleName => Plugin.ConfigNTFVirologue.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigNTFVirologue;
+        protected override AbstractConfigSection Config => Plugin.ConfigNTFVirologue;
     }
 }

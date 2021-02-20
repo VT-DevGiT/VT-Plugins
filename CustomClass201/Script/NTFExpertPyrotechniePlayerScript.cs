@@ -15,8 +15,8 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.NTFExpertPyrotechnie;
 
-        protected override string RoleName => PluginClass.ConfigNTFExpertPyrotechnie.RoleName;
+        protected override string RoleName => Plugin.ConfigNTFExpertPyrotechnie.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigNTFExpertPyrotechnie;
+        protected override AbstractConfigSection Config => Plugin.ConfigNTFExpertPyrotechnie;
     }
 }

@@ -218,4 +218,56 @@ namespace VT079
             return result;
         }
     }
+
+    [CommandInformation(
+       Name = "DevClear",
+       Aliases = new[] { "Clear" },
+       Description = "Un Clear ? pas problême c'est la pour toi !",
+       Permission = "synapse.command.Dev",
+       Platforms = new[] { Platform.RemoteAdmin },
+       Usage = ".Clear (Iteam, Corp ou All)"
+       )]
+    public class Clear : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+            var iteams = Server.Get.Map.Items.Where(p => p.State == Synapse.Api.Enum.ItemState.Map);
+            var ragdolls = Server.Get.Map.Ragdolls;
+            switch (context.Arguments.FirstElement())
+            {
+                
+                case "Iteam":
+                    
+                    foreach(var iteam in iteams)
+                    {
+                        iteam.Destroy();
+                    }
+                    result.State = CommandResultState.Ok;
+                    break;
+
+                case "Corp":
+                    foreach (var ragdoll in ragdolls)
+                    {
+                        ragdoll.Destroy();
+                    }
+                    result.State = CommandResultState.Ok;
+                    break;
+
+                case "All":
+                    foreach (var iteam in iteams)
+                    {
+                        iteam.Destroy();
+                    }
+                    foreach (var ragdoll in ragdolls)
+                    {
+                        ragdoll.Destroy();
+                    }
+                    result.State = CommandResultState.Ok;
+                    break;
+
+            }
+            return result;
+        }
+    }
 }

@@ -16,8 +16,8 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.CHIKamikaze;
 
-        protected override string RoleName => PluginClass.ConfigCHIKamikaze.RoleName;
+        protected override string RoleName => Plugin.ConfigCHIKamikaze.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigCHIKamikaze;
+        protected override AbstractConfigSection Config => Plugin.ConfigCHIKamikaze;
     }
 }

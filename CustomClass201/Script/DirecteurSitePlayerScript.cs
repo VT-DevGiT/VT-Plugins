@@ -15,8 +15,8 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.DirecteurSite;
 
-        protected override string RoleName => PluginClass.ConfigDirecteurSite.RoleName;
+        protected override string RoleName => Plugin.ConfigDirecteurSite.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigConcierge;
+        protected override AbstractConfigSection Config => Plugin.ConfigConcierge;
     }
 }

@@ -15,8 +15,8 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.NTFInfirmier;
 
-        protected override string RoleName => PluginClass.ConfigNTFInfirmier.RoleName;
+        protected override string RoleName => Plugin.ConfigNTFInfirmier.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigNTFInfirmier;
+        protected override AbstractConfigSection Config => Plugin.ConfigNTFInfirmier;
     }
 }
