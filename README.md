@@ -1,5 +1,5 @@
 # Some Azarus Plug-ins
-Some of Azarus public plug-ins.
+Some of Azarus plug-ins.
 
 ## Installation
 1. [Install Synapse](https://github.com/SynapseSL/Synapse/wiki#hosting-guides)
