@@ -1,4 +1,9 @@
-﻿using Synapse.Config;
+﻿using CustomClass.Pouvoir;
+using MEC;
+using Synapse;
+using Synapse.Api.Events.SynapseEventArguments;
+using Synapse.Config;
+using System;
 using System.Collections.Generic;
 
 namespace CustomClass.PlayerScript
@@ -15,8 +20,55 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.Technicien;
 
-        protected override string RoleName => Plugin.ConfigTechnicien.RoleName;
+        protected override string RoleName => PluginClass.ConfigTechnicien.RoleName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigTechnicien;
+        protected override AbstractConfigSection Config => PluginClass.ConfigTechnicien;
+
+        public override void DeSpawn()
+        {
+            base.DeSpawn();
+            Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
+        }
+
+        public override bool CallPower(PowerType power)
+        {
+            if (power == PowerType.MouveVent)
+            {
+                if (Player.gameObject.GetComponent<MouveVent>() == null 
+                    && (DateTime.Now - lastPower).TotalSeconds > PluginClass.ConfigTechnicien.CoolDown)
+                {
+                    Player.gameObject.AddComponent<MouveVent>();
+                    Player.gameObject.GetComponent<MouveVent>().duraction = PluginClass.ConfigTechnicien.PowerTime;
+                    Timing.CallDelayed(PluginClass.ConfigTechnicien.PowerTime, () =>
+                    {
+                        if (Player.gameObject.GetComponent<MouveVent>() == null)
+                        {
+                            Player.gameObject.GetComponent<MouveVent>()?.Destroy();
+                            lastPower = DateTime.Now;
+                        }
+                    });
+                }
+                else if (Player.gameObject.GetComponent<MouveVent>() != null)
+                {
+                    Player.gameObject.GetComponent<MouveVent>()?.Destroy();
+                    lastPower = DateTime.Now;
+                }
+                else Reponse.Cooldown(Player, lastPower, PluginClass.ConfigTechnicien.CoolDown);
+                return true;
+            }
+            return false;
+        }
+        protected override void Event()
+        {
+            Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
+        }
+        private DateTime lastPower = DateTime.Now;
+        private void OnKeyPress(PlayerKeyPressEventArgs ev)
+        {
+            if (ev.Player == Player && ev.KeyCode == UnityEngine.KeyCode.Alpha1)
+            {
+                CallPower(PowerType.MouveVent);
+            }
+        }
     }
 }

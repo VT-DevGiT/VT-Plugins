@@ -1,14 +1,14 @@
 ﻿using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
 
-namespace Better939
+namespace VT939
 {
     internal class EventHandlers
     {
         public EventHandlers()
         {
             Server.Get.Events.Player.PlayerSetClassEvent += OnSpawn;
-            Server.Get.Events.Player.PlayerSpeakEvent += OnSpeck;
+            //Server.Get.Events.Player.PlayerSpeakEvent += OnSpeck;
         }
 
         private void OnSpeck(PlayerSpeakEventArgs ev)

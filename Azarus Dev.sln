@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-DevHelp", "VT-DevHelp\VT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomClass", "CustomClass201\CustomClass.csproj", "{D59F4B49-B4B6-404C-9803-7FEB3CC9012D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-079Command", "VT-079Command\VT-079Command.csproj", "{9129886A-04B4-4B6F-BED4-0DB161CEEC9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{D59F4B49-B4B6-404C-9803-7FEB3CC9012D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D59F4B49-B4B6-404C-9803-7FEB3CC9012D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D59F4B49-B4B6-404C-9803-7FEB3CC9012D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9129886A-04B4-4B6F-BED4-0DB161CEEC9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9129886A-04B4-4B6F-BED4-0DB161CEEC9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9129886A-04B4-4B6F-BED4-0DB161CEEC9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9129886A-04B4-4B6F-BED4-0DB161CEEC9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

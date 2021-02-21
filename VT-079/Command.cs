@@ -31,6 +31,7 @@ namespace VT079
                 }
                 foreach (var joueur079 in listJoueur)
                 {
+                    joueur079.GodMode = false;
                     joueur079.RoleID = (int)RoleType.Spectator;
                     Map.Get.Cassie($"SCP 0 7 9 has been successfully contained.", false);
                 }

@@ -1,4 +1,5 @@
-﻿using Synapse;
+﻿using MEC;
+using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
@@ -55,20 +56,31 @@ namespace CustomClass
             int maxRespawn = config.GetConfigValue<int>("MaxRespawn", 0);
             int maxTotal = config.GetConfigValue<int>("MaxAlive", 0);
             int minActuClass = config.GetConfigValue<int>("RequiredPlayers", 0);
-            int respawned = RespawnedPlayer.ContainsKey(nouveauRole) ? RespawnedPlayer[nouveauRole] : 0; 
-            if (player.RoleID == (int)ancienRole && playerClass.Count() > minActuClass && maxRespawn > respawned)
+            int respawned = RespawnedPlayer.ContainsKey(nouveauRole) ? RespawnedPlayer[nouveauRole] : 0;
+            Server.Get.Logger.Info("1");
+            Server.Get.Logger.Info($"Role {ev.Role == (RoleType)ancienRole}");
+            Server.Get.Logger.Info($"Max Spawn {playerClass.Count() > minActuClass}");
+            Server.Get.Logger.Info($"Max Spawned {maxRespawn > respawned}");
+            if (ev.Role == (RoleType)ancienRole && playerClass.Count() >= minActuClass && maxRespawn > respawned)
             {
+                Server.Get.Logger.Info("2");
                 if (Server.Get.Players.Where(p => p.RoleID == (int)nouveauRole).Count() < maxTotal)
                 {
+                    Server.Get.Logger.Info("3");
                     int chance = UnityEngine.Random.Range(1, 100);
                     if (chance <= spawnChance)
                     {
-                        ev.Role = (RoleType)nouveauRole;
+                        Server.Get.Logger.Info("4");
+                        Player pl = ev.Player;
+                        Timing.CallDelayed(2f, () =>
+                        {
+                            Server.Get.Logger.Info("5");
+                            pl.RoleID = (int)nouveauRole;
+                        });
                         RespawnedPlayer[nouveauRole] = respawned + 1;
                     }
                 }
             }
-
         }
 
 

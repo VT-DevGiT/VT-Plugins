@@ -1,4 +1,8 @@
-﻿using Synapse.Config;
+﻿using Synapse;
+using Synapse.Api.Enum;
+using Synapse.Api.Events.SynapseEventArguments;
+using Synapse.Config;
+using System;
 using System.Collections.Generic;
 
 namespace CustomClass.PlayerScript
@@ -15,8 +19,8 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.ScientifiqueSuperviseur;
 
-        protected override string RoleName => Plugin.ConfigScientifiqueSuperviseur.RoleName;
+        protected override string RoleName => PluginClass.ConfigScientifiqueSuperviseur.RoleName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigScientifiqueSuperviseur;
+        protected override AbstractConfigSection Config => PluginClass.ConfigScientifiqueSuperviseur;
     }
 }

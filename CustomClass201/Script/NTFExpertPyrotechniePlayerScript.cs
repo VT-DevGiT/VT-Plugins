@@ -1,4 +1,6 @@
-﻿using Synapse.Config;
+﻿using Synapse;
+using Synapse.Api.Events.SynapseEventArguments;
+using Synapse.Config;
 using System.Collections.Generic;
 
 namespace CustomClass.PlayerScript
@@ -15,8 +17,24 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.NTFExpertPyrotechnie;
 
-        protected override string RoleName => Plugin.ConfigNTFExpertPyrotechnie.RoleName;
+        protected override string RoleName => PluginClass.ConfigNTFExpertPyrotechnie.RoleName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigNTFExpertPyrotechnie;
+        protected override AbstractConfigSection Config => PluginClass.ConfigNTFExpertPyrotechnie;
+
+        protected override void Event()
+        {
+            Server.Get.Events.Player.PlayerDamageEvent += OnDamage;
+        }
+        public override void DeSpawn()
+        {
+            base.DeSpawn();
+            Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
+        }
+
+        private void OnDamage(PlayerDamageEventArgs ev)
+        {
+            if (ev.Victim == Player && ev.HitInfo.GetDamageType() == DamageTypes.Grenade)
+                ev.Allow = false;
+        }
     }
 }

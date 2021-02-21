@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace VT079.Command
 {
-    class Air : I079Command
+    public class Air : I079Command
     {
         public KeyCode Key => KeyCode.None;
 

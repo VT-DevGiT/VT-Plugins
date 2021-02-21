@@ -1,6 +1,11 @@
-﻿using Synapse.Config;
+﻿using CustomClass.Pouvoir;
+using Synapse;
+using Synapse.Api.Enum;
+using Synapse.Api.Events.SynapseEventArguments;
+using Synapse.Config;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace CustomClass.PlayerScript
 {
@@ -16,8 +21,47 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.CHIKamikaze;
 
-        protected override string RoleName => Plugin.ConfigCHIKamikaze.RoleName;
+        protected override string RoleName => PluginClass.ConfigCHIKamikaze.RoleName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigCHIKamikaze;
+        protected override AbstractConfigSection Config => PluginClass.ConfigCHIKamikaze;
+
+        public override bool CallPower(PowerType power)
+        {
+            if (power == PowerType.Sucide)
+            {
+                Server.Get.Map.SpawnGrenade(Player.Position, Vector3.zero, 0.1f, GrenadeType.Grenade, Player);
+                Player.Kill(DamageTypes.Grenade);
+                return true;
+            }
+            return false;
+        }
+
+        protected override void Event()
+        {
+            Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
+            Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
+        }
+
+        public override void DeSpawn()
+        {
+            base.DeSpawn();
+            Server.Get.Events.Player.PlayerDeathEvent -= OnDeath;
+            Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
+        }
+
+        private void OnKeyPress(PlayerKeyPressEventArgs ev)
+        {
+            if (ev.Player == Player && ev.KeyCode == KeyCode.Alpha1)
+                CallPower(PowerType.Sucide);
+
+        }
+
+        private void OnDeath(PlayerDeathEventArgs ev)
+        {
+            if (ev.Victim == this.Player)
+            {
+                Server.Get.Map.SpawnGrenade(Player.DeathPosition, Vector3.zero, PluginClass.ConfigCHIKamikaze.GrenadeTime, GrenadeType.Grenade, Player);
+            }
+        }
     }
 }

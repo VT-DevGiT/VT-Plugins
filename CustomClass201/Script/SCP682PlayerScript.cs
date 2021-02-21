@@ -1,4 +1,6 @@
-﻿using Synapse.Config;
+﻿using Synapse;
+using Synapse.Api;
+using Synapse.Config;
 using System.Collections.Generic;
 
 namespace CustomClass.PlayerScript
@@ -15,8 +17,8 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.SCP682;
 
-        protected override string RoleName => Plugin.ConfigSCP682.RoleName;
+        protected override string RoleName => PluginClass.ConfigSCP682.RoleName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigSCP682;
+        protected override AbstractConfigSection Config => PluginClass.ConfigSCP682;
     }
 }

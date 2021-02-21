@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Better939
+namespace VT939
 {
     //https://github.com/iopietro/BetterScp939/releases/tag/1.0.7
     public class Scp939Controller : NetworkBehaviour

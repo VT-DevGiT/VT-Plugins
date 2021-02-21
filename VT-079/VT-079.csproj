@@ -46,9 +46,6 @@
     <Reference Include="Mirror, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SynapseSL.2.5.0\lib\net472\Mirror.dll</HintPath>
     </Reference>
-    <Reference Include="Scp079Rework">
-      <HintPath>..\..\..\Scp079Rework.dll</HintPath>
-    </Reference>
     <Reference Include="Synapse, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SynapseSL.2.5.0\lib\net472\Synapse.dll</HintPath>
     </Reference>
@@ -78,12 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AirBombPos.cs" />
     <Compile Include="Command.cs" />
-    <Compile Include="Command\Air.cs" />
-    <Compile Include="Command\DeconfSCP.cs" />
-    <Compile Include="Command\Gaz.cs" />
-    <Compile Include="Command\Nuck.cs" />
     <Compile Include="Methode.cs" />
     <Compile Include="Scp079Behaviour.cs" />
     <Compile Include="Plugin.cs" />

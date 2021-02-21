@@ -22,11 +22,17 @@ namespace CustomClass.Config
         [Description("Max alive at the same time")]
         public int MaxAlive = 1;
 
-        [Description("The Amount of Players Required in order to have the Chanche that the class can spawn")]
+        [Description("The number of players required in the same role to have the chance for the class to appear")]
         public int RequiredPlayers = 0;
 
         [Description("The name of the class")]
         public string RoleName = " Technicien";
+
+        [Description("The cooldown of the class Power")]
+        public int CoolDown = 90;
+
+        [Description("The time over which the power is activate")]
+        public int PowerTime = 20;
 
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 0;

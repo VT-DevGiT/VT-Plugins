@@ -15,8 +15,8 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.NTFExpertReconfinement;
 
-        protected override string RoleName => Plugin.ConfigNTFExpertReconfinement.RoleName;
+        protected override string RoleName => PluginClass.ConfigNTFExpertReconfinement.RoleName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigNTFExpertReconfinement;
+        protected override AbstractConfigSection Config => PluginClass.ConfigNTFExpertReconfinement;
     }
 }

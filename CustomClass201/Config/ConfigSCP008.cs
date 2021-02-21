@@ -13,20 +13,23 @@ namespace CustomClass.Config
         [Description("The Amount of Health the class have")]
         public int Health = 100;
 
-        [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.Medkit, 35, 0, 0, 0, Vector3.one) };
-
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 25;
 
         [Description("Max alive at the same time")]
         public int MaxAlive = 1;
 
-        [Description("The Amount of Players Required in order to have the Chanche that the class can spawn")]
+        [Description("The number of players required in the same role to have the chance for the class to appear")]
         public int RequiredPlayers = 0;
 
         [Description("The name of the class")]
         public string RoleName = " SCP008";
+
+        [Description("the number of HP the class gains when it is next to a human par second")]
+        public int HealHp = 10;
+
+        [Description("the distance that the class must have with the human")]
+        public int Distance = 2;
 
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 0;

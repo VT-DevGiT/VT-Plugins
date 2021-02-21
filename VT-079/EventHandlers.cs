@@ -10,7 +10,6 @@ namespace VT079
         {
             Server.Get.Events.Scp.Scp079.Scp079RecontainEvent += On079Recontain;
             Server.Get.Events.Player.PlayerSetClassEvent += OnPlayerSet;
-            //Server.Get.Events.Round.SpawnPlayersEvent += SpawnPlayersEvent;
         }
 
         private void OnPlayerSet(PlayerSetClassEventArgs ev)
@@ -37,7 +36,15 @@ namespace VT079
                 porte.Locked = false;
             }
             if (Plugin.Config.Scp079AdvenceRecontain)
-            ev.Allow = false;
+            { 
+                ev.Allow = false;
+                var listJoueur = Server.Get.Players.Where(p => p.RoleID == (int)RoleType.Scp079);
+                foreach (var joueur079 in listJoueur)
+                {
+                    joueur079.GodMode = true;
+                }
+
+            }
         }
     }
 }

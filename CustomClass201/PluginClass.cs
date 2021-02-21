@@ -2,6 +2,7 @@
 using CustomClass.PlayerScript;
 using Synapse;
 using Synapse.Api.Plugin;
+using Synapse.Translation;
 
 namespace CustomClass
 {
@@ -9,14 +10,14 @@ namespace CustomClass
         Author = "VT",
         Description = "A test plugi to check custom script",
         LoadPriority = 1,
-        Name = "CustomClass201",
+        Name = "CustomClass",
         SynapseMajor = 2,
         SynapseMinor = 4,
         SynapsePatch = 1,
         Version = "v.1.0.0")]
-    public class Plugin : AbstractPlugin
+    public class PluginClass : AbstractPlugin
     {
-        public static Plugin Plugin;
+        public static PluginClass Plugin;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass201")]
         public static Config201 Config201;
@@ -84,6 +85,9 @@ namespace CustomClass
         [Synapse.Api.Plugin.Config(section = "ConfigSCP966")]
         public static ConfigSCP966 ConfigSCP966;
 
+        [Synapse.Api.Plugin.Config(section = "ConfigSCP953")]
+        public static ConfigSCP953 ConfigSCP953;
+
         [Synapse.Api.Plugin.Config(section = "ConfigSCP999")]
         public static ConfigSCP999 ConfigSCP999;
 
@@ -96,11 +100,20 @@ namespace CustomClass
         [Synapse.Api.Plugin.Config(section = "ConfigTestClass")]
         public static ConfigTestClass ConfigTestClass;
 
+        [SynapseTranslation]
+        public static SynapseTranslation<PluginTranslation> PluginTranslation;
+
         public override void Load()
         {
             Plugin = this;
             RegisterCustomRole();
-
+            PluginTranslation.AddTranslation(new CustomClass.PluginTranslation());
+            PluginTranslation.AddTranslation(new CustomClass.PluginTranslation{
+            SpawnMessage = "<color=blue><b>Tu es à présent</b></color> <color=red><b>%RoleName%</b></color>",
+            VentMessage = "Vous pouvez rester encore %Time% secondes dans la ventilation",
+            NoTimeVentMessage = "Vous vous trouvez dans les ventilation",
+            PowerCooldown = "vous ne pourrez pas utiliser cette puissance dans %Time% secondes"
+            }, "FRENCH");
             new EventHandlers();
         }
 
@@ -126,6 +139,7 @@ namespace CustomClass
             Server.Get.RoleManager.RegisterCustomRole<SCP1048cript>();
             Server.Get.RoleManager.RegisterCustomRole<SCP507Script>();
             Server.Get.RoleManager.RegisterCustomRole<SCP682Script>();
+            Server.Get.RoleManager.RegisterCustomRole<SCP953Script>();
             Server.Get.RoleManager.RegisterCustomRole<SCP966cript>();
             Server.Get.RoleManager.RegisterCustomRole<SCP999Script>();
             Server.Get.RoleManager.RegisterCustomRole<StaffClassScript>();

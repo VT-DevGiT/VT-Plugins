@@ -21,12 +21,12 @@ namespace VT079
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            IOrderedEnumerable<Synapse.Api.Door> lst = Synapse.Api.Map.Get.Doors.OrderBy(p => Math.Abs(Vector3.Distance(p.Position, context.Player.Position)));
+            IOrderedEnumerable<Synapse.Api.Door> door = Synapse.Api.Map.Get.Doors.OrderBy(p => Math.Abs(Vector3.Distance(p.Position, context.Player.Position)));
             result.Message = $"No Door find";
             result.State = CommandResultState.Ok;
-            if (lst.Any())
+            if (door.Any())
             {
-                result.Message = $"Door : \n Name -> {lst.First().Name} \n Position -> {lst.First().Position} \n Rotation -> {lst.First().Rotation} \n Is Open -> {lst.First().Open} \n Is Breakable -> {lst.First().IsBreakable} \n Door Permissions -> {lst.First().DoorPermissions}";
+                result.Message = $"Door : \n Name -> {door.First().Name} \n Position -> {door.First().Position} \n Rotation -> {door.First().Rotation} \n Is Open -> {door.First().Open} \n Is Breakable -> {door.First().IsBreakable} \n Door Permissions -> {door.First().DoorPermissions}";
                 result.State = CommandResultState.Ok;
             }
             return result;

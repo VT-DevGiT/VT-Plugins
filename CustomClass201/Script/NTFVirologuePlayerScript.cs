@@ -1,4 +1,7 @@
-﻿using Synapse.Config;
+﻿using Synapse;
+using Synapse.Api.Events.SynapseEventArguments;
+using Synapse.Config;
+using System;
 using System.Collections.Generic;
 
 namespace CustomClass.PlayerScript
@@ -15,8 +18,23 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.NTFVirologue;
 
-        protected override string RoleName => Plugin.ConfigNTFVirologue.RoleName;
+        protected override string RoleName => PluginClass.ConfigNTFVirologue.RoleName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigNTFVirologue;
+        protected override AbstractConfigSection Config => PluginClass.ConfigNTFVirologue;
+
+        protected override void Event()
+        {
+            Server.Get.Events.Player.PlayerDamageEvent += OnDammage;
+        }
+        public override void DeSpawn()
+        {
+            base.DeSpawn();
+            Server.Get.Events.Player.PlayerDamageEvent -= OnDammage;
+        }
+
+        private void OnDammage(PlayerDamageEventArgs ev)
+        {
+            ev.Destabilisantes(Player);
+        }
     }
 }

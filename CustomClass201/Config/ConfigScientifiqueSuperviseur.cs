@@ -22,7 +22,7 @@ namespace CustomClass.Config
         [Description("Max alive at the same time")]
         public int MaxAlive = 1;
 
-        [Description("The Amount of Players Required in order to have the Chanche that the class can spawn")]
+        [Description("The number of players required in the same role to have the chance for the class to appear")]
         public int RequiredPlayers = 0;
 
         [Description("The name of the class")]

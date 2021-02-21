@@ -1,4 +1,5 @@
-﻿using Synapse.Api;
+﻿using CustomClass.Pouvoir;
+using Synapse.Api;
 using Synapse.Config;
 using System.Collections.Generic;
 
@@ -8,6 +9,7 @@ namespace CustomClass.PlayerScript
     {
 
         #region Attributes & Properties
+        protected virtual bool SetDisplayInfo => true;
         protected abstract List<int> EnemysList { get; }
         protected abstract List<int> FriendsList { get; }
         protected abstract RoleType RoleType { get; }
@@ -17,7 +19,7 @@ namespace CustomClass.PlayerScript
         protected abstract AbstractConfigSection Config { get; }
 
         public override List<int> GetEnemiesID() => EnemysList;
-
+        
         public override List<int> GetFriendsID() => FriendsList;
 
         public override int GetRoleID() => RoleId;
@@ -26,6 +28,11 @@ namespace CustomClass.PlayerScript
 
         public override int GetTeamID() => RoleTeam;
 
+        public virtual bool CallPower(PowerType power)
+        {
+            return false;
+        }
+        
         internal bool Spawned = false;
 
         public MapPoint MapPoint()
@@ -59,6 +66,11 @@ namespace CustomClass.PlayerScript
 
         }
 
+        protected virtual void Event()
+        {
+
+        }
+
         public override void Spawn()
         {
             Spawned = false;
@@ -77,13 +89,19 @@ namespace CustomClass.PlayerScript
 
             Player.MaxArtificialHealth = GetConfigValue("MaxArtificialHealth", Player.MaxHealth);
             Player.ArtificialHealth = GetConfigValue("ArtificialHealth", 0);
-
+            SerializedMapPoint spawnPoint = GetConfigValue<SerializedMapPoint>("SpawnPoint", null);
+            if (spawnPoint != null)
+                Player.Position = spawnPoint.Parse().Position;
             AditionalInit();
-            Player.OpenReportWindow($"<color=blue><b>You are now</b></color> <color=red><b>{RoleName}</b></color>");
+            Event();
+            Player.OpenReportWindow(PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage.Replace("%RoleName%", RoleName));
+            if (SetDisplayInfo)
+                Player.DisplayInfo = RoleName;
         }
 
         public override void DeSpawn()
         {
+            Player.RemoveDisplayInfo(PlayerInfoArea.Role);
         }
 
         #endregion

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace VT079.Command
 {
-    class Gaz : I079Command
+    public class Gaz : I079Command
     {
         public KeyCode Key => KeyCode.Alpha4;
 

@@ -7,9 +7,6 @@ namespace CustomClass.Config
 {
     public class ConfigCHIKamikaze : AbstractConfigSection
     {
-        [Description("The MapPoint where the class should Spawn")]
-        public SerializedMapPoint SpawnPoint = new SerializedMapPoint("HCZ_Room3ar", -1.792f, 1.330017f, -0.004005589f);
-
         [Description("The Amount of Health the class have")]
         public int Health = 100;
 
@@ -25,11 +22,14 @@ namespace CustomClass.Config
         [Description("max of this role which can spawn into a respawn")]
         public int MaxRespawn = 1;
 
-        [Description("The Amount of Players Required in order to have the Chanche that the class can spawn")]
+        [Description("The number of players required in the same role to have the chance for the class to appear")]
         public int RequiredPlayers = 0;
 
         [Description("The name of the class")]
         public string RoleName = " IC Kamikaze";
+
+        [Description("time before the grenade explodes after his death")]
+        public float GrenadeTime = 0.1f;
 
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 0;

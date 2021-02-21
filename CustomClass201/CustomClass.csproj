@@ -75,7 +75,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\ConfigCommands.cs" />
+    <Compile Include="MoreClasseID.cs" />
+    <Compile Include="Pouvoir\Invisible.cs" />
+    <Compile Include="Pouvoir\Commands.cs" />
+    <Compile Include="Pouvoir\PowerType.cs" />
+    <Compile Include="Pouvoir\Balles.cs" />
+    <Compile Include="Pouvoir\Hack.cs" />
+    <Compile Include="Pouvoir\MouveVent.cs" />
     <Compile Include="Config\ConfigGardeSuperviseur.cs" />
     <Compile Include="Config\ConfigCHIExpertPyrotechnie.cs" />
     <Compile Include="Config\ConfigCHIHacker.cs" />
@@ -93,13 +99,17 @@
     <Compile Include="Config\ConfigSCP507.cs" />
     <Compile Include="Config\ConfigSCP682.cs" />
     <Compile Include="Config\ConfigSCP966.cs" />
+    <Compile Include="Config\ConfigSCP953.cs" />
     <Compile Include="Config\ConfigSCP999.cs" />
     <Compile Include="Config\ConfigTechnicien.cs" />
     <Compile Include="Config\ConfigStaffClass.cs" />
     <Compile Include="Config\ConfigSCP1048.cs" />
     <Compile Include="Config\ConfigTestClass.cs" />
     <Compile Include="Extension.cs" />
-    <Compile Include="MoreClasseID.cs" />
+    <Compile Include="PluginTranslation.cs" />
+    <Compile Include="Pouvoir\Reponse.cs" />
+    <Compile Include="Pouvoir\Aura.cs" />
+    <Compile Include="Pouvoir\SCP507.cs" />
     <Compile Include="Script\BasePlayerScript.cs" />
     <Compile Include="Config\Config201.cs" />
     <Compile Include="Config\ConfigConcierge.cs" />
@@ -128,6 +138,7 @@
     <Compile Include="Script\SCP682PlayerScript.cs" />
     <Compile Include="Script\SCP1048PlayerScript.cs" />
     <Compile Include="Script\SCP966PlayerScript.cs" />
+    <Compile Include="Script\SCP953PlayerScript.cs" />
     <Compile Include="Script\SCP999PlayerScript.cs" />
     <Compile Include="Script\201PlayerScript.cs" />
     <Compile Include="Script\CHISPYPlayerScript.cs" />
@@ -139,5 +150,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

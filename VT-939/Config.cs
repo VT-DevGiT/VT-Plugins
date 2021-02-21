@@ -1,7 +1,7 @@
 ﻿using Synapse.Config;
 using System.ComponentModel;
 
-namespace Better939
+namespace VT939
 {
     public class Config : AbstractConfigSection
     {

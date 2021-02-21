@@ -123,11 +123,11 @@ namespace VTProget_X
                 var _intercom = Server.Get.Host.GetComponent<Intercom>();
 
                 #region int&bool
-                nSCP = RoundSummary.singleton.CountTeam(Team.SCP);
-                nCDP = RoundSummary.singleton.CountTeam(Team.CDP);
-                nRSC = RoundSummary.singleton.CountTeam(Team.RSC) + RoundSummary.singleton.CountRole(RoleType.FacilityGuard);
+                nSCP = Server.Get.Players.Where(p => p.Team == Team.SCP).Count();
+                nCDP = Server.Get.Players.Where(p => p.Team == Team.CDP).Count();
+                nRSC = Server.Get.Players.Where(p => p.Team == Team.RSC).Count() + RoundSummary.singleton.CountRole(RoleType.FacilityGuard);
                 nVIP = 0;
-                nFIM = RoundSummary.singleton.CountTeam(Team.MTF) - RoundSummary.singleton.CountRole(RoleType.FacilityGuard);
+                nFIM = Server.Get.Players.Where(p => p.Team == Team.MTF).Count() - RoundSummary.singleton.CountRole(RoleType.FacilityGuard);
                 leftdecont = (int)((Math.Truncate((15f * 60) * 100f) / 100f) - (Math.Truncate(DecontaminationController.GetServerTime * 100f) / 100f));
                 leftautowarhead = AlphaWarheadController.Host != null
                     ? (int)Mathf.Clamp(AlphaWarheadController.Host.timeToDetonation - RoundSummary.roundTime, 0, AlphaWarheadController.Host.timeToDetonation)

@@ -1,4 +1,8 @@
-﻿using Synapse.Config;
+﻿using CustomClass.Pouvoir;
+using Synapse;
+using Synapse.Api.Events.SynapseEventArguments;
+using Synapse.Config;
+using System;
 using System.Collections.Generic;
 
 namespace CustomClass.PlayerScript
@@ -15,8 +19,62 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleId => (int)MoreClasseID.CHIMastodonte;
 
-        protected override string RoleName => Plugin.ConfigCHIMastondonte.RoleName;
+        protected override string RoleName => PluginClass.ConfigCHIMastondonte.RoleName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigCHIMastondonte;
+        protected override AbstractConfigSection Config => PluginClass.ConfigCHIMastondonte;
+
+        public override bool CallPower(PowerType power)
+        {
+            if (power == PowerType.DropSheld && Shled)
+            {
+                Shled = false;
+                Player.ArtificialHealth = 0;
+                return true;
+            }
+            return false;
+        }
+
+        private bool Shled = true;
+
+        protected override void Event()
+        {
+            Server.Get.Events.Player.PlayerDamageEvent += OnDomage;
+            Server.Get.Events.Player.PlayerItemUseEvent += OnUseItem;
+            Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
+        }
+
+        public override void DeSpawn()
+        {
+            base.DeSpawn();
+            Server.Get.Events.Player.PlayerDamageEvent -= OnDomage;
+            Server.Get.Events.Player.PlayerItemUseEvent -= OnUseItem;
+            Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
+        }
+
+        protected override void AditionalInit()
+        {
+            Player.Hub.playerStats.artificialHpDecay = 0;
+        }
+
+        private void OnKeyPress(PlayerKeyPressEventArgs ev)
+        {
+            if (ev.Player == Player && ev.KeyCode == UnityEngine.KeyCode.Alpha1)
+                CallPower(PowerType.DropSheld);
+        }
+
+        private void OnUseItem(PlayerItemInteractEventArgs ev)
+        {
+            if (ev.CurrentItem.ItemCategory == ItemCategory.Medical && Shled)
+                ev.Allow = false;
+        }
+
+        private void OnDomage(PlayerDamageEventArgs ev)
+        {
+            if (ev.Victim == Player)
+                ev.DamageAmount = ev.DamageAmount/1.5f;
+            if (ev.Killer == Player)
+                Player.Heal(ev.DamageAmount / 3);
+            ev.PointeCreuses(Player);
+        }
     }
 }

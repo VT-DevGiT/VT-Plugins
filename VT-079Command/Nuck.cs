@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace VT079.Command
 {
-    class Nuck : I079Command
+    public class Nuck : I079Command
     {
         public KeyCode Key => KeyCode.None;
 

@@ -1,6 +1,6 @@
 ﻿using Synapse.Api.Plugin;
 
-namespace Better939
+namespace VT939
 {
     [PluginInformation(
 Name = "VT-939",
