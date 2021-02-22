@@ -1,11 +1,13 @@
-﻿using Synapse.Api.Plugin;
+﻿using Synapse;
+using Synapse.Api.Plugin;
+using System;
 
-namespace VT079
+namespace VTDevHelp
 {
     [PluginInformation(
-Name = "DevTool",
+Name = "VT-DevTool",
 Author = "VT",
-Description = "DevTool",
+Description = "Dev Tool for help Dev",
 LoadPriority = 0,
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,
@@ -20,8 +22,7 @@ Version = "v.1.1.0"
         public override void Load()
         {
             Instance = this;
+            base.Load();
         }
-
     }
-
 }

@@ -29,8 +29,7 @@ namespace VTProget_X
             if (Methode.Voltage() >= 1000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
                 && context.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
             {
-                Methode.DecontaminationStop = false;
-                Timing.RunCoroutine(Methode.Decontamination());
+                Timing.RunCoroutine(Methode.Decontamination(), "Decont");
                 result.Message = "Decontamination Start";
                 result.State = CommandResultState.Ok;
             }

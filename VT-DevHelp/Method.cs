@@ -1,7 +1,7 @@
 ﻿using Synapse;
 using System.Reflection;
 
-namespace VT079
+namespace VTDevHelp
 {
     public static class Method
     {

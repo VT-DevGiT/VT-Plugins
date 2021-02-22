@@ -1,8 +1,10 @@
-﻿using Mirror;
+﻿using CustomPlayerEffects;
+using Mirror;
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
+using Synapse.Api.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +20,14 @@ namespace CustomClass.Pouvoir
         private Player player;
         private float _timer;
         public int duraction = -1;
+        Vector3 oldScale;
 
         private void Start()
         {
             player = gameObject.GetPlayer();
-            player.GiveEffect(Effect.Scp268, 2);
+            oldScale = player.Scale;
+            player.Scale = new Vector3(0, player.Scale.y, 0);
+            player.Invisible = true;
             RegisterEvents();
         }
         private void Update()
@@ -57,7 +62,9 @@ namespace CustomClass.Pouvoir
 
         public void Destroy()
         {
+            
             UnRegisterEvents();
+            player.Scale = oldScale;
             player.Invisible = false;
             Enabled = false;
             DestroyImmediate(this, true);

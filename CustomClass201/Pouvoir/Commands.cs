@@ -1,4 +1,5 @@
 ﻿using CustomClass.PlayerScript;
+using CustomClass.Pouvoir;
 using Synapse.Command;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomClass.Pouvoir
+namespace CustomClass
 {
     [CommandInformation(
            Name = "MouveVent",
@@ -101,8 +102,8 @@ namespace CustomClass.Pouvoir
         }
     }
     [CommandInformation(
-           Name = "Respawn",
-           Aliases = new[] { "Respawn" },
+           Name = "renfort",
+           Aliases = new[] { "renfort" },
            Description = "to use the capacity of your role",
            Permission = "",
            Platforms = new[] { Platform.ClientConsole },
@@ -215,6 +216,4 @@ namespace CustomClass.Pouvoir
             return result;
         }
     }
-
-
 }

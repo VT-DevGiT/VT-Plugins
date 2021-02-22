@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30128.74
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Classe", "VT-Classe\VT-Classe.csproj", "{CFBCFE53-F9CB-4D74-808C-8564A1442E3F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Grenade", "VT-Grenade\VT-Grenade.csproj", "{40BCB6EB-AFFF-471C-A0B1-8A4747FF59CB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Escape", "VT-Escape\VT-Escape.csproj", "{123BECDE-89C1-45C8-91A3-ED5E1E0B4323}"
@@ -29,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-DevHelp", "VT-DevHelp\VT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomClass", "CustomClass201\CustomClass.csproj", "{D59F4B49-B4B6-404C-9803-7FEB3CC9012D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-079Command", "VT-079Command\VT-079Command.csproj", "{9129886A-04B4-4B6F-BED4-0DB161CEEC9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VT-079Command", "VT-079Command\VT-079Command.csproj", "{9129886A-04B4-4B6F-BED4-0DB161CEEC9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +35,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CFBCFE53-F9CB-4D74-808C-8564A1442E3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CFBCFE53-F9CB-4D74-808C-8564A1442E3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CFBCFE53-F9CB-4D74-808C-8564A1442E3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CFBCFE53-F9CB-4D74-808C-8564A1442E3F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{40BCB6EB-AFFF-471C-A0B1-8A4747FF59CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{40BCB6EB-AFFF-471C-A0B1-8A4747FF59CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40BCB6EB-AFFF-471C-A0B1-8A4747FF59CB}.Release|Any CPU.ActiveCfg = Release|Any CPU

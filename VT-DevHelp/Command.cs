@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-namespace VT079
+namespace VTDevHelp
 {
     [CommandInformation(
       Name = "DevDoorInfo",
@@ -32,6 +32,7 @@ namespace VT079
             return result;
         }
     }
+
     [CommandInformation(
      Name = "DevTest",
      Aliases = new[] { "Test" },
@@ -51,6 +52,7 @@ namespace VT079
             return result;
         }
     }
+
     [CommandInformation(
         Name = "DevitemInfo",
         Aliases = new[] { "Iteam" },
@@ -83,9 +85,10 @@ namespace VT079
             return result;
         }
     }
+
     [CommandInformation(
     Name = "DevDecont",
-    Aliases = new[] { "" },
+    Aliases = new[] { "Decont" },
     Description = "Dev Decont Test",
     Permission = "synapse.command.Dev",
     Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole },
@@ -102,6 +105,7 @@ namespace VT079
             return result;
         }
     }
+
     [CommandInformation(
        Name = "DevSong",
        Aliases = new[] { "Song" },
@@ -126,7 +130,6 @@ namespace VT079
             return result;
         }
     }
-
 
     [CommandInformation(
         Name = "DevRestart",
@@ -169,15 +172,14 @@ namespace VT079
         }
     }
 
-
-        [CommandInformation(
-        Name = "DevChat",
-        Aliases = new[] { "Chat" },
-        Description = "Dev Chat Test",
-        Permission = "synapse.command.Dev",
-        Platforms = new[] { Platform.RemoteAdmin },
-        Usage = "SCP, RIP, RAD, 079, 939, NONE"
-        )]
+    [CommandInformation(
+    Name = "DevChat",
+    Aliases = new[] { "Chat" },
+    Description = "Dev Chat Test",
+    Permission = "synapse.command.Dev",
+    Platforms = new[] { Platform.RemoteAdmin },
+    Usage = "SCP, RIP, RAD, 079, 939, NONE"
+    )]
     public class DevChat : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
@@ -221,7 +223,7 @@ namespace VT079
 
     [CommandInformation(
        Name = "DevClear",
-       Aliases = new[] { "Clear" },
+       Aliases = new[] { "DClear" },
        Description = "Un Clear ? pas problême c'est la pour toi !",
        Permission = "synapse.command.Dev",
        Platforms = new[] { Platform.RemoteAdmin },
@@ -236,10 +238,10 @@ namespace VT079
             var ragdolls = Server.Get.Map.Ragdolls;
             switch (context.Arguments.FirstElement())
             {
-                
+
                 case "Iteam":
-                    
-                    foreach(var iteam in iteams)
+
+                    foreach (var iteam in iteams)
                     {
                         iteam.Destroy();
                     }
@@ -249,7 +251,7 @@ namespace VT079
                 case "Corp":
                     foreach (var ragdoll in ragdolls)
                     {
-                        ragdoll.Destroy();
+                        UnityEngine.Object.DestroyImmediate(ragdoll.GameObject, true);
                     }
                     result.State = CommandResultState.Ok;
                     break;
@@ -257,11 +259,11 @@ namespace VT079
                 case "All":
                     foreach (var iteam in iteams)
                     {
-                        iteam.Destroy();
+                        iteam.Despawn();
                     }
                     foreach (var ragdoll in ragdolls)
                     {
-                        ragdoll.Destroy();
+                        UnityEngine.Object.DestroyImmediate(ragdoll.GameObject, true);
                     }
                     result.State = CommandResultState.Ok;
                     break;
@@ -270,4 +272,49 @@ namespace VT079
             return result;
         }
     }
+
+    [CommandInformation(
+    Name = "ClearIteam",
+    Aliases = new[] { "IteamClear" },
+    Description = "Un commande pour Clear",
+    Permission = "",
+    Platforms = new[] { Platform.RemoteAdmin },
+    Usage = ".ClearIteam"
+    )]
+    public class ClearIteam : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+            var iteams = Server.Get.Map.Items.Where(p => p.State == Synapse.Api.Enum.ItemState.Map);
+            if (iteams.Any())
+                foreach (var iteam in iteams)
+                    iteam.Despawn();
+            result.State = CommandResultState.Ok;
+            return result;
+        }
+    }
+
+    [CommandInformation(
+    Name = "ClearRagdolls",
+    Aliases = new[] { "RagdollsClear", "CorpClear" },
+    Description = "Un commande pour Clear",
+    Permission = "",
+    Platforms = new[] { Platform.RemoteAdmin },
+    Usage = ".CorpClear"
+    )]
+    public class PblicClear : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+            var ragdolls = Server.Get.Map.Ragdolls;
+            if (ragdolls.Any())
+                foreach (var ragdoll in ragdolls)
+                    UnityEngine.Object.DestroyImmediate(ragdoll.GameObject, true);
+            result.State = CommandResultState.Ok;
+            return result;
+        }
+    }
 }
+

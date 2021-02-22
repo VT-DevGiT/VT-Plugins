@@ -1,8 +1,10 @@
 ﻿using CustomClass.Config;
 using CustomClass.PlayerScript;
 using Synapse;
+using Synapse.Api;
 using Synapse.Api.Plugin;
 using Synapse.Translation;
+using System.Collections.Generic;
 
 namespace CustomClass
 {
@@ -112,10 +114,12 @@ namespace CustomClass
             SpawnMessage = "<color=blue><b>Tu es à présent</b></color> <color=red><b>%RoleName%</b></color>",
             VentMessage = "Vous pouvez rester encore %Time% secondes dans la ventilation",
             NoTimeVentMessage = "Vous vous trouvez dans les ventilation",
-            PowerCooldown = "vous ne pourrez pas utiliser cette puissance dans %Time% secondes"
+            PowerCooldown = "vous pouvez utiliser ce pouvoir dans %Time% secondes"
             }, "FRENCH");
             new EventHandlers();
         }
+
+        public Dictionary<Player, int> PlayerRole = new Dictionary<Player, int>();
 
         public void RegisterCustomRole()
         {

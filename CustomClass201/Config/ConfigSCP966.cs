@@ -23,7 +23,7 @@ namespace CustomClass.Config
         public int RequiredPlayers = 0;
 
         [Description("The name of the class")]
-        public string RoleName = " SCP699";
+        public string RoleName = " SCP966";
 
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 0;

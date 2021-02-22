@@ -1,4 +1,5 @@
-﻿using Synapse;
+﻿using MEC;
+using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
 using System.Linq;
 
@@ -16,7 +17,7 @@ namespace VTProget_X
 
         private void OnRoundEnd()
         {
-            Methode.DecontaminationStop = true;
+            Timing.KillCoroutines("Decont");
         }
 
         private void OnRoundStart()

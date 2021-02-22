@@ -1,4 +1,7 @@
-﻿using Synapse.Config;
+﻿using CustomClass.Pouvoir;
+using Synapse;
+using Synapse.Api.Events.SynapseEventArguments;
+using Synapse.Config;
 using System.Collections.Generic;
 
 namespace CustomClass.PlayerScript
@@ -18,5 +21,39 @@ namespace CustomClass.PlayerScript
         protected override string RoleName => PluginClass.ConfigTestClass.RoleName;
 
         protected override AbstractConfigSection Config => PluginClass.ConfigTestClass;
+
+        public override void DeSpawn()
+        {
+            base.DeSpawn();
+            Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
+        }
+
+        public override bool CallPower(PowerType power)
+        {
+            if (power == PowerType.MouveVent)
+            {
+                if (Player.gameObject.GetComponent<MouveVent>() == null)
+                {
+                    Player.gameObject.AddComponent<MouveVent>();
+                }
+                else if (Player.gameObject.GetComponent<MouveVent>() != null)
+                {
+                    Player.gameObject.GetComponent<MouveVent>()?.Destroy();
+                }
+                return true;
+            }
+            return false;
+        }
+        protected override void Event()
+        {
+            Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
+        }
+        private void OnKeyPress(PlayerKeyPressEventArgs ev)
+        {
+            if (ev.Player == Player && ev.KeyCode == UnityEngine.KeyCode.Alpha1)
+            {
+                CallPower(PowerType.MouveVent);
+            }
+        }
     }
 }

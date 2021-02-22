@@ -1,4 +1,5 @@
 ﻿using MEC;
+using Synapse;
 using Synapse.Api;
 using System;
 using System.Collections.Generic;
@@ -29,9 +30,10 @@ namespace CustomClass.Pouvoir
 
         public static void Message()
         {
-            string letter = $"{new System.Random().Next('a', 'z')}";
+            var Nato = $"Nato_{(char)(new System.Random().Next('a', 'z'))}";
+            Server.Get.Logger.Info(Nato);
             var scps = SynapseController.Server.GetPlayers(x => x.RealTeam == Team.SCP).Count;
-            Synapse.Api.Map.Get.Cassie($"MTFUnit Epsilon 11 designated Nato_{letter} 05 HasEntered AllRemaining AwaitingRecontainment {scps} ScpSubjects");
+            Synapse.Api.Map.Get.Cassie($"MTFUnit Epsilon 11 designated {Nato} 07 HasEntered AllRemaining AwaitingRecontainment {scps} ScpSubjects");
         }
 
 

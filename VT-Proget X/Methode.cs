@@ -51,7 +51,6 @@ namespace VTProget_X
             return totalvoltagefloat;
         }
 
-        public static bool DecontaminationStop = true;
         public static IEnumerator<float> Decontamination(int WaitForStart = 120, int AlertTime = 3)
         {
 
@@ -78,13 +77,12 @@ namespace VTProget_X
                 WaitForStart--;
                 yield return Timing.WaitForSeconds(1f);
             }
-            if (!DecontaminationStop)
-            {
-                Map.Get.Cassie($"Light Containment Zone is locked down and ready for decontamination .", false);
-                Server.Get.Map.Decontamination?.CallMethod("InstantStart");
-                Server.Get.Map.Decontamination?.Controller?.CallMethod("FinishDecontamination");
-                Plugin.Instance.DeconatmiantinEnd = true;
-            }
+            
+            Map.Get.Cassie($"Light Containment Zone is locked down and ready for decontamination .", false);
+            Server.Get.Map.Decontamination?.CallMethod("InstantStart");
+            Server.Get.Map.Decontamination?.Controller?.CallMethod("FinishDecontamination");
+            Plugin.Instance.DeconatmiantinEnd = true;
+            
             yield break;
 
         }
@@ -201,12 +199,12 @@ namespace VTProget_X
                 else if (_intercom.remainingCooldown > 0f)
                 {
                     IntercomStatueMessage = Plugin.PluginTranslation.ActiveTranslation.IntercomStatueRestart.
-                        Replace("%Temps%", _intercom.remainingCooldown.ToString());
+                        Replace("%Temps%", ((int)_intercom.remainingCooldown).ToString());
                 }
                 else if (_intercom.speaker != null)
                 {
                     IntercomStatueMessage = Plugin.PluginTranslation.ActiveTranslation.IntercomStatuePlayer.
-                        Replace("%Player%", _intercom.GetPlayer().NickName).Replace("%Temps%", _intercom.speechRemainingTime.ToString());
+                        Replace("%Player%", _intercom.GetPlayer().NickName).Replace("%Temps%", ((int)_intercom.speechRemainingTime).ToString());
                 }
                 else
                 {

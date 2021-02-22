@@ -4,7 +4,7 @@ using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 
-namespace VT079
+namespace VTDevHelp
 {
     public class ChatBehaviour : NetworkBehaviour
     {

@@ -27,6 +27,7 @@ namespace CustomClass.PlayerScript
         {
             if (power == PowerType.DropSheld && Shled)
             {
+                Player.StaminaUsage *= 2;
                 Shled = false;
                 Player.ArtificialHealth = 0;
                 return true;

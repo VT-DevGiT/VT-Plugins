@@ -28,13 +28,7 @@ namespace CustomClass.PlayerScript
 
         protected override void AditionalInit()
         {
-            if(Player == null)
-                Server.Get.Logger.Info($"Player null");
-            if (Player.gameObject == null)
-                Server.Get.Logger.Info($"gameObject null");
-            Server.Get.Logger.Info($"1");
             Player.gameObject.AddComponent<SCP507>();
-            Server.Get.Logger.Info($"2");
         }
         public override void DeSpawn()
         {

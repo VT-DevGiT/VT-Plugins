@@ -96,12 +96,16 @@ namespace CustomClass.PlayerScript
             Event();
             Player.OpenReportWindow(PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage.Replace("%RoleName%", RoleName));
             if (SetDisplayInfo)
+            {
+                Player.RemoveDisplayInfo(PlayerInfoArea.Role);
                 Player.DisplayInfo = RoleName;
+            }
         }
 
         public override void DeSpawn()
         {
-            Player.RemoveDisplayInfo(PlayerInfoArea.Role);
+            Player.DisplayInfo = null;
+            Player.AddDisplayInfo(PlayerInfoArea.Role);
         }
 
         #endregion

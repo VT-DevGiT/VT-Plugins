@@ -15,7 +15,6 @@ namespace CustomClass.Pouvoir
     {
         public bool Enabled = true;
         private Player player;
-        private float _timer;
 
         public List<Vector3> dimanction = new List<Vector3>();
         private void Start()
@@ -23,14 +22,8 @@ namespace CustomClass.Pouvoir
             player = gameObject.GetPlayer();
         }
         private void Update()
-        {
-            _timer += Time.deltaTime;
-            if (_timer > 0.1f)
-            {
-                player.GiveEffect(Effect.Scp268, 1, 0.1f);
-            }
-            if (_timer > 0.1f)
-                _timer = 0f;
+        {   
+            player.GiveEffect(Effect.Scp268);
         }
         public void Destroy()
         {

@@ -3,6 +3,7 @@ using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
+using Synapse.Api.Items;
 using Synapse.Config;
 using System;
 using System.Collections.Generic;
@@ -25,34 +26,38 @@ namespace CustomClass.PlayerScript
 
         protected override AbstractConfigSection Config => PluginClass.ConfigSCP966;
 
+        private SynapseItem Chapeau;
+
         protected override void AditionalInit()
         {
             Player.Invisible = true;
+            Chapeau = new SynapseItem(ItemType.SCP268, 0, 0, 0, 0);
+            Player.Inventory.AddItem(Chapeau);
             Player.gameObject.AddComponent<Invisible>();
-            Player.GiveEffect(Effect.Scp268, 2);
-            
+            Player.GiveEffect(Effect.Scp268);
         }
 
         protected override void Event()
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnDamage;
-            Server.Get.Events.Map.DoorInteractEvent += OnDoorInteract;
+            Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
         }
+
         public override void DeSpawn()
         {
+            Player.Invisible = false;
             base.DeSpawn();
             Map.Get.AnnounceScpDeath("9 6 6");
             Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
-            Server.Get.Events.Map.DoorInteractEvent -= OnDoorInteract;
             if (Player.gameObject.GetComponent<Invisible>() != null)
                 Player.gameObject.GetComponent<Invisible>().Destroy();
         }
 
-        private void OnDoorInteract(DoorInteractEventArgs ev)
+        private void OnDeath(PlayerDeathEventArgs ev)
         {
-            if (ev.Player == Player)
+            if (ev.Killer == Player)
             {
-                ev.Player.GiveEffect(Effect.Scp268, 2);
+                Player.Inventory.RemoveItem(Chapeau);
             }
         }
 
@@ -60,11 +65,11 @@ namespace CustomClass.PlayerScript
         {
             if (ev.Killer == Player)
             {
-                ev.Victim.GiveEffect(Effect.Concussed, 1, 5);
-                ev.Victim.GiveEffect(Effect.Amnesia, 1, 5);
-                ev.Victim.GiveEffect(Effect.Deafened, 1, 5);
-                ev.Victim.GiveEffect(Effect.Exhausted, 1, 5);
-                ev.Victim.GiveEffect(Effect.Asphyxiated, 1, 3);
+                ev.Victim.GiveEffect(Effect.Concussed, 1, 10);
+                ev.Victim.GiveEffect(Effect.Amnesia, 1, 10);
+                ev.Victim.GiveEffect(Effect.Deafened, 1, 10);
+                ev.Victim.GiveEffect(Effect.Exhausted, 1, 10);
+                ev.Victim.GiveEffect(Effect.Asphyxiated, 1, 5);
                 ev.Allow = false;
             }
         }

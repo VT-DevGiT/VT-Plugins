@@ -23,6 +23,7 @@ namespace CustomClass
         {
             if (RespawnPlayer.Contains(ev.Player))
             {
+                PluginClass.Plugin.PlayerRole[ev.Player] = (int)ev.Role;
                 ev.SpawnUnRole(RoleType.ChaosInsurgency, MoreClasseID.CHILeader, PluginClass.ConfigCHILeader);
                 ev.SpawnUnRole(RoleType.ChaosInsurgency, MoreClasseID.CHIHacker, PluginClass.ConfigCHIHacker);
                 ev.SpawnUnRole(RoleType.ChaosInsurgency, MoreClasseID.CHIExpertPyrotechnie, PluginClass.ConfigCHIExpertPyrotechnie);
@@ -70,6 +71,10 @@ namespace CustomClass
                 {
                     ev.SpawnPlayers.SpawnUnRoleSCP(MoreClasseID.SCP008, PluginClass.ConfigSCP008.SpawnChance, PluginClass.ConfigSCP008.MaxAlive);
                     ev.SpawnPlayers.SpawnUnRoleSCP(MoreClasseID.SCP966, PluginClass.ConfigSCP966.SpawnChance, PluginClass.ConfigSCP966.MaxAlive);
+                }
+                foreach (var player in ev.SpawnPlayers.Keys)
+                {
+                    PluginClass.Plugin.PlayerRole[player] = ev.SpawnPlayers[player];
                 }
             }
         }

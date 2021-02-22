@@ -34,8 +34,8 @@ namespace CustomClass.Config
 
         [Description("The list of rooms where SCP 507 can teleport")]
         public List<SerializedMapPoint> ListRoom = new List<SerializedMapPoint> () { 
-            new SerializedMapPoint("Root_*&*Outside Cams", -97.45316f, 1979.313f, -167.1043f),
-            new SerializedMapPoint("HCZ_049", -19.8f, 264.1f, 5.8f),
+            new SerializedMapPoint("Root_*&*Outside Cams", -87.24436f, 1976.8f, -185.2777f),
+            new SerializedMapPoint("HCZ_049", -19.8f, 262.1f, 5.8f),
         };
         //Root_*&*Outside Cams
 
