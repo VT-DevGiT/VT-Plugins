@@ -34,14 +34,15 @@ namespace CustomClass.PlayerScript
             Player.gameObject.GetComponent<Aura>().TargetEffect = Effect.ArtificialRegen;
             Player.gameObject.GetComponent<Aura>().LuiHealHp = PluginClass.ConfigSCP999.HealHp;
             Player.gameObject.GetComponent<Aura>().Distance = PluginClass.ConfigSCP999.Distance;
+            
             Timing.CallDelayed(1f, () =>
             {
-                Player.Scale *= 0.74f;
+                Player.Scale = new Vector3(0.1f, 0.01f, 0.1f);
             });
         }
         public override void DeSpawn()
         {
-            Player.Scale = new Vector3(-0.1f, 0.01f, -0.1f);
+            Player.Scale = Vector3.one;
             base.DeSpawn();
             Map.Get.AnnounceScpDeath("9 9 9");
             Server.Get.Events.Player.PlayerSetClassEvent -= OnSetClass;

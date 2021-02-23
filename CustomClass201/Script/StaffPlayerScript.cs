@@ -24,6 +24,7 @@ namespace CustomClass.PlayerScript
             if (Player.SynapseGroup.Permissions.Contains("synapse.see.invisible"))
                 Player.SynapseGroup.Permissions.Add("synapse.see.invisible");
             Player.Invisible = true;
+            Player.NoClip = true;
         }
     }
 }

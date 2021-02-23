@@ -52,7 +52,7 @@ namespace CustomClass
             }
         }
 
-        private void OnSpawn(Synapse.Api.Events.SynapseEventArguments.SpawnPlayersEventArgs ev)
+        private void OnSpawn(SpawnPlayersEventArgs ev)
         {
             if (ev.SpawnPlayers != null)
             {

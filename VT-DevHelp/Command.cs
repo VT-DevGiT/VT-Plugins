@@ -242,29 +242,22 @@ namespace VTDevHelp
                 case "Iteam":
 
                     foreach (var iteam in iteams)
-                    {
                         iteam.Destroy();
-                    }
                     result.State = CommandResultState.Ok;
                     break;
 
                 case "Corp":
                     foreach (var ragdoll in ragdolls)
-                    {
                         UnityEngine.Object.DestroyImmediate(ragdoll.GameObject, true);
-                    }
                     result.State = CommandResultState.Ok;
                     break;
 
                 case "All":
                     foreach (var iteam in iteams)
-                    {
                         iteam.Despawn();
-                    }
                     foreach (var ragdoll in ragdolls)
-                    {
                         UnityEngine.Object.DestroyImmediate(ragdoll.GameObject, true);
-                    }
+                    
                     result.State = CommandResultState.Ok;
                     break;
 

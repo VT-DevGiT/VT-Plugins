@@ -102,8 +102,8 @@ namespace CustomClass
         }
     }
     [CommandInformation(
-           Name = "renfort",
-           Aliases = new[] { "renfort" },
+           Name = "Renfort",
+           Aliases = new[] { "Renfort" },
            Description = "to use the capacity of your role",
            Permission = "",
            Platforms = new[] { Platform.ClientConsole },

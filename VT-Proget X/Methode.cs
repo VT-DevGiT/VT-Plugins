@@ -121,11 +121,14 @@ namespace VTProget_X
                 var _intercom = Server.Get.Host.GetComponent<Intercom>();
 
                 #region int&bool
-                nSCP = Server.Get.Players.Where(p => p.Team == Team.SCP).Count();
-                nCDP = Server.Get.Players.Where(p => p.Team == Team.CDP).Count();
-                nRSC = Server.Get.Players.Where(p => p.Team == Team.RSC).Count() + RoundSummary.singleton.CountRole(RoleType.FacilityGuard);
-                nVIP = 0;
-                nFIM = Server.Get.Players.Where(p => p.Team == Team.MTF).Count() - RoundSummary.singleton.CountRole(RoleType.FacilityGuard);
+                List<int> SCPaditonelle = new List<int> { 56, 117, 120 };
+                List<int> RSC = new List<int> { 100, 101, 102, 104, (int)RoleType.Scientist, (int)RoleType.FacilityGuard };
+
+                nSCP = Server.Get.Players.Where(p => p.Team == Team.SCP || SCPaditonelle.Contains(p.RoleID)).Count();
+                nCDP = Server.Get.Players.Where(p => p.RoleID == (int)RoleType.ClassD).Count();
+                nRSC = Server.Get.Players.Where(p => RSC.Contains(p.RoleID)).Count();
+                nVIP = Server.Get.Players.Where(p => p.RoleID == 103).Count();
+                nFIM = Server.Get.Players.Where(p => p.Team == Team.MTF && !RSC.Contains(p.RoleID) && !SCPaditonelle.Contains(p.RoleID)).Count();
                 leftdecont = (int)((Math.Truncate((15f * 60) * 100f) / 100f) - (Math.Truncate(DecontaminationController.GetServerTime * 100f) / 100f));
                 leftautowarhead = AlphaWarheadController.Host != null
                     ? (int)Mathf.Clamp(AlphaWarheadController.Host.timeToDetonation - RoundSummary.roundTime, 0, AlphaWarheadController.Host.timeToDetonation)
@@ -170,7 +173,7 @@ namespace VTProget_X
                 #endregion
 
                 #region SCPListMessage
-                var listScp = Server.Get.Players.Where(p => p.Team == Team.SCP);
+                var listScp = Server.Get.Players.Where(p => p.Team == Team.SCP || SCPaditonelle.Contains(p.RoleID));
                 foreach (var scp in listScp)
                 {
                     if (scp.RoleType == RoleType.Scp079)
@@ -182,6 +185,7 @@ namespace VTProget_X
                             .Replace("%Name%", scp.RoleName)
                             .Replace("%Zone%", scp.Zone.ToString())
                             .Replace("%Room%", scp.Room.RoomName);
+                    scpListMessage += "\n";
                 }
                 #endregion
 
