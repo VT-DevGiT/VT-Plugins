@@ -1,5 +1,6 @@
 ﻿using CustomClass.Config;
 using CustomClass.PlayerScript;
+using HarmonyLib;
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.Plugin;
@@ -105,6 +106,13 @@ namespace CustomClass
         [SynapseTranslation]
         public static SynapseTranslation<PluginTranslation> PluginTranslation;
 
+        private void PatchAll()
+        {
+            var instance = new Harmony("CustomClass");
+            instance.PatchAll();
+            Server.Get.Logger.Info("Custom class Harmony Patch done!");
+        }
+
         public override void Load()
         {
             Plugin = this;
@@ -116,7 +124,9 @@ namespace CustomClass
             NoTimeVentMessage = "Vous vous trouvez dans les ventilation",
             PowerCooldown = "vous pouvez utiliser ce pouvoir dans %Time% secondes"
             }, "FRENCH");
+            PatchAll();
             new EventHandlers();
+            
         }
 
         public Dictionary<Player, int> PlayerRole = new Dictionary<Player, int>();

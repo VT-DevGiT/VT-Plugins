@@ -1,4 +1,6 @@
-﻿using Synapse.Api.Plugin;
+﻿using HarmonyLib;
+using Synapse;
+using Synapse.Api.Plugin;
 
 namespace VT939
 {

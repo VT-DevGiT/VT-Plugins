@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MoreClasseID.cs" />
+    <Compile Include="Patch.cs" />
     <Compile Include="Pouvoir\Invisible.cs" />
     <Compile Include="Pouvoir\Commands.cs" />
     <Compile Include="Pouvoir\PowerType.cs" />

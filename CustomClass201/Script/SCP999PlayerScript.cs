@@ -41,7 +41,7 @@ namespace CustomClass.PlayerScript
         }
         public override void DeSpawn()
         {
-            Player.Scale = Vector3.one;
+            Player.Scale = new Vector3(-0.1f, 0.01f, -0.1f);
             base.DeSpawn();
             Map.Get.AnnounceScpDeath("9 9 9");
             Server.Get.Events.Player.PlayerSetClassEvent -= OnSetClass;

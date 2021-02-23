@@ -3,6 +3,7 @@ using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace CustomClass.PlayerScript
 {
@@ -22,6 +23,8 @@ namespace CustomClass.PlayerScript
 
         protected override AbstractConfigSection Config => PluginClass.ConfigTestClass;
 
+        Vector3 oldScale;
+
         public override void DeSpawn()
         {
             base.DeSpawn();
@@ -34,10 +37,13 @@ namespace CustomClass.PlayerScript
             {
                 if (Player.gameObject.GetComponent<MouveVent>() == null)
                 {
+                    oldScale = Player.Scale;
+                    Player.Scale = new Vector3(0, 0, 0);
                     Player.gameObject.AddComponent<MouveVent>();
                 }
                 else if (Player.gameObject.GetComponent<MouveVent>() != null)
                 {
+                    Player.Scale = oldScale;
                     Player.gameObject.GetComponent<MouveVent>()?.Destroy();
                 }
                 return true;

@@ -20,13 +20,10 @@ namespace CustomClass.Pouvoir
         private Player player;
         private float _timer;
         public int duraction = -1;
-        Vector3 oldScale;
 
         private void Start()
         {
             player = gameObject.GetPlayer();
-            oldScale = player.Scale;
-            player.Scale = new Vector3(0, player.Scale.y, 0);
             player.Invisible = true;
             RegisterEvents();
         }
@@ -36,9 +33,9 @@ namespace CustomClass.Pouvoir
 
             if (Enabled && _timer > 1f)
             {
-                if(Enabled && duraction > 0)
-                { 
-                    player.SendBroadcast(1 ,PluginClass.PluginTranslation.ActiveTranslation.
+                if (Enabled && duraction > 0)
+                {
+                    player.SendBroadcast(1, PluginClass.PluginTranslation.ActiveTranslation.
                         VentMessage.Replace("%Time%", duraction.ToString()));
                     duraction--;
                 }
@@ -53,24 +50,49 @@ namespace CustomClass.Pouvoir
         }
         private void OnDoorInteract(DoorInteractEventArgs ev)
         {
-           if (ev.Player == player)
+            if (ev.Player == player)
             {
                 ev.Allow = false;
-                ev.Player.Position += (ev.Player.gameObject.transform.forward * 3.5f);
+                ev.Player.Position += (ev.Player.gameObject.transform.forward * 1.5f);
+            }
+        }
+
+        private void OnPickUpItem(PlayerPickUpItemEventArgs ev)
+        {
+            if (ev.Player == player)
+            {
+                ev.Allow = false;
+            }
+        }
+
+        private void OnDamage(PlayerDamageEventArgs ev)
+        {
+            if (ev.Victim == player)
+            {
+                ev.Allow = false;
             }
         }
 
         public void Destroy()
         {
-            
+
             UnRegisterEvents();
-            player.Scale = oldScale;
             player.Invisible = false;
             Enabled = false;
             DestroyImmediate(this, true);
         }
 
-        private void UnRegisterEvents() => Server.Get.Events.Map.DoorInteractEvent -= OnDoorInteract;
-        private void RegisterEvents() => Server.Get.Events.Map.DoorInteractEvent += OnDoorInteract;
+        private void UnRegisterEvents()
+        {
+            Server.Get.Events.Map.DoorInteractEvent -= OnDoorInteract;
+            Server.Get.Events.Player.PlayerPickUpItemEvent -= OnPickUpItem;
+            Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
+        }
+        private void RegisterEvents()
+        {
+            Server.Get.Events.Map.DoorInteractEvent += OnDoorInteract;
+            Server.Get.Events.Player.PlayerPickUpItemEvent += OnPickUpItem;
+            Server.Get.Events.Player.PlayerDamageEvent += OnDamage;
+        }
     }
 }

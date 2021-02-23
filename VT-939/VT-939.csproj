@@ -75,7 +75,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Patch.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="939Behaviour.cs" />
     <Compile Include="Config.cs" />

@@ -18,5 +18,12 @@ namespace CustomClass.PlayerScript
         protected override string RoleName => PluginClass.ConfigStaff.RoleName;
 
         protected override AbstractConfigSection Config => PluginClass.ConfigStaff;
+
+        protected override void AditionalInit()
+        {
+            if (Player.SynapseGroup.Permissions.Contains("synapse.see.invisible"))
+                Player.SynapseGroup.Permissions.Add("synapse.see.invisible");
+            Player.Invisible = true;
+        }
     }
 }

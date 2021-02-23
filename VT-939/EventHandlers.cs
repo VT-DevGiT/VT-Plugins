@@ -1,5 +1,6 @@
 ﻿using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
+using System;
 
 namespace VT939
 {
@@ -8,13 +9,12 @@ namespace VT939
         public EventHandlers()
         {
             Server.Get.Events.Player.PlayerSetClassEvent += OnSpawn;
-            //Server.Get.Events.Player.PlayerSpeakEvent += OnSpeck;
+            //Server.Get.Events.Player.PlayerSpeakEvent += OnSpeak;
         }
 
-        private void OnSpeck(PlayerSpeakEventArgs ev)
+        private void OnSpeak(PlayerSpeakEventArgs ev)
         {
-            if (ev.Player.TeamID != (int)Team.RIP)
-                ev.Player.Hub.footstepSync.CmdScp939Noise(25f);
+            Server.Get.Logger.Info($"OnSpeack {ev.Player?.NickName} - {ev.IntercomTalk} - {ev.RadioTalk} - {ev.Scp939Talk} - {ev.ScpChat} - {ev.SpectatorChat}");
         }
 
         private void OnSpawn(PlayerSetClassEventArgs ev)
