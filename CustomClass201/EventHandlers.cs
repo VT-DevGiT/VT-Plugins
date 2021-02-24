@@ -1,10 +1,6 @@
-﻿using CustomClass.PlayerScript;
-using MEC;
-using Synapse;
+﻿using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
-using Synapse.Config;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -46,10 +42,6 @@ namespace CustomClass
             RespawnPlayer.Clear();
             Extension.RespawnedPlayer.Clear();
             RespawnPlayer.AddRange(ev.Players);
-            foreach (var player in ev.Players)
-            {
-                player.SynapseGroup.Permissions.Remove("synapse.see.invisible");
-            }
         }
 
         private void OnSpawn(SpawnPlayersEventArgs ev)
@@ -59,7 +51,7 @@ namespace CustomClass
                 ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.DirecteurSite, PluginClass.ConfigDirecteurSite);
                 ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.Concierge, PluginClass.ConfigConcierge);
                 ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.SCP507, PluginClass.ConfigSCP507);
-                ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.SCP999, PluginClass.ConfigSCP999);
+                //ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.SCP999, PluginClass.ConfigSCP999); choisire une bonne taile 
                 ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, MoreClasseID.CHIIntrus, PluginClass.ConfigCHIntrus);
                 ev.SpawnPlayers.SpawnUnRole(RoleType.Scientist, MoreClasseID.ScientifiqueSuperviseur, PluginClass.ConfigScientifiqueSuperviseur);
                 ev.SpawnPlayers.SpawnUnRole(RoleType.FacilityGuard, MoreClasseID.GardeSuperviseur, PluginClass.ConfigGardeSuperviseur);
@@ -79,7 +71,6 @@ namespace CustomClass
                 foreach (var player in ev.SpawnPlayers.Keys)
                 {
                     PluginClass.Plugin.PlayerRole[player] = ev.SpawnPlayers[player];
-                    player.SynapseGroup.Permissions.Remove("synapse.see.invisible");
                 }
             }
         }

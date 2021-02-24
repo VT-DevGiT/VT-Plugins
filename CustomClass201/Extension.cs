@@ -3,7 +3,6 @@ using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,7 +21,7 @@ namespace CustomClass
         }
 
         public static Dictionary<MoreClasseID, int> RespawnedPlayer = new Dictionary<MoreClasseID, int>();
-        public static void SpawnUnRole(this Dictionary<Synapse.Api.Player, int> dictionaire, RoleType ancienRole, MoreClasseID nouveauRole, AbstractConfigSection config) 
+        public static void SpawnUnRole(this Dictionary<Player, int> dictionaire, RoleType ancienRole, MoreClasseID nouveauRole, AbstractConfigSection config) 
         {
             var playerClass = dictionaire.Where(p => p.Value == (int)ancienRole);
             int spawnChance = config.GetConfigValue<int>("SpawnChance", 0);
@@ -69,7 +68,7 @@ namespace CustomClass
                         Timing.CallDelayed(2f, () =>
                         {
                             pl.RoleID = (int)nouveauRole;
-                            PluginClass.Plugin.PlayerRole[ev.Player] =(int) nouveauRole;
+                            PluginClass.Plugin.PlayerRole[ev.Player] = (int)nouveauRole;
 
                         });
                         RespawnedPlayer[nouveauRole] = respawned + 1;
@@ -79,7 +78,7 @@ namespace CustomClass
         }
 
 
-        public static void SpawnUnRoleSCP(this Dictionary<Synapse.Api.Player, int> dictionaire, MoreClasseID nouveauRole, int spawnChance, int maxTotal = -1)
+        public static void SpawnUnRoleSCP(this Dictionary<Player, int> dictionaire, MoreClasseID nouveauRole, int spawnChance, int maxTotal = -1)
         {
             var playerClass = dictionaire.Where(p => SCP.Contains(p.Value));
             if (playerClass.Any())

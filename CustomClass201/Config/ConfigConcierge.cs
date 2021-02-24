@@ -14,10 +14,10 @@ namespace CustomClass.Config
         public int Health = 100;
 
         [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.Medkit, 35, 0, 0, 0, Vector3.one) };
+        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.KeycardJanitor, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Painkillers, 1, 0, 0, 0, Vector3.one) };
 
         [Description("The Chance of which the class spawns")]
-        public int SpawnChance = 25;
+        public int SpawnChance = 100;
 
         [Description("Max alive at the same time")]
         public int MaxAlive = 1;
@@ -26,10 +26,6 @@ namespace CustomClass.Config
         public int RequiredPlayers = 0;
 
         [Description("The name of the class")]
-        public string RoleName = " Concierge";
-
-        [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 0;
-        public int MaxArtificialHealth = 100;
+        public string RoleName = "Concierge";
     }
 }

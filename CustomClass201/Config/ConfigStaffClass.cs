@@ -21,9 +21,5 @@ namespace CustomClass.Config
 
         [Description("The name of the class")]
         public string RoleName = " Staff";
-
-        [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 0;
-        public int MaxArtificialHealth = 100;
     }
 }

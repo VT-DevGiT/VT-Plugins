@@ -8,13 +8,13 @@ namespace CustomClass.Config
     public class ConfigNTFVirologue : AbstractConfigSection
     {
         [Description("The Amount of Health the class have")]
-        public int Health = 100;
+        public int Health = 170;
 
         [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.Medkit, 35, 0, 0, 0, Vector3.one) };
+        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.KeycardNTFLieutenant, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.GunProject90, 50, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Adrenaline, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.SCP500, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one) };
 
         [Description("The Chance of which the class spawns")]
-        public int SpawnChance = 25;
+        public int SpawnChance = 10;
 
         [Description("Max alive at the same time")]
         public int MaxAlive = 1;
@@ -26,10 +26,6 @@ namespace CustomClass.Config
         public int RequiredPlayers = 0;
 
         [Description("The name of the class")]
-        public string RoleName = " NTF Virologue";
-
-        [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 0;
-        public int MaxArtificialHealth = 100;
+        public string RoleName = "Virologue";
     }
 }

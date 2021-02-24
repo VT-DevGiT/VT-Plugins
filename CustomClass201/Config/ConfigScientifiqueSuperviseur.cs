@@ -11,13 +11,13 @@ namespace CustomClass.Config
         public SerializedMapPoint SpawnPoint = new SerializedMapPoint("HCZ_Room3ar", -1.792f, 1.330017f, -0.004005589f);
 
         [Description("The Amount of Health the class have")]
-        public int Health = 100;
+        public int Health = 110;
 
         [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.Medkit, 35, 0, 0, 0, Vector3.one) };
+        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.KeycardScientistMajor, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.GunUSP, 18, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Painkillers, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Painkillers, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one) };
 
         [Description("The Chance of which the class spawns")]
-        public int SpawnChance = 25;
+        public int SpawnChance = 100;
 
         [Description("Max alive at the same time")]
         public int MaxAlive = 1;
@@ -27,9 +27,5 @@ namespace CustomClass.Config
 
         [Description("The name of the class")]
         public string RoleName = " Scientifique Superviseur";
-
-        [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 0;
-        public int MaxArtificialHealth = 100;
     }
 }

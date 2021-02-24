@@ -1,7 +1,5 @@
 ﻿using Synapse.Config;
-using System.Collections.Generic;
 using System.ComponentModel;
-using UnityEngine;
 
 namespace CustomClass.Config
 {
@@ -27,6 +25,5 @@ namespace CustomClass.Config
 
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 0;
-        public int MaxArtificialHealth = 100;
     }
 }

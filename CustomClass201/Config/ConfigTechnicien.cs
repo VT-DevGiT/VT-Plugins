@@ -33,9 +33,5 @@ namespace CustomClass.Config
 
         [Description("The time over which the power is activate")]
         public int PowerTime = 20;
-
-        [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 0;
-        public int MaxArtificialHealth = 100;
     }
 }

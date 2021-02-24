@@ -8,10 +8,10 @@ namespace CustomClass.Config
     public class ConfigCHIExpertPyrotechnie : AbstractConfigSection
     {
         [Description("The Amount of Health the class have")]
-        public int Health = 100;
+        public int Health = 140;
 
         [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.Medkit, 35, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Medkit, 35, 0, 0, 0, Vector3.one) };
+        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.KeycardChaosInsurgency, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.GunLogicer, 75, 0, 0, 0, Vector3.one), new SerializedItem(51, 4, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one) };
 
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 25;
@@ -27,9 +27,5 @@ namespace CustomClass.Config
 
         [Description("The name of the class")]
         public string RoleName = " IC Expert Pyrotechnie";
-
-        [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 0;
-        public int MaxArtificialHealth = 100;
     }
 }
