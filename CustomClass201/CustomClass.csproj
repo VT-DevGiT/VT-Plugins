@@ -110,6 +110,7 @@
     <Compile Include="Pouvoir\Reponse.cs" />
     <Compile Include="Pouvoir\Aura.cs" />
     <Compile Include="Pouvoir\SCP507.cs" />
+    <Compile Include="Pouvoir\Utile.cs" />
     <Compile Include="Script\BasePlayerScript.cs" />
     <Compile Include="Config\Config201.cs" />
     <Compile Include="Config\ConfigConcierge.cs" />

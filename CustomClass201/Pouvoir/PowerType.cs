@@ -17,5 +17,6 @@ namespace CustomClass.Pouvoir
         DropSheld = 6,
         Sucide = 7,
         Zombifaction = 8,
+        Defibrilatcion = 9,
     }
 }

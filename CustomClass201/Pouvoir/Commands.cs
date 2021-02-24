@@ -216,4 +216,28 @@ namespace CustomClass
             return result;
         }
     }
+    [CommandInformation(
+           Name = "Defibrilateur",
+           Aliases = new[] { "Defibri" },
+           Description = "to use the capacity of your role",
+           Permission = "",
+           Platforms = new[] { Platform.ClientConsole },
+           Usage = ".Defibri"
+           )]
+    class CmdDefibrilateur : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+            if (context.Player.CustomRole is BasePlayerScript script)
+            {
+                script.CallPower(PowerType.Defibrilatcion);
+                result.State = CommandResultState.Ok;
+            }
+            else
+                result.State = CommandResultState.NoPermission;
+            return result;
+        }
+    }
+
 }

@@ -1,4 +1,5 @@
 ﻿using CustomClass.Pouvoir;
+using Synapse;
 using Synapse.Api;
 using Synapse.Config;
 using System.Collections.Generic;
@@ -87,9 +88,8 @@ namespace CustomClass.PlayerScript
             Player.MaxHealth = GetConfigValue("Health", 100);
             Player.Health = Player.MaxHealth;
 
-            Player.MaxArtificialHealth = GetConfigValue("MaxArtificialHealth", Player.MaxHealth);
+            Player.MaxArtificialHealth = GetConfigValue("MaxArtificialHealth", 100);
             Player.ArtificialHealth = GetConfigValue("ArtificialHealth", 0);
-
             SerializedMapPoint spawnPoint = GetConfigValue<SerializedMapPoint>("SpawnPoint", null);
             if (spawnPoint != null)
                 Player.Position = spawnPoint.Parse().Position;
