@@ -12,6 +12,14 @@ namespace VT079
             Server.Get.Events.Scp.Scp079.Scp079RecontainEvent += On079Recontain;
             Server.Get.Events.Player.PlayerSetClassEvent += OnPlayerSet;
             Server.Get.Events.Map.WarheadDetonationEvent+= OnWarhead;
+            Server.Get.Events.Map.DoorInteractEvent += OnDoorInteract;
+        }
+
+        private void OnDoorInteract(DoorInteractEventArgs ev)
+        {
+            //Pour que 079 puisse blockée les SCP
+            if (ev.Door.Locked && !ev.Player.Bypass)
+                ev.Allow = false;
         }
 
         private void OnWarhead()

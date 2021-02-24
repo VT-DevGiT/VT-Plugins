@@ -30,6 +30,7 @@ namespace CustomClass.PlayerScript
                 Player.StaminaUsage *= 0.5f;
                 Shled = false;
                 Player.ArtificialHealth = 0;
+                Player.MaxArtificialHealth = 100;
                 Server.Get.Events.Player.PlayerItemUseEvent -= OnUseItem;
                 return true;
             }

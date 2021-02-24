@@ -89,6 +89,7 @@ namespace CustomClass.PlayerScript
 
             Player.MaxArtificialHealth = GetConfigValue("MaxArtificialHealth", Player.MaxHealth);
             Player.ArtificialHealth = GetConfigValue("ArtificialHealth", 0);
+
             SerializedMapPoint spawnPoint = GetConfigValue<SerializedMapPoint>("SpawnPoint", null);
             if (spawnPoint != null)
                 Player.Position = spawnPoint.Parse().Position;

@@ -1,4 +1,5 @@
-﻿using Scp079Rework;
+﻿using Respawning;
+using Scp079Rework;
 using Synapse;
 using Synapse.Api;
 using Synapse.Command;
@@ -30,8 +31,22 @@ namespace VT079.Command
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
+            List<Player> Spectator = Server.Get.Players.Where(x => x.Team == Team.RIP).ToList();
+
+
+            if (VT079.Plugin.SCPRoleDeconf.Any() && Spectator.Any())
+            {
+
+               Map.Get.Cassie($"Alert. New containment .g1 breach detected. Cassie .g2 corruption detected. Code .g4 red.");
+
+               context.Player.Hub.scp079PlayerScript.NetworkcurLvl -= 2;
+               int newRole = VT079.Plugin.SCPRoleDeconf.ElementAt(new System.Random().Next(0, VT079.Plugin.SCPRoleDeconf.Count - 1));
+               Player player = Spectator.ElementAt(new System.Random().Next(0, Spectator.Count - 1));
+               player.RoleID = newRole;
+            }
+            else
+                result.Message = ("you cannot currently free a scp, try again later");
             return result;
         }
     }
-    
 }

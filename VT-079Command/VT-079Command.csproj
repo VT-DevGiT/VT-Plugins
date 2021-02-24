@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -6,13 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DeconfSCP.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Lib.Harmony" Version="2.0.4" />
     <PackageReference Include="LiteDB" Version="5.0.10" />
-    <PackageReference Include="SynapseSL" Version="2.5.0" />
+    <PackageReference Include="SynapseSL" Version="2.5.2" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0-preview.1.21102.12" />
     <PackageReference Include="YamlDotNet" Version="9.1.4" />
   </ItemGroup>
