@@ -39,7 +39,7 @@ namespace CustomClass
             }
         }
 
-        public List<Player> RespawnPlayer = new List<Player>();
+        public static List<Player> RespawnPlayer = new List<Player>();
 
         private void OnReSpawn(TeamRespawnEventArgs ev)
         {

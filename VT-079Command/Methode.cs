@@ -86,11 +86,11 @@ namespace VT079
             }
             for (int Temps = 8; Temps > 0; Temps--)
             {
+                PlayAmbientSound(7);
                 foreach (var player in Server.Get.Players)
                 {
                     if (player.Room != null && player.Room == room)
                     {
-                        player.GetComponent<AmbientSoundPlayer>().CallMethod("RpcPlaySound", 7);
                         player.BroadcastMessage($"La pièce serra Gazée dans {Temps} seconde(s)");
                     }
                 }

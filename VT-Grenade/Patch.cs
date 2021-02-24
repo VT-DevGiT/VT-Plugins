@@ -1,8 +1,11 @@
 ﻿using Grenades;
 using HarmonyLib;
 using Interactables.Interobjects.DoorUtils;
+using MEC;
+using Mirror;
 using Synapse;
 using Synapse.Api.Enum;
+using Synapse.Api.Items;
 using UnityEngine;
 
 namespace VTGrenad
@@ -24,12 +27,20 @@ namespace VTGrenad
     {
         private static bool Prefix(FragGrenade __instance, Pickup item, ref bool __result)
         {
-            Synapse.Api.Logger.Get.Info("FragGrenadeChainPatch");
-            if (!Plugin.Config.ChaineFuseFragGrenad) return true;
+            if (Plugin.Config.ChaineFuseFragGrenad)
+            {
+                SynapseItem LeTruc = item.GetSynapseItem();
+                if (LeTruc.ItemType != ItemType.GrenadeFrag)
+                {
+                    __result = false;
+                    return false;
+                }
                 Plugin.SpawnGrenade(item.position);
-            item.Delete();
-            __result = true;
-            return false;
+                item.Delete();
+                __result = true;
+                return false;
+            }
+            else return true;
         }
     }
     
@@ -50,8 +61,13 @@ namespace VTGrenad
                     byte intensity = (byte)Mathf.Clamp(Mathf.RoundToInt(num * 10f * __instance.maximumDuration), 1, (int)byte.MaxValue);
                     if ((double)num > 0.0)
                     {
-                        joueur.GiveEffect(Effect.Deafened, 1, 10);
-                        joueur.GiveEffect(Effect.Exhausted, 1, 10);
+                        joueur.GiveEffect(Effect.Deafened, 1, 7);
+                        joueur.GiveEffect(Effect.Exhausted, 1, 7);
+                        Timing.CallDelayed(7f, () =>
+                        {
+                            joueur.GiveEffect(Effect.Deafened, 1, 0);
+                            joueur.GiveEffect(Effect.Exhausted, 1, 0);
+                        });
                     }
                 }
             }

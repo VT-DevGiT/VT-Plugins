@@ -9,7 +9,7 @@ namespace VTEscape
         private Player player;
         public bool Enabled = true;
         private float _timer;
-        private Vector3 _ShelterDoor;
+        //private Vector3 _ShelterDoor;
 
         private void Awake()
         {

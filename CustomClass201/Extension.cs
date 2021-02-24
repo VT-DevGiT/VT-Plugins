@@ -62,8 +62,9 @@ namespace CustomClass
                 if (Server.Get.Players.Where(p => p.RoleID == (int)nouveauRole).Count() < maxTotal)
                 {
                     int chance = UnityEngine.Random.Range(1, 100);
-                    if (chance <= spawnChance)
+                    if (chance <= spawnChance && EventHandlers.RespawnPlayer.Contains(ev.Player))
                     {
+                        EventHandlers.RespawnPlayer.Remove(ev.Player);
                         Player pl = ev.Player;
                         Timing.CallDelayed(2f, () =>
                         {

@@ -285,7 +285,8 @@ namespace VTProget_X
                         ScreenMessage = string.Concat(
                             $"<color=#9300FF>Azarus</color>\n",
                             $"───────────────────────────────────── \n ",
-                            $"           [Insérée Message] "
+                            $"           [Insérée Message] ",
+                            $"              I like train ! "
                             );
                         Map.Get.IntercomText = ScreenMessage;
                         break;

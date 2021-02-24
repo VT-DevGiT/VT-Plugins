@@ -25,7 +25,5 @@ namespace CustomClass.Config
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 0;
         public int MaxArtificialHealth = 100;
-        public bool LoseArtificialHealth = false;
-
     }
 }

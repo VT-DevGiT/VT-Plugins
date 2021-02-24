@@ -27,9 +27,10 @@ namespace CustomClass.PlayerScript
         {
             if (power == PowerType.DropSheld && Shled)
             {
-                Player.StaminaUsage *= 2;
+                Player.StaminaUsage *= 0.5f;
                 Shled = false;
                 Player.ArtificialHealth = 0;
+                Server.Get.Events.Player.PlayerItemUseEvent -= OnUseItem;
                 return true;
             }
             return false;
@@ -54,6 +55,7 @@ namespace CustomClass.PlayerScript
 
         protected override void AditionalInit()
         {
+            Player.StaminaUsage *= 2;
             Player.Hub.playerStats.artificialHpDecay = 0;
         }
 
