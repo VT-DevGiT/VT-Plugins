@@ -22,6 +22,9 @@ namespace CustomClass
     {
         public static PluginClass Plugin;
 
+        [Synapse.Api.Plugin.Config(section = "CustomClass")]
+        public static ConfigCustomClass ConfigCustomClass;
+
         [Synapse.Api.Plugin.Config(section = "CustomClass201")]
         public static Config201 Config201;
 

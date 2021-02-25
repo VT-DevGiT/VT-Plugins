@@ -16,7 +16,6 @@ namespace CustomClass.Pouvoir
         public bool Enabled = true;
         private Player player;
 
-        public List<Vector3> dimanction = new List<Vector3>();
         private void Start()
         {
             player = gameObject.GetPlayer();

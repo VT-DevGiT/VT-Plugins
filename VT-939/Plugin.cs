@@ -20,11 +20,6 @@ Version = "v.1.1.0"
         public static Plugin Instance { get; private set; }
         public float Scp939SeeingAhpAmount { get; internal set; }
 
-        public bool DeconatmiantinEnd = false;
-        public bool DeconatmiantionendProgress = false;
-        public bool TeslaEnabled = true;
-        public bool EasterEgg = false;
-
         [Synapse.Api.Plugin.Config(section = "VT-939")]
         public static Config Config;
         
@@ -40,7 +35,7 @@ Version = "v.1.1.0"
         {
             Instance = this;
             base.Load();
-            PatchAll();
+            //PatchAll();
             new EventHandlers();
         }
     }

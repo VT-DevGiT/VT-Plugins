@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace VT939
 {
     
-    
+    /*
     [HarmonyPatch(typeof(DissonanceUserSetup), nameof(DissonanceUserSetup.CallCmdAltIsActive))]
     internal static class SCP939SeeVoice1
     {
@@ -46,7 +46,7 @@ namespace VT939
             }
         }
     }
-
+    
     [HarmonyPatch(typeof(DissonanceUserSetup), nameof(DissonanceUserSetup.EnableSpeaking))]
     internal static class SCP939SeeVoice2
     {
@@ -56,5 +56,7 @@ namespace VT939
             Server.Get.Logger.Info($"EnableSpeaking {player}");
         }
     }
-    
+    */
+
+
 }

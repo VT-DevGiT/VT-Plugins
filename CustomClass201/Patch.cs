@@ -7,41 +7,57 @@ using System.Threading.Tasks;
 
 namespace CustomClass
 {
-    
+
     [HarmonyPatch(typeof(PlayerMovementSync), nameof(PlayerMovementSync.AnticheatIsIntersecting))]
-    internal static class AntiCheatPatchSync
+    internal static class killAntiCheatPatchSync
     {
         private static bool Prefix(PlayerMovementSync __instance, ref bool __result)
         {
-            __result = false;
-            return false;
+            if (PluginClass.ConfigCustomClass.killAntiCheatPatchSync)
+            {
+                __result = false;
+                return false;
+            }
+            return true;
         }
     }
 
     [HarmonyPatch(typeof(PlayerMovementSync), nameof(PlayerMovementSync.AntiCheatKillPlayer))]
-    internal static class AntiCheatPatchKill
+    internal static class killAntiCheatPatch
     {
         private static bool Prefix()
         {
-            return false;
+            if (PluginClass.ConfigCustomClass.killAntiCheatPatch)
+            {
+                return false;
+            }
+            return true;
         }
     }
-     [HarmonyPatch(typeof(PlayerMovementSync), nameof(PlayerMovementSync.AnticheatRaycast))]
-       internal static class AntiCheatPatchRayCast
-       {
-           private static bool Prefix(ref bool __result)
-           {
-               __result = true;
-               return false;
-           }
-       } 
-       [HarmonyPatch(typeof(PlayerMovementSync), nameof(PlayerMovementSync.CheckAnticheatSafe))]
-       internal static class AntiCheatPatchSafe
-       {
-           private static bool Prefix(ref bool __result)
-           {
-               __result = true;
-               return false;
-           }
-       }
+    [HarmonyPatch(typeof(PlayerMovementSync), nameof(PlayerMovementSync.AnticheatRaycast))]
+    internal static class killAntiCheatPatchRayCast
+    {
+        private static bool Prefix(ref bool __result)
+        {
+            if (PluginClass.ConfigCustomClass.killAntiCheatPatchRayCast)
+            {
+                __result = true;
+                return false;
+            }
+            return true;
+        }
+    }
+    [HarmonyPatch(typeof(PlayerMovementSync), nameof(PlayerMovementSync.CheckAnticheatSafe))]
+    internal static class killAntiCheatPatchSafe
+    {
+        private static bool Prefix(ref bool __result)
+        {
+            if (PluginClass.ConfigCustomClass.killAntiCheatPatchSafe)
+            {
+                __result = true;
+                return false;
+            }
+            return true;
+        }        
+    }
 }
