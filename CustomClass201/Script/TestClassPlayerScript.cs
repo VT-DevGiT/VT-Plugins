@@ -33,7 +33,7 @@ namespace CustomClass.PlayerScript
 
         public override bool CallPower(PowerType power)
         {
-            if (power == PowerType.MouveVent)
+            if (power == PowerType.MoveVent)
             {
                 if (Player.gameObject.GetComponent<MouveVent>() == null)
                 {
@@ -58,7 +58,7 @@ namespace CustomClass.PlayerScript
         {
             if (ev.Player == Player && ev.KeyCode == UnityEngine.KeyCode.Alpha1)
             {
-                CallPower(PowerType.MouveVent);
+                CallPower(PowerType.MoveVent);
             }
         }
     }

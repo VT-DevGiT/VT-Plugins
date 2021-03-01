@@ -27,7 +27,7 @@ namespace CustomClass.PlayerScript
 
         public override bool CallPower(PowerType power)
         {
-            if (power == PowerType.MouveVent)
+            if (power == PowerType.MoveVent)
             {
                 if (Player.gameObject.GetComponent<MouveVent>() == null 
                     && (DateTime.Now - lastPower).TotalSeconds > PluginClass.ConfigSCP1048.CoolDown)

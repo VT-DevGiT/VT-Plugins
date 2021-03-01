@@ -8,7 +8,7 @@ namespace CustomClass.Pouvoir
 {
     public enum PowerType : int
     {
-        MouveVent = 0,
+        MoveVent = 0,
         LightHack = 1,
         DoorHack = 2,
         MessageHack = 3,

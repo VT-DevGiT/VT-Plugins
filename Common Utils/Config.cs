@@ -100,8 +100,5 @@ namespace Common_Utiles
 
         [Description("The percent chance of dying for players passing through 914")]
         public float Rnd914ChanceDie = 50;
-
-        [Description("The distance that scp 106 must have from the player who has a light for scp 106 to be considered lighted")]
-        public float Disctance106 = 2;
     }
 }

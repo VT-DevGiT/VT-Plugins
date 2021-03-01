@@ -1,4 +1,7 @@
-﻿using Synapse.Config;
+﻿using Synapse;
+using Synapse.Api.Events.SynapseEventArguments;
+using Synapse.Config;
+using System;
 using System.Collections.Generic;
 
 namespace CustomClass.PlayerScript
@@ -18,5 +21,16 @@ namespace CustomClass.PlayerScript
         protected override string RoleName => PluginClass.ConfigNTFExpertReconfinement.RoleName;
 
         protected override AbstractConfigSection Config => PluginClass.ConfigNTFExpertReconfinement;
+
+        protected override void Event()
+        {
+            Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent += OnTarget;
+        }
+
+        private void OnTarget(Scp096AddTargetEventArgument ev)
+        {
+            if (ev.Player == Player)
+                ev.Allow = false;
+        }
     }
 }

@@ -10,21 +10,21 @@ using System.Threading.Tasks;
 namespace CustomClass
 {
     [CommandInformation(
-           Name = "MouveVent",
+           Name = "MoveVent",
            Aliases = new[] { "Vent" },
            Description = "to use the capacity of your role",
            Permission = "",
            Platforms = new[] { Platform.ClientConsole },
            Usage = ".Vent"
            )]
-    class CmdMouveVent : ISynapseCommand
+    class CmdMoveVent : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.MouveVent);
+                script.CallPower(PowerType.MoveVent);
                 result.State = CommandResultState.Ok;
             }
             else
@@ -148,14 +148,14 @@ namespace CustomClass
         }
     }
     [CommandInformation(
-           Name = "DropSheld",
-           Aliases = new[] { "DropSheld" },
+           Name = "DropShield",
+           Aliases = new[] { "DropShield" },
            Description = "to use the capacity of your role",
            Permission = "",
            Platforms = new[] { Platform.ClientConsole },
-           Usage = ".DropSheld"
+           Usage = ".DropShield"
            )]
-    class CmdDropSheld : ISynapseCommand
+    class CmdDropShield : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
         {

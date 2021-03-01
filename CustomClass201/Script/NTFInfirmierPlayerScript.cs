@@ -38,7 +38,8 @@ namespace CustomClass.PlayerScript
 
         private void OnDammage(PlayerDamageEventArgs ev)
         {
-            ev.PointeCreuses(Player);
+            if (ev.Killer == Player)
+                ev.PointeCreuses(Player);
         }
 
         private void OnKeyPress(PlayerKeyPressEventArgs ev)

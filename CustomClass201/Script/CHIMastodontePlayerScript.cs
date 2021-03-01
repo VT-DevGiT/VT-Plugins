@@ -25,10 +25,10 @@ namespace CustomClass.PlayerScript
 
         public override bool CallPower(PowerType power)
         {
-            if (power == PowerType.DropSheld && Shled)
+            if (power == PowerType.DropSheld && Shed)
             {
                 Player.StaminaUsage *= 0.5f;
-                Shled = false;
+                Shed = false;
                 Player.ArtificialHealth = 0;
                 Player.MaxArtificialHealth = 100;
                 Server.Get.Events.Player.PlayerItemUseEvent -= OnUseItem;
@@ -37,7 +37,7 @@ namespace CustomClass.PlayerScript
             return false;
         }
 
-        private bool Shled = true;
+        private bool Shed = true;
 
         protected override void Event()
         {
@@ -68,7 +68,7 @@ namespace CustomClass.PlayerScript
 
         private void OnUseItem(PlayerItemInteractEventArgs ev)
         {
-            if (ev.CurrentItem.ItemCategory == ItemCategory.Medical && Shled)
+            if (ev.CurrentItem.ItemCategory == ItemCategory.Medical && Shed)
                 ev.Allow = false;
         }
 
@@ -77,8 +77,10 @@ namespace CustomClass.PlayerScript
             if (ev.Victim == Player)
                 ev.DamageAmount = ev.DamageAmount/1.5f;
             if (ev.Killer == Player)
+            { 
                 Player.Heal(ev.DamageAmount / 3);
-            ev.PointeCreuses(Player);
+                ev.PointeCreuses(Player);
+            }
         }
     }
 }

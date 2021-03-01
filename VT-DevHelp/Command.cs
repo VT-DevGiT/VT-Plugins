@@ -1,5 +1,6 @@
 ﻿using Assets._Scripts.Dissonance;
 using Synapse;
+using Synapse.Api.Items;
 using Synapse.Command;
 using System;
 using System.Linq;
@@ -54,13 +55,13 @@ namespace VTDevHelp
     }
 
     [CommandInformation(
-        Name = "DevitemInfo",
-        Aliases = new[] { "Iteam" },
-        Description = "Dev iteam info",
-        Permission = "synapse.command.Dev",
-        Platforms = new[] { Platform.RemoteAdmin },
-        Usage = ""
-        )]
+     Name = "DevitemInfo",
+     Aliases = new[] { "Iteam" },
+     Description = "Dev iteam info",
+     Permission = "synapse.command.Dev",
+     Platforms = new[] { Platform.RemoteAdmin },
+     Usage = ""
+     )]
     public class itemInfo : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
@@ -102,6 +103,30 @@ namespace VTDevHelp
             Server.Get.Map.Decontamination?.CallMethod("InstantStart");
             Server.Get.Map.Decontamination?.Controller?.CallMethod("FinishDecontamination");
             result.State = CommandResultState.Error;
+            return result;
+        }
+    }
+
+    [CommandInformation(
+    Name = "DevGive",
+    Aliases = new[] { "Give" },
+    Description = "Dev Give Test",
+    Permission = "synapse.command.Dev",
+    Platforms = new[] { Platform.RemoteAdmin },
+    Usage = ""
+    )]
+    public class DevGive : ISynapseCommand
+    {
+
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+            int IDiteam = int.Parse(context.Arguments.FirstElement());
+            int Durabliteam = int.Parse(context.Arguments.ElementAt(1));
+            int Sight = int.Parse(context.Arguments.ElementAt(2));
+            int Barrel = int.Parse(context.Arguments.ElementAt(3));
+            int Other = int.Parse(context.Arguments.ElementAt(4));
+            context.Player.Inventory.AddItem(new SynapseItem(IDiteam, Durabliteam, Sight, Barrel, Other));
             return result;
         }
     }

@@ -34,7 +34,8 @@ namespace CustomClass.PlayerScript
 
         private void OnDammage(PlayerDamageEventArgs ev)
         {
-            ev.Destabilisantes(Player);
+            if (ev.Killer == Player)
+                ev.Destabilisantes(Player);
         }
     }
 }

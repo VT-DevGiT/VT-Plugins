@@ -244,4 +244,51 @@ namespace Common_Utiles
             }
         }
     }
+    public static class PlayerExtension
+    {
+        public static bool IsTargetVisible(this Player player, GameObject obj, float distanceMax, float Rayon)
+        {
+            var hits = Physics.SphereCastAll(player.CameraReference.transform.position, Rayon, player.CameraReference.transform.forward, distanceMax);
+            IEnumerable<GameObject> hitsObject = hits.Select(p => p.transform.gameObject);
+            return hitsObject.Any(p => p.transform.position == obj.transform.position);
+        }
+
+
+        public static bool IsTargetVisible(this Player player, GameObject target, float distanceMax)
+        {
+            float heightOfPlayer = 1.5f;
+
+            Vector3 startVec = player.transform.position;
+            startVec.y += heightOfPlayer;
+            Vector3 startVecFwd = player.transform.forward;
+            startVecFwd.y += heightOfPlayer;
+
+            RaycastHit hit;
+            Vector3 rayDirection = target.transform.position - startVec;
+
+            // If the ObjectToSee is close to this object and is in front of it, then return true
+            if ((Vector3.Angle(rayDirection, startVecFwd)) < 110 &&
+                (Vector3.Distance(startVec, target.transform.position) <= 20f))
+            {
+                //Debug.Log("close");
+                return true;
+            }
+            if ((Vector3.Angle(rayDirection, startVecFwd)) < 90 &&
+                Physics.Raycast(startVec, rayDirection, out hit, 100f))
+            { // Detect if player is within the field of view
+
+                if (hit.collider.gameObject == target)
+                {
+                    //Debug.Log("Can see player");
+                    return true;
+                }
+                else
+                {
+                    //Debug.Log("Can not see player");
+                    return false;
+                }
+            }
+            return false;
+        }
+    }
 }
