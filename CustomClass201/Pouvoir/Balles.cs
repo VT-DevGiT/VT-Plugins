@@ -13,7 +13,7 @@ namespace CustomClass
     {
         public static void PointeCreuses(this PlayerDamageEventArgs ev, Player player)
         {
-            if(ev.Killer == player)
+            if(ev.Killer == player && ev.Victim.RoleID == (int)MoreClasseID.UTR)
             {
                 if (ev.Victim.Team == Team.SCP || ev.Victim.ArtificialHealth != 0) 
                 {
@@ -29,7 +29,7 @@ namespace CustomClass
         }
         public static void Destabilisantes(this PlayerDamageEventArgs ev, Player player)
         {
-            if (ev.Killer == player)
+            if (ev.Killer == player && ev.Victim.RoleID == (int)MoreClasseID.UTR)
             { 
                 if (ev.Victim.ArtificialHealth == 0)
                 {
@@ -38,9 +38,12 @@ namespace CustomClass
                     ev.Victim.GiveEffect(Effect.Concussed, 1, 10);
                     ev.Victim.GiveEffect(Effect.Poisoned, 1, 10);
                 }
+                ev.DamageAmount = ev.DamageAmount / 2;
             }
-            ev.DamageAmount = ev.DamageAmount / 2;
         }
-
     }
+
+
+
+
 }

@@ -43,7 +43,6 @@ namespace VTGrenad
 
                         }
                     }
-
                     var listGrenadeNotUsed = listGrenade.Where(p => !p.Used);
                     if (listGrenadeNotUsed == null || !listGrenadeNotUsed.Any())
                     {

@@ -19,6 +19,7 @@ namespace Common_Utiles
             Server.Get.Events.Player.PlayerSetClassEvent += OnSpawn;
         }
 
+
         private void OnSpawn(PlayerSetClassEventArgs ev)
         {
             Timing.CallDelayed(1f, () =>
@@ -244,6 +245,10 @@ namespace Common_Utiles
             }
         }
     }
+
+
+    // Test
+    // a placée dans Methode
     public static class PlayerExtension
     {
         public static bool IsTargetVisible(this Player player, GameObject obj, float distanceMax, float Rayon)

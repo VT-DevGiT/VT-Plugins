@@ -1,7 +1,9 @@
-﻿using Synapse;
+﻿using Interactables.Interobjects.DoorUtils;
+using Synapse;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
+using System;
 using System.Collections.Generic;
 
 namespace CustomClass.PlayerScript
@@ -31,12 +33,44 @@ namespace CustomClass.PlayerScript
         protected override void Event()
         {
             Server.Get.Events.Player.PlayerItemUseEvent += OnUseIteam;
+            Server.Get.Events.Player.PlayerDamageEvent += OnDamage;
+            Server.Get.Events.Map.DoorInteractEvent += OnDoorInteract;
+            Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent += OnAddTarget;
+            Server.Get.Events.Player.PlayerEnterFemurEvent += OnFemur;
         }
 
-        public override void DeSpawn()
+        private void OnFemur(PlayerEnterFemurEventArgs ev)
         {
-            base.DeSpawn();
-            Server.Get.Events.Player.PlayerItemUseEvent -= OnUseIteam;
+            if (ev.Player == Player)
+                ev.Allow = false;
+        }
+
+        private void OnAddTarget(Scp096AddTargetEventArgument ev)
+        {
+            if (ev.Player == Player)
+                ev.Allow = false;
+        }
+
+        private void OnDoorInteract(DoorInteractEventArgs ev)
+        {
+            List<KeycardPermissions> UTRkey = new List<KeycardPermissions>() { KeycardPermissions.ArmoryLevelOne, KeycardPermissions.ArmoryLevelTwo, 
+                KeycardPermissions.ArmoryLevelThree, KeycardPermissions.Checkpoints, KeycardPermissions.ContainmentLevelOne, 
+                KeycardPermissions.ContainmentLevelTwo, KeycardPermissions.ExitGates, KeycardPermissions.ScpOverride };
+
+            if (ev.Player == Player && UTRkey.Contains(ev.Door.DoorPermissions.RequiredPermissions))
+                ev.Allow = true;
+        }
+
+        private void OnDamage(PlayerDamageEventArgs ev)
+        {
+            List<int> SCPnonHumain = new List<int>() { (int)RoleType.Scp049,
+                (int)RoleType.Scp0492, (int)RoleType.Scp096, (int)RoleType.Scp106,
+                (int)RoleType.Scp173, (int)RoleType.Scp93953, (int)RoleType.Scp93989,
+                (int)MoreClasseID.SCP008};
+            if (ev.Victim == Player && SCPnonHumain.Contains(ev.Killer.RoleID))
+                ev.DamageAmount = 25;
+            if (ev.Killer == Player && ev.Victim.RoleID == (int)RoleType.Scp096)
+                ev.Victim.Scp096Controller.AddTarget(Player);
         }
 
         private void OnUseIteam(PlayerItemInteractEventArgs ev)
@@ -48,6 +82,16 @@ namespace CustomClass.PlayerScript
                 if (ev.CurrentItem.ItemCategory == ItemCategory.SCPItem)
                     ev.Allow = false;
             }
+        }
+
+        public override void DeSpawn()
+        {
+            base.DeSpawn();
+            Server.Get.Events.Player.PlayerItemUseEvent -= OnUseIteam;
+            Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
+            Server.Get.Events.Map.DoorInteractEvent -= OnDoorInteract;
+            Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent -= OnAddTarget;
+            Server.Get.Events.Player.PlayerEnterFemurEvent -= OnFemur;
         }
     }
 }

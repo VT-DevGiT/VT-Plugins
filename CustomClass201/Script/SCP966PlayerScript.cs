@@ -57,13 +57,13 @@ namespace CustomClass.PlayerScript
         {
             if (ev.Killer == Player)
             {
-                Player.Inventory.RemoveItem(Chapeau);
+                Player.Inventory.Clear();
             }
         }
 
         private void OnDamage(PlayerDamageEventArgs ev)
         {
-            if (ev.Killer == Player)
+            if (ev.Killer == Player && ev.Victim.RoleID == (int)MoreClasseID.UTR)
             {
                 ev.Victim.GiveEffect(Effect.Concussed, 1, 10);
                 ev.Victim.GiveEffect(Effect.Amnesia, 1, 10);
