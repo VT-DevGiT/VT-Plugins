@@ -34,7 +34,7 @@ namespace Common_Utiles
                     IEnumerable<Player> joueurs106 = Server.Get.Players.Where(p => p.RoleID == (int)RoleType.Scp106);
                     foreach (var scp106 in joueurs106)
                     {
-                        if (_joueur.IsTargetVisible(scp106.gameObject) && Vector3.Distance(scp106.Position, _joueur.Position) < CommonUtiles.Config.Disctance106)
+                        if (_joueur.IsTargetVisible(scp106.gameObject) && Vector3.Distance(scp106.Position, _joueur.Position) < 120 /*placée ici une config a la palce */)
                         {
                             degat += 6.25f;
                             scp106.Health -= degat;

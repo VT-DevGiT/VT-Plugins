@@ -5,13 +5,13 @@ using Synapse.Api.Plugin;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace VTGrenad
+namespace VT_IpLocker
 {
     [PluginInformation(
-        Author = "VT-Grenade",
+        Author = "VT",
         Description = "Allows you to activate grenades remotely",
         LoadPriority = 1,
-        Name = "VT-IpLocker",
+        Name = "VT-VTIpLocker",
         SynapseMajor = SynapseController.SynapseMajor,
         SynapseMinor = SynapseController.SynapseMinor,
         SynapsePatch = SynapseController.SynapsePatch,
@@ -20,23 +20,14 @@ namespace VTGrenad
     public class Plugin : AbstractPlugin
     {
         public static Plugin Instance { get; private set; }
-        public static Dictionary<int, List<AmorcableGrenade>> DictTabletteGrenades { get; set; }
 
-        [Synapse.Api.Plugin.Config(section = "VT-Grenade")]
+        [Synapse.Api.Plugin.Config(section = "VT-VTIpLocker")]
         public static Config Config;
-
-        private void PatchAll()
-        {
-            var instance = new Harmony("VT-IpLocker");
-            instance.PatchAll();
-            Server.Get.Logger.Info("Custom class Harmony Patch done!");
-        }
 
         public override void Load()
         {
             Instance = this;
             base.Load();
-            PatchAll();
             new EventHandlers();
         }
     }

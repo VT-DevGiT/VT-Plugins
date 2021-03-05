@@ -4,6 +4,7 @@ using Interactables.Interobjects.DoorUtils;
 using MEC;
 using Mirror;
 using Synapse;
+using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Items;
 using UnityEngine;
@@ -35,7 +36,7 @@ namespace VTGrenad
                     __result = false;
                     return false;
                 }
-                Plugin.SpawnGrenade(item.position);
+                Map.Get.SpawnGrenade(item.position, Vector3.zero, 0.1f);
                 item.Delete();
                 __result = true;
                 return false;

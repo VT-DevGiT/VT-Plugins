@@ -23,13 +23,14 @@ Version = "v.1.1.0"
         [Synapse.Api.Plugin.Config(section = "VT-939")]
         public static Config Config;
         
+        /*
         private void PatchAll()
         {
             var instance = new Harmony("VT939");
             instance.PatchAll();
             Server.Get.Logger.Info("Custom class Harmony Patch done!");
         }
-        
+        */
 
         public override void Load()
         {

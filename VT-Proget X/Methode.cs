@@ -176,7 +176,7 @@ namespace VTProget_X
                 var listScp = Server.Get.Players.Where(p => p.Team == Team.SCP || SCPaditonelle.Contains(p.RoleID));
                 foreach (var scp in listScp)
                 {
-                    if (scp.RoleType == RoleType.Scp079)
+                    if (scp.RoleID == (int)RoleType.Scp079)
                         scpListMessage += Plugin.PluginTranslation.ActiveTranslation.IntercomScpInformation
                             .Replace("%Name%", scp.RoleName)
                             .Replace("%Tier%", scp.Hub.scp079PlayerScript.Lvl.ToString());
@@ -286,7 +286,7 @@ namespace VTProget_X
                             $"<color=#9300FF>Azarus</color>\n",
                             $"───────────────────────────────────── \n ",
                             $"           [Insérée Message] ",
-                            $"              I like train ! "
+                            $"             I like train ! "
                             );
                         Map.Get.IntercomText = ScreenMessage;
                         break;

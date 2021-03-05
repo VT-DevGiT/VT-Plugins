@@ -12,11 +12,11 @@ namespace VT939
         public EventHandlers()
         {
             Server.Get.Events.Player.PlayerSetClassEvent += OnSpawn;
-            Server.Get.Events.Player.PlayerSpeakEvent += OnSpeak;
+            //Server.Get.Events.Player.PlayerSpeakEvent += OnSpeak;
         }
 
         private static List<Player> PatchedPlayer = new List<Player>();
-
+        //TesT désactivée car cella fait des bug
         private void OnSpeak(PlayerSpeakEventArgs ev)
         {
             Player joueur = ev.Player;
@@ -25,17 +25,13 @@ namespace VT939
             {
                 var DissonanceSetupPlayer = joueur.GetComponent<Dissonance.Integrations.MirrorIgnorance.MirrorIgnorancePlayer>();
                 DissonanceComms obj = UnityEngine.GameObject.FindObjectOfType<DissonanceComms>();
-                //Server.Get.Logger.Info($"Patch {joueur.NickName}");
                 if (obj != null && DissonanceSetupPlayer != null)
                 {
-                    //Server.Get.Logger.Info($"Patch 2");
                     VoicePlayerState playerState = obj.FindPlayer(DissonanceSetupPlayer.PlayerId);
-                    //Server.Get.Logger.Info($"Patch 3"); 
                     if (joueur != null && !String.IsNullOrWhiteSpace(joueur?.NickName) && joueur.NickName.StartsWith("War"))
                     {
                         foreach (VoicePlayerState pla in obj.Players)
                         {
-                           // Server.Get.Logger.Info($"Patch 4");
                             pla.OnStartedSpeaking += pl =>
                             {
                                 if (pl != null)
@@ -59,9 +55,6 @@ namespace VT939
                     }
                 }
             }
-
-
-        //Server.Get.Logger.Info($"OnSpeack {ev.Player?.NickName} - {ev.IntercomTalk} - {ev.RadioTalk} - {ev.Scp939Talk} - {ev.ScpChat} - {ev.SpectatorChat}");
         }
 
         private void OnSpawn(PlayerSetClassEventArgs ev)
