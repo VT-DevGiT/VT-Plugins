@@ -76,7 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command.cs" />
-    <Compile Include="Methode.cs" />
     <Compile Include="Scp079Behaviour.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Config.cs" />
@@ -87,6 +86,11 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\VT-Reférance\VT-Referance.csproj">
+      <Project>{ee471bd7-4def-465e-bd1d-555ab6d76e4d}</Project>
+      <Name>VT-Referance</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace VT079
+namespace VT_Referance.Variable
 {
     public static class OutsideRandomAirbombPos
     {

@@ -7,8 +7,8 @@
     <ProjectGuid>{EE471BD7-4DEF-465E-BD1D-555AB6D76E4D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VT_Reférance</RootNamespace>
-    <AssemblyName>VT-Reférance</AssemblyName>
+    <RootNamespace>VT_Referance</RootNamespace>
+    <AssemblyName>VT-Referance</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -75,14 +75,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Lamps.cs" />
-    <Compile Include="PlayerExtension.cs" />
+    <Compile Include="Variable\AirBombPos.cs" />
+    <Compile Include="Behaviour\Lamps.cs" />
+    <Compile Include="Variable\RoleID.cs" />
+    <Compile Include="Method\Reflection.cs" />
+    <Compile Include="Method\PlayerExtension.cs" />
+    <Compile Include="Method\Methods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Variable\Var.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Enum\" />
-    <Folder Include="Method\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

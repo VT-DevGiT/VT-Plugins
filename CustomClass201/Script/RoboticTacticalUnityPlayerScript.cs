@@ -5,6 +5,7 @@ using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
 using System;
 using System.Collections.Generic;
+using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
@@ -18,7 +19,7 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleTeam => (int)Team.MTF;
 
-        protected override int RoleId => (int)MoreClasseID.UTR;
+        protected override int RoleId => (int)RoleID.RoboticTacticalUnity;
 
         protected override string RoleName => PluginClass.ConfigRoboticTaticalUnity.RoleName;
 
@@ -66,7 +67,7 @@ namespace CustomClass.PlayerScript
             List<int> SCPnonHumain = new List<int>() { (int)RoleType.Scp049,
                 (int)RoleType.Scp0492, (int)RoleType.Scp096, (int)RoleType.Scp106,
                 (int)RoleType.Scp173, (int)RoleType.Scp93953, (int)RoleType.Scp93989,
-                (int)MoreClasseID.SCP008};
+                (int)RoleID.SCP008};
             if (ev.Victim == Player && SCPnonHumain.Contains(ev.Killer.RoleID))
                 ev.DamageAmount = 25;
             if (ev.Killer == Player && ev.Victim.RoleID == (int)RoleType.Scp096)

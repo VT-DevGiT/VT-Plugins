@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Radio", "VT-Radio\VT-Rad
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-TrowIteam", "VT-TrowIteam\VT-TrowIteam.csproj", "{3B84F2DA-9C55-467E-8C3E-A8D1834FAA16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Reférance", "VT-Reférance\VT-Reférance.csproj", "{EE471BD7-4DEF-465E-BD1D-555AB6D76E4D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Referance", "VT-Reférance\VT-Referance.csproj", "{EE471BD7-4DEF-465E-BD1D-555AB6D76E4D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-DevHelp", "VT-DevHelp\VT-DevHelp.csproj", "{6CBF80E7-EB8D-4242-902E-A0200F35FECB}"
 EndProject
@@ -32,6 +32,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JetonClassManger", "JetonClassManger\JetonClassManger.csproj", "{D453F3A0-14E8-4CAE-84B5-2E5A39C859F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-IpLocker", "VT-IpLocker\VT-IpLocker.csproj", "{71F8C121-8ADC-4DC9-A79F-4D1C7F821AD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferenceAll", "C:\Users\valentin\Desktop\VT\ReferenceAll\ReferenceAll.csproj", "{87A8366E-668A-4F4E-8549-BECA29CCA361}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,10 @@ Global
 		{71F8C121-8ADC-4DC9-A79F-4D1C7F821AD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71F8C121-8ADC-4DC9-A79F-4D1C7F821AD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71F8C121-8ADC-4DC9-A79F-4D1C7F821AD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87A8366E-668A-4F4E-8549-BECA29CCA361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87A8366E-668A-4F4E-8549-BECA29CCA361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87A8366E-668A-4F4E-8549-BECA29CCA361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87A8366E-668A-4F4E-8549-BECA29CCA361}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -21,6 +21,9 @@ namespace JetonClassManger
             new SerializedRoleConfig( (int)RoleType.ClassD, "Classe-D", -1 ),
             new SerializedRoleConfig( (int)RoleType.FacilityGuard, "Garde", -1 ),
             new SerializedRoleConfig( (int)RoleType.Scientist, "Scientfique", -1 ),
+
         };
+        [Description("Time to change role")]
+        public float TempChangement = 45 ; 
     }
 }

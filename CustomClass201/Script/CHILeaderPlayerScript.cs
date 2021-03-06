@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
@@ -20,7 +21,7 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleTeam => (int)Team.CHI;
 
-        protected override int RoleId => (int)MoreClasseID.CHILeader;
+        protected override int RoleId => (int)RoleID.CHILeader;
 
         protected override string RoleName => PluginClass.ConfigCHILeader.RoleName;
 

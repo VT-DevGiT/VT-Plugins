@@ -9,7 +9,8 @@ namespace CustomClass.Config
         public SerializedMapPoint SpawnPoint = new SerializedMapPoint("HCZ_Room3ar", -1.792f, 1.330017f, -0.004005589f);
 
         [Description("The Amount of Health the class have")]
-        public int Health = 100;
+        public int Health = 750;
+        public int MaxHealth = 2200;
 
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 25;
@@ -25,6 +26,9 @@ namespace CustomClass.Config
 
         [Description("the number of HP the class gains when it is next to a human par second")]
         public int HealHp = 10;
+
+        [Description("the number of health the human loses when he is next to the class per second")]
+        public int DomageHp = 5;
 
         [Description("the distance that the class must have with the human")]
         public int Distance = 2;

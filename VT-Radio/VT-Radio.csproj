@@ -75,16 +75,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AirBombPos.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="EventHandlers.cs" />
-    <Compile Include="Methode.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VT-Reférance\VT-Referance.csproj">
+      <Project>{ee471bd7-4def-465e-bd1d-555ab6d76e4d}</Project>
+      <Name>VT-Referance</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

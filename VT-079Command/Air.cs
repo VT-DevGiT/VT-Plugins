@@ -3,6 +3,7 @@ using Respawning;
 using Scp079Rework;
 using Synapse.Command;
 using UnityEngine;
+using VT_Referance.Method;
 
 namespace VT079.Command
 {
@@ -20,7 +21,7 @@ namespace VT079.Command
 
         public string Description => "Start air bombardment";
 
-        public float Cooldown => 0f;
+        public float Cooldown => 50f;
 
         public CommandResult Execute(CommandContext context)
         {
@@ -30,9 +31,9 @@ namespace VT079.Command
                 result.State = CommandResultState.NoPermission;
                 result.Message = "too close to a respawn";
             }
-            if (!Methode._isAirBombGoing)
+            if (!Methods.isAirBombGoing)
             {
-                Timing.RunCoroutine(Methode.AirSupportBomb(10, 5));
+                Timing.RunCoroutine(Methods.AirSupportBomb(10, 5));
                 result.State = CommandResultState.Ok;
                 result.Message = "Air Bomb Start";
             }

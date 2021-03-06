@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using VT_Referance.Variable;
+using VT_Referance.Method;
 
 namespace CustomClass.PlayerScript
 {
@@ -21,7 +23,7 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleTeam => (int)Team.SCP;
 
-        protected override int RoleId => (int)MoreClasseID.SCP008;
+        protected override int RoleId => (int)RoleID.SCP008;
 
         protected override string RoleName => PluginClass.ConfigSCP008.RoleName;
 
@@ -29,20 +31,22 @@ namespace CustomClass.PlayerScript
 
         protected override void AditionalInit()
         {
-            Player.gameObject.AddComponent<Aura>();
-            Player.gameObject.GetComponent<Aura>().PlayerEffect = Effect.ArtificialRegen;
-            Player.gameObject.GetComponent<Aura>().TargetEffect = Effect.Poisoned;
-            Player.gameObject.GetComponent<Aura>().MoiHealHp = PluginClass.ConfigSCP008.HealHp;
-            Player.gameObject.GetComponent<Aura>().Distance = PluginClass.ConfigSCP008.Distance;
-            
+            Aura aura = GetComponent<Aura>();
+            {
+                aura.PlayerEffect = Effect.ArtificialRegen;
+                aura.TargetEffect = Effect.Poisoned;
+                aura.Intencty = 6;
+                aura.MoiHealHp = PluginClass.ConfigSCP008.HealHp;
+                aura.LuiHealHp = -PluginClass.ConfigSCP008.DomageHp;
+                aura.Distance = PluginClass.ConfigSCP008.Distance;
+            }
         }
 
         public override void DeSpawn()
         {
             base.DeSpawn();
+            InactiveComponent<Aura>();
             Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
-            if (Player.gameObject.GetComponent<Aura>() != null)
-                Player.gameObject.GetComponent<Aura>().Destroy();
             Map.Get.AnnounceScpDeath("0 0 8");
         }
 
@@ -61,8 +65,8 @@ namespace CustomClass.PlayerScript
         {
             if (power == PowerType.Zombifaction)
             {
-                Player corpseowner = Utile.GetPlayercoprs(Player, 2.5f);
-                if (Utile.IsScpRole(corpseowner) == true)
+                Player corpseowner = VT_Referance.Method.Methods.GetPlayercoprs(Player, 2.5f);
+                if (Methods.IsScpRole(corpseowner) == true)
                     corpseowner.RoleID = (int)RoleType.Scp0492;
                 return true;
             }

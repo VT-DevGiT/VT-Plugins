@@ -10,47 +10,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using VT_Referance.Method;
 
 namespace VTProget_X
 {
     public static class Methode
     {
-
-        public static object CallMethod(this object o, string methodName, params object[] args)
-        {
-            var mi = o.GetType().GetMethod(methodName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            if (mi != null)
-            {
-                return mi.Invoke(o, args);
-            }
-            return null;
-        }
-
-        public static T GetFieldValue<T>(this object element, string fieldName)
-        {
-
-            FieldInfo field = element.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
-            return (T)field.GetValue(element);
-        }
-
-        public static void SetFieldValue<T>(this object element, string fieldName, T value)
-        {
-
-            FieldInfo field = element.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
-            field.SetValue(element, value);
-        }
-
-        public static int Voltage()
-        {
-            int totalvoltagefloat = 0;
-            foreach (var i in Generator079.Generators)
-            {
-                totalvoltagefloat += (int)i.localVoltage;
-            }
-            totalvoltagefloat *= 1000;
-            return totalvoltagefloat;
-        }
-
         public static IEnumerator<float> Decontamination(int WaitForStart = 120, int AlertTime = 3)
         {
 
@@ -64,7 +29,7 @@ namespace VTProget_X
             }
             while (AlertTime > 0)
             {
-                PlayAmbientSound(7);
+                VT_Referance.Method.Methods.PlayAmbientSound(7);
                 AlertTime--;
                 yield return Timing.WaitForSeconds(1f);
             }
@@ -73,7 +38,7 @@ namespace VTProget_X
             WaitForStart += 5;
             while (WaitForStart > 0)
             {
-                PlayAmbientSound(5);
+                VT_Referance.Method.Methods.PlayAmbientSound(5);
                 WaitForStart--;
                 yield return Timing.WaitForSeconds(1f);
             }
@@ -84,12 +49,6 @@ namespace VTProget_X
             Plugin.Instance.DeconatmiantinEnd = true;
             
             yield break;
-
-        }
-
-        public static void PlayAmbientSound(int id)
-        {
-            PlayerManager.localPlayer.GetComponent<AmbientSoundPlayer>().CallMethod("RpcPlaySound", id);
         }
 
         public static void SendInterComInfoGeneral(screenEnum screen)
@@ -150,7 +109,7 @@ namespace VTProget_X
                 #endregion
 
                 #region DecontaMessage
-                if (Methode.Voltage() < 100)
+                if (Methods.Voltage() < 100)
                     DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageNotEnoughEnergy;
                 else
                 {
@@ -217,7 +176,7 @@ namespace VTProget_X
                 #endregion
 
                 #region GeneratorVoltage
-                Voltage = Methode.Voltage();
+                Voltage = Methods.Voltage();
                 #endregion
 
                 #region SCP106Message

@@ -9,7 +9,7 @@ namespace CustomClass.Config
         public SerializedMapPoint SpawnPoint = new SerializedMapPoint("HCZ_Room3ar", -1.792f, 1.330017f, -0.004005589f);
 
         [Description("The Amount of Health the class have")]
-        public int Health = 100;
+        public int Health = 500;
 
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 25;

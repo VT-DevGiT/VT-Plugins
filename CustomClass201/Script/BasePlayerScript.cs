@@ -2,7 +2,9 @@
 using Synapse;
 using Synapse.Api;
 using Synapse.Config;
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace CustomClass.PlayerScript
 {
@@ -52,6 +54,27 @@ namespace CustomClass.PlayerScript
         #endregion
 
         #region Methods
+        protected void InactiveComponent<T>()
+            where T : Behaviour
+        {
+            T composant;
+            if (Player.gameObject.TryGetComponent<T>(out composant))
+                composant.enabled = false;
+        }
+        protected T GetComponent<T>()
+            where T : Behaviour
+        {
+            T composant;
+            if (!Player.gameObject.TryGetComponent<T>(out composant))
+            {
+                composant = Player.gameObject.AddComponent<T>();
+            }
+            else
+            {
+                composant.enabled = true;
+            }
+            return composant;
+        }
         private T GetConfigValue<T>(string Name, T defaultValue)
         {
             T value = defaultValue;
@@ -82,11 +105,20 @@ namespace CustomClass.PlayerScript
 
             foreach (var item in items)
             {
-                Player.Inventory.AddItem(item.Parse());
+                try
+                {
+                    var obj = item.Parse();
+                    Player.Inventory.AddItem(item.Parse());
+                }
+                catch(Exception e)
+                {
+                    Server.Get.Logger.Warn($"{item.ID} {e}");
+                }
+                
             }
 
-            Player.MaxHealth = GetConfigValue("Health", 100);
-            Player.Health = Player.MaxHealth;
+            Player.Health = GetConfigValue("Health", 100);
+            Player.MaxHealth = GetConfigValue("MaxHealth", (int)Player.Health);
 
             Player.MaxArtificialHealth = GetConfigValue("MaxArtificialHealth", 100);
             Player.ArtificialHealth = GetConfigValue("ArtificialHealth", 0);

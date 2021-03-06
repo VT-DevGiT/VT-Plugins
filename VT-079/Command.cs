@@ -2,6 +2,7 @@
 using Synapse.Api;
 using Synapse.Command;
 using System.Linq;
+using VT_Referance.Method;
 
 namespace VT079
 {
@@ -18,7 +19,7 @@ namespace VT079
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            if (Methode.TotalVoltageFloat() == 5000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
+            if (Methods.Voltage() == 5000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
              && context.Player.Room.RoomType == RoomInformation.RoomType.HCZ_079)
             {
                 var listJoueur = Server.Get.Players.Where(p => p.RoleID == (int)RoleType.Scp079);

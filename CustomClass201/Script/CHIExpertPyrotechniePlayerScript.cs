@@ -3,6 +3,7 @@ using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
 using System;
 using System.Collections.Generic;
+using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
@@ -16,7 +17,7 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleTeam => (int)Team.CHI;
 
-        protected override int RoleId => (int)MoreClasseID.CHIExpertPyrotechnie;
+        protected override int RoleId => (int)RoleID.CHIExpertPyrotechnie;
 
         protected override string RoleName => PluginClass.ConfigCHIExpertPyrotechnie.RoleName;
 
@@ -34,6 +35,7 @@ namespace CustomClass.PlayerScript
         }
         private void OnDamage(PlayerDamageEventArgs ev)
         {
+            Server.Get.Logger.Info($"{ev.HitInfo.GetDamageType()} {ev.Victim.NickName}");
             if (ev.Victim == Player && ev.HitInfo.GetDamageType() == DamageTypes.Grenade)
                 ev.Allow = false;
         }

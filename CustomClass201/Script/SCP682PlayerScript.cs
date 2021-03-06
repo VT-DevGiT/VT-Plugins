@@ -2,6 +2,7 @@
 using Synapse.Api;
 using Synapse.Config;
 using System.Collections.Generic;
+using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
@@ -15,7 +16,7 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleTeam => (int)Team.SCP;
 
-        protected override int RoleId => (int)MoreClasseID.SCP682;
+        protected override int RoleId => (int)RoleID.SCP682;
 
         protected override string RoleName => PluginClass.ConfigSCP682.RoleName;
 

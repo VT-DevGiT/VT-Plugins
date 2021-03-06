@@ -15,9 +15,12 @@ namespace JetonClassManger
             NameRole = nameRole;
             MaxRole = maxRole;
         }
-        public SerializedRoleConfig()
+        public SerializedRoleConfig() 
         {
 
         }
+
+
+
     }
 }

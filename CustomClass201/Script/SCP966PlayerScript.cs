@@ -7,6 +7,7 @@ using Synapse.Api.Items;
 using Synapse.Config;
 using System;
 using System.Collections.Generic;
+using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
@@ -20,50 +21,39 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleTeam => (int)Team.SCP;
 
-        protected override int RoleId => (int)MoreClasseID.SCP966;
+        protected override int RoleId => (int)RoleID.SCP966;
 
         protected override string RoleName => PluginClass.ConfigSCP966.RoleName;
 
         protected override AbstractConfigSection Config => PluginClass.ConfigSCP966;
 
-        private SynapseItem Chapeau;
-
         protected override void AditionalInit()
         {
             Player.Invisible = true;
-            Chapeau = new SynapseItem(ItemType.SCP268, 0, 0, 0, 0);
+            SynapseItem Chapeau = new SynapseItem(ItemType.SCP268, 0, 0, 0, 0);
+            GetComponent<Invisible>();
             Player.Inventory.AddItem(Chapeau);
-            Player.gameObject.AddComponent<Invisible>();
-            Player.GiveEffect(Effect.Scp268);
         }
 
         protected override void Event()
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnDamage;
-            Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
         }
 
         public override void DeSpawn()
         {
+            Player.Inventory.Clear();
             Player.Invisible = false;
             base.DeSpawn();
             Map.Get.AnnounceScpDeath("9 6 6");
+            InactiveComponent<Invisible>();
             Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
-            if (Player.gameObject.GetComponent<Invisible>() != null)
-                Player.gameObject.GetComponent<Invisible>().Destroy();
         }
 
-        private void OnDeath(PlayerDeathEventArgs ev)
-        {
-            if (ev.Killer == Player)
-            {
-                Player.Inventory.Clear();
-            }
-        }
 
         private void OnDamage(PlayerDamageEventArgs ev)
         {
-            if (ev.Killer == Player && ev.Victim.RoleID == (int)MoreClasseID.UTR)
+            if (ev.Killer == Player && ev.Victim.RoleID == (int)RoleID.RoboticTacticalUnity)
             {
                 ev.Victim.GiveEffect(Effect.Concussed, 1, 10);
                 ev.Victim.GiveEffect(Effect.Amnesia, 1, 10);

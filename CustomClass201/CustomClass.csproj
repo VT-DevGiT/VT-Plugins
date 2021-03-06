@@ -76,7 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\CustomClass.cs" />
-    <Compile Include="MoreClasseID.cs" />
+    <Compile Include="Extension.cs" />
     <Compile Include="Patch.cs" />
     <Compile Include="Pouvoir\Invisible.cs" />
     <Compile Include="Pouvoir\Commands.cs" />
@@ -107,12 +107,10 @@
     <Compile Include="Config\ConfigStaffClass.cs" />
     <Compile Include="Config\ConfigSCP1048.cs" />
     <Compile Include="Config\ConfigTestClass.cs" />
-    <Compile Include="Extension.cs" />
     <Compile Include="PluginTranslation.cs" />
     <Compile Include="Pouvoir\Reponse.cs" />
     <Compile Include="Pouvoir\Aura.cs" />
     <Compile Include="Pouvoir\SCP507.cs" />
-    <Compile Include="Pouvoir\Utile.cs" />
     <Compile Include="Script\BasePlayerScript.cs" />
     <Compile Include="Config\Config201.cs" />
     <Compile Include="Config\ConfigConcierge.cs" />
@@ -153,6 +151,11 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\VT-Reférance\VT-Referance.csproj">
+      <Project>{ee471bd7-4def-465e-bd1d-555ab6d76e4d}</Project>
+      <Name>VT-Referance</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,5 +1,6 @@
 ﻿using Synapse.Config;
 using System.Collections.Generic;
+using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
@@ -13,7 +14,7 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleTeam => (int)Team.TUT;
 
-        protected override int RoleId => (int)MoreClasseID.Staff;
+        protected override int RoleId => (int)RoleID.Staff;
 
         protected override string RoleName => PluginClass.ConfigStaff.RoleName;
 

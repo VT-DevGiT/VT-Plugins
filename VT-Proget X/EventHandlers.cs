@@ -3,6 +3,7 @@ using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using System.Linq;
+using VT_Referance.Method;
 
 namespace VTProget_X
 {
@@ -14,14 +15,13 @@ namespace VTProget_X
             Server.Get.Events.Round.RoundStartEvent += OnRoundStart;
             Server.Get.Events.Round.RoundEndEvent += OnRoundEnd;
             Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
-
         }
 
         private void OnKeyPress(PlayerKeyPressEventArgs ev)
         {
             if (ev.KeyCode == UnityEngine.KeyCode.Keypad4)
             {
-                if (Methode.Voltage() >= 1000 && ev.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
+                if (Methods.Voltage() >= 1000 && ev.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
                     && ev.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
                 {
                     Timing.RunCoroutine(Methode.Decontamination(), "Decont");
@@ -30,7 +30,7 @@ namespace VTProget_X
             }
             else if (ev.KeyCode == UnityEngine.KeyCode.Keypad5)
             {
-                if (Methode.Voltage() >= 2000 && ev.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
+                if (Methods.Voltage() >= 2000 && ev.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
                     && ev.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
                 {
                     if (Plugin.Instance.TeslaEnabled)
@@ -46,7 +46,7 @@ namespace VTProget_X
             }
             else if (ev.KeyCode == UnityEngine.KeyCode.Keypad6)
             {
-                if (Methode.Voltage() >= 3000 && ev.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
+                if (Methods.Voltage() >= 3000 && ev.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
                     && ev.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
                 {
                     Generator079.mainGenerator.ServerOvercharge(Plugin.Config.BlackOutTime, false);
@@ -57,6 +57,8 @@ namespace VTProget_X
         private void OnRoundEnd()
         {
             Plugin.Instance.TeslaEnabled = true;
+            Plugin.Instance.DeconatmiantinEnd = false;
+            Plugin.Instance.DeconatmiantionendProgress = false;
             Timing.KillCoroutines("Decont");
         }
 

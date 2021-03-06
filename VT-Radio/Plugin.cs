@@ -1,6 +1,6 @@
 ﻿using Synapse.Api.Plugin;
 
-namespace VT079
+namespace VTRadio
 {
     [PluginInformation(
 Name = "VT-Radio",

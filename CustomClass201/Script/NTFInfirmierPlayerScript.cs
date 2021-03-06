@@ -5,6 +5,8 @@ using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
 using System.Collections.Generic;
 using UnityEngine;
+using VT_Referance.Variable;
+using VT_Referance.Method;
 
 namespace CustomClass.PlayerScript
 {
@@ -18,7 +20,7 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleTeam => (int)Team.MTF;
 
-        protected override int RoleId => (int)MoreClasseID.NTFInfirmier;
+        protected override int RoleId => (int)RoleID.NTFInfirmier;
 
         protected override string RoleName => PluginClass.ConfigNTFInfirmier.RoleName;
 
@@ -52,10 +54,10 @@ namespace CustomClass.PlayerScript
         {
             if (power == PowerType.Defibrilatcion)
             {
-                Player corpseowner = Utile.GetPlayercoprs(Player, 2.5f);
-                if (Utile.IsScpRole(corpseowner) == false)
+                Player corpseowner = Methods.GetPlayercoprs(Player, 2.5f);
+                if (Methods.IsScpRole(corpseowner) == false)
                 { 
-                    corpseowner.RoleID = PluginClass.Plugin.PlayerRole[corpseowner];
+                    corpseowner.RoleID = Dictionary.PlayerRole[corpseowner];
                     corpseowner.Position = corpseowner.DeathPosition;
                 }
                 return true;

@@ -1,12 +1,7 @@
 ﻿using Synapse.Api;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Common_Utiles
+namespace VT_Referance.Method
 {
     public static class PlayerExtension
     {

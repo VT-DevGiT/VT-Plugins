@@ -36,8 +36,7 @@ namespace VT079.Command
 
             if (VT079.Plugin.SCPRoleDeconf.Any() && Spectator.Any())
             {
-
-               Map.Get.Cassie($"Alert. New containment .g1 breach detected. Cassie .g2 corruption detected. Code .g4 red.");
+               Map.Get.Cassie($"Alert . New containment .g1 breach detected . Code .g4 red .");
 
                context.Player.Hub.scp079PlayerScript.NetworkcurLvl -= 2;
                int newRole = VT079.Plugin.SCPRoleDeconf.ElementAt(new System.Random().Next(0, VT079.Plugin.SCPRoleDeconf.Count - 1));
@@ -45,7 +44,10 @@ namespace VT079.Command
                player.RoleID = newRole;
             }
             else
+            {
+                context.Player.Scp079Controller.Energy =+ 200;
                 result.Message = ("you cannot currently free a scp, try again later");
+            }
             return result;
         }
     }

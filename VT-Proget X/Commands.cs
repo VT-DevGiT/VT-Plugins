@@ -1,6 +1,7 @@
 ﻿using MEC;
 using Synapse.Api;
 using Synapse.Command;
+using VT_Referance.Method;
 
 namespace VTProget_X
 {
@@ -22,11 +23,11 @@ namespace VTProget_X
             result.State = CommandResultState.NoPermission;
             if (Plugin.Instance.DeconatmiantionendProgress)
             {
-                result.Message = "nop";
+                result.Message = "decontamination has already taken place";
                 result.State = CommandResultState.NoPermission;
                 return result;
             }
-            if (Methode.Voltage() >= 1000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
+            if (Methods.Voltage() >= 1000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
                 && context.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
             {
                 Timing.RunCoroutine(Methode.Decontamination(), "Decont");
@@ -49,7 +50,7 @@ namespace VTProget_X
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            if (Methode.Voltage() >= 2000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
+            if (Methods.Voltage() >= 2000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
              && context.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
             {
                 if (Plugin.Instance.TeslaEnabled)
@@ -89,7 +90,7 @@ namespace VTProget_X
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            if (Methode.Voltage() >= 3000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
+            if (Methods.Voltage() >= 3000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
              && context.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
             {
                 Generator079.mainGenerator.ServerOvercharge(Plugin.Config.BlackOutTime, false);

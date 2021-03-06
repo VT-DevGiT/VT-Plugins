@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VT-079\VT-079.csproj" />
+    <ProjectReference Include="..\VT-Reférance\VT-Referance.csproj" />
   </ItemGroup>
 
   <ItemGroup>

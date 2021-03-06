@@ -1,8 +1,9 @@
 ﻿using MEC;
 using Respawning;
 using Synapse.Command;
+using VT_Referance.Method;
 
-namespace VT079
+namespace VTRadio
 {
     [CommandInformation(
         Name = "Avion",
@@ -32,9 +33,9 @@ namespace VT079
                 result.State = CommandResultState.NoPermission;
                 result.Message = "too close to a respawn";
             }
-            else if (!Methode._isAirBombGoing)
+            else if (!Methods.isAirBombGoing)
             {
-                Timing.RunCoroutine(Methode.AirSupportBomb(7, 5));
+                Timing.RunCoroutine(Methods.AirSupportBomb(7, 5));
                 result.State = CommandResultState.Ok;
                 result.Message = "Air Bomb Start";
             }

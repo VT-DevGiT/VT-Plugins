@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VT_Referance.Variable;
 
 namespace CustomClass
 {
@@ -13,7 +14,7 @@ namespace CustomClass
     {
         public static void PointeCreuses(this PlayerDamageEventArgs ev, Player player)
         {
-            if(ev.Killer == player && ev.Victim.RoleID == (int)MoreClasseID.UTR)
+            if(ev.Killer == player && ev.Victim.RoleID == (int)RoleID.RoboticTacticalUnity)
             {
                 if (ev.Victim.Team == Team.SCP || ev.Victim.ArtificialHealth != 0) 
                 {
@@ -29,7 +30,7 @@ namespace CustomClass
         }
         public static void Destabilisantes(this PlayerDamageEventArgs ev, Player player)
         {
-            if (ev.Killer == player && ev.Victim.RoleID == (int)MoreClasseID.UTR)
+            if (ev.Killer == player && ev.Victim.RoleID == (int)RoleID.RoboticTacticalUnity)
             { 
                 if (ev.Victim.ArtificialHealth == 0)
                 {

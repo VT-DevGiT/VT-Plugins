@@ -3,6 +3,7 @@ using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
 using System;
 using System.Collections.Generic;
+using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
@@ -16,7 +17,7 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleTeam => (int)Team.MTF;
 
-        protected override int RoleId => (int)MoreClasseID.NTFExpertReconfinement;
+        protected override int RoleId => (int)RoleID.NTFExpertReconfinement;
 
         protected override string RoleName => PluginClass.ConfigNTFExpertReconfinement.RoleName;
 

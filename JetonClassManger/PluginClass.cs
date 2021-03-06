@@ -30,7 +30,7 @@ namespace JetonClassManger
             base.Load();
             new EventHandlers();
         }
-
+        public bool PlayerCanSwitch ;
 
 
     }

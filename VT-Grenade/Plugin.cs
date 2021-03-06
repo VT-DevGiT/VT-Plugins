@@ -20,7 +20,7 @@ namespace VTGrenad
     public class Plugin : AbstractPlugin
     {
         public static Plugin Instance { get; private set; }
-        public static Dictionary<int, List<AmorcableGrenade>> DictTabletteGrenades { get; set; }
+        public static Dictionary<int, List<AmorcableGrenade>> DictTabletteGrenades = new Dictionary<int, List<AmorcableGrenade>>();
 
         [Synapse.Api.Plugin.Config(section = "VT-Grenade")]
         public static Config Config;

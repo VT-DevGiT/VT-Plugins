@@ -10,7 +10,7 @@ namespace VTDevHelp
 {
     [CommandInformation(
       Name = "DevDoorInfo",
-      Aliases = new[] { "Fdoor" },
+      Aliases = new[] { "VTFdoor" },
       Description = "For find door",
       Permission = "synapse.command.Dev",
       Platforms = new[] { Platform.RemoteAdmin },
@@ -36,7 +36,7 @@ namespace VTDevHelp
 
     [CommandInformation(
      Name = "DevTest",
-     Aliases = new[] { "Test" },
+     Aliases = new[] { "VTTest" },
      Description = "For TEST",
      Permission = "synapse.command.Dev",
      Platforms = new[] { Platform.RemoteAdmin },
@@ -56,7 +56,7 @@ namespace VTDevHelp
 
     [CommandInformation(
      Name = "DevitemInfo",
-     Aliases = new[] { "Iteam" },
+     Aliases = new[] { "VTIteam" },
      Description = "Dev iteam info",
      Permission = "synapse.command.Dev",
      Platforms = new[] { Platform.RemoteAdmin },
@@ -89,7 +89,7 @@ namespace VTDevHelp
 
     [CommandInformation(
     Name = "DevDecont",
-    Aliases = new[] { "Decont" },
+    Aliases = new[] { "VTDecont" },
     Description = "Dev Decont Test",
     Permission = "synapse.command.Dev",
     Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole },
@@ -109,7 +109,7 @@ namespace VTDevHelp
 
     [CommandInformation(
     Name = "DevGive",
-    Aliases = new[] { "Give" },
+    Aliases = new[] { "VTGIve" },
     Description = "Dev Give Test",
     Permission = "synapse.command.Dev",
     Platforms = new[] { Platform.RemoteAdmin },
@@ -133,7 +133,7 @@ namespace VTDevHelp
 
     [CommandInformation(
        Name = "DevSong",
-       Aliases = new[] { "Song" },
+       Aliases = new[] { "VTSong" },
        Description = "Dev Song Test",
        Permission = "synapse.command.Dev",
        Platforms = new[] { Platform.RemoteAdmin },
@@ -199,7 +199,7 @@ namespace VTDevHelp
 
     [CommandInformation(
     Name = "DevChat",
-    Aliases = new[] { "Chat" },
+    Aliases = new[] { "VTChat" },
     Description = "Dev Chat Test",
     Permission = "synapse.command.Dev",
     Platforms = new[] { Platform.RemoteAdmin },
@@ -247,12 +247,38 @@ namespace VTDevHelp
     }
 
     [CommandInformation(
+    Name = "DevGrenad",
+    Aliases = new[] { "VTGrenad" },
+    Description = "Dev Test Plugin",
+    Permission = "synapse.command.Dev",
+    Platforms = new[] { Platform.RemoteAdmin },
+    Usage = ""
+    )]
+    public class DevGrenad : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+            int i = 10;
+            context.Player.Cuffer = context.Player;
+            if (context.Arguments.First() != null)
+                int.TryParse(context.Arguments.First(), out i);
+            while (i != 0)
+            {
+                i--;
+                context.Player.Inventory.AddItem(ItemType.GrenadeFrag, 0, 0, 0, 0);
+            }
+            return result;
+        }
+    }
+
+    [CommandInformation(
        Name = "DevClear",
-       Aliases = new[] { "DClear" },
+       Aliases = new[] { "VTDClear" },
        Description = "Un Clear ? pas problême c'est la pour toi !",
        Permission = "synapse.command.Dev",
        Platforms = new[] { Platform.RemoteAdmin },
-       Usage = ".Clear (Iteam, Corp ou All)"
+       Usage = ".VTClear (Iteam, Corp ou All)"
        )]
     public class Clear : ISynapseCommand
     {
@@ -293,11 +319,11 @@ namespace VTDevHelp
 
     [CommandInformation(
     Name = "ClearIteam",
-    Aliases = new[] { "IteamClear" },
+    Aliases = new[] { "VTIteamClear" },
     Description = "Un commande pour Clear",
     Permission = "",
     Platforms = new[] { Platform.RemoteAdmin },
-    Usage = ".ClearIteam"
+    Usage = ".VTClearIteam"
     )]
     public class ClearIteam : ISynapseCommand
     {
@@ -315,11 +341,11 @@ namespace VTDevHelp
 
     [CommandInformation(
     Name = "ClearRagdolls",
-    Aliases = new[] { "RagdollsClear", "CorpClear" },
+    Aliases = new[] { "VTRagdollsClear", "VTCorpClear" },
     Description = "Un commande pour Clear",
     Permission = "",
     Platforms = new[] { Platform.RemoteAdmin },
-    Usage = ".CorpClear"
+    Usage = ".VTCorpClear"
     )]
     public class PblicClear : ISynapseCommand
     {

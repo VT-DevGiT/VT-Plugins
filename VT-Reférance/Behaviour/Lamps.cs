@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using VT_Referance.Method;
 
 namespace Common_Utiles
 {
@@ -20,7 +21,6 @@ namespace Common_Utiles
         private void Start()
         {
             _joueur = gameObject.GetPlayer();
-            
         }
 
         private void Update()

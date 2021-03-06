@@ -3,8 +3,9 @@ using Respawning;
 using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
+using VT_Referance.Method;
 
-namespace VT079
+namespace VTRadio
 {
     internal class EventHandlers
     {
@@ -30,9 +31,9 @@ namespace VT079
                 {
                     ev.Player.SendBroadcast(2, "too close to a respawn");
                 }
-                else if (!Methode._isAirBombGoing)
+                else if (!Methods.isAirBombGoing)
                 {
-                    Timing.RunCoroutine(Methode.AirSupportBomb(7, 5));
+                    Timing.RunCoroutine(Methods.AirSupportBomb(7, 5));
                     ev.Player.SendBroadcast(2, "Air Bomb Start");
                 }
                 else

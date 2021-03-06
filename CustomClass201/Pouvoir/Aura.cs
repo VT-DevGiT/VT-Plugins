@@ -8,12 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using VT_Referance.Variable;
 
 namespace CustomClass.Pouvoir
 {
     class Aura : NetworkBehaviour
     {
-        public bool Enabled = true;
         private Player player;
         private float _timer;
         public byte Intencty = 1;
@@ -34,7 +34,7 @@ namespace CustomClass.Pouvoir
             if (_timer > 1)
             {
                 foreach(var target in Server.Get.Players.Where(p => p != player && p.Team != Team.SCP 
-                    && p.RoleID != 109 && p.RoleID != 108))
+                    && p.RoleID != (int)RoleID.RoboticTacticalUnity && p.RoleID != (int)RoleID.NTFVirologue && p.RoleID != (int)RoleID.SCP999))
                 { 
                     if (Vector3.Distance(target.Position, player.Position) < Distance)
                     {
@@ -49,11 +49,6 @@ namespace CustomClass.Pouvoir
             }
             if (_timer > 1)
                 _timer = 0f;
-        }
-        public void Destroy()
-        {
-            Enabled = false;
-            DestroyImmediate(this, true);
         }
     }
 }

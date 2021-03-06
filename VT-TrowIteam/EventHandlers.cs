@@ -43,7 +43,7 @@ namespace VTTrowItem
 
         private void OnrKeyPressEvent(PlayerKeyPressEventArgs ev)
         {
-            if (ev.KeyCode == Plugin.Config.key)
+            if (ev.KeyCode == Plugin.Config.key && ev.Player?.MicroHID?.isActiveAndEnabled == true)
             {
                 var item = ev.Player?.ItemInHand;
                 if (item == null)

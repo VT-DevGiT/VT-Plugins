@@ -6,6 +6,7 @@ using Synapse.Api;
 using Synapse.Api.Plugin;
 using Synapse.Translation;
 using System.Collections.Generic;
+using VT_Referance.Variable;
 
 namespace CustomClass
 {
@@ -109,6 +110,8 @@ namespace CustomClass
         [SynapseTranslation]
         public static SynapseTranslation<PluginTranslation> PluginTranslation;
 
+        public Dictionary<RoleID, int> RespawnedPlayer = new Dictionary<RoleID, int>();
+
         private void PatchAll()
         {
             var instance = new Harmony("CustomClass");
@@ -132,7 +135,6 @@ namespace CustomClass
             
         }
 
-        public Dictionary<Player, int> PlayerRole = new Dictionary<Player, int>();
 
         public void RegisterCustomRole()
         {

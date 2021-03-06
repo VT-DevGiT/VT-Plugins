@@ -69,5 +69,11 @@
       <HintPath>..\packages\SynapseSL.2.5.3\lib\net472\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VT-Reférance\VT-Referance.csproj">
+      <Project>{ee471bd7-4def-465e-bd1d-555ab6d76e4d}</Project>
+      <Name>VT-Referance</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
