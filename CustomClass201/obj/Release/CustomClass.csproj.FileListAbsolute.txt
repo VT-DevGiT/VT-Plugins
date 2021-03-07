@@ -1,0 +1,2 @@
+C:\Users\xacyc\Desktop\Azarus-Plugins-main\Azarus-Plugins-main\CustomClass201\obj\Release\CustomClass.csprojAssemblyReference.cache
+C:\Users\xacyc\Desktop\Azarus-Plugins-main\Azarus-Plugins-main\CustomClass201\obj\Release\CustomClass.csproj.CoreCompileInputs.cache
