@@ -18,9 +18,9 @@ namespace CustomClass
 
         private void OnClass(PlayerSetClassEventArgs ev)
         {
+            VT_Referance.Variable.Dictionary.PlayerRole[ev.Player] = (int)ev.Role;
             if (RespawnPlayer.Contains(ev.Player))
             {
-                VT_Referance.Variable.Dictionary.PlayerRole[ev.Player] = (int)ev.Role;
                 ev.SpawnUnRole(RoleType.ChaosInsurgency, RoleID.CHILeader, PluginClass.ConfigCHILeader);
                 ev.SpawnUnRole(RoleType.ChaosInsurgency, RoleID.CHIHacker, PluginClass.ConfigCHIHacker);
                 ev.SpawnUnRole(RoleType.ChaosInsurgency, RoleID.CHIExpertPyrotechnie, PluginClass.ConfigCHIExpertPyrotechnie);

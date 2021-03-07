@@ -195,7 +195,7 @@ namespace CustomClass
     }
     [CommandInformation(
            Name = "Zombifaction",
-           Aliases = new[] { "Zombifaction" },
+           Aliases = new[] { "Zombifaction", "Zombi", "Zomb" },
            Description = "to use the capacity of your role",
            Permission = "",
            Platforms = new[] { Platform.ClientConsole },

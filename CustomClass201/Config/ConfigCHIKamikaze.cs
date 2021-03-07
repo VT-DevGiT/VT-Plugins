@@ -30,5 +30,10 @@ namespace CustomClass.Config
 
         [Description("time before the grenade explodes after his death")]
         public float GrenadeTime = 0.1f;
+
+        [Description("the number of ammo to the class")]
+        public uint Ammo5 = 100;
+        public uint Ammo7 = 100;
+        public uint Ammo9 = 100;
     }
 }

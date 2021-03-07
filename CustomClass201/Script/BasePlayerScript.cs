@@ -116,7 +116,9 @@ namespace CustomClass.PlayerScript
                 }
                 
             }
-
+            Player.Ammo5 = GetConfigValue<uint>("Ammo5", 0);
+            Player.Ammo7 = GetConfigValue<uint>("Ammo7", 0);
+            Player.Ammo9 = GetConfigValue<uint>("Ammo9", 0);
             Player.Health = GetConfigValue("Health", 100);
             Player.MaxHealth = GetConfigValue("MaxHealth", (int)Player.Health);
 

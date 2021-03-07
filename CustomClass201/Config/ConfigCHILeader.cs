@@ -30,5 +30,10 @@ namespace CustomClass.Config
 
         [Description("The cooldown of the class Power")]
         public int Cooldown = 150;
+
+        [Description("the number of ammo to the class")]
+        public uint Ammo5 = 100;
+        public uint Ammo7 = 100;
+        public uint Ammo9 = 100;
     }
 }

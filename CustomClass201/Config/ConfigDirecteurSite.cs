@@ -27,5 +27,8 @@ namespace CustomClass.Config
 
         [Description("The name of the class")]
         public string RoleName = "Directeur du site";
+
+        [Description("the number of ammo to the class")]
+        public uint Ammo9 = 20;
     }
 }

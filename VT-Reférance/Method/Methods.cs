@@ -14,23 +14,26 @@ namespace VT_Referance.Method
     {
         public static Player GetPlayercoprs(Player player, float rayon)
         {
-            List<Collider> colliders = Physics.OverlapSphere(player.Position, 3f)
+           // Physics.OverlapSphere(player.Position, 3f).Where(e => e.gameObject.GetComponentInParent<Ragdoll>() != null).ToList();
+            List<Collider> colliders = Physics.OverlapSphere(player.Position, rayon)
                 .Where(e => e.gameObject.GetComponentInParent<Ragdoll>() != null).ToList();
             colliders.Sort((Collider x, Collider y) =>
             {
                 return Vector3.Distance(x.gameObject.transform.position, player.Position)
                 .CompareTo(Vector3.Distance(y.gameObject.transform.position, player.Position));
             });
-
+ 
             if (colliders.Count == 0)
                 return null;
+
             Ragdoll doll = colliders[0].gameObject.GetComponentInParent<Ragdoll>();
             if (doll == null)
                 return null;
+
             Player owner = Server.Get.Players.FirstOrDefault(p => p.PlayerId == doll.owner.PlayerId);
             
 
-            if (owner != null && owner.RoleID != (int)RoleType.Spectator)
+            if (owner != null && owner.RoleID == (int)RoleType.Spectator)
             {
                 UnityEngine.Object.DestroyImmediate(doll.gameObject, true);
                 return owner;
@@ -40,6 +43,10 @@ namespace VT_Referance.Method
 
         public static bool? IsScpRole(Player owner)
         {
+            foreach(var key in Dictionary.PlayerRole.Keys)
+            {
+                Server.Get.Logger.Info($"{key.NickName} -- {Dictionary.PlayerRole[key]}");
+            }
             if (owner != null && Dictionary.PlayerRole.ContainsKey(owner))
             {
                 int roleId = Dictionary.PlayerRole[owner];

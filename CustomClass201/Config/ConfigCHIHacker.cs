@@ -32,5 +32,10 @@ namespace CustomClass.Config
         public int CoolDownDoor = 30;
         public int CoolDownLight = 60;
         public int CoolDownMessage = 120;
+
+        [Description("the number of ammo to the class")]
+        public uint Ammo5 = 100;
+        public uint Ammo7 = 100;
+        public uint Ammo9 = 100;
     }
 }

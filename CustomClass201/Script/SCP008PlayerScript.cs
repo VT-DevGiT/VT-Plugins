@@ -35,7 +35,8 @@ namespace CustomClass.PlayerScript
             {
                 aura.PlayerEffect = Effect.ArtificialRegen;
                 aura.TargetEffect = Effect.Poisoned;
-                aura.Intencty = 6;
+                aura.LuiIntencty = 6;
+                aura.LuiTime = 5;
                 aura.MoiHealHp = PluginClass.ConfigSCP008.HealHp;
                 aura.LuiHealHp = -PluginClass.ConfigSCP008.DomageHp;
                 aura.Distance = PluginClass.ConfigSCP008.Distance;
@@ -46,13 +47,24 @@ namespace CustomClass.PlayerScript
         {
             base.DeSpawn();
             InactiveComponent<Aura>();
+            Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
             Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
             Map.Get.AnnounceScpDeath("0 0 8");
         }
 
         protected override void Event()
         {
+            Server.Get.Events.Player.PlayerDamageEvent += OnDamage;
             Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
+        }
+
+        private void OnDamage(PlayerDamageEventArgs ev)
+        {
+            if (ev.Killer == Player)
+            {
+                ev.Victim.GiveEffect(Effect.Bleeding, 2, 4);
+                ev.DamageAmount = 50;
+            }
         }
 
         private void OnKeyPress(PlayerKeyPressEventArgs ev)
@@ -65,9 +77,14 @@ namespace CustomClass.PlayerScript
         {
             if (power == PowerType.Zombifaction)
             {
-                Player corpseowner = VT_Referance.Method.Methods.GetPlayercoprs(Player, 2.5f);
-                if (Methods.IsScpRole(corpseowner) == true)
+                Server.Get.Logger.Info("Zombifaction");
+                Player corpseowner = VT_Referance.Method.Methods.GetPlayercoprs(Player, 4);
+                Server.Get.Logger.Info(corpseowner?.NickName);
+                if (Methods.IsScpRole(corpseowner) == false)
+                {
                     corpseowner.RoleID = (int)RoleType.Scp0492;
+                    Server.Get.Logger.Info("corpseowner == true");
+                }
                 return true;
             }
             return false;
