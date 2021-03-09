@@ -22,7 +22,7 @@ namespace CustomClass.Config
         public int RequiredPlayers = 0;
 
         [Description("The name of the class")]
-        public string RoleName = " SCP008";
+        public string RoleName = " SCP-008";
 
         [Description("the number of HP the class gains when it is next to a human par second")]
         public int HealHp = 10;

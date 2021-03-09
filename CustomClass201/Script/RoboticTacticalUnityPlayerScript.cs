@@ -28,6 +28,7 @@ namespace CustomClass.PlayerScript
         protected override void AditionalInit()
         {
             Player.GiveEffect(Effect.Visuals939);
+            Player.GiveEffect(Effect.Disabled);
             Player.Hub.playerStats.artificialHpDecay = 0;
         }
 
@@ -38,12 +39,24 @@ namespace CustomClass.PlayerScript
             Server.Get.Events.Map.DoorInteractEvent += OnDoorInteract;
             Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent += OnAddTarget;
             Server.Get.Events.Player.PlayerEnterFemurEvent += OnFemur;
+            Server.Get.Events.Player.PlayerReloadEvent += OnReload;
         }
 
         private void OnFemur(PlayerEnterFemurEventArgs ev)
         {
             if (ev.Player == Player)
                 ev.Allow = false;
+        }
+
+        private void OnReload(PlayerReloadEventArgs ev)
+        {
+            if (ev.Player == Player)
+            {
+                uint balleR = (uint)ev.Item.Durabillity*2;
+                ev.Player.Ammo5 = balleR;
+                ev.Player.Ammo5 = balleR;
+                ev.Player.Ammo5 = balleR;
+            }
         }
 
         private void OnAddTarget(Scp096AddTargetEventArgument ev)
@@ -78,9 +91,7 @@ namespace CustomClass.PlayerScript
         {
             if (ev.Player == Player)
             {
-                if (ev.CurrentItem.ItemCategory == ItemCategory.Medical)
-                    ev.Allow = false;
-                if (ev.CurrentItem.ItemCategory == ItemCategory.SCPItem)
+                if (ev.CurrentItem.ItemCategory == ItemCategory.Medical || ev.CurrentItem.ItemCategory == ItemCategory.SCPItem)
                     ev.Allow = false;
             }
         }
@@ -93,6 +104,7 @@ namespace CustomClass.PlayerScript
             Server.Get.Events.Map.DoorInteractEvent -= OnDoorInteract;
             Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent -= OnAddTarget;
             Server.Get.Events.Player.PlayerEnterFemurEvent -= OnFemur;
+            Server.Get.Events.Player.PlayerReloadEvent -= OnReload;
         }
     }
 }

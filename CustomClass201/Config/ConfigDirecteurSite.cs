@@ -8,7 +8,7 @@ namespace CustomClass.Config
     public class ConfigDirecteurSite : AbstractConfigSection
     {
         [Description("The MapPoint where the class should Spawn")]
-        public SerializedMapPoint SpawnPoint = new SerializedMapPoint("HCZ_Room3ar", -1.792f, 1.330017f, -0.004005589f);
+        public SerializedMapPoint SpawnPoint = new SerializedMapPoint("LCZ_Cafe (15)", 8.7f, 2.145415f, 3.7f);
 
         [Description("The Amount of Health the class have")]
         public int Health = 125;
@@ -29,6 +29,8 @@ namespace CustomClass.Config
         public string RoleName = "Directeur du site";
 
         [Description("the number of ammo to the class")]
-        public uint Ammo9 = 20;
+        public uint Ammo5 = 30;
+        public uint Ammo7 = 30;
+        public uint Ammo9 = 30;
     }
 }

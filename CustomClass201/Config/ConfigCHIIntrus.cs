@@ -11,7 +11,7 @@ namespace CustomClass.Config
         public int Health = 110;
 
         [Description("The MapPoint where the class should Spawn")]
-        public SerializedMapPoint SpawnPoint = new SerializedMapPoint("HCZ_Room3ar", -1.792f, 1.330017f, -0.004005589f);
+        public SerializedMapPoint SpawnPoint = new SerializedMapPoint("HCZ_079", 10.1f, -2.4f, 0.09f);
 
         [Description("The Items the class spawns with")]
         public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.GunUSP, 18, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.KeycardChaosInsurgency, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one) };
@@ -29,8 +29,8 @@ namespace CustomClass.Config
         public string RoleName = "Intrus";
 
         [Description("the number of ammo to the class")]
-        public uint Ammo5 = 100;
-        public uint Ammo7 = 100;
-        public uint Ammo9 = 100;
+        public uint Ammo5 = 30;
+        public uint Ammo7 = 30;
+        public uint Ammo9 = 30;
     }
 }

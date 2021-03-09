@@ -8,7 +8,7 @@ namespace CustomClass.Config
     public class ConfigGardeSuperviseur : AbstractConfigSection
     {
         [Description("The MapPoint where the class should Spawn")]
-        public SerializedMapPoint SpawnPoint = new SerializedMapPoint("HCZ_Room3ar", -1.792f, 1.330017f, -0.004005589f);
+        public SerializedMapPoint SpawnPoint = new SerializedMapPoint("HCZ_EZ_Checkpoint", 7.9f, 2.143616f, 0.02f);
 
         [Description("The Amount of Health the class have")]
         public int Health = 120;
@@ -29,8 +29,8 @@ namespace CustomClass.Config
         public string RoleName = "Garde Superviseur";
 
         [Description("the number of ammo to the class")]
-        public uint Ammo5 = 50;
-        public uint Ammo7 = 50;
-        public uint Ammo9 = 20;
+        public uint Ammo5 = 30;
+        public uint Ammo7 = 70;
+        public uint Ammo9 = 30;
     }
 }

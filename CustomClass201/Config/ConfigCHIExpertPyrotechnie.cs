@@ -17,20 +17,20 @@ namespace CustomClass.Config
         public int SpawnChance = 25;
 
         [Description("Max alive at the same time")]
-        public int MaxAlive = 1;
+        public int MaxAlive = 100;
 
         [Description("max of this role which can spawn into a respawn")]
-        public int MaxRespawn = 1;
+        public int MaxRespawn = 100;
 
         [Description("The number of players required in the same role to have the chance for the class to appear")]
         public int RequiredPlayers = 0;
 
         [Description("The name of the class")]
-        public string RoleName = " IC Expert Pyrotechnie";
+        public string RoleName = "Expert en explosif IC"; 
 
         [Description("the number of ammo to the class")]
-        public uint Ammo5 = 100;
+        public uint Ammo5 = 0;
         public uint Ammo7 = 100;
-        public uint Ammo9 = 100;
+        public uint Ammo9 = 0;
     }
 }

@@ -17,7 +17,7 @@ namespace CustomClass.Config
         public int SpawnChance = 11;
 
         [Description("Max alive at the same time")]
-        public int MaxAlive = 3;
+        public int MaxAlive = 100;
 
         [Description("max of this role which can spawn into a respawn")]
         public int MaxRespawn = 1;
@@ -26,7 +26,7 @@ namespace CustomClass.Config
         public int RequiredPlayers = 0;
 
         [Description("The name of the class")]
-        public string RoleName = " IC Hacker";
+        public string RoleName = "Hacker";
 
         [Description("The cooldown of the class Power")]
         public int CoolDownDoor = 30;
@@ -34,8 +34,8 @@ namespace CustomClass.Config
         public int CoolDownMessage = 120;
 
         [Description("the number of ammo to the class")]
-        public uint Ammo5 = 100;
-        public uint Ammo7 = 100;
-        public uint Ammo9 = 100;
+        public uint Ammo5 = 250;
+        public uint Ammo7 = 250;
+        public uint Ammo9 = 250;
     }
 }

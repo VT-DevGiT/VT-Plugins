@@ -118,7 +118,7 @@ namespace CustomClass
             instance.PatchAll();
             Server.Get.Logger.Info("Custom class Harmony Patch done!");
         }
-
+         
         public override void Load()
         {
             Plugin = this;
