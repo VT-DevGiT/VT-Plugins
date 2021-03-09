@@ -44,7 +44,7 @@ namespace VT079.Command
 
             return result;
         }
-        private List<RoomType> grandSalle = new List<RoomType>() { RoomType.HCZ_106, RoomType.HCZ_NUKE };
+        private List<RoomType> grandSalle = new List<RoomType>() { RoomType.HCZ_106, RoomType.HCZ_NUKE, RoomType.HCZ_049, RoomType.EZ_INTERCOM };
 
         private void ChangeDoors(List<Synapse.Api.Door>  doors, bool state)
         {
