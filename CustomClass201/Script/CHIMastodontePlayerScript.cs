@@ -1,5 +1,6 @@
 ﻿using CustomClass.Pouvoir;
 using Synapse;
+using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
 using System;

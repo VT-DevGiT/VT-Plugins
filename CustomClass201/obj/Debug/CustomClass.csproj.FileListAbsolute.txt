@@ -1,2 +1,31 @@
 C:\Users\xacyc\Desktop\Azarus-Plugins-main\Azarus-Plugins-main\CustomClass201\obj\Debug\CustomClass.csprojAssemblyReference.cache
 C:\Users\xacyc\Desktop\Azarus-Plugins-main\Azarus-Plugins-main\CustomClass201\obj\Debug\CustomClass.csproj.CoreCompileInputs.cache
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass.csprojAssemblyReference.cache
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass.csproj.CoreCompileInputs.cache
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\CustomClass.dll.config
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\CustomClass.dll
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\CustomClass.pdb
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\0Harmony.dll
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\Assembly-CSharp-firstpass.dll
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\Assembly-CSharp.dll
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\LiteDB.dll
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\Mirror.dll
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\Synapse.dll
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\UnityEngine.CoreModule.dll
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\UnityEngine.dll
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\UnityEngine.PhysicsModule.dll
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\VT-Referance.dll
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\YamlDotNet.dll
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\System.Memory.dll
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\System.Buffers.dll
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\System.Numerics.Vectors.dll
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\VT-Referance.pdb
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\VT-Referance.dll.config
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\0Harmony.xml
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\LiteDB.xml
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\YamlDotNet.xml
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass.csproj.CopyComplete
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass.dll
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass.pdb

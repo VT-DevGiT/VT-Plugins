@@ -112,7 +112,7 @@ namespace CustomClass.PlayerScript
                 }
                 catch(Exception e)
                 {
-                    Server.Get.Logger.Warn($"{item.ID} {e}");
+                    Server.Get.Logger.Error($"Error Congif inventory at {this.RoleName} : { item.ID} {e} ");
                 }
                 
             }
@@ -126,7 +126,16 @@ namespace CustomClass.PlayerScript
             Player.ArtificialHealth = GetConfigValue("ArtificialHealth", 0);
             SerializedMapPoint spawnPoint = GetConfigValue<SerializedMapPoint>("SpawnPoint", null);
             if (spawnPoint != null)
-                Player.Position = spawnPoint.Parse().Position;
+            {
+                try
+                {
+                    Player.Position = spawnPoint.Parse().Position;
+                }
+                catch (Exception e)
+                {
+                    Server.Get.Logger.Error($"Error Congif SpawnPoint at {this.RoleName} : {spawnPoint.Room} - {e}");
+                }
+            }
             AditionalInit();
             Event();
             Player.OpenReportWindow(PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage.Replace("%RoleName%", RoleName));
