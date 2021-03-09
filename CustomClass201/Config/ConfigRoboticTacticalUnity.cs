@@ -8,7 +8,7 @@ namespace CustomClass.Config
     public class ConfigRoboticTacticalUnity : AbstractConfigSection
     {
         [Description("The MapPoint where the class should Spawn")]
-        public SerializedMapPoint SpawnPoint = new SerializedMapPoint("LCZ_Plants", 0.06f, 2.162098f, -7.5f);
+        public SerializedMapPoint SpawnPoint = new SerializedMapPoint("LCZ_Plants", -0.0884471f, 2.171398f, -4.554413f);
 
         [Description("The Amount of Health the class have")]
         public int Health = 120;

@@ -14,7 +14,7 @@ LoadPriority = 0,
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,
 SynapsePatch = SynapseController.SynapsePatch,
-Version = "v.1.0.0"
+Version = "v.1.2.2"
 )]
     public class CommonUtiles : AbstractPlugin
     {

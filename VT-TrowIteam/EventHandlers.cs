@@ -43,11 +43,9 @@ namespace VTTrowItem
 
         private void OnrKeyPressEvent(PlayerKeyPressEventArgs ev)
         {
-            if (ev.KeyCode == Plugin.Config.key && ev.Player?.MicroHID?.isActiveAndEnabled == true)
+            var item = ev.Player?.ItemInHand;
+            if (ev.KeyCode == Plugin.Config.key && item != null && item.ItemType != ItemType.MicroHID)
             {
-                var item = ev.Player?.ItemInHand;
-                if (item == null)
-                    return;
                 item.Drop();
                 Timing.RunCoroutine(Method.Throw(item.pickup, (ev.Player.Hub.PlayerCameraReference.forward + Plugin.Config.addLaunchForce).normalized));
             }

@@ -11,7 +11,7 @@ Name = "VT-Escape",
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,
 SynapsePatch = SynapseController.SynapsePatch,
-Version = "v.1.1.1"
+Version = "v.1.4.1"
 )]
     public class Plugin : AbstractPlugin
     {

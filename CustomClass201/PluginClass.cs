@@ -12,13 +12,13 @@ namespace CustomClass
 {
     [PluginInformation(
         Author = "VT",
-        Description = "A test plugi to check custom script",
+        Description = "A plugin for add new class",
         LoadPriority = 1,
         Name = "CustomClass",
         SynapseMajor = 2,
         SynapseMinor = 4,
         SynapsePatch = 1,
-        Version = "v.1.0.0")]
+        Version = "v.1.1.3")]
     public class PluginClass : AbstractPlugin
     {
         public static PluginClass Plugin;
