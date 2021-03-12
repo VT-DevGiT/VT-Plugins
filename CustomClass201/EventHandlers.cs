@@ -57,7 +57,7 @@ namespace CustomClass
                 ev.SpawnPlayers.SpawnUnRole(RoleType.Scientist, RoleID.ScientifiqueSuperviseur, PluginClass.ConfigScientifiqueSuperviseur);
                 ev.SpawnPlayers.SpawnUnRole(RoleType.FacilityGuard, RoleID.GardeSuperviseur, PluginClass.ConfigGardeSuperviseur);
                 ev.SpawnPlayers.SpawnUnRole(RoleType.FacilityGuard, RoleID.Technicien, PluginClass.ConfigTechnicien);
-                ev.SpawnPlayers.SpawnUnRole(RoleType.FacilityGuard, RoleID.RoboticTacticalUnity, PluginClass.ConfigRoboticTaticalUnity);
+                ev.SpawnPlayers.SpawnUnRole(RoleType.FacilityGuard, RoleID.FoundationUTR, PluginClass.ConfigFoundationUTR);
                 ev.SpawnPlayers.SpawnUnRole(RoleType.Scientist, RoleID.ScientifiqueSuperviseur, PluginClass.ConfigScientifiqueSuperviseur);
                 if (ev.SpawnPlayers.Count() > 25)
                 {

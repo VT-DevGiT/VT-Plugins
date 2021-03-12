@@ -8,11 +8,11 @@ using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
-    public class ICIntrusScript : BasePlayerScript
+    public class CHIIntrusScript : BasePlayerScript
     {
         protected override List<int> EnemysList => new List<int> { (int)Team.MTF };
 
-        protected override List<int> FriendsList => new List<int> { (int)Team.CHI, (int)Team.CDP };
+        protected override List<int> FriendsList => new List<int> { (int)Team.MTF, (int)TeamID.CDM, (int)TeamID.NTF, (int)TeamID.SEC };
 
         protected override RoleType RoleType => RoleType.Scientist;
 
@@ -62,9 +62,9 @@ namespace CustomClass.PlayerScript
         private void OnDeath(PlayerDeathEventArgs ev)
         {
             if (ev.Victim == Player)
-            {
                 CallPower(PowerType.ChangeRole);
-            }
+            else if (ev.Killer == Player)
+                ev.Victim.OpenReportWindow(PluginClass.PluginTranslation.ActiveTranslation.KilledMessage.Replace("%RoleName%", RoleName));
         }
 
     }

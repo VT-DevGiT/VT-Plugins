@@ -12,9 +12,9 @@ using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
-    public class ICHackerScript : BasePlayerScript
+    public class CHIHackerScript : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)Team.MTF };
+        protected override List<int> EnemysList => new List<int> { (int)Team.MTF, (int)TeamID.CDM, (int)TeamID.NTF, (int)TeamID.SEC, };
 
         protected override List<int> FriendsList => new List<int> { (int)Team.CHI, (int)Team.CDP };
 

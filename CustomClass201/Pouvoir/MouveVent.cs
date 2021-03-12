@@ -16,7 +16,6 @@ namespace CustomClass.Pouvoir
 {
     class MouveVent : NetworkBehaviour
     {
-        public bool Enabled = true;
         private Player player;
         private float _timer;
         public int duraction = -1;
@@ -31,15 +30,15 @@ namespace CustomClass.Pouvoir
         {
             _timer += Time.deltaTime;
 
-            if (Enabled && _timer > 1f)
+            if ( _timer > 1f)
             {
-                if (Enabled && duraction > 0)
+                if (duraction > 0)
                 {
                     player.SendBroadcast(1, PluginClass.PluginTranslation.ActiveTranslation.
                         VentMessage.Replace("%Time%", duraction.ToString()));
                     duraction--;
                 }
-                else if (Enabled && duraction < 0)
+                else if (duraction < 0)
                 {
                     player.BroadcastMessage(PluginClass.PluginTranslation.ActiveTranslation.NoTimeVentMessage, 1);
                 }
@@ -78,7 +77,6 @@ namespace CustomClass.Pouvoir
 
             UnRegisterEvents();
             player.Invisible = false;
-            Enabled = false;
             DestroyImmediate(this, true);
         }
 

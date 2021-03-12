@@ -29,3 +29,7 @@ G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\YamlDotNet.
 G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass.csproj.CopyComplete
 G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass.dll
 G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass.pdb
+D:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass.csprojAssemblyReference.cache
+D:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass.csproj.CoreCompileInputs.cache
+D:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass.dll
+D:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass.pdb

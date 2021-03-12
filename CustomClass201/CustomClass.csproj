@@ -75,9 +75,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\ConfigCHIInfirmier.cs" />
+    <Compile Include="Config\ConfigSCP166.cs" />
     <Compile Include="Config\CustomClass.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="Patch.cs" />
+    <Compile Include="Pouvoir\Green.cs" />
     <Compile Include="Pouvoir\Invisible.cs" />
     <Compile Include="Pouvoir\Commands.cs" />
     <Compile Include="Pouvoir\PowerType.cs" />
@@ -96,7 +99,7 @@
     <Compile Include="Config\ConfigNTFExpertReconfinement.cs" />
     <Compile Include="Config\ConfigNTFInfirmier.cs" />
     <Compile Include="Config\ConfigNTFVirologue.cs" />
-    <Compile Include="Config\ConfigRoboticTacticalUnity.cs" />
+    <Compile Include="Config\ConfigFoundationUTR.cs" />
     <Compile Include="Config\ConfigSCP008.cs" />
     <Compile Include="Config\ConfigSCP507.cs" />
     <Compile Include="Config\ConfigSCP682.cs" />
@@ -130,14 +133,16 @@
     <Compile Include="Script\CHIMastodontePlayerScript.cs" />
     <Compile Include="Script\NTFExpertPyrotechniePlayerScript.cs" />
     <Compile Include="Script\NTFExpertReconfinementPlayerScript.cs" />
+    <Compile Include="Script\CHIInfirmierPlayerScript.cs" />
     <Compile Include="Script\NTFInfirmierPlayerScript.cs" />
     <Compile Include="Script\NTFVirologuePlayerScript.cs" />
-    <Compile Include="Script\RoboticTacticalUnityPlayerScript.cs" />
+    <Compile Include="Script\FoundationUTRPlayerScript.cs" />
     <Compile Include="Script\ScientifiqueSuperviseurPlayerScript.cs" />
     <Compile Include="Script\SCP008PlayerScript.cs" />
     <Compile Include="Script\SCP507PlayerScript.cs" />
     <Compile Include="Script\SCP682PlayerScript.cs" />
     <Compile Include="Script\SCP1048PlayerScript.cs" />
+    <Compile Include="Script\SCP166PlayerScript.cs" />
     <Compile Include="Script\SCP966PlayerScript.cs" />
     <Compile Include="Script\SCP953PlayerScript.cs" />
     <Compile Include="Script\SCP999PlayerScript.cs" />
@@ -157,5 +162,6 @@
       <Name>VT-Referance</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -16,7 +16,6 @@ namespace AdvencedKeycard
     public class Plugin : AbstractPlugin
     {
         public static Plugin Instance { get; private set; }
-        public float Scp939SeeingAhpAmount { get; internal set; }
 
         [Synapse.Api.Plugin.Config(section = "VT-KeyCard")]
         public static Config Config;

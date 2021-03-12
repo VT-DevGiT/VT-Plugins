@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CustomClass.Config
 {
-    public class ConfigNTFInfirmier : AbstractConfigSection
+    public class ConfigCHIInfirmier : AbstractConfigSection
     {
         [Description("The Amount of Health the class have")]
         public int Health = 115;

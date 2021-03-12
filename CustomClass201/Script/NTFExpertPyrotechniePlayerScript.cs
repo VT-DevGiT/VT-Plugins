@@ -10,7 +10,7 @@ namespace CustomClass.PlayerScript
     {
         protected override List<int> EnemysList => new List<int> { (int)Team.CHI, (int)Team.SCP };
 
-        protected override List<int> FriendsList => new List<int> { (int)Team.MTF, (int)Team.RSC };
+        protected override List<int> FriendsList => new List<int> { (int)Team.MTF, (int)TeamID.CDM, (int)TeamID.NTF, (int)TeamID.SEC, (int)Team.RSC };
 
         protected override RoleType RoleType => RoleType.NtfLieutenant;
 

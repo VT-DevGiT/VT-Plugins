@@ -10,9 +10,9 @@ using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
-    public class ICSPYScript : BasePlayerScript
+    public class CHISPYScript : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)Team.MTF };
+        protected override List<int> EnemysList => new List<int> { (int)Team.MTF, (int)TeamID.CDM, (int)TeamID.NTF, (int)TeamID.SEC };
 
         protected override List<int> FriendsList => new List<int> { (int)Team.CHI, (int)Team.CDP };
 
@@ -65,9 +65,9 @@ namespace CustomClass.PlayerScript
         private void OnDeath(PlayerDeathEventArgs ev)
         {
             if (ev.Victim == Player)
-            {
                 Player.ChangeRoleAtPosition(RoleType.ChaosInsurgency);
-            }
+            else if (ev.Killer == Player)
+                ev.Victim.OpenReportWindow(PluginClass.PluginTranslation.ActiveTranslation.KilledMessage.Replace("%RoleName%", RoleName));
         }
 
     }

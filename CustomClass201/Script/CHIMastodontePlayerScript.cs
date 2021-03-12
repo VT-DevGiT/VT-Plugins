@@ -9,9 +9,9 @@ using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
-    public class ICMastodonteScript : BasePlayerScript
+    public class CHIMastodonteScript : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)Team.MTF };
+        protected override List<int> EnemysList => new List<int> { (int)Team.MTF, (int)TeamID.CDM, (int)TeamID.NTF, (int)TeamID.SEC };
 
         protected override List<int> FriendsList => new List<int> { (int)Team.CHI, (int)Team.CDP };
 
@@ -25,6 +25,7 @@ namespace CustomClass.PlayerScript
 
         protected override AbstractConfigSection Config => PluginClass.ConfigCHIMastondonte;
 
+        float oldStaminaUse;
         public override bool CallPower(PowerType power)
         {
             if (power == PowerType.DropSheld && Shed)
@@ -51,6 +52,7 @@ namespace CustomClass.PlayerScript
 
         public override void DeSpawn()
         {
+            Player.Stamina = oldStaminaUse;
             base.DeSpawn();
             Server.Get.Events.Player.PlayerDamageEvent -= OnDomage;
             Server.Get.Events.Player.PlayerItemUseEvent -= OnUseItem;
@@ -60,6 +62,7 @@ namespace CustomClass.PlayerScript
 
         protected override void AditionalInit()
         {
+            Player.Stamina = oldStaminaUse;
             Player.StaminaUsage *= 2;
             Player.Hub.playerStats.artificialHpDecay = 0;
             Player.GiveEffect(Effect.Disabled);

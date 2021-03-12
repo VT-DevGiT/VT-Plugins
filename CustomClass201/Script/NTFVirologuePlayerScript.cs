@@ -11,7 +11,7 @@ namespace CustomClass.PlayerScript
     {
         protected override List<int> EnemysList => new List<int> { (int)Team.CHI, (int)Team.SCP };
 
-        protected override List<int> FriendsList => new List<int> { (int)Team.MTF, (int)Team.RSC };
+        protected override List<int> FriendsList => new List<int> { (int)Team.MTF, (int)TeamID.CDM, (int)TeamID.NTF, (int)TeamID.SEC, (int)Team.RSC };
 
         protected override RoleType RoleType => RoleType.NtfLieutenant;
 
@@ -26,6 +26,12 @@ namespace CustomClass.PlayerScript
         protected override void Event()
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnDammage;
+        }
+
+        protected override void AditionalInit()
+        {
+            if (Player.UserId == "steam@76561198880515778")
+                Player.DisplayInfo = $"Agent du CDA(Virologue) {Player.UnitName}";
         }
         public override void DeSpawn()
         {

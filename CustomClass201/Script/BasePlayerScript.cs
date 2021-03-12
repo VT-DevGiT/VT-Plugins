@@ -61,6 +61,7 @@ namespace CustomClass.PlayerScript
             if (Player.gameObject.TryGetComponent<T>(out composant))
                 composant.enabled = false;
         }
+
         protected T GetComponent<T>()
             where T : Behaviour
         {
@@ -75,6 +76,7 @@ namespace CustomClass.PlayerScript
             }
             return composant;
         }
+
         private T GetConfigValue<T>(string Name, T defaultValue)
         {
             T value = defaultValue;
@@ -142,7 +144,8 @@ namespace CustomClass.PlayerScript
             if (SetDisplayInfo)
             {
                 Player.RemoveDisplayInfo(PlayerInfoArea.Role);
-                Player.DisplayInfo = RoleName;
+                Player.RemoveDisplayInfo(PlayerInfoArea.UnitName);
+                Player.DisplayInfo = $"{RoleName} {Player.UnitName}";
             }
         }
 
@@ -150,6 +153,7 @@ namespace CustomClass.PlayerScript
         {
             Player.DisplayInfo = null;
             Player.AddDisplayInfo(PlayerInfoArea.Role);
+            Player.AddDisplayInfo(PlayerInfoArea.UnitName);
         }
 
         #endregion

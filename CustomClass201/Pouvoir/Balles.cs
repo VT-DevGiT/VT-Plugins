@@ -14,7 +14,7 @@ namespace CustomClass
     {
         public static void PointeCreuses(this PlayerDamageEventArgs ev, Player player)
         {
-            if(ev.Killer == player && ev.Victim.RoleID == (int)RoleID.RoboticTacticalUnity)
+            if(ev.Killer == player && ev.Victim.RoleID == (int)RoleID.FoundationUTR)
             {
                 if (ev.Victim.Team == Team.SCP || ev.Victim.ArtificialHealth != 0) 
                 {
@@ -30,7 +30,7 @@ namespace CustomClass
         }
         public static void Destabilisantes(this PlayerDamageEventArgs ev, Player player)
         {
-            if (ev.Killer == player && ev.Victim.RoleID == (int)RoleID.RoboticTacticalUnity)
+            if (ev.Killer == player && ev.Victim.RoleID == (int)RoleID.FoundationUTR)
             { 
                 if (ev.Victim.ArtificialHealth == 0)
                 {

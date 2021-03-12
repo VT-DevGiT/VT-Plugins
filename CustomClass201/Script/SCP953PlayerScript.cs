@@ -6,13 +6,13 @@ namespace CustomClass.PlayerScript
 {
     public class SCP953Script : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { };
+        protected override List<int> EnemysList => new List<int> { (int)Team.MTF, (int)Team.RSC, (int)Team.CDP, (int)Team.SCP, (int)TeamID.BerserkSCP };
 
         protected override List<int> FriendsList => new List<int> { };
 
         protected override RoleType RoleType => RoleType.ClassD;
 
-        protected override int RoleTeam => (int)Team.RIP;
+        protected override int RoleTeam => (int)TeamID.BerserkSCP;
 
         protected override int RoleId => (int)RoleID.SCP953;
 

@@ -1,5 +1,7 @@
 ﻿using Synapse.Api;
+using System.Collections.Generic;
 using UnityEngine;
+using VT_Referance.Variable;
 
 namespace VT_Referance.Method
 {
@@ -16,6 +18,12 @@ namespace VT_Referance.Method
                     return false;
             }
             return true;
+        }
+
+        public static bool IsUTR(this Player player)
+        {
+            List<int> UTRID = new List<int>() { (int)RoleID.AndersonUTRheavy, (int)RoleID.AndersonUTRlight, (int)RoleID.FoundationUTR };
+            return UTRID.Contains(player.RoleID);
         }
     }
 }

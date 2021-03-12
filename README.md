@@ -3,7 +3,7 @@ Some of Azarus plug-ins.
 
 ## Installation
 1. [Install Synapse](https://github.com/SynapseSL/Synapse/wiki#hosting-guides).
-2. Place the dll file that you can download [here](https://github.com/warquys/Azarus-Plugin/releases) in your plugin directory.
+2. Place the dll file that you can download [here](https://github.com/Fondation-Azarus/Azarus-Plugins/releases) in your plugin directory.
 3. Restart/Start your server.
 
 Waring :

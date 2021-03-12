@@ -20,7 +20,7 @@ namespace CustomClass.PlayerScript
 
         protected override RoleType RoleType => RoleType.ClassD;
 
-        protected override int RoleTeam => (int)Team.RIP;
+        protected override int RoleTeam => (int)TeamID.NetralSCP;
 
         protected override int RoleId => (int)RoleID.SCP999;
 

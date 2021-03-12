@@ -53,7 +53,7 @@ namespace CustomClass.PlayerScript
 
         private void OnDamage(PlayerDamageEventArgs ev)
         {
-            if (ev.Killer == Player && ev.Victim.RoleID == (int)RoleID.RoboticTacticalUnity)
+            if (ev.Killer == Player && ev.Victim.RoleID != (int)RoleID.FoundationUTR)
             {
                 ev.Victim.GiveEffect(Effect.Concussed, 1, 10);
                 ev.Victim.GiveEffect(Effect.Amnesia, 1, 10);

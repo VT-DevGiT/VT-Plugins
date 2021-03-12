@@ -16,7 +16,7 @@ namespace CustomClass.PlayerScript
 
         protected override RoleType RoleType => RoleType.Tutorial;
 
-        protected override int RoleTeam => (int)Team.TUT;
+        protected override int RoleTeam => (int)TeamID.ServerStaff;
 
         protected override int RoleId => (int)RoleID.TestClass;
 

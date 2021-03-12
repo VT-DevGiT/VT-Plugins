@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using VT_Referance.Method;
+using VT_Referance.Variable;
 
 namespace VTProget_X
 {
@@ -80,14 +81,14 @@ namespace VTProget_X
                 var _intercom = Server.Get.Host.GetComponent<Intercom>();
 
                 #region int&bool
-                List<int> SCPaditonelle = new List<int> { 56, 117, 120 };
+                List<int> SCPaditonelle = new List<int> { 56 };
                 List<int> RSC = new List<int> { 100, 101, 102, 104, (int)RoleType.Scientist, (int)RoleType.FacilityGuard };
 
-                nSCP = Server.Get.Players.Where(p => p.Team == Team.SCP || SCPaditonelle.Contains(p.RoleID)).Count();
+                nSCP = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.SCP || p.TeamID == (int)TeamID.NetralSCP || p.TeamID == (int)TeamID.BerserkSCP  || SCPaditonelle.Contains(p.RoleID)).Count();
                 nCDP = Server.Get.Players.Where(p => p.RoleID == (int)RoleType.ClassD).Count();
-                nRSC = Server.Get.Players.Where(p => RSC.Contains(p.RoleID)).Count();
-                nVIP = Server.Get.Players.Where(p => p.RoleID == 103).Count();
-                nFIM = Server.Get.Players.Where(p => p.Team == Team.MTF && !RSC.Contains(p.RoleID) && !SCPaditonelle.Contains(p.RoleID)).Count();
+                nRSC = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.RSC).Count();
+                nVIP = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.VIP).Count();
+                nFIM = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.NTF || p.TeamID == (int)TeamID.CDM && !SCPaditonelle.Contains(p.RoleID)).Count();
                 leftdecont = (int)((Math.Truncate((15f * 60) * 100f) / 100f) - (Math.Truncate(DecontaminationController.GetServerTime * 100f) / 100f));
                 leftautowarhead = AlphaWarheadController.Host != null
                     ? (int)Mathf.Clamp(AlphaWarheadController.Host.timeToDetonation - RoundSummary.roundTime, 0, AlphaWarheadController.Host.timeToDetonation)

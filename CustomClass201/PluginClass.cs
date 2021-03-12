@@ -23,88 +23,94 @@ namespace CustomClass
     {
         public static PluginClass Plugin;
 
-        [Synapse.Api.Plugin.Config(section = "CustomClass")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-General")]
         public static ConfigCustomClass ConfigCustomClass;
 
-        [Synapse.Api.Plugin.Config(section = "CustomClass201")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-CustomClass201")]
         public static Config201 Config201;
 
         [Synapse.Api.Plugin.Config(section = "ConfigConcierge")]
         public static ConfigConcierge ConfigConcierge;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigDirecteurSite")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigDirecteurSite")]
         public static ConfigDirecteurSite ConfigDirecteurSite;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigScientifiqueSuperviseur")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigScientifiqueSuperviseur")]
         public static ConfigScientifiqueSuperviseur ConfigScientifiqueSuperviseur;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigGardeSuperviseur")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigGardeSuperviseur")]
         public static ConfigGardeSuperviseur ConfigGardeSuperviseur;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigNTFExpertPyrotechnie")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFExpertPyrotechnie")]
         public static ConfigNTFExpertPyrotechnie ConfigNTFExpertPyrotechnie;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigNTFExpertReconfinement")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFExpertReconfinement")]
         public static ConfigNTFExpertReconfinement ConfigNTFExpertReconfinement;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigNTFInfirmier")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFInfirmier")]
         public static ConfigNTFInfirmier ConfigNTFInfirmier;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigCHIExpertPyrotechnie")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHIInfirmier")]
+        public static ConfigCHIInfirmier ConfigCHIInfirmier;
+
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHIExpertPyrotechnie")]
         public static ConfigCHIExpertPyrotechnie ConfigCHIExpertPyrotechnie;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigCHIHacker")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHIHacker")]
         public static ConfigCHIHacker ConfigCHIHacker;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigCHIIntrus")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHIIntrus")]
         public static ConfigCHIIntrus ConfigCHIntrus;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigCHIKamikaze")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHIKamikaze")]
         public static ConfigCHIKamikaze ConfigCHIKamikaze;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigCHILeader")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHILeader")]
         public static ConfigCHILeader ConfigCHILeader;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigCHIMastondonte")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHIMastondonte")]
         public static ConfigCHIMastodonte ConfigCHIMastondonte;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigCHISPY")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHISPY")]
         public static ConfigCHISpy ConfigCHISPY;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigNTFVirologue")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFVirologue")]
         public static ConfigNTFVirologue ConfigNTFVirologue;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigUniteTactiqueRobotique")]
-        public static ConfigRoboticTacticalUnity ConfigRoboticTaticalUnity;
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigFoundationUTR")]
+        public static ConfigFoundationUTR ConfigFoundationUTR;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigSCP008")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP008")]
         public static ConfigSCP008 ConfigSCP008;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigSCP1048")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP166")]
+        public static ConfigSCP166 ConfigSCP166;
+
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP1048")]
         public static ConfigSCP1048 ConfigSCP1048;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigSCP507")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP507")]
         public static ConfigSCP507 ConfigSCP507;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigSCP682")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP682")]
         public static ConfigSCP682 ConfigSCP682;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigSCP966")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP966")]
         public static ConfigSCP966 ConfigSCP966;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigSCP953")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP953")]
         public static ConfigSCP953 ConfigSCP953;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigSCP999")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP999")]
         public static ConfigSCP999 ConfigSCP999;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigTechnicien")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigTechnicien")]
         public static ConfigTechnicien ConfigTechnicien;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigStaff")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigStaff")]
         public static ConfigStaff ConfigStaff;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigTestClass")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigTestClass")]
         public static ConfigTestClass ConfigTestClass;
 
         [SynapseTranslation]
@@ -141,19 +147,20 @@ namespace CustomClass
             Server.Get.RoleManager.RegisterCustomRole<ConciergeScript>();
             Server.Get.RoleManager.RegisterCustomRole<DirecteurSiteScript>();
             Server.Get.RoleManager.RegisterCustomRole<ScientifiqueSuperviseurScript>();
-            Server.Get.RoleManager.RegisterCustomRole<ICExpertPyrotechnieScript>();
-            Server.Get.RoleManager.RegisterCustomRole<ICHackerScript>();
-            Server.Get.RoleManager.RegisterCustomRole<ICIntrusScript>();
-            Server.Get.RoleManager.RegisterCustomRole<ICKamikazeScript>();
-            Server.Get.RoleManager.RegisterCustomRole<ICLeaderScript>();
-            Server.Get.RoleManager.RegisterCustomRole<ICMastodonteScript>();
-            Server.Get.RoleManager.RegisterCustomRole<ICSPYScript>();
+            Server.Get.RoleManager.RegisterCustomRole<CHIExpertPyrotechnieScript>();
+            Server.Get.RoleManager.RegisterCustomRole<CHIHackerScript>();
+            Server.Get.RoleManager.RegisterCustomRole<CHIInfirmierScript>();
+            Server.Get.RoleManager.RegisterCustomRole<CHIIntrusScript>();
+            Server.Get.RoleManager.RegisterCustomRole<CHIKamikazeScript>();
+            Server.Get.RoleManager.RegisterCustomRole<CHILeaderScript>();
+            Server.Get.RoleManager.RegisterCustomRole<CHIMastodonteScript>();
+            Server.Get.RoleManager.RegisterCustomRole<CHISPYScript>();
             Server.Get.RoleManager.RegisterCustomRole<GardeSuperviseurScript>();
             Server.Get.RoleManager.RegisterCustomRole<NTFExpertPyrotechnieScript>();
             Server.Get.RoleManager.RegisterCustomRole<NTFExpertReconfinementScript>();
             Server.Get.RoleManager.RegisterCustomRole<NTFInfirmierScript>();
             Server.Get.RoleManager.RegisterCustomRole<NTFVirologueScript>();
-            Server.Get.RoleManager.RegisterCustomRole<RoboticTacticalUnityScript>();
+            Server.Get.RoleManager.RegisterCustomRole<FoundationUTRScript>();
             Server.Get.RoleManager.RegisterCustomRole<SCP008Script>();
             Server.Get.RoleManager.RegisterCustomRole<SCP1048cript>();
             Server.Get.RoleManager.RegisterCustomRole<SCP507Script>();

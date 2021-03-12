@@ -56,7 +56,7 @@ namespace CustomClass
                     {
                         EventHandlers.RespawnPlayer.Remove(ev.Player);
                         Player pl = ev.Player;
-                        Timing.CallDelayed(2f, () =>
+                        Timing.CallDelayed(1f, () =>
                         {
                             pl.RoleID = (int)nouveauRole;
                             Dictionary.PlayerRole[ev.Player] = (int)nouveauRole;
