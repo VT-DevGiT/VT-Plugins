@@ -20,10 +20,12 @@ namespace VT_AndersonRobotic
         {
             Server.Get.Logger.Info(Plugin.Config.SpawnSize);
             Server.Get.Logger.Info(players == null);
-            /*
+            Server.Get.Logger.Info(players.Any(p => p == null));
+            Server.Get.Logger.Info(players.Any());
+            
             if (players.Count > Plugin.Config.SpawnSize)
                 players = players.GetRange(0, Plugin.Config.SpawnSize);
-            */
+            
             foreach (var ply in players)
                 ply.RoleID = (int)RoleID.AndersonUnite;
 

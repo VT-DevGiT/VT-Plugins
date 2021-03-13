@@ -62,7 +62,7 @@ namespace CustomClass.PlayerScript
                 composant.enabled = false;
         }
 
-        protected T GetComponent<T>()
+        protected T ActiveComponent<T>()
             where T : Behaviour
         {
             T composant;
@@ -116,7 +116,6 @@ namespace CustomClass.PlayerScript
                 {
                     Server.Get.Logger.Error($"Error Congif inventory at {this.RoleName} : { item.ID} {e} ");
                 }
-                
             }
             Player.Ammo5 = GetConfigValue<uint>("Ammo5", 0);
             Player.Ammo7 = GetConfigValue<uint>("Ammo7", 0);

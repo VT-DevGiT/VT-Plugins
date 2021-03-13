@@ -56,12 +56,8 @@ namespace CustomClass
                     {
                         EventHandlers.RespawnPlayer.Remove(ev.Player);
                         Player pl = ev.Player;
-                        Timing.CallDelayed(1f, () =>
-                        {
-                            pl.RoleID = (int)nouveauRole;
-                            Dictionary.PlayerRole[ev.Player] = (int)nouveauRole;
-
-                        });
+                        pl.RoleID = (int)nouveauRole;
+                        Dictionary.PlayerRole[ev.Player] = (int)nouveauRole;
                         PluginClass.Plugin.RespawnedPlayer[nouveauRole] = respawned + 1;
                     }
                 }

@@ -11,13 +11,13 @@ namespace CustomClass.PlayerScript
 {
     public class FoundationUTRScript : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)Team.CHI };
+        protected override List<int> EnemysList => new List<int> { (int)TeamID.CHI };
 
-        protected override List<int> FriendsList => new List<int> { (int)Team.MTF, (int)TeamID.CDM, (int)TeamID.NTF, (int)TeamID.SEC, (int)Team.RSC };
+        protected override List<int> FriendsList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM,   (int)TeamID.RSC };
 
         protected override RoleType RoleType => RoleType.NtfLieutenant;
 
-        protected override int RoleTeam => (int)TeamID.SEC;
+        protected override int RoleTeam => (int)TeamID.MTF;
 
         protected override int RoleId => (int)RoleID.FoundationUTR;
 

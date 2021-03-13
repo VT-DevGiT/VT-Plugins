@@ -11,7 +11,14 @@ namespace CustomClass.Config
         public int Health = 170;
 
         [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.KeycardNTFLieutenant, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.GunProject90, 50, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Adrenaline, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.SCP500, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one) };
+        public List<SerializedItem> Items = new List<SerializedItem>() { 
+            new SerializedItem((int)ItemType.KeycardNTFLieutenant, 1, 0, 0, 0, Vector3.one), 
+            new SerializedItem((int)ItemType.GunProject90, 50, 0, 0, 0, Vector3.one), 
+            new SerializedItem((int)ItemType.Adrenaline, 1, 0, 0, 0, Vector3.one), 
+            new SerializedItem((int)ItemType.SCP500, 1, 0, 0, 0, Vector3.one), 
+            new SerializedItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one), 
+            new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), 
+            new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one) };
 
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 10;

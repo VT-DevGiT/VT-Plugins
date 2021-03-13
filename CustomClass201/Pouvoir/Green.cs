@@ -30,7 +30,7 @@ namespace CustomClass.Pouvoir
           
             if (_timer > 1)
             {
-                var listPlayerPossible = Server.Get.Players.Where(p => p != player && p.Team != Team.SCP && p.Team != Team.RIP && Vector3.Distance(p.Position, player.Position) < PluginClass.ConfigSCP166.Distance);
+                var listPlayerPossible = Server.Get.Players.Where(p => p != player && p.TeamID != (int)TeamID.SCP && p.TeamID != (int)TeamID.RIP && Vector3.Distance(p.Position, player.Position) < PluginClass.ConfigSCP166.Distance);
                 
                 foreach(var target in playerAffected.Keys)
                 {

@@ -13,13 +13,13 @@ namespace CustomClass.PlayerScript
 {
     public class CHILeaderScript : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)Team.MTF, (int)TeamID.CDM, (int)TeamID.NTF, (int)TeamID.SEC };
+        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM};
 
-        protected override List<int> FriendsList => new List<int> { (int)Team.CHI, (int)Team.CDP };
+        protected override List<int> FriendsList => new List<int> { (int)TeamID.CHI, (int)TeamID.CDP };
 
         protected override RoleType RoleType => RoleType.ChaosInsurgency;
 
-        protected override int RoleTeam => (int)Team.CHI;
+        protected override int RoleTeam => (int)TeamID.CHI;
 
         protected override int RoleId => (int)RoleID.CHILeader;
 
@@ -34,7 +34,7 @@ namespace CustomClass.PlayerScript
             {
                 List<Player> spawnPlayer = new List<Player>();
                 spawnPlayer.AddRange(Server.Get.Players.Where(p => p.RoleID == (int)RoleType.Spectator && !p.OverWatch));
-                Server.Get.TeamManager.SpawnTeam((int)Team.CHI, spawnPlayer);
+                Server.Get.TeamManager.SpawnTeam((int)TeamID.CHI, spawnPlayer);
                 lastPower = DateTime.Now;
             }
             else if (power == PowerType.Respawn)

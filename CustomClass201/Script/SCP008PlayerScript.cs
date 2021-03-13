@@ -15,13 +15,13 @@ namespace CustomClass.PlayerScript
 {
     public class SCP008Script : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)Team.MTF, (int)Team.RSC, (int)Team.CDP };
+        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.RSC, (int)TeamID.CDP };
 
-        protected override List<int> FriendsList => new List<int> { (int)Team.SCP };
+        protected override List<int> FriendsList => new List<int> { (int)TeamID.SCP };
 
         protected override RoleType RoleType => RoleType.Scp0492;
 
-        protected override int RoleTeam => (int)Team.SCP;
+        protected override int RoleTeam => (int)TeamID.SCP;
 
         protected override int RoleId => (int)RoleID.SCP008;
 
@@ -31,7 +31,7 @@ namespace CustomClass.PlayerScript
 
         protected override void AditionalInit()
         {
-            Aura aura = GetComponent<Aura>();
+            Aura aura = ActiveComponent<Aura>();
             {
                 aura.PlayerEffect = Effect.ArtificialRegen;
                 aura.TargetEffect = Effect.Poisoned;
@@ -78,7 +78,7 @@ namespace CustomClass.PlayerScript
             if (power == PowerType.Zombifaction)
             {
                 Server.Get.Logger.Info("Zombifaction");
-                Player corpseowner = VT_Referance.Method.Methods.GetPlayercoprs(Player, 4);
+                Player corpseowner = Methods.GetPlayercoprs(Player, 4);
                 Server.Get.Logger.Info(corpseowner?.NickName);
                 if (Methods.IsScpRole(corpseowner) == false)
                 {

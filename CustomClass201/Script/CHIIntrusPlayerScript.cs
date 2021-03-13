@@ -10,13 +10,13 @@ namespace CustomClass.PlayerScript
 {
     public class CHIIntrusScript : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)Team.MTF };
+        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF };
 
-        protected override List<int> FriendsList => new List<int> { (int)Team.MTF, (int)TeamID.CDM, (int)TeamID.NTF, (int)TeamID.SEC };
+        protected override List<int> FriendsList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM};
 
         protected override RoleType RoleType => RoleType.Scientist;
 
-        protected override int RoleTeam => (int)Team.CHI;
+        protected override int RoleTeam => (int)TeamID.CHI;
 
         protected override int RoleId => (int)RoleID.CHIIntrus;
 

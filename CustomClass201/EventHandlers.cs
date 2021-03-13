@@ -26,6 +26,7 @@ namespace CustomClass
                 ev.SpawnUnRole(RoleType.ChaosInsurgency, RoleID.CHIExpertPyrotechnie, PluginClass.ConfigCHIExpertPyrotechnie);
                 ev.SpawnUnRole(RoleType.ChaosInsurgency, RoleID.CHIKamikaze, PluginClass.ConfigCHIKamikaze);
                 ev.SpawnUnRole(RoleType.ChaosInsurgency, RoleID.CHIMastodonte, PluginClass.ConfigCHIMastondonte);
+                ev.SpawnUnRole(RoleType.ChaosInsurgency, RoleID.CHIInfirmier, PluginClass.ConfigCHIInfirmier);
                 ev.SpawnUnRole(RoleType.NtfCadet, RoleID.CHISpy, PluginClass.ConfigCHISPY);
                 ev.SpawnUnRole(RoleType.NtfLieutenant, RoleID.CHILeader, PluginClass.ConfigCHILeader);
                 ev.SpawnUnRole(RoleType.NtfLieutenant, RoleID.NTFExpertPyrotechnie, PluginClass.ConfigNTFExpertPyrotechnie);
@@ -52,7 +53,7 @@ namespace CustomClass
                 ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, RoleID.DirecteurSite, PluginClass.ConfigDirecteurSite);
                 ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, RoleID.Concierge, PluginClass.ConfigConcierge);
                 ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, RoleID.SCP507, PluginClass.ConfigSCP507);
-                //ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, RoleID.SCP999, PluginClass.ConfigSCP999); choisire une bonne taile 
+                //ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, RoleID.SCP999, PluginClass.ConfigSCP999); 
                 ev.SpawnPlayers.SpawnUnRole(RoleType.ClassD, RoleID.CHIIntrus, PluginClass.ConfigCHIntrus);
                 ev.SpawnPlayers.SpawnUnRole(RoleType.Scientist, RoleID.ScientifiqueSuperviseur, PluginClass.ConfigScientifiqueSuperviseur);
                 ev.SpawnPlayers.SpawnUnRole(RoleType.FacilityGuard, RoleID.GardeSuperviseur, PluginClass.ConfigGardeSuperviseur);

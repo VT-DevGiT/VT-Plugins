@@ -78,6 +78,7 @@
     <Compile Include="Config\ConfigCHIInfirmier.cs" />
     <Compile Include="Config\ConfigSCP166.cs" />
     <Compile Include="Config\CustomClass.cs" />
+    <Compile Include="CustomTeam\VIPTeam - Copier.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="Patch.cs" />
     <Compile Include="Pouvoir\Green.cs" />
@@ -151,6 +152,9 @@
     <Compile Include="Script\TechnicienPlayerScript.cs" />
     <Compile Include="Script\StaffPlayerScript.cs" />
     <Compile Include="Script\TestClassPlayerScript.cs" />
+    <Compile Include="CustomTeam\StaffTeam.cs" />
+    <Compile Include="CustomTeam\NetralSCPTeam.cs" />
+    <Compile Include="CustomTeam\BerserkSCPTeam.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

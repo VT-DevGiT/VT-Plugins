@@ -18,5 +18,7 @@ namespace CustomClass.Pouvoir
         Sucide = 7,
         Zombifaction = 8,
         Defibrilatcion = 9,
+        BadGreen = 9,
+        Attaque = 9,
     }
 }

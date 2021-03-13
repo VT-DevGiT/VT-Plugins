@@ -30,7 +30,7 @@ namespace CustomClass.PlayerScript
 
         protected override void AditionalInit()
         {
-            Aura aura = GetComponent<Aura>();
+            Aura aura = ActiveComponent<Aura>();
             {
                 aura.PlayerEffect = Effect.Disabled;
                 aura.TargetEffect = Effect.ArtificialRegen;

@@ -8,7 +8,7 @@ namespace VT_AndersonRobotic
     [PluginInformation(
 Name = "VT-AndersonRobotic",
 Author = "VT",
-Description = "Adds functionality such as intercom information",
+Description = "Adds functionality the team AndersonRobotic",
 LoadPriority = 0,
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,
@@ -31,7 +31,7 @@ Version = "v.1.1.1"
             PluginTranslation.AddTranslation(new PluginTranslation());
             PluginTranslation.AddTranslation(new PluginTranslation()
             {
-                SpawnMessage = "<i>tu es un membre de <color=yellow>AndersonRobotic</color></i>\\n<i>Ton objectif et de volée toute les donnée des serveurs!</i>\\n<b>Press esc pour fermé</b>",
+                SpawnMessage = "<i>tu es un membre de <color=yellow>AndersonRobotic</color></i>\\n<i>Ton objectif est de volée toute les donnée des serveurs!</i>\\n<b>Press esc pour fermé</b>",
             }, "FRENCH");
             Instance = this;
             new EventHandlers();

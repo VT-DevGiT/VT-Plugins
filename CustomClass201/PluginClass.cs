@@ -7,6 +7,7 @@ using Synapse.Api.Plugin;
 using Synapse.Translation;
 using System.Collections.Generic;
 using VT_Referance.Variable;
+using CustomClass.CustomTeam;
 
 namespace CustomClass
 {
@@ -128,6 +129,7 @@ namespace CustomClass
         public override void Load()
         {
             Plugin = this;
+            RegisterCustomTeam();
             RegisterCustomRole();
             PluginTranslation.AddTranslation(new CustomClass.PluginTranslation());
             PluginTranslation.AddTranslation(new CustomClass.PluginTranslation{
@@ -141,7 +143,13 @@ namespace CustomClass
             
         }
 
-
+        public void RegisterCustomTeam()
+        {
+            Server.Get.TeamManager.RegisterTeam<NetralSCPTeam>();
+            Server.Get.TeamManager.RegisterTeam<BerserkSCPTeam>();
+            Server.Get.TeamManager.RegisterTeam<VIPTeam>();
+            Server.Get.TeamManager.RegisterTeam<StaffTeam>();
+        }
         public void RegisterCustomRole()
         {
             Server.Get.RoleManager.RegisterCustomRole<ConciergeScript>();
@@ -161,6 +169,7 @@ namespace CustomClass
             Server.Get.RoleManager.RegisterCustomRole<NTFInfirmierScript>();
             Server.Get.RoleManager.RegisterCustomRole<NTFVirologueScript>();
             Server.Get.RoleManager.RegisterCustomRole<FoundationUTRScript>();
+            Server.Get.RoleManager.RegisterCustomRole<SCP166Script>();
             Server.Get.RoleManager.RegisterCustomRole<SCP008Script>();
             Server.Get.RoleManager.RegisterCustomRole<SCP1048cript>();
             Server.Get.RoleManager.RegisterCustomRole<SCP507Script>();

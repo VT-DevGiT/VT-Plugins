@@ -16,10 +16,11 @@ namespace VT_AndersonRobotic
         private void Respawn(TeamRespawnEventArgs ev)
         {
             Server.Get.Logger.Info($"ev null {ev == null}");
-            Server.Get.Logger.Info($"player null {ev.Players == null}");
+            Server.Get.Logger.Info($"ev player null {ev.Players == null}");
+            Server.Get.Logger.Info($"ev player containe null {ev.Players.Any(p => p == null)}");
+            Server.Get.Logger.Info(ev.Players.Any());
             if (ev.Team == Respawning.SpawnableTeamType.ChaosInsurgency /*&& UnityEngine.Random.Range(1f, 100f) <= Plugin.Config.SpawnChance*/)
                 ev.TeamID = (int)TeamID.AndersneRobotic;
-            ev.Allow = true;
         }
 
         private void SetClass(PlayerSetClassEventArgs ev)

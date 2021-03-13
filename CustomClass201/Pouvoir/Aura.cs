@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using VT_Referance.Method;
 using VT_Referance.Variable;
 
 namespace CustomClass.Pouvoir
@@ -34,8 +35,8 @@ namespace CustomClass.Pouvoir
             _timer += Time.deltaTime;
             if (_timer > 1)
             {
-                foreach (var target in Server.Get.Players.Where(p => p != player && p.Team != Team.SCP && p.Team != Team.RIP
-                     && p.RoleID != (int)RoleID.FoundationUTR && p.RoleID != (int)RoleID.NTFVirologue))
+                foreach (var target in Server.Get.Players.Where(p => p != player && p.TeamID != (int)TeamID.SCP && p.TeamID != (int)TeamID.RIP
+                     && p.IsUTR() && p.RoleID != (int)RoleID.NTFVirologue))
                 {
                     if (Vector3.Distance(target.Position, player.Position) < Distance)
                     {

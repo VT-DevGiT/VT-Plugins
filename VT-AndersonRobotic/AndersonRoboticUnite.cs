@@ -17,7 +17,7 @@ namespace VT_AndersonRobotic
 
         public override List<int> GetFriendsID() => new List<int> { (int)TeamID.AndersneRobotic };
 
-        public override List<int> GetEnemiesID() => new List<int> { (int)TeamID.RSC, (int)TeamID.SEC, (int)TeamID.MTF, (int)TeamID.NTF, (int)TeamID.CDM, (int)TeamID.CHI };
+        public override List<int> GetEnemiesID() => new List<int> { (int)TeamID.RSC, (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.CHI };
 
         public override void Spawn()
         {

@@ -11,7 +11,13 @@ namespace CustomClass.Config
         public int Health = 110;
 
         [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.KeycardScientistMajor, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.GunUSP, 18, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Painkillers, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Painkillers, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one) };
+        public List<SerializedItem> Items = new List<SerializedItem>() { 
+            new SerializedItem((int)ItemType.KeycardScientistMajor, 1, 0, 0, 0, Vector3.one), 
+            new SerializedItem((int)ItemType.GunUSP, 18, 0, 0, 0, Vector3.one), 
+            new SerializedItem((int)ItemType.Painkillers, 1, 0, 0, 0, Vector3.one), 
+            new SerializedItem((int)ItemType.Painkillers, 1, 0, 0, 0, Vector3.one), 
+            new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), 
+            new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one) };
 
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 100;

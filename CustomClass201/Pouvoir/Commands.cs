@@ -239,5 +239,51 @@ namespace CustomClass
             return result;
         }
     }
+    [CommandInformation(
+          Name = "BadGreen",
+          Aliases = new[] { "Green" },
+          Description = "to use the capacity of your role",
+          Permission = "",
+          Platforms = new[] { Platform.ClientConsole },
+          Usage = ".Green"
+          )]
+    class CmdBadGreen : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+            if (context.Player.CustomRole is BasePlayerScript script)
+            {
+                script.CallPower(PowerType.BadGreen);
+                result.State = CommandResultState.Ok;
+            }
+            else
+                result.State = CommandResultState.NoPermission;
+            return result;
+        }
+    }
+    [CommandInformation(
+          Name = "attack",
+          Aliases = new[] { "attaque", "attack" },
+          Description = "to use the capacity of your role",
+          Permission = "",
+          Platforms = new[] { Platform.ClientConsole },
+          Usage = ".Green"
+          )]
+    class CmdAttaque : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+            if (context.Player.CustomRole is BasePlayerScript script)
+            {
+                script.CallPower(PowerType.Attaque);
+                result.State = CommandResultState.Ok;
+            }
+            else
+                result.State = CommandResultState.NoPermission;
+            return result;
+        }
+    }
 
 }

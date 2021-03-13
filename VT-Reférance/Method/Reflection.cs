@@ -19,16 +19,5 @@ namespace VT_Referance.Method
             return (T)field.GetValue(element);
         }
 
-        public static float TotalVoltageFloat()
-        {
-            float totalvoltagefloat = 0f;
-            foreach (var i in Generator079.Generators)
-            {
-                totalvoltagefloat += i.localVoltage;
-            }
-            totalvoltagefloat *= 1000f;
-            return totalvoltagefloat;
-        }
-
     }
 }

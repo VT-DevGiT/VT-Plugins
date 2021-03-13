@@ -11,11 +11,11 @@ using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
-    public class SCP166cript : BasePlayerScript
+    public class SCP166Script : BasePlayerScript
     {
         protected override List<int> EnemysList => new List<int> { };
 
-        protected override List<int> FriendsList => new List<int> { (int)Team.MTF, (int)TeamID.CDM, (int)TeamID.NTF, (int)TeamID.SEC, (int)Team.RSC };
+        protected override List<int> FriendsList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM,   (int)TeamID.RSC };
 
         protected override RoleType RoleType => RoleType.ClassD;
 
@@ -29,7 +29,7 @@ namespace CustomClass.PlayerScript
 
         protected override void AditionalInit()
         {
-            GetComponent<>();
+            ActiveComponent<Green>();
         }
 
         protected override void Event()
@@ -44,13 +44,39 @@ namespace CustomClass.PlayerScript
                 ev.Allow = false;
         }
 
+        public override bool CallPower(PowerType power)
+        {
+            if (PowerType.BadGreen == power)
+            {
+                Player.GetComponent<Green>().agressif = !Player.GetComponent<Green>().agressif;
+                return true;
+            }
+            else if (PowerType.Attaque == power)
+            {
+                var victim = Player.LookingAt.GetPlayer();
+                if (victim != null)
+                {
+                    victim.Hurt(25);
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void OnKeyPress(PlayerKeyPressEventArgs ev)
         {
-            throw new NotImplementedException();
+            if (ev.Player == Player)
+            {
+                if (ev.KeyCode == UnityEngine.KeyCode.Alpha1)
+                    CallPower(PowerType.BadGreen);
+                if (ev.KeyCode == UnityEngine.KeyCode.Alpha1)
+                    CallPower(PowerType.Attaque);
+            }
         }
 
         public override void DeSpawn()
         {
+            InactiveComponent<Green>();
             Map.Get.AnnounceScpDeath("1 6 6");
             Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
             Server.Get.Events.Player.PlayerPickUpItemEvent -= OnPickUp;

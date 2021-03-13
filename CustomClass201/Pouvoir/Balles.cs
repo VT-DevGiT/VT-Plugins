@@ -16,7 +16,7 @@ namespace CustomClass
         {
             if(ev.Killer == player && ev.Victim.RoleID == (int)RoleID.FoundationUTR)
             {
-                if (ev.Victim.Team == Team.SCP || ev.Victim.ArtificialHealth != 0) 
+                if (ev.Victim.TeamID == (int)TeamID.SCP || ev.Victim.ArtificialHealth != 0) 
                 {
                     ev.Victim.GiveEffect(Effect.Disabled, 1, 4);
                 }

@@ -81,14 +81,14 @@ namespace VTProget_X
                 var _intercom = Server.Get.Host.GetComponent<Intercom>();
 
                 #region int&bool
-                List<int> SCPaditonelle = new List<int> { 56 };
-                List<int> RSC = new List<int> { 100, 101, 102, 104, (int)RoleType.Scientist, (int)RoleType.FacilityGuard };
+                List<int> SCPaditonelle = new List<int> { (int)RoleID.Scp056, (int)RoleID.Scp035 };
+                List<int> RSCaditonelle = new List<int> { (int)RoleID.FacilityGuard, (int)RoleID.GardeSuperviseur, (int)RoleID.Technicien };
 
                 nSCP = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.SCP || p.TeamID == (int)TeamID.NetralSCP || p.TeamID == (int)TeamID.BerserkSCP  || SCPaditonelle.Contains(p.RoleID)).Count();
                 nCDP = Server.Get.Players.Where(p => p.RoleID == (int)RoleType.ClassD).Count();
-                nRSC = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.RSC).Count();
+                nRSC = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.RSC || RSCaditonelle.Contains(p.RoleID)).Count();
                 nVIP = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.VIP).Count();
-                nFIM = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.NTF || p.TeamID == (int)TeamID.CDM && !SCPaditonelle.Contains(p.RoleID)).Count();
+                nFIM = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.MTF || p.TeamID == (int)TeamID.CDM && !SCPaditonelle.Contains(p.RoleID) && !SCPaditonelle.Contains(p.RoleID)).Count();
                 leftdecont = (int)((Math.Truncate((15f * 60) * 100f) / 100f) - (Math.Truncate(DecontaminationController.GetServerTime * 100f) / 100f));
                 leftautowarhead = AlphaWarheadController.Host != null
                     ? (int)Mathf.Clamp(AlphaWarheadController.Host.timeToDetonation - RoundSummary.roundTime, 0, AlphaWarheadController.Host.timeToDetonation)

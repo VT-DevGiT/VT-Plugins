@@ -13,13 +13,13 @@ namespace CustomClass.PlayerScript
 {
     public class SCP966cript : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)Team.MTF, (int)Team.RSC, (int)Team.CDP };
+        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.RSC, (int)TeamID.CDP };
 
-        protected override List<int> FriendsList => new List<int> { (int)Team.SCP };
+        protected override List<int> FriendsList => new List<int> { (int)TeamID.SCP };
 
         protected override RoleType RoleType => RoleType.Scp0492;
 
-        protected override int RoleTeam => (int)Team.SCP;
+        protected override int RoleTeam => (int)TeamID.SCP;
 
         protected override int RoleId => (int)RoleID.SCP966;
 
@@ -31,7 +31,7 @@ namespace CustomClass.PlayerScript
         {
             Player.Invisible = true;
             SynapseItem Chapeau = new SynapseItem(ItemType.SCP268, 0, 0, 0, 0);
-            GetComponent<Invisible>();
+            ActiveComponent<Invisible>();
             Player.Inventory.AddItem(Chapeau);
         }
 

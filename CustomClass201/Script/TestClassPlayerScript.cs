@@ -10,9 +10,9 @@ namespace CustomClass.PlayerScript
 {
     public class TestClassScript : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)Team.SCP, (int)Team.CDP, (int)Team.CHI, (int)Team.MTF, (int)Team.RIP, (int)Team.RSC, (int)Team.TUT };
+        protected override List<int> EnemysList => new List<int> { (int)TeamID.SCP, (int)TeamID.CDP, (int)TeamID.CHI, (int)TeamID.MTF, (int)TeamID.RIP, (int)TeamID.RSC, (int)TeamID.TUT };
 
-        protected override List<int> FriendsList => new List<int> { (int)Team.SCP, (int)Team.CDP, (int)Team.CHI, (int)Team.MTF, (int)Team.RIP, (int)Team.RSC, (int)Team.TUT };
+        protected override List<int> FriendsList => new List<int> { (int)TeamID.SCP, (int)TeamID.CDP, (int)TeamID.CHI, (int)TeamID.MTF, (int)TeamID.RIP, (int)TeamID.RSC, (int)TeamID.TUT };
 
         protected override RoleType RoleType => RoleType.Tutorial;
 
