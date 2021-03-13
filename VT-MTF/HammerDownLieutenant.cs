@@ -42,7 +42,7 @@ namespace VT_MTF
                 }
             }
 
-            Player.DisplayInfo = Plugin.Config.CustomRoleNameLieutenant.Replace("%Squad%", Player.UnitName));
+            Player.DisplayInfo = Plugin.Config.CustomRoleNameLieutenant.Replace("%Squad%", Player.UnitName);
             Player.RemoveDisplayInfo(PlayerInfoArea.Role);
             Player.OpenReportWindow(Plugin.PluginTranslation.ActiveTranslation.SpawnMessageLieutenant.Replace("\\n", "\n"));
         }
