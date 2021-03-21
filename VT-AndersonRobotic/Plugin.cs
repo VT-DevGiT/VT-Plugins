@@ -13,7 +13,7 @@ LoadPriority = 0,
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,
 SynapsePatch = SynapseController.SynapsePatch,
-Version = "v.1.1.1"
+Version = "v.1.1.3"
        )]
     public class Plugin : AbstractPlugin
     {
@@ -26,14 +26,14 @@ Version = "v.1.1.1"
         public static SynapseTranslation<PluginTranslation> PluginTranslation { get; set; }
         public override void Load()
         {
+            Instance = this;
             Server.Get.TeamManager.RegisterTeam<AndersonRoboticTeam>();
             Server.Get.RoleManager.RegisterCustomRole<AndersonRoboticUnite>();
             PluginTranslation.AddTranslation(new PluginTranslation());
             PluginTranslation.AddTranslation(new PluginTranslation()
             {
-                SpawnMessage = "<i>tu es un membre de <color=yellow>AndersonRobotic</color></i>\\n<i>Ton objectif est de volée toute les donnée des serveurs!</i>\\n<b>Press esc pour fermé</b>",
+                SpawnMessage = "tu es un membre de <color=yellow>AndersonRobotic</color>\\nTon objectif est de volée toute les donnée des serveurs!\\n<b>Press esc pour fermé</b>",
             }, "FRENCH");
-            Instance = this;
             new EventHandlers();
             base.Load();
         }

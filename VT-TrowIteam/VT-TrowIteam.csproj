@@ -78,7 +78,7 @@
     <Compile Include="Command.cs" />
     <Compile Include="Method.cs" />
     <Compile Include="Plugin.cs" />
-    <Compile Include="config.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializedVector3.cs" />

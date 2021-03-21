@@ -30,7 +30,7 @@ namespace CustomClass.PlayerScript
 
         protected override void AditionalInit()
         {
-            if (Player.UserId == "steam@76561198880515778")
+            if (Player.UserId == "76561198880515778@steam")
                 Player.DisplayInfo = $"Agent du CDA(Virologue) {Player.UnitName}";
         }
         public override void DeSpawn()

@@ -15,7 +15,7 @@ namespace CustomClass.Config
 
         [Description("The Items the class spawns with")]
         public List<SerializedItem> Items = new List<SerializedItem>() { 
-            new SerializedItem((int)ItemType.GunLogicer, 75, 0, 0, 0, Vector3.one), 
+            new SerializedItem((int)ItemType.GunLogicer, 75, 0, 0, 0, Vector3.one),
             new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one), 
             new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one), 
             new SerializedItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one),

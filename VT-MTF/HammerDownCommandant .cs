@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using VT_Referance.Variable;
 
-namespace VT_MTF
+namespace VT_HammerDown
 {
     public class HammerDownCommandant : Synapse.Api.Roles.Role
     {
-        public override int GetRoleID() => (int)RoleID.AndersonUnite;
+        public override int GetRoleID() => (int)RoleID.CDMCommandant;
 
         public override string GetRoleName() => "CDMCommandant";
 

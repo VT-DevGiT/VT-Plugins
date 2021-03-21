@@ -6,7 +6,7 @@ using System.Linq;
 using VT_Referance.Variable;
 using VT_Referance.Method;
 
-namespace VT_MTF
+namespace VT_HammerDown
 {
     internal class EventHandlers
     {
@@ -20,16 +20,17 @@ namespace VT_MTF
         {
             if (ev.Player.TeamID == (int)TeamID.CDM)
             {
+                
                 switch (ev.Player.RoleID)
                 {
                     case (int)RoleID.CMDCadet:
-                        Plugin.Config.ItemsCadet.Select(x => x.Parse()).ToList();
+                        ev.Items = Plugin.Config.ItemsCadet.Select(x => x.Parse()).ToList();
                         break;
                     case (int)RoleID.CDMLieutenant:
-                        Plugin.Config.ItemsLieutenant.Select(x => x.Parse()).ToList();
+                        ev.Items = Plugin.Config.ItemsLieutenant.Select(x => x.Parse()).ToList();
                         break;
                     case (int)RoleID.CDMCommandant:
-                        Plugin.Config.ItemsCadet.Select(x => x.Parse()).ToList();
+                        ev.Items = Plugin.Config.ItemsCadet.Select(x => x.Parse()).ToList();
                         break;
                 }
             }
@@ -37,7 +38,7 @@ namespace VT_MTF
 
         private void OnRespawn(TeamRespawnEventArgs ev)
         {
-            if (ev.Team == Respawning.SpawnableTeamType.ChaosInsurgency && UnityEngine.Random.Range(1f, 100f) <= Plugin.Config.SpawnChance)
+            if (ev.Team == Respawning.SpawnableTeamType.NineTailedFox) //&& UnityEngine.Random.Range(1f, 100f) <= Plugin.Config.SpawnChance)
                 ev.TeamID = (int)TeamID.CDM;
         }
     }

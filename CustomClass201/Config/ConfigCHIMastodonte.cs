@@ -30,7 +30,7 @@ namespace CustomClass.Config
 
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 215;
-        public int MaxArtificialHealth = 0;
+        public int MaxArtificialHealth = 215;
 
         [Description("the number of ammo to the class")]
         public uint Ammo5 = 50;

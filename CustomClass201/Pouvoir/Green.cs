@@ -30,10 +30,12 @@ namespace CustomClass.Pouvoir
           
             if (_timer > 1)
             {
-                var listPlayerPossible = Server.Get.Players.Where(p => p != player && p.TeamID != (int)TeamID.SCP && p.TeamID != (int)TeamID.RIP && Vector3.Distance(p.Position, player.Position) < PluginClass.ConfigSCP166.Distance);
+                var listPlayerPossible = Server.Get.Players.Where(p => p != player && p.TeamID != (int)TeamID.SCP 
+                && p.TeamID != (int)TeamID.RIP && Vector3.Distance(p.Position, player.Position) < PluginClass.ConfigSCP166.Distance);
                 
                 foreach(var target in playerAffected.Keys)
                 {
+                    Server.Get.Logger.Info("");
                     if (!listPlayerPossible.Contains(player))
                     {
                         playerAffected[target] = playerAffected[target] - 1;
@@ -48,11 +50,11 @@ namespace CustomClass.Pouvoir
                         target.Hurt(2, DamageTypes.None, player);
                     else if (agressif)
                     {
-                        target.Hurt(8, DamageTypes.None, player);
+                        target.Hurt(12, DamageTypes.None, player);
                         target.GiveEffect(Effect.Poisoned, 1, 1.5f);
                     }
                     if (playerAffected.ContainsKey(target))
-                        playerAffected[target] = playerAffected[target] + 1;
+                        playerAffected[target] = playerAffected[target] + 15;
                     else
                         playerAffected[target] = 0;
                     int chance = UnityEngine.Random.Range(1, 100);
@@ -61,7 +63,6 @@ namespace CustomClass.Pouvoir
                         AffectPlayerStuff(target);
                         playerAffected.Remove(target);
                     }
-
                 }
             }
             if (_timer > 1)
@@ -80,13 +81,13 @@ namespace CustomClass.Pouvoir
             switch (chance)
             {
                 case 1:
-                    player.Ammo5 -= 5;
+                    player.Ammo5 -= player.Ammo5 > 5 ? player.Ammo5 - 5 : 0;
                     break;
                 case 2:
-                    player.Ammo7 -= 5;
+                    player.Ammo7 -= player.Ammo7 > 5 ? player.Ammo7 - 5 : 0;
                     break;
                 case 3:
-                    player.Ammo9 -= 5;
+                    player.Ammo9 -= player.Ammo9 > 5 ? player.Ammo9 - 5 : 0;
                     break;
                 case 4:
                     if (Arme != null)
@@ -102,7 +103,7 @@ namespace CustomClass.Pouvoir
                     break;
                 case 7:
                     if (Arme != null)
-                        Arme.Durabillity = Arme.Durabillity > 5 ? Arme.Durabillity - 5 : 1;
+                        Arme.Durabillity = Arme.Durabillity > 5 ? Arme.Durabillity - 5 : 0;
                     break;
             }
         }

@@ -54,6 +54,9 @@ namespace CustomClass
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHIInfirmier")]
         public static ConfigCHIInfirmier ConfigCHIInfirmier;
 
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFVirologue")]
+        public static ConfigNTFVirologue ConfigNTFVirologue;
+
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHIExpertPyrotechnie")]
         public static ConfigCHIExpertPyrotechnie ConfigCHIExpertPyrotechnie;
 
@@ -74,9 +77,6 @@ namespace CustomClass
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHISPY")]
         public static ConfigCHISpy ConfigCHISPY;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFVirologue")]
-        public static ConfigNTFVirologue ConfigNTFVirologue;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigFoundationUTR")]
         public static ConfigFoundationUTR ConfigFoundationUTR;

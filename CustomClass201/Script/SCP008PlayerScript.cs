@@ -37,8 +37,8 @@ namespace CustomClass.PlayerScript
                 aura.TargetEffect = Effect.Poisoned;
                 aura.LuiIntencty = 6;
                 aura.LuiTime = 5;
-                aura.MoiHealHp = PluginClass.ConfigSCP008.HealHp;
-                aura.LuiHealHp = -PluginClass.ConfigSCP008.DomageHp;
+                aura.MoiHp = PluginClass.ConfigSCP008.HealHp;
+                aura.LuiHp = -PluginClass.ConfigSCP008.DomageHp;
                 aura.Distance = PluginClass.ConfigSCP008.Distance;
             }
         }
@@ -82,8 +82,8 @@ namespace CustomClass.PlayerScript
                 Server.Get.Logger.Info(corpseowner?.NickName);
                 if (Methods.IsScpRole(corpseowner) == false)
                 {
-                    corpseowner.RoleID = (int)RoleType.Scp0492;
-                    Server.Get.Logger.Info("corpseowner == true");
+                    corpseowner.RoleID = (int)RoleID.SCP008;
+                    Player.Health += 100;
                 }
                 return true;
             }

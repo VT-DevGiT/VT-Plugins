@@ -34,7 +34,7 @@ namespace CustomClass.PlayerScript
             {
                 aura.PlayerEffect = Effect.Disabled;
                 aura.TargetEffect = Effect.ArtificialRegen;
-                aura.LuiHealHp = PluginClass.ConfigSCP999.HealHp;
+                aura.LuiHp = PluginClass.ConfigSCP999.HealHp;
                 aura.Distance = PluginClass.ConfigSCP999.Distance;
             }
             Timing.CallDelayed(1f, () =>

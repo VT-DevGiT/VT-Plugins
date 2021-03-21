@@ -2,7 +2,7 @@
 using Synapse.Api.Plugin;
 using Synapse.Translation;
 
-namespace VT_MTF
+namespace VT_HammerDown
 {
 
     [PluginInformation(
@@ -19,7 +19,7 @@ Version = "v.1.4.1"
     {
         public static Plugin Instance { get; private set; }
 
-        [Synapse.Api.Plugin.Config(section = "VT-MTF")]
+        [Synapse.Api.Plugin.Config(section = "VT-HammerDown")]
         public static Config Config;
 
         [SynapseTranslation]
@@ -33,9 +33,9 @@ Version = "v.1.4.1"
             PluginTranslation.AddTranslation(new PluginTranslation());
             PluginTranslation.AddTranslation(new PluginTranslation()
             {
-                SpawnMessageCadet = "<i>tu es un membre de <color=blue>HammerDown</color></i>\\n<i>Ton objectif est de stioper toute les intrus et tuée les SCP</i>\\n<b>Press esc pour fermé</b>",
-                SpawnMessageLieutenant = "<i>tu es un membre de <color=blue>HammerDown</color></i>\\n<i>Ton objectif est de stioper toute les intrus et tuée les SCP</i>\\n<b>Press esc pour fermé</b>",
-                SpawnMessageCommandant = "<i>tu es un membre de <color=blue>HammerDown</color></i>\\n<i>Ton objectif est de stioper toute les intrus et tuée les SCP</i>\\n<b>Press esc pour fermé</b>",
+                SpawnMessageCadet = "tu es un membre de <color=blue>HammerDown</color>\\nTon objectif est de stioper toute les intrus et tuée les SCP\\n<b>Press esc pour fermé</b>",
+                SpawnMessageLieutenant = "tu es un membre de <color=blue>HammerDown</color>\\nTon objectif est de stioper toute les intrus et tuée les SCP\\n<b>Press esc pour fermé</b>",
+                SpawnMessageCommandant = "tu es un membre de <color=blue>HammerDown</color>\\nTon objectif est de stioper toute les intrus et tuée les SCP\\n<b>Press esc pour fermé</b>",
 
             }, "FRENCH");
             Instance = this;

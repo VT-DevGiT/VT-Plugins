@@ -22,8 +22,7 @@ namespace CustomClass.PlayerScript
 
         protected override void AditionalInit()
         {
-            if (Player.SynapseGroup.Permissions.Contains("synapse.see.invisible"))
-                Player.SynapseGroup.Permissions.Add("synapse.see.invisible");
+            Player.SynapseGroup.Permissions.Add("synapse.see.invisible");
             Player.Invisible = true;
             Player.NoClip = true;
         }

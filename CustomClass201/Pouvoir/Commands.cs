@@ -268,7 +268,7 @@ namespace CustomClass
           Description = "to use the capacity of your role",
           Permission = "",
           Platforms = new[] { Platform.ClientConsole },
-          Usage = ".Green"
+          Usage = ".attack"
           )]
     class CmdAttaque : ISynapseCommand
     {

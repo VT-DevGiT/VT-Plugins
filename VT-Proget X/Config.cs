@@ -13,5 +13,8 @@ namespace VTProget_X
 
         [Description("time for one BlackOut")]
         public int BlackOutTime = 60;
+
+        [Description("The tablets disable tesla Gate")]
+        public bool TeslaTablets = true;
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace VT_AndersonRobotic
 {
-    public class Config
+    public class Config : AbstractConfigSection
     {
 
         [Description("The Health of Anderson Robotic members")]
@@ -18,7 +18,7 @@ namespace VT_AndersonRobotic
         public float SpawnChance = 50f;
 
         [Description("The Spawnpoint where Anderson Robotic spawn")]
-        public SerializedMapPoint SpawnPoint = new SerializedMapPoint("Root_*&*Outside Cams", 88.8051f, -7.760559f, -51.75137f);
+        public SerializedMapPoint SpawnPoint = new SerializedMapPoint("Root_*&*Outside Cams", 86.47166f, -10.64563f, -69.14687f);
 
         [Description("The amount of ammo that Anderson Robotic spawns with")]
         public uint Ammo5 = 50;

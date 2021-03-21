@@ -7,8 +7,8 @@
     <ProjectGuid>{3B7AC132-BAFC-432B-A8D2-20E26FB46018}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VT_MTF</RootNamespace>
-    <AssemblyName>VT-MTF</AssemblyName>
+    <RootNamespace>VT_HammerDown</RootNamespace>
+    <AssemblyName>VT-HammerDown</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

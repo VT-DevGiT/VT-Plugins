@@ -27,7 +27,7 @@ Version = "v.1.3.1"
         public bool TeslaEnabled = true;
         public bool CustomScreen = false;
 
-        [Synapse.Api.Plugin.Config(section = "VT-Intercom")]
+        [Synapse.Api.Plugin.Config(section = "VT-ProgetX")]
         public static Config Config;
 
         [SynapseTranslation]

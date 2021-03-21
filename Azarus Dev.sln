@@ -37,7 +37,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferenceAll", "C:\Users\va
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModManagerClien", "ModPatch\ModManagerClien.csproj", "{C7232854-EC2B-4DAD-9CE9-0ED4E7B1C793}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-MTF", "VT-MTF\VT-MTF.csproj", "{3B7AC132-BAFC-432B-A8D2-20E26FB46018}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-HammerDown", "VT-MTF\VT-HammerDown.csproj", "{3B7AC132-BAFC-432B-A8D2-20E26FB46018}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-AndersonRobotic", "VT-AndersonRobotic\VT-AndersonRobotic.csproj", "{1FA72379-8047-4104-8EA2-AAB1ADDF653E}"
 EndProject

@@ -18,6 +18,7 @@ namespace CustomClass
 
         private void OnClass(PlayerSetClassEventArgs ev)
         {
+            ev.Player.SynapseGroup.Permissions.Remove("synapse.see.invisible");
             VT_Referance.Variable.Dictionary.PlayerRole[ev.Player] = (int)ev.Role;
             if (RespawnPlayer.Contains(ev.Player))
             {
@@ -28,7 +29,6 @@ namespace CustomClass
                 ev.SpawnUnRole(RoleType.ChaosInsurgency, RoleID.CHIMastodonte, PluginClass.ConfigCHIMastondonte);
                 ev.SpawnUnRole(RoleType.ChaosInsurgency, RoleID.CHIInfirmier, PluginClass.ConfigCHIInfirmier);
                 ev.SpawnUnRole(RoleType.NtfCadet, RoleID.CHISpy, PluginClass.ConfigCHISPY);
-                ev.SpawnUnRole(RoleType.NtfLieutenant, RoleID.CHILeader, PluginClass.ConfigCHILeader);
                 ev.SpawnUnRole(RoleType.NtfLieutenant, RoleID.NTFExpertPyrotechnie, PluginClass.ConfigNTFExpertPyrotechnie);
                 ev.SpawnUnRole(RoleType.NtfLieutenant, RoleID.NTFExpertReconfinement, PluginClass.ConfigNTFExpertReconfinement);
                 ev.SpawnUnRole(RoleType.NtfLieutenant, RoleID.NTFInfirmier, PluginClass.ConfigNTFInfirmier);

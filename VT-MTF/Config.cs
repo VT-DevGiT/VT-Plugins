@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace VT_MTF
+namespace VT_HammerDown
 {
-    public class Config
+    public class Config : AbstractConfigSection
     {
         [Description("The Health of the Cadet")]
         public int HealthCadet = 120;

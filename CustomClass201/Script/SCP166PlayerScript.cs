@@ -7,15 +7,16 @@ using Synapse.Api.Items;
 using Synapse.Config;
 using System;
 using System.Collections.Generic;
+using VT_Referance.Method;
 using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
     public class SCP166Script : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { };
+        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC };
 
-        protected override List<int> FriendsList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM,   (int)TeamID.RSC };
+        protected override List<int> FriendsList => new List<int> { (int)TeamID.NetralSCP, (int)TeamID.SCP };
 
         protected override RoleType RoleType => RoleType.ClassD;
 
@@ -36,6 +37,13 @@ namespace CustomClass.PlayerScript
         {
             Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
             Server.Get.Events.Player.PlayerPickUpItemEvent += OnPickUp;
+            Server.Get.Events.Player.PlayerCuffTargetEvent += OnCuff;
+        }
+
+        private void OnCuff(PlayerCuffTargetEventArgs ev)
+        {
+            if (ev.Target == Player)
+                ev.Allow = false;
         }
 
         private void OnPickUp(PlayerPickUpItemEventArgs ev)
@@ -56,7 +64,8 @@ namespace CustomClass.PlayerScript
                 var victim = Player.LookingAt.GetPlayer();
                 if (victim != null)
                 {
-                    victim.Hurt(25);
+                    Server.Get.Logger.Info(victim.name);
+                    victim.Hurt(100);
                     return true;
                 }
             }

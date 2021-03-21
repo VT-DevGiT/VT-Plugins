@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VT_Referance.Variable;
 
-namespace VT_MTF
+namespace VT_HammerDown
 {
     public class HammerDownCadet : Synapse.Api.Roles.Role
     {

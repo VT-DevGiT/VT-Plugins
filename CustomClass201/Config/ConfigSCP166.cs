@@ -11,7 +11,7 @@ namespace CustomClass.Config
         public SerializedMapPoint SpawnPoint = new SerializedMapPoint("LCZ_Plants", -0.0884471f, 2.171398f, -4.554413f);
 
         [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.KeycardJanitor, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one) };
+        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.KeycardScientist, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one) };
 
         [Description("The Amount of Health the class have")]
         public int Health = 200;
@@ -26,10 +26,10 @@ namespace CustomClass.Config
         public int RequiredPlayers = 3;
 
         [Description("The name of the class")]
-        public string RoleName = " SCP-166";
+        public string RoleName = "SCP-166";
 
         [Description("The distance that the class must have with other class for the power")]
-        public int Distance = 2;
+        public int Distance = 6;
 
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 0;

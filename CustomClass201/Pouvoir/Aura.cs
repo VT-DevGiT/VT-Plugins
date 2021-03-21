@@ -21,8 +21,8 @@ namespace CustomClass.Pouvoir
         public byte LuiTime = 1;
         public Effect TargetEffect;
         public Effect PlayerEffect;
-        public int MoiHealHp = 0;
-        public int LuiHealHp = 0;
+        public int MoiHp = 0;
+        public int LuiHp = 0;
         public int Distance = 2;
 
         public List<Vector3> dimanction = new List<Vector3>();
@@ -42,10 +42,16 @@ namespace CustomClass.Pouvoir
                     {
                         target.GiveEffect(TargetEffect, LuiIntencty, LuiTime);
                         player.GiveEffect(PlayerEffect, 1, 1);
-                        if (MoiHealHp == 0)
-                            player.Health += MoiHealHp;
-                        if (LuiHealHp == 0)
-                            target.Health += LuiHealHp;
+
+                        if (MoiHp < 0)
+                            player.Heal(MoiHp);
+                        else if (MoiHp > 0)
+                            player.Hurt(MoiHp);
+
+                        if (LuiHp < 0)
+                            player.Heal(LuiHp);
+                        else if (MoiHp > 0)
+                            player.Hurt(LuiHp);
                     }
                 }
             }
