@@ -13,6 +13,10 @@ namespace CustomClass.Config
         [Description("The Items the class spawns with")]
         public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.KeycardChaosInsurgency, 1, 0, 0, 0, Vector3.one), new SerializedItem(59, 0, 0, 0, 0, Vector3.one), new SerializedItem(52, 26, 2, 1, 0, Vector3.one), new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.GrenadeFlash, 1, 0, 0, 0, Vector3.one) };
 
+        [Description("ArtificialHealthConfig of the class")]
+        public int ArtificialHealth = 215;
+        public int MaxArtificialHealth = 215;
+
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 15;
 
@@ -27,10 +31,6 @@ namespace CustomClass.Config
 
         [Description("The name of the class")]
         public string RoleName = "Mastondonte";
-
-        [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 215;
-        public int MaxArtificialHealth = 215;
 
         [Description("the number of ammo to the class")]
         public uint Ammo5 = 50;

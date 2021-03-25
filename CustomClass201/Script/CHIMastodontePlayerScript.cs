@@ -11,9 +11,9 @@ namespace CustomClass.PlayerScript
 {
     public class CHIMastodonteScript : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM};
+        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC };
 
-        protected override List<int> FriendsList => new List<int> { (int)TeamID.CHI, (int)TeamID.CDP };
+        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { (int)TeamID.CHI, (int)TeamID.CDP } : new List<int> { };
 
         protected override RoleType RoleType => RoleType.ChaosInsurgency;
 
@@ -24,7 +24,7 @@ namespace CustomClass.PlayerScript
         protected override string RoleName => PluginClass.ConfigCHIMastondonte.RoleName;
 
         protected override AbstractConfigSection Config => PluginClass.ConfigCHIMastondonte;
-
+        
         float oldStaminaUse;
         public override bool CallPower(PowerType power)
         {
@@ -87,7 +87,7 @@ namespace CustomClass.PlayerScript
 
         private void OnUseItem(PlayerItemInteractEventArgs ev)
         {
-            if (ev.CurrentItem.ItemCategory == ItemCategory.Medical && Shed)
+            if (ev.Player == Player && ev.CurrentItem.ItemCategory == ItemCategory.Medical && ev.CurrentItem.ItemType != ItemType.Adrenaline && Shed)
                 ev.Allow = false;
         }
 

@@ -48,7 +48,7 @@ Classe D Restant(s) : %nCDP%
 Personnel(s) à évacuée réstant(s) : %nRSC%
 VIP à évacuée réstant(s) : %nVIP%
 Personnel(s) militaire(s) déployé : %nMTF%
-Puissance des générateurs actif(s) : %TotalVoltage% kVA
+Puissance des générateurs actif(s) : %TotalVoltage% kVA 
 Statut de l'ogive nucléaire Oméga : PRÊTE
 Statut de l'ogive nucléaire ALpha : %AlfaWarheadStatut%
 Statut du briseur de fémur pour SCP-106 : %IsContain%

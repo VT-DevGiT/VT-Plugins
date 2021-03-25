@@ -19,6 +19,10 @@ namespace CustomClass.Config
             new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), 
             new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one) };
 
+        [Description("ArtificialHealthConfig of the class")]
+        public int ArtificialHealth = 50;
+        public int MaxArtificialHealth = 20;
+
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 100;
 
@@ -27,6 +31,7 @@ namespace CustomClass.Config
 
         [Description("The number of players required in the same role to have the chance for the class to appear")]
         public int RequiredPlayers = 0;
+
 
         [Description("The name of the class")]
         public string RoleName = " Scientifique Superviseur";

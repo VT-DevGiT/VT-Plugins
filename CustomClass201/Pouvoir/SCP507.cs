@@ -35,7 +35,7 @@ namespace CustomClass.Pouvoir
             if (_timer > duraction)
             {
                 rnd = UnityEngine.Random.Range(0, rooms.Count() - 1);
-                player.Position = rooms[rnd];
+                player.MapPoint = PluginClass.ConfigSCP507.ListRoom[rnd].Parse();
                 duraction = UnityEngine.Random.Range(minduraction, maxduraction);
             }
             if (_timer > duraction)

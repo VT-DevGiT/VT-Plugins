@@ -143,8 +143,8 @@ namespace CustomClass.PlayerScript
             if (SetDisplayInfo)
             {
                 Player.RemoveDisplayInfo(PlayerInfoArea.Role);
-                Player.RemoveDisplayInfo(PlayerInfoArea.UnitName);
-                Player.DisplayInfo = $"{RoleName} {Player.UnitName}";
+                    Player.DisplayInfo = $"{RoleName}";
+                //Player.DisplayInfo = $"{RoleName}";
             }
         }
 
@@ -152,9 +152,7 @@ namespace CustomClass.PlayerScript
         {
             Player.DisplayInfo = null;
             Player.AddDisplayInfo(PlayerInfoArea.Role);
-            Player.AddDisplayInfo(PlayerInfoArea.UnitName);
         }
-
         #endregion
 
     }

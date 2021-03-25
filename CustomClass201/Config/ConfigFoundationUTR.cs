@@ -22,6 +22,10 @@ namespace CustomClass.Config
             new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one),
             new SerializedItem((int)ItemType.Flashlight, 1, 0, 0, 0, Vector3.one) };
 
+        [Description("ArtificialHealthConfig of the class")]
+        public int ArtificialHealth = 150;
+        public int MaxArtificialHealth = 150;
+
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 25;
 
@@ -33,10 +37,6 @@ namespace CustomClass.Config
 
         [Description("The name of the class")]
         public string RoleName = " U.T.R.";
-
-        [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 150;
-        public int MaxArtificialHealth = 150;
 
         [Description("the number of ammo to the class")]
         public uint Ammo5 = 100;

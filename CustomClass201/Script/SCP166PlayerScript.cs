@@ -14,7 +14,7 @@ namespace CustomClass.PlayerScript
 {
     public class SCP166Script : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC };
+        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC, (int)TeamID.CHI };
 
         protected override List<int> FriendsList => new List<int> { (int)TeamID.NetralSCP, (int)TeamID.SCP };
 

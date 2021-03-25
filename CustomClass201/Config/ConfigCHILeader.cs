@@ -16,6 +16,10 @@ namespace CustomClass.Config
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 100;
 
+        [Description("ArtificialHealthConfig of the class")]
+        public int MaxArtificialHealth = 170;
+        public int ArtificialHealth = 170;
+
         [Description("Max alive at the same time")]
         public int MaxAlive = 1;
 
@@ -27,7 +31,7 @@ namespace CustomClass.Config
 
         [Description("The name of the class")]
         public string RoleName = "Leader";
-
+        
         [Description("The cooldown of the class Power")]
         public int Cooldown = 150;
 

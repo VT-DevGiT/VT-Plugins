@@ -38,16 +38,22 @@ namespace CustomClass.PlayerScript
         protected override void Event()
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnDamage;
+            Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
+        }
+
+        private void OnDeath(PlayerDeathEventArgs ev)
+        {
+            Player.Inventory.Clear();
         }
 
         public override void DeSpawn()
         {
-            Player.Inventory.Clear();
             Player.Invisible = false;
             base.DeSpawn();
             Map.Get.AnnounceScpDeath("9 6 6");
             InactiveComponent<Invisible>();
             Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
+            Server.Get.Events.Player.PlayerDeathEvent -= OnDeath;
         }
 
 

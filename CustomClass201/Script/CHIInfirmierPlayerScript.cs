@@ -13,9 +13,9 @@ namespace CustomClass.PlayerScript
 {
     public class CHIInfirmierScript : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM};
+        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC };
 
-        protected override List<int> FriendsList => new List<int> { (int)TeamID.CHI, (int)TeamID.CDP };
+        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { (int)TeamID.CHI, (int)TeamID.CDP } : new List<int> { };
 
         protected override RoleType RoleType => RoleType.ChaosInsurgency;
 

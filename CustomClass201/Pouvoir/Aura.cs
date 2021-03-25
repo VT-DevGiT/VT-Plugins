@@ -19,8 +19,8 @@ namespace CustomClass.Pouvoir
         private float _timer;
         public byte LuiIntencty = 1;
         public byte LuiTime = 1;
-        public Effect TargetEffect;
-        public Effect PlayerEffect;
+        public Effect? TargetEffect = null;
+        public Effect? PlayerEffect = null;
         public int MoiHp = 0;
         public int LuiHp = 0;
         public int Distance = 2;
@@ -40,8 +40,10 @@ namespace CustomClass.Pouvoir
                 {
                     if (Vector3.Distance(target.Position, player.Position) < Distance)
                     {
-                        target.GiveEffect(TargetEffect, LuiIntencty, LuiTime);
-                        player.GiveEffect(PlayerEffect, 1, 1);
+                        if (TargetEffect != null)
+                            target.GiveEffect((Effect)TargetEffect, LuiIntencty, LuiTime);
+                        if (PlayerEffect != null)
+                            player.GiveEffect((Effect)PlayerEffect, 1, 1);
 
                         if (MoiHp < 0)
                             player.Heal(MoiHp);

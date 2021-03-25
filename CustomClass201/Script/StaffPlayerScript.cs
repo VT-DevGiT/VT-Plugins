@@ -25,6 +25,13 @@ namespace CustomClass.PlayerScript
             Player.SynapseGroup.Permissions.Add("synapse.see.invisible");
             Player.Invisible = true;
             Player.NoClip = true;
+            Player.GodMode = true;
+        }
+        public override void DeSpawn()
+        {
+            Player.NoClip = false;
+            Player.Invisible = false;
+            Player.GodMode = false;
         }
     }
 }

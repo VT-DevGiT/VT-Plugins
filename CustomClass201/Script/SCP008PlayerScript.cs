@@ -28,10 +28,10 @@ namespace CustomClass.PlayerScript
         protected override string RoleName => PluginClass.ConfigSCP008.RoleName;
 
         protected override AbstractConfigSection Config => PluginClass.ConfigSCP008;
-
+        Aura aura;
         protected override void AditionalInit()
         {
-            Aura aura = ActiveComponent<Aura>();
+            aura = ActiveComponent<Aura>();
             {
                 aura.PlayerEffect = Effect.ArtificialRegen;
                 aura.TargetEffect = Effect.Poisoned;
@@ -46,10 +46,20 @@ namespace CustomClass.PlayerScript
         public override void DeSpawn()
         {
             base.DeSpawn();
+            {
+                aura.PlayerEffect = null;
+                aura.TargetEffect = null;
+                aura.LuiIntencty = 0;
+                aura.LuiTime = 0;
+                aura.MoiHp = 0;
+                aura.LuiHp = 0;
+                aura.Distance = 0;
+            }
             InactiveComponent<Aura>();
             Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
             Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
-            Map.Get.AnnounceScpDeath("0 0 8");
+            if (!Server.Get.Players.Where(p => p.RoleID == (int)RoleID.SCP008).Any())
+                Map.Get.GlitchedCassie("All SCP 0 0 8 are confined");
         }
 
         protected override void Event()
@@ -84,6 +94,7 @@ namespace CustomClass.PlayerScript
                 {
                     corpseowner.RoleID = (int)RoleID.SCP008;
                     Player.Health += 100;
+                    corpseowner.Position = Player.Position;
                 }
                 return true;
             }

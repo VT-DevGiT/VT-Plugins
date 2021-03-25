@@ -16,6 +16,10 @@ namespace CustomClass.Config
         [Description("The Items the class spawns with")]
         public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.Medkit, 35, 0, 0, 0, Vector3.one) };
 
+        [Description("ArtificialHealthConfig of the class")]
+        public int ArtificialHealth = 100;
+        public int MaxArtificialHealth = 20;
+
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 25;
 

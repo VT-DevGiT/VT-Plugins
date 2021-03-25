@@ -9,9 +9,9 @@ namespace CustomClass.PlayerScript
 {
     public class NTFExpertReconfinementScript : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.CHI, (int)TeamID.SCP };
+        protected override List<int> EnemysList => new List<int> { (int)TeamID.CHI, (int)TeamID.SCP, (int)TeamID.CDP };
 
-        protected override List<int> FriendsList => new List<int> { (int)TeamID.MTF, (int)TeamID.RSC };
+        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC } : new List<int> { };
 
         protected override RoleType RoleType => RoleType.NtfLieutenant;
 
