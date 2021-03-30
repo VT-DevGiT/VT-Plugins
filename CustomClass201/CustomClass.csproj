@@ -82,10 +82,9 @@
     <Compile Include="Extension.cs" />
     <Compile Include="Patch.cs" />
     <Compile Include="Pouvoir\Green.cs" />
-    <Compile Include="Pouvoir\Invisible.cs" />
     <Compile Include="Pouvoir\Commands.cs" />
     <Compile Include="Pouvoir\PowerType.cs" />
-    <Compile Include="Pouvoir\Balles.cs" />
+    <Compile Include="Pouvoir\Bullets.cs" />
     <Compile Include="Pouvoir\Hack.cs" />
     <Compile Include="Pouvoir\MouveVent.cs" />
     <Compile Include="Config\ConfigGardeSuperviseur.cs" />

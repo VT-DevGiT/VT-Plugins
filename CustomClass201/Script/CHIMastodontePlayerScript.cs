@@ -98,7 +98,7 @@ namespace CustomClass.PlayerScript
             if (ev.Killer == Player)
             { 
                 Player.Heal(ev.DamageAmount / 3);
-                ev.PointeCreuses(Player);
+                ev.HollowBullet(Player);
             }
         }
     }

@@ -34,7 +34,7 @@ namespace CustomClass
     }
     [CommandInformation(
            Name = "LightHack",
-           Aliases = new[] { "LightHack" },
+           Aliases = new[] { "LumiereHack" },
            Description = "to use the capacity of your role",
            Permission = "",
            Platforms = new[] { Platform.ClientConsole },
@@ -57,7 +57,7 @@ namespace CustomClass
     }
     [CommandInformation(
            Name = "DoorHack",
-           Aliases = new[] { "DoorHack" },
+           Aliases = new[] { "PortHack" },
            Description = "to use the capacity of your role",
            Permission = "",
            Platforms = new[] { Platform.ClientConsole },
@@ -79,21 +79,21 @@ namespace CustomClass
         }
     }
     [CommandInformation(
-           Name = "MessageHack",
-           Aliases = new[] { "CassieHack" },
+           Name = "CASSIEHack",
+           Aliases = new[] { "MessageHack" },
            Description = "to use the capacity of your role",
            Permission = "",
            Platforms = new[] { Platform.ClientConsole },
-           Usage = ".Messagehack"
+           Usage = ".CASSIEhack"
            )]
-    class CmdMessageHack : ISynapseCommand
+    class CmdCASSIEHack : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.MessageHack);
+                script.CallPower(PowerType.CASSIEHack);
                 result.State = CommandResultState.Ok;
             }
             else
@@ -102,7 +102,7 @@ namespace CustomClass
         }
     }
     [CommandInformation(
-           Name = "Renfort",
+           Name = "Respawn",
            Aliases = new[] { "Renfort" },
            Description = "to use the capacity of your role",
            Permission = "",
@@ -125,21 +125,21 @@ namespace CustomClass
         }
     }
     [CommandInformation(
-           Name = "ChangeRole",
+           Name = "SwitchRole",
            Aliases = new[] { "ChangeRole" },
            Description = "to use the capacity of your role",
            Permission = "",
            Platforms = new[] { Platform.ClientConsole },
-           Usage = ".ChangeRole"
+           Usage = ".SwitchRole or .ChangeRole"
            )]
-    class CmdChangeRole : ISynapseCommand
+    class CmdSwitchRole : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.ChangeRole);
+                script.CallPower(PowerType.SwitchRole);
                 result.State = CommandResultState.Ok;
             }
             else
@@ -171,21 +171,21 @@ namespace CustomClass
         }
     }
     [CommandInformation(
-           Name = "Sucide",
-           Aliases = new[] { "Sucide" },
+           Name = "Suicide",
+           Aliases = new[] { "Suicide" },
            Description = "to use the capacity of your role",
            Permission = "",
            Platforms = new[] { Platform.ClientConsole },
-           Usage = ".Sucide"
+           Usage = ".Suicide"
            )]
-    class CmdSucide : ISynapseCommand
+    class CmdSuicide : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.Sucide);
+                script.CallPower(PowerType.Suicide);
                 result.State = CommandResultState.Ok;
             }
             else
@@ -194,14 +194,14 @@ namespace CustomClass
         }
     }
     [CommandInformation(
-           Name = "Zombifaction",
-           Aliases = new[] { "Zombifaction", "Zombi", "Zomb" },
+           Name = "Zombification",
+           Aliases = new[] { "Zombification", "Zombie", "Zombi" },
            Description = "to use the capacity of your role",
            Permission = "",
            Platforms = new[] { Platform.ClientConsole },
            Usage = ".Zombifaction"
            )]
-    class CmdZombifaction : ISynapseCommand
+    class CmdZombification : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
         {
@@ -224,14 +224,14 @@ namespace CustomClass
            Platforms = new[] { Platform.ClientConsole },
            Usage = ".Defibri"
            )]
-    class CmdDefibrilateur : ISynapseCommand
+    class CmdDefibrillator : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.Defibrilatcion);
+                script.CallPower(PowerType.Defibrillation);
                 result.State = CommandResultState.Ok;
             }
             else
@@ -277,7 +277,7 @@ namespace CustomClass
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.Attaque);
+                script.CallPower(PowerType.Attack);
                 result.State = CommandResultState.Ok;
             }
             else

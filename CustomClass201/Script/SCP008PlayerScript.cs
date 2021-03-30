@@ -35,10 +35,10 @@ namespace CustomClass.PlayerScript
             {
                 aura.PlayerEffect = Effect.ArtificialRegen;
                 aura.TargetEffect = Effect.Poisoned;
-                aura.LuiIntencty = 6;
-                aura.LuiTime = 5;
-                aura.MoiHp = PluginClass.ConfigSCP008.HealHp;
-                aura.LuiHp = -PluginClass.ConfigSCP008.DomageHp;
+                aura.HerIntencty = 6;
+                aura.HerTime = 5;
+                aura.MyHp = PluginClass.ConfigSCP008.HealHp;
+                aura.HerHp = -PluginClass.ConfigSCP008.DomageHp;
                 aura.Distance = PluginClass.ConfigSCP008.Distance;
             }
         }
@@ -49,10 +49,10 @@ namespace CustomClass.PlayerScript
             {
                 aura.PlayerEffect = null;
                 aura.TargetEffect = null;
-                aura.LuiIntencty = 0;
-                aura.LuiTime = 0;
-                aura.MoiHp = 0;
-                aura.LuiHp = 0;
+                aura.HerIntencty = 0;
+                aura.HerTime = 0;
+                aura.MyHp = 0;
+                aura.HerHp = 0;
                 aura.Distance = 0;
             }
             InactiveComponent<Aura>();

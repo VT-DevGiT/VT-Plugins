@@ -12,6 +12,7 @@ namespace VT_Referance.Method
 {
     public static class Methods
     {
+        static internal AmbientSoundPlayer Song = PlayerManager.localPlayer.GetComponent<AmbientSoundPlayer>();
         public static Player GetPlayercoprs(Player player, float rayon)
         {
            // Physics.OverlapSphere(player.Position, 3f).Where(e => e.gameObject.GetComponentInParent<Ragdoll>() != null).ToList();
@@ -61,7 +62,7 @@ namespace VT_Referance.Method
             (int)RoleID.SCP1048,(int)RoleID.SCP953,(int)RoleID.Scp049,
             (int)RoleID.Scp0492,(int)RoleID.Scp079,(int)RoleID.Scp096,
             (int)RoleID.Scp106,(int)RoleID.Scp173,(int)RoleID.Scp93953,
-            (int)RoleID.Scp93989,(int)RoleID.Scp056,(int)RoleID.Scp079
+            (int)RoleID.Scp93989,(int)RoleID.Scp056,(int)RoleID.Scp079Robot
         };
 
         public static bool isAirBombGoing = false;
@@ -108,7 +109,7 @@ namespace VT_Referance.Method
 
         public static void PlayAmbientSound(int id)
         {
-            PlayerManager.localPlayer.GetComponent<AmbientSoundPlayer>().CallMethod("RpcPlaySound", id);
+            Song.CallMethod("RpcPlaySound", id);
         }
 
         public static int Voltage()

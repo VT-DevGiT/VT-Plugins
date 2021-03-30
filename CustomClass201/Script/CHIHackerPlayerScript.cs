@@ -53,7 +53,7 @@ namespace CustomClass.PlayerScript
                         Reponse.Cooldown(Player, lastPowerLight, PluginClass.ConfigCHIHacker.CoolDownDoor);
                     return true;
 
-                case PowerType.MessageHack:
+                case PowerType.CASSIEHack:
                     if ((DateTime.Now - lastPowerMessage).TotalSeconds > PluginClass.ConfigCHIHacker.CoolDownDoor)
                     {
                         Hack.Message();
@@ -90,7 +90,7 @@ namespace CustomClass.PlayerScript
                 {
                     case KeyCode.Alpha1: CallPower(PowerType.DoorHack);break;
                     case KeyCode.Alpha2: CallPower(PowerType.LightHack);break;
-                    case KeyCode.Alpha3: CallPower(PowerType.MessageHack);break;
+                    case KeyCode.Alpha3: CallPower(PowerType.CASSIEHack);break;
                 }
             }
         }

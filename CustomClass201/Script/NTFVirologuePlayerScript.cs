@@ -42,7 +42,7 @@ namespace CustomClass.PlayerScript
         private void OnDammage(PlayerDamageEventArgs ev)
         {
             if (ev.Killer == Player)
-                ev.Destabilisantes(Player);
+                ev.ChemicalBullet(Player);
         }
     }
 }

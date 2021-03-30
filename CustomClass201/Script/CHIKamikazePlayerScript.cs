@@ -28,7 +28,7 @@ namespace CustomClass.PlayerScript
 
         public override bool CallPower(PowerType power)
         {
-            if (power == PowerType.Sucide)
+            if (power == PowerType.Suicide)
             {
                 Server.Get.Map.SpawnGrenade(Player.Position, Vector3.zero, 0.1f, GrenadeType.Grenade, Player);
                 Player.Kill(DamageTypes.Grenade);
@@ -53,7 +53,7 @@ namespace CustomClass.PlayerScript
         private void OnKeyPress(PlayerKeyPressEventArgs ev)
         {
             if (ev.Player == Player && ev.KeyCode == KeyCode.Alpha1)
-                CallPower(PowerType.Sucide);
+                CallPower(PowerType.Suicide);
 
         }
 

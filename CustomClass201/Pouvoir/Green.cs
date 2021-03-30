@@ -17,9 +17,8 @@ namespace CustomClass.Pouvoir
     {
         private Player player;
         private float _timer;
-        public bool agressif;
+        public bool DamagGreen;
         private Dictionary<Player, float> playerAffected = new Dictionary<Player, float>();
-        public List<Vector3> dimanction = new List<Vector3>();
         private void Start()
         {
             player = gameObject.GetPlayer();
@@ -48,7 +47,7 @@ namespace CustomClass.Pouvoir
                 {
                     if (target.IsUTR())
                         target.Hurt(2, DamageTypes.None, player);
-                    else if (agressif)
+                    else if (DamagGreen)
                     {
                         target.Hurt(12, DamageTypes.None, player);
                         target.GiveEffect(Effect.Poisoned, 1, 1.5f);

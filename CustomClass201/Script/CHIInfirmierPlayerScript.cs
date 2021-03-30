@@ -42,19 +42,19 @@ namespace CustomClass.PlayerScript
         private void OnDammage(PlayerDamageEventArgs ev)
         {
             if (ev.Killer == Player)
-                ev.PointeCreuses(Player);
+                ev.HollowBullet(Player);
         }
 
         private void OnKeyPress(PlayerKeyPressEventArgs ev)
         {
             if (ev.Player == Player && ev.KeyCode == KeyCode.Alpha1)
-                CallPower(PowerType.Defibrilatcion);
+                CallPower(PowerType.Defibrillation);
 
         }
 
         public override bool CallPower(PowerType power)
         {
-            if (power == PowerType.Defibrilatcion)
+            if (power == PowerType.Defibrillation)
             {
                 Player corpseowner = Methods.GetPlayercoprs(Player, 2.5f);
                 if (Methods.IsScpRole(corpseowner) == false)

@@ -23,12 +23,16 @@ namespace CustomClass
     public class PluginClass : AbstractPlugin
     {
         public static PluginClass Plugin;
-
+        //la config générale
         [Synapse.Api.Plugin.Config(section = "CustomClass-General")]
         public static ConfigCustomClass ConfigCustomClass;
 
-        [Synapse.Api.Plugin.Config(section = "CustomClass-CustomClass201")]
-        public static Config201 Config201;
+        //les config des rôles custome
+
+
+        //Config de la Classe 201 Obsellette car désactivée.
+        //[Synapse.Api.Plugin.Config(section = "CustomClass-CustomClass201")]
+        //public static Config201 Config201;
 
         [Synapse.Api.Plugin.Config(section = "ConfigConcierge")]
         public static ConfigConcierge ConfigConcierge;
@@ -119,13 +123,14 @@ namespace CustomClass
 
         public Dictionary<RoleID, int> RespawnedPlayer = new Dictionary<RoleID, int>();
 
+        //On lance les patch pour pouvoir kill certaint entiCheat si actif
         private void PatchAll()
         {
             var instance = new Harmony("CustomClass");
             instance.PatchAll();
             Server.Get.Logger.Info("Custom class Harmony Patch done!");
         }
-         
+        
         public override void Load()
         {
             Plugin = this;
@@ -143,6 +148,7 @@ namespace CustomClass
             
         }
 
+        //On registre les team pour les certainne classe
         public void RegisterCustomTeam()
         {
             Server.Get.TeamManager.RegisterTeam<NetralSCPTeam>();
@@ -150,8 +156,12 @@ namespace CustomClass
             Server.Get.TeamManager.RegisterTeam<VIPTeam>();
             Server.Get.TeamManager.RegisterTeam<StaffTeam>();
         }
+
+        //On registre les Scripte
         public void RegisterCustomRole()
         {
+            //Role 201 dans le but de teste si les Scriptes ont bien été crée Obselette.
+            //Server.Get.RoleManager.RegisterCustomRole<Scripte201>();
             Server.Get.RoleManager.RegisterCustomRole<ConciergeScript>();
             Server.Get.RoleManager.RegisterCustomRole<DirecteurSiteScript>();
             Server.Get.RoleManager.RegisterCustomRole<ScientifiqueSuperviseurScript>();

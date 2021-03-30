@@ -12,15 +12,15 @@ namespace CustomClass
 {
     public static class Extension
     {
-        public static void SpawnUnRole(this Dictionary<Player, int> dictionaire, RoleType ancienRole, RoleID nouveauRole, AbstractConfigSection config) 
+        public static void SpawnRole(this Dictionary<Player, int> dictionaire, RoleType oldRole, RoleID newRole, AbstractConfigSection config) 
         {
-            var playerClass = dictionaire.Where(p => p.Value == (int)ancienRole);
+            var playerClass = dictionaire.Where(p => p.Value == (int)oldRole);
             int spawnChance = config.GetConfigValue<int>("SpawnChance", 0);
             int maxTotal = config.GetConfigValue<int>("MaxAlive", 0);
             int minActuClass = config.GetConfigValue<int>("RequiredPlayers", 0);
             if (playerClass.Count() > minActuClass)
             {
-                if (Server.Get.Players.Where(p => p.RoleID == (int)nouveauRole).Count() <  maxTotal)
+                if (Server.Get.Players.Where(p => p.RoleID == (int)newRole).Count() <  maxTotal)
                 {
                     
                     while (maxTotal > 0 && playerClass.Any())
@@ -29,8 +29,8 @@ namespace CustomClass
                         if (chance <= spawnChance)
                         {
                             var pair = playerClass.ElementAt(UnityEngine.Random.Range(0, playerClass.Count() - 1));
-                            dictionaire[pair.Key] = (int)nouveauRole;
-                            playerClass = dictionaire.Where(p => p.Value == (int)ancienRole);
+                            dictionaire[pair.Key] = (int)newRole;
+                            playerClass = dictionaire.Where(p => p.Value == (int)oldRole);
                         }
                         maxTotal--;
                     }
@@ -38,45 +38,45 @@ namespace CustomClass
             }
         }
 
-        public static void SpawnUnRole(this PlayerSetClassEventArgs ev, RoleType ancienRole, RoleID nouveauRole, AbstractConfigSection config)
+        public static void SpawnRole(this PlayerSetClassEventArgs ev, RoleType oldRole, RoleID newRole, AbstractConfigSection config)
         {
             Player player = ev.Player;
-            var playerClass = Server.Get.Players.Where(p => p.RoleID == (int)ancienRole);
+            var playerClass = Server.Get.Players.Where(p => p.RoleID == (int)oldRole);
             int spawnChance = config.GetConfigValue<int>("SpawnChance", 0);
             int maxRespawn = config.GetConfigValue<int>("MaxRespawn", 0);
             int maxTotal = config.GetConfigValue<int>("MaxAlive", 0);
             int minActuClass = config.GetConfigValue<int>("RequiredPlayers", 0);
-            int respawned = PluginClass.Plugin.RespawnedPlayer.ContainsKey(nouveauRole) ? PluginClass.Plugin.RespawnedPlayer[nouveauRole] : 0;
-            if (ev.Role == (RoleType)ancienRole && playerClass.Count() >= minActuClass && maxRespawn > respawned)
+            int respawned = PluginClass.Plugin.RespawnedPlayer.ContainsKey(newRole) ? PluginClass.Plugin.RespawnedPlayer[newRole] : 0;
+            if (ev.Role == (RoleType)oldRole && playerClass.Count() >= minActuClass && maxRespawn > respawned)
             {
-                if (Server.Get.Players.Where(p => p.RoleID == (int)nouveauRole).Count() < maxTotal)
+                if (Server.Get.Players.Where(p => p.RoleID == (int)newRole).Count() < maxTotal)
                 {
                     int chance = UnityEngine.Random.Range(1, 100);
                     if (chance <= spawnChance && EventHandlers.RespawnPlayer.Contains(ev.Player))
                     {
                         EventHandlers.RespawnPlayer.Remove(ev.Player);
                         Player pl = ev.Player;
-                        pl.RoleID = (int)nouveauRole;
-                        Dictionary.PlayerRole[ev.Player] = (int)nouveauRole;
-                        PluginClass.Plugin.RespawnedPlayer[nouveauRole] = respawned + 1;
+                        pl.RoleID = (int)newRole;
+                        Dictionary.PlayerRole[ev.Player] = (int)newRole;
+                        PluginClass.Plugin.RespawnedPlayer[newRole] = respawned + 1;
                     }
                 }
             }
         }
-        public static void SpawnUnRoleSCP(this Dictionary<Player, int> dictionaire, RoleID nouveauRole, int spawnChance, int maxTotal = -1)
+        public static void SpawnSCPRole(this Dictionary<Player, int> dictionaire, RoleID newRole, int spawnChance, int maxTotal = -1)
         {
             List<int> SCP = new List<int>() { (int)RoleType.Scp173, (int)RoleType.Scp079, (int)RoleType.Scp096, 
                 (int)RoleType.Scp106, (int)RoleType.Scp93953, (int)RoleType.Scp93989 };
             var playerClass = dictionaire.Where(p => SCP.Contains(p.Value));
             if (playerClass.Any())
             {
-                if (maxTotal < 0 || Server.Get.Players.Where(p => p.RoleID == (int)nouveauRole).Count() < maxTotal)
+                if (maxTotal < 0 || Server.Get.Players.Where(p => p.RoleID == (int)newRole).Count() < maxTotal)
                 {
                     int chance = UnityEngine.Random.Range(1, 100);
                     if (chance <= spawnChance)
                     {
                         var pair = playerClass.ElementAt(UnityEngine.Random.Range(0, playerClass.Count() - 1));
-                        dictionaire[pair.Key] = (int)nouveauRole;
+                        dictionaire[pair.Key] = (int)newRole;
                     }
                 }
             }

@@ -17,12 +17,12 @@ namespace CustomClass.Pouvoir
     {
         private Player player;
         private float _timer;
-        public byte LuiIntencty = 1;
-        public byte LuiTime = 1;
+        public byte HerIntencty = 1;
+        public byte HerTime = 1;
         public Effect? TargetEffect = null;
         public Effect? PlayerEffect = null;
-        public int MoiHp = 0;
-        public int LuiHp = 0;
+        public int MyHp = 0;
+        public int HerHp = 0;
         public int Distance = 2;
 
         public List<Vector3> dimanction = new List<Vector3>();
@@ -41,19 +41,19 @@ namespace CustomClass.Pouvoir
                     if (Vector3.Distance(target.Position, player.Position) < Distance)
                     {
                         if (TargetEffect != null)
-                            target.GiveEffect((Effect)TargetEffect, LuiIntencty, LuiTime);
+                            target.GiveEffect((Effect)TargetEffect, HerIntencty, HerTime);
                         if (PlayerEffect != null)
                             player.GiveEffect((Effect)PlayerEffect, 1, 1);
 
-                        if (MoiHp < 0)
-                            player.Heal(MoiHp);
-                        else if (MoiHp > 0)
-                            player.Hurt(MoiHp);
+                        if (MyHp < 0)
+                            player.Heal(MyHp);
+                        else if (MyHp > 0)
+                            player.Hurt(MyHp);
 
-                        if (LuiHp < 0)
-                            player.Heal(LuiHp);
-                        else if (MoiHp > 0)
-                            player.Hurt(LuiHp);
+                        if (HerHp < 0)
+                            player.Heal(HerHp);
+                        else if (MyHp > 0)
+                            player.Hurt(HerHp);
                     }
                 }
             }

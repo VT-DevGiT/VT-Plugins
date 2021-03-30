@@ -48,7 +48,7 @@ namespace CustomClass.PlayerScript
 
         private void OnPickUp(PlayerPickUpItemEventArgs ev)
         {
-            if (ev.Player == Player && !(ev.Item.ItemCategory == ItemCategory.Keycard && ev.Item.ItemCategory == ItemCategory.Medical && ev.Item.ItemCategory == ItemCategory.SCPItem))
+            if (ev.Player == Player && ev.Item.ItemCategory != ItemCategory.Weapon && ev.Item.ItemCategory == ItemCategory.Radio && ev.Item.ItemType == ItemType.Disarmer)
                 ev.Allow = false;
         }
 
@@ -56,10 +56,10 @@ namespace CustomClass.PlayerScript
         {
             if (PowerType.BadGreen == power)
             {
-                Player.GetComponent<Green>().agressif = !Player.GetComponent<Green>().agressif;
+                Player.GetComponent<Green>().DamagGreen = !Player.GetComponent<Green>().DamagGreen;
                 return true;
             }
-            else if (PowerType.Attaque == power)
+            else if (PowerType.Attack == power)
             {
                 var victim = Player.LookingAt.GetPlayer();
                 if (victim != null)
@@ -79,7 +79,7 @@ namespace CustomClass.PlayerScript
                 if (ev.KeyCode == UnityEngine.KeyCode.Alpha1)
                     CallPower(PowerType.BadGreen);
                 if (ev.KeyCode == UnityEngine.KeyCode.Alpha1)
-                    CallPower(PowerType.Attaque);
+                    CallPower(PowerType.Attack);
             }
         }
 

@@ -28,7 +28,7 @@ namespace CustomClass.PlayerScript
 
         public override bool CallPower(PowerType power) 
         {
-            if (power == PowerType.ChangeRole && Player.RoleType == RoleType.Scientist)
+            if (power == PowerType.SwitchRole && Player.RoleType == RoleType.Scientist)
             {
                 Player.ChangeRoleAtPosition(RoleType.ChaosInsurgency);
                 Player.MaxHealth = Config.GetConfigValue("Health", 120);
@@ -55,14 +55,14 @@ namespace CustomClass.PlayerScript
         {
             if (ev.Player == Player && ev.KeyCode == KeyCode.Alpha1)
             {
-                CallPower(PowerType.ChangeRole);
+                CallPower(PowerType.SwitchRole);
             }
         }
 
         private void OnDeath(PlayerDeathEventArgs ev)
         {
             if (ev.Victim == Player)
-                CallPower(PowerType.ChangeRole);
+                CallPower(PowerType.SwitchRole);
             else if (ev.Killer == Player)
                 ev.Victim.OpenReportWindow(PluginClass.PluginTranslation.ActiveTranslation.KilledMessage.Replace("%RoleName%", RoleName));
         }

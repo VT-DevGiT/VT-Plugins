@@ -68,7 +68,7 @@ namespace CustomClass.PlayerScript
         private void OnDammage(PlayerDamageEventArgs ev)
         {
             if (ev.Killer == Player)
-                ev.PointeCreuses(Player);
+                ev.HollowBullet(Player);
         }
     }
 }

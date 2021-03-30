@@ -15,7 +15,7 @@ namespace CustomClass.Pouvoir
     {
         public static void Door(Player player)
         {
-            IOrderedEnumerable<Synapse.Api.Door> doors = Synapse.Api.Map.Get.Doors.OrderBy(p => Math.Abs(Vector3.Distance(p.Position, player.Position)));
+            IOrderedEnumerable<Synapse.Api.Door> doors = Map.Get.Doors.OrderBy(p => Math.Abs(Vector3.Distance(p.Position, player.Position)));
             if (doors.Any())
             {
                 var door = doors.First();
