@@ -1,11 +1,6 @@
 ﻿using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VT_Referance.Method;
 using VT_Referance.Variable;
 

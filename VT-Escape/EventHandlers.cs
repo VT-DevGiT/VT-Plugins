@@ -1,6 +1,16 @@
-﻿using Synapse;
+﻿using Interactables.Interobjects.DoorUtils;
+using Synapse;
+using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
+using System;
+
+using UnityEngine;
+using Interactables.Interobjects.DoorUtils;
+using vDoor = Interactables.Interobjects.DoorUtils.DoorVariant;
+using Interactables.Interobjects;
+using Mirror;
+using System.Collections.Generic;
 
 namespace VTEscape
 {
@@ -22,7 +32,7 @@ namespace VTEscape
             {
                 if (ev.Role == RoleType.Spectator && ev.Player.gameObject.GetComponent<NTFEscape>() != null)
                 {
-                    ev.Player.gameObject.GetComponent<NTFEscape>()?.Destroy();
+                    ev.Player.gameObject.GetComponent<NTFEscape>()?.Kill();
                 }
                 else if (ev.Role != RoleType.Spectator && ev.Player.gameObject.GetComponent<NTFEscape>() == null)
                 {
@@ -33,39 +43,25 @@ namespace VTEscape
             {
                 if (ev.Role == RoleType.Spectator && ev.Player.gameObject.GetComponent<CHIEscape>() != null)
                 {
-                    ev.Player.gameObject.GetComponent<CHIEscape>()?.Destroy();
+                    ev.Player.gameObject.GetComponent<CHIEscape>()?.Kill();
                 }
                 else if (ev.Role != RoleType.Spectator && ev.Player.gameObject.GetComponent<CHIEscape>() == null)
                 {
                     ev.Player.gameObject.AddComponent<CHIEscape>();
                 }
             }
-            /*
-            if (AdvencedEscape.Config.ShelterIsEnabled)
-            {
-                if (ev.Role == RoleType.Spectator && ev.Player.gameObject.GetComponent<ICEscape>() != null)
-                {
-                    ev.Player.gameObject.GetComponent<ICEscape>()?.Destroy();
-                }
-                else if (ev.Role != RoleType.Spectator && ev.Player.gameObject.GetComponent<ICEscape>() == null)
-                {
-                    ev.Player.gameObject.AddComponent<ICEscape>();
-                }
-            }
-            */
         }
         private void Waiting()
         {
 
             if (Plugin.Config.ShelterIsEnabled)
             {
-                Synapse.Api.Room shelterRoom = Synapse.Api.Map.Get.GetRoom(RoomInformation.RoomType.EZ_SHELTER);
+                //Synapse.Api.Room shelterRoom = Synapse.Api.Map.Get.GetRoom(RoomInformation.RoomType.EZ_SHELTER);
 
 
-                //Synapse.Api.Door shelterDoor = Synapse.Api.Map.Get.GetDoor(Synapse.Api.Enum.DoorType. );
+                //Synapse.Api.Door shelterDoor = Synapse.Api.Map.Get.GetDoor(Synapse.Api.Enum.DoorType.);
 
-                //var door = Synapse.Api.Map.Get.SpawnDoorVariant(DoorSpawnPos.Parse().Position, Synapse.Api.Map.Get.GetRoom(RoomInformation.RoomType.EZ_SHELTER).GameObject.transform.rotation);
-
+                //var door = Synapse.Api.Door.SpawnDoorVariant(DoorSpawnPos.Parse().Position, Synapse.Api.Map.Get.GetRoom(RoomInformation.RoomType.EZ_SHELTER).GameObject.transform.rotation);
             }
         }
     }

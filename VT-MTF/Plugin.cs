@@ -9,11 +9,11 @@ namespace VT_HammerDown
 Author = "VT",
 Description = "add a new Escape and config",
 LoadPriority = 0,
-Name = "VT-MTF",
+Name = "VT-HammerDown",
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,
 SynapsePatch = SynapseController.SynapsePatch,
-Version = "v.1.4.1"
+Version = "v.1.1.3"
 )]
     public class Plugin : AbstractPlugin
     {

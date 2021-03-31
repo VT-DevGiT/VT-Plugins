@@ -8,10 +8,10 @@ using UnityEngine;
 namespace VTGrenad
 {
     [PluginInformation(
-        Author = "VT-Grenade",
+        Author = "VT",
         Description = "Allows you to activate grenades remotely",
         LoadPriority = 1,
-        Name = "VT-IpLocker",
+        Name = "VT-Grenade",
         SynapseMajor = SynapseController.SynapseMajor,
         SynapseMinor = SynapseController.SynapseMinor,
         SynapsePatch = SynapseController.SynapsePatch,
@@ -27,7 +27,7 @@ namespace VTGrenad
 
         private void PatchAll()
         {
-            var instance = new Harmony("VT-IpLocker");
+            var instance = new Harmony("VT-Grenade");
             instance.PatchAll();
             Server.Get.Logger.Info("Custom class Harmony Patch done!");
         }

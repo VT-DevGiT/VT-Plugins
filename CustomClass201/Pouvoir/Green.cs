@@ -1,73 +1,61 @@
-﻿using Mirror;
-using Synapse;
+﻿using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
+using VT_Referance.Behaviour;
 using VT_Referance.Method;
 using VT_Referance.Variable;
 
 namespace CustomClass.Pouvoir
 {
-    class Green : NetworkBehaviour
+    class Green : BaseRepeatingBehaviour
     {
         private Player player;
-        private float _timer;
         public bool DamagGreen;
         private Dictionary<Player, float> playerAffected = new Dictionary<Player, float>();
         private void Start()
         {
             player = gameObject.GetPlayer();
         }
-        private void Update()
+        protected override void BehaviourAction()
         {
-            _timer += Time.deltaTime;
-          
-            if (_timer > 1)
-            {
-                var listPlayerPossible = Server.Get.Players.Where(p => p != player && p.TeamID != (int)TeamID.SCP 
+            var listPlayerPossible = Server.Get.Players.Where(p => p != player && p.TeamID != (int)TeamID.SCP
                 && p.TeamID != (int)TeamID.RIP && Vector3.Distance(p.Position, player.Position) < PluginClass.ConfigSCP166.Distance);
-                
-                foreach(var target in playerAffected.Keys)
+
+            foreach (var target in playerAffected.Keys)
+            {
+                Server.Get.Logger.Info("");
+                if (!listPlayerPossible.Contains(player))
                 {
-                    Server.Get.Logger.Info("");
-                    if (!listPlayerPossible.Contains(player))
-                    {
-                        playerAffected[target] = playerAffected[target] - 1;
-                        if (playerAffected[target] <= 0)
-                            playerAffected.Remove(target);
-                    }
-                }                
-                
-                foreach(var target in listPlayerPossible)
-                {
-                    if (target.IsUTR())
-                        target.Hurt(2, DamageTypes.None, player);
-                    else if (DamagGreen)
-                    {
-                        target.Hurt(12, DamageTypes.None, player);
-                        target.GiveEffect(Effect.Poisoned, 1, 1.5f);
-                    }
-                    if (playerAffected.ContainsKey(target))
-                        playerAffected[target] = playerAffected[target] + 15;
-                    else
-                        playerAffected[target] = 0;
-                    int chance = UnityEngine.Random.Range(1, 100);
-                    if (chance <= playerAffected[target])
-                    {
-                        AffectPlayerStuff(target);
+                    playerAffected[target] = playerAffected[target] - 1;
+                    if (playerAffected[target] <= 0)
                         playerAffected.Remove(target);
-                    }
                 }
             }
-            if (_timer > 1)
-                _timer = 0f;
-        }
 
+            foreach (var target in listPlayerPossible)
+            {
+                if (target.IsUTR())
+                    target.Hurt(2, DamageTypes.None, player);
+                else if (DamagGreen)
+                {
+                    target.Hurt(12, DamageTypes.None, player);
+                    target.GiveEffect(Effect.Poisoned, 1, 1.5f);
+                }
+                if (playerAffected.ContainsKey(target))
+                    playerAffected[target] = playerAffected[target] + 15;
+                else
+                    playerAffected[target] = 0;
+                int chance = UnityEngine.Random.Range(1, 100);
+                if (chance <= playerAffected[target])
+                {
+                    AffectPlayerStuff(target);
+                    playerAffected.Remove(target);
+                }
+            }
+        }
         private void AffectPlayerStuff(Player target)
         {
             int chance = UnityEngine.Random.Range(1, 7);

@@ -1,23 +1,13 @@
-﻿using CustomPlayerEffects;
-using Mirror;
-using Synapse;
+﻿using Synapse;
 using Synapse.Api;
-using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
-using Synapse.Api.Items;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+using VT_Referance.Behaviour;
 
 namespace CustomClass.Pouvoir
 {
-    class MouveVent : NetworkBehaviour
+    class MouveVent : BaseRepeatingBehaviour
     {
         private Player player;
-        private float _timer;
         public int duraction = -1;
 
         private void Start()
@@ -26,26 +16,21 @@ namespace CustomClass.Pouvoir
             player.Invisible = true;
             RegisterEvents();
         }
-        private void Update()
+        protected override void BehaviourAction()
         {
-            _timer += Time.deltaTime;
-
-            if ( _timer > 1f)
+            
+            if (duraction > 0)
             {
-                if (duraction > 0)
-                {
-                    player.SendBroadcast(1, PluginClass.PluginTranslation.ActiveTranslation.
-                        VentMessage.Replace("%Time%", duraction.ToString()));
-                    duraction--;
-                }
-                else if (duraction < 0)
-                {
-                    player.BroadcastMessage(PluginClass.PluginTranslation.ActiveTranslation.NoTimeVentMessage, 1);
-                }
+                player.SendBroadcast(1, PluginClass.PluginTranslation.ActiveTranslation.
+                    VentMessage.Replace("%Time%", duraction.ToString()));
+                duraction--;
             }
-
-            if (_timer > 1f)
-                _timer = 0f;
+            else if (duraction < 0)
+            {
+                player.BroadcastMessage(PluginClass.PluginTranslation.ActiveTranslation.NoTimeVentMessage, 1);
+            }
+            else
+                Kill();
         }
         private void OnDoorInteract(DoorInteractEventArgs ev)
         {
@@ -70,14 +55,6 @@ namespace CustomClass.Pouvoir
             {
                 ev.Allow = false;
             }
-        }
-
-        public void Destroy()
-        {
-
-            UnRegisterEvents();
-            player.Invisible = false;
-            DestroyImmediate(this, true);
         }
 
         private void UnRegisterEvents()

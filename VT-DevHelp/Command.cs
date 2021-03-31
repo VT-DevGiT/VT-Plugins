@@ -5,6 +5,7 @@ using Synapse.Command;
 using System;
 using System.Linq;
 using UnityEngine;
+using VT_Referance.Method;
 
 namespace VTDevHelp
 {
@@ -149,7 +150,7 @@ namespace VTDevHelp
             if (int.TryParse(context.Arguments.FirstElement(), out ID))
             {
                 DissonanceUserSetup dissonanceUserSetup = context.Player.gameObject.GetComponent<DissonanceUserSetup>();
-                Method.PlayAmbientSound(ID);
+                Methods.PlayAmbientSound(ID);
                 result.State = CommandResultState.Ok;
             }
             return result;

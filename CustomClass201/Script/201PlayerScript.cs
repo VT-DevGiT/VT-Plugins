@@ -4,6 +4,7 @@ using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
+    /*
     public class Scripte201 : BasePlayerScript
     {
         protected override List<int> EnemysList => new List<int> { (int)TeamID.CDP, (int)TeamID.MTF, (int)TeamID.RSC };
@@ -20,4 +21,5 @@ namespace CustomClass.PlayerScript
 
         protected override AbstractConfigSection Config => PluginClass.Config201;
     }
+    */
 }

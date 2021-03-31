@@ -50,6 +50,7 @@ namespace VTGrenad
     {
         private static void Postfix(FlashGrenade __instance)
         {
+            
             if (Plugin.Config.BadFlash)
             foreach (var joueur in Server.Get.Players)
             {

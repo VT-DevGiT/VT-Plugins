@@ -7,11 +7,12 @@ using Synapse.Api.Events.SynapseEventArguments;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using VT_Referance.Behaviour;
 
 namespace VT939
 {
     //https://github.com/iopietro/BetterScp939/releases/tag/1.0.7
-    public class Scp939Controller : NetworkBehaviour
+    public class Scp939Controller : BaseRepeatingBehaviour
     {
         private Player player;
         private Scp207 scp207;
@@ -56,11 +57,11 @@ namespace VT939
             }
         }
 
-        private void Update()
+        protected override void BehaviourAction()
         {
             if (player == null || !player.RoleType.Is939())
             {
-                Destroy();
+                Kill();
                 return;
             }
 
@@ -104,7 +105,6 @@ namespace VT939
         }
 
         private void OnDestroy() => PartiallyDestroy();
-
         public void PartiallyDestroy()
         {
             UnregisterEvents();
@@ -122,21 +122,14 @@ namespace VT939
             player.ArtificialHealth = 0;
         }
 
-        public void Destroy()
+        private void RegisterEvents()
         {
-            try
-            {
-                Destroy(this);
-            }
-            catch (Exception exception)
-            {
-                Synapse.Api.Logger.Get.Info($"Error, cannot destroy: {exception}");
-            }
+            Server.Get.Events.Player.PlayerDamageEvent += OnDomage;
         }
-
-        private void RegisterEvents() => Server.Get.Events.Player.PlayerDamageEvent += OnDomage;
-
-        private void UnregisterEvents() => Server.Get.Events.Player.PlayerDamageEvent -= OnDomage;
+        private void UnregisterEvents()
+        {
+            Server.Get.Events.Player.PlayerDamageEvent -= OnDomage;
+        }
 
         private IEnumerator<float> ForceSlowDown(float totalWaitTime, float interval)
         {

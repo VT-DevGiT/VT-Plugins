@@ -2,7 +2,6 @@
 using Respawning;
 using Scp079Rework;
 using Synapse.Command;
-using System.Linq;
 using UnityEngine;
 using VT_Referance.Method;
 
@@ -27,7 +26,6 @@ namespace VT079.Command
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-
             if (RespawnManager.Singleton.GetFieldValue<float>("_timeForNextSequence") <= 15)
             {
                 result.State = CommandResultState.NoPermission;

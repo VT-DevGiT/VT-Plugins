@@ -8,7 +8,7 @@ namespace VT_AndersonRobotic
     [PluginInformation(
 Name = "VT-AndersonRobotic",
 Author = "VT",
-Description = "Adds functionality the team AndersonRobotic",
+Description = "Adds the team AndersonRobotic",
 LoadPriority = 0,
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,

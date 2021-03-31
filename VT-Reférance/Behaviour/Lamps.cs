@@ -7,11 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using VT_Referance.Behaviour;
 using VT_Referance.Method;
 
 namespace Common_Utiles
 {
-    public class Lamps : NetworkBehaviour
+    public class Lamps : BaseRepeatingBehaviour
     {
         float degat;
         private Player _joueur;
@@ -23,7 +24,7 @@ namespace Common_Utiles
             _joueur = gameObject.GetPlayer();
         }
 
-        private void Update()
+        protected override void BehaviourAction()
         {
             _timer += Time.deltaTime;
 

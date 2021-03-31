@@ -44,14 +44,14 @@ namespace CustomClass.PlayerScript
                     {
                         if (Player.gameObject.GetComponent<MouveVent>() == null)
                         {
-                            Player.gameObject.GetComponent<MouveVent>()?.Destroy();
+                            Player.gameObject.GetComponent<MouveVent>()?.Kill();
                             lastPower = DateTime.Now;
                         }
                     });
                 }
                 else if (Player.gameObject.GetComponent<MouveVent>() != null)
                 {
-                    Player.gameObject.GetComponent<MouveVent>()?.Destroy();
+                    Player.gameObject.GetComponent<MouveVent>()?.Kill();
                     lastPower = DateTime.Now;
                 }
                 else Reponse.Cooldown(Player, lastPower, PluginClass.ConfigTechnicien.CoolDown);

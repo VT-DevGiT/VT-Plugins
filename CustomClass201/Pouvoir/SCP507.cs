@@ -6,15 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using VT_Referance.Behaviour;
 
 namespace CustomClass.Pouvoir
 {
-    class SCP507 : NetworkBehaviour
+    class SCP507 : BaseRepeatingBehaviour
     {
-        public bool Enabled = true;
         private Player player;
-        private float _timer;
-        private int duraction = -1;
+        private int _timer;
+        private int duraction;
         private int rnd;
         public int minduraction { get; set; }
         public int maxduraction { get; set; }
@@ -29,9 +29,10 @@ namespace CustomClass.Pouvoir
             player = gameObject.GetPlayer();
             duraction = UnityEngine.Random.Range(minduraction, maxduraction);
         }
-        private void Update()
+
+        protected override void BehaviourAction()
         {
-            _timer += Time.deltaTime;
+            _timer += 1;
             if (_timer > duraction)
             {
                 rnd = UnityEngine.Random.Range(0, rooms.Count() - 1);
@@ -39,12 +40,7 @@ namespace CustomClass.Pouvoir
                 duraction = UnityEngine.Random.Range(minduraction, maxduraction);
             }
             if (_timer > duraction)
-                _timer = 0f;
-        }
-        public void Destroy()
-        {
-            Enabled = false;
-            DestroyImmediate(this, true);
+                _timer = 0;
         }
     }
 }

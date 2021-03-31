@@ -1,17 +1,17 @@
 ﻿using Mirror;
+using VT_Referance.Behaviour;
 
 namespace VTProget_X
 {
-    public class IntercomBehaviour : NetworkBehaviour
+    public class IntercomBehaviour : BaseRepeatingBehaviour
     {
         void Start()
         {
             Synapse.Api.Logger.Get.Info($"IntercomBehaviour Start");
-            InvokeRepeating("IntercomInfoRoutine", 1, 1);
         }
 
         private int _timer = 0;
-        public void IntercomInfoRoutine()
+        protected override void BehaviourAction()
         {
 
             screenEnum screen;

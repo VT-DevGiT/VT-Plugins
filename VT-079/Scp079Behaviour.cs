@@ -1,29 +1,19 @@
 ﻿using Mirror;
 using System.Linq;
+using VT_Referance.Behaviour;
 
 namespace VT079
 {
-    public class Scp079Behaviour : NetworkBehaviour
+    public class Scp079Behaviour : BaseRepeatingBehaviour
     {
-        void Start()
+        protected override void BehaviourAction()
         {
-        }
-
-        void Update()
-        {
-            if (!Inited)
+            var scripte = Scp079PlayerScript.instances.FirstOrDefault(p => p.GetPlayer() == this.GetPlayer());
+            if (scripte != null)
             {
-                var scripte = Scp079PlayerScript.instances.FirstOrDefault(p => p.GetPlayer() == this.GetPlayer());
-                if (scripte != null)
-                {
-                    Plugin.Instance.ChangeCoutUnScripte(scripte);
-                    Inited = true;
-                    this.enabled = false;
-                    DestroyImmediate(this, true);
-                }
+                Plugin.Instance.ChangeCoutUnScripte(scripte);
+                Kill();
             }
         }
-
-        private bool Inited = false;
     }
 }

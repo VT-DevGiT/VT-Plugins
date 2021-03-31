@@ -62,7 +62,7 @@ namespace VT939
             if (ev.Role.Is939())
             {
                 if (ev.Player.gameObject.TryGetComponent(out Scp939Controller customScp939))
-                    customScp939.Destroy();
+                    customScp939.Kill();
 
                 ev.Player.gameObject.AddComponent<Scp939Controller>();
             }

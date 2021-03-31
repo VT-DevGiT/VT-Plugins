@@ -35,7 +35,6 @@
     <Compile Include="Plugin.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Behaviour\CHIBehaviour .cs" />
-    <Compile Include="Behaviour\ShelterBehaviour.cs" />
     <Compile Include="Behaviour\NTFBehaviour.cs" />
     <Compile Include="EscapeEnum.cs" />
     <Compile Include="Method.cs" />

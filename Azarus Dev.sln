@@ -27,10 +27,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-DevHelp", "VT-DevHelp\VT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomClass", "CustomClass201\CustomClass.csproj", "{D59F4B49-B4B6-404C-9803-7FEB3CC9012D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VT-079Command", "VT-079Command\VT-079Command.csproj", "{9129886A-04B4-4B6F-BED4-0DB161CEEC9B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JetonClassManger", "JetonClassManger\JetonClassManger.csproj", "{D453F3A0-14E8-4CAE-84B5-2E5A39C859F3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-IpLocker", "VT-IpLocker\VT-IpLocker.csproj", "{71F8C121-8ADC-4DC9-A79F-4D1C7F821AD5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferenceAll", "C:\Users\valentin\Desktop\VT\ReferenceAll\ReferenceAll.csproj", "{87A8366E-668A-4F4E-8549-BECA29CCA361}"
@@ -40,6 +36,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-HammerDown", "VT-MTF\VT-HammerDown.csproj", "{3B7AC132-BAFC-432B-A8D2-20E26FB46018}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-AndersonRobotic", "VT-AndersonRobotic\VT-AndersonRobotic.csproj", "{1FA72379-8047-4104-8EA2-AAB1ADDF653E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-JetonClass", "VT-JetonClass\VT-JetonClass.csproj", "{9530C6A8-87C3-4095-A9FE-1561D061102D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-079Command", "VT-079Command\VT-079Command.csproj", "{959A6FF7-CC24-4672-8AB5-4E8C493D8C4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,14 +95,6 @@ Global
 		{D59F4B49-B4B6-404C-9803-7FEB3CC9012D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D59F4B49-B4B6-404C-9803-7FEB3CC9012D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D59F4B49-B4B6-404C-9803-7FEB3CC9012D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9129886A-04B4-4B6F-BED4-0DB161CEEC9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9129886A-04B4-4B6F-BED4-0DB161CEEC9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9129886A-04B4-4B6F-BED4-0DB161CEEC9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9129886A-04B4-4B6F-BED4-0DB161CEEC9B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D453F3A0-14E8-4CAE-84B5-2E5A39C859F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D453F3A0-14E8-4CAE-84B5-2E5A39C859F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D453F3A0-14E8-4CAE-84B5-2E5A39C859F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D453F3A0-14E8-4CAE-84B5-2E5A39C859F3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{71F8C121-8ADC-4DC9-A79F-4D1C7F821AD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{71F8C121-8ADC-4DC9-A79F-4D1C7F821AD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71F8C121-8ADC-4DC9-A79F-4D1C7F821AD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -123,6 +115,14 @@ Global
 		{1FA72379-8047-4104-8EA2-AAB1ADDF653E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FA72379-8047-4104-8EA2-AAB1ADDF653E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FA72379-8047-4104-8EA2-AAB1ADDF653E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9530C6A8-87C3-4095-A9FE-1561D061102D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9530C6A8-87C3-4095-A9FE-1561D061102D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9530C6A8-87C3-4095-A9FE-1561D061102D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9530C6A8-87C3-4095-A9FE-1561D061102D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{959A6FF7-CC24-4672-8AB5-4E8C493D8C4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{959A6FF7-CC24-4672-8AB5-4E8C493D8C4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{959A6FF7-CC24-4672-8AB5-4E8C493D8C4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{959A6FF7-CC24-4672-8AB5-4E8C493D8C4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

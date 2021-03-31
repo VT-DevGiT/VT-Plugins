@@ -30,9 +30,6 @@ namespace CustomClass.PlayerScript
         protected override void AditionalInit()
         {
             Player.Invisible = true;
-            SynapseItem Chapeau = new SynapseItem(ItemType.SCP268, 0, 0, 0, 0);
-            ActiveComponent<Invisible>();
-            Player.Inventory.AddItem(Chapeau);
         }
 
         protected override void Event()
@@ -51,7 +48,6 @@ namespace CustomClass.PlayerScript
             Player.Invisible = false;
             base.DeSpawn();
             Map.Get.AnnounceScpDeath("9 6 6");
-            InactiveComponent<Invisible>();
             Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
             Server.Get.Events.Player.PlayerDeathEvent -= OnDeath;
         }

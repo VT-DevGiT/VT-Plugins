@@ -36,7 +36,7 @@ namespace CustomClass.PlayerScript
             base.DeSpawn();
             Map.Get.AnnounceScpDeath("5 0 7");
             if (Player.gameObject.GetComponent<SCP507>() != null)
-                Player.gameObject.GetComponent<SCP507>().Destroy();
+                Player.gameObject.GetComponent<SCP507>().Kill();
         }
     }
 }

@@ -45,7 +45,7 @@ namespace CustomClass.PlayerScript
                 else if (Player.gameObject.GetComponent<MouveVent>() != null)
                 {
                     Player.Scale = oldScale;
-                    Player.gameObject.GetComponent<MouveVent>()?.Destroy();
+                    Player.gameObject.GetComponent<MouveVent>()?.Kill();
                 }
                 return true;
             }
