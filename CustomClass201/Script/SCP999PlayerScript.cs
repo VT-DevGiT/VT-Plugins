@@ -44,7 +44,7 @@ namespace CustomClass.PlayerScript
         }
         public override void DeSpawn()
         {
-            InactiveComponent<Aura>();
+            KillComponent<Aura>();
             Player.Scale = Vector3.one;
             base.DeSpawn();
             Map.Get.AnnounceScpDeath("9 9 9");

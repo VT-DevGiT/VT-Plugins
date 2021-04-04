@@ -110,7 +110,7 @@ namespace VTProget_X
                 #endregion
 
                 #region DecontaMessage
-                if (Methods.Voltage() < 100)
+                if (Methods.GetVoltage() < 100)
                     DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageNotEnoughEnergy;
                 else
                 {
@@ -177,7 +177,7 @@ namespace VTProget_X
                 #endregion
 
                 #region GeneratorVoltage
-                Voltage = Methods.Voltage();
+                Voltage = Methods.GetVoltage();
                 #endregion
 
                 #region SCP106Message

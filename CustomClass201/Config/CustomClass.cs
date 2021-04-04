@@ -15,5 +15,8 @@ namespace CustomClass.Config
         public bool killAntiCheatPatchRayCast = false;
         public bool killAntiCheatPatchSafe = false;
         public bool killAntiCheatPatchSync = false;
+
+        [Description("If you use VT-AndersonRobotic to force activation of Roles Anderson UTR")]
+        public bool Anderson = false;
     }
 }

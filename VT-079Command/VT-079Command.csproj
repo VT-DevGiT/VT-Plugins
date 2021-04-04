@@ -81,6 +81,7 @@
     <Compile Include="Air.cs" />
     <Compile Include="DeconfSCP.cs" />
     <Compile Include="Gaz.cs" />
+    <Compile Include="HackUTR.cs" />
     <Compile Include="Nuck.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -47,7 +47,6 @@ namespace CustomClass.PlayerScript
             Server.Get.Events.Player.PlayerDamageEvent += OnDomage;
             Server.Get.Events.Player.PlayerItemUseEvent += OnUseItem;
             Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
-            Server.Get.Events.Player.PlayerReloadEvent += OnReload;
         }
 
         public override void DeSpawn()
@@ -57,7 +56,6 @@ namespace CustomClass.PlayerScript
             Server.Get.Events.Player.PlayerDamageEvent -= OnDomage;
             Server.Get.Events.Player.PlayerItemUseEvent -= OnUseItem;
             Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
-            Server.Get.Events.Player.PlayerReloadEvent -= OnReload;
         }
 
         protected override void AditionalInit()
@@ -66,17 +64,6 @@ namespace CustomClass.PlayerScript
             Player.StaminaUsage *= 2;
             Player.Hub.playerStats.artificialHpDecay = 0;
             Player.GiveEffect(Effect.Disabled);
-        }
-
-        private void OnReload(PlayerReloadEventArgs ev)
-        {
-            if (ev.Player == Player)
-            {
-                uint balleR = (uint)ev.Item.Durabillity*2;
-                ev.Player.Ammo5 = balleR;
-                ev.Player.Ammo5 = balleR;
-                ev.Player.Ammo5 = balleR;
-            }
         }
 
         private void OnKeyPress(PlayerKeyPressEventArgs ev)

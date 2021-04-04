@@ -1,6 +1,8 @@
 ﻿using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
+using System.Linq;
+using System.Net;
 
 namespace VT_IpLocker
 {
@@ -13,10 +15,13 @@ namespace VT_IpLocker
 
         private void OnAuthentication(PreAuthenticationEventArgs ev)
         {
-            
-            Server.Get.Logger.Info(ev.Request.RemoteEndPoint.Address.ToString());
-            Server.Get.Logger.Info(Methode.GetUserCountryByIp(ev.Request.RemoteEndPoint.Address.ToString()));
-            
+            IPAddress Ip = ev.Request.RemoteEndPoint.Address;
+            string contry = Methode.GetUserCountryByIp(Ip.ToString());
+            Server.Get.Logger.Info(Ip.ToString());
+            Server.Get.Logger.Info(contry);
+            if (!Plugin.Config.WhitListCountry.Contains(contry))
+                if (!Plugin.Config.WhitListIP.Contains(Ip))
+                    ev.Allow = false;
         }
     }
 }

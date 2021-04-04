@@ -33,7 +33,7 @@ namespace VT079.Command
                 result.State = CommandResultState.NoPermission;
                 result.Message = "too close to a respawn";
             }
-            if (!Methods.isAirBombGoing)
+            if (!Methods.isAirBombCurrently)
             {
                 Timing.RunCoroutine(Methods.AirSupportBomb(10, 5));
                 result.State = CommandResultState.Ok;

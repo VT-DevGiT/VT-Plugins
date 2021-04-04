@@ -9,10 +9,10 @@ namespace VT_AndersonRobotic
     {
 
         [Description("The Health of Anderson Robotic members")]
-        public int Health = 120;
+        public int Health = 130;
 
         [Description("The Role Name that is displayed when you look at the Player")]
-        public string CustomRoleName = "<color=yellow>AndersonRobotic</color>";
+        public string CustomRoleName = "<color=yellow>Anderson Unit</color>";
 
         [Description("The chance that a Anderson Robotic Squad spawns instead of a Chaos")]
         public float SpawnChance = 50f;

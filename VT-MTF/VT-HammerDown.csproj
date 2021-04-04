@@ -75,10 +75,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HammerDownCommandant .cs" />
-    <Compile Include="HammerDownLieutenant.cs" />
+    <Compile Include="Script\HammerDownCommandant .cs" />
+    <Compile Include="Script\HammerDownLieutenant.cs" />
     <Compile Include="HammerDownTeam.cs" />
-    <Compile Include="HammerDownCadet.cs" />
+    <Compile Include="Script\HammerDownCadet.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="Plugin.cs" />
@@ -94,5 +94,6 @@
       <Name>VT-Referance</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

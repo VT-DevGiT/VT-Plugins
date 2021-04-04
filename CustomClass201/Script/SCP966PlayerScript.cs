@@ -8,6 +8,7 @@ using Synapse.Config;
 using System;
 using System.Collections.Generic;
 using VT_Referance.Variable;
+using VT_Referance.Method;
 
 namespace CustomClass.PlayerScript
 {
@@ -55,7 +56,7 @@ namespace CustomClass.PlayerScript
 
         private void OnDamage(PlayerDamageEventArgs ev)
         {
-            if (ev.Killer == Player && ev.Victim.RoleID != (int)RoleID.FoundationUTR)
+            if (ev.Killer == Player && ev.Victim.IsUTR())
             {
                 ev.Victim.GiveEffect(Effect.Concussed, 1, 10);
                 ev.Victim.GiveEffect(Effect.Amnesia, 1, 10);

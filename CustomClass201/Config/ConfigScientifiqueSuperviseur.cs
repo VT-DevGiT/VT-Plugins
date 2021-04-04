@@ -21,7 +21,7 @@ namespace CustomClass.Config
 
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 50;
-        public int MaxArtificialHealth = 20;
+        public int MaxArtificialHealth = 10;
 
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 100;

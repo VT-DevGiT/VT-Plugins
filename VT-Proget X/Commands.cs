@@ -27,7 +27,7 @@ namespace VTProget_X
                 result.State = CommandResultState.NoPermission;
                 return result;
             }
-            if (Methods.Voltage() >= 1000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
+            if (Methods.GetVoltage() >= 1000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
                 && context.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
             {
                 Timing.RunCoroutine(Methode.Decontamination(), "Decont");
@@ -50,7 +50,7 @@ namespace VTProget_X
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            if (Methods.Voltage() >= 2000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
+            if (Methods.GetVoltage() >= 2000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
              && context.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
             {
                 if (Plugin.Instance.TeslaEnabled)
@@ -90,7 +90,7 @@ namespace VTProget_X
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            if (Methods.Voltage() >= 3000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
+            if (Methods.GetVoltage() >= 3000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
              && context.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
             {
                 Generator079.mainGenerator.ServerOvercharge(Plugin.Config.BlackOutTime, false);

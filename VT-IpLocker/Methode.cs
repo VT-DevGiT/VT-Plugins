@@ -25,7 +25,6 @@ namespace VT_IpLocker
             {
                 ipInfo.Country = null;
             }
-
             return ipInfo.Country;
         }
     }

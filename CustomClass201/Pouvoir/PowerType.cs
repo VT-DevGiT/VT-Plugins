@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CustomClass.Pouvoir
 {
+    /// <summary>
+    /// the different powers of the custom class 
+    /// </summary>
     public enum PowerType : int
     {
         MoveVent = 0,

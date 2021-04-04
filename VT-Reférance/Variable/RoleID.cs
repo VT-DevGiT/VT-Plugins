@@ -1,5 +1,8 @@
 ﻿namespace VT_Referance.Variable
 {
+    /// <summary>
+    /// All role ID used by VT plugin 
+    /// </summary>
     public enum RoleID
     {
         None = -1,

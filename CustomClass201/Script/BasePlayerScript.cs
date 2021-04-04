@@ -5,6 +5,7 @@ using Synapse.Config;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using VT_Referance.Behaviour;
 
 namespace CustomClass.PlayerScript
 {
@@ -55,11 +56,19 @@ namespace CustomClass.PlayerScript
 
         #region Methods
         protected void InactiveComponent<T>()
-            where T : Behaviour
+            where T : BaseRepeatingBehaviour
         {
             T composant;
             if (Player.gameObject.TryGetComponent<T>(out composant))
                 composant.enabled = false;
+        }
+
+        protected void KillComponent<T>()
+            where T : BaseRepeatingBehaviour
+        {
+            T composant;
+            if (Player.gameObject.TryGetComponent<T>(out composant))
+                composant.Kill();
         }
 
         protected T ActiveComponent<T>()
@@ -77,6 +86,13 @@ namespace CustomClass.PlayerScript
             return composant;
         }
 
+        /// <summary>
+        /// Get a value from the config of the classe
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Name">Config name</param>
+        /// <param name="defaultValue">Default value if the config is not found</param>
+        /// <returns></returns>
         private T GetConfigValue<T>(string Name, T defaultValue)
         {
             T value = defaultValue;
@@ -88,15 +104,10 @@ namespace CustomClass.PlayerScript
         }
 
         protected virtual void AditionalInit()
-        {
-
-        }
+        { }
 
         protected virtual void Event()
-        {
-
-        }
-
+        { }
         public override void Spawn()
         {
             Spawned = false;
@@ -144,7 +155,6 @@ namespace CustomClass.PlayerScript
             {
                 Player.RemoveDisplayInfo(PlayerInfoArea.Role);
                     Player.DisplayInfo = $"{RoleName}";
-                //Player.DisplayInfo = $"{RoleName}";
             }
         }
 

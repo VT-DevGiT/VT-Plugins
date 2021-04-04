@@ -24,6 +24,6 @@ namespace JetonClassManger
 
         };
         [Description("Time to change role")]
-        public float TempChangement = 45 ; 
+        public float TimRolSwitch = 45 ; 
     }
 }

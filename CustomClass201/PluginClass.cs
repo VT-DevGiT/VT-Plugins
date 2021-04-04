@@ -30,12 +30,18 @@ namespace CustomClass
         //les config des rôles custome
 
 
-        //Config de la Classe 201 Obsellette car désactivée.
+        //Config de la Classe 201 obsolete car désactivée.
         //[Synapse.Api.Plugin.Config(section = "CustomClass-CustomClass201")]
         //public static Config201 Config201;
 
         [Synapse.Api.Plugin.Config(section = "ConfigConcierge")]
         public static ConfigConcierge ConfigConcierge;
+
+        [Synapse.Api.Plugin.Config(section = "ConfigAndersonUTRheavy")]
+        public static ConfigAndersonUTRheavy ConfigAndersonUTRheavy;
+
+        [Synapse.Api.Plugin.Config(section = "ConfigConcierge")]
+        public static ConfigAndersonUTRlight ConfigAndersonUTRlight;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigDirecteurSite")]
         public static ConfigDirecteurSite ConfigDirecteurSite;
@@ -162,6 +168,14 @@ namespace CustomClass
         {
             //Role 201 dans le but de teste si les Scriptes ont bien été crée Obselette.
             //Server.Get.RoleManager.RegisterCustomRole<Scripte201>();
+
+            string curAssemblyFolder = new System.Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath;
+
+            if (System.IO.File.Exists($"{curAssemblyFolder}\\VT-AndersonRobotic.dll") || ConfigCustomClass.Anderson)
+            {
+                Server.Get.RoleManager.RegisterCustomRole<AndersonUTRlightScript>();
+                Server.Get.RoleManager.RegisterCustomRole<AndersonUTRheavyScript>();
+            }
             Server.Get.RoleManager.RegisterCustomRole<ConciergeScript>();
             Server.Get.RoleManager.RegisterCustomRole<DirecteurSiteScript>();
             Server.Get.RoleManager.RegisterCustomRole<ScientifiqueSuperviseurScript>();

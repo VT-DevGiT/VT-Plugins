@@ -75,10 +75,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AndersonRoboticDrone.cs" />
     <Compile Include="AndersonRoboticUnite.cs" />
     <Compile Include="AndersonRoboticTeam.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="EventHandlers.cs" />
+    <Compile Include="Hack.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginTranslation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

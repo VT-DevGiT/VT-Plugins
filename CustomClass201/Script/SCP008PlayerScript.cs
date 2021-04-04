@@ -55,7 +55,7 @@ namespace CustomClass.PlayerScript
                 aura.HerHp = 0;
                 aura.Distance = 0;
             }
-            InactiveComponent<Aura>();
+            KillComponent<Aura>();
             Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
             Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
             if (!Server.Get.Players.Where(p => p.RoleID == (int)RoleID.SCP008).Any())

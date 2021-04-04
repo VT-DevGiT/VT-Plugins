@@ -33,7 +33,7 @@ namespace VTRadio
                 result.State = CommandResultState.NoPermission;
                 result.Message = "too close to a respawn";
             }
-            else if (!Methods.isAirBombGoing)
+            else if (!Methods.isAirBombCurrently)
             {
                 Timing.RunCoroutine(Methods.AirSupportBomb(7, 5));
                 result.State = CommandResultState.Ok;

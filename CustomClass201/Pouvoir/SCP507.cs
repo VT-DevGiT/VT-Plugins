@@ -29,7 +29,6 @@ namespace CustomClass.Pouvoir
             player = gameObject.GetPlayer();
             duraction = UnityEngine.Random.Range(minduraction, maxduraction);
         }
-
         protected override void BehaviourAction()
         {
             _timer += 1;

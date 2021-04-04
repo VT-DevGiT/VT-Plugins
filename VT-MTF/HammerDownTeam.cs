@@ -22,11 +22,13 @@ namespace VT_HammerDown
                 players = players.GetRange(0, Plugin.Config.SpawnSize);
             if (players.Any())
             { 
+                //random Commander
                 int chance = players.Count() > 1? UnityEngine.Random.Range(0, players.Count() - 1) : 0;
                 var commander = players[chance];
                 commander.RoleID = (int)RoleID.CDMCommandant;
                 players.Remove(commander);
 
+                // Spawn lieutenant
                 int nbLieu = 0;
                 while (players.Any() && nbLieu < Plugin.Config.MaxLieutenant)
                 {
@@ -36,6 +38,8 @@ namespace VT_HammerDown
                     players.Remove(lieutenant);
                     nbLieu++;
                 }
+
+                //For all last player
                 foreach(var player in players)
                 {
                     player.RoleID = (int)RoleID.CMDCadet;

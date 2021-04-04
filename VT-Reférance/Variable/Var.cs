@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace VT_Referance.Variable
 {
+    /// <summary>
+    /// dictionary recording old player roles works with VT-CustomClass
+    /// </summary>
     public static class Dictionary
     {
         public static Dictionary<Player, int> PlayerRole = new Dictionary<Player, int>();

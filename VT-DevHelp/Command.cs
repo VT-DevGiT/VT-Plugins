@@ -1,7 +1,9 @@
 ﻿using Assets._Scripts.Dissonance;
+using Interactables.Interobjects.DoorUtils;
 using Synapse;
 using Synapse.Api.Items;
 using Synapse.Command;
+using Synapse.Config;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -13,11 +15,11 @@ namespace VTDevHelp
       Name = "DevDoorInfo",
       Aliases = new[] { "VTFdoor" },
       Description = "For find door",
-      Permission = "synapse.command.Dev",
+      Permission = "",
       Platforms = new[] { Platform.RemoteAdmin },
       Usage = ""
       )]
-    public class ClassInfoCommand : ISynapseCommand
+    public class DoorInfoCommand : ISynapseCommand
     {
 
         public CommandResult Execute(CommandContext context)
@@ -36,10 +38,58 @@ namespace VTDevHelp
     }
 
     [CommandInformation(
+Name = "DevDoorPos",
+Aliases = new[] { "VTPdoor" },
+Description = "",
+Permission = "",
+Platforms = new[] { Platform.RemoteAdmin },
+Usage = ""
+)]
+    public class DoorPosCommand : ISynapseCommand
+    {
+
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+            var PlayerPos = context.Player.Position;
+            
+            Plugin.DoorPosition = new SerializedMapPoint(context.Player.Room.RoomName, PlayerPos.x, PlayerPos.y, PlayerPos.z);
+            Server.Get.Logger.Info($"{context.Player.Room.RoomName}, {PlayerPos.x}, {PlayerPos.y}, {PlayerPos.z}");
+            
+            Plugin.DoorRotation = context.Player.gameObject.transform.rotation;
+            Server.Get.Logger.Info(context.Player.Rotation);
+            
+            return result;
+        }
+    }
+
+    [CommandInformation(
+  Name = "DevDoorSpawn",
+  Aliases = new[] { "VTSdoor" },
+  Description = "",
+  Permission = "",
+  Platforms = new[] { Platform.RemoteAdmin },
+  Usage = ""
+  )]
+    public class DoorSpawnCommand : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+
+            var door = Synapse.Api.Door.SpawnDoorVariant(Plugin.DoorPosition.Parse().Position, Plugin.DoorRotation);
+            door.Open = true;
+            door.Open = false;
+            
+            return result;
+        }
+    }
+
+    [CommandInformation(
      Name = "DevTest",
      Aliases = new[] { "VTTest" },
      Description = "For TEST",
-     Permission = "synapse.command.Dev",
+     Permission = "",
      Platforms = new[] { Platform.RemoteAdmin },
      Usage = ""
      )]
@@ -59,7 +109,7 @@ namespace VTDevHelp
      Name = "DevitemInfo",
      Aliases = new[] { "VTIteam" },
      Description = "Dev iteam info",
-     Permission = "synapse.command.Dev",
+     Permission = "",
      Platforms = new[] { Platform.RemoteAdmin },
      Usage = ""
      )]
@@ -92,7 +142,7 @@ namespace VTDevHelp
     Name = "DevDecont",
     Aliases = new[] { "VTDecont" },
     Description = "Dev Decont Test",
-    Permission = "synapse.command.Dev",
+    Permission = "",
     Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole },
     Usage = ""
     )]
@@ -112,7 +162,7 @@ namespace VTDevHelp
     Name = "DevGive",
     Aliases = new[] { "VTGIve" },
     Description = "Dev Give Test",
-    Permission = "synapse.command.Dev",
+    Permission = "",
     Platforms = new[] { Platform.RemoteAdmin },
     Usage = ""
     )]
@@ -136,7 +186,7 @@ namespace VTDevHelp
        Name = "DevSong",
        Aliases = new[] { "VTSong" },
        Description = "Dev Song Test",
-       Permission = "synapse.command.Dev",
+       Permission = "",
        Platforms = new[] { Platform.RemoteAdmin },
        Usage = ""
        )]
@@ -158,51 +208,10 @@ namespace VTDevHelp
     }
 
     [CommandInformation(
-        Name = "DevRestart",
-        Aliases = new[] { "Restart" },
-        Description = "Un Plugin Crash ? pas problême c'est la pour toi !",
-        Permission = "synapse.command.Dev",
-        Platforms = new[] { Platform.RemoteAdmin },
-        Usage = "Utlise le si ta le serveur qui Crash pas autrement"
-        )]
-    public class Restart : ISynapseCommand
-    {
-        public CommandResult Execute(CommandContext context)
-        {
-            var result = new CommandResult();
-            switch (context.Arguments.FirstElement())
-            {
-                case "Server":
-                    foreach (var player in Server.Get.Players)
-                    {
-                        player.SendBroadcast(2, "@Restart");
-                    }
-                    result.State = CommandResultState.Ok;
-                    Server.Get.Reload();
-                    Server.Get.GameConsole.TypeCommand("ForceStart");
-                    break;
-                case "Alert":
-                    foreach (var player in Server.Get.Players)
-                    {
-                        player.SendBroadcast(5, "Restart");
-                    }
-                    result.State = CommandResultState.Ok;
-                    break;
-                case "Plugin":
-                    Server.Get.Reload();
-                    result.State = CommandResultState.Ok;
-                    break;
-
-            }
-            return result;
-        }
-    }
-
-    [CommandInformation(
     Name = "DevChat",
     Aliases = new[] { "VTChat" },
     Description = "Dev Chat Test",
-    Permission = "synapse.command.Dev",
+    Permission = "",
     Platforms = new[] { Platform.RemoteAdmin },
     Usage = "SCP, RIP, RAD, 079, 939, NONE"
     )]
@@ -251,7 +260,7 @@ namespace VTDevHelp
     Name = "DevGrenad",
     Aliases = new[] { "VTGrenad" },
     Description = "Dev Test Plugin",
-    Permission = "synapse.command.Dev",
+    Permission = "",
     Platforms = new[] { Platform.RemoteAdmin },
     Usage = ""
     )]
@@ -276,8 +285,8 @@ namespace VTDevHelp
     [CommandInformation(
        Name = "DevClear",
        Aliases = new[] { "VTDClear" },
-       Description = "Un Clear ? pas problême c'est la pour toi !",
-       Permission = "synapse.command.Dev",
+       Description = "",
+       Permission = "",
        Platforms = new[] { Platform.RemoteAdmin },
        Usage = ".VTClear (Iteam, Corp ou All)"
        )]
@@ -314,50 +323,6 @@ namespace VTDevHelp
                     break;
 
             }
-            return result;
-        }
-    }
-
-    [CommandInformation(
-    Name = "ClearIteam",
-    Aliases = new[] { "VTIteamClear" },
-    Description = "Un commande pour Clear",
-    Permission = "",
-    Platforms = new[] { Platform.RemoteAdmin },
-    Usage = ".VTClearIteam"
-    )]
-    public class ClearIteam : ISynapseCommand
-    {
-        public CommandResult Execute(CommandContext context)
-        {
-            var result = new CommandResult();
-            var iteams = Server.Get.Map.Items.Where(p => p.State == Synapse.Api.Enum.ItemState.Map);
-            if (iteams.Any())
-                foreach (var iteam in iteams)
-                    iteam.Despawn();
-            result.State = CommandResultState.Ok;
-            return result;
-        }
-    }
-
-    [CommandInformation(
-    Name = "ClearRagdolls",
-    Aliases = new[] { "VTRagdollsClear", "VTCorpClear" },
-    Description = "Un commande pour Clear",
-    Permission = "",
-    Platforms = new[] { Platform.RemoteAdmin },
-    Usage = ".VTCorpClear"
-    )]
-    public class PblicClear : ISynapseCommand
-    {
-        public CommandResult Execute(CommandContext context)
-        {
-            var result = new CommandResult();
-            var ragdolls = Server.Get.Map.Ragdolls;
-            if (ragdolls.Any())
-                foreach (var ragdoll in ragdolls)
-                    UnityEngine.Object.DestroyImmediate(ragdoll.GameObject, true);
-            result.State = CommandResultState.Ok;
             return result;
         }
     }

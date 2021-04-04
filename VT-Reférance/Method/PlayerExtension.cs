@@ -1,12 +1,19 @@
 ﻿using Synapse.Api;
 using System.Collections.Generic;
 using UnityEngine;
+using VT_Referance.Interface;
 using VT_Referance.Variable;
 
 namespace VT_Referance.Method
 {
     public static class PlayerExtension
     {
+        /// <summary>
+        /// True if the player can see a gameobject
+        /// </summary>
+        /// <param name="player">The tested player</param>
+        /// <param name="obj">The Tested GameObject</param>
+        /// <returns></returns>
         public static bool IsTargetVisible(this Player player, GameObject obj)
         {
             Camera camera = player.gameObject.GetComponent<Camera>();
@@ -20,10 +27,16 @@ namespace VT_Referance.Method
             return true;
         }
 
+        /// <summary>
+        /// True if the player is a robotic tactical unit
+        /// </summary>
+        /// <param name="player">The tested player</param>
+        /// <returns></returns>
         public static bool IsUTR(this Player player)
         {
-            List<int> UTRID = new List<int>() { (int)RoleID.AndersonUTRheavy, (int)RoleID.AndersonUTRlight, (int)RoleID.FoundationUTR };
-            return UTRID.Contains(player.RoleID);
+            return player.CustomRole is IUtrRole;
+            //List <int> UTRID = new List<int>() { (int)RoleID.AndersonUTRheavy, (int)RoleID.AndersonUTRlight, (int)RoleID.FoundationUTR };
+            //return UTRID.Contains(player.RoleID);
         }
     }
 }

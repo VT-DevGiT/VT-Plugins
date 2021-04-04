@@ -1,6 +1,8 @@
 ﻿using Synapse;
 using Synapse.Api.Plugin;
+using Synapse.Config;
 using System;
+using UnityEngine;
 
 namespace VTDevHelp
 {
@@ -19,6 +21,8 @@ Version = "v0.1.12"
     {
         public static Plugin Instance { get; private set; }
 
+        public static SerializedMapPoint DoorPosition;
+        public static Quaternion DoorRotation;
         public override void Load()
         {
             Instance = this;

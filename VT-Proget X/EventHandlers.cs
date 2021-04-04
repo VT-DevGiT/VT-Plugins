@@ -21,7 +21,7 @@ namespace VTProget_X
         {
             if (ev.KeyCode == UnityEngine.KeyCode.Keypad4)
             {
-                if (Methods.Voltage() >= 1000 && ev.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
+                if (Methods.GetVoltage() >= 1000 && ev.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
                     && ev.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
                 {
                     Timing.RunCoroutine(Methode.Decontamination(), "Decont");
@@ -30,7 +30,7 @@ namespace VTProget_X
             }
             else if (ev.KeyCode == UnityEngine.KeyCode.Keypad5)
             {
-                if (Methods.Voltage() >= 2000 && ev.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
+                if (Methods.GetVoltage() >= 2000 && ev.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
                     && ev.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
                 {
                     if (Plugin.Instance.TeslaEnabled)
@@ -46,7 +46,7 @@ namespace VTProget_X
             }
             else if (ev.KeyCode == UnityEngine.KeyCode.Keypad6)
             {
-                if (Methods.Voltage() >= 3000 && ev.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
+                if (Methods.GetVoltage() >= 3000 && ev.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
                     && ev.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
                 {
                     Generator079.mainGenerator.ServerOvercharge(Plugin.Config.BlackOutTime, false);

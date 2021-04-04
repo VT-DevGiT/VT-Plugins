@@ -97,8 +97,8 @@ namespace CustomClass
         }
     }
     [CommandInformation(
-           Name = "Respawn",
-           Aliases = new[] { "Renfort" },
+           Name = "Reinforcement",
+           Aliases = new[] { "Renfort", "Reinfor" },
            Description = "to use the capacity of your role",
            Permission = "",
            Platforms = new[] { Platform.ClientConsole },

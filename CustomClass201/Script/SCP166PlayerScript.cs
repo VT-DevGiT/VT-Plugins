@@ -85,7 +85,7 @@ namespace CustomClass.PlayerScript
 
         public override void DeSpawn()
         {
-            InactiveComponent<Green>();
+            KillComponent<Green>();
             Map.Get.AnnounceScpDeath("1 6 6");
             Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
             Server.Get.Events.Player.PlayerPickUpItemEvent -= OnPickUp;

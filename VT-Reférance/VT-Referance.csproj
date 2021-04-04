@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviour\BaseBehaviour.cs" />
+    <Compile Include="Interface\IUtrRole.cs" />
     <Compile Include="Variable\AirBombPos.cs" />
     <Compile Include="Behaviour\Lamps.cs" />
     <Compile Include="Variable\TeamID.cs" />
@@ -90,5 +91,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace VT_Referance.Variable
 {
+    /// <summary>
+    /// all Team ID used by VT plugin
+    /// </summary>
     public enum TeamID
     {
         None = -1,

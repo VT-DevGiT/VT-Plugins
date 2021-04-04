@@ -76,6 +76,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\ConfigCHIInfirmier.cs" />
+    <Compile Include="Config\ConfigAndersonUTRheavy.cs" />
+    <Compile Include="Config\ConfigAndersonUTRlight.cs" />
     <Compile Include="Config\ConfigSCP166.cs" />
     <Compile Include="Config\CustomClass.cs" />
     <Compile Include="CustomTeam\VIPTeam - Copier.cs" />
@@ -114,6 +116,7 @@
     <Compile Include="Pouvoir\Reponse.cs" />
     <Compile Include="Pouvoir\Aura.cs" />
     <Compile Include="Pouvoir\SCP507.cs" />
+    <Compile Include="Script\BaseUTRScript.cs" />
     <Compile Include="Script\BasePlayerScript.cs" />
     <Compile Include="Config\Config201.cs" />
     <Compile Include="Config\ConfigConcierge.cs" />
@@ -124,6 +127,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Script\ConciergePlayerScript.cs" />
     <Compile Include="Script\DirecteurSitePlayerScript.cs" />
+    <Compile Include="Script\AndersonUTRheavyScript.cs" />
+    <Compile Include="Script\AndersonUTRlightScript.cs" />
     <Compile Include="Script\GardeSuperviseurPlayerScript.cs" />
     <Compile Include="Script\CHIExpertPyrotechniePlayerScript.cs" />
     <Compile Include="Script\CHIHackerPlayerScript.cs" />

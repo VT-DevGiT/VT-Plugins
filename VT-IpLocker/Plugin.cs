@@ -9,9 +9,9 @@ namespace VT_IpLocker
 {
     [PluginInformation(
         Author = "VT",
-        Description = "Allows you to activate grenades remotely",
+        Description = "Prevent foreigners from connecting to the server to avoid mass freekill",
         LoadPriority = 1,
-        Name = "VT-VTIpLocker",
+        Name = "VT-IpLocker",
         SynapseMajor = SynapseController.SynapseMajor,
         SynapseMinor = SynapseController.SynapseMinor,
         SynapsePatch = SynapseController.SynapsePatch,
@@ -21,7 +21,7 @@ namespace VT_IpLocker
     {
         public static Plugin Instance { get; private set; }
 
-        [Synapse.Api.Plugin.Config(section = "VT-VTIpLocker")]
+        [Synapse.Api.Plugin.Config(section = "VT-IpLocker")]
         public static Config Config;
 
         public override void Load()

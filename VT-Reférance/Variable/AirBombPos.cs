@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace VT_Referance.Variable
 {
-    public static class OutsideRandomAirbombPos
+    internal static class OutsideRandomAirbombPos
     {
         public static List<Vector3> Load()
         {

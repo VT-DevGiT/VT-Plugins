@@ -31,7 +31,7 @@ namespace VTRadio
                 {
                     ev.Player.SendBroadcast(2, "too close to a respawn");
                 }
-                else if (!Methods.isAirBombGoing)
+                else if (!Methods.isAirBombCurrently)
                 {
                     Timing.RunCoroutine(Methods.AirSupportBomb(7, 5));
                     ev.Player.SendBroadcast(2, "Air Bomb Start");
