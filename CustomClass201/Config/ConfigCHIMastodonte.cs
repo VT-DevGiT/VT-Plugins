@@ -11,7 +11,13 @@ namespace CustomClass.Config
         public int Health = 120;
 
         [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.KeycardChaosInsurgency, 1, 0, 0, 0, Vector3.one), new SerializedItem(59, 0, 0, 0, 0, Vector3.one), new SerializedItem(52, 26, 2, 1, 0, Vector3.one), new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.GrenadeFlash, 1, 0, 0, 0, Vector3.one) };
+        public List<SerializedItem> Items = new List<SerializedItem>() { 
+            new SerializedItem((int)ItemType.KeycardChaosInsurgency, 1, 0, 0, 0, Vector3.one),
+            new SerializedItem(59, 0, 0, 0, 0, Vector3.one),
+            new SerializedItem(52, 26, 2, 1, 0, Vector3.one),
+            new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one),
+            new SerializedItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one),
+            new SerializedItem((int)ItemType.GrenadeFlash, 1, 0, 0, 0, Vector3.one) };
 
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 215;

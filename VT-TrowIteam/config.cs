@@ -9,7 +9,10 @@ namespace VTTrowItem
     public class Config : AbstractConfigSection
     {
 
-        [Description("the key to launch the item")]
+        [Description("if when a player drops the object it is thrown")]
+        public bool DropEvent = true;
+
+        [Description("the key to launch the item or to place it (if DropEvent is true)")]
         public KeyCode key = KeyCode.G;
 
         [Description("tire configuration")]

@@ -6,7 +6,7 @@ namespace VTEscape
     [PluginInformation(
 Author = "VT",
 Description = "add a new Escape and config",
-LoadPriority = 0,
+LoadPriority = 20,
 Name = "VT-Escape",
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,

@@ -13,16 +13,16 @@ namespace CustomClass.Config
         [Description("The Items the class spawns with")]
         public List<SerializedItem> Items = new List<SerializedItem>() { 
             new SerializedItem((int)ItemType.KeycardNTFLieutenant, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.GunE11SR, 40, 0, 0, 0, Vector3.one), 
+            new SerializedItem((int)ItemType.GunE11SR, 40, 1, 3, 0, Vector3.one), 
             new SerializedItem(51, 4, 0, 0, 0, Vector3.one), 
             new SerializedItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one), 
+            new SerializedItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one),
+            new SerializedItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one),
             new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), 
             new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one) };
 
         [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 100;
+        public int ArtificialHealth = 40;
         public int MaxArtificialHealth = 100;
 
         [Description("The Chance of which the class spawns")]

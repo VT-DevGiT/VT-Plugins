@@ -14,7 +14,11 @@ namespace CustomClass.Config
         public SerializedMapPoint SpawnPoint = new SerializedMapPoint("HCZ_079", 10.1f, -2.4f, 0.09f);
 
         [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.GunUSP, 18, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.KeycardChaosInsurgency, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one) };
+        public List<SerializedItem> Items = new List<SerializedItem>() { 
+            new SerializedItem((int)ItemType.GunUSP, 18, 2, 1, 1, Vector3.one), 
+            new SerializedItem((int)ItemType.KeycardChaosInsurgency, 1, 0, 0, 0, Vector3.one), 
+            new SerializedItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one), 
+            new SerializedItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one) };
 
         [Description("ArtificialHealthConfig of the class")]
         public int MaxArtificialHealth = 100;

@@ -16,26 +16,10 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleTeam => (int)TeamID.MTF;
 
-        protected override int RoleId => (int)RoleID.NTFExpertPyrotechnie;
+        protected override int RoleId => (int)RoleID.NtfExpertPyrotechnie;
 
-        protected override string RoleName => PluginClass.ConfigNTFExpertPyrotechnie.RoleName;
+        protected override string RoleName => PluginClass.ConfigNTFLieutenantColonel.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigNTFExpertPyrotechnie;
-
-        protected override void Event()
-        {
-            Server.Get.Events.Player.PlayerDamageEvent += OnDamage;
-        }
-        public override void DeSpawn()
-        {
-            base.DeSpawn();
-            Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
-        }
-
-        private void OnDamage(PlayerDamageEventArgs ev)
-        {
-            if (ev.Victim == Player && ev.HitInfo.GetDamageType() == DamageTypes.Grenade)
-                ev.Allow = false;
-        }
+        protected override AbstractConfigSection Config => PluginClass.ConfigNTFLieutenantColonel;
     }
 }

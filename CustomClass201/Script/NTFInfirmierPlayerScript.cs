@@ -20,7 +20,7 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleTeam => (int)TeamID.MTF;
 
-        protected override int RoleId => (int)RoleID.NTFInfirmier;
+        protected override int RoleId => (int)RoleID.NtfInfirmier;
 
         protected override string RoleName => PluginClass.ConfigNTFInfirmier.RoleName;
 

@@ -10,7 +10,7 @@ namespace Common_Utiles
 Name = "Common Utiles",
 Author = "Oka",
 Description = "add new functionality and config",
-LoadPriority = 0,
+LoadPriority = 5,
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,
 SynapsePatch = SynapseController.SynapsePatch,

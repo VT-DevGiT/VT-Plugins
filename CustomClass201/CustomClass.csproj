@@ -75,9 +75,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\ConfigCHIInfirmier.cs" />
+    <Compile Include="Config\ConfigNTFfInfirmier.cs" />
     <Compile Include="Config\ConfigAndersonUTRheavy.cs" />
     <Compile Include="Config\ConfigAndersonUTRlight.cs" />
+    <Compile Include="Config\ConfigNTFSergent.cs" />
+    <Compile Include="Config\ConfigNTFCapitaine.cs" />
+    <Compile Include="Config\ConfigNTFLieutenantColonel.cs" />
     <Compile Include="Config\ConfigSCP166.cs" />
     <Compile Include="Config\CustomClass.cs" />
     <Compile Include="CustomTeam\VIPTeam - Copier.cs" />
@@ -99,7 +102,7 @@
     <Compile Include="Config\ConfigCHISpy.cs" />
     <Compile Include="Config\ConfigNTFExpertPyrotechnie.cs" />
     <Compile Include="Config\ConfigNTFExpertReconfinement.cs" />
-    <Compile Include="Config\ConfigNTFInfirmier.cs" />
+    <Compile Include="Config\ConfigCHIInfirmier.cs" />
     <Compile Include="Config\ConfigNTFVirologue.cs" />
     <Compile Include="Config\ConfigFoundationUTR.cs" />
     <Compile Include="Config\ConfigSCP008.cs" />
@@ -136,6 +139,9 @@
     <Compile Include="Script\CHIKamikazePlayerScript.cs" />
     <Compile Include="Script\CHILeaderPlayerScript.cs" />
     <Compile Include="Script\CHIMastodontePlayerScript.cs" />
+    <Compile Include="Script\NTFLieutenantColonel.cs" />
+    <Compile Include="Script\NTFCapitaine.cs" />
+    <Compile Include="Script\NTFSergent.cs" />
     <Compile Include="Script\NTFExpertPyrotechniePlayerScript.cs" />
     <Compile Include="Script\NTFExpertReconfinementPlayerScript.cs" />
     <Compile Include="Script\CHIInfirmierPlayerScript.cs" />

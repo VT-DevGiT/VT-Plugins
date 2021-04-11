@@ -30,7 +30,7 @@ namespace CustomClass.Pouvoir
         protected override void BehaviourAction()
         {
             foreach (var target in Server.Get.Players.Where(p => p != player && p.TeamID != (int)TeamID.SCP && p.TeamID != (int)TeamID.RIP
-                    && p.IsUTR() && p.RoleID != (int)RoleID.NTFVirologue))
+                    && p.IsUTR() && p.RoleID != (int)RoleID.NtfVirologue))
             {
                 if (Vector3.Distance(target.Position, player.Position) < Distance)
                 {

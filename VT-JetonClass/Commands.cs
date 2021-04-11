@@ -38,13 +38,11 @@ namespace JetonClassManger
             && Plugin.Instance.PlayerCanSwitch 
             && roleList.Any(p => p.IDRole == ID) )
             { 
-                if (Se)
                 context.Player.RoleID = ID ;
                 result.State = CommandResultState.Ok ;
                 result.Message = $"You switch you'r role to {roleList.FirstOrDefault(p => p.IDRole == ID).NameRole}" ;
                 return result;
             }
-
             return result;
         }
     }

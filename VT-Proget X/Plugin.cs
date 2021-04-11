@@ -9,7 +9,7 @@ namespace VTProget_X
 Name = "VT-Intercom",
 Author = "VT",
 Description = "Adds functionality such as intercom information",
-LoadPriority = 0,
+LoadPriority = 5,
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,
 SynapsePatch = SynapseController.SynapsePatch,

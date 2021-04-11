@@ -41,6 +41,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-JetonClass", "VT-JetonCl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-079Command", "VT-079Command\VT-079Command.csproj", "{959A6FF7-CC24-4672-8AB5-4E8C493D8C4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Data", "VT-Data\VT-Data.csproj", "{FCFCF4E4-A1DD-4363-B5C8-2D0C117FE114}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Log", "VT-log\VT-Log.csproj", "{7FBF2270-08C9-4D3F-87F0-827838703C6E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +127,14 @@ Global
 		{959A6FF7-CC24-4672-8AB5-4E8C493D8C4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{959A6FF7-CC24-4672-8AB5-4E8C493D8C4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{959A6FF7-CC24-4672-8AB5-4E8C493D8C4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCFCF4E4-A1DD-4363-B5C8-2D0C117FE114}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCFCF4E4-A1DD-4363-B5C8-2D0C117FE114}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCFCF4E4-A1DD-4363-B5C8-2D0C117FE114}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCFCF4E4-A1DD-4363-B5C8-2D0C117FE114}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FBF2270-08C9-4D3F-87F0-827838703C6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FBF2270-08C9-4D3F-87F0-827838703C6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FBF2270-08C9-4D3F-87F0-827838703C6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FBF2270-08C9-4D3F-87F0-827838703C6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

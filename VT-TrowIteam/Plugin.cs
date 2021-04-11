@@ -5,7 +5,7 @@ namespace VTTrowItem
     [PluginInformation(
 Author = "VT",
 Description = "allows you to throw item with key.",
-LoadPriority = 0,
+LoadPriority = 5,
 Name = "VT-TrowIteam",
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,

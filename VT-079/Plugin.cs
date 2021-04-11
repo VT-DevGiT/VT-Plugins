@@ -7,7 +7,7 @@ namespace VT079
 Name = "VT-079",
 Author = "VT",
 Description = "Sanya 079ExHud for SynapseSl",
-LoadPriority = 0,
+LoadPriority = 15,
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,
 SynapsePatch = SynapseController.SynapsePatch,

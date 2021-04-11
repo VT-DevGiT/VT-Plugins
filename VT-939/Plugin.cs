@@ -8,7 +8,7 @@ namespace VT939
 Name = "VT-939",
 Author = "VT",
 Description = "Better939 for SynapseSl",
-LoadPriority = 0,
+LoadPriority = 5,
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,
 SynapsePatch = SynapseController.SynapsePatch,

@@ -9,7 +9,7 @@ namespace VT_AndersonRobotic
 Name = "VT-AndersonRobotic",
 Author = "VT",
 Description = "Adds the team AndersonRobotic",
-LoadPriority = 0,
+LoadPriority = 20,
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,
 SynapsePatch = SynapseController.SynapsePatch,

@@ -1,6 +1,7 @@
 ﻿using Synapse.Config;
 using System.Collections.Generic;
 using System.ComponentModel;
+using VT_Referance.Variable;
 
 namespace VTGrenad
 {
@@ -16,6 +17,10 @@ namespace VTGrenad
             (int)RoleType.ClassD,
             (int)RoleType.Scientist,
             (int)RoleType.Spectator,
+            (int)RoleID.FacilityGuard,
+            (int)RoleID.Concierge,
+            (int)RoleID.ScientifiqueSuperviseur,
+            (int)RoleID.DirecteurSite
         };
 
         [Description("Config grenade")]

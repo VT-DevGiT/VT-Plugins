@@ -8,7 +8,7 @@ namespace VT_HammerDown
     [PluginInformation(
 Author = "VT",
 Description = "add a new Escape and config",
-LoadPriority = 0,
+LoadPriority = 20,
 Name = "VT-HammerDown",
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,

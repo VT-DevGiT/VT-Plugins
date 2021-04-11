@@ -6,7 +6,7 @@ namespace AdvencedKeycard
     Name = "VT-Keycard",
     Author = "VT",
     Description = "Mort Door option and new Door !",
-    LoadPriority = 0,
+    LoadPriority = 5,
     SynapseMajor = SynapseController.SynapseMajor,
     SynapseMinor = SynapseController.SynapseMinor,
     SynapsePatch = SynapseController.SynapsePatch,

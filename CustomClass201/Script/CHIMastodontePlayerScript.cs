@@ -19,7 +19,7 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleTeam => (int)TeamID.CHI;
 
-        protected override int RoleId => (int)RoleID.CHIMastodonte;
+        protected override int RoleId => (int)RoleID.ChiMastodonte;
 
         protected override string RoleName => PluginClass.ConfigCHIMastondonte.RoleName;
 

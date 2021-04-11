@@ -11,7 +11,7 @@ namespace JetonClassManger
         Name = "ClassJetonMangager",
         Author = "VT",
         Description = "Azarus Plugin for Manage AzarusClassJeton",
-        LoadPriority = 0,
+        LoadPriority = 100,
         SynapseMajor = SynapseController.SynapseMajor,
         SynapseMinor = SynapseController.SynapseMinor,
         SynapsePatch = SynapseController.SynapsePatch,

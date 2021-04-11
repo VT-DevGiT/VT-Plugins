@@ -11,7 +11,15 @@ namespace CustomClass.Config
         public int Health = 110;
 
         [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.KeycardChaosInsurgency, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.GunProject90, 50, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Painkillers, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Flashlight, 1, 0, 0, 0, Vector3.one) };
+        public List<SerializedItem> Items = new List<SerializedItem>() {
+            new SerializedItem((int)ItemType.KeycardChaosInsurgency, 1, 3, 2, 1, Vector3.one),
+            new SerializedItem((int)ItemType.GunProject90, 50, 0, 0, 0, Vector3.one),
+            new SerializedItem((int)ItemType.Painkillers, 1, 0, 0, 0, Vector3.one),
+            new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one),
+            new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one),
+            new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one),
+            new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one),
+            new SerializedItem((int)ItemType.Flashlight, 1, 0, 0, 0, Vector3.one) };
 
         [Description("ArtificialHealthConfig of the class")]
         public int MaxArtificialHealth = 90;

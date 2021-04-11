@@ -5,12 +5,7 @@ using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
 using System;
 
-using UnityEngine;
-using Interactables.Interobjects.DoorUtils;
-using vDoor = Interactables.Interobjects.DoorUtils.DoorVariant;
-using Interactables.Interobjects;
-using Mirror;
-using System.Collections.Generic;
+
 
 namespace VTEscape
 {

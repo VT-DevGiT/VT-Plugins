@@ -4,6 +4,7 @@ using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
 using VT_Referance.Method;
+using VT_Referance.Variable;
 
 namespace VTRadio
 {
@@ -19,7 +20,8 @@ namespace VTRadio
         {
             if (ev.KeyCode ==  UnityEngine.KeyCode.Keypad8)
             { 
-                if (ev.Player.RoleID != (int)RoleType.NtfCommander)
+                if (ev.Player.RoleID != (int)RoleID.NtfCommander || ev.Player.RoleID != (int)RoleID.CdmCommander 
+                    || ev.Player.RoleID != (int)RoleID.NtfCapitaine || ev.Player.RoleID != (int)RoleID.NtfLieutenantColonel)
                 {
                     ev.Player.SendBroadcast(2, "you do not have the accreditation for this order");
                 }

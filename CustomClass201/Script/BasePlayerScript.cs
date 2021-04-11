@@ -125,7 +125,7 @@ namespace CustomClass.PlayerScript
                 }
                 catch(Exception e)
                 {
-                    Server.Get.Logger.Error($"Error Congif inventory at {this.RoleName} : { item.ID} {e} ");
+                    Server.Get.Logger.Error($"Error Config inventory at {this.RoleName} : { item.ID} {e} ");
                 }
             }
             Player.Ammo5 = GetConfigValue<uint>("Ammo5", 0);
@@ -145,7 +145,7 @@ namespace CustomClass.PlayerScript
                 }
                 catch (Exception e)
                 {
-                    Server.Get.Logger.Error($"Error Congif SpawnPoint at {this.RoleName} : {spawnPoint.Room} - {e}");
+                    Server.Get.Logger.Error($"Error Config SpawnPoint at {this.RoleName} : {spawnPoint.Room} - {e}");
                 }
             }
             AditionalInit();

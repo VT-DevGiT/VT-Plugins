@@ -19,7 +19,7 @@ namespace CustomClass.Config
             new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one), 
             new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one), 
             new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.GrenadeFlash, 1, 0, 0, 0, Vector3.one) };
+            new SerializedItem((int)ItemType.Flashlight, 1, 0, 0, 0, Vector3.one) };
 
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 100;

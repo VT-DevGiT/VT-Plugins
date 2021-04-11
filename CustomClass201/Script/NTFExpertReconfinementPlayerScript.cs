@@ -17,7 +17,7 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleTeam => (int)TeamID.MTF;
 
-        protected override int RoleId => (int)RoleID.NTFExpertReconfinement;
+        protected override int RoleId => (int)RoleID.NtfExpertReconfinement;
 
         protected override string RoleName => PluginClass.ConfigNTFExpertReconfinement.RoleName;
 

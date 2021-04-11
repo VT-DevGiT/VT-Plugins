@@ -10,7 +10,7 @@ namespace VT_IpLocker
     [PluginInformation(
         Author = "VT",
         Description = "Prevent foreigners from connecting to the server to avoid mass freekill",
-        LoadPriority = 1,
+        LoadPriority = 100,
         Name = "VT-IpLocker",
         SynapseMajor = SynapseController.SynapseMajor,
         SynapseMinor = SynapseController.SynapseMinor,

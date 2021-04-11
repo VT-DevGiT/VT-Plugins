@@ -10,7 +10,7 @@ namespace VTGrenad
     [PluginInformation(
         Author = "VT",
         Description = "Allows you to activate grenades remotely",
-        LoadPriority = 1,
+        LoadPriority = 5,
         Name = "VT-Grenade",
         SynapseMajor = SynapseController.SynapseMajor,
         SynapseMinor = SynapseController.SynapseMinor,
