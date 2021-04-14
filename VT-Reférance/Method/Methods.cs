@@ -150,13 +150,13 @@ namespace VT_Referance.Method
         /// <returns></returns>
         public static int GetVoltage()
         {
-            int totalvoltagefloat = 0;
+            float totalvoltagefloat = 0;
             foreach (var i in Generator079.Generators)
             {
-                totalvoltagefloat += (int)i.localVoltage;
+                totalvoltagefloat += i.localVoltage;
             }
             totalvoltagefloat *= 1000;
-            return totalvoltagefloat;
+            return (int)totalvoltagefloat;
         }
 
     }

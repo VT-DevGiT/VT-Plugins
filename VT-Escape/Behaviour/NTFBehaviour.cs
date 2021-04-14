@@ -13,11 +13,11 @@ namespace VTEscape
     {
         private Player player;
         public bool Enabled = true;
-        private float _timer;
 
-        private void Awake()
+        protected override void Start()
         {
             player = gameObject.GetPlayer();
+            base.Start();
         }
 
         protected override void BehaviourAction()
@@ -36,7 +36,6 @@ namespace VTEscape
                     Server.Get.Logger.Info($"{player.NickName}");
                     Server.Get.Logger.Info($"{(int)configEscape.NewRole}");
                     player.RoleID = (int)configEscape.NewRole;
-                    _timer = 0f;
                     return;
                 }
                 configEscape = Plugin.Config.EscapeList.FirstOrDefault(p => player.TeamID == (int)p.Team
@@ -49,7 +48,6 @@ namespace VTEscape
                         Map.Get.Cassie(configEscape.EscapeMessage, false);
                     player.Inventory.Clear();
                     player.RoleID = (int)configEscape.NewRole;
-                    _timer = 0f;
                     return;
                 }
                 player.Inventory.Clear();

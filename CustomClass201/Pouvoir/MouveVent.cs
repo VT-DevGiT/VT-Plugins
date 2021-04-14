@@ -10,12 +10,14 @@ namespace CustomClass.Pouvoir
         private Player player;
         public int duraction = -1;
 
-        private void Start()
+        protected override void Start()
         {
             player = gameObject.GetPlayer();
             player.Invisible = true;
             RegisterEvents();
+            base.Start();
         }
+
         protected override void BehaviourAction()
         {
             

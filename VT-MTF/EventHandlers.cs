@@ -23,13 +23,13 @@ namespace VT_HammerDown
                 
                 switch (ev.Player.RoleID)
                 {
-                    case (int)RoleID.CMDCadet:
+                    case (int)RoleID.CdmCadet:
                         ev.Items = Plugin.Config.ItemsCadet.Select(x => x.Parse()).ToList();
                         break;
-                    case (int)RoleID.CDMLieutenant:
+                    case (int)RoleID.CdmLieutenant:
                         ev.Items = Plugin.Config.ItemsLieutenant.Select(x => x.Parse()).ToList();
                         break;
-                    case (int)RoleID.CDMCommandant:
+                    case (int)RoleID.CdmCommander:
                         ev.Items = Plugin.Config.ItemsCadet.Select(x => x.Parse()).ToList();
                         break;
                 }

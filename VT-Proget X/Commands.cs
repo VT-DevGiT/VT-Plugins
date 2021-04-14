@@ -28,7 +28,7 @@ namespace VTProget_X
                 return result;
             }
             if (Methods.GetVoltage() >= 1000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
-                && context.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
+                && context.Player?.Room?.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
             {
                 Timing.RunCoroutine(Methode.Decontamination(), "Decont");
                 result.Message = "Decontamination Start";
@@ -51,11 +51,11 @@ namespace VTProget_X
         {
             var result = new CommandResult();
             if (Methods.GetVoltage() >= 2000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
-             && context.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
+             && context.Player?.Room?.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
             {
                 if (Plugin.Instance.TeslaEnabled)
                 {
-                    Map.Get.Cassie("all tesla doors have been deactivate .", false);
+                    Map.Get.Cassie("all tesla doors have been disabled .", false);
                     result.Message = "Tesla Diabled";
                 }
                 else
@@ -91,7 +91,7 @@ namespace VTProget_X
         {
             var result = new CommandResult();
             if (Methods.GetVoltage() >= 3000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
-             && context.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
+             && context.Player?.Room?.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
             {
                 Generator079.mainGenerator.ServerOvercharge(Plugin.Config.BlackOutTime, false);
                 result.Message = "blackout start";
@@ -143,6 +143,8 @@ namespace VTProget_X
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
+            result.Message = Methods.GetVoltage().ToString();
+            result.State = CommandResultState.Ok;
             return result;
         }
     }

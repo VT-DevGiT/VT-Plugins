@@ -1,19 +1,20 @@
 ﻿using Mirror;
+using Synapse;
 using VT_Referance.Behaviour;
 
 namespace VTProget_X
 {
     public class IntercomBehaviour : BaseRepeatingBehaviour
     {
-        void Start()
+        protected override void Start()
         {
             Synapse.Api.Logger.Get.Info($"IntercomBehaviour Start");
+            base.Start();
         }
 
         private int _timer = 0;
         protected override void BehaviourAction()
         {
-
             screenEnum screen;
             _timer++;
             if (Plugin.Instance.CustomScreen)

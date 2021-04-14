@@ -19,7 +19,6 @@ namespace CustomClass
 
         private void OnClass(PlayerSetClassEventArgs ev)
         {
-            Server.Get.Logger.Info(ev.Role);
             ev.Player.SynapseGroup.Permissions.Remove("synapse.see.invisible");
             if (RespawnPlayer.Contains(ev.Player))
             {
@@ -54,7 +53,6 @@ namespace CustomClass
         {
             if (ev.SpawnPlayers != null)
             {
-                ev.SpawnPlayers.SpawnRole(RoleType.ClassD, RoleID.DirecteurSite, PluginClass.ConfigDirecteurSite);
                 ev.SpawnPlayers.SpawnRole(RoleType.ClassD, RoleID.Concierge, PluginClass.ConfigConcierge);
                 ev.SpawnPlayers.SpawnRole(RoleType.ClassD, RoleID.SCP507, PluginClass.ConfigSCP507);
                 ev.SpawnPlayers.SpawnRole(RoleType.ClassD, RoleID.ChiIntrus, PluginClass.ConfigCHIntrus);
@@ -62,7 +60,8 @@ namespace CustomClass
                 ev.SpawnPlayers.SpawnRole(RoleType.FacilityGuard, RoleID.GardeSuperviseur, PluginClass.ConfigGardeSuperviseur);
                 ev.SpawnPlayers.SpawnRole(RoleType.FacilityGuard, RoleID.Technicien, PluginClass.ConfigTechnicien);
                 ev.SpawnPlayers.SpawnRole(RoleType.FacilityGuard, RoleID.FoundationUTR, PluginClass.ConfigFoundationUTR);
-                ev.SpawnPlayers.SpawnRole(RoleType.Scientist, RoleID.ScientifiqueSuperviseur, PluginClass.ConfigScientifiqueSuperviseur);
+                ev.SpawnPlayers.SpawnRole(RoleType.ClassD, RoleID.DirecteurSite, PluginClass.ConfigDirecteurSite);
+
                 if (ev.SpawnPlayers.Count() > 25)
                 {
                     ev.SpawnPlayers.SpawnRole(RoleType.ClassD, RoleID.SCP008, PluginClass.ConfigSCP008);

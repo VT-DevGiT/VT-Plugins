@@ -13,7 +13,7 @@ namespace CustomClass.PlayerScript
     {
         protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC };
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { (int)TeamID.CHI, (int)TeamID.CDP } : new List<int> { };
+        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : new List<int> { (int)TeamID.CHI, (int)TeamID.CDP };
 
         protected override RoleType RoleType => RoleType.ChaosInsurgency;
 
@@ -25,7 +25,6 @@ namespace CustomClass.PlayerScript
 
         protected override AbstractConfigSection Config => PluginClass.ConfigCHIMastondonte;
         
-        float oldStaminaUse;
         public override bool CallPower(PowerType power)
         {
             if (power == PowerType.DropSheld && Shed)
@@ -51,7 +50,6 @@ namespace CustomClass.PlayerScript
 
         public override void DeSpawn()
         {
-            Player.Stamina = oldStaminaUse;
             base.DeSpawn();
             Server.Get.Events.Player.PlayerDamageEvent -= OnDomage;
             Server.Get.Events.Player.PlayerItemUseEvent -= OnUseItem;
@@ -60,7 +58,6 @@ namespace CustomClass.PlayerScript
 
         protected override void AditionalInit()
         {
-            Player.Stamina = oldStaminaUse;
             Player.StaminaUsage *= 2;
             Player.Hub.playerStats.artificialHpDecay = 0;
             Player.GiveEffect(Effect.Disabled);

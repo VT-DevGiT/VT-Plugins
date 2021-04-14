@@ -13,7 +13,6 @@ namespace CustomClass.Pouvoir
     public class Aura : BaseRepeatingBehaviour
     {
         private Player player;
-        private float _timer;
         public byte HerIntencty = 1;
         public byte HerTime = 1;
         public Effect? TargetEffect = null;
@@ -23,9 +22,10 @@ namespace CustomClass.Pouvoir
         public int Distance = 2;
 
         public List<Vector3> dimanction = new List<Vector3>();
-        private void Start()
+        protected override void Start()
         {
             player = gameObject.GetPlayer();
+            base.Start();
         }
         protected override void BehaviourAction()
         {

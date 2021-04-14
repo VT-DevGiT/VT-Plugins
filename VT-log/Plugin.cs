@@ -10,7 +10,7 @@ LoadPriority = 0,
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,
 SynapsePatch = SynapseController.SynapsePatch,
-Version = "v.0.0.0"
+Version = "v.0.0.1"
 )]
 
     public class Plugin : AbstractPlugin
@@ -23,6 +23,7 @@ Version = "v.0.0.0"
         public override void Load()
         {
             Instance = this;
+            Method.CreeUnNouveauxTXT();
             new EventHandlers();
         }
 

@@ -47,7 +47,7 @@ namespace VT939
             sinkHole.slowAmount = Plugin.Config.SlowAmount;
         }
 
-        private void Start()
+        protected override void Start()
         {
             player.Scale *= Plugin.Config.Size;
 
@@ -55,6 +55,7 @@ namespace VT939
             {
                 player.SendBroadcast(Plugin.Config.SpawnBroadcastMessageDuration, string.Format(Plugin.Config.SpawnBroadcastMessage, Plugin.Config.ForceSlowDownTime));
             }
+            base.Start();
         }
 
         protected override void BehaviourAction()

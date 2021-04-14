@@ -19,7 +19,7 @@ namespace CustomClass.Pouvoir
         public int minduraction { get; set; }
         public int maxduraction { get; set; }
         public List<Vector3> rooms = new List<Vector3>();
-        private void Start()
+        protected override void Start()
         {
             minduraction = PluginClass.ConfigSCP507.MinTPower;
             maxduraction = PluginClass.ConfigSCP507.MaxTPower;
@@ -28,6 +28,7 @@ namespace CustomClass.Pouvoir
 
             player = gameObject.GetPlayer();
             duraction = UnityEngine.Random.Range(minduraction, maxduraction);
+            base.Start();
         }
         protected override void BehaviourAction()
         {

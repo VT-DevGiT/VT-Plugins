@@ -15,9 +15,10 @@ namespace CustomClass.Pouvoir
         private Player player;
         public bool DamagGreen;
         private Dictionary<Player, float> playerAffected = new Dictionary<Player, float>();
-        private void Start()
+        protected override void Start()
         {
             player = gameObject.GetPlayer();
+            base.Start();
         }
         protected override void BehaviourAction()
         {

@@ -16,7 +16,7 @@ namespace CustomClass.PlayerScript
     {
         protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.RSC, (int)TeamID.CDP };
 
-        protected override List<int> FriendsList => new List<int> { (int)TeamID.SCP };
+        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : new List<int> { (int)TeamID.SCP };
 
         protected override RoleType RoleType => RoleType.Scp0492;
 

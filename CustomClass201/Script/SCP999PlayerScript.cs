@@ -30,6 +30,7 @@ namespace CustomClass.PlayerScript
 
         protected override void AditionalInit()
         {
+            Player.GodMode = true;
             Aura aura = ActiveComponent<Aura>();
             {
                 aura.PlayerEffect = Effect.Disabled;
@@ -44,23 +45,16 @@ namespace CustomClass.PlayerScript
         }
         public override void DeSpawn()
         {
+            Player.GodMode = false;
             KillComponent<Aura>();
             Player.Scale = Vector3.one;
             base.DeSpawn();
             Map.Get.AnnounceScpDeath("9 9 9");
             Server.Get.Events.Player.PlayerPickUpItemEvent -= OnPickUp;
-            Server.Get.Events.Player.PlayerDamageEvent -= OnDammage;
         }
         protected override void Event()
         {
             Server.Get.Events.Player.PlayerPickUpItemEvent += OnPickUp;
-            Server.Get.Events.Player.PlayerDamageEvent += OnDammage;
-        }
-
-        private void OnDammage(PlayerDamageEventArgs ev)
-        {
-            if (ev.Victim == Player)
-                ev.Allow = false;
         }
 
         private void OnPickUp(PlayerPickUpItemEventArgs ev)

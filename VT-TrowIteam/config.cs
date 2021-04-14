@@ -64,6 +64,6 @@ namespace VTTrowItem
         public bool ShootMouve = true;
 
         [Description("if a grenade and shoot it and it is active it explodes")]
-        public bool ShootExplose = true;
+        public bool ShootInstantFuse = true;
     }
 }

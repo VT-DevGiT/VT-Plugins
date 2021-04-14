@@ -32,7 +32,6 @@ namespace CustomClass.Config
         [Description("The number of players required in the same role to have the chance for the class to appear")]
         public int RequiredPlayers = 0;
 
-
         [Description("The name of the class")]
         public string RoleName = " Scientifique Superviseur";
 

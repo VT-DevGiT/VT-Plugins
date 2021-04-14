@@ -10,7 +10,7 @@ namespace VT_HammerDown
 {
     public class HammerDownLieutenant : Synapse.Api.Roles.Role
     {
-        public override int GetRoleID() => (int)RoleID.CDMLieutenant;
+        public override int GetRoleID() => (int)RoleID.CdmLieutenant;
 
         public override string GetRoleName() => "CDMLieutenant";
 

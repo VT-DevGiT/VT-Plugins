@@ -15,13 +15,14 @@ namespace Common_Utiles
     public class Lamps : BaseRepeatingBehaviour
     {
         float degat;
-        private Player _joueur;
+        private Player player;
         bool Enabled = true;
         private float _timer;
 
-        private void Start()
+        protected override void Start()
         {
-            _joueur = gameObject.GetPlayer();
+            player = gameObject.GetPlayer();
+            base.Start();
         }
 
         protected override void BehaviourAction()
@@ -30,12 +31,12 @@ namespace Common_Utiles
 
             if (Enabled && _timer > 1f)
             {
-                if (_joueur.ItemInHand != null && _joueur.ItemInHand.ItemType == ItemType.Flashlight)
+                if (player.ItemInHand != null && player.ItemInHand.ItemType == ItemType.Flashlight)
                 {
                     IEnumerable<Player> joueurs106 = Server.Get.Players.Where(p => p.RoleID == (int)RoleType.Scp106);
                     foreach (var scp106 in joueurs106)
                     {
-                        if (_joueur.IsTargetVisible(scp106.gameObject) && Vector3.Distance(scp106.Position, _joueur.Position) < 120 /*placée ici une config a la palce */)
+                        if (player.IsTargetVisible(scp106.gameObject) && Vector3.Distance(scp106.Position, player.Position) < 120 /*placée ici une config a la palce */)
                         {
                             degat += 6.25f;
                             scp106.Health -= degat;

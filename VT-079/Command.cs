@@ -8,7 +8,7 @@ namespace VT079
 {
     [CommandInformation(
         Name = "Reconf079",
-        Aliases = new[] { "reconf", "r079" },
+        Aliases = new[] { "conf079", "r079" },
         Description = "A Command for reconfine scp 079",
         Permission = "",
         Platforms = new[] { Platform.ClientConsole },

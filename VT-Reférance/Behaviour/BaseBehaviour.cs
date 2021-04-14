@@ -9,7 +9,7 @@ namespace VT_Referance.Behaviour
 {
     public abstract class BaseRepeatingBehaviour : NetworkBehaviour
     {
-        protected bool _Started;
+        protected bool _Started = true;
         /// <summary>
         /// Time in millisecond between behaviour execution
         /// </summary>
@@ -42,8 +42,10 @@ namespace VT_Referance.Behaviour
             ActionStop();
         }
 
-        void Start()
+        protected virtual void Start()
         {
+            Synapse.Api.Logger.Get.Info($"{this.GetType().Name} Start --BaseRepeatingBehaviour--");
+           _Started = false;
             ActionExecute();
         }
         /// <summary>
@@ -54,7 +56,8 @@ namespace VT_Referance.Behaviour
             if (!_Started)
             {
                 _Started = true;
-                InvokeRepeating("BehaviourAction", RefreshTime, RefreshTime);
+                Synapse.Api.Logger.Get.Info($"{this.GetType().Name} ActionExecute {RefreshTime / 1000} .--BaseRepeatingBehaviour--");
+                InvokeRepeating("BehaviourAction", RefreshTime / 1000, RefreshTime / 1000);
             }
         }
         /// <summary>
@@ -63,7 +66,7 @@ namespace VT_Referance.Behaviour
         private void ActionStop()
         {
             _Started = false;
-            InvokeRepeating("BehaviourAction", RefreshTime, RefreshTime);
+            CancelInvoke("BehaviourAction");
         }
     }
 }

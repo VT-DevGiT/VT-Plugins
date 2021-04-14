@@ -25,7 +25,7 @@ namespace VT_HammerDown
                 //random Commander
                 int chance = players.Count() > 1? UnityEngine.Random.Range(0, players.Count() - 1) : 0;
                 var commander = players[chance];
-                commander.RoleID = (int)RoleID.CDMCommandant;
+                commander.RoleID = (int)RoleID.CdmCommander;
                 players.Remove(commander);
 
                 // Spawn lieutenant
@@ -34,7 +34,7 @@ namespace VT_HammerDown
                 {
                     int chanceLieu = UnityEngine.Random.Range(0, players.Count() - 1);
                     var lieutenant = players[chanceLieu];
-                    lieutenant.RoleID = (int)RoleID.CDMLieutenant;
+                    lieutenant.RoleID = (int)RoleID.CdmLieutenant;
                     players.Remove(lieutenant);
                     nbLieu++;
                 }
@@ -42,7 +42,7 @@ namespace VT_HammerDown
                 //For all last player
                 foreach(var player in players)
                 {
-                    player.RoleID = (int)RoleID.CMDCadet;
+                    player.RoleID = (int)RoleID.CdmCadet;
 
                 }
             }
