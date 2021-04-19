@@ -21,9 +21,11 @@ namespace VTGrenad
 
         private void OnKeyPress(PlayerKeyPressEventArgs ev)
         {
-            if (ev.KeyCode == KeyCode.B)
+            if (ev.KeyCode == Plugin.Config.Key)
             {
-                if (!Plugin.Config.NotAGrenadeRole.Contains(ev.Player.RoleID))
+                if (!Plugin.Config.NotAGrenadeRole.Contains(ev.Player.RoleID) 
+                    && ev.Player?.ItemInHand?.ID == (int)ItemType.WeaponManagerTablet 
+                    && !ev.Player.ItemInHand.IsCustomItem)
                 {
                     if (Plugin.DictTabletteGrenades.ContainsKey(ev.Player.PlayerId))
                     {
@@ -62,7 +64,8 @@ namespace VTGrenad
         {
             if (ev.Item != null)
             {
-                foreach (var key in Plugin.DictTabletteGrenades.Keys)
+                var keys = Plugin.DictTabletteGrenades.Keys.ToList();
+                foreach (var key in keys)
                 {
                     var list = Plugin.DictTabletteGrenades[key];
                     if (list.Any(p => p.GrItem == ev.Item))
@@ -71,12 +74,13 @@ namespace VTGrenad
                     }
                 }
             }
-            ev.Allow = true;
         }
         private void ItemDropped(PlayerDropItemEventArgs ev)
         {
-            if (ev.Item != null && (ev.Item.ItemType == ItemType.GrenadeFrag || (Plugin.Config.FlashRemot && ev.Item.ItemType == ItemType.GrenadeFlash)) 
-                && ev.Player.ItemInHand?.ItemType == ItemType.WeaponManagerTablet)
+            if (ev.Item != null && (ev.Item.ItemType == ItemType.GrenadeFrag 
+                || (Plugin.Config.FlashRemot && ev.Item.ItemType == ItemType.GrenadeFlash)) 
+                && ev.Player?.ItemInHand?.ID == (int)ItemType.WeaponManagerTablet 
+                && !ev.Player.ItemInHand.IsCustomItem)
             {
                 List<AmorcableGrenade> listGrenade = Plugin.DictTabletteGrenades.ContainsKey(ev.Player.PlayerId) ? Plugin.DictTabletteGrenades[ev.Player.PlayerId] : new List<AmorcableGrenade>();
 

@@ -1,12 +1,14 @@
 ﻿using Synapse.Config;
 using System.Collections.Generic;
 using System.ComponentModel;
+using UnityEngine;
 using VT_Referance.Variable;
 
 namespace VTGrenad
 {
     public class Config : AbstractConfigSection
     {
+
         [Description("time before priming")]
         public float Time = 5;
 
@@ -22,7 +24,7 @@ namespace VTGrenad
             (int)RoleID.ScientifiqueSuperviseur,
             (int)RoleID.DirecteurSite
         };
-
+        
         [Description("Config grenade")]
         public bool FlashbangFuseWithCollision = true;
         public bool ChaineFuseFragGrenad = true;
@@ -32,5 +34,8 @@ namespace VTGrenad
 
         [Description("If you want the Flashgrenade add new effect")]
         public bool BadFlash = true;
+
+        [Description("The bindkey for .Boom")]
+        public KeyCode Key = KeyCode.B;
     }
 }

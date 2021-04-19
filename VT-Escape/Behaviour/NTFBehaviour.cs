@@ -22,7 +22,7 @@ namespace VTEscape
 
         protected override void BehaviourAction()
         {
-            if (Vector3.Distance(base.transform.position, base.GetComponent<Escape>().worldPosition) <= Escape.radius)//AdvencedEscape.Config.rayonSortie)
+            if (_Started && Vector3.Distance(base.transform.position, base.GetComponent<Escape>().worldPosition) <= Escape.radius)//AdvencedEscape.Config.rayonSortie)
             {
                 var configEscape = Plugin.Config.EscapeList.FirstOrDefault(p => player.RoleID == (int)p.Role
                     && EscapeEnum.MTF == p.Escape && player.IsCuffed == p.Handcuffed);
@@ -33,9 +33,8 @@ namespace VTEscape
                     if (configEscape.EscapeMessage != null)
                         Map.Get.Cassie(configEscape.EscapeMessage, false);
                     player.Inventory.Clear();
-                    Server.Get.Logger.Info($"{player.NickName}");
-                    Server.Get.Logger.Info($"{(int)configEscape.NewRole}");
                     player.RoleID = (int)configEscape.NewRole;
+                    _Started = false;
                     return;
                 }
                 configEscape = Plugin.Config.EscapeList.FirstOrDefault(p => player.TeamID == (int)p.Team
@@ -52,6 +51,7 @@ namespace VTEscape
                 }
                 player.Inventory.Clear();
                 player.RoleID = (int)RoleType.Spectator;
+                return;
             }
         }
     }

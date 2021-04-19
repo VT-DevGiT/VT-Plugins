@@ -12,14 +12,12 @@ namespace CustomClass.Config
 
         [Description("The Items the class spawns with")]
         public List<SerializedItem> Items = new List<SerializedItem>() { 
-            new SerializedItem((int)ItemType.KeycardContainmentEngineer, 1, 0, 0, 0, Vector3.one), 
+            new SerializedItem((int)ItemType.KeycardNTFLieutenant, 1, 0, 0, 0, Vector3.one), 
             new SerializedItem((int)ItemType.GunProject90, 75, 0, 0, 0, Vector3.one), 
             new SerializedItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one), 
             new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one), 
             new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.GrenadeFlash, 1, 0, 0, 0, Vector3.one) };
+            new SerializedItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one) };
 
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 100;
@@ -38,7 +36,7 @@ namespace CustomClass.Config
         public int RequiredPlayers = 5;
 
         [Description("The name of the class")]
-        public string RoleName = "Sergent";
+        public string RoleName = "Nine-Tailed Fox Sergent";
 
         [Description("the number of ammo to the class")]
         public uint Ammo5 = 100;

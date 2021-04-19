@@ -26,7 +26,7 @@ namespace VTTrowItem
 
             }
             item.Drop();
-            Timing.RunCoroutine(Method.Throw(item.pickup, (context.Player.Hub.PlayerCameraReference.forward + Plugin.Config.addLaunchForce).normalized));
+            Timing.RunCoroutine(Method.Throw(item, (context.Player.Hub.PlayerCameraReference.forward + Plugin.Config.addLaunchForce).normalized));
             return result;
         }
     }

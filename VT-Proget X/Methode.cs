@@ -1,4 +1,5 @@
-﻿using LightContainmentZoneDecontamination;
+﻿using Interactables.Interobjects.DoorUtils;
+using LightContainmentZoneDecontamination;
 using MEC;
 using Respawning;
 using Synapse;
@@ -24,27 +25,30 @@ namespace VTProget_X
             {
                 foreach (var door in room.Doors)
                 {
-                    door.Locked = true;
-                    door.Open = true;
+                    if (door.DoorPermissions.RequiredPermissions == KeycardPermissions.None)
+                    {
+                        door.Locked = true;
+                        door.Open = true;
+                    }
                 }
             }
             while (AlertTime > 0)
             {
-                VT_Referance.Method.Methods.PlayAmbientSound(7);
+                Methods.PlayAmbientSound(7);
                 AlertTime--;
                 yield return Timing.WaitForSeconds(1f);
             }
-            Map.Get.Cassie($"danger . Light containment zone decontamination start in 2 minutes .", false);
+            Map.Get.GlitchedCassie($"danger . LightContainmentZone decontamination start in 2 minutes .");
             Plugin.Instance.DeconatmiantionendProgress = true;
             WaitForStart += 5;
             while (WaitForStart > 0)
             {
-                VT_Referance.Method.Methods.PlayAmbientSound(5);
+                Methods.PlayAmbientSound(5);
                 WaitForStart--;
                 yield return Timing.WaitForSeconds(1f);
             }
             
-            Map.Get.Cassie($"Light Containment Zone is locked down and ready for decontamination .", false);
+            Map.Get.GlitchedCassie($"Light Containment Zone is locked down and ready for decontamination .");
             Server.Get.Map.Decontamination?.CallMethod("InstantStart");
             Server.Get.Map.Decontamination?.Controller?.CallMethod("FinishDecontamination");
             Plugin.Instance.DeconatmiantinEnd = true;

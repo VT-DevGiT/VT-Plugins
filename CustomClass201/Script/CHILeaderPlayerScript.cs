@@ -56,7 +56,6 @@ namespace CustomClass.PlayerScript
             Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
         }
 
-
         private void OnKeyPress(PlayerKeyPressEventArgs ev)
         {
             if (ev.Player == Player && ev.KeyCode == KeyCode.Alpha1)

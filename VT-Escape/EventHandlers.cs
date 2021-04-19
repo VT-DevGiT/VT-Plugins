@@ -11,16 +11,11 @@ namespace VTEscape
 {
     public class EventHandlers
     {
-        private readonly SerializedMapPoint DoorSpawnPos = new SerializedMapPoint("EZ_Shelter", 0.04031754f, 1.495544f, 10.24014f);
         public EventHandlers()
         {
             Server.Get.Events.Player.PlayerSetClassEvent += OnPlayerSetClassEvent;
         }
 
-        private void OnPlayerDamageEvent(PlayerDamageEventArgs ev)
-        {
-
-        }
         private void OnPlayerSetClassEvent(PlayerSetClassEventArgs ev)
         {
             if (Plugin.Config.MTFEscapeIsEnabled)
@@ -44,19 +39,6 @@ namespace VTEscape
                 {
                     ev.Player.gameObject.AddComponent<CHIEscape>();
                 }
-            }
-        }
-        private void Waiting()
-        {
-
-            if (Plugin.Config.ShelterIsEnabled)
-            {
-                //Synapse.Api.Room shelterRoom = Synapse.Api.Map.Get.GetRoom(RoomInformation.RoomType.EZ_SHELTER);
-
-
-                //Synapse.Api.Door shelterDoor = Synapse.Api.Map.Get.GetDoor(Synapse.Api.Enum.DoorType.);
-
-                //var door = Synapse.Api.Door.SpawnDoorVariant(DoorSpawnPos.Parse().Position, Synapse.Api.Map.Get.GetRoom(RoomInformation.RoomType.EZ_SHELTER).GameObject.transform.rotation);
             }
         }
     }

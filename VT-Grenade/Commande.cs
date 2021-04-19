@@ -22,8 +22,11 @@ namespace VTGrenad
             var result = new CommandResult();
             if (!Plugin.Config.NotAGrenadeRole.Contains(context.Player.RoleID))
             {
-                if (Plugin.DictTabletteGrenades.ContainsKey(context.Player.PlayerId))
+                if (Plugin.DictTabletteGrenades.ContainsKey(context.Player.PlayerId)
+                    && context.Player?.ItemInHand?.ID == (int)ItemType.WeaponManagerTablet
+                    && !context.Player.ItemInHand.IsCustomItem)
                 {
+                    
                     //DebugLog.LogWarning($"{context.Player.name} Command Valide player with grenade {context.Player.name}");
                     List<AmorcableGrenade> listGrenade = Plugin.DictTabletteGrenades[context.Player.PlayerId];
                     foreach (AmorcableGrenade grenade in listGrenade)

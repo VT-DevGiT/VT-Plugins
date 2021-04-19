@@ -59,6 +59,7 @@ namespace CustomClass.PlayerScript
                 { 
                     corpseowner.RoleID = Dictionary.PlayerRole[corpseowner];
                     corpseowner.Position = corpseowner.DeathPosition;
+                    corpseowner.Inventory.Clear();
                 }
                 return true;
             }

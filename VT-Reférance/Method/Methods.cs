@@ -60,12 +60,11 @@ namespace VT_Referance.Method
             if (player != null && Dictionary.PlayerRole.ContainsKey(player))
             {
                 int roleId = Dictionary.PlayerRole[player];
-
                 if (_scpRole.Contains(roleId)) 
                     return true;
-                else if (Server.Get.RoleManager.IsIDRegistered(roleId))
+                else if (roleId > 17)
                     return Server.Get.RoleManager.GetCustomRole(roleId).GetTeamID() == (int)TeamID.SCP;
-                else return null;
+                else return false;
             }
             return null;
         }

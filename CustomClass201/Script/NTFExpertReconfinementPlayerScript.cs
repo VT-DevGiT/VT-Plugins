@@ -28,17 +28,25 @@ namespace CustomClass.PlayerScript
             Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent += OnTarget;
             Server.Get.Events.Player.PlayerDamageEvent += OnDamage;
         }
-
+        private bool _target096 = false;
         private void OnDamage(PlayerDamageEventArgs ev)
         {
             if (ev.Killer == Player && ev.Victim.RoleID == (int)RoleType.Scp096)
+            {
+                
+                ev.Victim.Scp096Controller.RageState = PlayableScps.Scp096PlayerState.Enraging;
                 ev.Victim.Scp096Controller.AddTarget(Player);
+                _target096 = true;
+            }
         }
 
         private void OnTarget(Scp096AddTargetEventArgument ev)
         {
-            if (ev.Player == Player)
+            if (ev.Player == Player && !_target096)
+            {
+                ev.Scp096.Scp096Controller.RemoveTarget(ev.Player);
                 ev.Allow = false;
+            }
         }
     }
 }

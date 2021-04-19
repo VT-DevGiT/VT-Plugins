@@ -44,7 +44,6 @@ namespace VT_Referance.Behaviour
 
         protected virtual void Start()
         {
-            Synapse.Api.Logger.Get.Info($"{this.GetType().Name} Start --BaseRepeatingBehaviour--");
            _Started = false;
             ActionExecute();
         }
@@ -56,7 +55,6 @@ namespace VT_Referance.Behaviour
             if (!_Started)
             {
                 _Started = true;
-                Synapse.Api.Logger.Get.Info($"{this.GetType().Name} ActionExecute {RefreshTime / 1000} .--BaseRepeatingBehaviour--");
                 InvokeRepeating("BehaviourAction", RefreshTime / 1000, RefreshTime / 1000);
             }
         }

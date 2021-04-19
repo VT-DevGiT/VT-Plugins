@@ -1,4 +1,5 @@
 ﻿using CustomClass.Pouvoir;
+using MEC;
 using Synapse;
 using Synapse.Api;
 using Synapse.Config;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using VT_Referance.Behaviour;
+using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
@@ -113,29 +115,15 @@ namespace CustomClass.PlayerScript
             Spawned = false;
             Player.RoleType = RoleType;
 
-            Player.Inventory.Clear();
-            var items = GetConfigValue("Items", new List<SerializedItem>());
-
-            foreach (var item in items)
+            if (RoleTeam == (int)TeamID.CHI || RoleTeam == (int)TeamID.MTF)
             {
-                try
-                {
-                    var obj = item.Parse();
-                    Player.Inventory.AddItem(item.Parse());
-                }
-                catch(Exception e)
-                {
-                    Server.Get.Logger.Error($"Error Config inventory at {this.RoleName} : { item.ID} {e} ");
-                }
+                Timing.CallDelayed(1f, () => InitPlayer());
             }
-            Player.Ammo5 = GetConfigValue<uint>("Ammo5", 0);
-            Player.Ammo7 = GetConfigValue<uint>("Ammo7", 0);
-            Player.Ammo9 = GetConfigValue<uint>("Ammo9", 0);
-            Player.Health = GetConfigValue("Health", 100);
-            Player.MaxHealth = GetConfigValue("MaxHealth", (int)Player.Health);
+            else
+            {
+                InitPlayer();
+            }
 
-            Player.MaxArtificialHealth = GetConfigValue("MaxArtificialHealth", 100);
-            Player.ArtificialHealth = GetConfigValue("ArtificialHealth", 0);
             SerializedMapPoint spawnPoint = GetConfigValue<SerializedMapPoint>("SpawnPoint", null);
             if (spawnPoint != null)
             {
@@ -154,14 +142,56 @@ namespace CustomClass.PlayerScript
             if (SetDisplayInfo)
             {
                 Player.RemoveDisplayInfo(PlayerInfoArea.Role);
+                List<RoleType> roleWithSquad = new List<RoleType>() { RoleType.FacilityGuard, RoleType.NtfCadet,
+                                            RoleType.NtfLieutenant, RoleType.NtfCommander, RoleType.NtfScientist};
+
+                if (roleWithSquad.Contains(RoleType))
+                { 
+                    Player.DisplayInfo = $"{RoleName} ({Player.UnitName})";
+                    Player.RemoveDisplayInfo(PlayerInfoArea.UnitName);
+                }
+                else
+                {
                     Player.DisplayInfo = $"{RoleName}";
+                }
             }
+
         }
 
+        private void InitPlayer()
+        {
+            Player.Inventory.Clear();
+            GiveItems();
+            Player.Health = GetConfigValue("Health", 100);
+            Player.MaxHealth = GetConfigValue("MaxHealth", (int)Player.Health);
+            Player.MaxArtificialHealth = GetConfigValue("MaxArtificialHealth", 100);
+            Player.ArtificialHealth = GetConfigValue("ArtificialHealth", 0);
+        }
+        private void GiveItems()
+        {
+            var items = GetConfigValue("Items", new List<SerializedItem>());
+            foreach (var item in items)
+            { 
+                try
+                {
+                    var obj = item.Parse();
+                    Player.Inventory.AddItem(item.Parse());
+                }
+                catch(Exception e)
+                {
+                    Server.Get.Logger.Error($"Error Config inventory at {this.RoleName} : { item.ID} {e} ");
+                }
+            }
+            Player.Ammo5 = GetConfigValue<uint>("Ammo5", 0);
+            Player.Ammo7 = GetConfigValue<uint>("Ammo7", 0);
+            Player.Ammo9 = GetConfigValue<uint>("Ammo9", 0);
+
+        }
         public override void DeSpawn()
         {
             Player.DisplayInfo = null;
             Player.AddDisplayInfo(PlayerInfoArea.Role);
+            Player.AddDisplayInfo(PlayerInfoArea.UnitName);
         }
         #endregion
 

@@ -15,11 +15,18 @@ namespace CustomClass
             Server.Get.Events.Round.SpawnPlayersEvent += OnSpawn;
             Server.Get.Events.Round.TeamRespawnEvent += OnReSpawn;
             Server.Get.Events.Player.PlayerSetClassEvent += OnClass;
+            Server.Get.Events.Player.PlayerJoinEvent += OnJoin;
+        }
+
+        private void OnJoin(PlayerJoinEventArgs ev)
+        {
+            ev.Player.SynapseGroup.Permissions.Remove("synapse.see.invisible");
         }
 
         private void OnClass(PlayerSetClassEventArgs ev)
         {
             ev.Player.SynapseGroup.Permissions.Remove("synapse.see.invisible");
+            VT_Referance.Variable.Dictionary.PlayerRole[ev.Player] = (int)ev.Role;
             if (RespawnPlayer.Contains(ev.Player))
             {
                 ev.SpawnRole(RoleType.ChaosInsurgency, RoleID.ChiLeader, PluginClass.ConfigCHILeader);
@@ -31,13 +38,13 @@ namespace CustomClass
                 ev.SpawnRole(RoleType.NtfCadet, RoleID.ChiSpy, PluginClass.ConfigCHISPY);
                 ev.SpawnRole(RoleType.NtfCadet, RoleID.NtfCapitaine, PluginClass.ConfigNTFCapitaine);
                 ev.SpawnRole(RoleType.NtfCadet, RoleID.NtfSergent, PluginClass.ConfigNTFSergent);
-                ev.SpawnRole(RoleType.NtfLieutenant, RoleID.NtfExpertPyrotechnie, PluginClass.ConfigNTFLieutenantColonel);
+                ev.SpawnRole(RoleType.NtfLieutenant, RoleID.NtfExpertPyrotechnie, PluginClass.ConfigNTFExpertPyrotechnie);
                 ev.SpawnRole(RoleType.NtfLieutenant, RoleID.NtfExpertReconfinement, PluginClass.ConfigNTFExpertReconfinement);
                 ev.SpawnRole(RoleType.NtfLieutenant, RoleID.NtfInfirmier, PluginClass.ConfigNTFInfirmier);
                 ev.SpawnRole(RoleType.NtfLieutenant, RoleID.NtfVirologue, PluginClass.ConfigNTFVirologue);
                 RespawnPlayer.Remove(ev.Player);
             }
-            VT_Referance.Variable.Dictionary.PlayerRole[ev.Player] = (int)ev.Role;
+
         }
 
         public static List<Player> RespawnPlayer = new List<Player>();

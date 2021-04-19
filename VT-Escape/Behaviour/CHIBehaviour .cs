@@ -49,6 +49,7 @@ namespace VTEscape
                 }
                 player.Inventory.Clear();
                 player.RoleID = (int)RoleType.Spectator;
+                return;
             }
         }
     }

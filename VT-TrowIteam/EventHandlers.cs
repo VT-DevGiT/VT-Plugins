@@ -15,11 +15,13 @@ namespace VTTrowItem
         {
             Server.Get.Events.Player.PlayerShootEvent += OnShootEvent;
             if (Plugin.Config.DropEvent)
+            { 
                 Server.Get.Events.Player.PlayerDropItemEvent += OnDrop;
-            if (!Plugin.Config.DropEvent)
-                Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyTrow;
-            else
                 Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyBasicDrop;
+            }
+            else
+                Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyTrow;
+
         }
 
         private void OnShootEvent(PlayerShootEventArgs ev)
@@ -53,7 +55,7 @@ namespace VTTrowItem
             if (ev.KeyCode == Plugin.Config.key && item != null && item.ItemType != ItemType.MicroHID)
             {
                 item.Drop();
-                Timing.RunCoroutine(Method.Throw(item.pickup, (ev.Player.Hub.PlayerCameraReference.forward + Plugin.Config.addLaunchForce).normalized));
+                Timing.RunCoroutine(Method.Throw(item, (ev.Player.Hub.PlayerCameraReference.forward + Plugin.Config.addLaunchForce).normalized));
             }
         }
         private void OnKeyBasicDrop(PlayerKeyPressEventArgs ev)
@@ -64,10 +66,12 @@ namespace VTTrowItem
         }
         private void OnDrop(PlayerDropItemEventArgs ev)
         {
+            var item = ev.Item;
+            if (item != null && item.ItemType != ItemType.MicroHID && ev.Allow)
+            {
 
-            var item = ev.Player?.ItemInHand;
-            if (item != null && item.ItemType != ItemType.MicroHID)
-                Timing.RunCoroutine(Method.Throw(ev.Item.pickup, (ev.Player.Hub.PlayerCameraReference.forward + Plugin.Config.addLaunchForce).normalized));
+                Timing.RunCoroutine(Method.Throw(item, (ev.Player.Hub.PlayerCameraReference.forward + Plugin.Config.addLaunchForce).normalized));
+            }
         }
     }
 }

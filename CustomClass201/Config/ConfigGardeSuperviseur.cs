@@ -17,7 +17,7 @@ namespace CustomClass.Config
         public List<SerializedItem> Items = new List<SerializedItem>() { 
             new SerializedItem((int)ItemType.KeycardSeniorGuard, 1, 3, 2, 1, Vector3.one), 
             new SerializedItem((int)ItemType.GunProject90, 50, 0, 0, 0, Vector3.one), 
-            new SerializedItem(50, 1, 0, 1, 0, Vector3.one), 
+            new SerializedItem(50, 1, 0, 0, 0, Vector3.one), 
             new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), 
             new SerializedItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one), 
             new SerializedItem(55, 1, 0, 0, 0, Vector3.one), 

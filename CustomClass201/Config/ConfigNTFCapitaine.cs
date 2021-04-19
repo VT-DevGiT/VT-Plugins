@@ -38,7 +38,7 @@ namespace CustomClass.Config
         public int RequiredPlayers = 5;
 
         [Description("The name of the class")]
-        public string RoleName = "Capitaine";
+        public string RoleName = "Nine-Tailed Fox Capitaine";
 
         [Description("The cooldown of the class Power")]
         public int CoolDown = 30;

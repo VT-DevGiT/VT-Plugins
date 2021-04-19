@@ -52,13 +52,13 @@ namespace CustomClass
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigGardeSuperviseur")]
         public static ConfigGardeSuperviseur ConfigGardeSuperviseur;
 
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFExpertPyrotechnie")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFSergent")]
         public static ConfigNTFSergent ConfigNTFSergent;
 
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFExpertPyrotechnie")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFCapitaine")]
         public static ConfigNTFCapitaine ConfigNTFCapitaine;
 
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFExpertPyrotechnie")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFLieutenantColonel")]
         public static ConfigNTFLieutenantColonel ConfigNTFLieutenantColonel;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFExpertPyrotechnie")]

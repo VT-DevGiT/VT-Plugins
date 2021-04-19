@@ -37,11 +37,11 @@ namespace VT079
             {
                 ev.Player.gameObject.AddComponent<Scp079Behaviour>();
                 Synapse.Api.Door porte = Server.Get.Map.Doors.FirstOrDefault(p => p.Name == "079_SECOND");
+                
                 if (porte != null)
-                {
                     porte.Locked = true;
-                }
             }
+
             if (Plugin.SCPRoleDeconf.Contains((int)ev.Role))
             {
                 Plugin.SCPRoleDeconf.Remove((int)ev.Role);
@@ -50,19 +50,12 @@ namespace VT079
         private void On079Recontain(Scp079RecontainEventArgs ev)
         {
             Synapse.Api.Door porte = Server.Get.Map.Doors.FirstOrDefault(p => p.Name == "079_SECOND");
+            
             if (porte != null)
-            {
                 porte.Locked = false;
-            }
+
             if (Plugin.Config.Scp079AdvenceRecontain)
-            { 
                 ev.Allow = false;
-                var listJoueur = Server.Get.Players.Where(p => p.RoleID == (int)RoleType.Scp079);
-                foreach (var joueur079 in listJoueur)
-                {
-                    joueur079.GodMode = true;
-                }
-            }
         }
     }
 }

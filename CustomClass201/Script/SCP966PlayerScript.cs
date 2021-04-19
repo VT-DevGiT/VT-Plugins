@@ -36,12 +36,6 @@ namespace CustomClass.PlayerScript
         protected override void Event()
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnDamage;
-            Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
-        }
-
-        private void OnDeath(PlayerDeathEventArgs ev)
-        {
-            Player.Inventory.Clear();
         }
 
         public override void DeSpawn()
@@ -50,7 +44,6 @@ namespace CustomClass.PlayerScript
             base.DeSpawn();
             Map.Get.AnnounceScpDeath("9 6 6");
             Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
-            Server.Get.Events.Player.PlayerDeathEvent -= OnDeath;
         }
 
 

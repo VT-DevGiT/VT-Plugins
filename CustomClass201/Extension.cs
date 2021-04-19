@@ -31,6 +31,7 @@ namespace CustomClass
                             var pair = playerClass.ElementAt(UnityEngine.Random.Range(0, playerClass.Count() - 1));
                             dictionaire[pair.Key] = (int)newRole;
                             playerClass = dictionaire.Where(p => p.Value == (int)oldRole);
+                            Dictionary.PlayerRole[pair.Key] = (int)newRole;
                         }
                         maxTotal--;
                     }
@@ -57,8 +58,8 @@ namespace CustomClass
                         EventHandlers.RespawnPlayer.Remove(ev.Player);
                         Player pl = ev.Player;
                         pl.RoleID = (int)newRole;
-                        Dictionary.PlayerRole[ev.Player] = (int)newRole;
                         PluginClass.Plugin.RespawnedPlayer[newRole] = respawned + 1;
+                        Dictionary.PlayerRole[ev.Player] = (int)newRole;
                     }
                 }
             }
@@ -77,6 +78,7 @@ namespace CustomClass
                     {
                         var pair = playerClass.ElementAt(UnityEngine.Random.Range(0, playerClass.Count() - 1));
                         dictionaire[pair.Key] = (int)newRole;
+                        Dictionary.PlayerRole[pair.Key] = (int)newRole;
                     }
                 }
             }

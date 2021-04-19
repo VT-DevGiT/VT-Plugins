@@ -32,6 +32,7 @@ namespace CustomClass.PlayerScript
             Player.NoClip = false;
             Player.Invisible = false;
             Player.GodMode = false;
+            base.DeSpawn();
         }
     }
 }

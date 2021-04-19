@@ -37,7 +37,7 @@ namespace CustomClass.Config
         public int RequiredPlayers = 0;
 
         [Description("The name of the class")]
-        public string RoleName = "Virologue";
+        public string RoleName = "Nine-Tailed Fox Virologue";
 
         [Description("the number of ammo to the class")]
         public uint Ammo5 = 100;

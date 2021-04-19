@@ -3,6 +3,7 @@ using MEC;
 using Mirror;
 using Synapse;
 using Synapse.Api;
+using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace VT939
 
         public float AngerMeter { get; private set; }
 
-        private void Awake()
+        private void BefortStart()
         {
             RegisterEvents();
 
@@ -49,6 +50,7 @@ namespace VT939
 
         protected override void Start()
         {
+            BefortStart();
             player.Scale *= Plugin.Config.Size;
 
             if (Plugin.Config.ShowSpawnBroadcastMessage)
@@ -62,12 +64,12 @@ namespace VT939
         {
             if (player == null || !player.RoleType.Is939())
             {
-                Kill();
+                OnDestroy();
                 return;
             }
 
             if (!scp207.Enabled && !sinkHole.Enabled && Plugin.Config.IsFasterThanHumans)
-                player.GiveEffect(Synapse.Api.Enum.Effect.Scp207);
+                player.GiveEffect(Effect.Scp207);
         }
 
         public void OnDomage(PlayerDamageEventArgs ev)
@@ -105,8 +107,7 @@ namespace VT939
             }
         }
 
-        private void OnDestroy() => PartiallyDestroy();
-        public void PartiallyDestroy()
+        private void OnDestroy()
         {
             UnregisterEvents();
             KillCoroutines();
@@ -121,6 +122,7 @@ namespace VT939
 
             player.Scale = new Vector3(1, 1, 1);
             player.ArtificialHealth = 0;
+            Kill();
         }
 
         private void RegisterEvents()
@@ -141,7 +143,7 @@ namespace VT939
             while (waitedTime < totalWaitTime)
             {
                 if (!sinkHole.Enabled && Plugin.Config.ShouldGetSlowed)
-                    player.GiveEffect(Synapse.Api.Enum.Effect.SinkHole);
+                    player.GiveEffect(Effect.SinkHole);
 
                 waitedTime += interval;
 
@@ -178,5 +180,4 @@ namespace VT939
                 Timing.KillCoroutines(angerMeterDecayCoroutine);
         }
     }
-
 }

@@ -7,10 +7,10 @@ namespace VTTrowItem
 {
     public static class Method
     {
-        internal static IEnumerator<float> Throw(Pickup item, Vector3 direction)
+        internal static IEnumerator<float> Throw(Synapse.Api.Items.SynapseItem itemDroped, Vector3 direction)
         {
-            yield return Timing.WaitUntilFalse(() => item != null && item.Rb == null);
-
+            yield return Timing.WaitUntilTrue(() => itemDroped.pickup != null && itemDroped.pickup.Rb != null);
+            var item = itemDroped.pickup;
             try
             {
                 item.Rb.transform.Translate(Plugin.Config.initialPosVec3, Space.Self);
@@ -22,8 +22,31 @@ namespace VTTrowItem
             }
             catch (Exception e)
             {
-                Synapse.Api.Logger.Get.Error($"Lunch coroutine : {e.Message}");
+                Synapse.Api.Logger.Get.Error($"Launch coroutine : {e.Message}");
             }
         }
+        /*
+        private IEnumerator<float> ThrowWhenRigidbody(Pickup pickup, Vector3 dir)
+        {
+            Synapse.Api.Logger.Get.Info("Starting the coroutine, waiting until the thrown Pickup has a RigidBody (has physics).");
+
+            yield return MEC.Timing.WaitUntilFalse(() => pickup != null && pickup.Rb == null); // mom im scared of loops
+
+            Synapse.Api.Logger.Get.Info($"Rigidbody instantiated. Translating its position to {Plugin.Config.initialPosVec3}, then throwing with a force of {dir * Config.ThrowForce}.");
+
+            try
+            {
+                pickup.Rb.transform.Translate(Plugin.Config.initialPosVec3, Space.Self);
+                pickup.Rb.AddForce(dir * Plugin.Config.ThrowForce, ForceMode.Impulse);
+                Vector3 rand = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-100f, 1f)).normalized;
+                pickup.Rb.angularVelocity = rand.normalized * Config.RandomSpinForce;
+
+            }
+            catch (System.Exception ex)
+            {
+                Synapse.Api.Logger.Get.Error("ThrowItems thrown an exception in its \"throw\" coroutine:\n" + ex);
+            }
+        }
+        */
     }
 }

@@ -26,7 +26,6 @@ namespace VTProget_X
                 {
                     Timing.RunCoroutine(Methode.Decontamination(), "Decont");
                 }
-
             }
             else if (ev.KeyCode == UnityEngine.KeyCode.Keypad5)
             {
