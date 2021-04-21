@@ -14,43 +14,6 @@ namespace VTProget_X
             Server.Get.Events.Map.TriggerTeslaEvent += OnTriggerTeslaEvent;
             Server.Get.Events.Round.RoundStartEvent += OnRoundStart;
             Server.Get.Events.Round.RoundEndEvent += OnRoundEnd;
-            Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
-        }
-
-        private void OnKeyPress(PlayerKeyPressEventArgs ev)
-        {
-            if (ev.KeyCode == UnityEngine.KeyCode.Keypad4)
-            {
-                if (Methods.GetVoltage() >= 1000 && ev.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
-                    && ev.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
-                {
-                    Timing.RunCoroutine(Methode.Decontamination(), "Decont");
-                }
-            }
-            else if (ev.KeyCode == UnityEngine.KeyCode.Keypad5)
-            {
-                if (Methods.GetVoltage() >= 2000 && ev.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
-                    && ev.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
-                {
-                    if (Plugin.Instance.TeslaEnabled)
-                    {
-                        Map.Get.Cassie("all tesla doors have been deactivate .", false);
-                    }
-                    else
-                    {
-                        Map.Get.Cassie("all tesla doors have been enable .", false);
-                    }
-                    Plugin.Instance.TeslaEnabled = !Plugin.Instance.TeslaEnabled;
-                }
-            }
-            else if (ev.KeyCode == UnityEngine.KeyCode.Keypad6)
-            {
-                if (Methods.GetVoltage() >= 3000 && ev.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
-                    && ev.Player.Room.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
-                {
-                    Generator079.mainGenerator.ServerOvercharge(Plugin.Config.BlackOutTime, false);
-                }
-            }
         }
 
         private void OnRoundEnd()

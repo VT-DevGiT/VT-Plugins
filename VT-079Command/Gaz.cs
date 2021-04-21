@@ -34,7 +34,7 @@ namespace VT079.Command
 
             if (context.Player.Room == null)
             {
-                context.Player.Hub.scp079PlayerScript.Mana += 30;
+                context.Player.Hub.scp079PlayerScript.Mana += 25;
                 result.Message = "You can't gass here";
                 result.State = CommandResultState.NoPermission;
                 return result;

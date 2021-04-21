@@ -132,14 +132,13 @@ namespace VT_Referance.Method
         }
 
 
-        static private AmbientSoundPlayer _Song = PlayerManager.localPlayer.GetComponent<AmbientSoundPlayer>();
         /// <summary>
         /// play ambient sound ​to all players
         /// </summary>
         /// <param name="id">the id of the sound</param>
         public static void PlayAmbientSound(int id)
         {
-            _Song.CallMethod("RpcPlaySound", id);
+            PlayerManager.localPlayer.GetComponent<AmbientSoundPlayer>().CallMethod("RpcPlaySound", id);
         }
 
 

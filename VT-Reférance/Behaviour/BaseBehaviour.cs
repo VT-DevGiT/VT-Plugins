@@ -55,7 +55,9 @@ namespace VT_Referance.Behaviour
             if (!_Started)
             {
                 _Started = true;
-                InvokeRepeating("BehaviourAction", RefreshTime / 1000, RefreshTime / 1000);
+                float delay = ((float)RefreshTime) / 1000;
+                InvokeRepeating("BehaviourAction", delay, delay);
+                
             }
         }
         /// <summary>

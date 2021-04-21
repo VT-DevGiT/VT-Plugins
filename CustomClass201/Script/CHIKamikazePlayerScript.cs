@@ -26,9 +26,11 @@ namespace CustomClass.PlayerScript
 
         protected override AbstractConfigSection Config => PluginClass.ConfigCHIKamikaze;
 
+        private DateTime coolDown = DateTime.Now;
+
         public override bool CallPower(PowerType power)
         {
-            if (power == PowerType.Suicide)
+            if (power == PowerType.Suicide && (DateTime.Now - coolDown).TotalSeconds > 30)
             {
                 Server.Get.Map.SpawnGrenade(Player.Position, Vector3.zero, 0.1f, GrenadeType.Grenade, Player);
                 Player.Kill(DamageTypes.Grenade);

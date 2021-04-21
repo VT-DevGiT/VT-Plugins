@@ -23,7 +23,13 @@ namespace VTEscape
             {
                 Map.Get.Nuke.InsidePanel.Locked = true;
             }
-            AlphaWarheadController.Host.StartDetonation();
+            Server.Get.Map.Nuke.StartDetonation();
+        }
+
+        static public void ChangeRole(Player player, int Role)
+        {
+            player.Inventory.Clear();
+            Timing.CallDelayed(0.1f, () => player.RoleID = Role);
         }
     }
 }

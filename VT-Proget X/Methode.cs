@@ -20,7 +20,7 @@ namespace VTProget_X
     {
         public static IEnumerator<float> Decontamination(int WaitForStart = 120, int AlertTime = 3)
         {
-
+            Plugin.Instance.DeconatmiantionendProgress = true;
             foreach (var room in Server.Get.Map.Rooms.FindAll(p => p.Zone == ZoneType.LCZ))
             {
                 foreach (var door in room.Doors)
@@ -39,7 +39,6 @@ namespace VTProget_X
                 yield return Timing.WaitForSeconds(1f);
             }
             Map.Get.GlitchedCassie($"danger . LightContainmentZone decontamination start in 2 minutes .");
-            Plugin.Instance.DeconatmiantionendProgress = true;
             WaitForStart += 5;
             while (WaitForStart > 0)
             {
@@ -47,12 +46,10 @@ namespace VTProget_X
                 WaitForStart--;
                 yield return Timing.WaitForSeconds(1f);
             }
-            
             Map.Get.GlitchedCassie($"Light Containment Zone is locked down and ready for decontamination .");
             Server.Get.Map.Decontamination?.CallMethod("InstantStart");
             Server.Get.Map.Decontamination?.Controller?.CallMethod("FinishDecontamination");
             Plugin.Instance.DeconatmiantinEnd = true;
-            
             yield break;
         }
 
@@ -141,7 +138,7 @@ namespace VTProget_X
                 foreach (var scp in listScp)
                 {
                     if (scp.RoleID == (int)RoleType.Scp079)
-                        scpListMessage += Plugin.PluginTranslation.ActiveTranslation.IntercomScpInformation
+                        scpListMessage += Plugin.PluginTranslation.ActiveTranslation.IntercomScpInformation079
                             .Replace("%Name%", scp.RoleName)
                             .Replace("%Tier%", scp.Hub.scp079PlayerScript.Lvl.ToString());
                     else

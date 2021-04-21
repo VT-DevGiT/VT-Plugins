@@ -33,9 +33,6 @@ namespace CustomClass.PlayerScript
         {
             if (ev.Killer == Player && ev.Victim.RoleID == (int)RoleType.Scp096)
             {
-                
-                ev.Victim.Scp096Controller.RageState = PlayableScps.Scp096PlayerState.Enraging;
-                ev.Victim.Scp096Controller.AddTarget(Player);
                 _target096 = true;
             }
         }

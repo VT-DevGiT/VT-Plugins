@@ -27,12 +27,11 @@ namespace VTEscape
                     && EscapeEnum.CHI == p.Escape && player.IsCuffed == p.Handcuffed);
                 if (configEscape != null)
                 {
-                    if (configEscape.StartWarHead == true)
+                    if (configEscape.StartWarHead == true && !Server.Get.Map.Nuke.Detonated)
                         Timing.RunCoroutine(new Method().WarHeadEscape(3));
-                    if (configEscape.EscapeMessage != null)
+                    if (configEscape.EscapeMessage != null && !Server.Get.Map.Nuke.Detonated)
                         Map.Get.Cassie(configEscape.EscapeMessage, false);
-                    player.Inventory.Clear();
-                    player.RoleID = (int)configEscape.NewRole;
+                    Method.ChangeRole(player, (int)configEscape.NewRole);
                     return;
                 }
                 configEscape = Plugin.Config.EscapeList.FirstOrDefault(p => player.TeamID == (int)p.Team
@@ -43,12 +42,10 @@ namespace VTEscape
                         Timing.RunCoroutine(new Method().WarHeadEscape(3));
                     if (configEscape.EscapeMessage != null)
                         Map.Get.Cassie(configEscape.EscapeMessage, false);
-                    player.Inventory.Clear();
-                    player.RoleID = (int)configEscape.NewRole;
+                    Method.ChangeRole(player, (int)configEscape.NewRole);
                     return;
                 }
-                player.Inventory.Clear();
-                player.RoleID = (int)RoleType.Spectator;
+                Method.ChangeRole(player, (int)RoleType.Spectator);
                 return;
             }
         }

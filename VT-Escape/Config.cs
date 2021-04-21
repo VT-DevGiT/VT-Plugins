@@ -44,3 +44,4 @@ namespace VTEscape
         public bool WarHeadLockEnabled = false;
     }
 }
+    

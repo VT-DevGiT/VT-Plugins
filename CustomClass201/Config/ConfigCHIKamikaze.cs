@@ -20,7 +20,7 @@ namespace CustomClass.Config
             new SerializedItem((int)ItemType.Painkillers, 1, 0, 0, 0, Vector3.one) };
 
         [Description("The Chance of which the class spawns")]
-        public int SpawnChance = 10;
+        public int SpawnChance = 20;
 
         [Description("ArtificialHealthConfig of the class")]
         public int MaxArtificialHealth = 120;
