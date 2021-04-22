@@ -1,5 +1,7 @@
 ﻿using Synapse.Api;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using VT_Referance.Interface;
 using VT_Referance.Variable;
@@ -37,6 +39,27 @@ namespace VT_Referance.Method
             return player.CustomRole is IUtrRole;
             //List <int> UTRID = new List<int>() { (int)RoleID.AndersonUTRheavy, (int)RoleID.AndersonUTRlight, (int)RoleID.FoundationUTR };
             //return UTRID.Contains(player.RoleID);
+        }
+        /// <summary>
+        /// List of ally team
+        /// </summary>
+        private static List<List<int>> Ally = new List<List<int>>()
+        {
+            new List<int>{ (int)TeamID.VIP, (int)TeamID.NetralSCP, (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC},
+            new List<int>{ (int)TeamID.AndersneRobotic},
+            new List<int>{ (int)TeamID.CHI, (int)TeamID.CDP},
+            new List<int>{ (int)TeamID.SCP, (int)TeamID.SerpentsHand},
+            new List<int>{ (int)TeamID.CDP, (int)TeamID.RSC}
+        };
+        /// <summary>
+        /// Check if a team is ally to an other team
+        /// </summary>
+        /// <param name="team1">ID of team One</param>
+        /// <param name="team2">ID of team tow</param>
+        /// <returns></returns>
+        public static bool IsAlly(this int team1, int team2)
+        {
+            return Ally.Any(p => p.Contains(team1) && p.Contains(team2));
         }
     }
 }

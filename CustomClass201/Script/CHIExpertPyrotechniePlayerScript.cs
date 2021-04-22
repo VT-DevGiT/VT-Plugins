@@ -35,7 +35,6 @@ namespace CustomClass.PlayerScript
         }
         private void OnDamage(PlayerDamageEventArgs ev)
         {
-            Server.Get.Logger.Info($"{ev.HitInfo.GetDamageType()} {ev.Victim.NickName}");
             if (ev.Victim == Player && ev.HitInfo.GetDamageType() == DamageTypes.Grenade)
                 ev.Allow = false;
         }

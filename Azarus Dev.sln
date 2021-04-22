@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Data", "VT-Data\VT-Data.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Log", "VT-log\VT-Log.csproj", "{7FBF2270-08C9-4D3F-87F0-827838703C6E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-AdminHelp", "VT-AdminHelp\VT-AdminHelp.csproj", "{B2286329-AFA4-4448-A3EF-BAF3BC7AA38A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -135,6 +137,10 @@ Global
 		{7FBF2270-08C9-4D3F-87F0-827838703C6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FBF2270-08C9-4D3F-87F0-827838703C6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FBF2270-08C9-4D3F-87F0-827838703C6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2286329-AFA4-4448-A3EF-BAF3BC7AA38A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2286329-AFA4-4448-A3EF-BAF3BC7AA38A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2286329-AFA4-4448-A3EF-BAF3BC7AA38A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2286329-AFA4-4448-A3EF-BAF3BC7AA38A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

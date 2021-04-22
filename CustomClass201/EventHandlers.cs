@@ -20,12 +20,12 @@ namespace CustomClass
 
         private void OnJoin(PlayerJoinEventArgs ev)
         {
-            ev.Player.SynapseGroup.Permissions.Remove("synapse.see.invisible");
+            if (ev.Player.RemoteAdminAccess == false)
+                ev.Player.SynapseGroup.Permissions.Remove("synapse.see.invisible");
         }
 
         private void OnClass(PlayerSetClassEventArgs ev)
         {
-            ev.Player.SynapseGroup.Permissions.Remove("synapse.see.invisible");
             VT_Referance.Variable.Dictionary.PlayerRole[ev.Player] = (int)ev.Role;
             if (RespawnPlayer.Contains(ev.Player))
             {
@@ -44,7 +44,10 @@ namespace CustomClass
                 ev.SpawnRole(RoleType.NtfLieutenant, RoleID.NtfVirologue, PluginClass.ConfigNTFVirologue);
                 RespawnPlayer.Remove(ev.Player);
             }
-
+            if (ev.Player.RemoteAdminAccess == false || ev.Role != RoleType.Spectator)
+                ev.Player.SynapseGroup.Permissions.Remove("synapse.see.invisible");
+            else if (ev.Player.RemoteAdminAccess == true || ev.Role == RoleType.Spectator)
+                ev.Player.SynapseGroup.Permissions.Add("synapse.see.invisible");
         }
 
         public static List<Player> RespawnPlayer = new List<Player>();
