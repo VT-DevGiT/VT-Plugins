@@ -1,9 +1,62 @@
 ﻿using CustomClass.PlayerScript;
 using CustomClass.Pouvoir;
+using Synapse;
+using Synapse.Api;
 using Synapse.Command;
 
 namespace CustomClass
 {
+    [CommandInformation(
+          Name = "Location",
+          Aliases = new[] { "loc" },
+          Description = "MapPoint of the player for config",
+          Permission = "",
+          Platforms = new[] { Platform.RemoteAdmin },
+          Usage = ".Loc"
+          )]
+    class Cmdloc : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+            var Mp = context.Player.MapPoint;
+            var MpString = $"SerializedMapPoint(\"{Mp.Room}\", {Mp.RelativePosition.x.ToString().Replace(",", ".")}f, {Mp.RelativePosition.y.ToString().Replace(",", ".")}f, {Mp.RelativePosition.z.ToString().Replace(",", ".")}f)";
+            Server.Get.Logger.Info(MpString);
+            result.State = CommandResultState.Ok;
+            result.Message = Mp.ToString();
+            return result;
+        }
+    }
+
+    [CommandInformation(
+           Name = "SCP507Tp",
+           Aliases = new[] { "507" },
+           Description = "Teste The config",
+           Permission = "",
+           Platforms = new[] { Platform.RemoteAdmin },
+           Usage = ".507 [Config x]"
+           )]
+    class Cmd507 : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+            int configX;
+            if (!int.TryParse(context.Arguments.FirstElement().ToString(), out configX) || configX > PluginClass.ConfigSCP507.ListRoom.Count-1 || configX < 0)
+            {
+                result.State = CommandResultState.Error;
+                result.Message = $"Please enter a corect number min : 0, max : {PluginClass.ConfigSCP507.ListRoom.Count-1}";
+            }
+            else
+            {
+                context.Player.Position = PluginClass.ConfigSCP507.ListRoom[configX].Parse().Position;
+                result.State = CommandResultState.Ok;
+                result.Message = $"TP to {PluginClass.ConfigSCP507.ListRoom[configX]}";
+            }
+            return result;
+        }
+    }
+
     [CommandInformation(
            Name = "MoveVent",
            Aliases = new[] { "Vent" },

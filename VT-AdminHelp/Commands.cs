@@ -30,7 +30,7 @@ namespace VT_AdminHelp
             {
                 foreach (var Staff in Staffs)
                 {
-                    Staff.SendBroadcast(10, Plugin.Config.AlertTicketMessage.Replace("%Ticket%", $"{context.Arguments}").Replace("\\n", "\n");
+                    Staff.SendBroadcast(10, Plugin.Config.AlertTicketMessage.Replace("%Ticket%", $"{context.Arguments}").Replace("\\n", "\n"));
                 }
                 context.Player.Jail.JailPlayer(Server.Get.Host);
             }

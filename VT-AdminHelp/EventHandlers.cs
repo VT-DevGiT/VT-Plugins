@@ -33,14 +33,15 @@ namespace VT_AdminHelp
                         ev.Killer.OpenReportWindow(Plugin.Config.AlertKillAllyMessage.Replace("\\n", "\n")
                         .Replace("%MaxKill%", Plugin.Config.FFMax.ToString()).Replace("%DeltaTime%", Plugin.Config.DeltaTime.ToString()));
                     if (Plugin.Config.AutoReport)
-                    { 
+                    {
+                        int reportedID = ev.Killer.PlayerId;
                         string Message = Plugin.Config.AutoReportMessage
                                 .Replace("//n", "/n")
                                 .Replace("%TeamKiller%", ((TeamID)ev.Killer.TeamID).ToString())
                                 .Replace("%TeamVictime%", ((TeamID)ev.Victim.TeamID).ToString())
                                 .Replace("%MaxKill%", Plugin.Config.FFMax.ToString())
                                 .Replace("%DeltaTime%", Plugin.Config.DeltaTime.ToString());
-                        CheaterReport.SubmitReport($"{Server.Get.Name}{Server.Get.Port}@Server", ev.Killer.UserId, $"VT-AdminHelp : {Message}", , "Server Plugin : VT-Adminhelp", ev.Killer.name, true);
+                        CheaterReport.SubmitReport($"{Server.Get.Name}{Server.Get.Port}@Server", ev.Killer.UserId, $"VT-AdminHelp : {Message}", ref reportedID, "Server Plugin : VT-Adminhelp", ev.Killer.name, true);
                     }
                     if (Plugin.Config.Jail)
                         ev.Killer.Jail.JailPlayer(Server.Get.Host);
@@ -52,7 +53,7 @@ namespace VT_AdminHelp
                             foreach (var Staff in Staffs)
                             {
                                 Staff.SendBroadcast(10, Plugin.Config.CallStaffMessage
-                                .Replace("%Player%", $"{ev.Killer.name} ID : {ev.Killer.PlayerId}").Replace("\\n", "\n");
+                                .Replace("%Player%", $"{ev.Killer.name} ID : {ev.Killer.PlayerId}").Replace("\\n", "\n"));
                             }
                             ev.Killer.Jail.JailPlayer(Server.Get.Host);
                         }

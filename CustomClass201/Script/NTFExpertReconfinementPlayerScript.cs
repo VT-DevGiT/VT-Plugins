@@ -28,6 +28,13 @@ namespace CustomClass.PlayerScript
             Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent += OnTarget;
             Server.Get.Events.Player.PlayerDamageEvent += OnDamage;
         }
+
+        public override void DeSpawn()
+        {
+            Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent -= OnTarget;
+            Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
+        }
+
         private bool _target096 = false;
         private void OnDamage(PlayerDamageEventArgs ev)
         {

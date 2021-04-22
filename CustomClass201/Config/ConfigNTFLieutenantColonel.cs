@@ -13,11 +13,11 @@ namespace CustomClass.Config
         [Description("The Items the class spawns with")]
         public List<SerializedItem> Items = new List<SerializedItem>() { 
             new SerializedItem((int)ItemType.KeycardO5, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.GunE11SR, 50,  1, 3, 2, Vector3.one),
+            new SerializedItem((int)ItemType.GunE11SR, 40,  1, 3, 2, Vector3.one),
             new SerializedItem((int)ItemType.GunUSP, 18, 2, 1, 1, Vector3.one),
             new SerializedItem((int)ItemType.Adrenaline, 1, 0, 0, 0, Vector3.one), 
             new SerializedItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one),
+            new SerializedItem((int)ItemType.Radio, 100, 1, 0, 0, Vector3.one),
             new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one) };
 
         [Description("ArtificialHealthConfig of the class")]

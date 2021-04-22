@@ -13,7 +13,7 @@ namespace CustomClass.Config
         [Description("The Items the class spawns with")]
         public List<SerializedItem> Items = new List<SerializedItem>() { 
             new SerializedItem((int)ItemType.KeycardNTFLieutenant, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.GunProject90, 75, 0, 0, 0, Vector3.one), 
+            new SerializedItem((int)ItemType.GunProject90, 50, 0, 0, 0, Vector3.one), 
             new SerializedItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one), 
             new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one), 
             new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), 

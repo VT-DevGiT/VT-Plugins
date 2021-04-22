@@ -36,6 +36,7 @@ namespace CustomClass.PlayerScript
         {
             base.DeSpawn();
             Server.Get.Events.Player.PlayerDamageEvent -= OnDammage;
+            Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
         }
 
         private void OnDammage(PlayerDamageEventArgs ev)

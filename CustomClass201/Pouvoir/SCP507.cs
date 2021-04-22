@@ -13,34 +13,26 @@ namespace CustomClass.Pouvoir
     class SCP507 : BaseRepeatingBehaviour
     {
         private Player player;
-        private int _timer;
-        private int duraction;
-        private int rnd;
-        public int minduraction { get; set; }
-        public int maxduraction { get; set; }
+
         public List<Vector3> rooms = new List<Vector3>();
+
+        public SCP507()
+        {
+            this.RefreshTime = 20000 /*PluginClass.ConfigSCP507.PowerTime*1000 */;
+        }
+
         protected override void Start()
         {
-            minduraction = PluginClass.ConfigSCP507.MinTPower;
-            maxduraction = PluginClass.ConfigSCP507.MaxTPower;
             foreach (var mapPoint in PluginClass.ConfigSCP507.ListRoom)
                 rooms.Add(mapPoint.Parse().Position);
 
             player = gameObject.GetPlayer();
-            duraction = UnityEngine.Random.Range(minduraction, maxduraction);
             base.Start();
         }
         protected override void BehaviourAction()
         {
-            _timer += 1;
-            if (_timer > duraction)
-            {
-                rnd = UnityEngine.Random.Range(0, rooms.Count() - 1);
-                player.MapPoint = PluginClass.ConfigSCP507.ListRoom[rnd].Parse();
-                duraction = UnityEngine.Random.Range(minduraction, maxduraction);
-            }
-            if (_timer > duraction)
-                _timer = 0;
+            int rnd = UnityEngine.Random.Range(0, rooms.Count() - 1);
+            player.MapPoint = PluginClass.ConfigSCP507.ListRoom[rnd].Parse();
         }
     }
 }
