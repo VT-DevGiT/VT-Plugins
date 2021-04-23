@@ -15,7 +15,7 @@ namespace CustomClass.PlayerScript
 
         protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : new List<int> { (int)TeamID.CHI, (int)TeamID.CDP };
 
-        protected override RoleType RoleType => RoleType.Scientist;
+        protected override RoleType RoleType => RoleType.ChaosInsurgency;
 
         protected override int RoleTeam => (int)TeamID.CHI;
 
@@ -26,47 +26,5 @@ namespace CustomClass.PlayerScript
         protected override AbstractConfigSection Config => PluginClass.ConfigCHIntrus;
 
         protected override bool SetDisplayInfo => false;
-
-        public override bool CallPower(PowerType power) 
-        {
-            if (power == PowerType.SwitchRole && Player.RoleType == RoleType.Scientist)
-            {
-                Player.ChangeRoleAtPosition(RoleType.ChaosInsurgency);
-                Player.MaxHealth = Config.GetConfigValue("Health", 120);
-                return true;
-            }
-            return false;
-
-
-        }
-
-        protected override void Event()
-        {
-            Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
-            Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
-        }
-        public override void DeSpawn()
-        {
-            base.DeSpawn();
-            Server.Get.Events.Player.PlayerDeathEvent -= OnDeath;
-            Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
-        }
-
-        private void OnKeyPress(PlayerKeyPressEventArgs ev)
-        {
-            if (ev.Player == Player && ev.KeyCode == KeyCode.Alpha1)
-            {
-                CallPower(PowerType.SwitchRole);
-            }
-        }
-
-        private void OnDeath(PlayerDeathEventArgs ev)
-        {
-            if (ev.Victim == Player)
-                CallPower(PowerType.SwitchRole);
-            else if (ev.Killer == Player)
-                ev.Victim.OpenReportWindow(PluginClass.PluginTranslation.ActiveTranslation.KilledMessage.Replace("%RoleName%", RoleName));
-        }
-
     }
 }

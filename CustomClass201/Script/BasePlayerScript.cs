@@ -143,19 +143,18 @@ namespace CustomClass.PlayerScript
             {
                 Player.RemoveDisplayInfo(PlayerInfoArea.Role);
                 List<RoleType> roleWithSquad = new List<RoleType>() { RoleType.FacilityGuard, RoleType.NtfCadet,
-                                            RoleType.NtfLieutenant, RoleType.NtfCommander, RoleType.NtfScientist};
-                Timing.CallDelayed(1f, () =>
+                    RoleType.NtfLieutenant, RoleType.NtfCommander, RoleType.NtfScientist};
+                
+                if (roleWithSquad.Contains(RoleType))
                 {
-                    if (roleWithSquad.Contains(RoleType))
-                    {
-                        Player.DisplayInfo = $"{RoleName} ({Player.UnitName})";
-                        Player.RemoveDisplayInfo(PlayerInfoArea.UnitName);
-                    }
-                    else
-                    {
-                        Player.DisplayInfo = $"{RoleName}";
-                    }
-                });
+                    Player.RemoveDisplayInfo(PlayerInfoArea.UnitName);
+                    Timing.CallDelayed(1f, () => Player.DisplayInfo = $"{RoleName} ({Player.UnitName})" );
+                }
+                else
+                {
+                    Player.DisplayInfo = $"{RoleName}";
+                }
+                
             }
 
         }

@@ -12,7 +12,7 @@ namespace VTRadio
     {
         public EventHandlers()
         {
-            //Server.Get.Events.Player.PlayerSpeakEvent += OnSpeak;
+            Server.Get.Events.Player.PlayerSpeakEvent += OnSpeak;
             Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
         }
 
@@ -47,10 +47,7 @@ namespace VTRadio
 
         private void OnSpeak(PlayerSpeakEventArgs ev)
         {
-            if (ev.RadioTalk)
-            {
-
-            }
+        
         }
     }
 }

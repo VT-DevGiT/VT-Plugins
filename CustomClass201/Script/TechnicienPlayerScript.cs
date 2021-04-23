@@ -23,7 +23,17 @@ namespace CustomClass.PlayerScript
 
         protected override string RoleName => PluginClass.ConfigTechnicien.RoleName;
 
+        protected override bool SetDisplayInfo => false;
+
         protected override AbstractConfigSection Config => PluginClass.ConfigTechnicien;
+
+        protected override void AditionalInit()
+        {
+            Player.RemoveDisplayInfo(PlayerInfoArea.Role);
+            Player.RemoveDisplayInfo(PlayerInfoArea.UnitName);
+            Player.DisplayInfo = RoleName;
+            Player.UnitName = null;
+        }
 
         public override void DeSpawn()
         {

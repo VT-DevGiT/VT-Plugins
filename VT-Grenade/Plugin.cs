@@ -27,7 +27,7 @@ namespace VTGrenad
 
         private void PatchAll()
         {
-            var instance = new Harmony("VT-Grenade");
+            var instance = new Harmony("VTGrenad");
             instance.PatchAll();
             Server.Get.Logger.Info("Custom class Harmony Patch done!");
         }

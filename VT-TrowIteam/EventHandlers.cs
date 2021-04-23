@@ -1,6 +1,7 @@
 ﻿using Grenades;
 using MEC;
 using Synapse;
+using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
 using UnityEngine;
@@ -61,15 +62,14 @@ namespace VTTrowItem
         private void OnKeyBasicDrop(PlayerKeyPressEventArgs ev)
         {
             var item = ev.Player?.ItemInHand;
-            if (ev.KeyCode == Plugin.Config.key && item != null)
+            if (ev.KeyCode == Plugin.Config.key && item != null && (item.ID != 56 || ev.Player.Room.Zone != ZoneType.Pocket))
                 item.Drop();
         }
         private void OnDrop(PlayerDropItemEventArgs ev)
         {
             var item = ev.Item;
-            if (item != null && item.ItemType != ItemType.MicroHID && ev.Allow)
+            if (item != null && item.ItemType != ItemType.MicroHID && (item.ID != 56 || ev.Player.Room.Zone != ZoneType.Pocket) && ev.Allow)
             {
-
                 Timing.RunCoroutine(Method.Throw(item, (ev.Player.Hub.PlayerCameraReference.forward + Plugin.Config.addLaunchForce).normalized));
             }
         }

@@ -33,7 +33,7 @@ namespace CustomClass.Config
         public int MaxAlive = 1;
 
         [Description("The number of players required in the same role to have the chance for the class to appear")]
-        public int RequiredPlayers = 5;
+        public int RequiredPlayers = 3;
 
         [Description("The name of the class")]
         public string RoleName = " U.T.R.";

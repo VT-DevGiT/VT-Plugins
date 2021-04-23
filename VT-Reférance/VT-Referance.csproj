@@ -76,7 +76,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviour\BaseBehaviour.cs" />
+    <Compile Include="Event\VT-EventManger.cs" />
+    <Compile Include="Event\VT-GrenadeEvents.cs" />
+    <Compile Include="Event\VT-PlayerEvents.cs" />
     <Compile Include="Interface\IUtrRole.cs" />
+    <Compile Include="Patch\FreeTeammatePatch.cs" />
+    <Compile Include="Patch\UncuffTargetPatch.cs" />
     <Compile Include="Variable\AirBombPos.cs" />
     <Compile Include="Behaviour\Lamps.cs" />
     <Compile Include="Variable\TeamID.cs" />

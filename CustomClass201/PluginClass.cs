@@ -104,7 +104,7 @@ namespace CustomClass
         public static ConfigSCP008 ConfigSCP008;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP166")]
-        public static ConfigSCP166 ConfigSCP166;
+        public static ConfigSCP166 ConfigSCP166Az;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP1048")]
         public static ConfigSCP1048 ConfigSCP1048;
@@ -205,7 +205,7 @@ namespace CustomClass
             Server.Get.RoleManager.RegisterCustomRole<NTFInfirmierScript>();
             Server.Get.RoleManager.RegisterCustomRole<NTFVirologueScript>();
             Server.Get.RoleManager.RegisterCustomRole<FoundationUTRScript>();
-            Server.Get.RoleManager.RegisterCustomRole<SCP166Script>();
+            Server.Get.RoleManager.RegisterCustomRole<SCP166AzScript>();
             Server.Get.RoleManager.RegisterCustomRole<SCP008Script>();
             Server.Get.RoleManager.RegisterCustomRole<SCP1048cript>();
             Server.Get.RoleManager.RegisterCustomRole<SCP507Script>();

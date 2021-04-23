@@ -8,5 +8,5 @@ using System.Threading.Tasks;
 namespace VT_Referance.Interface
 {
     public interface IUtrRole : IRole
-    {}
+    { }
 }

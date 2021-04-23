@@ -23,7 +23,7 @@ namespace CustomClass.Pouvoir
         protected override void BehaviourAction()
         {
             var listPlayerPossible = Server.Get.Players.Where(p => p != player && p.TeamID != (int)TeamID.SCP
-                && p.TeamID != (int)TeamID.RIP && Vector3.Distance(p.Position, player.Position) < PluginClass.ConfigSCP166.Distance);
+                && p.TeamID != (int)TeamID.RIP && Vector3.Distance(p.Position, player.Position) < PluginClass.ConfigSCP166Az.Distance);
 
             foreach (var target in playerAffected.Keys)
             {

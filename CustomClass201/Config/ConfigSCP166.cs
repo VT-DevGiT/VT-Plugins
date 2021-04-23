@@ -26,7 +26,7 @@ namespace CustomClass.Config
         public int RequiredPlayers = 3;
 
         [Description("The name of the class")]
-        public string RoleName = "SCP-166";
+        public string RoleName = "SCP-166-Az";
 
         [Description("The distance that the class must have with other class for the power")]
         public int Distance = 6;

@@ -153,7 +153,7 @@
     <Compile Include="Script\SCP507PlayerScript.cs" />
     <Compile Include="Script\SCP682PlayerScript.cs" />
     <Compile Include="Script\SCP1048PlayerScript.cs" />
-    <Compile Include="Script\SCP166PlayerScript.cs" />
+    <Compile Include="Script\SCP166AzPlayerScript.cs" />
     <Compile Include="Script\SCP966PlayerScript.cs" />
     <Compile Include="Script\SCP953PlayerScript.cs" />
     <Compile Include="Script\SCP999PlayerScript.cs" />

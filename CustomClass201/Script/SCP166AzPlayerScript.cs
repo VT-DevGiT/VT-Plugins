@@ -12,7 +12,7 @@ using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
-    public class SCP166Script : BasePlayerScript
+    public class SCP166AzScript : BasePlayerScript
     {
         protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC, (int)TeamID.CHI };
 
@@ -22,11 +22,11 @@ namespace CustomClass.PlayerScript
 
         protected override int RoleTeam => (int)TeamID.NetralSCP;
 
-        protected override int RoleId => (int)RoleID.SCP166;
+        protected override int RoleId => (int)RoleID.SCP166Az;
 
-        protected override string RoleName => PluginClass.ConfigSCP166.RoleName;
+        protected override string RoleName => PluginClass.ConfigSCP166Az.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigSCP166;
+        protected override AbstractConfigSection Config => PluginClass.ConfigSCP166Az;
 
         protected override void AditionalInit()
         {
