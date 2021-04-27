@@ -15,7 +15,7 @@ namespace VTGrenad
         SynapseMajor = SynapseController.SynapseMajor,
         SynapseMinor = SynapseController.SynapseMinor,
         SynapsePatch = SynapseController.SynapsePatch,
-        Version = "v.1.2.1"
+        Version = "v.1.3.2"
         )]
     public class Plugin : AbstractPlugin
     {

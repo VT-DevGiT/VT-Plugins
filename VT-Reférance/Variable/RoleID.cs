@@ -24,6 +24,7 @@
         FacilityGuard = 15,
         Scp93953 = 16,
         Scp93989 = 17,
+        GOCMember = 19,
         SerpentsHand = 30,
         Scp035 = 35,
         Scp056 = 56,

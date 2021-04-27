@@ -1,14 +1,13 @@
 ﻿using Grenades;
-using MEC;
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using VT_Referance.Event;
+using VT_Referance;
+using VT_Referance.Event.EventArguments;
 
 namespace VTGrenad
 {
@@ -21,12 +20,12 @@ namespace VTGrenad
             Server.Get.Events.Player.PlayerDropItemEvent += ItemDropped;
             Server.Get.Events.Player.PlayerPickUpItemEvent += PickingUpItem;
             Server.Get.Events.Player.PlayerCuffTargetEvent += OnCuff;
-            //if (Plugin.Config.ChaineFuseFragGrenad)
-            Events.GrenadeSingleton.Instance.ChangeIntoFragEvent += OnChangeIntoFragEvent;
-            //if (Plugin.Config.FlashbangFuseWithCollision)
-                Events.GrenadeSingleton.Instance.CollisionGrenadeEvent += OnCollisionGrenade;
-            //if (Plugin.Config.BadFlash)
-                Events.GrenadeSingleton.Instance.ExplosionGrenadeEvent += OnExplosionGrenade;
+            if (Plugin.Config.ChaineFuseFragGrenad)
+            VTController.Server.Event.Grenade.ChangeIntoFragEvent += OnChangeIntoFragEvent;
+            if (Plugin.Config.FlashbangFuseWithCollision)
+            VTController.Server.Event.Grenade.CollisionGrenadeEvent += OnCollisionGrenade;
+            if (Plugin.Config.BadFlash)
+            VTController.Server.Event.Grenade.ExplosionGrenadeEvent += OnExplosionGrenade;
         }
 
         private void OnExplosionGrenade(ExplosionGrenadeEventArgs ev)
@@ -35,14 +34,14 @@ namespace VTGrenad
             if (ev.Type == GrenadeType.Flashbang)
             {
                 ev.Grenade.GetComponent<FlashGrenade>();
-                foreach (var joueur in Server.Get.Players)
+                foreach (var joueur in Synapse.Server.Get.Players)
                 {
                     GameObject player = joueur.gameObject;
                     Vector3 position = ev.Grenade.transform.position;
                     ReferenceHub hub = ReferenceHub.GetHub(player);
                     FlashGrenade Flash = ev.Grenade.GetComponent<FlashGrenade>();
 
-                    if (!(UnityEngine.Object)ev.Grenade.thrower == (UnityEngine.Object)null && Flash._friendlyFlash)
+                    if (!(Object)ev.Grenade.thrower == (Object)null && Flash._friendlyFlash)
                     {
                         float num = 
                             Flash.powerOverDistance.Evaluate(Vector3.Distance(player.transform.position, position) / ((double)position.y > 900.0 ? 
@@ -92,7 +91,7 @@ namespace VTGrenad
                             {
                                 if (grenade.IsArmed)
                                 {
-                                    Synapse.Api.Map.Get.SpawnGrenade(grenade.GrItem.Position, Vector3.zero, 0.2f, grenade.IsFlash ? GrenadeType.Flashbang : GrenadeType.Grenade, ev.Player);
+                                    Map.Get.SpawnGrenade(grenade.GrItem.Position, Vector3.zero, 0.2f, grenade.IsFlash ? GrenadeType.Flashbang : GrenadeType.Grenade, ev.Player);
                                     grenade.Used = true;
                                     grenade.GrItem.Destroy();
                                 }

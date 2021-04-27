@@ -1,71 +1,72 @@
 ﻿using HarmonyLib;
-using Synapse;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+namespace VT_Referance
+{
+    public class VTController
+    {
+        public static Event.Server Server { get { return Event.ServerSingleton.Instance; } }
+    }
+}
 
 namespace VT_Referance.Event
 {
-    public class Events
-    { 
-       
-        private static bool _patched = false;
+    internal static class ServerSingleton
+    {
+        private static Server _instance;
+        private static readonly object _lock = new object();
 
-        public Events()
+        public static Server Instance
         {
-            if (!_patched)
+            get
             {
-                _patched = true;
-                Server.Get.Logger.Info("VT_Referance Patch");
-                var instance = new Harmony("VT_Referance.Patch");
-                instance.PatchAll();
-            }
-        }
-
-        #region Instance
-        private static class Singleton<T>
-        where T : class, new()
-        {
-            private static T _instance;
-            private static readonly object _lock = new object();
-            public static T Instance
-            {
-                get
+                lock (_lock)
                 {
-                    lock (_lock)
+                    if (_instance == null)
                     {
-                        Server.Get.Logger.Info("VT_Referance Singleton_instance");
-                        return _instance ?? (_instance = new T());
+                        _instance = new Server();
+                        var instance = new Harmony("VT_Referance.Patch");
+                        instance.PatchAll();
                     }
+                    return _instance;
                 }
             }
         }
-        public sealed class PlayerSingleton : VT_PlayerEvents
-        {
-            public static VT_PlayerEvents Instance
-            {
-                get
-                {
-                    return Singleton<VT_PlayerEvents>.Instance;
-                }
-            }
-        }
-
-        public sealed class GrenadeSingleton : VT_GrenadeEvents
-        {
-            public static VT_GrenadeEvents Instance
-            {
-                get
-                {
-                    return Singleton<VT_GrenadeEvents>.Instance;
-                }
-            }
-        }
-
-
-        #endregion
     }
 
+    public class Server
+    {
+        public Server(){}
+        public EventHandler Event { get; } = new EventHandler();
+    }
+    public class EventHandler
+    {
+        public VT_ServerEvents Server { get; } = new VT_ServerEvents();
+        public VT_PlayerEvents Player { get; } = new VT_PlayerEvents();
+        public VT_RoundEvents Round { get; } = new VT_RoundEvents();
+        public VT_MapEvents Map { get; } = new VT_MapEvents();
+        public VT_ScpEvents Scp { get; } = new VT_ScpEvents();
+        public VT_GrenadeEvents Grenade { get; } = new VT_GrenadeEvents();
+    }
 }
+
+/*
+    private static class Singleton<T>
+    where T : class, new()
+    {
+        private static T _instance;
+        private static readonly object _lock = new object();
+        public static T Instance
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    return _instance ?? (_instance = new T());
+                }
+            }
+        }
+    }
+*/
+
+
+

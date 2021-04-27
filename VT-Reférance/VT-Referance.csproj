@@ -76,9 +76,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviour\BaseBehaviour.cs" />
+    <Compile Include="Event\EventArguments\VT-GrenadeEventArgs.cs" />
+    <Compile Include="Event\EventArguments\VT-MapEventArgs.cs" />
+    <Compile Include="Event\EventArguments\VT-PlayerEventArgs.cs" />
+    <Compile Include="Event\EventArguments\VT-RoundEventArgs.cs" />
+    <Compile Include="Event\EventArguments\VT-ScpEventArgs.cs" />
+    <Compile Include="Event\EventArguments\VT-ServerEventArgs.cs" />
     <Compile Include="Event\VT-EventManger.cs" />
     <Compile Include="Event\VT-GrenadeEvents.cs" />
     <Compile Include="Event\VT-PlayerEvents.cs" />
+    <Compile Include="Event\VT_MapEvents.cs" />
+    <Compile Include="Event\VT_RoundEvents.cs" />
+    <Compile Include="Event\VT_ScpEvents.cs" />
+    <Compile Include="Event\VT_ServerEvents.cs" />
     <Compile Include="Interface\IUtrRole.cs" />
     <Compile Include="Patch\CollisionGrenadePatch.cs" />
     <Compile Include="Patch\ExplosionGrenadePatch.cs" />

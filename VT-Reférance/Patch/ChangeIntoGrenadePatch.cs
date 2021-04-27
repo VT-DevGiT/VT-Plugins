@@ -5,10 +5,6 @@ using Synapse;
 using Synapse.Api.Enum;
 using Synapse.Api.Items;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VT_Referance.Event;
 
 namespace VT_Referance.Patch
@@ -18,7 +14,7 @@ namespace VT_Referance.Patch
     {
         private static bool Prefix(FragGrenade __instance, Pickup pickup, ref bool __result)
         {
-            Server.Get.Logger.Info("VT_Referance Event Patch ChangeIntoGrenade");
+            Synapse.Server.Get.Logger.Info("VT_Referance Event Patch ChangeIntoGrenade");
             try
             {
                 if (!NetworkServer.active) return false;
@@ -35,7 +31,7 @@ namespace VT_Referance.Patch
                     Type = (GrenadeType)4;
 
                 bool falg = true;
-                Events.GrenadeSingleton.Instance.InvokeChangeIntoFragEvent(item, grenade, Type, ref falg);
+                VTController.Server.Event.Grenade.InvokeChangeIntoFragEvent(item, grenade, Type, ref falg);
                 if (falg) 
                     __result = false;
                 return falg;

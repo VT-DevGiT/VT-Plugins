@@ -18,7 +18,7 @@ namespace VT_Referance.Patch
     {
         private static bool Prefix(FragGrenade __instance, ref bool __result)
         {
-            Server.Get.Logger.Info("VT_Referance Event Patch OnCollisionEnter");
+            Synapse.Server.Get.Logger.Info("VT_Referance Event Patch OnCollisionEnter");
             try
             {
                 if (!NetworkServer.active) return false;
@@ -34,8 +34,8 @@ namespace VT_Referance.Patch
                 else
                     Type = (GrenadeType)4;
 
-                Events.GrenadeSingleton.Instance.InvokeExplosionGrenadeEvent(grenade, Type, ref falg);
-                if (falg)
+                VTController.Server.Event.Grenade.InvokeExplosionGrenadeEvent(grenade, Type, ref falg);
+                if (!falg)
                     __result = __instance.ServersideExplosion();
                 return falg;
             }

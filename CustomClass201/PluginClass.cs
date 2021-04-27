@@ -16,10 +16,10 @@ namespace CustomClass
         Description = "A plugin for add new class",
         LoadPriority = 1,
         Name = "CustomClass",
-        SynapseMajor = 2,
-        SynapseMinor = 4,
-        SynapsePatch = 1,
-        Version = "v.1.1.3")]
+        SynapseMajor = SynapseController.SynapseMajor,
+        SynapseMinor = SynapseController.SynapseMinor,
+        SynapsePatch = SynapseController.SynapsePatch,
+        Version = "v.1.2.0")]
     public class PluginClass : AbstractPlugin
     {
         public static PluginClass Plugin;

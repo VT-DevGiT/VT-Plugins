@@ -28,7 +28,7 @@ namespace VTEscape
         static public void ChangeRole(Player player, int Role)
         {
             player.Inventory.Clear();
-            Timing.CallDelayed(0.1f, () => player.RoleID = Role);
+            player.RoleID = Role;
         }
     }
 }

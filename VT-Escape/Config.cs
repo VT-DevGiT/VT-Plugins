@@ -18,8 +18,9 @@ namespace VTEscape
         {
             // Vania Game
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.RSC, TeamID.None, RoleID.NtfScientist),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.RSC, TeamID.CHI, RoleID.NtfScientist),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.CDP, TeamID.None, RoleID.ChaosInsurgency),
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.CDP, TeamID.MTF, RoleID.NtfCadet),
-
 
             //Custom
 

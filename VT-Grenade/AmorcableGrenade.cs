@@ -24,7 +24,6 @@ namespace VTGrenad
             GrItem = gritem;
             DropTime = DateTime.Now;
             Used = false;
-
         }
     }
 }
