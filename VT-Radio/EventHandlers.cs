@@ -29,7 +29,7 @@ namespace VTRadio
                 {
                     ev.Player.SendBroadcast(2, "you need a radio !");
                 }
-                else if (RespawnManager.Singleton.GetFieldValue<float>("_timeForNextSequence") <= 15)
+                else if (RespawnManager.Singleton.GetFieldValueorOrPerties<float>("_timeForNextSequence") <= 15)
                 {
                     ev.Player.SendBroadcast(2, "too close to a respawn");
                 }

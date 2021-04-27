@@ -30,7 +30,7 @@ namespace VTRadio
                 result.Message = "you need a radio !";
                 result.State = CommandResultState.NoPermission;
             }
-            else if (RespawnManager.Singleton.GetFieldValue<float>("_timeForNextSequence") <= 15)
+            else if (RespawnManager.Singleton.GetFieldValueorOrPerties<float>("_timeForNextSequence") <= 15)
             {
                 result.State = CommandResultState.NoPermission;
                 result.Message = "too close to a respawn";

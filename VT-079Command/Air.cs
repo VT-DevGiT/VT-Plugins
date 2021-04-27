@@ -28,7 +28,7 @@ namespace VT079.Command
         {
             var result = new CommandResult();
 
-            if (RespawnManager.Singleton.GetFieldValue<float>("_timeForNextSequence") <= 15)
+            if (RespawnManager.Singleton.GetFieldValueorOrPerties<float>("_timeForNextSequence") <= 15)
             {
                 result.State = CommandResultState.NoPermission;
                 result.Message = "too close to a respawn";

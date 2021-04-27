@@ -95,9 +95,9 @@ namespace VTProget_X
                     ? (int)Mathf.Clamp(AlphaWarheadController.Host.timeToDetonation - RoundSummary.roundTime, 0, AlphaWarheadController.Host.timeToDetonation)
                     : -1;
                 nextRespawnTime = (int)Math.Truncate(RespawnManager.CurrentSequence() == RespawnManager.RespawnSequencePhase.RespawnCooldown
-                    ? RespawnManager.Singleton.GetFieldValue<float>("_timeForNextSequence") - RespawnManager.Singleton.GetFieldValue<Stopwatch>("_stopwatch").Elapsed.TotalSeconds
+                    ? RespawnManager.Singleton.GetFieldValueorOrPerties<float>("_timeForNextSequence") - RespawnManager.Singleton.GetFieldValueorOrPerties<Stopwatch>("_stopwatch").Elapsed.TotalSeconds
                     : 0);
-                isContain = PlayerManager.localPlayer.GetComponent<CharacterClassManager>().GetFieldValue<LureSubjectContainer>("_lureSpj").allowContain;
+                isContain = PlayerManager.localPlayer.GetComponent<CharacterClassManager>().GetFieldValueorOrPerties<LureSubjectContainer>("_lureSpj").allowContain;
                 isAlreadyUsed = OneOhSixContainer.used;
                 leftdecont = Mathf.Clamp(leftdecont, 0, leftdecont);
                 #endregion

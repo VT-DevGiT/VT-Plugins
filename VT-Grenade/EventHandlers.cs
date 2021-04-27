@@ -42,7 +42,7 @@ namespace VTGrenad
                     ReferenceHub hub = ReferenceHub.GetHub(player);
                     FlashGrenade Flash = ev.Grenade.GetComponent<FlashGrenade>();
 
-                    if (!(Object)ev.Grenade.GetProperties<GrenadeManager>("thrower") == (Object)null && Flash._friendlyFlash)
+                    if (!(Object)ev.Grenade.GetFieldValueorOrPerties<GrenadeManager>("thrower") == (Object)null && Flash.GetFieldValueorOrPerties<bool>("_friendlyFlash"))
                     {
                         float num = 
                             Flash.powerOverDistance.Evaluate(Vector3.Distance(player.transform.position, position) / ((double)position.y > 900.0 ? 
@@ -50,7 +50,6 @@ namespace VTGrenad
                             Flash.distanceMultiplierFacility)) * 
                                 Flash.powerOverDot.Evaluate(Vector3.Dot(hub.PlayerCameraReference.forward, 
                                     (hub.PlayerCameraReference.position - position).normalized));
-                        byte intensity = (byte)Mathf.Clamp(Mathf.RoundToInt(num * 10f * Flash.maximumDuration), 1, (int)byte.MaxValue);
                         if ((double)num > 0.0)
                         {
                             joueur.GiveEffect(Effect.Deafened, 1, 10);
