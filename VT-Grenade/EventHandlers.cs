@@ -8,6 +8,7 @@ using System.Linq;
 using UnityEngine;
 using VT_Referance;
 using VT_Referance.Event.EventArguments;
+using VT_Referance.Method;
 
 namespace VTGrenad
 {
@@ -41,7 +42,7 @@ namespace VTGrenad
                     ReferenceHub hub = ReferenceHub.GetHub(player);
                     FlashGrenade Flash = ev.Grenade.GetComponent<FlashGrenade>();
 
-                    if (!(Object)ev.Grenade.thrower == (Object)null && Flash._friendlyFlash)
+                    if (!(Object)ev.Grenade.GetProperties<GrenadeManager>("thrower") == (Object)null && Flash._friendlyFlash)
                     {
                         float num = 
                             Flash.powerOverDistance.Evaluate(Vector3.Distance(player.transform.position, position) / ((double)position.y > 900.0 ? 

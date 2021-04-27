@@ -23,6 +23,7 @@ namespace VT_Referance.Event
                 {
                     if (_instance == null)
                     {
+                        Synapse.Server.Get.Logger.Info("VT_Referance Event : Server Instance");
                         _instance = new Server();
                         var instance = new Harmony("VT_Referance.Patch");
                         instance.PatchAll();

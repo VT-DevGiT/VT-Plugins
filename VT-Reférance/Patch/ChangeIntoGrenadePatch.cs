@@ -12,7 +12,7 @@ namespace VT_Referance.Patch
     [HarmonyPatch(typeof(FragGrenade), nameof(FragGrenade.ChangeIntoGrenade))]
     class ChangeIntoFragPatch
     {
-        private static bool Prefix(FragGrenade __instance, Pickup pickup, ref bool __result)
+        private static bool Prefix(FragGrenade __instance, Pickup item, ref bool __result)
         {
             Synapse.Server.Get.Logger.Info("VT_Referance Event Patch ChangeIntoGrenade");
             try
@@ -21,7 +21,7 @@ namespace VT_Referance.Patch
                 
                     
                 FragGrenade grenade = __instance;
-                SynapseItem item = pickup.GetSynapseItem();
+                SynapseItem pickup = item.GetSynapseItem();
                 GrenadeType Type;
                 if (__instance.GetType() == typeof(FragGrenade))
                     Type = GrenadeType.Grenade;
@@ -31,8 +31,8 @@ namespace VT_Referance.Patch
                     Type = (GrenadeType)4;
 
                 bool falg = true;
-                VTController.Server.Event.Grenade.InvokeChangeIntoFragEvent(item, grenade, Type, ref falg);
-                if (falg) 
+                VTController.Server.Event.Grenade.InvokeChangeIntoFragEvent(pickup, grenade, Type, ref falg);
+                if (!falg) 
                     __result = false;
                 return falg;
             }

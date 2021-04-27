@@ -34,5 +34,10 @@ namespace VT_Referance.Method
             return (T)field.GetValue(element);
         }
 
+        public static T GetProperties<T>(this object element, string fieldName)
+        {
+            var field = element.GetType().GetProperty(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
+            return (T)field.GetValue(element);
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace VT_Referance.Patch
     [HarmonyPatch(typeof(Grenade), nameof(Grenade.OnCollisionEnter))]
     class ColisionGrenadePatch
     {
-        private static bool Prefix(FragGrenade __instance, ref bool __result)
+        private static bool Prefix(FragGrenade __instance)
         {
             Synapse.Server.Get.Logger.Info("VT_Referance Event Patch OnCollisionEnter");
             try
@@ -34,9 +34,7 @@ namespace VT_Referance.Patch
                 else
                     Type = (GrenadeType)4;
 
-                VTController.Server.Event.Grenade.InvokeExplosionGrenadeEvent(grenade, Type, ref falg);
-                if (!falg)
-                    __result = __instance.ServersideExplosion();
+                VTController.Server.Event.Grenade.InvokeCollisionGrenadeEvent(grenade, Type, ref falg);
                 return falg;
             }
             catch (Exception e)
