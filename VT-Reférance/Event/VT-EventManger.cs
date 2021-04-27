@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using Synapse;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace VT_Referance.Event
             if (!_patched)
             {
                 _patched = true;
+                Server.Get.Logger.Info("VT_Referance Patch");
                 var instance = new Harmony("VT_Referance.Patch");
                 instance.PatchAll();
             }
@@ -34,6 +36,7 @@ namespace VT_Referance.Event
                 {
                     lock (_lock)
                     {
+                        Server.Get.Logger.Info("VT_Referance Singleton_instance");
                         return _instance ?? (_instance = new T());
                     }
                 }

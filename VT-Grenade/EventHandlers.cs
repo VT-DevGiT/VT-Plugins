@@ -1,10 +1,14 @@
-﻿using Synapse;
+﻿using Grenades;
+using MEC;
+using Synapse;
+using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using VT_Referance.Event;
 
 namespace VTGrenad
 {
@@ -17,6 +21,58 @@ namespace VTGrenad
             Server.Get.Events.Player.PlayerDropItemEvent += ItemDropped;
             Server.Get.Events.Player.PlayerPickUpItemEvent += PickingUpItem;
             Server.Get.Events.Player.PlayerCuffTargetEvent += OnCuff;
+            //if (Plugin.Config.ChaineFuseFragGrenad)
+            Events.GrenadeSingleton.Instance.ChangeIntoFragEvent += OnChangeIntoFragEvent;
+            //if (Plugin.Config.FlashbangFuseWithCollision)
+                Events.GrenadeSingleton.Instance.CollisionGrenadeEvent += OnCollisionGrenade;
+            //if (Plugin.Config.BadFlash)
+                Events.GrenadeSingleton.Instance.ExplosionGrenadeEvent += OnExplosionGrenade;
+        }
+
+        private void OnExplosionGrenade(ExplosionGrenadeEventArgs ev)
+        {
+            Server.Get.Logger.Info("OnExplosionGrenade VT-Grenade");
+            if (ev.Type == GrenadeType.Flashbang)
+            {
+                ev.Grenade.GetComponent<FlashGrenade>();
+                foreach (var joueur in Server.Get.Players)
+                {
+                    GameObject player = joueur.gameObject;
+                    Vector3 position = ev.Grenade.transform.position;
+                    ReferenceHub hub = ReferenceHub.GetHub(player);
+                    FlashGrenade Flash = ev.Grenade.GetComponent<FlashGrenade>();
+
+                    if (!(UnityEngine.Object)ev.Grenade.thrower == (UnityEngine.Object)null && Flash._friendlyFlash)
+                    {
+                        float num = 
+                            Flash.powerOverDistance.Evaluate(Vector3.Distance(player.transform.position, position) / ((double)position.y > 900.0 ? 
+                            Flash.distanceMultiplierSurface : 
+                            Flash.distanceMultiplierFacility)) * 
+                                Flash.powerOverDot.Evaluate(Vector3.Dot(hub.PlayerCameraReference.forward, 
+                                    (hub.PlayerCameraReference.position - position).normalized));
+                        byte intensity = (byte)Mathf.Clamp(Mathf.RoundToInt(num * 10f * Flash.maximumDuration), 1, (int)byte.MaxValue);
+                        if ((double)num > 0.0)
+                        {
+                            joueur.GiveEffect(Effect.Deafened, 1, 10);
+                            joueur.GiveEffect(Effect.Exhausted, 1, 10);
+                        }
+                    }
+                }
+            }
+        }
+        private void OnCollisionGrenade(CollisionGrenadeEventArgs ev)
+        {
+            Server.Get.Logger.Info("OnCollisionGrenade VT-Grenade");
+            if (ev.Type == GrenadeType.Flashbang)
+                ev.Grenade.NetworkfuseTime = 0;
+        }
+
+        private void OnChangeIntoFragEvent(ChangeIntoFragEventArgs ev)
+        {
+            Server.Get.Logger.Info("OnChangeIntoFragEvent VT-Grenade");
+            ev.Item.Despawn();
+            Map.Get.SpawnGrenade(ev.Item.Position, Vector3.zero, 0.1f);
+            ev.Allow = false;
         }
 
         private void OnKeyPress(PlayerKeyPressEventArgs ev)

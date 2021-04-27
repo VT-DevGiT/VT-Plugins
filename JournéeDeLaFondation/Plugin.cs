@@ -5,13 +5,13 @@ using Synapse.Api.Plugin;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace VTGrenad
+namespace JournéeDeLaFondation
 {
     [PluginInformation(
-        Author = "VT",
-        Description = "Allows you to activate grenades remotely",
+        Author = "VT, Bonjemus",
+        Description = "Le plugin pour la journée de la fondation",
         LoadPriority = 5,
-        Name = "VT-Grenade",
+        Name = "JourneeDelaFondation",
         SynapseMajor = SynapseController.SynapseMajor,
         SynapseMinor = SynapseController.SynapseMinor,
         SynapsePatch = SynapseController.SynapsePatch,
@@ -20,23 +20,15 @@ namespace VTGrenad
     public class Plugin : AbstractPlugin
     {
         public static Plugin Instance { get; private set; }
-        public static Dictionary<int, List<AmorcableGrenade>> DictTabletteGrenades = new Dictionary<int, List<AmorcableGrenade>>();
+        public bool Actif = false;
 
-        [Synapse.Api.Plugin.Config(section = "VT-Grenade")]
+        [Synapse.Api.Plugin.Config(section = "JourneeDelaFondation")]
         public static Config Config;
-
-        private void PatchAll()
-        {
-            var instance = new Harmony("VTGrenad");
-            instance.PatchAll();
-            Server.Get.Logger.Info("Custom class Harmony Patch done!");
-        }
 
         public override void Load()
         {
             Instance = this;
             base.Load();
-            //PatchAll();
             new EventHandlers();
         }
     }

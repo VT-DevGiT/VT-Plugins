@@ -13,31 +13,40 @@ namespace VTEscape
         [Description("add new one out from IC side")]
         public bool ICEscapeIsEnabled { get; set; } = true;
 
-        [Description("Escape Config, help on the github")]
+        [Description("Escape Config, if the conditions are met, the player will become the chosen role")]
         public List<SerializedEscapeConfig> EscapeList = new List<SerializedEscapeConfig>()
         {
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.DirecteurSite, TeamID.None, false, RoleID.NtfLieutenantColonel),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.GardeSuperviseur, TeamID.None, false, RoleID.NtfCommander),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.ScientifiqueSuperviseur, TeamID.None, false, RoleID.NtfExpertReconfinement),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.Concierge, TeamID.None, false, RoleID.NtfLieutenant),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.FacilityGuard, TeamID.None, false, RoleID.NtfLieutenant),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.Scp0492, TeamID.None, false, RoleID.Spectator),
+            // Vania Game
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.RSC, TeamID.None, RoleID.NtfScientist),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.CDP, TeamID.MTF, RoleID.NtfCadet),
 
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.RSC, false, RoleID.NtfScientist),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.NetralSCP, false, RoleID.NtfLieutenant),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.CHI, true, RoleID.NtfCadet),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.MTF, true, RoleID.NtfCadet),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.AndersneRobotic, true, RoleID.NtfCadet),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.CDP, true, RoleID.NtfCadet),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.SCP, false, RoleID.Spectator, true, "LOKI - 5 procedure is engaged . the alfa warhead is started , evacuat immediately ."),
 
-            new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.ChiIntrus, TeamID.None, false, RoleID.ChiLeader),
+            //Custom
+
+            //escapeMTF Role
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.CDP, TeamID.CDM, RoleID.CdmCadet),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.DirecteurSite, TeamID.None, TeamID.None, RoleID.NtfLieutenantColonel),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.GardeSuperviseur, TeamID.None, TeamID.None, RoleID.NtfCommander),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.ScientifiqueSuperviseur, TeamID.None, TeamID.None, RoleID.NtfExpertReconfinement),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.Concierge, TeamID.None, TeamID.None, RoleID.NtfLieutenant),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.FacilityGuard, TeamID.None, TeamID.None, RoleID.NtfLieutenant),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.Scp0492, TeamID.None, TeamID.None, RoleID.Spectator),
+            //escapeMTF Team
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.NetralSCP, TeamID.None, RoleID.NtfLieutenant),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.MTF, TeamID.MTF, RoleID.NtfCadet),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.MTF, TeamID.MTF, RoleID.NtfCadet),
+             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.MTF, TeamID.CHI, RoleID.ChaosInsurgency),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.AndersneRobotic, TeamID.MTF, RoleID.NtfCadet),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.SCP, TeamID.None, RoleID.Spectator, true, "LOKI - 5 procedure is engaged . the alfa warhead is started , evacuat immediately ."),
             
-            new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.None, TeamID.CDP, false, RoleID.ChiExpertPyrotechnie),
-            new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.None, TeamID.RSC, true, RoleID.ChaosInsurgency),
-            new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.None, TeamID.MTF, true, RoleID.ChaosInsurgency),
-            new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.None, TeamID.SCP, false, RoleID.Spectator),
-            new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.None, TeamID.RSC, false, RoleID.Spectator),
+            //escapeCHI Role
+            new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.ChiIntrus, TeamID.None, TeamID.None, RoleID.ChiLeader),
+            //escapeCHI Team
+            new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.None, TeamID.CDP, TeamID.None, RoleID.ChiExpertPyrotechnie),
+            new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.None, TeamID.RSC, TeamID.CHI, RoleID.ChaosInsurgency),
+            new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.None, TeamID.MTF, TeamID.CHI, RoleID.ChaosInsurgency),
+            new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.None, TeamID.SCP, TeamID.None, RoleID.Spectator),
+            new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.None, TeamID.RSC, TeamID.None, RoleID.Spectator),
         };
 
         [Description("the WarHeadEscape can be disabled")]

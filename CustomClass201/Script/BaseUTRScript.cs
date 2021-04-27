@@ -44,7 +44,10 @@ namespace CustomClass.PlayerScript
         private void OnAddTarget(Scp096AddTargetEventArgument ev)
         {
             if (ev.Player == Player)
+            { 
                 ev.Allow = false;
+                ev.Scp096.Scp096Controller.RemoveTarget(Player);
+            }
         }
 
         private void OnDoorInteract(DoorInteractEventArgs ev)

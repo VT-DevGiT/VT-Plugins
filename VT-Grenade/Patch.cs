@@ -30,8 +30,8 @@ namespace VTGrenad
         {
             if (Plugin.Config.ChaineFuseFragGrenad)
             {
-                SynapseItem LeTruc = item.GetSynapseItem();
-                if (LeTruc.ItemType != ItemType.GrenadeFrag)
+                SynapseItem grenade = item.GetSynapseItem();
+                if (grenade.ItemType != ItemType.GrenadeFrag)
                 {
                     __result = false;
                     return false;

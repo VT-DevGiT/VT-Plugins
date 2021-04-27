@@ -1,4 +1,5 @@
-﻿using Synapse.Api;
+﻿using Interactables.Interobjects.DoorUtils;
+using Synapse.Api;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace VT_Referance.Method
             Camera camera = player.gameObject.GetComponent<Camera>();
             var planes = GeometryUtility.CalculateFrustumPlanes(camera);
             var point = obj.transform.position;
-            foreach(var plan in planes)
+            foreach (var plan in planes)
             {
                 if (plan.GetDistanceToPoint(point) < 0)
                     return false;
@@ -47,7 +48,6 @@ namespace VT_Referance.Method
         {
             new List<int>{ (int)TeamID.VIP, (int)TeamID.NetralSCP, (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC},
             new List<int>{ (int)TeamID.AndersneRobotic},
-            new List<int>{ (int)TeamID.CHI, (int)TeamID.CDP},
             new List<int>{ (int)TeamID.SCP, (int)TeamID.SerpentsHand},
             new List<int>{ (int)TeamID.CDP, (int)TeamID.RSC}
         };
