@@ -57,7 +57,8 @@ namespace VT939
         [Description("Whether or not 939's anger meter should be reset after his slowdown from biting someone ends.")]
         public bool ResetAngerAfterHitSlowDown = false;
 
-        [Description("can see the person speaking")]
-        public bool Scp939CanSeeVoiceChatting = true;
+        [Description("More SCP 939")]
+        public bool More939 = false;
+        public int Max939 = 5;
     }
 }

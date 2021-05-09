@@ -1,5 +1,6 @@
 ﻿using CustomClass.Pouvoir;
 using Interactables.Interobjects.DoorUtils;
+using MEC;
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
@@ -10,20 +11,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using VT_Referance.Behaviour;
 using VT_Referance.Interface;
+using VT_Referance.PlayerScript;
 using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
-    public abstract class BaseUTRcript : BasePlayerScript, IUtrRole
+    public abstract class BaseUTRScript : BasePlayerScript, IUtrRole
     {
-        float oldStaminaUse;
+        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+
+        protected float oldStaminaUse;
+        private bool _protected096 = true;
         protected override void AditionalInit()
         {
             oldStaminaUse = Player.StaminaUsage;
             Player.StaminaUsage = 0;
-            Player.GiveEffect(Effect.Visuals939);
-            Player.GiveEffect(Effect.Disabled);
             Player.Hub.playerStats.artificialHpDecay = 0;
+            Timing.CallDelayed(1f, () =>
+            {
+                Player.GiveEffect(Effect.Visuals939);
+                Player.GiveEffect(Effect.Disabled);
+            });
         }
 
         protected override void Event()
@@ -33,6 +41,13 @@ namespace CustomClass.PlayerScript
             Server.Get.Events.Map.DoorInteractEvent += OnDoorInteract;
             Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent += OnAddTarget;
             Server.Get.Events.Player.PlayerEnterFemurEvent += OnFemur;
+            Server.Get.Events.Player.PlayerSetClassEvent += OnScp173Spawn;
+        }
+
+        private void OnScp173Spawn(PlayerSetClassEventArgs ev)
+        {
+            if (ev.Role == RoleType.Scp173 && !ev.Player.Scp173Controller.IgnoredPlayers.Contains(Player))
+                ev.Player.Scp173Controller.IgnoredPlayers.Add(Player);
         }
 
         private void OnFemur(PlayerEnterFemurEventArgs ev)
@@ -44,10 +59,7 @@ namespace CustomClass.PlayerScript
         private void OnAddTarget(Scp096AddTargetEventArgument ev)
         {
             if (ev.Player == Player)
-            { 
-                ev.Allow = false;
-                ev.Scp096.Scp096Controller.RemoveTarget(Player);
-            }
+                ev.Allow = _protected096;
         }
 
         private void OnDoorInteract(DoorInteractEventArgs ev)
@@ -62,14 +74,12 @@ namespace CustomClass.PlayerScript
 
         private void OnDamage(PlayerDamageEventArgs ev)
         {
-            List<int> SCPnonHumain = new List<int>() { (int)RoleType.Scp049,
-                (int)RoleType.Scp0492, (int)RoleType.Scp096, (int)RoleType.Scp106,
-                (int)RoleType.Scp173, (int)RoleType.Scp93953, (int)RoleType.Scp93989,
-                (int)RoleID.SCP008, (int)RoleID.SCP966};
-            if (ev.Victim == Player && SCPnonHumain.Contains(ev.Killer.RoleID))
-                ev.DamageAmount = 25;
+            if (ev.Victim == Player && PluginClass.ConfigUTR.ListScpDamge.Contains(ev.Killer.RoleID))
+                ev.DamageAmount = PluginClass.ConfigUTR.damage;
+            if (ev.Victim == Player && (PluginClass.ConfigUTR.ListScpNoDamge.Contains(ev.Killer.RoleID) || ev.HitInfo.GetDamageType() == DamageTypes.Falldown))
+                ev.Allow = false;
             if (ev.Killer == Player && ev.Victim.RoleID == (int)RoleType.Scp096)
-                ev.Victim.Scp096Controller.AddTarget(Player);
+                _protected096 = false;
         }
 
         private void OnUseIteam(PlayerItemInteractEventArgs ev)
@@ -83,6 +93,11 @@ namespace CustomClass.PlayerScript
 
         public override void DeSpawn()
         {
+            foreach(var player in Server.Get.Players)
+            {
+                if (player.Scp173Controller.IgnoredPlayers.Contains(Player))
+                    player.Scp173Controller.IgnoredPlayers.Remove(player);
+            }
             Player.StaminaUsage = oldStaminaUse;
             base.DeSpawn();
             Server.Get.Events.Player.PlayerItemUseEvent -= OnUseIteam;
@@ -91,6 +106,5 @@ namespace CustomClass.PlayerScript
             Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent -= OnAddTarget;
             Server.Get.Events.Player.PlayerEnterFemurEvent -= OnFemur;
         }
-
     }
 }

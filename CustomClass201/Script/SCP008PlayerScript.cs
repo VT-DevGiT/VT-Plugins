@@ -10,12 +10,14 @@ using System.Linq;
 using UnityEngine;
 using VT_Referance.Variable;
 using VT_Referance.Method;
+using VT_Referance.PlayerScript;
 
 namespace CustomClass.PlayerScript
 {
     public class SCP008Script : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.RSC, (int)TeamID.CDP };
+        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC, (int)TeamID.U2I, (int)TeamID.CDP };
 
         protected override List<int> FriendsList => new List<int> { (int)TeamID.SCP };
 
@@ -46,15 +48,13 @@ namespace CustomClass.PlayerScript
         public override void DeSpawn()
         {
             base.DeSpawn();
-            {
-                aura.PlayerEffect = null;
-                aura.TargetEffect = null;
-                aura.HerIntencty = 0;
-                aura.HerTime = 0;
-                aura.MyHp = 0;
-                aura.HerHp = 0;
-                aura.Distance = 0;
-            }
+            aura.PlayerEffect = null;
+            aura.TargetEffect = null;
+            aura.HerIntencty = 0;
+            aura.HerTime = 0;
+            aura.MyHp = 0;
+            aura.HerHp = 0;
+            aura.Distance = 0;
             KillComponent<Aura>();
             Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
             Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
@@ -87,9 +87,7 @@ namespace CustomClass.PlayerScript
         {
             if (power == PowerType.Zombifaction)
             {
-                Server.Get.Logger.Info("Zombifaction");
                 Player corpseowner = Methods.GetPlayercoprs(Player, 4);
-                Server.Get.Logger.Info(corpseowner?.NickName);
                 if (Methods.IsScpRole(corpseowner) == false)
                 {
                     corpseowner.RoleID = (int)RoleID.SCP008;

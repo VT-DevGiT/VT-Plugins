@@ -29,7 +29,6 @@ namespace CustomClass.Pouvoir
         public static void Message()
         {
             var Nato = $"Nato_{(char)(new System.Random().Next('a', 'z'))}";
-            Server.Get.Logger.Info(Nato);
             var scps = SynapseController.Server.GetPlayers(x => x.TeamID == (int)TeamID.SCP).Count;
             Synapse.Api.Map.Get.Cassie($"MTFUnit Epsilon 11 designated {Nato} 07 HasEntered AllRemaining AwaitingRecontainment {scps} ScpSubjects");
         }

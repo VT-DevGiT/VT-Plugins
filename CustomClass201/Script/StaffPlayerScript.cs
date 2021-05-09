@@ -1,18 +1,20 @@
 ﻿using Synapse.Config;
 using System.Collections.Generic;
+using VT_Referance.PlayerScript;
 using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
     public class StaffClassScript : BasePlayerScript
     {
+        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
         protected override List<int> EnemysList => new List<int> { };
 
         protected override List<int> FriendsList => new List<int> { };
 
         protected override RoleType RoleType => RoleType.Tutorial;
 
-        protected override int RoleTeam => (int)TeamID.ServerStaff;
+        protected override int RoleTeam => (int)TeamID.RIP;
 
         protected override int RoleId => (int)RoleID.Staff;
 

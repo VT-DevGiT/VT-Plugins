@@ -22,20 +22,19 @@ namespace VTGrenad
             Server.Get.Events.Player.PlayerPickUpItemEvent += PickingUpItem;
             Server.Get.Events.Player.PlayerCuffTargetEvent += OnCuff;
             if (Plugin.Config.ChaineFuseFragGrenad)
-            VTController.Server.Event.Grenade.ChangeIntoFragEvent += OnChangeIntoFragEvent;
+                VTController.Server.Event.Grenade.ChangeIntoFragEvent += OnChangeIntoFragEvent;
             if (Plugin.Config.FlashbangFuseWithCollision)
-            VTController.Server.Event.Grenade.CollisionGrenadeEvent += OnCollisionGrenade;
+                VTController.Server.Event.Grenade.CollisionGrenadeEvent += OnCollisionGrenade;
             if (Plugin.Config.BadFlash)
-            VTController.Server.Event.Grenade.ExplosionGrenadeEvent += OnExplosionGrenade;
+                VTController.Server.Event.Grenade.ExplosionGrenadeEvent += OnExplosionGrenade;
         }
 
         private void OnExplosionGrenade(ExplosionGrenadeEventArgs ev)
         {
-            Server.Get.Logger.Info("OnExplosionGrenade VT-Grenade");
             if (ev.Type == GrenadeType.Flashbang)
             {
                 ev.Grenade.GetComponent<FlashGrenade>();
-                foreach (var joueur in Synapse.Server.Get.Players)
+                foreach (var joueur in Server.Get.Players)
                 {
                     GameObject player = joueur.gameObject;
                     Vector3 position = ev.Grenade.transform.position;
@@ -61,14 +60,13 @@ namespace VTGrenad
         }
         private void OnCollisionGrenade(CollisionGrenadeEventArgs ev)
         {
-            Server.Get.Logger.Info("OnCollisionGrenade VT-Grenade");
+
             if (ev.Type == GrenadeType.Flashbang)
-                ev.Grenade.NetworkfuseTime = 0;
+                ev.Grenade.NetworkfuseTime = 0.01f;
         }
 
         private void OnChangeIntoFragEvent(ChangeIntoFragEventArgs ev)
         {
-            Server.Get.Logger.Info("OnChangeIntoFragEvent VT-Grenade");
             ev.Item.Despawn();
             Map.Get.SpawnGrenade(ev.Item.Position, Vector3.zero, 0.1f);
             ev.Allow = false;

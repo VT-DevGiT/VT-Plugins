@@ -7,14 +7,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using VT_Referance.Variable;
 using VT_Referance.Method;
+using VT_Referance.PlayerScript;
+using System;
 
 namespace CustomClass.PlayerScript
 {
     public class NTFInfirmierScript : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.CHI, (int)TeamID.SCP, (int)TeamID.CDP };
+        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override List<int> EnemysList => new List<int> { (int)TeamID.CHI, (int)TeamID.SCP, (int)TeamID.CDP, (int)TeamID.SHA, (int)TeamID.AND };
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC };
+        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC, (int)TeamID.U2I };
 
         protected override RoleType RoleType => RoleType.NtfLieutenant;
 
@@ -26,6 +29,7 @@ namespace CustomClass.PlayerScript
 
         protected override AbstractConfigSection Config => PluginClass.ConfigNTFInfirmier;
 
+        private DateTime lastPower = DateTime.Now.AddSeconds(-PluginClass.ConfigNTFInfirmier.CoolDownDoor);
         protected override void Event()
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnDammage;
@@ -53,7 +57,7 @@ namespace CustomClass.PlayerScript
 
         public override bool CallPower(PowerType power)
         {
-            if (power == PowerType.Defibrillation)
+            if (power == PowerType.Defibrillation && (DateTime.Now - lastPower).TotalSeconds > PluginClass.ConfigNTFInfirmier.Cooldown)
             {
                 Player corpseowner = Methods.GetPlayercoprs(Player, 2.5f);
                 if (Methods.IsScpRole(corpseowner) == false)
@@ -61,9 +65,12 @@ namespace CustomClass.PlayerScript
                     corpseowner.RoleID = Dictionary.PlayerRole[corpseowner];
                     corpseowner.Position = corpseowner.DeathPosition;
                     corpseowner.Inventory.Clear();
+                    lastPower = DateTime.Now;
                 }
-                return true;
             }
+            else if (power == PowerType.Respawn)
+                Reponse.Cooldown(Player, lastPower, PluginClass.ConfigNTFInfirmier.Cooldown);
+            else return false;
             return false;
         }
     }

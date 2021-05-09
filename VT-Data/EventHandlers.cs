@@ -1,7 +1,6 @@
 ﻿using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
-using MySql.Data.MySqlClient;
 
 namespace VTData
 {

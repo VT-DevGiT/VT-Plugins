@@ -1,5 +1,7 @@
 ﻿using Synapse.Config;
+using System.Collections.Generic;
 using System.ComponentModel;
+using VT_Referance.Variable;
 
 namespace VT079
 {
@@ -57,9 +59,6 @@ namespace VT079
         [Description("Prix pour changée d'étage")]
         public float Scp079CostElevatorTeleport = 0f;
 
-        [Description("Prix pour activer le gaz")]
-        public int Scp079ExtendCostGaz = 30;
-
         [Description("Prix pour un assenceur")]
         public float Scp079CostElevatorUse = 10f;
 
@@ -71,5 +70,9 @@ namespace VT079
 
         [Description("Si 079 doit être reconfinée manuellement")]
         public bool Scp079AdvenceRecontain = true;
+
+        [Description("La liste des SCP que 079 peux déconfinée pour la commande Deconf de VT-079Command")]
+        public List<int> Scp079ScpDeconf = new List<int>() { (int)RoleID.SCP008, (int)RoleID.Scp173, (int)RoleID.SCP966, (int)RoleID.Scp93989
+            , (int)RoleID.Scp93953, (int)RoleID.Scp106, (int)RoleID.Scp049, (int)RoleID.Scp096, (int)RoleID.Scp056 };
     }
 }

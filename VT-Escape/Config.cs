@@ -31,13 +31,15 @@ namespace VTEscape
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.ScientifiqueSuperviseur, TeamID.None, TeamID.None, RoleID.NtfExpertReconfinement),
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.Concierge, TeamID.None, TeamID.None, RoleID.NtfLieutenant),
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.FacilityGuard, TeamID.None, TeamID.None, RoleID.NtfLieutenant),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.GardePrison, TeamID.None, TeamID.None, RoleID.NtfSergent),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.ZoneManager, TeamID.None, TeamID.None, RoleID.NtfSergent),
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.Scp0492, TeamID.None, TeamID.None, RoleID.Spectator),
             //escapeMTF Team
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.NetralSCP, TeamID.None, RoleID.NtfLieutenant),
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.MTF, TeamID.MTF, RoleID.NtfCadet),
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.MTF, TeamID.MTF, RoleID.NtfCadet),
-             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.MTF, TeamID.CHI, RoleID.ChaosInsurgency),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.AndersneRobotic, TeamID.MTF, RoleID.NtfCadet),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.MTF, TeamID.CHI, RoleID.ChaosInsurgency),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.AND, TeamID.MTF, RoleID.NtfCadet),
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.SCP, TeamID.None, RoleID.Spectator, true, "LOKI - 5 procedure is engaged . the alfa warhead is started , evacuat immediately ."),
             
             //escapeCHI Role

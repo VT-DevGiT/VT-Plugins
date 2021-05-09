@@ -8,23 +8,29 @@ namespace CustomClass.Config
     public class ConfigCHIKamikaze : AbstractConfigSection
     {
         [Description("The Amount of Health the class have")]
-        public int Health = 140;
+        public int Health = 120;
 
-        [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() {
-            new SerializedItem((int)ItemType.KeycardChaosInsurgency, 1, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.GunLogicer, 75, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.Painkillers, 1, 0, 0, 0, Vector3.one) };
+        [Description("The Inventory of the class")]
+        public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
+        {
+            Ammo = new SerializedAmmo(0, 100, 0),
+            Items = new List<SerializedPlayerItem>() 
+            {
+                new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GunLogicer, 75, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Painkillers, 1, 0, 0, 0, Vector3.one, 100, true)
+            }
+        };
 
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 20;
 
         [Description("ArtificialHealthConfig of the class")]
-        public int MaxArtificialHealth = 120;
-        public int ArtificialHealth = 120;
+        public int MaxArtificialHealth = 100;
+        public int ArtificialHealth = 25;
 
         [Description("Max alive at the same time")]
         public int MaxAlive = 100;
@@ -40,10 +46,5 @@ namespace CustomClass.Config
 
         [Description("time before the grenade explodes after his death")]
         public float GrenadeTime = 0.1f;
-
-        [Description("the number of ammo to the class")]
-        public uint Ammo5 = 0;
-        public uint Ammo7 = 100;
-        public uint Ammo9 = 0;
     }
 }

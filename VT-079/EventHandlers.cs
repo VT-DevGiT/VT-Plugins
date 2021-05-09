@@ -2,6 +2,7 @@
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
 using System.Linq;
+using VT_Referance.Method;
 
 namespace VT079
 {
@@ -38,7 +39,7 @@ namespace VT079
                 ev.Player.gameObject.AddComponent<Scp079Behaviour>();
                 Synapse.Api.Door porte = Server.Get.Map.Doors.FirstOrDefault(p => p.Name == "079_SECOND");
                 
-                if (porte != null)
+                if (porte != null && Methods.GetVoltage() != 5000)
                     porte.Locked = true;
             }
 

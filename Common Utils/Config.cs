@@ -14,21 +14,29 @@ namespace Common_Utiles
 
         [Description("The list of objects that each class will have when it spawn")]
 
-        public List<SerializedItemProba> ClassDInventory = new List<SerializedItemProba>() { new SerializedItemProba((int)ItemType.Coin, 35, 0, 0, 0, Vector3.one, 50f) };
+        public SerializedPlayerInventory ClassDInventory = new SerializedPlayerInventory()
+        { 
+            Ammo = new SerializedAmmo(0,0,0),
+            Items = new List<SerializedPlayerItem> ()
+            {
+                new SerializedPlayerItem ((int)ItemType.Coin, 1, 0, 0, 0, Vector3.one, 50, true),
+                new SerializedPlayerItem ((int)ItemType.Flashlight, 1, 0, 0, 0, Vector3.one, 50, true),
+            }
+        };
 
-        public List<SerializedItemProba> ChaosInventory = new List<SerializedItemProba>();
+        public SerializedPlayerInventory ChaosInventory = new SerializedPlayerInventory();
 
-        public List<SerializedItemProba> ScientistInventory = new List<SerializedItemProba>();
+        public SerializedPlayerInventory ScientistInventory = new SerializedPlayerInventory();
 
-        public List<SerializedItemProba> GuardInventory = new List<SerializedItemProba>();
+        public SerializedPlayerInventory GuardInventory = new SerializedPlayerInventory();
 
-        public List<SerializedItemProba> CadetInventory = new List<SerializedItemProba>();
+        public SerializedPlayerInventory CadetInventory = new SerializedPlayerInventory();
 
-        public List<SerializedItemProba> LieutenantInventory = new List<SerializedItemProba>();
+        public SerializedPlayerInventory LieutenantInventory = new SerializedPlayerInventory();
 
-        public List<SerializedItemProba> NtfSciInventory = new List<SerializedItemProba>();
+        public SerializedPlayerInventory NtfSciInventory = new SerializedPlayerInventory();
 
-        public List<SerializedItemProba> CommanderInventory = new List<SerializedItemProba>();
+        public SerializedPlayerInventory CommanderInventory = new SerializedPlayerInventory();
 
         [Description("A list of roles and what their default starting health should be.")]
         public int ClassDHealth = -1;

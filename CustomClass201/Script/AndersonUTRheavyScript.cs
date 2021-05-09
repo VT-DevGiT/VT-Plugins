@@ -1,4 +1,5 @@
 ﻿using Interactables.Interobjects.DoorUtils;
+using MEC;
 using Synapse;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
@@ -9,11 +10,11 @@ using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
-    public class AndersonUTRheavyScript : BaseUTRcript
+    public class AndersonUTRheavyScript : BaseUTRScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.AndersneRobotic };
+        protected override List<int> EnemysList => new List<int> { };
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : new List<int> { (int)TeamID.RSC, (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.CHI };
+        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : new List<int> { };
 
         protected override RoleType RoleType => RoleType.Tutorial;
 
@@ -24,5 +25,16 @@ namespace CustomClass.PlayerScript
         protected override string RoleName => PluginClass.ConfigAndersonUTRheavy.RoleName;
 
         protected override AbstractConfigSection Config => PluginClass.ConfigAndersonUTRheavy;
+
+        protected override void AditionalInit()
+        {
+            this.oldStaminaUse = Player.StaminaUsage;
+            Player.StaminaUsage = 0;
+            Player.Hub.playerStats.artificialHpDecay = 0;
+            Timing.CallDelayed(1f, () =>
+            {
+                Player.GiveEffect(Effect.Visuals939);
+            });
+        }
     }
 }

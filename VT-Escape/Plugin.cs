@@ -1,4 +1,6 @@
-﻿using Synapse.Api.Plugin;
+﻿using HarmonyLib;
+using Synapse;
+using Synapse.Api.Plugin;
 
 namespace VTEscape
 {
@@ -19,7 +21,6 @@ Version = "v.1.5.2"
 
         [Synapse.Api.Plugin.Config(section = "VT-Escape")]
         public static Config Config;
-
 
         public override void Load()
         {

@@ -13,16 +13,22 @@ namespace CustomClass.Config
         [Description("The MapPoint where the class should Spawn")]
         public SerializedMapPoint SpawnPoint = new SerializedMapPoint("HCZ_079", 10.1f, -2.4f, 0.09f);
 
-        [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { 
-            new SerializedItem((int)ItemType.GunUSP, 18, 2, 1, 1, Vector3.one), 
-            new SerializedItem((int)ItemType.KeycardChaosInsurgency, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one) };
+        [Description("The Inventory of the class")]
+        public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
+        {
+            Ammo = new SerializedAmmo(30, 30, 30),
+            Items = new List<SerializedPlayerItem>() 
+            { 
+                new SerializedPlayerItem((int)ItemType.GunUSP, 18, 2, 1, 1, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, 0, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one, 100, true)
+            }
+        };
 
         [Description("ArtificialHealthConfig of the class")]
         public int MaxArtificialHealth = 100;
-        public int ArtificialHealth = 100;
+        public int ArtificialHealth = 25;
         
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 3;
@@ -35,10 +41,5 @@ namespace CustomClass.Config
 
         [Description("The name of the class")]
         public string RoleName = "Intrus";
-
-        [Description("the number of ammo to the class")]
-        public uint Ammo5 = 30;
-        public uint Ammo7 = 30;
-        public uint Ammo9 = 30;
     }
 }

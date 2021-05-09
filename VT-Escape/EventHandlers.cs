@@ -13,8 +13,8 @@ namespace VTEscape
 
         private void OnEscapesEvent(PlayerEscapeEventArgs ev)
         {
-            ev.Allow = false;
-            ev.SpawnRole = RoleType.None;
+            if(Plugin.Config.MTFEscapeIsEnabled)
+                ev.Allow = false;
         }
 
         private void OnPlayerSetClassEvent(PlayerSetClassEventArgs ev)

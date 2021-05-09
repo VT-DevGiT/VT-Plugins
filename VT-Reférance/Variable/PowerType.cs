@@ -23,5 +23,6 @@ namespace CustomClass.Pouvoir
         Defibrillation = 9,
         BadGreen = 9,
         Attack = 9,
+        Clear = 10,
     }
 }

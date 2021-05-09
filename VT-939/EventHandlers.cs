@@ -11,9 +11,16 @@ namespace VT939
     {
         public EventHandlers()
         {
-            Server.Get.Events.Player.PlayerSetClassEvent += OnSpawn;
+            Server.Get.Events.Player.PlayerSetClassEvent += OnSetClass;
+            Server.Get.Events.Round.SpawnPlayersEvent += OnSpawn;
         }
-        private void OnSpawn(PlayerSetClassEventArgs ev)
+
+        private void OnSpawn(SpawnPlayersEventArgs ev)
+        {
+            
+        }
+
+        private void OnSetClass(PlayerSetClassEventArgs ev)
         {
             if (ev.Role.Is939())
             {

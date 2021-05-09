@@ -14,13 +14,10 @@ namespace VT_Referance.Patch
     {
         private static bool Prefix(FragGrenade __instance, Pickup item, ref bool __result)
         {
-            Synapse.Server.Get.Logger.Info("VT_Referance Event Patch ChangeIntoGrenade");
             try
             {
                 if (!NetworkServer.active) return false;
-                
-                    
-                FragGrenade grenade = __instance;
+
                 SynapseItem pickup = item.GetSynapseItem();
                 GrenadeType Type;
                 if (__instance.GetType() == typeof(FragGrenade))
@@ -29,9 +26,8 @@ namespace VT_Referance.Patch
                     Type = GrenadeType.Scp018;
                 else
                     Type = (GrenadeType)4;
-
                 bool falg = true;
-                VTController.Server.Event.Grenade.InvokeChangeIntoFragEvent(pickup, grenade, Type, ref falg);
+                VTController.Server.Event.Grenade.InvokeChangeIntoFragEvent(pickup, __instance, Type, ref falg);
                 if (!falg) 
                     __result = false;
                 return falg;

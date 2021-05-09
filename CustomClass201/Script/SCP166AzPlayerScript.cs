@@ -8,13 +8,15 @@ using Synapse.Config;
 using System;
 using System.Collections.Generic;
 using VT_Referance.Method;
+using VT_Referance.PlayerScript;
 using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
     public class SCP166AzScript : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC, (int)TeamID.CHI };
+        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC, (int)TeamID.U2I, (int)TeamID.CHI };
 
         protected override List<int> FriendsList => new List<int> { (int)TeamID.NetralSCP, (int)TeamID.SCP };
 
@@ -64,7 +66,6 @@ namespace CustomClass.PlayerScript
                 var victim = Player.LookingAt.GetPlayer();
                 if (victim != null)
                 {
-                    Server.Get.Logger.Info(victim.name);
                     victim.Hurt(100);
                     return true;
                 }
@@ -86,6 +87,7 @@ namespace CustomClass.PlayerScript
         public override void DeSpawn()
         {
             KillComponent<Green>();
+            base.DeSpawn();
             Map.Get.AnnounceScpDeath("1 6 6");
             Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
             Server.Get.Events.Player.PlayerPickUpItemEvent -= OnPickUp;

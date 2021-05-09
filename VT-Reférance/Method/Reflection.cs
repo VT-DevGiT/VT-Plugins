@@ -42,5 +42,14 @@ namespace VT_Referance.Method
             }
             return default(T);
         }
+
+        public static void SetProperty<T>(this object element, string fieldName, object value)
+        {
+            var prop = element.GetType().GetProperty(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
+            if (prop != null)
+            {
+                prop.SetValue(element, value);
+            }
+        }
     }
 }

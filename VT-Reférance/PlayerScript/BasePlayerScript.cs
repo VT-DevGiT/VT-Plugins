@@ -8,13 +8,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using VT_Referance.Behaviour;
 using VT_Referance.Variable;
+using VT_Referance.Method;
 
-namespace CustomClass.PlayerScript
+namespace VT_Referance.PlayerScript
 {
     public abstract class BasePlayerScript : Synapse.Api.Roles.Role
     {
 
         #region Attributes & Properties
+        protected abstract string SpawnMessage{get;}
         protected virtual bool SetDisplayInfo => true;
         protected abstract List<int> EnemysList { get; }
         protected abstract List<int> FriendsList { get; }
@@ -24,6 +26,7 @@ namespace CustomClass.PlayerScript
         protected abstract string RoleName { get; }
         protected abstract AbstractConfigSection Config { get; }
 
+        public AbstractConfigSection GetConfig() => Config;
         public override List<int> GetEnemiesID() => EnemysList;
         
         public override List<int> GetFriendsID() => FriendsList;
@@ -40,16 +43,6 @@ namespace CustomClass.PlayerScript
         }
         
         internal bool Spawned = false;
-
-        public MapPoint MapPoint()
-        {
-            SerializedMapPoint SpawnPoint = GetConfigValue<SerializedMapPoint>("SpawnPoint", null);
-            if (SpawnPoint != null)
-            {
-                return SpawnPoint.Parse();
-            }
-            return null;
-        }
 
         #endregion
 
@@ -74,7 +67,7 @@ namespace CustomClass.PlayerScript
         }
 
         protected T ActiveComponent<T>()
-            where T : Behaviour
+            where T : UnityEngine.Behaviour
         {
             T composant;
             if (!Player.gameObject.TryGetComponent<T>(out composant))
@@ -116,13 +109,9 @@ namespace CustomClass.PlayerScript
             Player.RoleType = RoleType;
 
             if (RoleTeam == (int)TeamID.CHI || RoleTeam == (int)TeamID.MTF)
-            {
                 Timing.CallDelayed(1f, () => InitPlayer());
-            }
-            else
-            {
-                InitPlayer();
-            }
+            else InitPlayer();
+            
 
             SerializedMapPoint spawnPoint = GetConfigValue<SerializedMapPoint>("SpawnPoint", null);
             if (spawnPoint != null)
@@ -138,7 +127,7 @@ namespace CustomClass.PlayerScript
             }
             AditionalInit();
             Event();
-            Player.OpenReportWindow(PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage.Replace("%RoleName%", RoleName));
+            Player.OpenReportWindow(SpawnMessage.Replace("%RoleName%", RoleName).Replace("\\n", "\n"));
             if (SetDisplayInfo)
             {
                 Player.RemoveDisplayInfo(PlayerInfoArea.Role);
@@ -162,31 +151,12 @@ namespace CustomClass.PlayerScript
         private void InitPlayer()
         {
             Player.Inventory.Clear();
-            GiveItems();
+            if (GetConfigValue("inventory", new SerializedPlayerInventory()).IsDefined())
+                GetConfigValue("inventory", new SerializedPlayerInventory()).Apply(Player);
             Player.Health = GetConfigValue("Health", 100);
             Player.MaxHealth = GetConfigValue("MaxHealth", (int)Player.Health);
             Player.MaxArtificialHealth = GetConfigValue("MaxArtificialHealth", 100);
             Player.ArtificialHealth = GetConfigValue("ArtificialHealth", 0);
-        }
-        private void GiveItems()
-        {
-            var items = GetConfigValue("Items", new List<SerializedItem>());
-            foreach (var item in items)
-            { 
-                try
-                {
-                    var obj = item.Parse();
-                    Player.Inventory.AddItem(item.Parse());
-                }
-                catch(Exception e)
-                {
-                    Server.Get.Logger.Error($"Error Config inventory at {this.RoleName} : { item.ID} {e} ");
-                }
-            }
-            Player.Ammo5 = GetConfigValue<uint>("Ammo5", 0);
-            Player.Ammo7 = GetConfigValue<uint>("Ammo7", 0);
-            Player.Ammo9 = GetConfigValue<uint>("Ammo9", 0);
-
         }
         public override void DeSpawn()
         {

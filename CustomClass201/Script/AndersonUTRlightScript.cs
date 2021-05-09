@@ -9,11 +9,11 @@ using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
-    public class AndersonUTRlightScript : BaseUTRcript
+    public class AndersonUTRlightScript : BaseUTRScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.AndersneRobotic };
+        protected override List<int> EnemysList => new List<int> { };
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : new List<int> { (int)TeamID.RSC, (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.CHI };
+        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : new List<int> { };
 
         protected override RoleType RoleType => RoleType.Tutorial;
 

@@ -4,21 +4,21 @@ using UnityEngine;
 
 namespace VT079.Command
 {
-    public class Nuck : I079Command
+    public class Nuke : I079Command
     {
         public KeyCode Key => KeyCode.None;
 
-        public int RequiredLevel => 4;
+        public int RequiredLevel => PluginExtensions.GetRequiredLevel(Name, 4);
 
-        public float Energy => 150;
+        public float Energy => PluginExtensions.GetEnergy(Name, 150);
 
-        public float Exp => 30;
+        public float Exp => PluginExtensions.GetExp(Name, 30);
 
-        public string Name => "nuck";
+        public string Name => "nuke";
 
         public string Description => "Start or Stop the Alfa WarHead";
 
-        public float Cooldown => 0f;
+        public float Cooldown => PluginExtensions.GetCooldown(Name, 0f);
 
         public CommandResult Execute(CommandContext context)
         {

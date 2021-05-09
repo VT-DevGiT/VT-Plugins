@@ -13,8 +13,16 @@ namespace CustomClass.Config
         [Description("The Amount of Health the class have")]
         public int Health = 100;
 
-        [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.KeycardJanitor, 1, 0, 0, 0, Vector3.one), new SerializedItem((int)ItemType.Painkillers, 1, 0, 0, 0, Vector3.one) };
+        [Description("The Inventory of the class")]
+        public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
+        {
+            Ammo = new SerializedAmmo (0, 0, 0),
+            Items = new List<SerializedPlayerItem> ()
+            { 
+                new SerializedPlayerItem((int)ItemType.KeycardJanitor, 1, 0, 0, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.Painkillers, 1, 0, 0, 0, Vector3.one, 100, true)
+            }
+        };
 
         [Description("ArtificialHealthConfig of the class")]
         public int MaxArtificialHealth = 50;

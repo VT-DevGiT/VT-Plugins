@@ -8,39 +8,42 @@ using Synapse.Translation;
 using System.Collections.Generic;
 using VT_Referance.Variable;
 using CustomClass.CustomTeam;
+using Synapse.Config;
+using VT_Referance.PlayerScript;
+using System;
+using VT_Referance.Method;
 
 namespace CustomClass
 {
     [PluginInformation(
         Author = "VT",
         Description = "A plugin for add new class",
-        LoadPriority = 1,
+        LoadPriority = 3,
         Name = "CustomClass",
         SynapseMajor = SynapseController.SynapseMajor,
         SynapseMinor = SynapseController.SynapseMinor,
         SynapsePatch = SynapseController.SynapsePatch,
-        Version = "v.1.2.0")]
+        Version = "v.1.3.0")]
     public class PluginClass : AbstractPlugin
     {
         public static PluginClass Plugin;
-        //la config générale
+/*
+        [Synapse.Api.Plugin.Config(section = "Synapse")]
+        public static SynapseConfiguration Conf;// => SynapseController.Server.Configs.synapseConfiguration;
+*/
         [Synapse.Api.Plugin.Config(section = "CustomClass-General")]
         public static ConfigCustomClass ConfigCustomClass;
 
-        //les config des rôles custome
-
-
-        //Config de la Classe 201 obsolete car désactivée.
         //[Synapse.Api.Plugin.Config(section = "CustomClass-CustomClass201")]
         //public static Config201 Config201;
 
         [Synapse.Api.Plugin.Config(section = "ConfigConcierge")]
         public static ConfigConcierge ConfigConcierge;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigAndersonUTRheavy")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigAndersonUTRheavy")]
         public static ConfigAndersonUTRheavy ConfigAndersonUTRheavy;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigConcierge")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigConcierge")]
         public static ConfigAndersonUTRlight ConfigAndersonUTRlight;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigDirecteurSite")]
@@ -92,7 +95,7 @@ namespace CustomClass
         public static ConfigCHILeader ConfigCHILeader;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHIMastondonte")]
-        public static ConfigCHIMastodonte ConfigCHIMastondonte;
+        public static ConfigCHIMastodonte ConfigCHIMastodonte;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHISPY")]
         public static ConfigCHISpy ConfigCHISPY;
@@ -133,6 +136,18 @@ namespace CustomClass
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigTestClass")]
         public static ConfigTestClass ConfigTestClass;
 
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigGardePrison")]
+        public static ConfigGardePrison ConfigGardePrison;
+
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigZoneManager")]
+        public static ConfigZoneMageur ConfigZoneManager;
+
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigMTFUTR")]
+        public static ConfigZoneMageur ConfigMTFUTR;
+
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigUTR")]
+        public static ConfigUTR ConfigUTR;
+
         [SynapseTranslation]
         public static SynapseTranslation<PluginTranslation> PluginTranslation;
 
@@ -148,43 +163,51 @@ namespace CustomClass
         
         public override void Load()
         {
+            //ConfigHandler
+            var confSynapse = Server.Get.Configs.GetFieldValueorOrPerties<SynapseConfiguration>("synapseConfiguration");
+            foreach(var value in confSynapse.CantLookAt173)
+            {
+                Server.Get.Logger.Info($"Can look at {value}");
+            }
             Plugin = this;
             RegisterCustomTeam();
             RegisterCustomRole();
             PluginTranslation.AddTranslation(new CustomClass.PluginTranslation());
             PluginTranslation.AddTranslation(new CustomClass.PluginTranslation{
-            SpawnMessage = "<color=blue><b>Tu es à présent</b></color> <color=red><b>%RoleName%</b></color>",
+            SpawnMessage = "<color=blue><b>Tu es à présent</b></color> <color=red><b>%RoleName%</b></color>\\n<b>Press Esc pour fermer</b>",
             VentMessage = "Vous pouvez rester encore %Time% secondes dans la ventilation",
             NoTimeVentMessage = "Vous vous trouvez dans les ventilation",
             PowerCooldown = "vous pouvez utiliser ce pouvoir dans %Time% secondes"
             }, "FRENCH");
             PatchAll();
             new EventHandlers();
-            
         }
 
-        //On registre les team pour les certainne classe
         public void RegisterCustomTeam()
         {
             Server.Get.TeamManager.RegisterTeam<NetralSCPTeam>();
             Server.Get.TeamManager.RegisterTeam<BerserkSCPTeam>();
             Server.Get.TeamManager.RegisterTeam<VIPTeam>();
-            Server.Get.TeamManager.RegisterTeam<StaffTeam>();
         }
 
-        //On registre les Scripte
         public void RegisterCustomRole()
         {
-            //Role 201 dans le but de teste si les Scriptes ont bien été crée Obselette.
             //Server.Get.RoleManager.RegisterCustomRole<Scripte201>();
+
+            Type typeScripte = typeof(BasePlayerScript);
+
+            Type[] enfants = typeScripte.GetNestedTypes(System.Reflection.BindingFlags.Public);
+            foreach(var tp in enfants)
+            {
+                Server.Get.Logger.Info($"Type = {tp.Name}");
+            }
 
             string curAssemblyFolder = new System.Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath;
 
-            if (System.IO.File.Exists($"{curAssemblyFolder}\\VT-AndersonRobotic.dll") || ConfigCustomClass.Anderson)
-            {
-                Server.Get.RoleManager.RegisterCustomRole<AndersonUTRlightScript>();
-                Server.Get.RoleManager.RegisterCustomRole<AndersonUTRheavyScript>();
-            }
+
+            Server.Get.RoleManager.RegisterCustomRole<AndersonUTRlightScript>();
+            Server.Get.RoleManager.RegisterCustomRole<AndersonUTRheavyScript>();
+            
             Server.Get.RoleManager.RegisterCustomRole<ConciergeScript>();
             Server.Get.RoleManager.RegisterCustomRole<DirecteurSiteScript>();
             Server.Get.RoleManager.RegisterCustomRole<ScientifiqueSuperviseurScript>();
@@ -198,7 +221,7 @@ namespace CustomClass
             Server.Get.RoleManager.RegisterCustomRole<CHISPYScript>();
             Server.Get.RoleManager.RegisterCustomRole<GardeSuperviseurScript>();
             Server.Get.RoleManager.RegisterCustomRole<NTFSergentScript>();
-            Server.Get.RoleManager.RegisterCustomRole<NTFCapitaine>();
+            Server.Get.RoleManager.RegisterCustomRole<NTFCapitaineScript>();
             Server.Get.RoleManager.RegisterCustomRole<NTFLieutenantColonel>();
             Server.Get.RoleManager.RegisterCustomRole<NTFExpertPyrotechnieScript>();
             Server.Get.RoleManager.RegisterCustomRole<NTFExpertReconfinementScript>();
@@ -216,6 +239,9 @@ namespace CustomClass
             Server.Get.RoleManager.RegisterCustomRole<StaffClassScript>();
             Server.Get.RoleManager.RegisterCustomRole<TechnicienScript>();
             Server.Get.RoleManager.RegisterCustomRole<TestClassScript>();
+            Server.Get.RoleManager.RegisterCustomRole<ZoneManagerScript>();
+            Server.Get.RoleManager.RegisterCustomRole<GardePrisonScript>();
+            Server.Get.RoleManager.RegisterCustomRole<MTFUTRScript>();
         }
 
     }

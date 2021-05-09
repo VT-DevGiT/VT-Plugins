@@ -13,16 +13,22 @@ namespace CustomClass.Config
         [Description("The Amount of Health the class have")]
         public int Health = 120;
 
-        [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { 
-            new SerializedItem((int)ItemType.KeycardSeniorGuard, 1, 3, 2, 1, Vector3.one), 
-            new SerializedItem((int)ItemType.GunProject90, 50, 0, 0, 0, Vector3.one), 
-            new SerializedItem(50, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem(55, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.GrenadeFlash, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one) };
+        [Description("The Inventory of the class")]
+        public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
+        {
+            Ammo = new SerializedAmmo(30, 70, 30),
+            Items = new List<SerializedPlayerItem> ()
+            { 
+            new SerializedPlayerItem((int)ItemType.KeycardSeniorGuard, 1, 3, 2, 1, Vector3.one, 100, true), 
+            new SerializedPlayerItem((int)ItemType.GunProject90, 50, 0, 0, 0, Vector3.one, 100, true), 
+            new SerializedPlayerItem(50, 1, 0, 0, 0, Vector3.one, 100, true), 
+            new SerializedPlayerItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one, 100, true), 
+            new SerializedPlayerItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one, 100, true), 
+            new SerializedPlayerItem(55, 1, 0, 0, 0, Vector3.one, 100, true), 
+            new SerializedPlayerItem((int)ItemType.GrenadeFlash, 1, 0, 0, 0, Vector3.one, 100, true), 
+            new SerializedPlayerItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one, 100, true)
+            }
+        };
 
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 100;
@@ -39,10 +45,5 @@ namespace CustomClass.Config
 
         [Description("The name of the class")]
         public string RoleName = "Garde Superviseur";
-
-        [Description("the number of ammo to the class")]
-        public uint Ammo5 = 30;
-        public uint Ammo7 = 70;
-        public uint Ammo9 = 30;
     }
 }

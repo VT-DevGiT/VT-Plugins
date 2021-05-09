@@ -17,7 +17,7 @@ Version = "079v.1.3.1 079Commandv1.3.1"
     public class Plugin : AbstractPlugin
     {
         public static Plugin Instance { get; private set; }
-        public static List<int> SCPRoleDeconf = new List<int>() { 5, 9, 3, 0, 16, 17, 56 };
+        public static List<int> SCPRoleDeconf;
 
         [Synapse.Api.Plugin.Config(section = "VT-079")]
         public static Config Config;
@@ -26,6 +26,7 @@ Version = "079v.1.3.1 079Commandv1.3.1"
         {
             Instance = this;
             new EventHandlers();
+            SCPRoleDeconf = Config.Scp079ScpDeconf;
         }
 
         internal void ChangeCoutUnScripte(Scp079PlayerScript player079Script)

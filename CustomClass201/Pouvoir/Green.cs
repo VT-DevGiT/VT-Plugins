@@ -27,7 +27,6 @@ namespace CustomClass.Pouvoir
 
             foreach (var target in playerAffected.Keys)
             {
-                Server.Get.Logger.Info("");
                 if (!listPlayerPossible.Contains(player))
                 {
                     playerAffected[target] = playerAffected[target] - 1;

@@ -8,20 +8,26 @@ namespace CustomClass.Config
     public class ConfigCHIInfirmier : AbstractConfigSection
     {
         [Description("The Amount of Health the class have")]
-        public int Health = 115;
+        public int Health = 110;
 
-        [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { 
-            new SerializedItem((int)ItemType.KeycardChaosInsurgency, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.GunUSP, 40, 2, 1, 1, Vector3.one), 
-            new SerializedItem(55, 2, 0, 0, 0, Vector3.one), 
-            new SerializedItem(55, 2, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.Adrenaline, 1, 0, 0, 0, Vector3.one),  
-            new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one) };
+        [Description("The Inventory of the class")]
+        public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
+        {
+            Ammo = new SerializedAmmo(100, 100, 100),
+            Items = new List<SerializedPlayerItem>()
+            {
+                new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GunUSP, 17, 2, 1, 1, Vector3.one, 100, true),
+                new SerializedPlayerItem(55, 2, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem(55, 2, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Adrenaline, 1, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one, 100, true)
+            }
+        };
 
         [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 100;
+        public int ArtificialHealth = 20;
         public int MaxArtificialHealth = 100;
 
         [Description("The Chance of which the class spawns")]
@@ -40,11 +46,6 @@ namespace CustomClass.Config
         public string RoleName = "Infirmier";
 
         [Description("The cooldown of the class Power")]
-        public int CoolDown = 30;
-
-        [Description("the number of ammo to the class")]
-        public uint Ammo5 = 100;
-        public uint Ammo7 = 100;
-        public uint Ammo9 = 100;
+        public int Cooldown = 150;
     }
 }

@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using VT_Referance.Method;
+using VT_Referance.Variable;
 using static RoomInformation;
 
 namespace VT079.Command
@@ -16,17 +18,17 @@ namespace VT079.Command
     {
         public KeyCode Key => KeyCode.Alpha5;
 
-        public int RequiredLevel => 3;
+        public int RequiredLevel => PluginExtensions.GetRequiredLevel(Name, 3);
 
-        public float Energy => 30;
+        public float Energy => PluginExtensions.GetEnergy(Name, 30);
 
-        public float Exp => 5;
+        public float Exp => PluginExtensions.GetExp(Name, 5);
 
         public string Name => "gaz";
 
         public string Description => "Gaz the current room";
 
-        public float Cooldown => 10f;
+        public float Cooldown => PluginExtensions.GetCooldown(Name, 10f);
 
         public CommandResult Execute(CommandContext context)
         {
@@ -40,7 +42,7 @@ namespace VT079.Command
                 return result;
             }
             if (context.Player.Room.RoomType != RoomType.HCZ_079)
-                Timing.RunCoroutine(GasRoom(context.Player.Room, context.Player.Hub));
+                Timing.RunCoroutine(GasRoom(context.Player.Room, context.Player));
 
             return result;
         }
@@ -54,7 +56,7 @@ namespace VT079.Command
                 door.Locked = true;
             } 
         }
-    public IEnumerator<float> GasRoom(Room room, ReferenceHub scp)
+    public IEnumerator<float> GasRoom(Room room, Player scp)
         {
             float a2cooldown = Time.timeSinceLevelLoad;
             List<Synapse.Api.Door> doors = room.Doors;
@@ -72,18 +74,19 @@ namespace VT079.Command
                 yield return Timing.WaitForSeconds(1f);
             }
             ChangeDoors(doors, false);
-            Server.Get.Logger.Info($"B.{DateTime.Now}");
             for (int i = 0; i < 12 * 2; i++)
             {
-                foreach (var player in Server.Get.Players.Where(p => p.Team != Team.CHI
-                && p.Team != Team.SCP && p.Team != Team.RIP && p.Room == room))
+                foreach (var player in Server.Get.Players.Where(p => p.Team != Team.SCP && p.Team != Team.RIP 
+                && p.RoleID != (int)RoleID.NtfVirologue && !p.IsUTR() && p.Room == room))
                 {
-                    player.GiveEffect(Effect.Asphyxiated, 3, 1);
+                    
+                    player.Hurt(10, DamageTypes.Decont, player);
                     player.GiveEffect(Effect.Poisoned, 3, 1);
-                    player.GiveEffect(Effect.SinkHole, 1, 1);
+                    if (player.Health < 35)
+                        player.GiveEffect(Effect.SinkHole, 3, 1);
                     if (player.RoleID == (int)RoleType.Spectator)
                     {
-                        scp.scp079PlayerScript.AddExperience(20);
+                        scp.Hub.scp079PlayerScript.AddExperience(20);
                     }
                 }
                 yield return Timing.WaitForSeconds(0.5f);

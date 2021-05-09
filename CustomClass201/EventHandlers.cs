@@ -1,4 +1,5 @@
-﻿using Synapse;
+﻿using CustomClass.PlayerScript;
+using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
@@ -16,6 +17,12 @@ namespace CustomClass
             Server.Get.Events.Round.TeamRespawnEvent += OnReSpawn;
             Server.Get.Events.Player.PlayerSetClassEvent += OnClass;
             Server.Get.Events.Player.PlayerJoinEvent += OnJoin;
+            Server.Get.Events.Round.RoundRestartEvent += OnRestart;
+        }
+
+        private void OnRestart()
+        {
+            VT_Referance.Variable.Dictionary.PlayerRole.Clear();
         }
 
         private void OnJoin(PlayerJoinEventArgs ev)
@@ -29,19 +36,19 @@ namespace CustomClass
             VT_Referance.Variable.Dictionary.PlayerRole[ev.Player] = (int)ev.Role;
             if (RespawnPlayer.Contains(ev.Player))
             {
-                ev.SpawnRole(RoleType.ChaosInsurgency, RoleID.ChiLeader, PluginClass.ConfigCHILeader);
-                ev.SpawnRole(RoleType.ChaosInsurgency, RoleID.ChiHacker, PluginClass.ConfigCHIHacker);
-                ev.SpawnRole(RoleType.ChaosInsurgency, RoleID.ChiExpertPyrotechnie, PluginClass.ConfigCHIExpertPyrotechnie);
-                ev.SpawnRole(RoleType.ChaosInsurgency, RoleID.ChiKamikaze, PluginClass.ConfigCHIKamikaze);
-                ev.SpawnRole(RoleType.ChaosInsurgency, RoleID.ChiMastodonte, PluginClass.ConfigCHIMastondonte);
-                ev.SpawnRole(RoleType.ChaosInsurgency, RoleID.ChiInfirmier, PluginClass.ConfigCHIInfirmier);
-                ev.SpawnRole(RoleType.NtfCadet, RoleID.ChiSpy, PluginClass.ConfigCHISPY);
-                ev.SpawnRole(RoleType.NtfCadet, RoleID.NtfCapitaine, PluginClass.ConfigNTFCapitaine);
-                ev.SpawnRole(RoleType.NtfCadet, RoleID.NtfSergent, PluginClass.ConfigNTFSergent);
-                ev.SpawnRole(RoleType.NtfLieutenant, RoleID.NtfExpertPyrotechnie, PluginClass.ConfigNTFExpertPyrotechnie);
-                ev.SpawnRole(RoleType.NtfLieutenant, RoleID.NtfExpertReconfinement, PluginClass.ConfigNTFExpertReconfinement);
-                ev.SpawnRole(RoleType.NtfLieutenant, RoleID.NtfInfirmier, PluginClass.ConfigNTFInfirmier);
-                ev.SpawnRole(RoleType.NtfLieutenant, RoleID.NtfVirologue, PluginClass.ConfigNTFVirologue);
+                ev.SpawnRole(RoleType.ChaosInsurgency, new CHILeaderScript());
+                ev.SpawnRole(RoleType.ChaosInsurgency, new CHIHackerScript());
+                ev.SpawnRole(RoleType.ChaosInsurgency, new CHIExpertPyrotechnieScript());
+                ev.SpawnRole(RoleType.ChaosInsurgency, new CHIKamikazeScript());
+                ev.SpawnRole(RoleType.ChaosInsurgency, new CHIMastodonteScript());
+                ev.SpawnRole(RoleType.ChaosInsurgency, new CHIInfirmierScript());
+                ev.SpawnRole(RoleType.NtfCadet, new CHISPYScript());
+                ev.SpawnRole(RoleType.NtfCadet, new NTFCapitaineScript());
+                ev.SpawnRole(RoleType.NtfCadet, new NTFSergentScript());
+                ev.SpawnRole(RoleType.NtfLieutenant, new NTFExpertPyrotechnieScript());
+                ev.SpawnRole(RoleType.NtfLieutenant, new NTFExpertReconfinementScript());
+                ev.SpawnRole(RoleType.NtfLieutenant, new NTFInfirmierScript());
+                ev.SpawnRole(RoleType.NtfLieutenant, new NTFVirologueScript());
                 RespawnPlayer.Remove(ev.Player);
             }
             if (ev.Player.RemoteAdminAccess == false || ev.Role != RoleType.Spectator)
@@ -63,24 +70,26 @@ namespace CustomClass
         {
             if (ev.SpawnPlayers != null)
             {
-                ev.SpawnPlayers.SpawnRole(RoleType.ClassD, RoleID.Concierge, PluginClass.ConfigConcierge);
-                ev.SpawnPlayers.SpawnRole(RoleType.ClassD, RoleID.SCP507, PluginClass.ConfigSCP507);
-                ev.SpawnPlayers.SpawnRole(RoleType.ClassD, RoleID.ChiIntrus, PluginClass.ConfigCHIntrus);
-                ev.SpawnPlayers.SpawnRole(RoleType.Scientist, RoleID.ScientifiqueSuperviseur, PluginClass.ConfigScientifiqueSuperviseur);
-                ev.SpawnPlayers.SpawnRole(RoleType.FacilityGuard, RoleID.GardeSuperviseur, PluginClass.ConfigGardeSuperviseur);
-                ev.SpawnPlayers.SpawnRole(RoleType.FacilityGuard, RoleID.Technicien, PluginClass.ConfigTechnicien);
-                ev.SpawnPlayers.SpawnRole(RoleType.FacilityGuard, RoleID.FoundationUTR, PluginClass.ConfigFoundationUTR);
-                ev.SpawnPlayers.SpawnRole(RoleType.ClassD, RoleID.DirecteurSite, PluginClass.ConfigDirecteurSite);
+                ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new ConciergeScript());
+                ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new SCP507Script());
+                ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new CHIIntrusScript());
+                ev.SpawnPlayers.SpawnRole(RoleType.Scientist, new ScientifiqueSuperviseurScript());
+                ev.SpawnPlayers.SpawnRole(RoleType.FacilityGuard, new FoundationUTRScript());
+                ev.SpawnPlayers.SpawnRole(RoleType.FacilityGuard, new GardeSuperviseurScript());
+                ev.SpawnPlayers.SpawnRole(RoleType.FacilityGuard, new TechnicienScript());
+                ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new DirecteurSiteScript());
+                ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new ZoneManagerScript());
+                ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new GardePrisonScript());
 
                 if (ev.SpawnPlayers.Count() > 25)
                 {
-                    ev.SpawnPlayers.SpawnRole(RoleType.ClassD, RoleID.SCP008, PluginClass.ConfigSCP008);
-                    ev.SpawnPlayers.SpawnRole(RoleType.ClassD, RoleID.SCP966, PluginClass.ConfigSCP966);
+                    ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new SCP008Script());
+                    ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new SCP966cript());
                 }
                 else
                 {
-                    ev.SpawnPlayers.SpawnSCPRole(RoleID.SCP008, PluginClass.ConfigSCP008.SpawnChance, PluginClass.ConfigSCP008.MaxAlive);
-                    ev.SpawnPlayers.SpawnSCPRole(RoleID.SCP966, PluginClass.ConfigSCP966.SpawnChance, PluginClass.ConfigSCP966.MaxAlive);
+                    ev.SpawnPlayers.SpawnSCPRole(new SCP008Script());
+                    ev.SpawnPlayers.SpawnSCPRole(new SCP966cript());
                 }
                 foreach (var player in ev.SpawnPlayers.Keys)
                 {

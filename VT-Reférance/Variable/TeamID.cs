@@ -20,12 +20,14 @@ namespace VT_Referance.Variable
         CDP = 4,
         RIP = 5,
         TUT = 6,
-        SerpentsHand = 7,
-        AndersneRobotic = 8,
+        SHA = 7,
+        // ID 8
         VIP = 9,
         CDM = 10,
         NetralSCP = 13,
         BerserkSCP = 14,
-        ServerStaff = 15,
+        U2I = 15,
+        AND = 16,
+        ASI = 17,
     }
 }

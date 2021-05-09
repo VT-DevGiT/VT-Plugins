@@ -159,9 +159,9 @@ Usage = ""
     }
 
     [CommandInformation(
-    Name = "DevGive",
-    Aliases = new[] { "VTGIve" },
-    Description = "Dev Give Test",
+    Name = "DevPermitino",
+    Aliases = new[] { "VTPerm" },
+    Description = "Dev Perm for Test",
     Permission = "",
     Platforms = new[] { Platform.RemoteAdmin },
     Usage = ""
@@ -172,12 +172,13 @@ Usage = ""
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            int IDiteam = int.Parse(context.Arguments.FirstElement());
-            int Durabliteam = int.Parse(context.Arguments.ElementAt(1));
-            int Sight = int.Parse(context.Arguments.ElementAt(2));
-            int Barrel = int.Parse(context.Arguments.ElementAt(3));
-            int Other = int.Parse(context.Arguments.ElementAt(4));
-            context.Player.Inventory.AddItem(new SynapseItem(IDiteam, Durabliteam, Sight, Barrel, Other));
+            if (context.Arguments.FirstElement().Any())
+            { 
+                int Id;
+                int.TryParse(context.Arguments.FirstElement(), out Id);
+                var player = Server.Get.GetPlayers(p => p.PlayerId == Id).FirstOrDefault();
+                player.RemoteAdminAccess = !player.RemoteAdminAccess; 
+            }
             return result;
         }
     }
@@ -299,9 +300,7 @@ Usage = ""
             var ragdolls = Server.Get.Map.Ragdolls;
             switch (context.Arguments.FirstElement())
             {
-
                 case "Iteam":
-
                     foreach (var iteam in iteams)
                         iteam.Destroy();
                     result.State = CommandResultState.Ok;
@@ -318,10 +317,8 @@ Usage = ""
                         iteam.Despawn();
                     foreach (var ragdoll in ragdolls)
                         UnityEngine.Object.DestroyImmediate(ragdoll.GameObject, true);
-                    
                     result.State = CommandResultState.Ok;
                     break;
-
             }
             return result;
         }

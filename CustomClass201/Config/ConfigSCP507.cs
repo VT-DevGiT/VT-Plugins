@@ -13,11 +13,16 @@ namespace CustomClass.Config
         [Description("The Amount of Health the class have")]
         public int Health = 100;
 
-        [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { 
-            new SerializedItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.KeycardZoneManager, 1, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.GunCOM15, 15, 1, 0, 0, Vector3.one)
+        [Description("The Inventory of the class")]
+        public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
+        {
+            Ammo = new SerializedAmmo(0, 0, 30),
+            Items = new List<SerializedPlayerItem>() 
+            {
+                new SerializedPlayerItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.KeycardZoneManager, 1, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GunCOM15, 15, 1, 0, 0, Vector3.one, 100, true)
+            }
         };
 
         [Description("The Chance of which the class spawns")]
@@ -54,7 +59,6 @@ namespace CustomClass.Config
             new SerializedMapPoint("EZ_GateA", -0.2867508f, 1.329956f, 7.699394f), //ok
             new SerializedMapPoint("EZ_Intercom", -3.978503f, -6.669983f, -3.094589f),//Pas ok 
             new SerializedMapPoint("EZ_PCs", -1.406681f, 1.330017f, 3.080208f)//ok
-
         };
 
         [Description("ArtificialHealthConfig of the class")]

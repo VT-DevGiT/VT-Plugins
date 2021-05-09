@@ -14,7 +14,6 @@ namespace VT_AdminHelp
         public EventHandlers()
         {
             Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
-            
         }
 
         private void OnDeath(PlayerDeathEventArgs ev)

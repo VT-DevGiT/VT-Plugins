@@ -7,7 +7,7 @@ namespace VT_HammerDown
 
     [PluginInformation(
 Author = "VT",
-Description = "add a new Escape and config",
+Description = "Add the HammerDiwn MTF Team",
 LoadPriority = 20,
 Name = "VT-HammerDown",
 SynapseMajor = SynapseController.SynapseMajor,
@@ -22,6 +22,15 @@ Version = "v.1.1.3"
         [Synapse.Api.Plugin.Config(section = "VT-HammerDown")]
         public static Config Config;
 
+        [Synapse.Api.Plugin.Config(section = "VT-HammerDownCadet")]
+        public static ConfigHammerDownCadet ConfigHammerDownCadet;
+
+        [Synapse.Api.Plugin.Config(section = "VT-HammerDownLieutenant")]
+        public static ConfigHammerDownLieutenant ConfigHammerDownLieutenant;
+
+        [Synapse.Api.Plugin.Config(section = "VT-HammerDownCommandant")]
+        public static ConfigHammerDownCommandant ConfigHammerDownCommandant;
+
         [SynapseTranslation]
         public static SynapseTranslation<PluginTranslation> PluginTranslation { get; set; }
         public override void Load()
@@ -33,10 +42,7 @@ Version = "v.1.1.3"
             PluginTranslation.AddTranslation(new PluginTranslation());
             PluginTranslation.AddTranslation(new PluginTranslation()
             {
-                SpawnMessageCadet = "tu es un membre de <color=blue>HammerDown</color>\\nTon objectif est de stioper toute les intrus et tuée les SCP\\n<b>Press esc pour fermé</b>",
-                SpawnMessageLieutenant = "tu es un membre de <color=blue>HammerDown</color>\\nTon objectif est de stioper toute les intrus et tuée les SCP\\n<b>Press esc pour fermé</b>",
-                SpawnMessageCommandant = "tu es un membre de <color=blue>HammerDown</color>\\nTon objectif est de stioper toute les intrus et tuée les SCP\\n<b>Press esc pour fermé</b>",
-
+                SpawnMessage = "tu es un membre des <color=blue>HammerDown</color>. tu est %RoleName%\\nTon objectif est de stoper toute les intrus et de tuée les SCP 939\\n<b>Press esc pour fermé</b>",
             }, "FRENCH");
             Instance = this;
             base.Load();

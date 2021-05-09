@@ -10,20 +10,26 @@ namespace CustomClass.Config
         [Description("The Amount of Health the class have")]
         public int Health = 110;
 
-        [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() {
-            new SerializedItem((int)ItemType.KeycardChaosInsurgency, 1, 3, 2, 1, Vector3.one),
-            new SerializedItem((int)ItemType.GunProject90, 50, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.Painkillers, 1, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.Flashlight, 1, 0, 0, 0, Vector3.one) };
+        [Description("The Inventory of the class")]
+        public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
+        {
+            Ammo = new SerializedAmmo(100, 100, 100),
+            Items = new List<SerializedPlayerItem> ()
+            { 
+                new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 3, 2, 1, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GunProject90, 50, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Painkillers, 1, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Flashlight, 1, 0, 0, 0, Vector3.one, 100, true)
+            }
+        };
 
         [Description("ArtificialHealthConfig of the class")]
-        public int MaxArtificialHealth = 90;
-        public int ArtificialHealth = 90;
+        public int MaxArtificialHealth = 100;
+        public int ArtificialHealth = 50;
 
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 11;
@@ -44,10 +50,5 @@ namespace CustomClass.Config
         public int CoolDownDoor = 30;
         public int CoolDownLight = 60;
         public int CoolDownMessage = 120;
-
-        [Description("the number of ammo to the class")]
-        public uint Ammo5 = 250;
-        public uint Ammo7 = 250;
-        public uint Ammo9 = 250;
     }
 }

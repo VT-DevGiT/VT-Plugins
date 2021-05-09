@@ -11,6 +11,7 @@ namespace VTEscape
     {
         private Player player;
         private Vector3 _Escape = new Vector3(-56.2f, 988.9f, -49.6f);
+        private int _Radius = 1;
         public CHIEscape()
         {
             this.RefreshTime = 100;
@@ -22,7 +23,7 @@ namespace VTEscape
         }
         protected override void BehaviourAction()
         {
-            if (Vector3.Distance(base.transform.position, _Escape) < 1)
+            if (Vector3.Distance(base.transform.position, _Escape) < _Radius)
             {
                 var configEscape = Plugin.Config.EscapeList.FirstOrDefault(p => (player.RoleID == (int)p.Role || player.TeamID == (int)p.Team)
                     && EscapeEnum.CHI == p.Escape && (player.Cuffer?.TeamID == (int)p.CufferTeam || (player.Cuffer == null && (int)p.CufferTeam == -1)));

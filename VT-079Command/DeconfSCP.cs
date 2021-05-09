@@ -14,17 +14,17 @@ namespace VT079.Command
     {
         public KeyCode Key => KeyCode.None;
 
-        public int RequiredLevel => 5;
+        public int RequiredLevel => PluginExtensions.GetRequiredLevel(Name, 5);
 
-        public float Energy => 200;
+        public float Energy => PluginExtensions.GetEnergy(Name, 200);
 
-        public float Exp => 0;
+        public float Exp => PluginExtensions.GetEnergy(Name, 0);
 
         public string Name => "deconf";
 
         public string Description => "deconfine a random scp but you lose 2 levels";
 
-        public float Cooldown => 420f;
+        public float Cooldown => PluginExtensions.GetCooldown(Name, 420f);
 
         public CommandResult Execute(CommandContext context)
         {

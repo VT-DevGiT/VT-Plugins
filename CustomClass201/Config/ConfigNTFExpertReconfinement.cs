@@ -10,16 +10,22 @@ namespace CustomClass.Config
         [Description("The Amount of Health the class have")]
         public int Health = 175;
 
-        [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { 
-            new SerializedItem((int)ItemType.KeycardContainmentEngineer, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.GunLogicer, 75, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.Flashlight, 1, 0, 0, 0, Vector3.one) };
+        [Description("The Inventory of the class")]
+        public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
+        {
+            Ammo = new SerializedAmmo(100, 100, 100), 
+            Items = new List<SerializedPlayerItem> () 
+            { 
+                new SerializedPlayerItem((int)ItemType.KeycardContainmentEngineer, 1, 0, 0, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.GunLogicer, 75, 0, 0, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.Flashlight, 1, 0, 0, 0, Vector3.one, 100, true)
+            }
+        };
 
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 100;
@@ -39,10 +45,5 @@ namespace CustomClass.Config
 
         [Description("The name of the class")]
         public string RoleName = "Nine-Tailed Fox Expert en reconfinement";
-
-        [Description("the number of ammo to the class")]
-        public uint Ammo5 = 100;
-        public uint Ammo7 = 100;
-        public uint Ammo9 = 100;
     }
 }

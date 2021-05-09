@@ -8,12 +8,14 @@ using UnityEngine;
 using VT_Referance.Variable;
 using VT_Referance.Method;
 using System;
+using VT_Referance.PlayerScript;
 
 namespace CustomClass.PlayerScript
 {
     public class CHIInfirmierScript : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC };
+        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC, (int)TeamID.U2I, (int)TeamID.VIP, (int)TeamID.SHA };
 
         protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : new List<int> { (int)TeamID.CHI, (int)TeamID.CDP };
 
@@ -26,6 +28,8 @@ namespace CustomClass.PlayerScript
         protected override string RoleName => PluginClass.ConfigCHIInfirmier.RoleName;
 
         protected override AbstractConfigSection Config => PluginClass.ConfigCHIInfirmier;
+
+        private DateTime lastPower = DateTime.Now.AddSeconds(-PluginClass.ConfigCHIInfirmier.CoolDownDoor);
 
         protected override void Event()
         {
@@ -55,25 +59,21 @@ namespace CustomClass.PlayerScript
 
         public override bool CallPower(PowerType power)
         {
-            if (power == PowerType.Defibrillation)
+            if (power == PowerType.Defibrillation && (DateTime.Now - lastPower).TotalSeconds > PluginClass.ConfigCHIInfirmier.Cooldown)
             {
                 Player corpseowner = Methods.GetPlayercoprs(Player, 2.5f);
                 if (Methods.IsScpRole(corpseowner) == false)
-                {
-                    if ((DateTime.Now - lastPower).TotalSeconds > PluginClass.ConfigCHIHacker.CoolDownDoor)
-                    {
-                        corpseowner.RoleID = Dictionary.PlayerRole[corpseowner];
-                        corpseowner.Position = corpseowner.DeathPosition;
-                        lastPower = DateTime.Now;
-                    }
-                    else
-                        Reponse.Cooldown(Player, lastPower, PluginClass.ConfigCHIInfirmier.CoolDown);
+                { 
+                    corpseowner.RoleID = Dictionary.PlayerRole[corpseowner];
+                    corpseowner.Position = corpseowner.DeathPosition;
+                    corpseowner.Inventory.Clear();
+                    lastPower = DateTime.Now;
                 }
-                return true;
             }
+            else if (power == PowerType.Respawn)
+                Reponse.Cooldown(Player, lastPower, PluginClass.ConfigCHIInfirmier.Cooldown);
+            else return false;
             return false;
         }
-
-        private DateTime lastPower = DateTime.Now.AddSeconds(-PluginClass.ConfigCHIHacker.CoolDownDoor);
     }
 }

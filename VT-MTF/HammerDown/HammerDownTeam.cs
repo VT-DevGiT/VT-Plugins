@@ -30,7 +30,7 @@ namespace VT_HammerDown
 
                 // Spawn lieutenant
                 int nbLieu = 0;
-                while (players.Any() && nbLieu < Plugin.Config.MaxLieutenant)
+                while (players.Any() && nbLieu < Plugin.ConfigHammerDownLieutenant.MaxRespawn)
                 {
                     int chanceLieu = UnityEngine.Random.Range(0, players.Count() - 1);
                     var lieutenant = players[chanceLieu];
@@ -43,7 +43,7 @@ namespace VT_HammerDown
                 foreach(var player in players)
                 {
                     player.RoleID = (int)RoleID.CdmCadet;
-
+                    players.Remove(player);
                 }
             }
         }

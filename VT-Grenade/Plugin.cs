@@ -25,18 +25,10 @@ namespace VTGrenad
         [Synapse.Api.Plugin.Config(section = "VT-Grenade")]
         public static Config Config;
 
-        private void PatchAll()
-        {
-            var instance = new Harmony("VTGrenad");
-            instance.PatchAll();
-            Server.Get.Logger.Info("Custom class Harmony Patch done!");
-        }
-
         public override void Load()
         {
             Instance = this;
             base.Load();
-            //PatchAll();
             new EventHandlers();
         }
     }

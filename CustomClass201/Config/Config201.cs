@@ -14,7 +14,14 @@ namespace CustomClass.Config
         public int Health = 100;
 
         [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.Medkit, 35, 0, 0, 0, Vector3.one) };
+        public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
+        { 
+            Ammo = new SerializedAmmo(0, 0, 0 ),
+            Items = new List<SerializedPlayerItem>()
+            {
+                new SerializedPlayerItem((int)ItemType.Medkit, 35, 0, 0, 0, Vector3.one, 100, true)
+            }
+        };
 
         [Description("The number of players required in the same role to have the chance for the class to appear")]
         public int RequiredPlayers = 0;

@@ -10,15 +10,21 @@ namespace CustomClass.Config
         [Description("The Amount of Health the class have")]
         public int Health = 100;
 
-        [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { 
-            new SerializedItem((int)ItemType.KeycardO5, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.GunE11SR, 40,  1, 3, 2, Vector3.one),
-            new SerializedItem((int)ItemType.GunUSP, 18, 2, 1, 1, Vector3.one),
-            new SerializedItem((int)ItemType.Adrenaline, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.Radio, 100, 1, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one) };
+        [Description("The Inventory of the class")]
+        public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
+        {
+            Ammo = new SerializedAmmo(100, 100, 100),
+            Items = new List<SerializedPlayerItem> () 
+            { 
+                new SerializedPlayerItem((int)ItemType.KeycardO5, 1, 0, 0, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.GunE11SR, 40,  1, 3, 2, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GunUSP, 18, 2, 1, 1, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Adrenaline, 1, 0, 0, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.Radio, 100, 1, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one, 100, true)
+            }
+        };
 
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 40;
@@ -38,10 +44,5 @@ namespace CustomClass.Config
 
         [Description("The name of the class")]
         public string RoleName = "Nine-Tailed Fox Lieutenant-Colonel";
-
-        [Description("the number of ammo to the class")]
-        public uint Ammo5 = 100;
-        public uint Ammo7 = 100;
-        public uint Ammo9 = 100;
     }
 }

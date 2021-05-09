@@ -3,6 +3,8 @@ using CustomClass.Pouvoir;
 using Synapse;
 using Synapse.Api;
 using Synapse.Command;
+using System.Linq;
+using VT_Referance.PlayerScript;
 
 namespace CustomClass
 {
@@ -20,7 +22,7 @@ namespace CustomClass
         {
             var result = new CommandResult();
             var Mp = context.Player.MapPoint;
-            var MpString = $"SerializedMapPoint(\"{Mp.Room}\", {Mp.RelativePosition.x.ToString().Replace(",", ".")}f, {Mp.RelativePosition.y.ToString().Replace(",", ".")}f, {Mp.RelativePosition.z.ToString().Replace(",", ".")}f)";
+            var MpString = $"SerializedMapPoint(\"{Mp.Room.RoomName}\", {Mp.RelativePosition.x.ToString().Replace(",", ".")}f, {Mp.RelativePosition.y.ToString().Replace(",", ".")}f, {Mp.RelativePosition.z.ToString().Replace(",", ".")}f)";
             Server.Get.Logger.Info(MpString);
             result.State = CommandResultState.Ok;
             result.Message = Mp.ToString();
@@ -42,7 +44,7 @@ namespace CustomClass
         {
             var result = new CommandResult();
             int configX;
-            if (!int.TryParse(context.Arguments.FirstElement().ToString(), out configX) || configX > PluginClass.ConfigSCP507.ListRoom.Count-1 || configX < 0)
+            if (!context.Arguments.Any() || !int.TryParse(context.Arguments.FirstElement().ToString(), out configX) || configX > PluginClass.ConfigSCP507.ListRoom.Count-1 || configX < 0)
             {
                 result.State = CommandResultState.Error;
                 result.Message = $"Please enter a corect number min : 0, max : {PluginClass.ConfigSCP507.ListRoom.Count-1}";
@@ -219,8 +221,8 @@ namespace CustomClass
         }
     }
     [CommandInformation(
-           Name = "Suicide",
-           Aliases = new[] { "Suicide" },
+           Name = "kamikaze",
+           Aliases = new[] { "kamikaze" },
            Description = "to use the capacity of your role",
            Permission = "",
            Platforms = new[] { Platform.ClientConsole },
@@ -333,5 +335,27 @@ namespace CustomClass
             return result;
         }
     }
-
+    [CommandInformation(
+           Name = "ClearGround",
+           Aliases = new[] { "nettoie", "Lave" },
+           Description = "to use the capacity of your role",
+           Permission = "",
+           Platforms = new[] { Platform.ClientConsole },
+           Usage = ".Defibri"
+           )]
+    class CmdClearGround : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+            if (context.Player.CustomRole is BasePlayerScript script)
+            {
+                script.CallPower(PowerType.Clear);
+                result.State = CommandResultState.Ok;
+            }
+            else
+                result.State = CommandResultState.NoPermission;
+            return result;
+        }
+    }
 }

@@ -42,23 +42,5 @@ Version = "v.1.2.2"
                 }
             }
         }
-
-        public void SetItem(Player player, List<SerializedItemProba> config)
-        {
-            int nbCree = 0;
-            foreach (var item in config)
-            {
-                if (nbCree < 8)
-                {
-                    var obj = item.Parse();
-                    if (obj != null)
-                    {
-                        obj.PickUp(player);
-                        nbCree++;
-                    }
-                }
-            }
-        }
-
     }
 }

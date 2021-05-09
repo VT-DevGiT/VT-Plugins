@@ -18,14 +18,15 @@ namespace VT_Referance.Patch
     {
         private static bool Prefix(FragGrenade __instance, ref bool __result)
         {
-            Synapse.Server.Get.Logger.Info("VT_Referance Event Patch ServersideExplosion : FragExplosionGrenadePatch");
             try
             {
                 if (!NetworkServer.active) return false;
                 EffectGrenade grenade = __instance;
                 GrenadeType Type;
-                if (__instance.GetType() == typeof(FlashGrenade))
-                    Type = GrenadeType.Flashbang;
+                if (__instance.GetType() == typeof(FragGrenade))
+                    Type = GrenadeType.Grenade;
+                else if (__instance.GetType() == typeof(Scp018Grenade))
+                    Type = GrenadeType.Scp018;
                 else
                     Type = (GrenadeType)4;
                 bool falg = true;
@@ -45,17 +46,14 @@ namespace VT_Referance.Patch
     [HarmonyPatch(typeof(FlashGrenade), nameof(FlashGrenade.ServersideExplosion))]
     class FlashExplosionGrenadePatch
     {
-        private static bool Prefix(FragGrenade __instance, ref bool __result)
+        private static bool Prefix(FlashGrenade __instance, ref bool __result)
         {
-            Synapse.Server.Get.Logger.Info("VT_Referance Event Patch ServersideExplosion : FlashExplosionGrenadePatch");
             try
             {
                 EffectGrenade grenade = __instance;
                 GrenadeType Type;
-                if (__instance.GetType() == typeof(FragGrenade))
-                    Type = GrenadeType.Grenade;
-                else if (__instance.GetType() == typeof(Scp018Grenade))
-                    Type = GrenadeType.Scp018;
+                if (__instance.GetType() == typeof(FlashGrenade))
+                    Type = GrenadeType.Flashbang;
                 else
                     Type = (GrenadeType)4;
                 bool falg = false;

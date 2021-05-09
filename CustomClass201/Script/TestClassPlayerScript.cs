@@ -4,19 +4,21 @@ using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
 using System.Collections.Generic;
 using UnityEngine;
+using VT_Referance.PlayerScript;
 using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
     public class TestClassScript : BasePlayerScript
     {
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.SCP, (int)TeamID.CDP, (int)TeamID.CHI, (int)TeamID.MTF, (int)TeamID.RIP, (int)TeamID.RSC, (int)TeamID.TUT };
+        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override List<int> EnemysList => new List<int> { };
 
-        protected override List<int> FriendsList => new List<int> { (int)TeamID.SCP, (int)TeamID.CDP, (int)TeamID.CHI, (int)TeamID.MTF, (int)TeamID.RIP, (int)TeamID.RSC, (int)TeamID.TUT };
+        protected override List<int> FriendsList => new List<int> { };
 
         protected override RoleType RoleType => RoleType.Tutorial;
 
-        protected override int RoleTeam => (int)TeamID.ServerStaff;
+        protected override int RoleTeam => (int)TeamID.RIP;
 
         protected override int RoleId => (int)RoleID.TestClass;
 

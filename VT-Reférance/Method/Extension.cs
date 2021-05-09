@@ -1,5 +1,6 @@
 ﻿using Interactables.Interobjects.DoorUtils;
 using Synapse.Api;
+using Synapse.Config;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using VT_Referance.Variable;
 
 namespace VT_Referance.Method
 {
-    public static class PlayerExtension
+    public static class Extension
     {
         /// <summary>
         /// True if the player can see a gameobject
@@ -29,6 +30,16 @@ namespace VT_Referance.Method
             }
             return true;
         }
+        /// <summary>
+        /// True if the player is a 939
+        /// </summary>
+        /// <param name="player">The tested player</param>
+        /// <returns></returns>
+        public static bool Is939(this Player player)
+        {
+            return player.RoleID == (int)RoleID.Scp93953 || player.RoleID == (int)RoleID.Scp93989;
+        }
+
 
         /// <summary>
         /// True if the player is a robotic tactical unit
@@ -47,8 +58,8 @@ namespace VT_Referance.Method
         private static List<List<int>> Ally = new List<List<int>>()
         {
             new List<int>{ (int)TeamID.VIP, (int)TeamID.NetralSCP, (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC},
-            new List<int>{ (int)TeamID.AndersneRobotic},
-            new List<int>{ (int)TeamID.SCP, (int)TeamID.SerpentsHand},
+            new List<int>{ (int)TeamID.AND},
+            new List<int>{ (int)TeamID.SCP, (int)TeamID.SHA},
             new List<int>{ (int)TeamID.CDP, (int)TeamID.RSC}
         };
         /// <summary>
@@ -60,6 +71,16 @@ namespace VT_Referance.Method
         public static bool IsAlly(this int team1, int team2)
         {
             return Ally.Any(p => p.Contains(team1) && p.Contains(team2));
+        }
+
+        public static bool IsDefined(this SerializedPlayerInventory item)
+        {
+            return !(item.IsUnDefined());
+        }
+
+        public static bool IsUnDefined(this SerializedPlayerInventory item)
+        {
+            return (item.Ammo == null && (item.Items == null || !item.Items.Any()));
         }
     }
 }

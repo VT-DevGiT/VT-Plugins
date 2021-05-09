@@ -10,18 +10,24 @@ namespace CustomClass.Config
         [Description("The Amount of Health the class have")]
         public int Health = 120;
 
-        [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { 
-            new SerializedItem((int)ItemType.KeycardChaosInsurgency, 1, 0, 0, 0, Vector3.one),
-            new SerializedItem(59, 0, 0, 0, 0, Vector3.one),
-            new SerializedItem(52, 26, 2, 1, 0, Vector3.one),
-            new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.GrenadeFlash, 1, 0, 0, 0, Vector3.one) };
+        [Description("The Inventory of the class")]
+        public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
+        {
+            Ammo = new SerializedAmmo(50, 75, 50),
+            Items = new List<SerializedPlayerItem>() 
+            { 
+                new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem(59, 0, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem(52, 26, 2, 1, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GrenadeFlash, 1, 0, 0, 0, Vector3.one, 100, true)
+            }
+        };
 
         [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 215;
-        public int MaxArtificialHealth = 215;
+        public int ArtificialHealth = 230;
+        public int MaxArtificialHealth = 230;
 
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 15;
@@ -37,10 +43,5 @@ namespace CustomClass.Config
 
         [Description("The name of the class")]
         public string RoleName = "Mastondonte";
-
-        [Description("the number of ammo to the class")]
-        public uint Ammo5 = 50;
-        public uint Ammo7 = 75;
-        public uint Ammo9 = 50;
     }
 }

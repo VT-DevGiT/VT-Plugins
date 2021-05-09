@@ -12,17 +12,17 @@ namespace VT079.Command
     {
         public KeyCode Key => KeyCode.None;
 
-        public int RequiredLevel => 4;
+        public int RequiredLevel => PluginExtensions.GetRequiredLevel(Name, 4);
 
-        public float Energy => 150;
+        public float Energy => PluginExtensions.GetEnergy(Name, 150);
 
-        public float Exp => 30;
+        public float Exp => PluginExtensions.GetEnergy(Name, 30);
 
         public string Name => "air";
 
         public string Description => "Start air bombardment";
 
-        public float Cooldown => 50f;
+        public float Cooldown => PluginExtensions.GetCooldown(Name, 50f);
 
         public CommandResult Execute(CommandContext context)
         {

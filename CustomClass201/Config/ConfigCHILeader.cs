@@ -8,25 +8,31 @@ namespace CustomClass.Config
     public class ConfigCHILeader : AbstractConfigSection
     {
         [Description("The Amount of Health the class have")]
-        public int Health = 170;
+        public int Health = 120;
 
-        [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() {
-            new SerializedItem((int)ItemType.KeycardNTFCommander, 1, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.GunLogicer, 75, 0, 0, 0, Vector3.one),
-            new SerializedItem(50, 1, 0, 1, 0, Vector3.one),
-            new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.Adrenaline, 1, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one) };
+        [Description("The Inventory of the class")]
+        public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
+        {
+            Ammo = new SerializedAmmo(25, 125, 20),
+            Items = new List<SerializedPlayerItem>() 
+            { 
+                new SerializedPlayerItem((int)ItemType.KeycardNTFCommander, 1, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GunLogicer, 75, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem(50, 1, 0, 1, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Adrenaline, 1, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one, 100, true)
+            }
+        };
 
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 100;
 
         [Description("ArtificialHealthConfig of the class")]
-        public int MaxArtificialHealth = 170;
-        public int ArtificialHealth = 170;
+        public int MaxArtificialHealth = 100;
+        public int ArtificialHealth = 100;
 
         [Description("Max alive at the same time")]
         public int MaxAlive = 1;
@@ -42,10 +48,5 @@ namespace CustomClass.Config
         
         [Description("The cooldown of the class Power")]
         public int Cooldown = 150;
-
-        [Description("the number of ammo to the class")]
-        public uint Ammo5 = 25;
-        public uint Ammo7 = 125;
-        public uint Ammo9 = 25;
     }
 }

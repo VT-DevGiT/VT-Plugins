@@ -9,8 +9,6 @@ namespace VT_HammerDown
 {
     public class PluginTranslation : IPluginTranslation
     {
-        public string SpawnMessageCadet { get; set; } = "You are a <color=blue>HammerDown</color>\\nYour Goal is it to stop all intruders and kill SCP\\n<b>Press Esc to close</b>";
-        public string SpawnMessageLieutenant { get; set; } = "You are a <color=blue>HammerDown</color>\\nYour Goal is it to stop all intruders and kill SCP\\n<b>Press Esc to close</b>";
-        public string SpawnMessageCommandant { get; set; } = "You are a <color=blue>HammerDown</color>\\nYour Goal is it to stop all intruders and kill SCP\\n<b>Press Esc to close</b>";
+        public string SpawnMessage { get; set; } = "You are a %RoleName% in the team of <color=blue>HammerDown</color>\\nYour Goal is it to stop all intruders and kills SCP 939\\n<b>Press Esc to close</b>";
     }
 }

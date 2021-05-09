@@ -5,27 +5,30 @@ using UnityEngine;
 
 namespace CustomClass.Config
 {
-    public class ConfigFoundationUTR : AbstractConfigSection
+    public class ConfigMTF : AbstractConfigSection
     {
-        [Description("The MapPoint where the class should Spawn")]
-        public SerializedMapPoint SpawnPoint = new SerializedMapPoint("LCZ_Plants", -0.0884471f, 2.171398f, -4.554413f);
-
         [Description("The Amount of Health the class have")]
-        public int Health = 120;
+        public int Health = 180;
 
-        [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { 
-            new SerializedItem((int)ItemType.GunLogicer, 75, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one), 
-            new SerializedItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one),
-            new SerializedItem((int)ItemType.Flashlight, 1, 0, 0, 0, Vector3.one) };
+        [Description("The Inventory of the class")]
+        public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
+        {
+            Ammo = new SerializedAmmo(300, 300, 300),
+            Items = new List<SerializedPlayerItem> ()
+            { 
+            new SerializedPlayerItem((int)ItemType.GunLogicer, 75, 0, 0, 0, Vector3.one, 100, true),
+            new SerializedPlayerItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one, 100, true), 
+            new SerializedPlayerItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one, 100, true), 
+            new SerializedPlayerItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one, 100, true),
+            new SerializedPlayerItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one, 100, true),
+            new SerializedPlayerItem((int)ItemType.Flashlight, 1, 0, 0, 0, Vector3.one, 100, true) 
+            }
+        };
 
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 150;
         public int MaxArtificialHealth = 150;
-
+        
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 25;
 
@@ -37,10 +40,5 @@ namespace CustomClass.Config
 
         [Description("The name of the class")]
         public string RoleName = " U.T.R.";
-
-        [Description("the number of ammo to the class")]
-        public uint Ammo5 = 100;
-        public uint Ammo7 = 100;
-        public uint Ammo9 = 100;
     }
 }
