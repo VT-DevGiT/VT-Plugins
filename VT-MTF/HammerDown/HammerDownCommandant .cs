@@ -14,9 +14,9 @@ namespace VT_HammerDown
     {
         protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.CHI, (int)TeamID.AND, (int)TeamID.SHA };
+        protected override List<int> EnemysList => new List<int> { (int)TeamID.CHI, (int)TeamID.AND, (int)TeamID.SHA, (int)TeamID.SCP, (int)TeamID.BerserkSCP };
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : new List<int> { (int)TeamID.RSC, (int)TeamID.MTF, (int)TeamID.CDM };
+        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.U2I, (int)TeamID.VIP, (int)TeamID.ASI, (int)TeamID.RSC };
 
         protected override RoleType RoleType => RoleType.NtfCommander;
 

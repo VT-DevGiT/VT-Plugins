@@ -29,5 +29,6 @@ namespace VT_Referance.Variable
         U2I = 15,
         AND = 16,
         ASI = 17,
+        AL1 = 18,
     }
 }

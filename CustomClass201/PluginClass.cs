@@ -202,12 +202,11 @@ namespace CustomClass
                 Server.Get.Logger.Info($"Type = {tp.Name}");
             }
 
-            string curAssemblyFolder = new System.Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath;
-
-
-            Server.Get.RoleManager.RegisterCustomRole<AndersonUTRlightScript>();
-            Server.Get.RoleManager.RegisterCustomRole<AndersonUTRheavyScript>();
-            
+            if (Server.Get.TeamManager.IsIDRegistered((int)TeamID.AND))
+            { 
+                Server.Get.RoleManager.RegisterCustomRole<AndersonUTRlightScript>();
+                Server.Get.RoleManager.RegisterCustomRole<AndersonUTRheavyScript>();
+            }
             Server.Get.RoleManager.RegisterCustomRole<ConciergeScript>();
             Server.Get.RoleManager.RegisterCustomRole<DirecteurSiteScript>();
             Server.Get.RoleManager.RegisterCustomRole<ScientifiqueSuperviseurScript>();

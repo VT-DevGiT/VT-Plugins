@@ -82,6 +82,7 @@
         U2IAgentLiaison = 150,
         GeneralAsimov = 151,
         GardienAsimov = 152,
+        AlphaOneAgent = 153,
         Staff = 199,
         TestClass = 200,
         Class201 = 201,

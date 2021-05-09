@@ -29,7 +29,7 @@ namespace CustomClass.PlayerScript
 
         protected override AbstractConfigSection Config => PluginClass.ConfigCHIInfirmier;
 
-        private DateTime lastPower = DateTime.Now.AddSeconds(-PluginClass.ConfigCHIInfirmier.CoolDownDoor);
+        private DateTime lastPower = DateTime.Now.AddSeconds(-PluginClass.ConfigCHIInfirmier.Cooldown);
 
         protected override void Event()
         {

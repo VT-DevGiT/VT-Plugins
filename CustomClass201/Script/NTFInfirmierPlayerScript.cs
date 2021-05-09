@@ -29,7 +29,7 @@ namespace CustomClass.PlayerScript
 
         protected override AbstractConfigSection Config => PluginClass.ConfigNTFInfirmier;
 
-        private DateTime lastPower = DateTime.Now.AddSeconds(-PluginClass.ConfigNTFInfirmier.CoolDownDoor);
+        private DateTime lastPower = DateTime.Now.AddSeconds(-PluginClass.ConfigNTFInfirmier.Cooldown);
         protected override void Event()
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnDammage;
