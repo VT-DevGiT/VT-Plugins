@@ -1,4 +1,5 @@
 ﻿using MEC;
+using Respawning.NamingRules;
 using Synapse;
 using Synapse.Api;
 using Synapse.Config;
@@ -157,5 +158,23 @@ namespace VT_Referance.Method
             return (int)totalvoltagefloat;
         }
 
+        /// <summary>
+        /// For creat new NTF name Unit
+        /// </summary>
+        /// <param name="type">Name for get a Unit</param>
+        /// <param name="regular"></param>
+        public static string GenerateNtfUnitName()
+        {
+            var combi = typeof(UnitNamingRule).GetStaticFieldOrPropertyValue<List<string>>("UsedCombinations");
+            string regular;
+            do
+            {
+                var arrayOfValues = typeof(NineTailedFoxNamingRule).GetStaticFieldOrPropertyValue<string[]>("PossibleCodes");
+                regular = arrayOfValues[UnityEngine.Random.Range(0, arrayOfValues.Length)] + "-" + UnityEngine.Random.Range(1, 20).ToString("00");
+            }
+            while (combi.Contains(regular));
+            combi.Add(regular);
+            return regular;
+        }
     }
 }

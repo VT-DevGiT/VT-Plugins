@@ -19,5 +19,11 @@ namespace VT_Alpha
 
         [Description("Max Respawn of Alpha-1")]
         public float MaxRepsawn = 1;
+
+        [Description("The Cassie message when Alpha-1 spawn")]
+        public string CassieSpawn = "";
+
+        [Description("The Name of a Alpha-1 unit")]
+        public string UnitName = "%RandomName%";
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 
 namespace VT_Referance.Method
 {
@@ -39,6 +40,21 @@ namespace VT_Referance.Method
             if (field != null)
             {
                 return (T)field.GetValue(element);
+            }
+            return default(T);
+        }
+
+        public static T GetStaticFieldOrPropertyValue<T>(this Type element, string fieldName)
+        {
+            var prop = element.GetProperty(fieldName, BindingFlags.NonPublic | BindingFlags.Static);
+            if (prop != null)
+            {
+                return (T)prop.GetValue(null);
+            }
+            FieldInfo field = element.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Static);
+            if (field != null)
+            {
+                return (T)field.GetValue(null);
             }
             return default(T);
         }

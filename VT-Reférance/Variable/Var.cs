@@ -15,6 +15,11 @@ namespace VT_Referance.Variable
         public static Dictionary<Player, int> PlayerRole = new Dictionary<Player, int>();
     }
 
+    public static class CodeName
+    {
+
+    }
+
     /// <summary>
     /// for class ally and ennemy
     /// </summary>

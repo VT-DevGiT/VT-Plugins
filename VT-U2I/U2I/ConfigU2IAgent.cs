@@ -32,7 +32,7 @@ namespace VT_U2I
         public int MaxArtificialHealth = 100;
 
         [Description("The name of the class")]
-        public string RoleName = "U2I Agent";
+        public string RoleName = "UIU-Agent";
 
     }
 }

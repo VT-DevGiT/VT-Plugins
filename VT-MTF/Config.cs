@@ -16,5 +16,11 @@ namespace VT_HammerDown
 
         [Description("The maximal amount of players that can spawn as HamerDown in one squad")]
         public int SpawnSize = 7;
+
+        [Description("The Cassie message when HamerDown spawn")]
+        public string CassieSpawn = "";
+
+        [Description("The Name of a HamerDown unit")]
+        public string UnitName = "%RandomName%";
     }
 }

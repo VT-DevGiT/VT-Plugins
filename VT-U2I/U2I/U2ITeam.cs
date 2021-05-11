@@ -1,9 +1,12 @@
-﻿using Synapse;
+﻿using Respawning;
+using Respawning.NamingRules;
+using Synapse;
 using Synapse.Api;
 using Synapse.Api.Teams;
 using Synapse.Config;
 using System.Collections.Generic;
 using System.Linq;
+using VT_Referance.Method;
 using VT_Referance.Variable;
 
 namespace VT_U2I
@@ -40,10 +43,18 @@ namespace VT_U2I
             
             if (players.Any())
             {
-                if(!string.IsNullOrWhiteSpace(Plugin.Config.CassieSpawn))
-                    Map.Get.Cassie(Plugin.Config.CassieSpawn, false, true);
+                string Unitname = Methods.GenerateNtfUnitName();
+                RespawnManager.Singleton.NamingManager.AllUnitNames.Add(new SyncUnit()
+                {
+                    SpawnableTeam = 2,
+                    UnitName = Plugin.Config.UnitName.Replace("%RandomName%", Unitname)
+                });
+                if (!string.IsNullOrWhiteSpace(Plugin.Config.CassieSpawn))
+                {
+                    string SpawnCassie = Plugin.Config.CassieSpawn.Replace("%UnitName%", Unitname.Replace("-", " "));
+                    Map.Get.GlitchedCassie(SpawnCassie);
+                }
                 int rnd = UnityEngine.Random.Range(0, 12);
-                
                 foreach (var player in players)
                 {
                     if (player.RankName == Plugin.Config.SpawnNeedRank && SpawnAgentLaison > Plugin.ConfigU2IAgentLiaison.MaxRespawn)
@@ -57,6 +68,7 @@ namespace VT_U2I
                         player.RoleID = (int)RoleID.U2IAgent;
                         player.Position = SpawnPoints[rnd].Parse().Position;
                     }
+                    player.UnitName = Unitname;
                 }
             }
         }

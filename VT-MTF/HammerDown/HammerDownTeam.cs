@@ -1,11 +1,10 @@
-﻿using Synapse;
+﻿using Respawning;
+using Respawning.NamingRules;
 using Synapse.Api;
 using Synapse.Api.Teams;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using VT_Referance.Method;
 using VT_Referance.Variable;
 
 namespace VT_HammerDown
@@ -21,11 +20,24 @@ namespace VT_HammerDown
             if (players.Count > Plugin.Config.SpawnSize)
                 players = players.GetRange(0, Plugin.Config.SpawnSize);
             if (players.Any())
-            { 
+            {
+                string Unitname = Methods.GenerateNtfUnitName();
+                RespawnManager.Singleton.NamingManager.AllUnitNames.Add(new SyncUnit()
+                {
+                    SpawnableTeam = 2,
+                    UnitName = Plugin.Config.UnitName.Replace("%RandomName%", Unitname)
+                });
+                if (!string.IsNullOrWhiteSpace(Plugin.Config.CassieSpawn))
+                {
+                    string SpawnCassie = Plugin.Config.CassieSpawn.Replace("%UnitName%", Unitname.Replace("-", " "));
+                    Map.Get.GlitchedCassie(SpawnCassie);
+                }
+
                 //random Commander
                 int chance = players.Count() > 1? UnityEngine.Random.Range(0, players.Count() - 1) : 0;
                 var commander = players[chance];
                 commander.RoleID = (int)RoleID.CdmCommander;
+                commander.UnitName = Unitname;
                 players.Remove(commander);
 
                 // Spawn lieutenant
@@ -35,6 +47,7 @@ namespace VT_HammerDown
                     int chanceLieu = UnityEngine.Random.Range(0, players.Count() - 1);
                     var lieutenant = players[chanceLieu];
                     lieutenant.RoleID = (int)RoleID.CdmLieutenant;
+                    lieutenant.UnitName = Unitname;
                     players.Remove(lieutenant);
                     nbLieu++;
                 }
@@ -43,6 +56,7 @@ namespace VT_HammerDown
                 foreach(var player in players)
                 {
                     player.RoleID = (int)RoleID.CdmCadet;
+                    player.UnitName = Unitname;
                     players.Remove(player);
                 }
             }

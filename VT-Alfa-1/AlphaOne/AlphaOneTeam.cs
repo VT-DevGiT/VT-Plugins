@@ -1,9 +1,11 @@
-﻿using Synapse;
+﻿using Respawning;
+using Respawning.NamingRules;
+using Synapse;
 using Synapse.Api;
 using Synapse.Api.Teams;
-using Synapse.Config;
 using System.Collections.Generic;
 using System.Linq;
+using VT_Referance.Method;
 using VT_Referance.Variable;
 
 namespace VT_Alpha
@@ -16,10 +18,25 @@ namespace VT_Alpha
     {
         public override void Spawn(List<Player> players)
         {
-            foreach (var player in players)
-            {
-                player.RoleID = (int)RoleID.AlphaOneAgent;
-                players.Remove(player);
+            if (players.Any())
+            { 
+                string Unitname = Methods.GenerateNtfUnitName();
+                RespawnManager.Singleton.NamingManager.AllUnitNames.Add(new SyncUnit()
+                {
+                    SpawnableTeam = 2,
+                    UnitName = Plugin.Config.UnitName.Replace("%RandomName%", Unitname)
+                });
+                if (!string.IsNullOrWhiteSpace(Plugin.Config.CassieSpawn))
+                {
+                    string SpawnCassie = Plugin.Config.CassieSpawn.Replace("%UnitName%", Unitname.Replace("-", " "));
+                    Map.Get.GlitchedCassie(SpawnCassie);
+                }
+                foreach (var player in players)
+                {
+                    player.RoleID = (int)RoleID.AlphaOneAgent;
+                    player.UnitName = Unitname;
+                    players.Remove(player);
+                }
             }
         }
     }

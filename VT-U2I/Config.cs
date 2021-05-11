@@ -20,6 +20,9 @@ namespace VT_U2I
         [Description("The Cassie message when U2I spawn")]
         public string CassieSpawn = "";
 
+        [Description("The Name of a U2I unit")]
+        public string UnitName = "%RandomName%";
+
         [Description("The maximal amount of players that can spawn as HamerDown in one squad")]
         public int SpawnSize = 11;
     }

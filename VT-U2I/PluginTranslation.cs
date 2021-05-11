@@ -9,5 +9,5 @@ namespace VT_U2I
 {
     public class PluginTranslation : IPluginTranslation
     {
-        public string SpawnMessage { get; set; } = "You are a <color=blue>UIU %RoleName%</color>\\nYour Goal is it to stop all intruders and kill SCP\\n<b>Press Esc to close</b>";    }
+        public string SpawnMessage { get; set; } = "You are a <color=blue> %RoleName%</color>\\nYour Goal is it to stop all intruders and kill SCP\\n<b>Press Esc to close</b>";    }
 }
