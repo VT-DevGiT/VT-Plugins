@@ -161,8 +161,6 @@ namespace VT_Referance.Method
         /// <summary>
         /// For creat new NTF name Unit
         /// </summary>
-        /// <param name="type">Name for get a Unit</param>
-        /// <param name="regular"></param>
         public static string GenerateNtfUnitName()
         {
             var combi = typeof(UnitNamingRule).GetStaticFieldOrPropertyValue<List<string>>("UsedCombinations");
