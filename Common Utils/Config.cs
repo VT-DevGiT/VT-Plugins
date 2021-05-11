@@ -108,8 +108,5 @@ namespace Common_Utiles
 
         [Description("The percent chance of dying for players passing through 914")]
         public float Rnd914ChanceDie = 50;
-
-        [Description("the D-class and the Chaos Insurgency does not finish the game")]
-        public bool AdvenceEnd = false;
     }
 }
