@@ -15,9 +15,10 @@ namespace CustomClass.PlayerScript
     public class SCP507Script : BasePlayerScript
     {
         protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.SCP, (int)TeamID.CHI, (int)TeamID.SHA };
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC, (int)TeamID.U2I };
+        protected override List<int> EnemysList => TeamGroupe.NetralSCPennemy;
+
+        protected override List<int> FriendsList => TeamGroupe.SCPally;
 
         protected override RoleType RoleType => RoleType.ClassD;
 

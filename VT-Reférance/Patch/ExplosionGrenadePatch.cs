@@ -56,9 +56,9 @@ namespace VT_Referance.Patch
                     Type = GrenadeType.Flashbang;
                 else
                     Type = (GrenadeType)4;
-                bool falg = false;
+                bool falg = true;
                 VTController.Server.Event.Grenade.InvokeExplosionGrenadeEvent(grenade, Type, ref falg);
-                if (falg)
+                if (!falg)
                     __result = __instance.ServersideExplosion();
                 return falg;
             }

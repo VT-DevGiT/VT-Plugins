@@ -10,7 +10,7 @@ namespace VT_Alpha
 {
     [SynapseTeamInformation(
         ID = (int)TeamID.AL1,
-        Name = "AlfaOneAgent"
+        Name = "Alfa-1 Agent"
         )]
     public class AlphaOneTeam : SynapseTeam
     {

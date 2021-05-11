@@ -1,4 +1,7 @@
-﻿using Synapse.Config;
+﻿using Synapse;
+using Synapse.Api.Events.SynapseEventArguments;
+using Synapse.Config;
+using System;
 using System.Collections.Generic;
 using VT_Referance.PlayerScript;
 using VT_Referance.Variable;
@@ -29,8 +32,21 @@ namespace CustomClass.PlayerScript
             Player.NoClip = true;
             Player.GodMode = true;
         }
+
+        protected override void Event()
+        {
+            Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
+        }
+
+        private void OnKeyPress(PlayerKeyPressEventArgs ev)
+        {
+            if (ev.Player == Player && ev.KeyCode == UnityEngine.KeyCode.Alpha1)
+                Player.Invisible = !Player.Invisible;
+        }
+
         public override void DeSpawn()
         {
+            Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
             Player.NoClip = false;
             Player.Invisible = false;
             Player.GodMode = false;

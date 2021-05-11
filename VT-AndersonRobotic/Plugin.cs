@@ -34,6 +34,8 @@ Version = "v.1.1.3"
         [Synapse.Api.Plugin.Config(section = "VT-AsimovGeneral")]
         public static ConfigGeneralGammaOne ConfigGeneralGammaOne;
 
+        internal int AndersonSapwn = 0;
+
         [SynapseTranslation]
         public static SynapseTranslation<PluginTranslation> PluginTranslation { get; set; }
         public override void Load()

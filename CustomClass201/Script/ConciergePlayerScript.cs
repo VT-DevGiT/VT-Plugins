@@ -17,7 +17,7 @@ namespace CustomClass.PlayerScript
         protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
         protected override List<int> EnemysList => new List<int> { (int)TeamID.SCP };
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC };
+        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.MTFally;
 
         protected override RoleType RoleType => RoleType.ClassD;
 

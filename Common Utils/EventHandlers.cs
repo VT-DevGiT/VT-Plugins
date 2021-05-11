@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using VT_Referance.Method;
+using VT_Referance.Variable;
 
 namespace Common_Utiles
 {
@@ -17,8 +18,15 @@ namespace Common_Utiles
         {
             Server.Get.Events.Map.Scp914ActivateEvent += On914Activate;
             Server.Get.Events.Player.PlayerSetClassEvent += OnSpawn;
+            if (CommonUtiles.Config.AdvenceEnd)
+                Server.Get.Events.Round.RoundCheckEvent += OnRoudEnd;
         }
 
+        private void OnRoudEnd(RoundCheckEventArgs ev)
+        {
+            if (Server.Get.Players.Where(p => p.TeamID == (int)TeamID.CHI).Any() && Server.Get.Players.Where(p => p.TeamID == (int)TeamID.CDP).Any())
+                ev.EndRound = false;
+        }
 
         private void OnSpawn(PlayerSetClassEventArgs ev)
         {

@@ -165,7 +165,8 @@ namespace CustomClass
         {
             //ConfigHandler
             var confSynapse = Server.Get.Configs.GetFieldValueorOrPerties<SynapseConfiguration>("synapseConfiguration");
-            foreach(var value in confSynapse.CantLookAt173)
+            confSynapse.CantLookAt173.Add(-1);
+            foreach (var value in confSynapse.CantLookAt173)
             {
                 Server.Get.Logger.Info($"Can look at {value}");
             }
@@ -197,11 +198,6 @@ namespace CustomClass
             Type typeScripte = typeof(BasePlayerScript);
 
             Type[] enfants = typeScripte.GetNestedTypes(System.Reflection.BindingFlags.Public);
-            foreach(var tp in enfants)
-            {
-                Server.Get.Logger.Info($"Type = {tp.Name}");
-            }
-
             if (Server.Get.TeamManager.IsIDRegistered((int)TeamID.AND))
             { 
                 Server.Get.RoleManager.RegisterCustomRole<AndersonUTRlightScript>();

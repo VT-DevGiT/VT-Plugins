@@ -16,9 +16,10 @@ namespace CustomClass.PlayerScript
     public class SCP166AzScript : BasePlayerScript
     {
         protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC, (int)TeamID.U2I, (int)TeamID.CHI };
 
-        protected override List<int> FriendsList => new List<int> { (int)TeamID.NetralSCP, (int)TeamID.SCP };
+        protected override List<int> EnemysList => TeamGroupe.NetralSCPennemy;
+
+        protected override List<int> FriendsList => TeamGroupe.SCPally;
 
         protected override RoleType RoleType => RoleType.ClassD;
 

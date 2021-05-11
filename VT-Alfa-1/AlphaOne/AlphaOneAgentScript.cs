@@ -15,9 +15,9 @@ namespace VT_Alpha
     {
         protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => TeamGroupe.MTFEnemys;
+        protected override List<int> EnemysList => TeamGroupe.MTFenemy;
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.MTFFriends;
+        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.MTFally;
 
         protected override RoleType RoleType => RoleType.NtfCommander;
 

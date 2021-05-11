@@ -13,9 +13,10 @@ namespace CustomClass.PlayerScript
     public class CHIMastodonteScript : BasePlayerScript
     {
         protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC, (int)TeamID.U2I, (int)TeamID.VIP, (int)TeamID.SHA };
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : new List<int> { (int)TeamID.CHI, (int)TeamID.CDP };
+        protected override List<int> EnemysList => TeamGroupe.CHIenemy;
+
+        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.CHIally;
 
         protected override RoleType RoleType => RoleType.ChaosInsurgency;
 

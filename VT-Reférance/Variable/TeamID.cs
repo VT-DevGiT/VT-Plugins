@@ -14,7 +14,7 @@ namespace VT_Referance.Variable
     {
         None = -1,
         SCP = 0,
-        MTF = 1,
+        NTF = 1,
         CHI = 2,
         RSC = 3,
         CDP = 4,

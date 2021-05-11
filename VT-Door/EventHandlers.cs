@@ -14,7 +14,7 @@ namespace VTDoor
         public EventHandlers()
         {
             Server.Get.Events.Round.RoundStartEvent += OnStart;
-            Server.Get.Events.Map.DoorInteractEvent += OnDoor;
+            //Server.Get.Events.Map.DoorInteractEvent += OnDoor;
         }
 
         private void OnDoor(DoorInteractEventArgs ev)

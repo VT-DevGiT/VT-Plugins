@@ -89,7 +89,7 @@ namespace VTProget_X
                 nCDP = Server.Get.Players.Where(p => p.RoleID == (int)RoleType.ClassD).Count();
                 nRSC = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.RSC || RSCaditonelle.Contains(p.RoleID)).Count();
                 nVIP = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.VIP).Count();
-                nFIM = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.MTF || p.TeamID == (int)TeamID.CDM && !SCPaditonelle.Contains(p.RoleID) && !RSCaditonelle.Contains(p.RoleID)).Count();
+                nFIM = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.NTF || p.TeamID == (int)TeamID.CDM && !SCPaditonelle.Contains(p.RoleID) && !RSCaditonelle.Contains(p.RoleID)).Count();
                 leftdecont = (int)((Math.Truncate((15f * 60) * 100f) / 100f) - (Math.Truncate(DecontaminationController.GetServerTime * 100f) / 100f));
                 leftautowarhead = AlphaWarheadController.Host != null
                     ? (int)Mathf.Clamp(AlphaWarheadController.Host.timeToDetonation - RoundSummary.roundTime, 0, AlphaWarheadController.Host.timeToDetonation)

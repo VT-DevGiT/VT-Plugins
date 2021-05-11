@@ -8,7 +8,8 @@ namespace CustomClass.PlayerScript
     public class SCP953Script : BasePlayerScript
     {
         protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC, (int)TeamID.U2I, (int)TeamID.CDP, (int)TeamID.SCP, (int)TeamID.BerserkSCP };
+     
+        protected override List<int> EnemysList => TeamGroupe.BerserkSCPennemy;
 
         protected override List<int> FriendsList => new List<int> { };
 

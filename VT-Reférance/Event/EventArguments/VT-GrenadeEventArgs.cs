@@ -4,7 +4,6 @@ using Synapse.Api.Items;
 
 namespace VT_Referance.Event.EventArguments
 {
-    #region Argument
     public class ChangeIntoFragEventArgs : Synapse.Api.Events.EventHandler.ISynapseEventArgs
     {
         public Grenade Grenade { get; internal set; }
@@ -25,5 +24,4 @@ namespace VT_Referance.Event.EventArguments
         public GrenadeType Type { get; internal set; }
         public bool Allow { get; set; }
     }
-    #endregion
 }

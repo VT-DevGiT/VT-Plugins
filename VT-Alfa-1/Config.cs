@@ -13,5 +13,11 @@ namespace VT_Alpha
     {
         [Description("The maximal amount of players that can spawn as HamerDown in one squad")]
         public int SpawnSize = 20;
+
+        [Description("The chance that a Apha-1 Squad spawns when WarHead Start")]
+        public float SpawnChance = 50f;
+
+        [Description("Max Respawn of Alpha-1")]
+        public float MaxRepsawn = 1;
     }
 }

@@ -57,7 +57,7 @@ namespace VT_Referance.Method
         /// </summary>
         private static List<List<int>> Ally = new List<List<int>>()
         {
-            new List<int>{ (int)TeamID.VIP, (int)TeamID.NetralSCP, (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC},
+            new List<int>{ (int)TeamID.VIP, (int)TeamID.NetralSCP, (int)TeamID.NTF, (int)TeamID.CDM, (int)TeamID.RSC},
             new List<int>{ (int)TeamID.AND},
             new List<int>{ (int)TeamID.SCP, (int)TeamID.SHA},
             new List<int>{ (int)TeamID.CDP, (int)TeamID.RSC}

@@ -9,9 +9,10 @@ namespace CustomClass.PlayerScript
     public class DirecteurSiteScript : BasePlayerScript
     {
         protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.CHI, (int)TeamID.SCP, (int)TeamID.CDP, (int)TeamID.SHA, (int)TeamID.AND };
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : new List<int> { (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.RSC, (int)TeamID.U2I };
+        protected override List<int> EnemysList => TeamGroupe.VIPennemy;
+
+        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.VIPally;
 
         protected override RoleType RoleType => RoleType.Scientist;
 

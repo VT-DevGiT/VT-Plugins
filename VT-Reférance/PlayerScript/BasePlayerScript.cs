@@ -108,7 +108,7 @@ namespace VT_Referance.PlayerScript
             Spawned = false;
             Player.RoleType = RoleType;
 
-            if (RoleTeam == (int)TeamID.CHI || RoleTeam == (int)TeamID.MTF)
+            if (RoleTeam == (int)TeamID.CHI || RoleTeam == (int)TeamID.NTF)
                 Timing.CallDelayed(1f, () => InitPlayer());
             else InitPlayer();
             

@@ -14,9 +14,9 @@ namespace VT_AndersonRobotic
     {
         protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.AND };
+        protected override List<int> EnemysList => TeamGroupe.MTFenemy;
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : new List<int> { (int)TeamID.RSC, (int)TeamID.MTF, (int)TeamID.CDM, (int)TeamID.U2I };
+        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.MTFally;
 
         protected override RoleType RoleType => RoleType.NtfCommander;
 

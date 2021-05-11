@@ -20,7 +20,7 @@ namespace VTEscape
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.RSC, TeamID.None, RoleID.NtfScientist),
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.RSC, TeamID.CHI, RoleID.NtfScientist),
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.CDP, TeamID.None, RoleID.ChaosInsurgency),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.CDP, TeamID.MTF, RoleID.NtfCadet),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.CDP, TeamID.NTF, RoleID.NtfCadet),
 
             //Custom
 
@@ -36,10 +36,10 @@ namespace VTEscape
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.Scp0492, TeamID.None, TeamID.None, RoleID.Spectator),
             //escapeMTF Team
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.NetralSCP, TeamID.None, RoleID.NtfLieutenant),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.MTF, TeamID.MTF, RoleID.NtfCadet),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.MTF, TeamID.MTF, RoleID.NtfCadet),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.MTF, TeamID.CHI, RoleID.ChaosInsurgency),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.AND, TeamID.MTF, RoleID.NtfCadet),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.NTF, TeamID.NTF, RoleID.NtfCadet),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.NTF, TeamID.NTF, RoleID.NtfCadet),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.NTF, TeamID.CHI, RoleID.ChaosInsurgency),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.AND, TeamID.NTF, RoleID.NtfCadet),
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.SCP, TeamID.None, RoleID.Spectator, true, "LOKI - 5 procedure is engaged . the alfa warhead is started , evacuat immediately ."),
             
             //escapeCHI Role
@@ -47,7 +47,7 @@ namespace VTEscape
             //escapeCHI Team
             new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.None, TeamID.CDP, TeamID.None, RoleID.ChiExpertPyrotechnie),
             new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.None, TeamID.RSC, TeamID.CHI, RoleID.ChaosInsurgency),
-            new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.None, TeamID.MTF, TeamID.CHI, RoleID.ChaosInsurgency),
+            new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.None, TeamID.NTF, TeamID.CHI, RoleID.ChaosInsurgency),
             new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.None, TeamID.SCP, TeamID.None, RoleID.Spectator),
             new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.None, TeamID.RSC, TeamID.None, RoleID.Spectator),
         };
