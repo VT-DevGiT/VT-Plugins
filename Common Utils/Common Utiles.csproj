@@ -75,6 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command.cs" />
     <Compile Include="Common Utiles.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="EventHandlers.cs" />

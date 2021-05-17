@@ -34,11 +34,19 @@ namespace VTDoor
             if (Plugin.Config.DoorList.Any())
                foreach (var Door in Plugin.Config.DoorList) 
                {
-                    if (Server.Get.Map.Rooms.Where(p => p.RoomName == Door.Room).Count() != 0)
-                    { 
-                        door = Synapse.Api.Door.SpawnDoorVariant(Door.Parse().Position);
-                        if (Door.Room == "LCZ_Airlock (1)" || Door.Room == "LCZ_Airlock (2)")
-                            door.Name = "buggyDoor";
+                    Quaternion? Roation;
+                    if (Door.Rotation != null)
+                        Roation = new Quaternion(Door.Rotation.Value.x, Door.Rotation.Value.y, 0, 0);
+                    else Roation = null;
+
+                    if (Server.Get.Map.Rooms.Where(p => p.RoomName == Door.Position.Room).Count() != 0)
+                    {
+                        if (Door.Position.Room == "LCZ_Airlock (1)" || Door.Position.Room == "LCZ_Airlock (2)")
+                        {
+                            Server.Get.Logger.Warn("You cant sapwn door in AirLock !");
+                        }
+                        else door = Synapse.Api.Door.SpawnDoorVariant(Door.Position.Parse().Position, Roation, Door.Permissions);
+
                     }
                }
         }

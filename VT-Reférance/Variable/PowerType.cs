@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomClass.Pouvoir
+namespace VTCustomClass.Pouvoir
 {
     /// <summary>
     /// the different powers of the custom class 

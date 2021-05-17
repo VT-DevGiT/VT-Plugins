@@ -1,4 +1,4 @@
-﻿using CustomClass.Pouvoir;
+﻿using VTCustomClass.Pouvoir;
 using MEC;
 using Synapse;
 using Synapse.Api;
