@@ -11,8 +11,9 @@ using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
-    public class SCP1048cript : BasePlayerScript
+    public class SCP1048cript : BasePlayerScript, IScpRole
     {
+        public string ScpName => "1 0 4 8";
         protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.SCPenemy;
@@ -50,11 +51,5 @@ namespace CustomClass.PlayerScript
         }
 
         private DateTime lastPower = DateTime.Now;
-        public override void DeSpawn()
-        {
-            base.DeSpawn();
-            Map.Get.AnnounceScpDeath("1 0 4 8");
-
-        }
     }
 }

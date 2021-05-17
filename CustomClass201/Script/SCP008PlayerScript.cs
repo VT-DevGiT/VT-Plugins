@@ -60,7 +60,7 @@ namespace CustomClass.PlayerScript
             Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
             Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
             if (!Server.Get.Players.Where(p => p.RoleID == (int)RoleID.SCP008).Any())
-                Map.Get.GlitchedCassie("All SCP 0 0 8 are confined");
+                Map.Get.GlitchedCassie("ALL SCP 0 0 8 SUCCESSFULLY TERMINATED");
         }
 
         protected override void Event()

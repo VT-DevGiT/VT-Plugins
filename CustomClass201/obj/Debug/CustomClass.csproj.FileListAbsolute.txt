@@ -1,6 +1,5 @@
 C:\Users\xacyc\Desktop\Azarus-Plugins-main\Azarus-Plugins-main\CustomClass201\obj\Debug\CustomClass.csprojAssemblyReference.cache
 C:\Users\xacyc\Desktop\Azarus-Plugins-main\Azarus-Plugins-main\CustomClass201\obj\Debug\CustomClass.csproj.CoreCompileInputs.cache
-G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass.csprojAssemblyReference.cache
 G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass.csproj.CoreCompileInputs.cache
 G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\CustomClass.dll.config
 G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\bin\Debug\CustomClass.dll
@@ -33,3 +32,4 @@ D:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass
 D:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass.csproj.CoreCompileInputs.cache
 D:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass.dll
 D:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass.pdb
+G:\dev\SCP SL\Synapse\Azarus\Azarus-Plugins\CustomClass201\obj\Debug\CustomClass.csprojAssemblyReference.cache

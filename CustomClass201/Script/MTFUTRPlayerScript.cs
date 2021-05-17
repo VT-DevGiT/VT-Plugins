@@ -11,8 +11,6 @@ namespace CustomClass.PlayerScript
 {
     public class MTFUTRScript : BaseUTRScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
-
         protected override List<int> EnemysList => TeamGroupe.MTFenemy;
 
         protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.MTFally;

@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Door", "VT-Door\VT-Door.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Alpha-1", "VT-Alfa-1\VT-Alpha-1.csproj", "{83FCB8C4-EF9B-4831-A2D8-A7FB00EF423B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-handcuff", "VT-handcuff\VT-handcuff.csproj", "{71880588-2D2D-45E3-AE35-9189938C77DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +155,10 @@ Global
 		{83FCB8C4-EF9B-4831-A2D8-A7FB00EF423B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83FCB8C4-EF9B-4831-A2D8-A7FB00EF423B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83FCB8C4-EF9B-4831-A2D8-A7FB00EF423B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71880588-2D2D-45E3-AE35-9189938C77DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71880588-2D2D-45E3-AE35-9189938C77DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71880588-2D2D-45E3-AE35-9189938C77DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71880588-2D2D-45E3-AE35-9189938C77DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

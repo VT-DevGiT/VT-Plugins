@@ -1,11 +1,9 @@
-﻿using Interactables.Interobjects.DoorUtils;
-using Synapse.Api;
+﻿using Synapse.Api;
 using Synapse.Config;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using VT_Referance.Interface;
+using VT_Referance.PlayerScript;
 using VT_Referance.Variable;
 
 namespace VT_Referance.Method
@@ -49,8 +47,6 @@ namespace VT_Referance.Method
         public static bool IsUTR(this Player player)
         {
             return player.CustomRole is IUtrRole;
-            //List <int> UTRID = new List<int>() { (int)RoleID.AndersonUTRheavy, (int)RoleID.AndersonUTRlight, (int)RoleID.FoundationUTR };
-            //return UTRID.Contains(player.RoleID);
         }
         /// <summary>
         /// List of ally team
@@ -72,12 +68,17 @@ namespace VT_Referance.Method
         {
             return Ally.Any(p => p.Contains(team1) && p.Contains(team2));
         }
-
+        /// <summary>
+        /// Check if the config of the Inventory is not empty
+        /// </summary>
         public static bool IsDefined(this SerializedPlayerInventory item)
         {
             return !(item.IsUnDefined());
         }
 
+        /// <summary>
+        /// Check if the config of the Inventory is not empty
+        /// </summary>
         public static bool IsUnDefined(this SerializedPlayerInventory item)
         {
             return (item.Ammo == null && (item.Items == null || !item.Items.Any()));

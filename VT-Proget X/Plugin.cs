@@ -1,4 +1,6 @@
-﻿using Synapse.Api;
+﻿using HarmonyLib;
+using Synapse;
+using Synapse.Api;
 using Synapse.Api.Plugin;
 using Synapse.Translation;
 
@@ -21,9 +23,7 @@ Version = "v.1.3.2"
 
         public static Plugin Instance { get; private set; }
 
-        public Player IntercomPlayer = null;
-        public bool DeconatmiantinEnd = false;
-        public bool DeconatmiantionendProgress = false;
+        public bool DecontInProgress = false;
         public bool TeslaEnabled = true;
         public bool CustomScreen = false;
 
@@ -32,10 +32,16 @@ Version = "v.1.3.2"
 
         [SynapseTranslation]
         public static SynapseTranslation<PluginTranslation> PluginTranslation;
-
+        private void PatchAll()
+        {
+            var instance = new Harmony("VTProget_X");
+            instance.PatchAll();
+            Server.Get.Logger.Info("VT-ProgetX Harmony Patch done!");
+        }
         public override void Load()
         {
             Instance = this;
+            PatchAll();
             base.Load();
             PluginTranslation.AddTranslation(new VTProget_X.PluginTranslation());
             PluginTranslation.AddTranslation(new VTProget_X.PluginTranslation

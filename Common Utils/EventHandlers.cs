@@ -18,6 +18,12 @@ namespace Common_Utiles
         {
             Server.Get.Events.Map.Scp914ActivateEvent += On914Activate;
             Server.Get.Events.Player.PlayerSetClassEvent += OnSpawn;
+            Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
+        }
+
+        private void OnDeath(PlayerDeathEventArgs ev)
+        {
+            ev.Victim.Scale = new Vector3(1, 1, 1);
         }
 
         private void OnSpawn(PlayerSetClassEventArgs ev)
@@ -147,12 +153,12 @@ namespace Common_Utiles
                 }
                 if (CommonUtiles.Config.Rnd914Life)
                 {
-                    float newLif = UnityEngine.Random.Range(CommonUtiles.Config.Max914Life, CommonUtiles.Config.Min914Life);
+                    float newLif = UnityEngine.Random.Range(CommonUtiles.Config.Min914Life, CommonUtiles.Config.Max914Life);
                     player.Health = newLif;
                 }
                 if (CommonUtiles.Config.Rnd914ArtificialLife)
                 {
-                    float newLif = UnityEngine.Random.Range(CommonUtiles.Config.Max914ArtificialLife, CommonUtiles.Config.Min914ArtificialLife);
+                    float newLif = UnityEngine.Random.Range(CommonUtiles.Config.Min914ArtificialLife, CommonUtiles.Config.Max914ArtificialLife);
                     player.ArtificialHealth = newLif;
                 }
                 if (CommonUtiles.Config.Rnd914ChanceDie != 0)

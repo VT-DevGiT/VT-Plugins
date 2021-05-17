@@ -15,7 +15,6 @@ namespace VT_U2I
             Server.Get.Events.Round.TeamRespawnEvent += OnRespawn;
         }
 
-
         private void OnRespawn(TeamRespawnEventArgs ev)
         {
             if (ev.Team == Respawning.SpawnableTeamType.NineTailedFox 

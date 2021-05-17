@@ -8,7 +8,6 @@ namespace VTTrowItem
 {
     public class Config : AbstractConfigSection
     {
-
         [Description("if when a player drops the object it is thrown")]
         public bool DropEvent = true;
 

@@ -14,7 +14,7 @@ namespace CustomClass.Config
         public int Health = 125;
 
         [Description("The Inventory of the class")]
-        public SerializedPlayerInventory Items = new SerializedPlayerInventory() 
+        public SerializedPlayerInventory inventory = new SerializedPlayerInventory() 
         {
             Ammo = new SerializedAmmo(100, 100, 100),
             Items = new List<SerializedPlayerItem>()

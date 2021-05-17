@@ -13,8 +13,9 @@ using VT_Referance.PlayerScript;
 
 namespace CustomClass.PlayerScript
 {
-    public class SCP966cript : BasePlayerScript
+    public class SCP966cript : BasePlayerScript, IScpRole
     {
+        public string ScpName => "9 6 6";
         protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.SCPenemy;
@@ -45,7 +46,6 @@ namespace CustomClass.PlayerScript
         {
             Player.Invisible = false;
             base.DeSpawn();
-            Map.Get.AnnounceScpDeath("9 6 6");
             Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
         }
 

@@ -67,5 +67,22 @@ namespace VT_Referance.Method
                 prop.SetValue(element, value);
             }
         }
+        public static void SetField<T>(this object element, string fieldName, object value)
+        {
+            var prop = element.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
+            if (prop != null)
+            {
+                prop.SetValue(element, value);
+            }
+        }
+
+        public static void SetStaticField<T>(this Type element, string fieldName, T value)
+        {
+            var prop = element.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Static);
+            if (prop != null)
+            {
+                prop.SetValue(null, value);
+            }
+        }
     }
 }

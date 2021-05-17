@@ -20,7 +20,7 @@ namespace VTProget_X
     {
         public static IEnumerator<float> Decontamination(int WaitForStart = 120, int AlertTime = 3)
         {
-            Plugin.Instance.DeconatmiantionendProgress = true;
+            Plugin.Instance.DecontInProgress = true;
             foreach (var room in Server.Get.Map.Rooms.FindAll(p => p.Zone == ZoneType.LCZ))
             {
                 foreach (var door in room.Doors)
@@ -49,9 +49,15 @@ namespace VTProget_X
             Map.Get.GlitchedCassie($"Light Containment Zone is locked down and ready for decontamination .");
             Server.Get.Map.Decontamination?.CallMethod("InstantStart");
             Server.Get.Map.Decontamination?.Controller?.CallMethod("FinishDecontamination");
-            Plugin.Instance.DeconatmiantinEnd = true;
             yield break;
         }
+        public static float TimeLeftDecon()
+        {
+            var phase = DecontaminationController.Singleton.DecontaminationPhases;
+            return Starting.phase;
+            //return Plugin.Instance.DecontInProgress ? phase[phase.Length - 1].TimeTrigger - (float)DecontaminationController.GetServerTime : 180 ;
+        }
+
 
         public static void SendInterComInfoGeneral(screenEnum screen)
         {
@@ -90,7 +96,7 @@ namespace VTProget_X
                 nRSC = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.RSC || RSCaditonelle.Contains(p.RoleID)).Count();
                 nVIP = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.VIP).Count();
                 nFIM = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.NTF || p.TeamID == (int)TeamID.CDM && !SCPaditonelle.Contains(p.RoleID) && !RSCaditonelle.Contains(p.RoleID)).Count();
-                leftdecont = (int)((Math.Truncate((15f * 60) * 100f) / 100f) - (Math.Truncate(DecontaminationController.GetServerTime * 100f) / 100f));
+                leftdecont = (int)(Math.Truncate(TimeLeftDecon() * 100f) / 100f);
                 leftautowarhead = AlphaWarheadController.Host != null
                     ? (int)Mathf.Clamp(AlphaWarheadController.Host.timeToDetonation - RoundSummary.roundTime, 0, AlphaWarheadController.Host.timeToDetonation)
                     : -1;
@@ -115,9 +121,9 @@ namespace VTProget_X
                     DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageNotEnoughEnergy;
                 else
                 {
-                    if (!Plugin.Instance.DeconatmiantionendProgress)
+                    if (DecontaminationController.Singleton.GetFieldValueorOrPerties<int>("_nextPhase") != 0)
                         DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageReady;
-                    else if (!Plugin.Instance.DeconatmiantinEnd)
+                    else if (DecontaminationController.Singleton.GetFieldValueorOrPerties<int>("_nextPhase") != DecontaminationController.Singleton.DecontaminationPhases.Length - 1)
                         DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageInProgress;
                     else
                         DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageFinished;

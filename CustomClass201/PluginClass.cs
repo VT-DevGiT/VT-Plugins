@@ -37,13 +37,13 @@ namespace CustomClass
         //[Synapse.Api.Plugin.Config(section = "CustomClass-CustomClass201")]
         //public static Config201 Config201;
 
-        [Synapse.Api.Plugin.Config(section = "ConfigConcierge")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigConcierge")]
         public static ConfigConcierge ConfigConcierge;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigAndersonUTRheavy")]
         public static ConfigAndersonUTRheavy ConfigAndersonUTRheavy;
 
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigConcierge")]
+        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigAndersonUTRlight")]
         public static ConfigAndersonUTRlight ConfigAndersonUTRlight;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigDirecteurSite")]
@@ -165,11 +165,7 @@ namespace CustomClass
         {
             //ConfigHandler
             var confSynapse = Server.Get.Configs.GetFieldValueorOrPerties<SynapseConfiguration>("synapseConfiguration");
-            confSynapse.CantLookAt173.Add(-1);
-            foreach (var value in confSynapse.CantLookAt173)
-            {
-                Server.Get.Logger.Info($"Can look at {value}");
-            }
+            //confSynapse.CantLookAt173.Add(-1);
             Plugin = this;
             RegisterCustomTeam();
             RegisterCustomRole();

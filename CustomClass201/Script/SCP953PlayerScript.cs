@@ -5,8 +5,9 @@ using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
-    public class SCP953Script : BasePlayerScript
+    public class SCP953Script : BasePlayerScript, IScpRole
     {
+        public string ScpName => "9 5 3";
         protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
      
         protected override List<int> EnemysList => TeamGroupe.BerserkSCPennemy;

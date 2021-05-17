@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using VT_Referance.Behaviour;
-using VT_Referance.Interface;
 using VT_Referance.PlayerScript;
 using VT_Referance.Variable;
 
@@ -19,7 +18,6 @@ namespace CustomClass.PlayerScript
     public abstract class BaseUTRScript : BasePlayerScript, IUtrRole
     {
         protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
-
         protected float oldStaminaUse;
         private bool _protected096 = true;
         protected override void AditionalInit()

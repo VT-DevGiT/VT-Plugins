@@ -19,8 +19,7 @@ namespace VTProget_X
         private void OnRoundEnd()
         {
             Plugin.Instance.TeslaEnabled = true;
-            Plugin.Instance.DeconatmiantinEnd = false;
-            Plugin.Instance.DeconatmiantionendProgress = false;
+            Plugin.Instance.DecontInProgress = false;
             Timing.KillCoroutines("Decont");
         }
 

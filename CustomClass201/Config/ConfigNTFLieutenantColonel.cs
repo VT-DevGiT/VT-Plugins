@@ -8,7 +8,7 @@ namespace CustomClass.Config
     public class ConfigNTFLieutenantColonel : AbstractConfigSection
     {
         [Description("The Amount of Health the class have")]
-        public int Health = 100;
+        public int Health = 120;
 
         [Description("The Inventory of the class")]
         public SerializedPlayerInventory inventory = new SerializedPlayerInventory()

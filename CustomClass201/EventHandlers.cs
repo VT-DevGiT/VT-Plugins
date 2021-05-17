@@ -53,7 +53,7 @@ namespace CustomClass
             }
             if (ev.Player.RemoteAdminAccess == false || ev.Role != RoleType.Spectator)
                 ev.Player.SynapseGroup.Permissions.Remove("synapse.see.invisible");
-            else if (ev.Player.RemoteAdminAccess == true || ev.Role == RoleType.Spectator)
+            else if (ev.Player.RemoteAdminAccess == true && ev.Role == RoleType.Spectator)
                 ev.Player.SynapseGroup.Permissions.Add("synapse.see.invisible");
         }
 
@@ -97,7 +97,5 @@ namespace CustomClass
                 }
             }
         }
-
-
     }
 }

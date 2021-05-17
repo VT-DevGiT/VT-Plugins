@@ -9,9 +9,6 @@ namespace Common_Utiles
 
     public class Config : AbstractConfigSection
     {
-        [Description("Wether or not SCP-049 should be able to talk to humans.")]
-        public bool Scp049Speech = true;
-
         [Description("The list of objects that each class will have when it spawn")]
 
         public SerializedPlayerInventory ClassDInventory = new SerializedPlayerInventory()

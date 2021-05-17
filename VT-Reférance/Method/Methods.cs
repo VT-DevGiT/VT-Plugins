@@ -2,7 +2,6 @@
 using Respawning.NamingRules;
 using Synapse;
 using Synapse.Api;
-using Synapse.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;

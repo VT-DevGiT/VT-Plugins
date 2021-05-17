@@ -12,8 +12,9 @@ using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
-    public class SCP507Script : BasePlayerScript
+    public class SCP507Script : BasePlayerScript, IScpRole
     {
+        public string ScpName => "5 0 7";
         protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.NetralSCPennemy;
@@ -37,7 +38,6 @@ namespace CustomClass.PlayerScript
         public override void DeSpawn()
         {
             base.DeSpawn();
-            Map.Get.AnnounceScpDeath("5 0 7");
             if (Player.gameObject.GetComponent<SCP507>() != null)
                 Player.gameObject.GetComponent<SCP507>().Kill();
         }

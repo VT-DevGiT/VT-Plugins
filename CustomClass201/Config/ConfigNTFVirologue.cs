@@ -8,7 +8,7 @@ namespace CustomClass.Config
     public class ConfigNTFVirologue : AbstractConfigSection
     {
         [Description("The Amount of Health the class have")]
-        public int Health = 170;
+        public int Health = 150;
 
         [Description("The Inventory of the class")]
         public SerializedPlayerInventory inventory = new SerializedPlayerInventory()

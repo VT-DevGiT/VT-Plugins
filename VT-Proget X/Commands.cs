@@ -1,7 +1,12 @@
-﻿using MEC;
+﻿using Interactables.Interobjects.DoorUtils;
+using LightContainmentZoneDecontamination;
+using MEC;
+using Synapse;
 using Synapse.Api;
+using Synapse.Api.Enum;
 using Synapse.Command;
 using VT_Referance.Method;
+using static LightContainmentZoneDecontamination.DecontaminationController.DecontaminationPhase;
 
 namespace VTProget_X
 {
@@ -21,18 +26,56 @@ namespace VTProget_X
             var result = new CommandResult();
             result.Message = "you must be at the intercom with a tablet in hand and a power of 1000 kVA";
             result.State = CommandResultState.NoPermission;
-            if (Plugin.Instance.DeconatmiantionendProgress)
+            if (Plugin.Instance.DecontInProgress)
             {
                 result.Message = "decontamination has already taken place";
                 result.State = CommandResultState.NoPermission;
+                Server.Get.Logger.Info(DecontaminationController.Singleton.TimeOffset);
                 return result;
             }
-            if (Methods.GetVoltage() >= 1000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet
-                && context.Player?.Room?.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
+            //if (Methods.GetVoltage() >= 1000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet && context.Player?.Room?.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
             {
-                Timing.RunCoroutine(Methode.Decontamination(), "Decont");
+                Starting.phase = 0;
+                Server.Get.Logger.Info(DecontaminationController.Singleton.TimeOffset);
+                var phase = DecontaminationController.Singleton.DecontaminationPhases;
+                for(int i = 0; i < phase.Length; i++)
+                {
+                    var elem = phase[i];
+                    Server.Get.Logger.Info($"phase {i} - {elem.Function} - {elem.AnnouncementLine != null}");
+                }
+                DecontaminationController.DecontaminationPhase[] newPhase = new DecontaminationController.DecontaminationPhase[3];
+                Server.Get.Logger.Info($"Taille {DecontaminationController.Singleton.DecontaminationPhases.Length}");
+                Server.Get.Logger.Info($"Phase {DecontaminationController.Singleton.GetFieldValueorOrPerties<int>("_nextPhase")}");
+                newPhase[0] = new DecontaminationController.DecontaminationPhase()
+                {
+                    TimeTrigger = (float)DecontaminationController.GetServerTime + 1,
+                    Function = PhaseFunction.None,
+                    AnnouncementLine = phase[phase.Length - 3].AnnouncementLine
+                };
+                newPhase[1] = new DecontaminationController.DecontaminationPhase()
+                {
+                    TimeTrigger = (float)DecontaminationController.GetServerTime + 2,
+                    Function = PhaseFunction.OpenCheckpoints,
+                    AnnouncementLine = phase[phase.Length - 2].AnnouncementLine,
+
+                };
+                newPhase[2] = new DecontaminationController.DecontaminationPhase()
+                {
+                    TimeTrigger = (float)DecontaminationController.GetServerTime + 20,
+                    Function = PhaseFunction.Final,
+                    AnnouncementLine = phase[phase.Length - 1].AnnouncementLine
+                };
+                Starting.DecontaminationPhases = newPhase;
+                DecontaminationController.Singleton.SetField<int>("_nextPhase", 0);
+                foreach (var room in Server.Get.Map.Rooms.FindAll(p => p.Zone == ZoneType.LCZ)) foreach (var door in room.Doors)
+                if (door.DoorPermissions.RequiredPermissions == KeycardPermissions.None)
+                {
+                    door.Locked = true;
+                    door.Open = true;
+                }
                 result.Message = "Decontamination Start";
                 result.State = CommandResultState.Ok;
+                Plugin.Instance.DecontInProgress = true;
             }
             return result;
         }
@@ -127,24 +170,6 @@ namespace VTProget_X
                 result.Message = "Sa marche :)";
                 result.State = CommandResultState.Ok;
             }
-            return result;
-        }
-    }
-    [CommandInformation(
-       Name = "DebugTest",
-       Aliases = new[] { "DebugTest" },
-       Description = "",
-       Permission = "",
-       Platforms = new[] { Platform.RemoteAdmin },
-       Usage = ""
-   )]
-    public class IntercomTest : ISynapseCommand
-    {
-        public CommandResult Execute(CommandContext context)
-        {
-            var result = new CommandResult();
-            result.Message = Methods.GetVoltage().ToString();
-            result.State = CommandResultState.Ok;
             return result;
         }
     }

@@ -13,8 +13,9 @@ using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
-    public class SCP166AzScript : BasePlayerScript
+    public class SCP166AzScript : BasePlayerScript, IScpRole
     {
+        public string ScpName => "1 6 6";
         protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.NetralSCPennemy;
@@ -89,7 +90,6 @@ namespace CustomClass.PlayerScript
         {
             KillComponent<Green>();
             base.DeSpawn();
-            Map.Get.AnnounceScpDeath("1 6 6");
             Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
             Server.Get.Events.Player.PlayerPickUpItemEvent -= OnPickUp;
             Server.Get.Events.Player.PlayerCuffTargetEvent -= OnCuff;

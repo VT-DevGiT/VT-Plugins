@@ -39,6 +39,6 @@ namespace CustomClass.Config
         public int RequiredPlayers = 7;
 
         [Description("The name of the class")]
-        public string RoleName = "Garde Superviseur";
+        public string RoleName = "Zone-Manager";
     }
 }

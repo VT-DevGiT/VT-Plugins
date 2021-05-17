@@ -9,6 +9,8 @@ using UnityEngine;
 using VT_Referance.Behaviour;
 using VT_Referance.Variable;
 using VT_Referance.Method;
+using Synapse.Api.Events.SynapseEventArguments;
+using RemoteAdmin;
 
 namespace VT_Referance.PlayerScript
 {
@@ -105,6 +107,7 @@ namespace VT_Referance.PlayerScript
         { }
         public override void Spawn()
         {
+
             Spawned = false;
             Player.RoleType = RoleType;
 
@@ -143,9 +146,9 @@ namespace VT_Referance.PlayerScript
                 {
                     Player.DisplayInfo = $"{RoleName}";
                 }
-                
             }
-
+            if (this is IScpRole)
+                Server.Get.Events.Player.PlayerDeathEvent += ScpDeathAnnonce;
         }
 
         private void InitPlayer()
@@ -163,7 +166,40 @@ namespace VT_Referance.PlayerScript
             Player.DisplayInfo = null;
             Player.AddDisplayInfo(PlayerInfoArea.Role);
             Player.AddDisplayInfo(PlayerInfoArea.UnitName);
+            if (this is IScpRole)
+                Server.Get.Events.Player.PlayerDeathEvent -= ScpDeathAnnonce;
         }
+
+        internal void ScpDeathAnnonce(PlayerDeathEventArgs ev)
+        {
+            Role role = new Role();
+            role.fullName = ((IScpRole)this).ScpName;
+            role.roleId = (RoleType)RoleId;
+
+            GameObject gameObject = null;
+            foreach (GameObject player in PlayerManager.players)
+            {
+                if (player.GetComponent<QueryProcessor>().PlayerId == ev.HitInfo.PlayerId)
+                    gameObject = player;
+            }
+            if (gameObject != null)
+            {
+                NineTailedFoxAnnouncer.AnnounceScpTermination(role, ev.HitInfo, string.Empty);
+            }
+            else
+            {
+                DamageTypes.DamageType damageType = ev.HitInfo.GetDamageType();
+                if (damageType == DamageTypes.Tesla)
+                    NineTailedFoxAnnouncer.AnnounceScpTermination(role, ev.HitInfo, "TESLA");
+                else if (damageType == DamageTypes.Nuke)
+                    NineTailedFoxAnnouncer.AnnounceScpTermination(role, ev.HitInfo, "WARHEAD");
+                else if (damageType == DamageTypes.Decont)
+                    NineTailedFoxAnnouncer.AnnounceScpTermination(role, ev.HitInfo, "DECONTAMINATION");
+                else
+                    NineTailedFoxAnnouncer.AnnounceScpTermination(role, ev.HitInfo, "UNKNOWN");
+            }
+        }
+
         #endregion
 
     }

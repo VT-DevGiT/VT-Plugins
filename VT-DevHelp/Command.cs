@@ -323,5 +323,25 @@ Usage = ""
             return result;
         }
     }
+
+    [CommandInformation(
+     Name = "Méliodas",
+     Aliases = new[] { "Méliodas" },
+     Description = "Méliodas!!!!!!!!!",
+     Permission = "",
+     Platforms = new[] { Platform.ClientConsole, Platform.RemoteAdmin }, 
+     Usage = ""
+     )]
+    public class MéliodasCommand : ISynapseCommand
+    {
+
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+            result.Message = "Méliodas é bô !";
+            result.State = CommandResultState.Ok;
+            return result;
+        }
+    }
 }
 

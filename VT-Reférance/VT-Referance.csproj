@@ -92,7 +92,8 @@
     <Compile Include="Event\VT_RoundEvents.cs" />
     <Compile Include="Event\VT_ScpEvents.cs" />
     <Compile Include="Event\VT_ServerEvents.cs" />
-    <Compile Include="Interface\IUtrRole.cs" />
+    <Compile Include="PlayerScript\IScpRole.cs" />
+    <Compile Include="PlayerScript\IUtrRole.cs" />
     <Compile Include="Patch\CollisionGrenadePatch.cs" />
     <Compile Include="Patch\ExplosionGrenadePatch.cs" />
     <Compile Include="Patch\ChangeIntoGrenadePatch.cs" />

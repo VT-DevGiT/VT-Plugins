@@ -122,7 +122,6 @@
     <Compile Include="Pouvoir\Reponse.cs" />
     <Compile Include="Pouvoir\Aura.cs" />
     <Compile Include="Pouvoir\SCP507.cs" />
-    <Compile Include="Script\BaseUTRScript.cs" />
     <Compile Include="Config\Config201.cs" />
     <Compile Include="Config\ConfigConcierge.cs" />
     <Compile Include="Config\ConfigDirecteurSite.cs" />
@@ -130,12 +129,13 @@
     <Compile Include="EventHandlers.cs" />
     <Compile Include="PluginClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Script\BaseUTRScript.cs" />
     <Compile Include="Script\ConciergePlayerScript.cs" />
     <Compile Include="Script\DirecteurSitePlayerScript.cs" />
     <Compile Include="Script\AndersonUTRheavyScript.cs" />
     <Compile Include="Script\AndersonUTRlightScript.cs" />
     <Compile Include="Script\MTFUTRPlayerScript.cs" />
-    <Compile Include="Script\GardeZoneManagerPlayerScript.cs" />
+    <Compile Include="Script\ZoneManagerPlayerScript.cs" />
     <Compile Include="Script\GardePrisonPlayerScript.cs" />
     <Compile Include="Script\GardeSuperviseurPlayerScript.cs" />
     <Compile Include="Script\CHIExpertPyrotechniePlayerScript.cs" />

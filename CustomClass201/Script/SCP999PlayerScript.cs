@@ -13,8 +13,9 @@ using VT_Referance.Variable;
 
 namespace CustomClass.PlayerScript
 {
-    public class SCP999Script : BasePlayerScript
+    public class SCP999Script : BasePlayerScript, IScpRole
     {
+        public string ScpName => "9 9 9";
         protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
         protected override List<int> EnemysList => new List<int> { };
 
@@ -51,7 +52,6 @@ namespace CustomClass.PlayerScript
             KillComponent<Aura>();
             Player.Scale = Vector3.one;
             base.DeSpawn();
-            Map.Get.AnnounceScpDeath("9 9 9");
             Server.Get.Events.Player.PlayerPickUpItemEvent -= OnPickUp;
         }
         protected override void Event()
