@@ -25,8 +25,17 @@ Version = "v.1.0.0"
         public override void Load()
         {
             Instance = this;
+            PatchAll();
             base.Load();
             new EventHandlers();
         }
+
+        private void PatchAll()
+        {
+            var instance = new Harmony("VTDoor");
+            instance.PatchAll();
+            Server.Get.Logger.Info("VT-Door Harmony Patch done!");
+        }
+
     }
 }

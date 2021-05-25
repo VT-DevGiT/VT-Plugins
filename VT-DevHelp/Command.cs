@@ -38,13 +38,13 @@ namespace VTDevHelp
     }
 
     [CommandInformation(
-Name = "DevDoorPos",
-Aliases = new[] { "VTPdoor" },
-Description = "",
-Permission = "",
-Platforms = new[] { Platform.RemoteAdmin },
-Usage = ""
-)]
+    Name = "DevDoorPos",
+    Aliases = new[] { "VTPdoor" },
+    Description = "",
+    Permission = "",
+    Platforms = new[] { Platform.RemoteAdmin },
+    Usage = ""
+    )]
     public class DoorPosCommand : ISynapseCommand
     {
 
@@ -98,9 +98,6 @@ Usage = ""
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            Radio radio = context.Player.gameObject.GetComponent<DissonanceUserSetup>().GetComponent<Radio>();
-            Server.Get.Logger.Info(radio.presets[radio.lastPreset].beepRange);
-            result.State = CommandResultState.Ok;
             return result;
         }
     }

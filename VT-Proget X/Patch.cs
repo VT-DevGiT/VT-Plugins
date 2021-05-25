@@ -61,15 +61,6 @@ namespace VTProget_X
         }
     }
 
-
-    [HarmonyPatch(typeof(DecontaminationController), "CheckBroadcaster")]
-    internal static class CheckBroadcasterKill
-    {
-        public static bool Prefix(DecontaminationController __instance)
-        {
-            return true;
-        }
-    }
     [HarmonyPatch(typeof(DecontaminationController), "ServersideSetup")]
     internal static class ServersideSetupKill
     {

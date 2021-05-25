@@ -18,7 +18,7 @@ namespace VT_Referance.PlayerScript
     {
 
         #region Attributes & Properties
-        protected abstract string SpawnMessage{get;}
+        protected abstract string SpawnMessage{get; }
         protected virtual bool SetDisplayInfo => true;
         protected abstract List<int> EnemysList { get; }
         protected abstract List<int> FriendsList { get; }
@@ -149,6 +149,8 @@ namespace VT_Referance.PlayerScript
             }
             if (this is IScpRole)
                 Server.Get.Events.Player.PlayerDeathEvent += ScpDeathAnnonce;
+            // pour teste 
+            Player.DisplayName = "<color=#855439>Toto</color>";
         }
 
         private void InitPlayer()

@@ -15,6 +15,7 @@ namespace VTCustomClass.PlayerScript
     public class SCP507Script : BasePlayerScript, IScpRole
     {
         public string ScpName => "5 0 7";
+
         protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.NetralSCPennemy;

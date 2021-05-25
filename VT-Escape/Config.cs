@@ -7,6 +7,9 @@ namespace VTEscape
 {
     public class Config : AbstractConfigSection
     {
+        [Description("Add the shelter")]
+        public bool ShelterIsEnabled { get; set; } = true;
+
         [Description("Modify main escape")]
         public bool MTFEscapeIsEnabled { get; set; } = true;
 

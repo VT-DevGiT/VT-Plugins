@@ -21,8 +21,8 @@ namespace VTCustomClass.Pouvoir
         Suicide = 7,
         Zombifaction = 8,
         Defibrillation = 9,
-        BadGreen = 9,
-        Attack = 9,
-        Clear = 10,
+        BadGreen = 10,
+        Attack = 11,
+        Clear = 12,
     }
 }

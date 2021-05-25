@@ -1,11 +1,6 @@
 ﻿using Synapse;
 using Synapse.Api;
 using Synapse.Command;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Common_Utiles
@@ -46,7 +41,7 @@ namespace Common_Utiles
         {
             var result = new CommandResult();
             Vector2 Rt = context.Player.Rotation;
-            string Rotation = $"Vector2(\"{Rt.Room.RoomName}\", {Rt.RelativePosition.x.ToString().Replace(",", ".")}f, {Rt.RelativePosition.y.ToString().Replace(",", ".")}f, {Rt.RelativePosition.z.ToString().Replace(",", ".")}f)";
+            string Rotation = $"Vector2({Rt.y.ToString().Replace(",", ".")}f, {Rt.x.ToString().Replace(",", ".")}f)";
             Server.Get.Logger.Info(Rotation);
             result.State = CommandResultState.Ok;
             result.Message = Rt.ToString();

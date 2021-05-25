@@ -1,13 +1,10 @@
-﻿using System;
+﻿using HarmonyLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VTDoor
+namespace VT_Referance.Patch
 {
-    
-    class DoorConfig
-    {
-    }
 }

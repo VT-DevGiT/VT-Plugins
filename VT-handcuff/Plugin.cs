@@ -34,7 +34,7 @@ Version = "v.1.0.1"
 
         private void PatchAll()
         {
-            var instance = new Harmony("VTProget_X");
+            var instance = new Harmony("VThandcuff");
             instance.PatchAll();
             Server.Get.Logger.Info("VT-handcuff Harmony Patch done!");
         }

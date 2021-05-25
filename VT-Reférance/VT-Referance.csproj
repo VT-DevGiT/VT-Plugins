@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="Behaviour\BaseBehaviour.cs" />
     <Compile Include="Patch\CassieAnnouncementPatch.cs" />
+    <Compile Include="Patch\NamePatch.cs" />
     <Compile Include="Patch\WarHeadStartPatch.cs" />
     <Compile Include="PlayerScript\BasePlayerScript.cs" />
     <Compile Include="Event\EventArguments\VT-GrenadeEventArgs.cs" />

@@ -21,7 +21,7 @@ namespace VThandcuff
         public bool CuffTuto = true;
 
         [Description("like real handcuffs")]
-        public bool CuffLock = true;
+        public bool CuffLock = false;
         public int Angle = 20;
     }
 }

@@ -8,7 +8,7 @@ namespace VTProget_X
 {
 
     [PluginInformation(
-Name = "VT-Intercom",
+Name = "VT-Proget-X",
 Author = "VT",
 Description = "Adds functionality such as intercom information",
 LoadPriority = 5,

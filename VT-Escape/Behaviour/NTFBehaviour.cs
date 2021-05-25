@@ -27,8 +27,19 @@ namespace VTEscape
         {
             if (Vector3.Distance(base.transform.position, _Escape) <= _Radius)//AdvencedEscape.Config.rayonSortie)
             {
-                var configEscape = Plugin.Config.EscapeList.FirstOrDefault(p => (player.RoleID == (int)p.Role || player.TeamID == (int)p.Team)
-                    && EscapeEnum.MTF == p.Escape && (player.Cuffer?.TeamID == (int)p.CufferTeam || (player.Cuffer == null && (int)p.CufferTeam == -1)));
+                var configEscape = Plugin.Config.EscapeList.FirstOrDefault(p => player.RoleID == (int)p.Role && EscapeEnum.MTF == p.Escape && 
+                    (player.Cuffer?.TeamID == (int)p.CufferTeam || (player.Cuffer == null && (int)p.CufferTeam == -1)));
+                if (configEscape != null)
+                {
+                    if (configEscape.StartWarHead == true && !Server.Get.Map.Nuke.Detonated)
+                        Timing.RunCoroutine(new Method().WarHeadEscape(3));
+                    if (configEscape.EscapeMessage != null && !Server.Get.Map.Nuke.Detonated)
+                        Map.Get.Cassie(configEscape.EscapeMessage, false);
+                    Method.ChangeRole(player, (int)configEscape.NewRole);
+                    return;
+                }
+                configEscape = Plugin.Config.EscapeList.FirstOrDefault(p => player.TeamID == (int)p.Team && EscapeEnum.MTF == p.Escape && 
+                    (player.Cuffer?.TeamID == (int)p.CufferTeam || (player.Cuffer == null && (int)p.CufferTeam == -1)));
                 if (configEscape != null)
                 {
                     if (configEscape.StartWarHead == true && !Server.Get.Map.Nuke.Detonated)

@@ -55,7 +55,6 @@ namespace VTCustomClass.PlayerScript
         {
             if (ev.Player == Player && ev.KeyCode == KeyCode.Alpha1)
                 CallPower(PowerType.Defibrillation);
-
         }
 
         public override bool CallPower(PowerType power)

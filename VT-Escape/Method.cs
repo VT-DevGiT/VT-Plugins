@@ -8,7 +8,6 @@ namespace VTEscape
 {
     public class Method
     {
-
         public IEnumerator<float> WarHeadEscape(int waitforready = 3)
         {
             yield return Timing.WaitForSeconds(10f);
@@ -22,7 +21,8 @@ namespace VTEscape
             {
                 Map.Get.Nuke.InsidePanel.Locked = true;
             }
-            Server.Get.Map.Nuke.StartDetonation();
+            if (Round.Get.RoundIsActive)
+                Server.Get.Map.Nuke.StartDetonation();
         }
 
         static public void ChangeRole(Player player, int Role)
