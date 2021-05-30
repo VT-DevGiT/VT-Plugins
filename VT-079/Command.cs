@@ -23,18 +23,18 @@ namespace VT079
                 ItemType == ItemType.WeaponManagerTablet
              && context.Player.Room.RoomType == RoomInformation.RoomType.HCZ_079)
             {
-                var listJoueur = Server.Get.Players.Where(p => p.RoleID == (int)RoleType.Scp079);
+                var listPlayer = Server.Get.Players.Where(p => p.RoleID == (int)RoleType.Scp079);
 
-                if (!listJoueur.Any())
+                if (!listPlayer.Any())
                 {
                     result.Message = "Scp 079 is already reconfined";
                     result.State = CommandResultState.NoPermission;
                     return result;
                 }
-                foreach (var joueur079 in listJoueur)
+                foreach (var Scp079 in listPlayer)
                 {
-                    joueur079.GodMode = false;
-                    joueur079.RoleID = (int)RoleType.Spectator;
+                    Scp079.GodMode = false;
+                    Scp079.RoleID = (int)RoleType.Spectator;
                     Map.Get.Cassie($"SCP 0 7 9 has been successfully contained.", false);
                 }
                 result.Message = "SCP 079 has been successfully contained";

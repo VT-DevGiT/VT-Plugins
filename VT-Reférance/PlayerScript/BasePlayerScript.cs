@@ -146,11 +146,10 @@ namespace VT_Referance.PlayerScript
                 {
                     Player.DisplayInfo = $"{RoleName}";
                 }
+                Player.GetComponent<NicknameSync>().SetField<string>("_displayName", "<color=#855439>Toto</color>");
             }
             if (this is IScpRole)
                 Server.Get.Events.Player.PlayerDeathEvent += ScpDeathAnnonce;
-            // pour teste 
-            Player.DisplayName = "<color=#855439>Toto</color>";
         }
 
         private void InitPlayer()
