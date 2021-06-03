@@ -81,12 +81,12 @@ namespace VTCustomClass.PlayerScript
         private void OnKeyPress(PlayerKeyPressEventArgs ev)
         {
             if (ev.Player == Player && ev.KeyCode == KeyCode.Alpha1)
-                CallPower(PowerType.Zombifaction);
+                CallPower((int)PowerType.Zombifaction);
         }
 
-        public override bool CallPower(PowerType power)
+        public override bool CallPower(int power)
         {
-            if (power == PowerType.Zombifaction)
+            if (power == (int)PowerType.Zombifaction)
             {
                 Player corpseowner = Methods.GetPlayercoprs(Player, 4);
                 if (Methods.IsScpRole(corpseowner) == false)

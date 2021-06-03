@@ -9,12 +9,14 @@ using System.Linq;
 using UnityEngine;
 using VT_Referance.PlayerScript;
 using VT_Referance.Variable;
+using Synapse.Api;
 
 namespace VTCustomClass.PlayerScript
 {
     public class ConciergeScript : BasePlayerScript
     {
         protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+            
         protected override List<int> EnemysList => new List<int> { (int)TeamID.SCP };
 
         protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.MTFally;
@@ -34,19 +36,13 @@ namespace VTCustomClass.PlayerScript
             Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPresse;   
         }
 
-        public override bool CallPower(PowerType power)
+        public override bool CallPower(int power)
         {
-            if (power == PowerType.Clear)
+            if (power == (int)PowerType.Clear)
             {
                 List<Collider> collidersDoll = Physics.OverlapSphere(Player.Position, 2.5f)
                  .Where(e => e.gameObject.GetComponentInParent<Ragdoll>() != null).ToList();
-                collidersDoll.Sort((Collider x, Collider y) =>
-                {
-                    return Vector3.Distance(x.gameObject.transform.position, Player.Position)
-                    .CompareTo(Vector3.Distance(y.gameObject.transform.position, Player.Position));
-                });
-                
-                if (collidersDoll.Count != 0 )
+                if (collidersDoll.Count != 0)
                 {
                     Ragdoll doll = collidersDoll[0].gameObject.GetComponentInParent<Ragdoll>();
                     if (doll != null)
@@ -60,7 +56,7 @@ namespace VTCustomClass.PlayerScript
         private void OnKeyPresse(PlayerKeyPressEventArgs ev)
         {
             if (ev.Player == Player && ev.KeyCode == UnityEngine.KeyCode.Alpha1)
-                CallPower(Pouvoir.PowerType.Clear);
+                CallPower((int)PowerType.Clear);
         }
 
         public override void DeSpawn()

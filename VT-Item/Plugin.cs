@@ -9,9 +9,9 @@ namespace VT_Item
 {
     [PluginInformation(
         Author = "VT",
-        Description = "Prevent foreigners from connecting to the server to avoid mass freekill",
+        Description = "Add new Cool Item",
         LoadPriority = 100,
-        Name = "VT-IpLocker",
+        Name = "VT-Item",
         SynapseMajor = SynapseController.SynapseMajor,
         SynapseMinor = SynapseController.SynapseMinor,
         SynapsePatch = SynapseController.SynapsePatch,
@@ -21,7 +21,7 @@ namespace VT_Item
     {
         public static Plugin Instance { get; private set; }
 
-        [Synapse.Api.Plugin.Config(section = "VT-IpLocker")]
+        [Synapse.Api.Plugin.Config(section = "VT-Item")]
         public static Config Config;
 
         public override void Load()

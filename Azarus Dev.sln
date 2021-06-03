@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-HammerDown", "VT-HammerD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-CustomClass", "VT-CustomClass\VT-CustomClass.csproj", "{D59F4B49-B4B6-404C-9803-7FEB3CC9012D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Item", "VT-Item\VT-Item.csproj", "{7415304B-AAA1-4728-8C81-31DCD1FC4640}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,10 @@ Global
 		{D59F4B49-B4B6-404C-9803-7FEB3CC9012D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D59F4B49-B4B6-404C-9803-7FEB3CC9012D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D59F4B49-B4B6-404C-9803-7FEB3CC9012D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7415304B-AAA1-4728-8C81-31DCD1FC4640}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7415304B-AAA1-4728-8C81-31DCD1FC4640}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7415304B-AAA1-4728-8C81-31DCD1FC4640}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7415304B-AAA1-4728-8C81-31DCD1FC4640}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

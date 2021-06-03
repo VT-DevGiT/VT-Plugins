@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using System.Net;
 
-namespace VT_IpLocker
+namespace VT_Item
 {
     internal class EventHandlers
     {

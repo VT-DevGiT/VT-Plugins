@@ -52,7 +52,7 @@ namespace VTCustomClass
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.MoveVent);
+                script.CallPower((int)PowerType.MoveVent);
                 result.State = CommandResultState.Ok;
             }
             else
@@ -75,7 +75,7 @@ namespace VTCustomClass
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.LightHack);
+                script.CallPower((int)PowerType.LightHack);
                 result.State = CommandResultState.Ok;
             }
             else
@@ -98,7 +98,7 @@ namespace VTCustomClass
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.DoorHack);
+                script.CallPower((int)PowerType.DoorHack);
                 result.State = CommandResultState.Ok;
             }
             else
@@ -121,7 +121,7 @@ namespace VTCustomClass
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.CASSIEHack);
+                script.CallPower((int)PowerType.CASSIEHack);
                 result.State = CommandResultState.Ok;
             }
             else
@@ -144,7 +144,7 @@ namespace VTCustomClass
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.Respawn);
+                script.CallPower((int)PowerType.Respawn);
                 result.State = CommandResultState.Ok;
             }
             else
@@ -167,7 +167,7 @@ namespace VTCustomClass
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.SwitchRole);
+                script.CallPower((int)PowerType.SwitchRole);
                 result.State = CommandResultState.Ok;
             }
             else
@@ -190,7 +190,7 @@ namespace VTCustomClass
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.DropSheld);
+                script.CallPower((int)PowerType.DropSheld);
                 result.State = CommandResultState.Ok;
             }
             else
@@ -213,7 +213,7 @@ namespace VTCustomClass
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.Suicide);
+                script.CallPower((int)PowerType.Suicide);
                 result.State = CommandResultState.Ok;
             }
             else
@@ -236,7 +236,7 @@ namespace VTCustomClass
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.Zombifaction);
+                script.CallPower((int)PowerType.Zombifaction);
                 result.State = CommandResultState.Ok;
             }
             else
@@ -259,7 +259,7 @@ namespace VTCustomClass
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.Defibrillation);
+                script.CallPower((int)PowerType.Defibrillation);
                 result.State = CommandResultState.Ok;
             }
             else
@@ -282,7 +282,7 @@ namespace VTCustomClass
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.BadGreen);
+                script.CallPower((int)PowerType.BadGreen);
                 result.State = CommandResultState.Ok;
             }
             else
@@ -305,7 +305,7 @@ namespace VTCustomClass
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.Attack);
+                script.CallPower((int)PowerType.Attack);
                 result.State = CommandResultState.Ok;
             }
             else
@@ -315,11 +315,11 @@ namespace VTCustomClass
     }
     [CommandInformation(
            Name = "ClearGround",
-           Aliases = new[] { "nettoie", "Lave" },
+           Aliases = new[] { "nettoie", "Clear" },
            Description = "to use the capacity of your role",
            Permission = "",
            Platforms = new[] { Platform.ClientConsole },
-           Usage = ".Defibri"
+           Usage = ".Clear"
            )]
     class CmdClearGround : ISynapseCommand
     {
@@ -328,7 +328,7 @@ namespace VTCustomClass
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower(PowerType.Clear);
+                script.CallPower((int)PowerType.Clear);
                 result.State = CommandResultState.Ok;
             }
             else

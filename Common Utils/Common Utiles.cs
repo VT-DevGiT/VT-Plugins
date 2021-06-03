@@ -19,6 +19,7 @@ Version = "v.1.2.2"
     public class CommonUtiles : AbstractPlugin
     {
         public static CommonUtiles Instance { get; private set; }
+        public bool RespawnAllow { get; internal set; }
 
         [Synapse.Api.Plugin.Config(section = "Common Utiles")]
         public static Config Config;

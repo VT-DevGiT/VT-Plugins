@@ -56,14 +56,14 @@ namespace VTCustomClass.PlayerScript
                 ev.Allow = false;
         }
 
-        public override bool CallPower(PowerType power)
+        public override bool CallPower(int power)
         {
-            if (PowerType.BadGreen == power)
+            if ((int)PowerType.BadGreen == power)
             {
                 Player.GetComponent<Green>().DamagGreen = !Player.GetComponent<Green>().DamagGreen;
                 return true;
             }
-            else if (PowerType.Attack == power)
+            else if ((int)PowerType.Attack == power)
             {
                 var victim = Player.LookingAt.GetPlayer();
                 if (victim != null)
@@ -80,9 +80,9 @@ namespace VTCustomClass.PlayerScript
             if (ev.Player == Player)
             {
                 if (ev.KeyCode == UnityEngine.KeyCode.Alpha1)
-                    CallPower(PowerType.BadGreen);
+                    CallPower((int)PowerType.BadGreen);
                 if (ev.KeyCode == UnityEngine.KeyCode.Alpha1)
-                    CallPower(PowerType.Attack);
+                    CallPower((int)PowerType.Attack);
             }
         }
 

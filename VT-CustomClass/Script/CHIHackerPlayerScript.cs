@@ -31,11 +31,11 @@ namespace VTCustomClass.PlayerScript
 
         protected override AbstractConfigSection Config => PluginClass.ConfigCHIHacker;
 
-        public override bool CallPower(PowerType power)
+        public override bool CallPower(int power)
         {
             switch (power)
             {
-                case PowerType.DoorHack:
+                case (int)PowerType.DoorHack:
                     if ((DateTime.Now - lastPowerDoor).TotalSeconds > PluginClass.ConfigCHIHacker.CoolDownDoor)
                     {
                         Hack.Door(Player);
@@ -45,7 +45,7 @@ namespace VTCustomClass.PlayerScript
                         Reponse.Cooldown(Player, lastPowerDoor, PluginClass.ConfigCHIHacker.CoolDownDoor);
                     return true;
 
-                case PowerType.LightHack:
+                case (int)PowerType.LightHack:
 
                     if ((DateTime.Now - lastPowerLight).TotalSeconds > PluginClass.ConfigCHIHacker.CoolDownDoor)
                     {
@@ -56,7 +56,7 @@ namespace VTCustomClass.PlayerScript
                         Reponse.Cooldown(Player, lastPowerLight, PluginClass.ConfigCHIHacker.CoolDownDoor);
                     return true;
 
-                case PowerType.CASSIEHack:
+                case (int)PowerType.CASSIEHack:
                     if ((DateTime.Now - lastPowerMessage).TotalSeconds > PluginClass.ConfigCHIHacker.CoolDownDoor)
                     {
                         Hack.Message();
@@ -91,9 +91,9 @@ namespace VTCustomClass.PlayerScript
             {
                 switch (ev.KeyCode)
                 {
-                    case KeyCode.Alpha1: CallPower(PowerType.DoorHack);break;
-                    case KeyCode.Alpha2: CallPower(PowerType.LightHack);break;
-                    case KeyCode.Alpha3: CallPower(PowerType.CASSIEHack);break;
+                    case KeyCode.Alpha1: CallPower((int)PowerType.DoorHack);break;
+                    case KeyCode.Alpha2: CallPower((int)PowerType.LightHack);break;
+                    case KeyCode.Alpha3: CallPower((int)PowerType.CASSIEHack);break;
                 }
             }
         }

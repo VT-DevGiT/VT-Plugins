@@ -11,6 +11,7 @@ namespace VTCustomClass.PlayerScript
     public class StaffClassScript : BasePlayerScript
     {
         protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        
         protected override List<int> EnemysList => new List<int> { };
 
         protected override List<int> FriendsList => new List<int> { };

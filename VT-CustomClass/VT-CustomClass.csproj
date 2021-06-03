@@ -119,6 +119,7 @@
     <Compile Include="Config\ConfigSCP1048.cs" />
     <Compile Include="Config\ConfigTestClass.cs" />
     <Compile Include="PluginTranslation.cs" />
+    <Compile Include="Pouvoir\PowerType.cs" />
     <Compile Include="Pouvoir\Reponse.cs" />
     <Compile Include="Pouvoir\Aura.cs" />
     <Compile Include="Pouvoir\SCP507.cs" />

@@ -7,7 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VT_IpLocker
+namespace VT_Item
 {
     class Methode
     {

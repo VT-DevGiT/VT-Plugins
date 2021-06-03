@@ -206,55 +206,6 @@ namespace VTDevHelp
     }
 
     [CommandInformation(
-    Name = "DevChat",
-    Aliases = new[] { "VTChat" },
-    Description = "Dev Chat Test",
-    Permission = "",
-    Platforms = new[] { Platform.RemoteAdmin },
-    Usage = "SCP, RIP, RAD, 079, 939, NONE"
-    )]
-    public class DevChat : ISynapseCommand
-    {
-        public CommandResult Execute(CommandContext context)
-        {
-            if (context.Player.gameObject.GetComponent<ChatBehaviour>() == null)
-                context.Player.gameObject.AddComponent<ChatBehaviour>();
-            ChatBehaviour Chat = context.Player.gameObject.GetComponent<ChatBehaviour>();
-            var result = new CommandResult();
-            switch (context.Arguments.FirstElement())
-            {
-                case "SCP":
-                    Chat.chat = 1;
-                    break;
-
-                case "RIP":
-                    Chat.chat = 2;
-                    break;
-
-                case "RAD":
-                    Chat.chat = 3;
-                    break;
-
-                case "079":
-                    Chat.chat = 4;
-                    break;
-
-                case "939":
-                    Chat.chat = 5;
-                    break;
-
-                case "NONE":
-                    Chat.chat = 0;
-                    break;
-
-            }
-
-            result.State = CommandResultState.Ok;
-            return result;
-        }
-    }
-
-    [CommandInformation(
     Name = "DevGrenad",
     Aliases = new[] { "VTGrenad" },
     Description = "Dev Test Plugin",

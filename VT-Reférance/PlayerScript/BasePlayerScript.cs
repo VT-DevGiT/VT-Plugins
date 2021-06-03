@@ -1,5 +1,4 @@
-﻿using VTCustomClass.Pouvoir;
-using MEC;
+﻿using MEC;
 using Synapse;
 using Synapse.Api;
 using Synapse.Config;
@@ -18,7 +17,7 @@ namespace VT_Referance.PlayerScript
     {
 
         #region Attributes & Properties
-        protected abstract string SpawnMessage{get; }
+        protected abstract string SpawnMessage{ get; }
         protected virtual bool SetDisplayInfo => true;
         protected abstract List<int> EnemysList { get; }
         protected abstract List<int> FriendsList { get; }
@@ -29,6 +28,7 @@ namespace VT_Referance.PlayerScript
         protected abstract AbstractConfigSection Config { get; }
 
         public AbstractConfigSection GetConfig() => Config;
+
         public override List<int> GetEnemiesID() => EnemysList;
         
         public override List<int> GetFriendsID() => FriendsList;
@@ -39,7 +39,7 @@ namespace VT_Referance.PlayerScript
 
         public override int GetTeamID() => RoleTeam;
 
-        public virtual bool CallPower(PowerType power)
+        public virtual bool CallPower(int power)
         {
             return false;
         }

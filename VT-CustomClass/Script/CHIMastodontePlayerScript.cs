@@ -27,11 +27,16 @@ namespace VTCustomClass.PlayerScript
         protected override string RoleName => PluginClass.ConfigCHIMastodonte.RoleName;
 
         protected override AbstractConfigSection Config => PluginClass.ConfigCHIMastodonte;
-        
-        public override bool CallPower(PowerType power)
+
+        public bool Shed = true;
+
+        public float artificialHpDecay;
+        public override bool CallPower(int power)
         {
-            if (power == PowerType.DropSheld && Shed)
+            if (power == (int)PowerType.DropSheld && Shed)
             {
+
+                Player.Hub.playerStats.artificialHpDecay = this.artificialHpDecay;
                 Player.StaminaUsage /= 2;
                 Shed = false;
                 Player.ArtificialHealth = 0;
@@ -42,7 +47,6 @@ namespace VTCustomClass.PlayerScript
             return false;
         }
 
-        private bool Shed = true;
 
         protected override void Event()
         {
@@ -62,6 +66,7 @@ namespace VTCustomClass.PlayerScript
         protected override void AditionalInit()
         {
             Player.StaminaUsage *= 2;
+            this.artificialHpDecay = Player.Hub.playerStats.artificialHpDecay;
             Player.Hub.playerStats.artificialHpDecay = 0;
             Player.GiveEffect(Effect.Disabled);
         }
@@ -69,7 +74,7 @@ namespace VTCustomClass.PlayerScript
         private void OnKeyPress(PlayerKeyPressEventArgs ev)
         {
             if (ev.Player == Player && ev.KeyCode == UnityEngine.KeyCode.Alpha1)
-                CallPower(PowerType.DropSheld);
+                CallPower((int)PowerType.DropSheld);
         }
 
         private void OnUseItem(PlayerItemInteractEventArgs ev)

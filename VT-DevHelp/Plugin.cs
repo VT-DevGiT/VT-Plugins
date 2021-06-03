@@ -1,8 +1,8 @@
-﻿using Synapse;
-using Synapse.Api.Plugin;
+﻿using Synapse.Api.Plugin;
 using Synapse.Config;
-using System;
+using Synapse.Api;
 using UnityEngine;
+using Synapse;
 
 namespace VTDevHelp
 {
@@ -19,6 +19,7 @@ Version = "v0.1.12"
 
     public class Plugin : AbstractPlugin
     {
+
         public static Plugin Instance { get; private set; }
 
         public static SerializedMapPoint DoorPosition;
@@ -27,6 +28,14 @@ Version = "v0.1.12"
         {
             Instance = this;
             base.Load();
+            ItemLoader();
+            new EventHandlers();
+        }
+
+        public void ItemLoader()
+        {
+            new DestructeurDeGameObject();
+            new SpawnerDeGate();
         }
     }
 }

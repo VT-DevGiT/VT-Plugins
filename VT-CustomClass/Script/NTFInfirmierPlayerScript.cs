@@ -53,24 +53,26 @@ namespace VTCustomClass.PlayerScript
         private void OnKeyPress(PlayerKeyPressEventArgs ev)
         {
             if (ev.Player == Player && ev.KeyCode == KeyCode.Alpha1)
-                CallPower(PowerType.Defibrillation);
+                CallPower((int)PowerType.Defibrillation);
         }
 
-        public override bool CallPower(PowerType power)
+        public override bool CallPower(int power)
         {
-            if (power == PowerType.Defibrillation && (DateTime.Now - lastPower).TotalSeconds > PluginClass.ConfigNTFInfirmier.Cooldown)
-            {
-                Player corpseowner = Methods.GetPlayercoprs(Player, 2.5f);
-                if (Methods.IsScpRole(corpseowner) == false)
-                { 
-                    corpseowner.RoleID = Dictionary.PlayerRole[corpseowner];
-                    corpseowner.Position = corpseowner.DeathPosition;
-                    corpseowner.Inventory.Clear();
-                    lastPower = DateTime.Now;
+            if (power == (int)PowerType.Defibrillation)
+            { 
+                if ((DateTime.Now - lastPower).TotalSeconds > PluginClass.ConfigNTFInfirmier.Cooldown)
+                {
+                    Player corpseowner = Methods.GetPlayercoprs(Player, 2.5f);
+                    if (Methods.IsScpRole(corpseowner) == false)
+                    { 
+                        corpseowner.RoleID = Dictionary.PlayerRole[corpseowner];
+                        corpseowner.Position = corpseowner.DeathPosition;
+                        corpseowner.Inventory.Clear();
+                        lastPower = DateTime.Now;
+                    }
                 }
+                else Reponse.Cooldown(Player, lastPower, PluginClass.ConfigNTFInfirmier.Cooldown);
             }
-            else if (power == PowerType.Respawn)
-                Reponse.Cooldown(Player, lastPower, PluginClass.ConfigNTFInfirmier.Cooldown);
             else return false;
             return false;
         }

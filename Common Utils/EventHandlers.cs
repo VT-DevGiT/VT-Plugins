@@ -19,6 +19,18 @@ namespace Common_Utiles
             Server.Get.Events.Map.Scp914ActivateEvent += On914Activate;
             Server.Get.Events.Player.PlayerSetClassEvent += OnSpawn;
             Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
+            Server.Get.Events.Round.TeamRespawnEvent += OnRespawn;
+            Server.Get.Events.Round.RoundStartEvent += OnStart;
+        }
+
+        private void OnStart()
+        {
+            CommonUtiles.Instance.RespawnAllow = true;
+        }
+
+        private void OnRespawn(TeamRespawnEventArgs ev)
+        {
+            ev.Allow = CommonUtiles.Instance.RespawnAllow;
         }
 
         private void OnDeath(PlayerDeathEventArgs ev)

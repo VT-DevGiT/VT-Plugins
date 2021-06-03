@@ -48,4 +48,24 @@ namespace Common_Utiles
             return result;
         }
     }
+
+    [CommandInformation(
+      Name = "StopRespawn",
+      Aliases = new[] { "StopRespawn" },
+      Description = "Stop all Respawns",
+      Permission = "",
+      Platforms = new[] { Platform.RemoteAdmin },
+      Usage = ".StopRespawn"
+      )]
+    class CmdStopRespawn : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+            CommonUtiles.Instance.RespawnAllow = !CommonUtiles.Instance.RespawnAllow;
+            result.State = CommandResultState.Ok;
+            result.Message = $"the new valeur of ReSpawnAllow is {CommonUtiles.Instance.RespawnAllow}";
+            return result;
+        }
+    }
 }

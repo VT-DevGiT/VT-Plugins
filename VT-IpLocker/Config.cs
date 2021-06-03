@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
 
-namespace VT_IpLocker
+namespace VT_Item
 {
     public class Config : AbstractConfigSection
     {

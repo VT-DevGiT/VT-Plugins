@@ -31,16 +31,16 @@ namespace VTCustomClass.PlayerScript
         protected override AbstractConfigSection Config => PluginClass.ConfigCHILeader;
 
         private DateTime lastPower = DateTime.Now;
-        public override bool CallPower(PowerType power)
+        public override bool CallPower(int  power)
         {
-            if (power == PowerType.Respawn && (DateTime.Now - lastPower).TotalSeconds > PluginClass.ConfigCHILeader.Cooldown)
+            if (power == (int)PowerType.Respawn && (DateTime.Now - lastPower).TotalSeconds > PluginClass.ConfigCHILeader.Cooldown)
             {
                 List<Player> spawnPlayer = new List<Player>();
                 spawnPlayer.AddRange(Server.Get.Players.Where(p => p.RoleID == (int)RoleType.Spectator && !p.OverWatch));
                 Server.Get.TeamManager.SpawnTeam((int)TeamID.CHI, spawnPlayer);
                 lastPower = DateTime.Now;
             }
-            else if (power == PowerType.Respawn)
+            else if (power == (int)PowerType.Respawn)
                 Reponse.Cooldown(Player, lastPower, PluginClass.ConfigCHILeader.Cooldown);
             else return false;
             return true;
@@ -63,7 +63,7 @@ namespace VTCustomClass.PlayerScript
         {
             if (ev.Player == Player && ev.KeyCode == KeyCode.Alpha1)
             {
-                CallPower(PowerType.Respawn);
+                CallPower((int)PowerType.Respawn);
             }
         }
 

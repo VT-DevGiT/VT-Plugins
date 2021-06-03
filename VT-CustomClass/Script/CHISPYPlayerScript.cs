@@ -31,9 +31,9 @@ namespace VTCustomClass.PlayerScript
 
         protected override bool SetDisplayInfo => false;
 
-        public override bool CallPower(PowerType power)
+        public override bool CallPower(int power)
         {
-            if (power == PowerType.SwitchRole && Player.RoleType == RoleType.NtfCadet)
+            if (power == (int)PowerType.SwitchRole && Player.RoleType == RoleType.NtfCadet)
             {
                 Server.Get.Map.SpawnGrenade(Player.Position, Vector3.zero, 0.1f, GrenadeType.Flashbang);
                 Player.ChangeRoleAtPosition(RoleType.ChaosInsurgency);
@@ -61,7 +61,7 @@ namespace VTCustomClass.PlayerScript
         {
             if (ev.Player == Player && ev.KeyCode == UnityEngine.KeyCode.Alpha1)
             {
-                CallPower(PowerType.SwitchRole);
+                CallPower((int)PowerType.SwitchRole);
             }
         }
 

@@ -30,9 +30,9 @@ namespace VTCustomClass.PlayerScript
 
         protected override AbstractConfigSection Config => PluginClass.ConfigSCP1048;
 
-        public override bool CallPower(PowerType power)
+        public override bool CallPower(int power)
         {
-            if (power == PowerType.MoveVent)
+            if (power == (int)PowerType.MoveVent)
             {
                 if (Player.gameObject.GetComponent<MouveVent>() == null 
                     && (DateTime.Now - lastPower).TotalSeconds > PluginClass.ConfigSCP1048.CoolDown)

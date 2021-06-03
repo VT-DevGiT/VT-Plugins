@@ -68,7 +68,7 @@ namespace VT079.Command
             {
                 foreach (var player in Server.Get.Players.Where(p => p.Room == room && p.RoleID != (int)RoleType.Scp079))
                 {
-                    player.SendBroadcast(1, $"La pièce serra Gazée dans {Temps} seconde(s)", true);
+                    player.SendBroadcast(1, $"The room will be Gassed in {Temps} second(s)", true);
                 }
                 ChangeDoors(doors,true);
                 yield return Timing.WaitForSeconds(1f);

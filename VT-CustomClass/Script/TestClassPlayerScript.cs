@@ -34,9 +34,9 @@ namespace VTCustomClass.PlayerScript
             Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
         }
 
-        public override bool CallPower(PowerType power)
+        public override bool CallPower(int power)
         {
-            if (power == PowerType.MoveVent)
+            if (power == (int)PowerType.MoveVent)
             {
                 if (Player.gameObject.GetComponent<MouveVent>() == null)
                 {
@@ -61,7 +61,7 @@ namespace VTCustomClass.PlayerScript
         {
             if (ev.Player == Player && ev.KeyCode == UnityEngine.KeyCode.Alpha1)
             {
-                CallPower(PowerType.MoveVent);
+                CallPower((int)PowerType.MoveVent);
             }
         }
     }
