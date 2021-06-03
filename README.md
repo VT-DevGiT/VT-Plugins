@@ -1,5 +1,3 @@
-# VT-Plugns
-
 ## Installation
 1. [Install Synapse](https://github.com/SynapseSL/Synapse/wiki#hosting-guides).
 2. Place the dll VT-Reference in the synapse reference folder.
