@@ -1,5 +1,4 @@
-# Some Azarus Plug-ins
-Some of Azarus plug-ins.
+##VT-Plugns
 
 ## Installation
 1. [Install Synapse](https://github.com/SynapseSL/Synapse/wiki#hosting-guides).
