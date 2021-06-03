@@ -18,5 +18,5 @@ for Vt-079Command you need the plugin [Scp 079 Rework](https://github.com/Synaps
 * Thanks to [Dimenzio](https://github.com/GrafDimenzio) for [Scp079Rework](https://github.com/SynapseSL/Scp079Rework) and [Synapse](https://github.com/SynapseSL/Synapse).
 * Thanks to [Azarus](https://github.com/Fondation-Azarus) for their good game server.
 
-##help
+## Help
 chek the [Wiki](https://github.com/warquys/VT-Plugins/wiki) for help.
