@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace VT_Referance.Patch
+namespace VT_Referance.Patch.Event
 {
     [HarmonyPatch(typeof(PlayerInteract), nameof(PlayerInteract.CallCmdDetonateWarhead))]
     internal static class StartingWarHead

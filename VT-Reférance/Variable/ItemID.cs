@@ -52,9 +52,6 @@ namespace VT_Referance.Variable
         Scp035_Item_Painkillers,
         Scp035_Item_Coin,
         MiniGun = 200,
-        BulletPlate,
-
-
-
+        BulletPlate = 201,
     }
 }

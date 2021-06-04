@@ -4,6 +4,7 @@ using Synapse;
 using Synapse.Api.Plugin;
 using System.Collections.Generic;
 using UnityEngine;
+using VT_Item.Item;
 
 namespace VT_Item
 {
@@ -29,6 +30,7 @@ namespace VT_Item
             Instance = this;
             base.Load();
             new EventHandlers();
+            new MiniGun();
         }
     }
 }

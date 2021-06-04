@@ -77,8 +77,8 @@
   <ItemGroup>
     <Compile Include="Behaviour\BaseBehaviour.cs" />
     <Compile Include="ItemScript\BaseWeaponScript.cs" />
-    <Compile Include="Patch\CassieAnnouncementPatch.cs" />
-    <Compile Include="Patch\WarHeadStartPatch.cs" />
+    <Compile Include="Patch\Event\CassieAnnouncementPatch.cs" />
+    <Compile Include="Patch\Event\WarHeadStartPatch.cs" />
     <Compile Include="ItemScript\BaseItemScript.cs" />
     <Compile Include="PlayerScript\BasePlayerScript.cs" />
     <Compile Include="Event\EventArguments\VT-GrenadeEventArgs.cs" />
@@ -96,11 +96,11 @@
     <Compile Include="Event\VT_ServerEvents.cs" />
     <Compile Include="PlayerScript\IScpRole.cs" />
     <Compile Include="PlayerScript\IUtrRole.cs" />
-    <Compile Include="Patch\CollisionGrenadePatch.cs" />
-    <Compile Include="Patch\ExplosionGrenadePatch.cs" />
-    <Compile Include="Patch\ChangeIntoGrenadePatch.cs" />
+    <Compile Include="Patch\Event\CollisionGrenadePatch.cs" />
+    <Compile Include="Patch\Event\ExplosionGrenadePatch.cs" />
+    <Compile Include="Patch\Event\ChangeIntoGrenadePatch.cs" />
+    <Compile Include="Behaviour\ShieldControler.cs" />
     <Compile Include="Variable\AirBombPos.cs" />
-    <Compile Include="Behaviour\Lamps.cs" />
     <Compile Include="Variable\ItemID.cs" />
     <Compile Include="Variable\TeamID.cs" />
     <Compile Include="Variable\RoleID.cs" />

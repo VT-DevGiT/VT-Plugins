@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="Config.cs" />
     <Compile Include="EventHandlers.cs" />
+    <Compile Include="Item\BulletproofPlate.cs" />
     <Compile Include="Item\MiniGun.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

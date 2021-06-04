@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VT_Referance.Event;
 
-namespace VT_Referance.Patch
+namespace VT_Referance.Patch.Event
 {
     [HarmonyPatch(typeof(FragGrenade), nameof(FragGrenade.ServersideExplosion))]
     class FragExplosionGrenadePatch

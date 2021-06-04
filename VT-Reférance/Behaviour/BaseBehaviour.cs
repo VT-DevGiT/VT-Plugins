@@ -10,14 +10,17 @@ namespace VT_Referance.Behaviour
     public abstract class BaseRepeatingBehaviour : NetworkBehaviour
     {
         protected bool _Started = true;
+
         /// <summary>
         /// Time in millisecond between behaviour execution
         /// </summary>
         public virtual int RefreshTime { get; set; }
+
         public BaseRepeatingBehaviour()
         {
             RefreshTime = 1000;
         }
+
         /// <summary>
         /// Stop the repeating Action and destroy the behaviour
         /// </summary>
@@ -47,6 +50,7 @@ namespace VT_Referance.Behaviour
            _Started = false;
             ActionExecute();
         }
+
         /// <summary>
         /// laucnh the reapting action if it is not started
         /// </summary>

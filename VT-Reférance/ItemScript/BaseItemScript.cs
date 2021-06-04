@@ -1,6 +1,8 @@
 ﻿using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Api.Items;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace VT_Referance.ItemScript
 {
@@ -13,6 +15,7 @@ namespace VT_Referance.ItemScript
         protected abstract ItemType ItemType { get; }
 
         protected abstract string Name { get; }
+
         #endregion
 
         #region Constructors & Destructor
@@ -44,9 +47,9 @@ namespace VT_Referance.ItemScript
 
         private void OnChangeItem(PlayerChangeItemEventArgs ev)
         {
-            if (ev.NewItem.ID == ID)
+            if (ev.NewItem?.ID == ID)
                 this.ChangeToItem(ev);
-            else if (ev.OldItem.ID == ID)
+            else if (ev.OldItem?.ID == ID)
                 this.ChangedFromItem(ev);
         }
 

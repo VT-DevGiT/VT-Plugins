@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-CustomClass", "VT-Custom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Item", "VT-Item\VT-Item.csproj", "{7415304B-AAA1-4728-8C81-31DCD1FC4640}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-PNG", "VT-PNG\VT-PNG.csproj", "{2E012409-B70D-4331-B6CC-FC00A765CC66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +149,10 @@ Global
 		{7415304B-AAA1-4728-8C81-31DCD1FC4640}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7415304B-AAA1-4728-8C81-31DCD1FC4640}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7415304B-AAA1-4728-8C81-31DCD1FC4640}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E012409-B70D-4331-B6CC-FC00A765CC66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E012409-B70D-4331-B6CC-FC00A765CC66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E012409-B70D-4331-B6CC-FC00A765CC66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E012409-B70D-4331-B6CC-FC00A765CC66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using VT_Referance.ItemScript;
 using VT_Referance.Variable;
-using VT_Referance.Behaviour;
 using VT_Referance.Method;
+using VT_Referance.Behaviour;
 
 namespace VT_Item.Item
 {

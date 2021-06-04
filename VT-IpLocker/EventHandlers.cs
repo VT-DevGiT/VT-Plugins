@@ -16,11 +16,12 @@ namespace VT_Item
         private void OnAuthentication(PreAuthenticationEventArgs ev)
         {
             IPAddress Ip = ev.Request.RemoteEndPoint.Address;
-            string contry = Methode.GetUserCountryByIp(Ip.ToString());
-            Server.Get.Logger.Info(Ip.ToString());
+            string IpStr = Ip.ToString();   
+            string contry = Methode.GetUserCountryByIp(IpStr);
+            Server.Get.Logger.Info(IpStr);
             Server.Get.Logger.Info(contry);
             if (!Plugin.Config.WhitListCountry.Contains(contry))
-                if (!Plugin.Config.WhitListIP.Contains(Ip))
+                if (!Plugin.Config.WhitListIP.Contains(IpStr))
                     ev.Allow = false;
         }
     }

@@ -24,7 +24,7 @@ namespace VT_Referance.Event
                     if (_instance == null)
                     {
                         _instance = new Server();
-                        var instance = new Harmony("VT_Referance.Patch");
+                        var instance = new Harmony("VT_Referance.Patch.Event");
                         instance.PatchAll();
                     }
                     return _instance;

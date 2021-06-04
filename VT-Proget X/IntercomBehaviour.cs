@@ -1,6 +1,6 @@
 ﻿using Mirror;
 using Synapse;
-using VT_Referance.Behaviour;
+using VT_Referance;
 
 namespace VTProget_X
 {

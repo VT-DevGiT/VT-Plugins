@@ -5,39 +5,36 @@ using Synapse;
 using Synapse.Api.Enum;
 using Synapse.Api.Items;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VT_Referance.Event;
 
-namespace VT_Referance.Patch
+namespace VT_Referance.Patch.Event
 {
-    [HarmonyPatch(typeof(Grenade), nameof(Grenade.OnCollisionEnter))]
-    class ColisionGrenadePatch
+    [HarmonyPatch(typeof(FragGrenade), nameof(FragGrenade.ChangeIntoGrenade))]
+    class ChangeIntoFragPatch
     {
-        private static bool Prefix(Grenade __instance)
+        private static bool Prefix(FragGrenade __instance, Pickup item, ref bool __result)
         {
             try
             {
                 if (!NetworkServer.active) return false;
-                bool falg = true;
+
+                SynapseItem pickup = item.GetSynapseItem();
                 GrenadeType Type;
                 if (__instance.GetType() == typeof(FragGrenade))
                     Type = GrenadeType.Grenade;
-                else if (__instance.GetType() == typeof(FlashGrenade))
-                    Type = GrenadeType.Flashbang;
                 else if (__instance.GetType() == typeof(Scp018Grenade))
                     Type = GrenadeType.Scp018;
                 else
                     Type = (GrenadeType)4;
-
-                VTController.Server.Event.Grenade.InvokeCollisionGrenadeEvent(__instance, Type, ref falg);
+                bool falg = true;
+                VTController.Server.Event.Grenade.InvokeChangeIntoFragEvent(pickup, __instance, Type, ref falg);
+                if (!falg) 
+                    __result = false;
                 return falg;
             }
             catch (Exception e)
             {
-                Synapse.Api.Logger.Get.Error($"Vt-Event: GrenadeCollisionEnter failed!!\n{e}\nStackTrace:\n{e.StackTrace}");
+                Synapse.Api.Logger.Get.Error($"Vt-Event: ChangeIntoGrenade failed!!\n{e}\nStackTrace:\n{e.StackTrace}");
                 return true;
             }
         }
