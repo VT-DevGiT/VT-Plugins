@@ -1,17 +1,13 @@
-﻿using System;
+﻿using Synapse.Api;
+using System;
 using System.Reflection;
 
 namespace VT_Referance.Method
 {
     public static class Reflection
     {
-        /// <summary>
-        ///  calls method by reflection
-        /// </summary>
-        /// <param name="o"></param>
-        /// <param name="methodName"></param>
-        /// <param name="args"></param>
-        /// <returns></returns>
+
+        [API]
         public static object CallMethod(this object o, string methodName, params object[] args)
         {
             var mi = o.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
@@ -22,13 +18,8 @@ namespace VT_Referance.Method
             return null;
         }
 
-        /// <summary>
-        /// reviews the value of a variable or perties by reflection
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="element"></param>
-        /// <param name="fieldName"></param>
-        /// <returns></returns>
+
+        [API]
         public static T GetFieldValueorOrPerties<T>(this object element, string fieldName)
         {
             var prop = element.GetType().GetProperty(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
@@ -44,6 +35,7 @@ namespace VT_Referance.Method
             return default(T);
         }
 
+        [API]
         public static T GetStaticFieldOrPropertyValue<T>(this Type element, string fieldName)
         {
             var prop = element.GetProperty(fieldName, BindingFlags.NonPublic | BindingFlags.Static);
@@ -59,6 +51,7 @@ namespace VT_Referance.Method
             return default(T);
         }
 
+        [API]
         public static void SetProperty<T>(this object element, string fieldName, object value)
         {
             var prop = element.GetType().GetProperty(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
@@ -67,6 +60,8 @@ namespace VT_Referance.Method
                 prop.SetValue(element, value);
             }
         }
+
+        [API]
         public static void SetField<T>(this object element, string fieldName, object value)
         {
             var prop = element.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
@@ -76,6 +71,7 @@ namespace VT_Referance.Method
             }
         }
 
+        [API]
         public static void SetStaticField<T>(this Type element, string fieldName, T value)
         {
             var prop = element.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Static);

@@ -13,13 +13,14 @@ namespace VT_Referance.Method
     public static class Methods
     {
 
-        
+
         /// <summary>
         /// return a player according to the nearest corpse within the limit of a sphere
         /// </summary>
         /// <param name="player">center of the sphere</param>
         /// <param name="rayon">radius of the sphere</param>
         /// <returns></returns>
+        [API]
         public static Player GetPlayercoprs(Player player, float rayon)
         {
            // Physics.OverlapSphere(player.Position, 3f).Where(e => e.gameObject.GetComponentInParent<Ragdoll>() != null).ToList();
@@ -48,18 +49,19 @@ namespace VT_Referance.Method
             }
             return null;
         }
-        
-        
+
+
         /// <summary>
         /// True if the last role of the played is in the SCP team or null if the player had no role
         /// </summary>
         /// <param name="player">the player you want tested</param>
         /// <returns></returns>
+        [API]
         public static bool? IsScpRole(Player player)
         {
-            if (player != null && Dictionary.PlayerRole.ContainsKey(player))
+            if (player != null && Data.PlayerRole.ContainsKey(player))
             {
-                int roleId = Dictionary.PlayerRole[player];
+                int roleId = Data.PlayerRole[player];
                 if (_scpRole.Contains(roleId)) 
                     return true;
                 else if (roleId > 17)
@@ -69,7 +71,7 @@ namespace VT_Referance.Method
             return null;
         }
         
-        //list of the SCP Role.
+
         private static List<int> _scpRole = new List<int>()
         { 
             (int)RoleID.Scp0492,(int)RoleID.Scp079,(int)RoleID.Scp096,
@@ -81,6 +83,7 @@ namespace VT_Referance.Method
         /// <summary>
         /// if there is an active Air Bombardment or which is starting 
         /// </summary>
+        [API]
         public static bool isAirBombCurrently = false;
 
 
@@ -90,6 +93,7 @@ namespace VT_Referance.Method
         /// <param name="waitforready">time before the start</param>
         /// <param name="limit">if set to -1 it continues indefinitely</param>
         /// <returns></returns>
+        [API]
         public static IEnumerator<float> AirSupportBomb(int waitforready = 7, int limit = -1)
         {
             if (isAirBombCurrently)
@@ -112,7 +116,7 @@ namespace VT_Referance.Method
             int throwcount = 0;
             while (isAirBombCurrently)
             {
-                List<Vector3> randampos = OutsideRandomAirbombPos.Load().OrderBy(x => Guid.NewGuid()).ToList();
+                List<Vector3> randampos = Data.AirbombPos.OrderBy(x => Guid.NewGuid()).ToList();
                 foreach (var pos in randampos)
                 {
                     Map.Get.SpawnGrenade(pos, Vector3.zero, 0.1f);
@@ -136,6 +140,7 @@ namespace VT_Referance.Method
         /// play ambient sound ​to all players
         /// </summary>
         /// <param name="id">the id of the sound</param>
+        [API]
         public static void PlayAmbientSound(int id)
         {
             PlayerManager.localPlayer.GetComponent<AmbientSoundPlayer>().CallMethod("RpcPlaySound", id);
@@ -146,6 +151,7 @@ namespace VT_Referance.Method
         /// Get the total voltage of the generators, 1000 for 1 generator finish
         /// </summary>
         /// <returns></returns>
+        [API]
         public static int GetVoltage()
         {
             float totalvoltagefloat = 0;
@@ -158,8 +164,9 @@ namespace VT_Referance.Method
         }
 
         /// <summary>
-        /// For creat new NTF name Unit
+        /// Creat new NTF name Unit
         /// </summary>
+        [API]
         public static string GenerateNtfUnitName()
         {
             var combi = typeof(UnitNamingRule).GetStaticFieldOrPropertyValue<List<string>>("UsedCombinations");

@@ -45,23 +45,28 @@ namespace VTCustomClass.Config
 
         [Description("The list of rooms where SCP 507 can teleport")]
         public List<SerializedMapPoint> ListRoom = new List<SerializedMapPoint>() {
-            new SerializedMapPoint("Root_*&*Outside Cams", 174.0778f, -21.96997f, 95.57212f),//ok
-            new SerializedMapPoint("HCZ_049", -3.892807f, 265.3323f, -1.798096f),//ok
-            new SerializedMapPoint("HCZ_049", -13f, 266f, 0f),//ok
-            new SerializedMapPoint("HCZ_EZ_Checkpoint", -1.803504f, 1.330017f, -9.199753f),//ok 
-            new SerializedMapPoint("HCZ_106", 8f, 6f, -15f),// ok
-            new SerializedMapPoint("HCZ_079", -6.624541f, -5.875854f, -9.300067f),//ok
-            new SerializedMapPoint("EZ_Shelter", -1.331055f, 1.330017f, 8.138712f),//ok
-            new SerializedMapPoint("Root_*&*Outside Cams", -23.45f, 4.0469f, -69.2814f), // Barrier Pont
-            new SerializedMapPoint("Root_*&*Outside Cams", -22.28745f, 19.89001f, -44.4634f), // Tour
-            new SerializedMapPoint("Root_*&*Outside Cams", 191f, -4f, -73f), // MTF
-            new SerializedMapPoint("Root_*&*Outside Cams", -13.98f, 1.330017f, 2.1f), // cotée assenceur)
-            new SerializedMapPoint("EZ_GateA", -0.2867508f, 1.329956f, 7.699394f), //ok
-            new SerializedMapPoint("EZ_Intercom", -3.978503f, -6.669983f, -3.094589f),//Pas ok 
-            new SerializedMapPoint("EZ_PCs", -1.406681f, 1.330017f, 3.080208f)//ok
+            new SerializedMapPoint("Root_*&*Outside Cams", 174.0778f, -21.96997f, 95.57212f),
+            new SerializedMapPoint("HCZ_049", -3.892807f, 265.3323f, -1.798096f),
+            new SerializedMapPoint("HCZ_049", -13f, 266f, 0f),
+            new SerializedMapPoint("HCZ_EZ_Checkpoint", -1.803504f, 1.330017f, -9.199753f),
+            new SerializedMapPoint("HCZ_106", 8f, 6f, -15f),
+            new SerializedMapPoint("HCZ_079", -6.624541f, -5.875854f, -9.300067f),
+            new SerializedMapPoint("EZ_Shelter", -1.331055f, 1.330017f, 8.138712f),
+            new SerializedMapPoint("Root_*&*Outside Cams", -23.45f, 4.0469f, -69.2814f),
+            new SerializedMapPoint("Root_*&*Outside Cams", -22.28745f, 19.89001f, -44.4634f), 
+            new SerializedMapPoint("Root_*&*Outside Cams", 191f, -4f, -73f),
+            new SerializedMapPoint("Root_*&*Outside Cams", -13.98f, 1.330017f, 2.1f),
+            new SerializedMapPoint("EZ_GateA", -0.2867508f, 1.329956f, 7.699394f),
+            new SerializedMapPoint("EZ_Intercom", -3.978503f, -6.669983f, -3.094589f),
+            new SerializedMapPoint("EZ_PCs", -1.406681f, 1.330017f, 3.080208f)
         };
 
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 0;
+        public int MaxArtificialHealth = 100;
+
+        [Description("Shield of the class")]
+        public int Shield = 0;
+        public int MaxShield = 100;
     }
 }

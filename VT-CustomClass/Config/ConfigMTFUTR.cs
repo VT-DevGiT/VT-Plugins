@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace VTCustomClass.Config
 {
-    public class ConfigFoundationUTR : AbstractConfigSection
+    public class ConfigMTFUTR : AbstractConfigSection
     {
         [Description("The MapPoint where the class should Spawn")]
         public SerializedMapPoint SpawnPoint = new SerializedMapPoint("LCZ_Plants", -0.0884471f, 2.171398f, -4.554413f);
@@ -29,8 +29,13 @@ namespace VTCustomClass.Config
         };
 
         [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 150;
-        public int MaxArtificialHealth = 150;
+        public int ArtificialHealth = 0;
+        public int MaxArtificialHealth = 100;
+
+
+        [Description("Shield of the class")]
+        public int Shield = 200;
+        public int MaxShield = 200;
         
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 25;

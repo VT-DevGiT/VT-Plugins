@@ -3,13 +3,12 @@ using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
-using Synapse.Api.Items;
 using Synapse.Config;
-using System;
 using System.Collections.Generic;
 using VT_Referance.Variable;
 using VT_Referance.Method;
 using VT_Referance.PlayerScript;
+using static VT_Referance.Variable.Data;
 
 namespace VTCustomClass.PlayerScript
 {

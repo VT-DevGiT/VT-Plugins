@@ -1,12 +1,10 @@
-﻿using Synapse.Api.Roles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Synapse.Api;
+using Synapse.Api.Roles;
+
 
 namespace VT_Referance.PlayerScript
 {
+    [API]
     public interface IScpRole : IRole
     {
         string ScpName { get; }

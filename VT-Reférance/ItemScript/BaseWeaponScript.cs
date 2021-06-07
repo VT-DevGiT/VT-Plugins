@@ -1,4 +1,5 @@
 ﻿using Synapse;
+using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
@@ -38,6 +39,7 @@ namespace VT_Referance.ItemScript
         /// this method is called when the object is Reloaded
         /// </summary>
         /// <param name="ev">The contexte</param>
+        [API]
         protected virtual void Reload(PlayerReloadEventArgs ev)
         {
             uint ammo;
@@ -74,6 +76,7 @@ namespace VT_Referance.ItemScript
         /// this method is called when the object is used to shoot
         /// </summary>
         /// <param name="arg">The contexte</param>
+        [API]
         protected virtual void Shoot(PlayerShootEventArgs ev)
         { }
 

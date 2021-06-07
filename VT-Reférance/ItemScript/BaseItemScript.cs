@@ -1,15 +1,16 @@
 ﻿using Synapse;
+using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Api.Items;
-using System.Collections.Generic;
-using UnityEngine;
+
 
 namespace VT_Referance.ItemScript
 {
+    [API]
     public abstract class BaseItemScript
     {
         #region Attributes & Properties
-   
+        
         protected abstract int ID { get; }
 
         protected abstract ItemType ItemType { get; }
@@ -20,6 +21,7 @@ namespace VT_Referance.ItemScript
 
         #region Constructors & Destructor
 
+        [API]
         public BaseItemScript()
         {
             Server.Get.ItemManager.RegisterCustomItem(new CustomItemInformation()
@@ -53,9 +55,19 @@ namespace VT_Referance.ItemScript
                 this.ChangedFromItem(ev);
         }
 
+        /// <summary>
+        /// this method is called when the player have a item but change to this item
+        /// </summary>
+        /// <param name="ev"></param>
+        [API]
         protected virtual void ChangeToItem(PlayerChangeItemEventArgs ev)
         { }
 
+        /// <summary>
+        /// this method is called when the player have this item but change to an other
+        /// </summary>
+        /// <param name="ev">The contexte</param>
+        [API]
         protected virtual void ChangedFromItem(PlayerChangeItemEventArgs ev)
         { }
 
@@ -69,6 +81,7 @@ namespace VT_Referance.ItemScript
         /// this method is called when the object is picked up
         /// </summary>
         /// <param name="ev">The contexte</param>
+        [API]
         protected virtual void PickUp(PlayerPickUpItemEventArgs ev)
         { }
 
@@ -82,6 +95,7 @@ namespace VT_Referance.ItemScript
         /// this method is called when the object is used
         /// </summary>
         /// <param name="arg">The contexte</param>
+        [API]
         protected virtual void Use(PlayerItemInteractEventArgs ev)
         { }
 
@@ -95,6 +109,7 @@ namespace VT_Referance.ItemScript
         /// this method is called when the object is droped
         /// </summary>
         /// <param name="arg">The contexte</param>
+        [API]
         protected virtual void Drop(PlayerDropItemEventArgs ev)
         { }
 

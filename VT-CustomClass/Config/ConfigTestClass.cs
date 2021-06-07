@@ -27,5 +27,13 @@ namespace VTCustomClass.Config
 
         [Description("The name of the class")]
         public string RoleName = " TestClass";
+
+        [Description("ArtificialHealthConfig of the class")]
+        public int ArtificialHealth = 200;
+        public int MaxArtificialHealth = 200;
+
+        [Description("Shield of the class")]
+        public int Shield = 200;
+        public int MaxShield = 200;
     }
 }

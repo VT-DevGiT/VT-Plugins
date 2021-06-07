@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Synapse.Config;
 
-namespace VT_PNG
+namespace VT_PNJ
 {
-    public class Class1
+    public class Config : AbstractConfigSection
     {
+
     }
 }

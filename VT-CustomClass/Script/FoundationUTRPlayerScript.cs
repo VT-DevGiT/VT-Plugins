@@ -1,11 +1,8 @@
-﻿using Interactables.Interobjects.DoorUtils;
-using Synapse;
-using Synapse.Api.Enum;
-using Synapse.Api.Events.SynapseEventArguments;
+﻿using Synapse;
 using Synapse.Config;
-using System;
 using System.Collections.Generic;
 using VT_Referance.Variable;
+using static VT_Referance.Variable.Data;
 
 namespace VTCustomClass.PlayerScript
 {

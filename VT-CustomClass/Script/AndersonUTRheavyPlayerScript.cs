@@ -7,6 +7,7 @@ using Synapse.Config;
 using System;
 using System.Collections.Generic;
 using VT_Referance.Variable;
+using static VT_Referance.Variable.Data;
 
 namespace VTCustomClass.PlayerScript
 {
@@ -25,16 +26,5 @@ namespace VTCustomClass.PlayerScript
         protected override string RoleName => PluginClass.ConfigAndersonUTRheavy.RoleName;
 
         protected override AbstractConfigSection Config => PluginClass.ConfigAndersonUTRheavy;
-
-        protected override void AditionalInit()
-        {
-            this.oldStaminaUse = Player.StaminaUsage;
-            Player.StaminaUsage = 0;
-            Player.Hub.playerStats.artificialHpDecay = 0;
-            Timing.CallDelayed(1f, () =>
-            {
-                Player.GiveEffect(Effect.Visuals939);
-            });
-        }
     }
 }

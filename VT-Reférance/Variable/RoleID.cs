@@ -1,8 +1,11 @@
-﻿namespace VT_Referance.Variable
+﻿using Synapse.Api;
+
+namespace VT_Referance.Variable
 {
     /// <summary>
-    /// All role ID used by VT plugin 
+    /// All role ID used by VT plugin and the ID i know
     /// </summary>
+    [API]
     public enum RoleID
     {
         None = -1,

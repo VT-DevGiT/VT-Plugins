@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Synapse.Api;
 
 namespace VT_Referance.Variable
 {
+    /// <summary>
+    /// All item ID used by VT plugin and the ID i know
+    /// </summary>
+    [API]
     public enum ItemID
     {
         Tranquilizer = 50,

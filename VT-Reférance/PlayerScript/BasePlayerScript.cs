@@ -28,6 +28,7 @@ namespace VT_Referance.PlayerScript
         protected abstract string RoleName { get; }
         protected abstract AbstractConfigSection Config { get; }
 
+        protected ShieldControler Shield;
         public AbstractConfigSection GetConfig() => Config;
 
         public override List<int> GetEnemiesID() => EnemysList;
@@ -101,16 +102,32 @@ namespace VT_Referance.PlayerScript
             return value;
         }
 
+        /// <summary>
+        /// call when the class Spawn
+        /// </summary>
+        [API]
         protected virtual void AditionalInit()
         { }
 
+        /// <summary>
+        /// call when the class Spawn for add Event on the class
+        /// Warning ! don't forget to untie them when the Despawn class
+        /// </summary>
+        [API]
         protected virtual void Event()
         { }
+
+        /// <summary>
+        /// if you override you know what you are doing. 
+        /// if not, look at the code of the basic method.
+        /// </summary>
+        [API]
         public override void Spawn()
         {
 
             Spawned = false;
             Player.RoleType = RoleType;
+            Shield = ActiveComponent<ShieldControler>();
 
             if (RoleTeam == (int)TeamID.CHI || RoleTeam == (int)TeamID.NTF)
                 Timing.CallDelayed(1f, () => InitPlayer());
@@ -147,7 +164,6 @@ namespace VT_Referance.PlayerScript
                 {
                     Player.DisplayInfo = $"{RoleName}";
                 }
-                Player.GetComponent<NicknameSync>().SetField<string>("_displayName", "<color=#855439>Toto</color>");
             }
             if (this is IScpRole)
                 Server.Get.Events.Player.PlayerDeathEvent += ScpDeathAnnonce;
@@ -156,13 +172,26 @@ namespace VT_Referance.PlayerScript
         private void InitPlayer()
         {
             Player.Inventory.Clear();
-            if (GetConfigValue("inventory", new SerializedPlayerInventory()).IsDefined())
-                GetConfigValue("inventory", new SerializedPlayerInventory()).Apply(Player);
-            Player.Health = GetConfigValue("Health", 100);
+            var inventory = GetConfigValue("inventory", new SerializedPlayerInventory());
+            if (inventory.IsDefined())
+            { 
+                foreach(var item in inventory.Items)
+                    if (!Server.Get.ItemManager.IsIDRegistered(item.ID))
+                    {
+                        Server.Get.Logger.Error($"VT-CustomRole : \n Config error in {nameof(Config)} of the role {RoleName} \n unknown Item ID : {item.ID} ! \n you need to change the configuration!");
+                        inventory.Items.Remove(item);
+                    }
+                inventory.Apply(Player);
+            }
             Player.MaxHealth = GetConfigValue("MaxHealth", (int)Player.Health);
+            Player.Health = GetConfigValue("Health", 100);
             Player.MaxArtificialHealth = GetConfigValue("MaxArtificialHealth", 100);
             Player.ArtificialHealth = GetConfigValue("ArtificialHealth", 0);
+            Shield.MaxShield = GetConfigValue("MaxShield", 0);
+            Shield.Shield = GetConfigValue("Shield", 0);
         }
+
+        [API]
         public override void DeSpawn()
         {
             Player.DisplayInfo = null;

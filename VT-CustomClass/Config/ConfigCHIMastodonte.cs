@@ -17,7 +17,7 @@ namespace VTCustomClass.Config
             Items = new List<SerializedPlayerItem>() 
             { 
                 new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, 0, 0, Vector3.one, 100, true),
-                new SerializedPlayerItem(59, 0, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem(200, 0, 0, 0, 0, Vector3.one, 100, true),
                 new SerializedPlayerItem(52, 26, 2, 1, 0, Vector3.one, 100, true),
                 new SerializedPlayerItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one, 100, true),
                 new SerializedPlayerItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one, 100, true),
@@ -26,8 +26,12 @@ namespace VTCustomClass.Config
         };
 
         [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 230;
-        public int MaxArtificialHealth = 230;
+        public int MaxArtificialHealth = 100;
+        public int ArtificialHealth = 0;
+
+        [Description("Shield of the class")]
+        public int Shield = 230;
+        public int MaxShield = 230;
 
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 15;

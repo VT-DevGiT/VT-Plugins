@@ -44,14 +44,26 @@ namespace Common_Utiles
         public int LieutenantHealth = -1;
         public int NtfSciHealth = -1;
         public int CommanderHealth = -1;
-        public int InsurgéHealth = -1;
-        public int Scp049 = -1;
-        public int Scp0492 = -1;
-        public int Scp096 = -1;
-        public int Scp106 = -1;
-        public int Scp173 = -1;
-        public int Scp93953 = -1;
-        public int Scp93989 = -1;
+        public int CHIHealth = -1;
+        public int Scp049Health = -1;
+        public int Scp0492Health = -1;
+        public int Scp096Health = -1;
+        public int Scp106Health = -1;
+        public int Scp173Health = -1;
+        public int Scp93953Health = -1;
+        public int Scp93989Health = -1;
+
+        [Description("A list of roles and what their default starting shield should be.")]
+        public int ClassDShield = -1;
+        public int ChaosShield = -1;
+        public int ScientistShield = -1;
+        public int GuardShield = -1;
+        public int CadetShield = -1;
+        public int LieutenantShield = -1;
+        public int NtfSciShield = -1;
+        public int CommanderShield = -1;
+        public int CHIShield = -1;
+        public int BaseShieldMax = -1;
 
         [Description("A list of recipes for SCP 914. Be careful if the config is not empty it will remove the old recipes. ")]
         public List<Serialized914Recipe> Recipes = new List<Serialized914Recipe>()

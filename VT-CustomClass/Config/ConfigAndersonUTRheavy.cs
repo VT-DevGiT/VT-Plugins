@@ -28,9 +28,9 @@ namespace VTCustomClass.Config
             }
         };
 
-        [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 300;
-        public int MaxArtificialHealth = 300;
+        [Description("Shield of the class")]
+        public int Shield = 300;
+        public int MaxShield = 300;
 
         [Description("The name of the class")]
         public string RoleName = "<color=yellow>heavy Anderson U.T.R.</color>";

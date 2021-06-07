@@ -28,8 +28,12 @@ namespace VTCustomClass.Config
         };
 
         [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 40;
+        public int ArtificialHealth = 0;
         public int MaxArtificialHealth = 100;
+
+        [Description("Shield of the class")]
+        public int Shield = 40;
+        public int MaxShield = 100;
 
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 16;

@@ -18,17 +18,21 @@ namespace VTCustomClass.PlayerScript
     public abstract class BaseUTRScript : BasePlayerScript, IUtrRole
     {
         protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+
+        protected virtual bool heavyUTR => true;
+
         protected float oldStaminaUse;
-        private bool _protected096 = true;
+
+        protected bool _protected096 = true;
+
         protected override void AditionalInit()
         {
             oldStaminaUse = Player.StaminaUsage;
             Player.StaminaUsage = 0;
-            Player.Hub.playerStats.artificialHpDecay = 0;
             Timing.CallDelayed(1f, () =>
             {
                 Player.GiveEffect(Effect.Visuals939);
-                Player.GiveEffect(Effect.Disabled);
+                if (heavyUTR) Player.GiveEffect(Effect.Disabled);
             });
         }
 

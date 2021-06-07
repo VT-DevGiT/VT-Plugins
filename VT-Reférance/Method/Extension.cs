@@ -1,5 +1,6 @@
 ﻿using Synapse.Api;
 using Synapse.Config;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,6 +9,7 @@ using VT_Referance.Variable;
 
 namespace VT_Referance.Method
 {
+    [API]
     public static class Extension
     {
         /// <summary>
@@ -16,6 +18,7 @@ namespace VT_Referance.Method
         /// <param name="player">The tested player</param>
         /// <param name="obj">The Tested GameObject</param>
         /// <returns></returns>
+        [API]
         public static bool IsTargetVisible(this Player player, GameObject obj)
         {
             Camera camera = player.gameObject.GetComponent<Camera>();
@@ -33,6 +36,7 @@ namespace VT_Referance.Method
         /// </summary>
         /// <param name="player">The tested player</param>
         /// <returns></returns>
+        [API]
         public static bool Is939(this Player player)
         {
             return player.RoleID == (int)RoleID.Scp93953 || player.RoleID == (int)RoleID.Scp93989;
@@ -44,13 +48,13 @@ namespace VT_Referance.Method
         /// </summary>
         /// <param name="player">The tested player</param>
         /// <returns></returns>
+        [API]
         public static bool IsUTR(this Player player)
         {
             return player.CustomRole is IUtrRole;
         }
-        /// <summary>
-        /// List of ally team
-        /// </summary>
+
+        [Obsolete("I need to rework this one", true)]
         private static List<List<int>> Ally = new List<List<int>>()
         {
             new List<int>{ (int)TeamID.VIP, (int)TeamID.NetralSCP, (int)TeamID.NTF, (int)TeamID.CDM, (int)TeamID.RSC},
@@ -64,6 +68,8 @@ namespace VT_Referance.Method
         /// <param name="team1">ID of team One</param>
         /// <param name="team2">ID of team tow</param>
         /// <returns></returns>
+        [API]
+        [Obsolete("I need to rework this one", true)]
         public static bool IsAlly(this int team1, int team2)
         {
             return Ally.Any(p => p.Contains(team1) && p.Contains(team2));
@@ -71,6 +77,7 @@ namespace VT_Referance.Method
         /// <summary>
         /// Check if the config of the Inventory is not empty
         /// </summary>
+        [API]
         public static bool IsDefined(this SerializedPlayerInventory item)
         {
             return !(item.IsUnDefined());
@@ -79,6 +86,7 @@ namespace VT_Referance.Method
         /// <summary>
         /// Check if the config of the Inventory is not empty
         /// </summary>
+        [API]
         public static bool IsUnDefined(this SerializedPlayerInventory item)
         {
             return (item.Ammo == null && (item.Items == null || !item.Items.Any()));

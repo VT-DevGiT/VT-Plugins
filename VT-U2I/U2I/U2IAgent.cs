@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VT_Referance.PlayerScript;
 using VT_Referance.Variable;
+using static VT_Referance.Variable.Data;
 
 namespace VT_U2I
 {

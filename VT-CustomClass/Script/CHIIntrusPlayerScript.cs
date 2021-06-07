@@ -1,12 +1,9 @@
-﻿
-using VTCustomClass.Pouvoir;
-using Synapse;
-using Synapse.Api.Events.SynapseEventArguments;
+﻿using Synapse;
 using Synapse.Config;
 using System.Collections.Generic;
-using UnityEngine;
 using VT_Referance.PlayerScript;
 using VT_Referance.Variable;
+using static VT_Referance.Variable.Data;
 
 namespace VTCustomClass.PlayerScript
 {

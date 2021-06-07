@@ -4,13 +4,13 @@ using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using VT_Referance.Variable;
 using VT_Referance.Method;
 using VT_Referance.PlayerScript;
+using static VT_Referance.Variable.Data;
 
 namespace VTCustomClass.PlayerScript
 {

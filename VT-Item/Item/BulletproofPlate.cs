@@ -1,15 +1,6 @@
-﻿using Hints;
-using Synapse;
-using Synapse.Api;
-using Synapse.Api.Events.SynapseEventArguments;
-using Synapse.Config;
+﻿using Synapse.Api.Events.SynapseEventArguments;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using VT_Referance;
+using VT_Referance.Behaviour;
 using VT_Referance.ItemScript;
 using VT_Referance.Variable;
 
@@ -26,7 +17,14 @@ namespace VT_Item.Item
 
         protected override void ChangeToItem(PlayerChangeItemEventArgs ev)
         {
-            ev.Player.gameObject.GetComponent<ShieldControler>()
+            ShieldControler shieldPlayer;
+            if (!ev.Player.gameObject.TryGetComponent(out shieldPlayer))
+                shieldPlayer = ev.Player.gameObject.AddComponent<ShieldControler>();
+            if (!shieldPlayer.ShieldLock && shieldPlayer.MaxShield != shieldPlayer.Shield)
+            { 
+                shieldPlayer.Shield = shieldPlayer.Shield + 25;
+                ev.NewItem.Destroy();
+            }
         }
 
 

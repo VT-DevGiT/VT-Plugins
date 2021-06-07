@@ -4,6 +4,7 @@ using Synapse.Config;
 using System.Collections.Generic;
 using VT_Referance.PlayerScript;
 using VT_Referance.Variable;
+using static VT_Referance.Variable.Data;
 
 namespace VTCustomClass.PlayerScript
 {

@@ -101,7 +101,7 @@ namespace VTCustomClass
         public static ConfigCHISpy ConfigCHISPY;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigFoundationUTR")]
-        public static ConfigFoundationUTR ConfigFoundationUTR;
+        public static ConfigMTFUTR ConfigFoundationUTR;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP008")]
         public static ConfigSCP008 ConfigSCP008;
@@ -143,7 +143,7 @@ namespace VTCustomClass
         public static ConfigZoneMageur ConfigZoneManager;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigMTFUTR")]
-        public static ConfigZoneMageur ConfigMTFUTR;
+        public static ConfigMTFUTR ConfigMTFUTR;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigUTR")]
         public static ConfigUTR ConfigUTR;

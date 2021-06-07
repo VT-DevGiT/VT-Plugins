@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace VTCustomClass.Config
 {
-    public class ConfigMTF : AbstractConfigSection
+    public class ConfigFoundationUTR : AbstractConfigSection
     {
         [Description("The Amount of Health the class have")]
         public int Health = 180;
@@ -26,8 +26,12 @@ namespace VTCustomClass.Config
         };
 
         [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 150;
-        public int MaxArtificialHealth = 150;
+        public int MaxArtificialHealth = 100;
+        public int ArtificialHealth = 0;
+
+        [Description("Shield of the class")]
+        public int Shield = 150;
+        public int MaxShield = 150;
         
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 25;

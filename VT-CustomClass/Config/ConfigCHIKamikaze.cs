@@ -30,7 +30,11 @@ namespace VTCustomClass.Config
 
         [Description("ArtificialHealthConfig of the class")]
         public int MaxArtificialHealth = 100;
-        public int ArtificialHealth = 25;
+        public int ArtificialHealth = 0;
+
+        [Description("Shield of the class")]
+        public int Shield = 25;
+        public int MaxShield = 100;
 
         [Description("Max alive at the same time")]
         public int MaxAlive = 100;

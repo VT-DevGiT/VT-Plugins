@@ -8,6 +8,8 @@ using VT_Referance.ItemScript;
 using VT_Referance.Variable;
 using VT_Referance.Method;
 using VT_Referance.Behaviour;
+using System.Linq;
+using CustomPlayerEffects;
 
 namespace VT_Item.Item
 {
@@ -168,9 +170,13 @@ namespace VT_Item.Item
 
             protected override void BehaviourAction()
             {
-                if (player.IsUTR() /* Ajoutée config pour les rôle peux affectée */)
+                PlayerEffect effect;
+                effect = player.PlayerEffectsController.GetEffect<Disabled>();
+                if (effect != null && effect.Duration < 1)
                     player.GiveEffect(Effect.Disabled, 1, 2);
-                else
+
+                effect = player.PlayerEffectsController.GetEffect<Ensnared>();
+                if (effect != null && effect.Duration < 1 && !player.IsUTR() /*&& config classe imunisée*/)
                     player.GiveEffect(Effect.Ensnared, 1, 2);
 
                 if (player.ItemInHand.ID != (int)ItemID.MiniGun)

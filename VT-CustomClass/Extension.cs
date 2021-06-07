@@ -44,7 +44,7 @@ namespace VTCustomClass
                             var pair = playerClass.ElementAt(UnityEngine.Random.Range(0, playerClass.Count() - 1));
                             dictionaire[pair.Key] = playerScript.GetRoleID();
                             playerClass = dictionaire.Where(p => p.Value == (int)oldRole);
-                            Dictionary.PlayerRole[pair.Key] = playerScript.GetRoleID();
+                            Data.PlayerRole[pair.Key] = playerScript.GetRoleID();
                         }
                         maxTotal--;
                     }
@@ -73,7 +73,7 @@ namespace VTCustomClass
                         Player pl = ev.Player;
                         pl.RoleID = playerScript.GetRoleID();
                         PluginClass.Plugin.RespawnedPlayer[(RoleID)playerScript.GetRoleID()] = respawned + 1;
-                        Dictionary.PlayerRole[ev.Player] = playerScript.GetRoleID();
+                        Data.PlayerRole[ev.Player] = playerScript.GetRoleID();
                     }
                 }
             }
@@ -94,7 +94,7 @@ namespace VTCustomClass
                     {
                         var pair = playerClass.ElementAt(UnityEngine.Random.Range(0, playerClass.Count() - 1));
                         dictionaire[pair.Key] = playerScript.GetRoleID();
-                        Dictionary.PlayerRole[pair.Key] = playerScript.GetRoleID();
+                        Data.PlayerRole[pair.Key] = playerScript.GetRoleID();
                     }
                 }
             }

@@ -9,6 +9,7 @@ using VT_Referance.Variable;
 using VT_Referance.Method;
 using System;
 using VT_Referance.PlayerScript;
+using static VT_Referance.Variable.Data;
 
 namespace VTCustomClass.PlayerScript
 {
@@ -66,7 +67,7 @@ namespace VTCustomClass.PlayerScript
                     Player corpseowner = Methods.GetPlayercoprs(Player, 2.5f);
                     if (Methods.IsScpRole(corpseowner) == false)
                     { 
-                        corpseowner.RoleID = Dictionary.PlayerRole[corpseowner];
+                        corpseowner.RoleID = Data.PlayerRole[corpseowner];
                         corpseowner.Position = corpseowner.DeathPosition;
                         corpseowner.Inventory.Clear();
                         lastPower = DateTime.Now;

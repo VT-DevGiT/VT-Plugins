@@ -133,8 +133,8 @@
     <Compile Include="Script\BaseUTRScript.cs" />
     <Compile Include="Script\ConciergePlayerScript.cs" />
     <Compile Include="Script\DirecteurSitePlayerScript.cs" />
-    <Compile Include="Script\AndersonUTRheavyScript.cs" />
-    <Compile Include="Script\AndersonUTRlightScript.cs" />
+    <Compile Include="Script\AndersonUTRheavyPlayerScript.cs" />
+    <Compile Include="Script\AndersonUTRlightPlayerScript.cs" />
     <Compile Include="Script\MTFUTRPlayerScript.cs" />
     <Compile Include="Script\ZoneManagerPlayerScript.cs" />
     <Compile Include="Script\GardePrisonPlayerScript.cs" />

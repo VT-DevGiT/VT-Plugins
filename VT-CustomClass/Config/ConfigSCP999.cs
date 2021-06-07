@@ -31,5 +31,10 @@ namespace VTCustomClass.Config
 
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 0;
+        public int MaxArtificialHealth = 0;
+
+        [Description("Shield of the class")]
+        public int Shield = 0;
+        public int MaxShield = 0;
     }
 }

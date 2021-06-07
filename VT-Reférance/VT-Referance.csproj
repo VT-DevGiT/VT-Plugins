@@ -76,7 +76,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviour\BaseBehaviour.cs" />
+    <Compile Include="Behaviour\NpcMouvControler.cs" />
     <Compile Include="ItemScript\BaseWeaponScript.cs" />
+    <Compile Include="NpcScript\BaseNpcScript.cs" />
+    <Compile Include="Variable\NpcMapPoint.cs" />
     <Compile Include="Patch\Event\CassieAnnouncementPatch.cs" />
     <Compile Include="Patch\Event\WarHeadStartPatch.cs" />
     <Compile Include="ItemScript\BaseItemScript.cs" />
@@ -100,15 +103,15 @@
     <Compile Include="Patch\Event\ExplosionGrenadePatch.cs" />
     <Compile Include="Patch\Event\ChangeIntoGrenadePatch.cs" />
     <Compile Include="Behaviour\ShieldControler.cs" />
-    <Compile Include="Variable\AirBombPos.cs" />
     <Compile Include="Variable\ItemID.cs" />
+    <Compile Include="Variable\NpcMapPointType.cs" />
     <Compile Include="Variable\TeamID.cs" />
     <Compile Include="Variable\RoleID.cs" />
     <Compile Include="Method\Reflection.cs" />
     <Compile Include="Method\Extension.cs" />
     <Compile Include="Method\Methods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Variable\Var.cs" />
+    <Compile Include="Variable\Data.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

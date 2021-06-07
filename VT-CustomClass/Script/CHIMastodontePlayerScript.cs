@@ -3,10 +3,10 @@ using Synapse;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
-using System;
 using System.Collections.Generic;
 using VT_Referance.PlayerScript;
 using VT_Referance.Variable;
+using static VT_Referance.Variable.Data;
 
 namespace VTCustomClass.PlayerScript
 {
@@ -28,19 +28,13 @@ namespace VTCustomClass.PlayerScript
 
         protected override AbstractConfigSection Config => PluginClass.ConfigCHIMastodonte;
 
-        public bool Shed = true;
-
-        public float artificialHpDecay;
         public override bool CallPower(int power)
         {
-            if (power == (int)PowerType.DropSheld && Shed)
+            if (power == (int)PowerType.DropSheld && Shield.ShieldLock)
             {
-
-                Player.Hub.playerStats.artificialHpDecay = this.artificialHpDecay;
+                Shield.MaxShield = 100;
+                Shield.ShieldLock = false;
                 Player.StaminaUsage /= 2;
-                Shed = false;
-                Player.ArtificialHealth = 0;
-                Player.MaxArtificialHealth = 100;
                 Server.Get.Events.Player.PlayerItemUseEvent -= OnUseItem;
                 return true;
             }
@@ -61,13 +55,13 @@ namespace VTCustomClass.PlayerScript
             Server.Get.Events.Player.PlayerDamageEvent -= OnDomage;
             Server.Get.Events.Player.PlayerItemUseEvent -= OnUseItem;
             Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
+            Shield.ShieldLock = false;
         }
 
         protected override void AditionalInit()
         {
+            Shield.ShieldLock = true;
             Player.StaminaUsage *= 2;
-            this.artificialHpDecay = Player.Hub.playerStats.artificialHpDecay;
-            Player.Hub.playerStats.artificialHpDecay = 0;
             Player.GiveEffect(Effect.Disabled);
         }
 
@@ -79,7 +73,7 @@ namespace VTCustomClass.PlayerScript
 
         private void OnUseItem(PlayerItemInteractEventArgs ev)
         {
-            if (ev.Player == Player && ev.CurrentItem.ItemCategory == ItemCategory.Medical && ev.CurrentItem.ItemType != ItemType.Adrenaline && Shed)
+            if (ev.Player == Player && ev.CurrentItem.ItemCategory == ItemCategory.Medical)
                 ev.Allow = false;
         }
 
@@ -88,7 +82,7 @@ namespace VTCustomClass.PlayerScript
             if (ev.Victim == Player)
                 ev.DamageAmount = ev.DamageAmount/1.5f;
             if (ev.Killer == Player)
-            { 
+            {
                 Player.Heal(ev.DamageAmount / 3);
                 ev.HollowBullet(Player);
             }

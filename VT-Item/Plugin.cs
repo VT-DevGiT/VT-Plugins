@@ -1,9 +1,4 @@
-﻿using HarmonyLib;
-using Mirror;
-using Synapse;
-using Synapse.Api.Plugin;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Synapse.Api.Plugin;
 using VT_Item.Item;
 
 namespace VT_Item
@@ -29,8 +24,14 @@ namespace VT_Item
         {
             Instance = this;
             base.Load();
+            LoadItem();
             new EventHandlers();
+        }
+
+        private void LoadItem()
+        {
             new MiniGun();
+            new BulletproofPlate();
         }
     }
 }

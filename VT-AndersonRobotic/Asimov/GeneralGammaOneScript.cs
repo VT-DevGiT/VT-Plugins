@@ -7,6 +7,7 @@ using VT_Referance.Variable;
 using VT_Referance.PlayerScript;
 using Synapse.Config;
 using Synapse;
+using static VT_Referance.Variable.Data;
 
 namespace VT_AndersonRobotic
 {

@@ -24,6 +24,14 @@ namespace VTCustomClass.Config
         [Description("The Amount of Health the class have")]
         public int Health = 200;
 
+        [Description("ArtificialHealthConfig of the class")]
+        public int ArtificialHealth = 0;
+        public int MaxArtificialHealth = 150;
+
+        [Description("Shield of the class")]
+        public int Shield = 0;
+        public int MaxShield = 0;
+
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 35;
 
@@ -38,8 +46,5 @@ namespace VTCustomClass.Config
 
         [Description("The distance that the class must have with other class for the power")]
         public int Distance = 6;
-
-        [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 0;
     }
 }

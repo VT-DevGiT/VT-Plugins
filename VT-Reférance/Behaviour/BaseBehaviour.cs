@@ -1,4 +1,5 @@
 ﻿using Mirror;
+using Synapse.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace VT_Referance.Behaviour
 {
+    [API]
     public abstract class BaseRepeatingBehaviour : NetworkBehaviour
     {
         protected bool _Started = true;
@@ -14,16 +16,20 @@ namespace VT_Referance.Behaviour
         /// <summary>
         /// Time in millisecond between behaviour execution
         /// </summary>
+        [API]
         public virtual int RefreshTime { get; set; }
+
 
         public BaseRepeatingBehaviour()
         {
             RefreshTime = 1000;
         }
 
+
         /// <summary>
         /// Stop the repeating Action and destroy the behaviour
         /// </summary>
+        [Unstable]
         public void Kill()
         {
             CancelInvoke("BehaviourAction");
@@ -33,18 +39,22 @@ namespace VT_Referance.Behaviour
         /// <summary>
         /// BehaviourAction is the action that will be repeated every RefreshTime milisecond
         /// </summary>
+        [API]
         protected abstract void BehaviourAction();
-
-        void OnEnable()
+        
+        [API]
+        protected virtual void OnEnable()
         {
             ActionExecute();
         }
-
-        void OnDisable()
+        
+        [API]
+        protected virtual void OnDisable()
         {
             ActionStop();
         }
 
+        [API]
         protected virtual void Start()
         {
            _Started = false;

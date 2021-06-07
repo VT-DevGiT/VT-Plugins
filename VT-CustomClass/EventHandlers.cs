@@ -22,7 +22,7 @@ namespace VTCustomClass
 
         private void OnRestart()
         {
-            VT_Referance.Variable.Dictionary.PlayerRole.Clear();
+            VT_Referance.Variable.Data.PlayerRole.Clear();
         }
 
         private void OnJoin(PlayerJoinEventArgs ev)
@@ -33,7 +33,7 @@ namespace VTCustomClass
 
         private void OnClass(PlayerSetClassEventArgs ev)
         {
-            VT_Referance.Variable.Dictionary.PlayerRole[ev.Player] = (int)ev.Role;
+            VT_Referance.Variable.Data.PlayerRole[ev.Player] = (int)ev.Role;
             if (RespawnPlayer.Contains(ev.Player))
             {
                 ev.SpawnRole(RoleType.ChaosInsurgency, new CHILeaderScript());
@@ -93,7 +93,7 @@ namespace VTCustomClass
                 }
                 foreach (var player in ev.SpawnPlayers.Keys)
                 {
-                    Dictionary.PlayerRole[player] = ev.SpawnPlayers[player];
+                    Data.PlayerRole[player] = ev.SpawnPlayers[player];
                 }
             }
         }
