@@ -1,25 +1,47 @@
-﻿using Synapse.Api;
-using System;
+﻿using Synapse;
+using Synapse.Api;
+using Synapse.Api.Enum;
+using Synapse.Api.Events.SynapseEventArguments;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using VT_Referance.Behaviour;
-using VT_Referance.Variable;
+
 
 namespace VT_Referance.NpcScript
 {
     public class BaseNpcScript : Dummy
     {
+        public static Dictionary<uint, BaseNpcScript> NpcList { get; private set; } = new Dictionary<uint, BaseNpcScript>();
+        static uint highestId = 0;
 
-        public NpcMouvControler controler;
+        public static void clear()
+        {
+            highestId = 0;
+            NpcList.Clear();
+        }
 
-        public int Id;
+        public NpcControlMouvement Mouvement;
+        
+        public ZoneType CurentZone
+        {
+            get { return Player.Zone; }
+        }
+
+
+        public uint Id;
         public BaseNpcScript(Vector3 pos, Vector2 rot, RoleType role, string name, string badgetext = "", string badgecolor = "") : base(pos, rot, role, name, badgetext, badgecolor)
         {
-            controler = GameObject.AddComponent<NpcMouvControler>();
-            Data.Npc.AddNpc(this);
+            Mouvement = GameObject.AddComponent<NpcControlMouvement>();
+            highestId++;
+            NpcList.Add(highestId, this);
+            Id = highestId;
+            Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
+        }
+
+        private void OnDeath(PlayerDeathEventArgs ev)
+        {
+            if (ev.Victim == Player)
+                NpcList.Remove(Id);
         }
 
         public virtual PlayerMovementState MouventState()

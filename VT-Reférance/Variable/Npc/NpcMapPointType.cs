@@ -4,15 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VT_Referance.Variable
+namespace VT_Referance.Variable.Npc
 {
     public enum NpcMapPointType
     {
-        Undefined = 0,
+        None = 0,
         Route = 1,
-        Impasse = 2,
-        Croisement =3,
-        Liaison = 4,
-
+        Door = 2,
+        Assenceur = 4,
+        LiaisonZone = 5,
     }
 }

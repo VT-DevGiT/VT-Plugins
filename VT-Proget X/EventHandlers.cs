@@ -30,11 +30,16 @@ namespace VTProget_X
 
         private void OnTriggerTeslaEvent(TriggerTeslaEventArgs ev)
         {
-            if ((ev.Player.Inventory.Items.FirstOrDefault(p => p.ID == (int)ItemType.WeaponManagerTablet && !p.IsCustomItem) != null && Plugin.Config.TeslaTablets)
-                || !Plugin.Instance.TeslaEnabled)
+            if (!Plugin.Instance.TeslaEnabled)
                 ev.Trigger = false;
-            else
-                ev.Trigger = true;
+            else if (Plugin.Config.TeslaTablets && ev.Player.Inventory.Items.FirstOrDefault(p => p.ID == (int)ItemType.WeaponManagerTablet && !p.IsCustomItem) != null)
+            { 
+                ev.Trigger = false;
+                Tesla tesla = ev.Tesla;
+                float oldTriggerSize = tesla.SizeOfTrigger;
+                tesla.SizeOfTrigger = -1;
+                Timing.CallDelayed(2.5f, () => tesla.SizeOfTrigger = oldTriggerSize);
+            }
         }
     }
 

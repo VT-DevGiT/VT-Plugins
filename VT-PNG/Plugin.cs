@@ -1,7 +1,6 @@
 ﻿using Synapse.Api;
 using Synapse.Api.Plugin;
 using System.Collections.Generic;
-using VT_PNJVT_PNJ;
 using VT_Referance.NpcScript;
 
 namespace VT_PNJ

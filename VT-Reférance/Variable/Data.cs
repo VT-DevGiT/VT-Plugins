@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using VT_Referance.NpcScript;
+using VT_Referance.Variable.Npc;
 
 namespace VT_Referance.Variable
 {
@@ -14,28 +15,9 @@ namespace VT_Referance.Variable
         /// </summary>
         public static Dictionary<Player, int> PlayerRole = new Dictionary<Player, int>();
 
-        
-        public static class Npc
-        { 
-
-            public static List<NpcMapPoint> NpcMapPoints = new List<NpcMapPoint>();
-
-            public static List<NpcMapPoint> NpcMapPointsLiaisons = new List<NpcMapPoint>();
-
-
-            public static void AddNpc(BaseNpcScript Npc)
-            {
-                int newId = NpcList.Count + 1;
-                NpcList.Add(newId, Npc);
-            }
-            public static Dictionary<int, BaseNpcScript> NpcList { get; private set; } = new Dictionary<int, BaseNpcScript>();
-        
-        
-        }
         /// <summary>
         /// List of the points for the Air-Bomb
         /// </summary>
-
         public static List<Vector3> AirbombPos
         {
             get
