@@ -145,7 +145,7 @@ namespace VT_PNJ
             int id;
             if (context.Arguments.Count == 1 && int.TryParse(context.Arguments.FirstOrDefault(), out id))
             {
-                NpcMapPoint PointPNJ = NpcMapPoint.NpcMapPoints.Where(p => p.Id == id).FirstOrDefault();
+                NpcMapPointRoute PointPNJ = NpcMapPointRoute.NpcMapPoints.Where(p => p.Id == id).FirstOrDefault();
                 if (PointPNJ != null)
                 {
                     context.Player.Position = PointPNJ.Position;
@@ -184,7 +184,7 @@ namespace VT_PNJ
         {
             var result = new CommandResult();
             Server.Get.Logger.Send($"All point :", ConsoleColor.White);
-            foreach (var point in NpcMapPoint.NpcMapPoints)
+            foreach (var point in NpcMapPointRoute.NpcMapPoints)
             {
                 Server.Get.Logger.Send($"{point.Id} : {point.Position}", ConsoleColor.White);
             }

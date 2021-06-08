@@ -1,4 +1,5 @@
-﻿using Synapse;
+﻿using Interactables.Interobjects.DoorUtils;
+using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
 using System;
@@ -19,7 +20,7 @@ namespace VT_Referance.Behaviour
             this.RefreshTime = 100;
         }
 
-        BaseNpcScript Npc;
+        BaseNpcScript npc;
         Player player;
 
         Vector3? _Goto;
@@ -27,15 +28,15 @@ namespace VT_Referance.Behaviour
         {
             get
             {
-                if (Chemin != null && Chemin != new List<NpcMapPoint>())
+                if (Chemin != null && Chemin.Any())
                     return Chemin.FirstOrDefault().Position;
-                else if (_Goto != null) return (Vector3)_Goto;
+                else if (Goto != null) return (Vector3)Goto;
                 else throw new NotImplementedException("Npc : No desitnation has been chosen !");
             }
         }
 
 
-        List<NpcMapPoint> Chemin;
+        List<NpcMapPointRoute> Chemin;
 
         public Vector3? Goto
         {
@@ -46,16 +47,19 @@ namespace VT_Referance.Behaviour
                 if (value == null) enabled = false;
                 else
                 {
-                    NpcMapPoint FirstPoint = NpcMapPoint.GetNearestPoint(Npc.Position);
-                    Server.Get.Logger.Send($"PNJ #{Npc.Id} First :{FirstPoint.Position}", ConsoleColor.Yellow);
-                    NpcMapPoint LastPoint = NpcMapPoint.GetNearestPoint((Vector3)value);
-                    Server.Get.Logger.Send($"PNJ #{Npc.Id} Last : {LastPoint.Position}", ConsoleColor.Yellow);
+                    NpcMapPointRoute FirstPoint = NpcMapPointRoute.GetNearestPoint(npc.Position);
+                    Server.Get.Logger.Send($"PNJ #{npc.Id} First :{FirstPoint.Position}", ConsoleColor.Yellow);
+                    NpcMapPointRoute LastPoint = NpcMapPointRoute.GetNearestPoint((Vector3)value);
+                    Server.Get.Logger.Send($"PNJ #{npc.Id} Last : {LastPoint.Position}", ConsoleColor.Yellow);
                     if (LastPoint == FirstPoint)
-                        Chemin = new List<NpcMapPoint>();
+                    {
+                        Chemin = new List<NpcMapPointRoute>();
+                        Server.Get.Logger.Send($"{_NextPostion}", ConsoleColor.Yellow);
+                    }
                     else
                     { 
                         Chemin = NpcDataControler.TestCheminZone.PlusCourtChemin(FirstPoint.Id, LastPoint.Id);
-                        Server.Get.Logger.Send($"PNJ #{Npc.Id} Chemin", ConsoleColor.Yellow);
+                        Server.Get.Logger.Send($"PNJ #{npc.Id} Chemin", ConsoleColor.Yellow);
                         foreach (var point in Chemin)
                         { 
                             Server.Get.Logger.Send($"{point.Position}", ConsoleColor.Yellow);
@@ -69,38 +73,51 @@ namespace VT_Referance.Behaviour
         protected override void Start()
         {
             player = gameObject.GetPlayer();
-            Npc = (BaseNpcScript)Map.Get.Dummies.FirstOrDefault(x => x.Player == player);
+            npc = (BaseNpcScript)Map.Get.Dummies.FirstOrDefault(x => x.Player == player);
             base.Start();
             enabled = false;
         }
 
         protected override void OnDisable()
         {
-            Npc.Direction = MovementDirection.Stop;
+            npc.Direction = MovementDirection.Stop;
             base.OnDisable();
         }
 
         protected override void OnEnable()
         {
-            Npc.Direction = MovementDirection.Forward;
-            Npc.RotateToPosition(_NextPostion);
+            npc.Direction = MovementDirection.Forward;
+            npc.RotateToPosition(_NextPostion);
             base.OnEnable();
         }
 
         protected override void BehaviourAction()
         {
             if (Chemin == null || _Goto == null)
+            { 
                 enabled = false;
-            Npc.RotateToPosition(_NextPostion);
-            if (Vector3.Distance(Npc.Position, _NextPostion) < 1f)
-            {
-                if (Vector3.Distance(Npc.Position, (Vector3)_Goto ) < 1.5f)
-                    enabled = false;
-                else Chemin.Remove(Chemin.First());
+                return;
             }
+            tryOpenDoor();
+            mouve();
         }
 
-        
+        protected virtual void tryOpenDoor()
+        {
+            DoorVariant Vdoor = player.LookingAt.GetComponentInParent<DoorVariant>();
+            if (Vdoor != null)
+                Vdoor.ServerInteract(player.Hub, 0);
+        }
+
+        protected virtual void mouve()
+        {
+            npc.RotateToPosition(_NextPostion);
+            if (Vector3.Distance(npc.Position, _NextPostion) < 1f)
+            {
+                if (Chemin.Any()) Chemin.Remove(Chemin.First());
+                else enabled = false;
+            }
+        }
         
     }
 }

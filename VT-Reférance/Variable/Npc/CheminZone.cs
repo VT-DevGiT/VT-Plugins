@@ -14,9 +14,9 @@ namespace VT_Referance.Variable.Npc
         public string Name { get; set; }
         public ZoneType Zone { get; set; } 
 
-        private List<NpcMapPoint> _NpcMapPoints = new List<NpcMapPoint>();
+        private List<NpcMapPointRoute> _NpcMapPoints = new List<NpcMapPointRoute>();
 
-        public List<NpcMapPoint> Points { get { return _NpcMapPoints; } set { _NpcMapPoints = value; } }
+        public List<NpcMapPointRoute> Points { get { return _NpcMapPoints; } set { _NpcMapPoints = value; } }
 
         private List<KeyValuePair<uint, uint>> _chemins = new List<KeyValuePair<uint, uint>>();
 
@@ -64,12 +64,12 @@ namespace VT_Referance.Variable.Npc
 
 
 
-        private uint Distance(NpcMapPoint depart, NpcMapPoint arivee)
+        private uint Distance(NpcMapPointRoute depart, NpcMapPointRoute arivee)
         {
             return (uint)Vector3.Distance(depart.Position, arivee.Position);
         }
 
-        public uint Distance(List<NpcMapPoint> chemin)
+        public uint Distance(List<NpcMapPointRoute> chemin)
         {
             uint resultat = 0;
             for (int i = 0; i < chemin.Count - 1; i++)
@@ -77,16 +77,16 @@ namespace VT_Referance.Variable.Npc
             return resultat;
         }
 
-        public List<NpcMapPoint> PlusCourtChemin(uint depart, uint arivee)
+        public List<NpcMapPointRoute> PlusCourtChemin(uint depart, uint arivee)
         {
-            var resultat = new List<List<NpcMapPoint>>();
-            CheminRecursif(depart, arivee, new List<NpcMapPoint>(), resultat);
+            var resultat = new List<List<NpcMapPointRoute>>();
+            CheminRecursif(depart, arivee, new List<NpcMapPointRoute>(), resultat);
 
             // string str = "";
             if (resultat == null || !resultat.Any())
                 return null;
 
-            IOrderedEnumerable<List<NpcMapPoint>> orderBy = resultat.OrderBy(p => Distance(p));
+            IOrderedEnumerable<List<NpcMapPointRoute>> orderBy = resultat.OrderBy(p => Distance(p));
             return orderBy.First();
 
             /*foreach (List<NpcMapPoint> chemin in orderBy)
@@ -102,7 +102,7 @@ namespace VT_Referance.Variable.Npc
 
 
 
-        private void CheminRecursif(uint depart, uint arivee, List<NpcMapPoint> dejaPasse, List<List<NpcMapPoint>> resultat)
+        private void CheminRecursif(uint depart, uint arivee, List<NpcMapPointRoute> dejaPasse, List<List<NpcMapPointRoute>> resultat)
         {
             var ptDepart = Points.First(p => p.Id == depart);
             if (depart == arivee)
@@ -117,7 +117,7 @@ namespace VT_Referance.Variable.Npc
 
             foreach (var element in listPossible)
             {
-                List<NpcMapPoint> chemin = new List<NpcMapPoint>();
+                List<NpcMapPointRoute> chemin = new List<NpcMapPointRoute>();
                 chemin.AddRange(dejaPasse);
                 chemin.Add(ptDepart);
                 CheminRecursif(element.Value, arivee, chemin, resultat);

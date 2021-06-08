@@ -8,9 +8,8 @@ namespace VT_Referance.Variable.Npc
 {
     public enum NpcMapPointType
     {
-        None = 0,
-        Route = 1,
-        Door = 2,
+        Route = 0,
+        Door = 1,
         Assenceur = 4,
         LiaisonZone = 5,
     }
