@@ -80,7 +80,7 @@
     <Compile Include="ItemScript\BaseWeaponScript.cs" />
     <Compile Include="NpcScript\BaseNpcScript.cs" />
     <Compile Include="Variable\Npc\CheminZone.cs" />
-    <Compile Include="Variable\Npc\NpcDataControler.cs" />
+    <Compile Include="Variable\Npc\NpcDataInit.cs" />
     <Compile Include="Variable\Npc\NpcMapPointRoute.cs" />
     <Compile Include="Patch\Event\CassieAnnouncementPatch.cs" />
     <Compile Include="Patch\Event\WarHeadStartPatch.cs" />

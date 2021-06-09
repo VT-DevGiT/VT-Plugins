@@ -9,7 +9,7 @@ namespace VT_Referance.Variable.Npc
     {
         #region Attributes & Properties
 
-        public static List<CheminZone> Instances { get; internal set; } = new List<CheminZone>();
+        public static List<CheminZone> CheminsZones { get; internal set; } = new List<CheminZone>();
         
         public string Name { get; set; }
         public ZoneType Zone { get; set; } 
@@ -35,18 +35,16 @@ namespace VT_Referance.Variable.Npc
         {
             Name = nom;
             Zone = zone;
-            Instances.Add(this);
+            CheminsZones.Add(this);
         }
 
         #endregion
-
-
 
         #region Methods
 
         public static void Clear()
         {
-            foreach(var instance in Instances)
+            foreach(var instance in CheminsZones)
             {
                 instance.Points.Clear();
                 instance.Chemins.Clear();

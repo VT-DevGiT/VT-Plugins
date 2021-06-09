@@ -9,7 +9,7 @@ using VT_Referance.NpcScript;
 
 namespace VT_Referance.Variable.Npc
 {
-    public static class NpcDataControler
+    public static class NpcDataInit
     {
         public static CheminZone TestCheminZone = null;
 

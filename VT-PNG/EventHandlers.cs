@@ -12,7 +12,7 @@ namespace VT_PNJ
 
         private void OnStart()
         {
-            NpcDataControler.InitPointForTest();
+            NpcDataInit.InitPointForTest();
             
         }
     }

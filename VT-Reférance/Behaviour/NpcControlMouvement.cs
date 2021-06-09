@@ -1,7 +1,9 @@
 ﻿using Interactables.Interobjects.DoorUtils;
+using MEC;
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
+using Synapse.Api.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +60,7 @@ namespace VT_Referance.Behaviour
                     }
                     else
                     { 
-                        Chemin = NpcDataControler.TestCheminZone.PlusCourtChemin(FirstPoint.Id, LastPoint.Id);
+                        Chemin = NpcDataInit.TestCheminZone.PlusCourtChemin(FirstPoint.Id, LastPoint.Id);
                         Server.Get.Logger.Send($"PNJ #{npc.Id} Chemin", ConsoleColor.Yellow);
                         foreach (var point in Chemin)
                         { 
@@ -105,8 +107,23 @@ namespace VT_Referance.Behaviour
         protected virtual void tryOpenDoor()
         {
             DoorVariant Vdoor = player.LookingAt.GetComponentInParent<DoorVariant>();
-            if (Vdoor != null)
+            Synapse.Api.Door Door = Map.Get.Doors.Where(p => p.VDoor == Vdoor).FirstOrDefault();
+            if (Vdoor != null && !Door.Open)
+            {
+                if (Door.DoorPermissions.RequiredPermissions != 0)
+                { 
+                    SynapseItem item = player.Inventory.Items.Where(
+                    p => Door.DoorPermissions.CheckPermissions(p.ItemType, player.Hub)).FirstOrDefault();
+                    player.VanillaInventory.curItem = item.ItemType;
+                }
+                enabled = false;
                 Vdoor.ServerInteract(player.Hub, 0);
+                Timing.CallDelayed(1, () =>
+                {
+                    if (Door.Open) enabled = true;
+                    player.VanillaInventory.curItem = ItemType.None;
+                });
+            }
         }
 
         protected virtual void mouve()
@@ -118,6 +135,5 @@ namespace VT_Referance.Behaviour
                 else enabled = false;
             }
         }
-        
     }
 }
