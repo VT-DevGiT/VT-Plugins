@@ -22,7 +22,7 @@ namespace VT079.Command
 
         public string Description => "Start air bombardment";
 
-        public float Cooldown => PluginExtensions.GetCooldown(Name, 50f);
+        public float Cooldown => PluginExtensions.GetCooldown(Name, 120f);
 
         public CommandResult Execute(CommandContext context)
         {
