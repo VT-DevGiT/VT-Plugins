@@ -22,11 +22,11 @@ namespace VTGrenad
             Server.Get.Events.Player.PlayerPickUpItemEvent += PickingUpItem;
             Server.Get.Events.Player.PlayerCuffTargetEvent += OnCuff;
             if (Plugin.Config.ChaineFuseFragGrenad)
-                VTController.Server.Event.Grenade.ChangeIntoFragEvent += OnChangeIntoFragEvent;
+                VTController.Server.Events.Grenade.ChangeIntoFragEvent += OnChangeIntoFragEvent;
             if (Plugin.Config.FlashbangFuseWithCollision)
-                VTController.Server.Event.Grenade.CollisionGrenadeEvent += OnCollisionGrenade;
+                VTController.Server.Events.Grenade.CollisionGrenadeEvent += OnCollisionGrenade;
             if (Plugin.Config.BadFlash)
-                VTController.Server.Event.Grenade.ExplosionGrenadeEvent += OnExplosionGrenade;
+                VTController.Server.Events.Grenade.ExplosionGrenadeEvent += OnExplosionGrenade;
         }
 
         private void OnExplosionGrenade(ExplosionGrenadeEventArgs ev)

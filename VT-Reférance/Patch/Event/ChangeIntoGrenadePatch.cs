@@ -27,7 +27,7 @@ namespace VT_Referance.Patch.Event
                 else
                     Type = (GrenadeType)4;
                 bool falg = true;
-                VTController.Server.Event.Grenade.InvokeChangeIntoFragEvent(pickup, __instance, Type, ref falg);
+                VTController.Server.Events.Grenade.InvokeChangeIntoFragEvent(pickup, __instance, Type, ref falg);
                 if (!falg) 
                     __result = false;
                 return falg;

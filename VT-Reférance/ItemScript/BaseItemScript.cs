@@ -17,6 +17,10 @@ namespace VT_Referance.ItemScript
 
         protected abstract string Name { get; }
 
+        protected virtual string MessagePickUp { get; } = null;
+
+        protected virtual string MessageChangeTo { get; } = null;
+
         #endregion
 
         #region Constructors & Destructor
@@ -61,7 +65,13 @@ namespace VT_Referance.ItemScript
         /// <param name="ev"></param>
         [API]
         protected virtual void ChangeToItem(PlayerChangeItemEventArgs ev)
-        { }
+        {
+            if (MessageChangeTo != null)
+            { 
+                string message = MessageChangeTo.Replace("%Name%", Name).Replace("\\n", "\n");
+                ev.Player.GiveTextHint(message);
+            }
+        }
 
         /// <summary>
         /// this method is called when the player have this item but change to an other
@@ -83,7 +93,13 @@ namespace VT_Referance.ItemScript
         /// <param name="ev">The contexte</param>
         [API]
         protected virtual void PickUp(PlayerPickUpItemEventArgs ev)
-        { }
+        {
+            if(MessagePickUp != null)
+            { 
+                string message = MessagePickUp.Replace("%Name%", Name).Replace("\\n", "\n");
+                ev.Player.GiveTextHint(message);
+            }
+        }
 
         private void OnUse(PlayerItemInteractEventArgs ev)
         {

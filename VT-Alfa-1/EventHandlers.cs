@@ -14,7 +14,7 @@ namespace VT_Alpha
     {
         public EventHandlers()
         {
-            VTController.Server.Event.Map.WarHeadStartEvent += OnWarHeadStart;
+            VTController.Server.Events.Map.WarHeadStartEvent += OnWarHeadStart;
             Server.Get.Events.Round.RoundRestartEvent += OnRestart;
         }
 

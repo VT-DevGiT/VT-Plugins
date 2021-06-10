@@ -36,7 +36,7 @@ namespace VT_Referance.Event
     public class Server
     {
         public Server(){}
-        public EventHandler Event { get; } = new EventHandler();
+        public EventHandler Events { get; } = new EventHandler();
     }
     public class EventHandler
     {

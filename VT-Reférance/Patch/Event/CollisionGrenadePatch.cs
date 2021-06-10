@@ -32,7 +32,7 @@ namespace VT_Referance.Patch.Event
                 else
                     Type = (GrenadeType)4;
 
-                VTController.Server.Event.Grenade.InvokeCollisionGrenadeEvent(__instance, Type, ref falg);
+                VTController.Server.Events.Grenade.InvokeCollisionGrenadeEvent(__instance, Type, ref falg);
                 return falg;
             }
             catch (Exception e)

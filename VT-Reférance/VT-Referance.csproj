@@ -79,6 +79,7 @@
     <Compile Include="Behaviour\NpcControlMouvement.cs" />
     <Compile Include="ItemScript\BaseWeaponScript.cs" />
     <Compile Include="NpcScript\BaseNpcScript.cs" />
+    <Compile Include="Patch\Event\PatchSynapseDamage.cs" />
     <Compile Include="Variable\Npc\CheminZone.cs" />
     <Compile Include="Variable\Npc\NpcDataInit.cs" />
     <Compile Include="Variable\Npc\NpcMapPointRoute.cs" />

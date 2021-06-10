@@ -66,21 +66,24 @@ namespace VTCustomClass.PlayerScript
 
         private void OnDoorInteract(DoorInteractEventArgs ev)
         {
-            List<KeycardPermissions> UTRkey = new List<KeycardPermissions>() { KeycardPermissions.ArmoryLevelOne, KeycardPermissions.ArmoryLevelTwo,
-                KeycardPermissions.ArmoryLevelThree, KeycardPermissions.Checkpoints, KeycardPermissions.ContainmentLevelOne,
-                KeycardPermissions.ContainmentLevelTwo, KeycardPermissions.ExitGates, KeycardPermissions.ScpOverride };
-
-            if (ev.Player == Player && UTRkey.Contains(ev.Door.DoorPermissions.RequiredPermissions))
+            KeycardPermissions perm = ev.Door.DoorPermissions.RequiredPermissions;
+            if (ev.Player == Player && (perm != KeycardPermissions.AlphaWarhead && perm != KeycardPermissions.ScpOverride))
                 ev.Allow = true;
         }
 
         private void OnDamage(PlayerDamageEventArgs ev)
         {
-            if (ev.Victim == Player && PluginClass.ConfigUTR.ListScpDamge.Contains(ev.Killer.RoleID))
-                ev.DamageAmount = PluginClass.ConfigUTR.damage;
-            if (ev.Victim == Player && (PluginClass.ConfigUTR.ListScpNoDamge.Contains(ev.Killer.RoleID) || ev.HitInfo.GetDamageType() == DamageTypes.Falldown))
-                ev.Allow = false;
-            if (ev.Killer == Player && ev.Victim.RoleID == (int)RoleType.Scp096)
+            if (ev.Victim == Player)
+            {
+                var DamageType = ev.HitInfo.GetDamageType();
+                if (!DamageType.isScp && !DamageType.isWeapon && DamageType != DamageTypes.Tesla && DamageType != DamageTypes.Grenade)
+                    ev.Allow = false;
+                else if (ev.Killer != Player && PluginClass.ConfigUTR.ListScpNoDamge.Contains(ev.Killer.RoleID))
+                    ev.Allow = false;
+                else if (ev.Killer != Player && PluginClass.ConfigUTR.ListScpDamge.Contains(ev.Killer.RoleID))
+                    ev.DamageAmount = PluginClass.ConfigUTR.damage;
+            }
+            else if (ev.Killer == Player && ev.Victim?.RoleID == (int)RoleType.Scp096)
                 _protected096 = false;
         }
 

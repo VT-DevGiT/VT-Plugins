@@ -25,6 +25,7 @@ namespace VT_Referance.Behaviour
         BaseNpcScript npc;
         Player player;
 
+        Synapse.Api.Door Door;
         Vector3? _Goto;
         Vector3 _NextPostion 
         {
@@ -88,6 +89,7 @@ namespace VT_Referance.Behaviour
 
         protected override void OnEnable()
         {
+            MEC.Timing.KillCoroutines(HandlesDoorChek);
             npc.Direction = MovementDirection.Forward;
             npc.RotateToPosition(_NextPostion);
             base.OnEnable();
@@ -104,25 +106,22 @@ namespace VT_Referance.Behaviour
             mouve();
         }
 
+
         protected virtual void tryOpenDoor()
         {
             DoorVariant Vdoor = player.LookingAt.GetComponentInParent<DoorVariant>();
-            Synapse.Api.Door Door = Map.Get.Doors.Where(p => p.VDoor == Vdoor).FirstOrDefault();
-            if (Vdoor != null && !Door.Open)
+            Door = Map.Get.Doors.Where(p => p.VDoor == Vdoor).FirstOrDefault();
+            if (Vdoor != null && Vector3.Distance(Door.Position, npc.Position) > 1 && !Door.Open)
             {
+                enabled = false;
                 if (Door.DoorPermissions.RequiredPermissions != 0)
                 { 
                     SynapseItem item = player.Inventory.Items.Where(
                     p => Door.DoorPermissions.CheckPermissions(p.ItemType, player.Hub)).FirstOrDefault();
-                    player.VanillaInventory.curItem = item.ItemType;
+                    player.VanillaInventory.Network_curItemSynced = item.ItemType;
                 }
-                enabled = false;
                 Vdoor.ServerInteract(player.Hub, 0);
-                Timing.CallDelayed(1, () =>
-                {
-                    if (Door.Open) enabled = true;
-                    player.VanillaInventory.curItem = ItemType.None;
-                });
+                HandlesDoorChek = Timing.RunCoroutine(DoorChek());
             }
         }
 
@@ -133,6 +132,22 @@ namespace VT_Referance.Behaviour
             {
                 if (Chemin.Any()) Chemin.Remove(Chemin.First());
                 else enabled = false;
+            }
+        }
+
+        private CoroutineHandle HandlesDoorChek;
+
+
+        private IEnumerator<float> DoorChek()
+        {
+            yield return Timing.WaitForSeconds(1f);
+            if (Door.Open) enabled = true;
+            player.VanillaInventory.Network_curItemSynced = ItemType.None;
+
+            for (int i = 0; i > 5 ; i++)
+            {
+                yield return Timing.WaitForSeconds(2f);
+                if (Door.Open) enabled = true;
             }
         }
     }

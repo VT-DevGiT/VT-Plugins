@@ -54,7 +54,7 @@ namespace VT_Referance.Method
         [API]
         public static void SetProperty<T>(this object element, string fieldName, object value)
         {
-            var prop = element.GetType().GetProperty(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
+            var prop = element.GetType().GetProperty(fieldName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             if (prop != null)
             {
                 prop.SetValue(element, value);

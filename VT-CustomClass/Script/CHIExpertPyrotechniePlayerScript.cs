@@ -40,7 +40,10 @@ namespace VTCustomClass.PlayerScript
         private void OnDamage(PlayerDamageEventArgs ev)
         {
             if (ev.Victim == Player && ev.HitInfo.GetDamageType() == DamageTypes.Grenade)
+            {
+                ev.DamageAmount = 100;
                 ev.Allow = false;
+            }
         }
     }
 }

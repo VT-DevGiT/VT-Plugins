@@ -32,8 +32,9 @@ namespace VTCustomClass.PlayerScript
         {
             if (power == (int)PowerType.DropSheld && Shield.ShieldLock)
             {
-                Shield.MaxShield = 100;
                 Shield.ShieldLock = false;
+                Shield.MaxShield = 100;
+                Shield.Shield = 0;
                 Player.StaminaUsage /= 2;
                 Server.Get.Events.Player.PlayerItemUseEvent -= OnUseItem;
                 return true;

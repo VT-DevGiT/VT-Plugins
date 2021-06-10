@@ -124,7 +124,7 @@ namespace VT_Referance.PlayerScript
         [API]
         public override void Spawn()
         {
-
+            Event();
             Spawned = false;
             Player.RoleType = RoleType;
             Shield = ActiveComponent<ShieldControler>();
@@ -147,7 +147,6 @@ namespace VT_Referance.PlayerScript
                 }
             }
             AditionalInit();
-            Event();
             Player.OpenReportWindow(SpawnMessage.Replace("%RoleName%", RoleName).Replace("\\n", "\n"));
             if (SetDisplayInfo)
             {

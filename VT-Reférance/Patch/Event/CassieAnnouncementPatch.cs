@@ -16,7 +16,7 @@ namespace VT_Referance.Patch.Event
             try
             {
                 bool flag = true;
-                VTController.Server.Event.Map.InvokeCassieAnnouncementEvent(words, makeHold, makeNoise, ref flag);
+                VTController.Server.Events.Map.InvokeCassieAnnouncementEvent(words, makeHold, makeNoise, ref flag);
                 return flag;
             }
             catch (Exception e)

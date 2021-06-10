@@ -19,7 +19,7 @@ namespace VT079
         private void OnDoorInteract(DoorInteractEventArgs ev)
         {
             //Pour que 079 puisse blockée les SCP
-            if (ev.Door.Locked && !ev.Player.Bypass)
+            if (ev.Door.Locked && !ev.Player.Bypass && ev.Player.RealTeam == Team.SCP)
                 ev.Allow = false;
         }
 

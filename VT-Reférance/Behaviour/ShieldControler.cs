@@ -2,8 +2,8 @@
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
-using System;
 using UnityEngine;
+using VT_Referance.Event.EventArguments;
 
 namespace VT_Referance.Behaviour
 {
@@ -18,33 +18,44 @@ namespace VT_Referance.Behaviour
         public ShieldControler()
         {
             base.RefreshTime = 500;
-            Server.Get.Events.Player.PlayerDamageEvent += OnDamage;
+            VTController.Server.Events.Player.PlayerDamagePostEvent += OnDamage;
+            Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
         }
 
-
-        private void OnDamage(PlayerDamageEventArgs ev)
+        private void OnDeath(PlayerDeathEventArgs ev)
         {
-            if (ev.Victim == player && _Shield != 0 && ev.Allow == true)
+            if (ev.Victim == player)
             {
-                int damge = (int)ev.DamageAmount;
-                damge = 2*(damge / 3);
-                damge -= _Shield;
-                _Shield -= (int)(2*(ev.DamageAmount / 3));
-                ev.DamageAmount = (ev.DamageAmount / 3) + damge;
+                ShieldLock = false;
+                Shield = 0;
+            }
+
+        }
+
+        private void OnDamage(PlayerDamagePostEventArgs ev)
+        {
+            var damageType = ev.HitInfo.GetDamageType();
+            if (ev.Victim == player && Shield != 0 && ev.Allow && (damageType.isWeapon || damageType.isScp || damageType == DamageTypes.Grenade))
+            {
+                int damge = 2*((int)ev.DamageAmount / 3);
+                damge = Mathf.Clamp(damge, 0, Shield);
+                Shield -= damge;
+                ev.DamageAmount -= damge;
             }
         }
+
         /// <summary>
-        /// The amount of shield for this ShieldControler
-        /// cannot exceed the Maxshield and cannot be less than 0
-        /// cannot be increased if the ShieldLock is set to true
+        /// The amount of shield for this ShieldControler;
+        /// cannot exceed the Maxshield and cannot be less than 0;
+        /// cannot be increased if the ShieldLock is set to true;
         /// </summary>
-        public float Shield
+        public int Shield
         {
             get { return _Shield; }
             set 
             { 
                 if (value > _Shield || !ShieldLock)
-                    _Shield = (int)Mathf.Clamp(value, 0, MaxShield); 
+                    _Shield = Mathf.Clamp(value, 0, MaxShield); 
             }
         }
 
@@ -77,8 +88,7 @@ namespace VT_Referance.Behaviour
         {
             if (Shield != 0)
             {
-                // les \n c'est pas une bonne idée il faux changée 
-                string info = $"<size=100%><b>Shield : {Shield} // {MaxShield}</b>";
+                string info = $"<align=\"right\"><color=#FFFFFF50><voffset=-21.65em><size=100%><b>Shield : {Shield}/{MaxShield} | {((double)Shield / MaxShield) * 100}%</b></voffset></color>";
                 Hint hint = new TextHint(
                         info,
                         new HintParameter[] { new StringHintParameter(string.Empty) },

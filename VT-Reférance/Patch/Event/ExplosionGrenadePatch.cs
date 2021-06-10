@@ -30,7 +30,7 @@ namespace VT_Referance.Patch.Event
                 else
                     Type = (GrenadeType)4;
                 bool falg = true;
-                VTController.Server.Event.Grenade.InvokeExplosionGrenadeEvent(grenade, Type, ref falg);
+                VTController.Server.Events.Grenade.InvokeExplosionGrenadeEvent(grenade, Type, ref falg);
                 if (!falg) 
                     __result = __instance.ServersideExplosion();
                 return falg;
@@ -57,7 +57,7 @@ namespace VT_Referance.Patch.Event
                 else
                     Type = (GrenadeType)4;
                 bool falg = true;
-                VTController.Server.Event.Grenade.InvokeExplosionGrenadeEvent(grenade, Type, ref falg);
+                VTController.Server.Events.Grenade.InvokeExplosionGrenadeEvent(grenade, Type, ref falg);
                 if (!falg)
                     __result = __instance.ServersideExplosion();
                 return falg;

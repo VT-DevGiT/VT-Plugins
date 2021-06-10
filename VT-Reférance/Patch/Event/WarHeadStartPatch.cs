@@ -22,7 +22,7 @@ namespace VT_Referance.Patch.Event
                 if (!__instance.ChckDis(gameObject.transform.position) || !AlphaWarheadOutsitePanel.nukeside.enabled || !gameObject.GetComponent<AlphaWarheadOutsitePanel>().keycardEntered)
                     return false;
                 bool flag = true;
-                VTController.Server.Event.Map.InvokeWarHeadStartEvent(__instance.GetPlayer(), ref flag);
+                VTController.Server.Events.Map.InvokeWarHeadStartEvent(__instance.GetPlayer(), ref flag);
                 return flag;
             }
             catch (Exception e)
