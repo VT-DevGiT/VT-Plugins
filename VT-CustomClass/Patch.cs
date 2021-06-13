@@ -13,7 +13,7 @@ namespace VTCustomClass
     {
         private static bool Prefix(PlayerMovementSync __instance, ref bool __result)
         {
-            if (PluginClass.ConfigCustomClass.killAntiCheatPatchSync)
+            if (Plugin.ConfigCustomClass.killAntiCheatPatchSync)
             {
                 __result = false;
                 return false;
@@ -27,7 +27,7 @@ namespace VTCustomClass
     {
         private static bool Prefix()
         {
-            if (PluginClass.ConfigCustomClass.killAntiCheatPatch)
+            if (Plugin.ConfigCustomClass.killAntiCheatPatch)
             {
                 return false;
             }
@@ -39,7 +39,7 @@ namespace VTCustomClass
     {
         private static bool Prefix(ref bool __result)
         {
-            if (PluginClass.ConfigCustomClass.killAntiCheatPatchRayCast)
+            if (Plugin.ConfigCustomClass.killAntiCheatPatchRayCast)
             {
                 __result = true;
                 return false;
@@ -52,7 +52,7 @@ namespace VTCustomClass
     {
         private static bool Prefix(ref bool __result)
         {
-            if (PluginClass.ConfigCustomClass.killAntiCheatPatchSafe)
+            if (Plugin.ConfigCustomClass.killAntiCheatPatchSafe)
             {
                 __result = true;
                 return false;

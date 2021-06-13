@@ -9,7 +9,7 @@ namespace VTCustomClass.PlayerScript
     public class SCP682Script : BasePlayerScript, IScpRole
     {
         public string ScpName => "6 8 2";
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.BerserkSCPennemy;
 
@@ -21,8 +21,8 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.SCP682;
 
-        protected override string RoleName => PluginClass.ConfigSCP682.RoleName;
+        protected override string RoleName => Plugin.ConfigSCP682.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigSCP682;
+        protected override AbstractConfigSection Config => Plugin.ConfigSCP682;
     }
 }

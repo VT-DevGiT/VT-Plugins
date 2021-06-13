@@ -9,7 +9,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class NTFLieutenantColonel : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.MTFenemy;
 
@@ -21,8 +21,8 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.NtfLieutenantColonel;
 
-        protected override string RoleName => PluginClass.ConfigNTFLieutenantColonel.RoleName;
+        protected override string RoleName => Plugin.ConfigNTFLieutenantColonel.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigNTFLieutenantColonel;
+        protected override AbstractConfigSection Config => Plugin.ConfigNTFLieutenantColonel;
     }
 }

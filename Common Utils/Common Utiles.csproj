@@ -80,6 +80,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerializedConfigClass.cs" />
     <Compile Include="Serialized914Recipe.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -16,7 +16,7 @@ namespace VTCustomClass.PlayerScript
     public class SCP999Script : BasePlayerScript, IScpRole
     {
         public string ScpName => "9 9 9";
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
         protected override List<int> EnemysList => new List<int> { };
 
         protected override List<int> FriendsList => new List<int> { };
@@ -27,9 +27,9 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.SCP999;
 
-        protected override string RoleName => PluginClass.ConfigSCP999.RoleName;
+        protected override string RoleName => Plugin.ConfigSCP999.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigSCP999;
+        protected override AbstractConfigSection Config => Plugin.ConfigSCP999;
 
         protected override void AditionalInit()
         {
@@ -38,8 +38,8 @@ namespace VTCustomClass.PlayerScript
             {
                 aura.PlayerEffect = Effect.Disabled;
                 aura.TargetEffect = Effect.ArtificialRegen;
-                aura.HerHp = PluginClass.ConfigSCP999.HealHp;
-                aura.Distance = PluginClass.ConfigSCP999.Distance;
+                aura.HerHp = Plugin.ConfigSCP999.HealHp;
+                aura.Distance = Plugin.ConfigSCP999.Distance;
             }
             Timing.CallDelayed(1f, () =>
             {

@@ -24,9 +24,9 @@ namespace VTCustomClass
         SynapseMinor = SynapseController.SynapseMinor,
         SynapsePatch = SynapseController.SynapsePatch,
         Version = "v.1.3.0")]
-    public class PluginClass : AbstractPlugin
+    public class Plugin : AbstractPlugin
     {
-        public static PluginClass Plugin;
+        public static Plugin Instance { get; internal set; }
 /*
         [Synapse.Api.Plugin.Config(section = "Synapse")]
         public static SynapseConfiguration Conf;// => SynapseController.Server.Configs.synapseConfiguration;
@@ -166,7 +166,7 @@ namespace VTCustomClass
             //ConfigHandler
             var confSynapse = Server.Get.Configs.GetFieldValueorOrPerties<SynapseConfiguration>("synapseConfiguration");
             //confSynapse.CantLookAt173.Add(-1);
-            Plugin = this;
+            Instance = this;
             RegisterCustomTeam();
             RegisterCustomRole();
             PluginTranslation.AddTranslation(new VTCustomClass.PluginTranslation());

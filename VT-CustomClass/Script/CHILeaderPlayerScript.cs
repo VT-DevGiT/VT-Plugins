@@ -15,7 +15,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class CHILeaderScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.CHIenemy;
 
@@ -27,14 +27,14 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.ChiLeader;
 
-        protected override string RoleName => PluginClass.ConfigCHILeader.RoleName;
+        protected override string RoleName => Plugin.ConfigCHILeader.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigCHILeader;
+        protected override AbstractConfigSection Config => Plugin.ConfigCHILeader;
 
         private DateTime lastPower = DateTime.Now;
         public override bool CallPower(int  power)
         {
-            if (power == (int)PowerType.Respawn && (DateTime.Now - lastPower).TotalSeconds > PluginClass.ConfigCHILeader.Cooldown)
+            if (power == (int)PowerType.Respawn && (DateTime.Now - lastPower).TotalSeconds > Plugin.ConfigCHILeader.Cooldown)
             {
                 List<Player> spawnPlayer = new List<Player>();
                 spawnPlayer.AddRange(Server.Get.Players.Where(p => p.RoleID == (int)RoleType.Spectator && !p.OverWatch));
@@ -42,7 +42,7 @@ namespace VTCustomClass.PlayerScript
                 lastPower = DateTime.Now;
             }
             else if (power == (int)PowerType.Respawn)
-                Reponse.Cooldown(Player, lastPower, PluginClass.ConfigCHILeader.Cooldown);
+                Reponse.Cooldown(Player, lastPower, Plugin.ConfigCHILeader.Cooldown);
             else return false;
             return true;
         }

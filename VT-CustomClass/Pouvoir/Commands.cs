@@ -22,16 +22,16 @@ namespace VTCustomClass
         {
             var result = new CommandResult();
             int configX;
-            if (!context.Arguments.Any() || !int.TryParse(context.Arguments.FirstElement().ToString(), out configX) || configX > PluginClass.ConfigSCP507.ListRoom.Count-1 || configX < 0)
+            if (!context.Arguments.Any() || !int.TryParse(context.Arguments.FirstElement().ToString(), out configX) || configX > Plugin.ConfigSCP507.ListRoom.Count-1 || configX < 0)
             {
                 result.State = CommandResultState.Error;
-                result.Message = $"Please enter a corect number min : 0, max : {PluginClass.ConfigSCP507.ListRoom.Count-1}";
+                result.Message = $"Please enter a corect number min : 0, max : {Plugin.ConfigSCP507.ListRoom.Count-1}";
             }
             else
             {
-                context.Player.Position = PluginClass.ConfigSCP507.ListRoom[configX].Parse().Position;
+                context.Player.Position = Plugin.ConfigSCP507.ListRoom[configX].Parse().Position;
                 result.State = CommandResultState.Ok;
-                result.Message = $"TP to {PluginClass.ConfigSCP507.ListRoom[configX]}";
+                result.Message = $"TP to {Plugin.ConfigSCP507.ListRoom[configX]}";
             }
             return result;
         }

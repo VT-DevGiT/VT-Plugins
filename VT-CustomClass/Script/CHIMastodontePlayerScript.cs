@@ -12,7 +12,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class CHIMastodonteScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.CHIenemy;
 
@@ -24,9 +24,9 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.ChiMastodonte;
 
-        protected override string RoleName => PluginClass.ConfigCHIMastodonte.RoleName;
+        protected override string RoleName => Plugin.ConfigCHIMastodonte.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigCHIMastodonte;
+        protected override AbstractConfigSection Config => Plugin.ConfigCHIMastodonte;
 
         public override bool CallPower(int power)
         {

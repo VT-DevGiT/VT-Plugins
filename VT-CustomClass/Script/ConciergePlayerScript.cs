@@ -14,7 +14,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class ConciergeScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
             
         protected override List<int> EnemysList => new List<int> { (int)TeamID.SCP };
 
@@ -26,9 +26,9 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.Concierge;
 
-        protected override string RoleName => PluginClass.ConfigConcierge.RoleName;
+        protected override string RoleName => Plugin.ConfigConcierge.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigConcierge;
+        protected override AbstractConfigSection Config => Plugin.ConfigConcierge;
 
         protected override void Event()
         {

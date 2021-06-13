@@ -12,7 +12,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class ScientifiqueSuperviseurScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.RSCennemy;
 
@@ -24,8 +24,8 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.ScientifiqueSuperviseur;
 
-        protected override string RoleName => PluginClass.ConfigScientifiqueSuperviseur.RoleName;
+        protected override string RoleName => Plugin.ConfigScientifiqueSuperviseur.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigScientifiqueSuperviseur;
+        protected override AbstractConfigSection Config => Plugin.ConfigScientifiqueSuperviseur;
     }
 }

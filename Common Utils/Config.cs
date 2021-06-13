@@ -3,67 +3,45 @@ using Synapse.Config;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using VT_Referance.Variable;
 
 namespace Common_Utiles
 {
 
     public class Config : AbstractConfigSection
     {
-        [Description("The list of objects that each class will have when it spawn")]
-
-        public SerializedPlayerInventory ClassDInventory = new SerializedPlayerInventory()
-        { 
-            Ammo = new SerializedAmmo(0,0,0),
-            Items = new List<SerializedPlayerItem> ()
+        [Description("The Config of the class")]
+        public List<SerializedConfigClass> configClasses = new List<SerializedConfigClass>()
+        {
+            new SerializedConfigClass()
             {
-                new SerializedPlayerItem ((int)ItemType.Coin, 1, 0, 0, 0, Vector3.one, 50, true),
-                new SerializedPlayerItem ((int)ItemType.Flashlight, 1, 0, 0, 0, Vector3.one, 50, true),
+                ClassID = (int)RoleID.ClassD,
+                Health = null,
+                MaxHealh = null,
+                Shiled = null,
+                MaxShiled = null,
+                Inventory = new SerializedPlayerInventory()
+                {
+                    Ammo = new SerializedAmmo(0, 0, 0),
+                    Items = new List<SerializedPlayerItem>()
+                    {
+                        new SerializedPlayerItem ((int)ItemType.Coin, 1, 0, 0, 0, Vector3.one, 50, true),
+                        new SerializedPlayerItem ((int)ItemType.Flashlight, 1, 0, 0, 0, Vector3.one, 50, true),
+                    }
+                }
+            },
+            new SerializedConfigClass()
+            {
+                ClassID = (int)RoleID.SerpentsHand,
+                Health = null,
+                MaxHealh = null,
+                Shiled = 40,
+                MaxShiled = null,
+                Inventory = new SerializedPlayerInventory()
             }
         };
 
-        public SerializedPlayerInventory ChaosInventory = new SerializedPlayerInventory();
 
-        public SerializedPlayerInventory ScientistInventory = new SerializedPlayerInventory();
-
-        public SerializedPlayerInventory GuardInventory = new SerializedPlayerInventory();
-
-        public SerializedPlayerInventory CadetInventory = new SerializedPlayerInventory();
-
-        public SerializedPlayerInventory LieutenantInventory = new SerializedPlayerInventory();
-
-        public SerializedPlayerInventory NtfSciInventory = new SerializedPlayerInventory();
-
-        public SerializedPlayerInventory CommanderInventory = new SerializedPlayerInventory();
-
-        [Description("A list of roles and what their default starting health should be.")]
-        public int ClassDHealth = -1;
-        public int ChaosHealth = -1;
-        public int ScientistHealth = -1;
-        public int GuardHealth = -1;
-        public int CadetHealth = -1;
-        public int LieutenantHealth = -1;
-        public int NtfSciHealth = -1;
-        public int CommanderHealth = -1;
-        public int CHIHealth = -1;
-        public int Scp049Health = -1;
-        public int Scp0492Health = -1;
-        public int Scp096Health = -1;
-        public int Scp106Health = -1;
-        public int Scp173Health = -1;
-        public int Scp93953Health = -1;
-        public int Scp93989Health = -1;
-
-        [Description("A list of roles and what their default starting shield should be.")]
-        public int ClassDShield = -1;
-        public int ChaosShield = -1;
-        public int ScientistShield = -1;
-        public int GuardShield = -1;
-        public int CadetShield = -1;
-        public int LieutenantShield = -1;
-        public int NtfSciShield = -1;
-        public int CommanderShield = -1;
-        public int CHIShield = -1;
-        public int BaseShieldMax = -1;
 
         [Description("A list of recipes for SCP 914. Be careful if the config is not empty it will remove the old recipes. ")]
         public List<Serialized914Recipe> Recipes = new List<Serialized914Recipe>()

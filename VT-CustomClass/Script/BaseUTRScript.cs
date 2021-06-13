@@ -17,7 +17,7 @@ namespace VTCustomClass.PlayerScript
 {
     public abstract class BaseUTRScript : BasePlayerScript, IUtrRole
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected virtual bool heavyUTR => true;
 
@@ -78,10 +78,10 @@ namespace VTCustomClass.PlayerScript
                 var DamageType = ev.HitInfo.GetDamageType();
                 if (!DamageType.isScp && !DamageType.isWeapon && DamageType != DamageTypes.Tesla && DamageType != DamageTypes.Grenade)
                     ev.Allow = false;
-                else if (ev.Killer != Player && PluginClass.ConfigUTR.ListScpNoDamge.Contains(ev.Killer.RoleID))
+                else if (ev.Killer != Player && Plugin.ConfigUTR.ListScpNoDamge.Contains(ev.Killer.RoleID))
                     ev.Allow = false;
-                else if (ev.Killer != Player && PluginClass.ConfigUTR.ListScpDamge.Contains(ev.Killer.RoleID))
-                    ev.DamageAmount = PluginClass.ConfigUTR.damage;
+                else if (ev.Killer != Player && Plugin.ConfigUTR.ListScpDamge.Contains(ev.Killer.RoleID))
+                    ev.DamageAmount = Plugin.ConfigUTR.damage;
             }
             else if (ev.Killer == Player && ev.Victim?.RoleID == (int)RoleType.Scp096)
                 _protected096 = false;

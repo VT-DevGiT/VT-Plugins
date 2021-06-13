@@ -11,7 +11,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class NTFExpertReconfinementScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.MTFenemy;
 
@@ -23,9 +23,9 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.NtfExpertReconfinement;
 
-        protected override string RoleName => PluginClass.ConfigNTFExpertReconfinement.RoleName;
+        protected override string RoleName => Plugin.ConfigNTFExpertReconfinement.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigNTFExpertReconfinement;
+        protected override AbstractConfigSection Config => Plugin.ConfigNTFExpertReconfinement;
 
         protected override void Event()
         {

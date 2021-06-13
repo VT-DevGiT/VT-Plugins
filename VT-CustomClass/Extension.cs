@@ -60,7 +60,7 @@ namespace VTCustomClass
             int maxRespawn = playerScript.GetConfig().GetConfigValue<int>("MaxRespawn", 0);
             int maxTotal = playerScript.GetConfig().GetConfigValue<int>("MaxAlive", 0);
             int minActuClass = playerScript.GetConfig().GetConfigValue<int>("RequiredPlayers", 0);
-            int respawned = PluginClass.Plugin.RespawnedPlayer.ContainsKey((RoleID)playerScript.GetRoleID()) ? PluginClass.Plugin.RespawnedPlayer[(RoleID)playerScript.GetRoleID()] : 0;
+            int respawned = Plugin.Instance.RespawnedPlayer.ContainsKey((RoleID)playerScript.GetRoleID()) ? Plugin.Instance.RespawnedPlayer[(RoleID)playerScript.GetRoleID()] : 0;
             
             if (ev.Role == (RoleType)oldRole && playerClass.Count() >= minActuClass && maxRespawn > respawned)
             {
@@ -72,7 +72,7 @@ namespace VTCustomClass
                         EventHandlers.RespawnPlayer.Remove(ev.Player);
                         Player pl = ev.Player;
                         pl.RoleID = playerScript.GetRoleID();
-                        PluginClass.Plugin.RespawnedPlayer[(RoleID)playerScript.GetRoleID()] = respawned + 1;
+                        Plugin.Instance.RespawnedPlayer[(RoleID)playerScript.GetRoleID()] = respawned + 1;
                         Data.PlayerRole[ev.Player] = playerScript.GetRoleID();
                     }
                 }

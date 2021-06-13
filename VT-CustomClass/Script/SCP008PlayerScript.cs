@@ -16,7 +16,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class SCP008Script : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.SCPenemy;
 
@@ -28,9 +28,9 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.SCP008;
 
-        protected override string RoleName => PluginClass.ConfigSCP008.RoleName;
+        protected override string RoleName => Plugin.ConfigSCP008.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigSCP008;
+        protected override AbstractConfigSection Config => Plugin.ConfigSCP008;
         Aura aura;
         protected override void AditionalInit()
         {
@@ -40,9 +40,9 @@ namespace VTCustomClass.PlayerScript
                 aura.TargetEffect = Effect.Poisoned;
                 aura.HerIntencty = 6;
                 aura.HerTime = 5;
-                aura.MyHp = PluginClass.ConfigSCP008.HealHp;
-                aura.HerHp = -PluginClass.ConfigSCP008.DomageHp;
-                aura.Distance = PluginClass.ConfigSCP008.Distance;
+                aura.MyHp = Plugin.ConfigSCP008.HealHp;
+                aura.HerHp = -Plugin.ConfigSCP008.DomageHp;
+                aura.Distance = Plugin.ConfigSCP008.Distance;
             }
         }
 

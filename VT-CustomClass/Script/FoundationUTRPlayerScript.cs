@@ -18,8 +18,8 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.FoundationUTR;
 
-        protected override string RoleName => PluginClass.ConfigFoundationUTR.RoleName;
+        protected override string RoleName => Plugin.ConfigFoundationUTR.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigFoundationUTR;
+        protected override AbstractConfigSection Config => Plugin.ConfigFoundationUTR;
     }
 }

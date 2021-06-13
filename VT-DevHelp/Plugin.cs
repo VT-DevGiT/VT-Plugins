@@ -8,19 +8,20 @@ namespace VTDevHelp
 {
     [PluginInformation(
 Name = "VT-DevTool",
-Author = "VT",
-Description = "Dev Tool for help Dev",
+Author = "VT/Oka",
+Description = "Dev Tool for help Dev (or fun for mod)",
 LoadPriority = 0,
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,
 SynapsePatch = SynapseController.SynapsePatch,
-Version = "v0.1.12"
+Version = "v1.2.3"
 )]
 
     public class Plugin : AbstractPlugin
     {
 
         public static Plugin Instance { get; private set; }
+        public GameObject GameObjectMemory { get; internal set; }
 
         public static SerializedMapPoint DoorPosition;
         public static Quaternion DoorRotation;
@@ -34,8 +35,11 @@ Version = "v0.1.12"
 
         public void ItemLoader()
         {
+            new ColleurDeGameObject();
             new DestructeurDeGameObject();
-            new SpawnerDeGate();
+            new CoppieurDeGameObject();
+            new DésincronisateurD_Object();
+            new TerminatorDeGameObject();
         }
     }
 }

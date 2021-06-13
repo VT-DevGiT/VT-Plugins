@@ -10,7 +10,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class NTFExpertPyrotechnieScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.MTFenemy;
 
@@ -22,9 +22,9 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.NtfExpertPyrotechnie;
 
-        protected override string RoleName => PluginClass.ConfigNTFExpertPyrotechnie.RoleName;
+        protected override string RoleName => Plugin.ConfigNTFExpertPyrotechnie.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigNTFExpertPyrotechnie;
+        protected override AbstractConfigSection Config => Plugin.ConfigNTFExpertPyrotechnie;
 
         protected override void Event()
         {

@@ -17,7 +17,7 @@ namespace VTCustomClass.PlayerScript
     {
         public string ScpName => "5 0 7";
 
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.NetralSCPennemy;
 
@@ -29,9 +29,9 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.SCP507;
 
-        protected override string RoleName => PluginClass.ConfigSCP507.RoleName;
+        protected override string RoleName => Plugin.ConfigSCP507.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigSCP507;
+        protected override AbstractConfigSection Config => Plugin.ConfigSCP507;
 
         protected override void AditionalInit()
         {

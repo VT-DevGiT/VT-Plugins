@@ -11,7 +11,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class CHIExpertPyrotechnieScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
         
         protected override List<int> EnemysList => TeamGroupe.CHIenemy;
 
@@ -23,9 +23,9 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.ChiExpertPyrotechnie;
 
-        protected override string RoleName => PluginClass.ConfigCHIExpertPyrotechnie.RoleName;
+        protected override string RoleName => Plugin.ConfigCHIExpertPyrotechnie.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigCHIExpertPyrotechnie;
+        protected override AbstractConfigSection Config => Plugin.ConfigCHIExpertPyrotechnie;
 
         protected override void Event()
         {

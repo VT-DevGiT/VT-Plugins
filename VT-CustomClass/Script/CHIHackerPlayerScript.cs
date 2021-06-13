@@ -15,7 +15,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class CHIHackerScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.CHIenemy;
 
@@ -27,43 +27,43 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.ChiHacker;
 
-        protected override string RoleName => PluginClass.ConfigCHIHacker.RoleName;
+        protected override string RoleName => Plugin.ConfigCHIHacker.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigCHIHacker;
+        protected override AbstractConfigSection Config => Plugin.ConfigCHIHacker;
 
         public override bool CallPower(int power)
         {
             switch (power)
             {
                 case (int)PowerType.DoorHack:
-                    if ((DateTime.Now - lastPowerDoor).TotalSeconds > PluginClass.ConfigCHIHacker.CoolDownDoor)
+                    if ((DateTime.Now - lastPowerDoor).TotalSeconds > Plugin.ConfigCHIHacker.CoolDownDoor)
                     {
                         Hack.Door(Player);
                         lastPowerDoor = DateTime.Now;
                     }
                     else
-                        Reponse.Cooldown(Player, lastPowerDoor, PluginClass.ConfigCHIHacker.CoolDownDoor);
+                        Reponse.Cooldown(Player, lastPowerDoor, Plugin.ConfigCHIHacker.CoolDownDoor);
                     return true;
 
                 case (int)PowerType.LightHack:
 
-                    if ((DateTime.Now - lastPowerLight).TotalSeconds > PluginClass.ConfigCHIHacker.CoolDownDoor)
+                    if ((DateTime.Now - lastPowerLight).TotalSeconds > Plugin.ConfigCHIHacker.CoolDownDoor)
                     {
                         Hack.light();
                         lastPowerLight = DateTime.Now;
                     }
                     else
-                        Reponse.Cooldown(Player, lastPowerLight, PluginClass.ConfigCHIHacker.CoolDownDoor);
+                        Reponse.Cooldown(Player, lastPowerLight, Plugin.ConfigCHIHacker.CoolDownDoor);
                     return true;
 
                 case (int)PowerType.CASSIEHack:
-                    if ((DateTime.Now - lastPowerMessage).TotalSeconds > PluginClass.ConfigCHIHacker.CoolDownDoor)
+                    if ((DateTime.Now - lastPowerMessage).TotalSeconds > Plugin.ConfigCHIHacker.CoolDownDoor)
                     {
                         Hack.Message();
                         lastPowerMessage = DateTime.Now;
                     }
                     else
-                        Reponse.Cooldown(Player, lastPowerMessage, PluginClass.ConfigCHIHacker.CoolDownDoor);
+                        Reponse.Cooldown(Player, lastPowerMessage, Plugin.ConfigCHIHacker.CoolDownDoor);
                     return true;
                 
                 default:
@@ -71,9 +71,9 @@ namespace VTCustomClass.PlayerScript
             }
         }
 
-        private DateTime lastPowerDoor = DateTime.Now.AddSeconds(-PluginClass.ConfigCHIHacker.CoolDownDoor);
-        private DateTime lastPowerLight = DateTime.Now.AddSeconds(-PluginClass.ConfigCHIHacker.CoolDownDoor);
-        private DateTime lastPowerMessage = DateTime.Now.AddSeconds(-PluginClass.ConfigCHIHacker.CoolDownDoor);
+        private DateTime lastPowerDoor = DateTime.Now.AddSeconds(-Plugin.ConfigCHIHacker.CoolDownDoor);
+        private DateTime lastPowerLight = DateTime.Now.AddSeconds(-Plugin.ConfigCHIHacker.CoolDownDoor);
+        private DateTime lastPowerMessage = DateTime.Now.AddSeconds(-Plugin.ConfigCHIHacker.CoolDownDoor);
         protected override void Event()
         {
             Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress; 

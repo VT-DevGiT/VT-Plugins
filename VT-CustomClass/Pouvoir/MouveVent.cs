@@ -23,13 +23,13 @@ namespace VTCustomClass.Pouvoir
             
             if (duraction > 0)
             {
-                player.SendBroadcast(1, PluginClass.PluginTranslation.ActiveTranslation.
+                player.SendBroadcast(1, Plugin.PluginTranslation.ActiveTranslation.
                     VentMessage.Replace("%Time%", duraction.ToString()));
                 duraction--;
             }
             else if (duraction < 0)
             {
-                player.BroadcastMessage(PluginClass.PluginTranslation.ActiveTranslation.NoTimeVentMessage, 1);
+                player.BroadcastMessage(Plugin.PluginTranslation.ActiveTranslation.NoTimeVentMessage, 1);
             }
             else
                 Kill();

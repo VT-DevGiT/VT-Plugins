@@ -10,7 +10,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class NTFCapitaineScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.MTFenemy;
 
@@ -22,8 +22,8 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.NtfCapitaine;
 
-        protected override string RoleName => PluginClass.ConfigNTFCapitaine.RoleName;
+        protected override string RoleName => Plugin.ConfigNTFCapitaine.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigNTFCapitaine;
+        protected override AbstractConfigSection Config => Plugin.ConfigNTFCapitaine;
     }
 }

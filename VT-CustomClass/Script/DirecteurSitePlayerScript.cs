@@ -9,7 +9,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class DirecteurSiteScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.VIPennemy;
 
@@ -21,8 +21,8 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.DirecteurSite;
 
-        protected override string RoleName => PluginClass.ConfigDirecteurSite.RoleName;
+        protected override string RoleName => Plugin.ConfigDirecteurSite.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigDirecteurSite;
+        protected override AbstractConfigSection Config => Plugin.ConfigDirecteurSite;
     }
 }

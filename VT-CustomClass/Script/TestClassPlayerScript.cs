@@ -11,7 +11,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class TestClassScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
         protected override List<int> EnemysList => new List<int> { };
 
         protected override List<int> FriendsList => new List<int> { };
@@ -22,9 +22,9 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.TestClass;
 
-        protected override string RoleName => PluginClass.ConfigTestClass.RoleName;
+        protected override string RoleName => Plugin.ConfigTestClass.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigTestClass;
+        protected override AbstractConfigSection Config => Plugin.ConfigTestClass;
 
         Vector3 oldScale;
 

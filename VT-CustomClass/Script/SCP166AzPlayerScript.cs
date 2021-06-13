@@ -13,7 +13,7 @@ namespace VTCustomClass.PlayerScript
     public class SCP166AzScript : BasePlayerScript, IScpRole
     {
         public string ScpName => "1 6 6";
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.NetralSCPennemy;
 
@@ -25,9 +25,9 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.SCP166Az;
 
-        protected override string RoleName => PluginClass.ConfigSCP166Az.RoleName;
+        protected override string RoleName => Plugin.ConfigSCP166Az.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigSCP166Az;
+        protected override AbstractConfigSection Config => Plugin.ConfigSCP166Az;
 
         protected override void AditionalInit()
         {

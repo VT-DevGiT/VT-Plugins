@@ -18,9 +18,9 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.AndersonUTRlight;
 
-        protected override string RoleName => PluginClass.ConfigAndersonUTRlight.RoleName;
+        protected override string RoleName => Plugin.ConfigAndersonUTRlight.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigAndersonUTRlight;
+        protected override AbstractConfigSection Config => Plugin.ConfigAndersonUTRlight;
 
         protected override bool heavyUTR => false;
     }

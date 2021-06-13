@@ -1,9 +1,10 @@
-﻿using Hints;
+﻿using HarmonyLib;
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using UnityEngine;
 using VT_Referance.Event.EventArguments;
+using VT_Referance.Method;
 
 namespace VT_Referance.Behaviour
 {
@@ -89,13 +90,7 @@ namespace VT_Referance.Behaviour
             if (Shield != 0)
             {
                 string info = $"<align=\"right\"><color=#FFFFFF50><voffset=-21.65em><size=100%><b>Shield : {Shield}/{MaxShield} | {((double)Shield / MaxShield) * 100}%</b></voffset></color>";
-                Hint hint = new TextHint(
-                        info,
-                        new HintParameter[] { new StringHintParameter(string.Empty) },
-                        null,
-                        1
-                        );
-                 player.gameObject.GetComponent<ReferenceHub>().hints.Show(hint);
+                player.SendBrodcastInfo(info);
             }
         }
     }

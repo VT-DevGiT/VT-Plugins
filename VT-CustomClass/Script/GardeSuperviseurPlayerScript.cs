@@ -9,7 +9,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class GardeSuperviseurScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.MTFenemy;
 
@@ -21,8 +21,8 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.GardeSuperviseur;
 
-        protected override string RoleName => PluginClass.ConfigGardeSuperviseur.RoleName;
+        protected override string RoleName => Plugin.ConfigGardeSuperviseur.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigGardeSuperviseur;
+        protected override AbstractConfigSection Config => Plugin.ConfigGardeSuperviseur;
     }
 }

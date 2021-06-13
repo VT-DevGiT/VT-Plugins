@@ -10,7 +10,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class NTFSergentScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.MTFenemy;
 
@@ -22,8 +22,8 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.NtfSergent;
 
-        protected override string RoleName => PluginClass.ConfigNTFSergent.RoleName;
+        protected override string RoleName => Plugin.ConfigNTFSergent.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigNTFSergent;
+        protected override AbstractConfigSection Config => Plugin.ConfigNTFSergent;
     }
 }

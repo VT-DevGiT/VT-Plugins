@@ -13,12 +13,13 @@ namespace VT_Item.Item
 {
     class BulletproofPlateScript : BaseItemScript
     {
+        protected override string MessagePickUp => Plugin.PluginTranslation.ActiveTranslation.MessageGetItem;
 
         protected override int ID => (int)ItemID.BulletPlate;
 
         protected override ItemType ItemType => ItemType.WeaponManagerTablet;
 
-        protected override string Name => "Bulletproof Plate";
+        protected override string Name => Plugin.PluginTranslation.ActiveTranslation.NameBulletproofPlate;
 
         protected override void ChangeToItem(PlayerChangeItemEventArgs ev)
         {

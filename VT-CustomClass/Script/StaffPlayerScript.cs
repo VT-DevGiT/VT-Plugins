@@ -10,7 +10,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class StaffClassScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
         
         protected override List<int> EnemysList => new List<int> { };
 
@@ -22,9 +22,9 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.Staff;
 
-        protected override string RoleName => PluginClass.ConfigStaff.RoleName;
+        protected override string RoleName => Plugin.ConfigStaff.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigStaff;
+        protected override AbstractConfigSection Config => Plugin.ConfigStaff;
 
         protected override void AditionalInit()
         {

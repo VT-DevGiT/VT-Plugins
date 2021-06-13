@@ -17,6 +17,10 @@ namespace VT_Item.Item
     {
         static Dictionary<Player, DateTime> StartShoot = new Dictionary<Player, DateTime>();
         static Dictionary<Player, DateTime> LastSoot = new Dictionary<Player, DateTime>();
+        protected override string MessagePickUp => Plugin.PluginTranslation.ActiveTranslation.MessageGetItem;
+
+        protected override string MessageChangeTo => Plugin.PluginTranslation.ActiveTranslation.MessageHandItem;
+
         protected override uint Ammo => 0;
 
         protected override AmmoType AmmoType => (AmmoType)-1;
@@ -25,7 +29,7 @@ namespace VT_Item.Item
 
         protected override ItemType ItemType => ItemType.GunLogicer;
 
-        protected override string Name => "MiniGun";
+        protected override string Name => Plugin.PluginTranslation.ActiveTranslation.NameMiniGun;
 
         protected override void PickUp(PlayerPickUpItemEventArgs ev)
         {
@@ -35,9 +39,9 @@ namespace VT_Item.Item
 
         protected override void ChangeToItem(PlayerChangeItemEventArgs ev)
         {
-            if (ev.Player.TryGetComponent<MinGunPlayerScript>(out var Script))
+            if (!Plugin.MiniGunConfig.CanMouveEquip && ev.Player.TryGetComponent<MinGunPlayerScript>(out var Script))
                 Script.enabled = true;
-            else
+            else if (!Plugin.MiniGunConfig.CanMouveEquip)
                 ev.Player.gameObject.AddComponent<MinGunPlayerScript>();
             ev.NewItem.Durabillity = ev.Player.Ammo7;
             base.ChangeToItem(ev);
@@ -45,7 +49,7 @@ namespace VT_Item.Item
 
         protected override void ChangedFromItem(PlayerChangeItemEventArgs ev)
         {
-            if (ev.Player.TryGetComponent<MinGunPlayerScript>(out var Script))
+            if (!Plugin.MiniGunConfig.CanMouveEquip && ev.Player.TryGetComponent<MinGunPlayerScript>(out var Script))
                 Script.enabled = false;
             base.ChangedFromItem(ev);
         }
@@ -56,7 +60,7 @@ namespace VT_Item.Item
             ev.Allow = false;
             if (LastSoot.ContainsKey(ev.Player))
             {
-                if ((DateTime.Now - LastSoot[ev.Player]).TotalSeconds < 3)
+                if ((DateTime.Now - LastSoot[ev.Player]).TotalSeconds < Plugin.MiniGunConfig.TimeFir)
                 {
                     ev.Allow = true;
                     LastSoot[ev.Player] = DateTime.Now;
@@ -70,7 +74,7 @@ namespace VT_Item.Item
             {
                 if (StartShoot.ContainsKey(ev.Player))
                 {
-                    if ((DateTime.Now - StartShoot[ev.Player]).TotalSeconds >= 3)
+                    if ((DateTime.Now - StartShoot[ev.Player]).TotalSeconds >= Plugin.MiniGunConfig.TimeFir)
                     {
                         LastSoot[ev.Player] = DateTime.Now;
                         StartShoot.Remove(ev.Player);
@@ -88,14 +92,24 @@ namespace VT_Item.Item
                 ev.Player.GiveEffect(Effect.Ensnared, 1, 2);
                 ev.Player.Ammo7 -= (uint)MultiShoot(ev.Player, ev.Weapon);
                 ev.Allow = false;
-
             }
+        }
+
+        private Quaternion RandomAimcone()
+        {
+            return Quaternion.Euler(
+                UnityEngine.Random.Range(-Plugin.MiniGunConfig.AimCone, Plugin.MiniGunConfig.AimCone),
+                UnityEngine.Random.Range(-Plugin.MiniGunConfig.AimCone, Plugin.MiniGunConfig.AimCone),
+                UnityEngine.Random.Range(-Plugin.MiniGunConfig.AimCone, Plugin.MiniGunConfig.AimCone)
+                );
         }
 
         private int MultiShoot(Player player, Synapse.Api.Items.SynapseItem Weapon)
         {
-            //nombre de balle par tire
-            int bullets = 3;
+
+            player.PlayerInteract.CallMethod("OnInteract");
+
+            int bullets = Plugin.MiniGunConfig.bullets;
             if (Weapon.Durabillity <= bullets)
                 bullets = (int)Weapon.Durabillity;
             var rays = new Ray[bullets];
@@ -116,51 +130,44 @@ namespace VT_Item.Item
                 var hitbox = hits[i].collider.GetComponent<HitboxIdentity>();
                 if (hitbox != null)
                 {
-                    var target = hits[i].collider.GetComponentInParent<Player>();
+                    var target = hits[i].collider.GetComponentInParent<Synapse.Api.Player>();
 
                     if (component.GetShootPermission(target.ClassManager))
                     {
                         int damage;
                         switch (hitbox.id)
                         {
-                            case HitBoxType.HEAD: damage = 50; break; // ajoutée une config pour chaque zone
-                            case HitBoxType.ARM: damage = 15; break;
-                            case HitBoxType.LEG: damage = 15; break;
-                            default: damage = 20; break;
+                            case HitBoxType.HEAD: damage = Plugin.MiniGunConfig.DamageHead; break;
+                            case HitBoxType.ARM: damage = Plugin.MiniGunConfig.DamageArm; break;
+                            case HitBoxType.LEG: damage = Plugin.MiniGunConfig.DamageLeg; break;
+                            default: damage = Plugin.MiniGunConfig.DamageBody; break;
                         }
                         if (target.RoleType == RoleType.Scp106)
                             damage /= 10;
 
-                        target.Hurt(damage, DamageTypes.Logicer, player);
-                        component.CallMethod("RpcPlaceDecal",true, (sbyte)target.ClassManager.Classes.SafeGet(target.RoleType).bloodType, hits[i].point + hits[i].normal * 0.01f, Quaternion.FromToRotation(Vector3.up, hits[i].normal));
+                        target.Hurt(damage, DamageTypes.Mp7, player);
+                        component.RpcPlaceDecal(true, (sbyte)target.ClassManager.Classes.SafeGet(target.RoleType).bloodType, hits[i].point/* + hits[i].normal * 0.01f*/, Quaternion.FromToRotation(Vector3.up, hits[i].normal));
                         confirm = true;
                     }
 
                     continue;
                 }
+
                 var window = hits[i].collider.GetComponent<BreakableWindow>();
                 if (window != null)
                 {
-                    window.ServerDamageWindow(20);
+                    window.ServerDamageWindow(Plugin.MiniGunConfig.DamageBody);
                     confirm = true;
                     continue;
                 }
-                component.CallMethod("RpcPlaceDecal",false, component.curWeapon, hits[i].point + hits[i].normal * 0.01f, Quaternion.FromToRotation(Vector3.up, hits[i].normal));
+
+                component.RpcPlaceDecal(false, component.curWeapon, hits[i].point + hits[i].normal * 0.01f, Quaternion.FromToRotation(Vector3.up, hits[i].normal));
             }
 
             for (int i = 0; i < bullets; i++)
-                component.CallMethod("RpcConfirmShot", confirm, component.curWeapon);
+                component.RpcConfirmShot(confirm, component.curWeapon);
             return bullets;
 
-        }
-
-        private Quaternion RandomAimcone()
-        {
-            return Quaternion.Euler(
-                UnityEngine.Random.Range(-3, 0),
-                UnityEngine.Random.Range(-3, 0),
-                UnityEngine.Random.Range(-3, 0)
-                );
         }
 
         private class MinGunPlayerScript : BaseRepeatingBehaviour
@@ -183,7 +190,7 @@ namespace VT_Item.Item
 
                 PlayerEffect effect2 = player.PlayerEffectsController.GetEffect<Ensnared>();
                 if (effect2 != null && effect2.Duration < 1 && !player.IsUTR() 
-                    && !Plugin.MiniGunConfig.IdClassImu.Contains(player.RoleID))
+                    && !Plugin.MiniGunConfig.ByPasseID.Contains(player.RoleID))
                     player.GiveEffect(Effect.Ensnared, 1, 0.5f);
 
                 if (player.ItemInHand.ID != (int)ItemID.MiniGun)

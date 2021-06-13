@@ -1,4 +1,6 @@
-﻿using Synapse.Api;
+﻿using Hints;
+using Synapse;
+using Synapse.Api;
 using Synapse.Config;
 using System;
 using System.Collections.Generic;
@@ -90,6 +92,39 @@ namespace VT_Referance.Method
         public static bool IsUnDefined(this SerializedPlayerInventory item)
         {
             return (item.Ammo == null && (item.Items == null || !item.Items.Any()));
+        }
+
+
+        /// <summary>
+        /// Send a Brodcast but not overide the other curent brodcast
+        /// </summary>
+        [API]
+        public static void SendBrodcastInfo(this Player player, string message, float duration = 1)
+        {
+            try
+            {
+                Synapse.Api.Broadcast brc = null;
+                var enumerator = player.ActiveBroadcasts?.GetEnumerator();
+                enumerator.Reset();
+                enumerator.MoveNext();
+                brc = enumerator.Current;
+                if (!string.IsNullOrEmpty(brc?.Message))
+                {
+                    message = brc.Message + message;
+                    Synapse.Api.Logger.Get.Info(message);
+                }
+            }
+            catch (Exception e)
+            {
+                Synapse.Api.Logger.Get.Error($"Get ActiveBroadcasts faild !!! \n{e}\nStackTrace:\n{e.StackTrace}");
+            }
+            Hint hint = new TextHint(
+                message,
+                new HintParameter[] { new StringHintParameter(string.Empty) },
+                null,
+                duration
+                );
+            player.gameObject.GetComponent<ReferenceHub>().hints.Show(hint);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace VTCustomClass.Pouvoir
 
         protected override void Start()
         {
-            foreach (var mapPoint in PluginClass.ConfigSCP507.ListRoom)
+            foreach (var mapPoint in Plugin.ConfigSCP507.ListRoom)
                 rooms.Add(mapPoint.Parse().Position);
 
             player = gameObject.GetPlayer();
@@ -32,7 +32,7 @@ namespace VTCustomClass.Pouvoir
         protected override void BehaviourAction()
         {
             int rnd = UnityEngine.Random.Range(0, rooms.Count() - 1);
-            player.MapPoint = PluginClass.ConfigSCP507.ListRoom[rnd].Parse();
+            player.MapPoint = Plugin.ConfigSCP507.ListRoom[rnd].Parse();
         }
     }
 }

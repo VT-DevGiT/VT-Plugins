@@ -15,7 +15,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class CHIInfirmierScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.CHIenemy;
 
@@ -27,11 +27,11 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.ChiInfirmier;
 
-        protected override string RoleName => PluginClass.ConfigCHIInfirmier.RoleName;
+        protected override string RoleName => Plugin.ConfigCHIInfirmier.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigCHIInfirmier;
+        protected override AbstractConfigSection Config => Plugin.ConfigCHIInfirmier;
 
-        private DateTime lastPower = DateTime.Now.AddSeconds(-PluginClass.ConfigCHIInfirmier.Cooldown);
+        private DateTime lastPower = DateTime.Now.AddSeconds(-Plugin.ConfigCHIInfirmier.Cooldown);
 
         protected override void Event()
         {
@@ -62,7 +62,7 @@ namespace VTCustomClass.PlayerScript
         {
             if (power == (int)PowerType.Defibrillation)
             { 
-                if((DateTime.Now - lastPower).TotalSeconds > PluginClass.ConfigCHIInfirmier.Cooldown)
+                if((DateTime.Now - lastPower).TotalSeconds > Plugin.ConfigCHIInfirmier.Cooldown)
                 {
                     Player corpseowner = Methods.GetPlayercoprs(Player, 2.5f);
                     if (Methods.IsScpRole(corpseowner) == false)
@@ -73,7 +73,7 @@ namespace VTCustomClass.PlayerScript
                         lastPower = DateTime.Now;
                     }
                 }
-                else Reponse.Cooldown(Player, lastPower, PluginClass.ConfigCHIInfirmier.Cooldown);
+                else Reponse.Cooldown(Player, lastPower, Plugin.ConfigCHIInfirmier.Cooldown);
             }
             else return false;
             return false;

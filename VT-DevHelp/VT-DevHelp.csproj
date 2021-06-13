@@ -76,11 +76,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command.cs" />
+    <Compile Include="item\CoppieurDeGameObject.cs" />
+    <Compile Include="item\ColleurDeGameObject.cs" />
+    <Compile Include="item\TerminatorDeGameObject.cs" />
     <Compile Include="item\DestructeurDeGameObject.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="item\SpawnerDeGate.cs" />
+    <Compile Include="item\DésincronisateurD%27Object.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

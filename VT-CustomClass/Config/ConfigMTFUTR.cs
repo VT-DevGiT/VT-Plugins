@@ -47,6 +47,6 @@ namespace VTCustomClass.Config
         public int RequiredPlayers = 3;
 
         [Description("The name of the class")]
-        public string RoleName = " U.T.R.";
+        public string RoleName = " Nine-Tailed Fox U.T.R.";
     }
 }

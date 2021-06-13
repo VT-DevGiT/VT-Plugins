@@ -128,7 +128,7 @@
     <Compile Include="Config\ConfigDirecteurSite.cs" />
     <Compile Include="Config\ConfigScientifiqueSuperviseur.cs" />
     <Compile Include="EventHandlers.cs" />
-    <Compile Include="PluginClass.cs" />
+    <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Script\BaseUTRScript.cs" />
     <Compile Include="Script\ConciergePlayerScript.cs" />

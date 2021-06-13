@@ -14,7 +14,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class CHIKamikazeScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.CHIenemy;
 
@@ -26,9 +26,9 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.ChiKamikaze;
 
-        protected override string RoleName => PluginClass.ConfigCHIKamikaze.RoleName;
+        protected override string RoleName => Plugin.ConfigCHIKamikaze.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigCHIKamikaze;
+        protected override AbstractConfigSection Config => Plugin.ConfigCHIKamikaze;
 
         private DateTime coolDown = DateTime.Now;
 
@@ -67,7 +67,7 @@ namespace VTCustomClass.PlayerScript
         {
             if (ev.Victim == this.Player)
             {
-                Server.Get.Map.SpawnGrenade(Player.DeathPosition, Vector3.zero, PluginClass.ConfigCHIKamikaze.GrenadeTime, GrenadeType.Grenade, Player);
+                Server.Get.Map.SpawnGrenade(Player.DeathPosition, Vector3.zero, Plugin.ConfigCHIKamikaze.GrenadeTime, GrenadeType.Grenade, Player);
             }
         }
     }

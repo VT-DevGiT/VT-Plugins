@@ -62,7 +62,7 @@ namespace VTCustomClass
         private void OnReSpawn(TeamRespawnEventArgs ev)
         {
             RespawnPlayer.Clear();
-            PluginClass.Plugin.RespawnedPlayer.Clear();
+            Plugin.Instance.RespawnedPlayer.Clear();
             RespawnPlayer.AddRange(ev.Players);
         }
 

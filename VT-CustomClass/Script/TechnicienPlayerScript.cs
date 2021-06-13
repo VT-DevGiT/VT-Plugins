@@ -13,7 +13,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class TechnicienScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.RSCennemy;
 
@@ -25,11 +25,11 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.Technicien;
 
-        protected override string RoleName => PluginClass.ConfigTechnicien.RoleName;
+        protected override string RoleName => Plugin.ConfigTechnicien.RoleName;
 
         protected override bool SetDisplayInfo => false;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigTechnicien;
+        protected override AbstractConfigSection Config => Plugin.ConfigTechnicien;
 
         protected override void AditionalInit()
         {
@@ -50,11 +50,11 @@ namespace VTCustomClass.PlayerScript
             if (power == (int)PowerType.MoveVent)
             {
                 if (Player.gameObject.GetComponent<MouveVent>() == null 
-                    && (DateTime.Now - lastPower).TotalSeconds > PluginClass.ConfigTechnicien.CoolDown)
+                    && (DateTime.Now - lastPower).TotalSeconds > Plugin.ConfigTechnicien.CoolDown)
                 {
                     Player.gameObject.AddComponent<MouveVent>();
-                    Player.gameObject.GetComponent<MouveVent>().duraction = PluginClass.ConfigTechnicien.PowerTime;
-                    Timing.CallDelayed(PluginClass.ConfigTechnicien.PowerTime, () =>
+                    Player.gameObject.GetComponent<MouveVent>().duraction = Plugin.ConfigTechnicien.PowerTime;
+                    Timing.CallDelayed(Plugin.ConfigTechnicien.PowerTime, () =>
                     {
                         if (Player.gameObject.GetComponent<MouveVent>() == null)
                         {
@@ -68,7 +68,7 @@ namespace VTCustomClass.PlayerScript
                     Player.gameObject.GetComponent<MouveVent>()?.Kill();
                     lastPower = DateTime.Now;
                 }
-                else Reponse.Cooldown(Player, lastPower, PluginClass.ConfigTechnicien.CoolDown);
+                else Reponse.Cooldown(Player, lastPower, Plugin.ConfigTechnicien.CoolDown);
                 return true;
             }
             return false;

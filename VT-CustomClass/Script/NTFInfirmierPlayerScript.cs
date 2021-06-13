@@ -15,7 +15,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class NTFInfirmierScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.MTFenemy;
 
@@ -27,11 +27,11 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.NtfInfirmier;
 
-        protected override string RoleName => PluginClass.ConfigNTFInfirmier.RoleName;
+        protected override string RoleName => Plugin.ConfigNTFInfirmier.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigNTFInfirmier;
+        protected override AbstractConfigSection Config => Plugin.ConfigNTFInfirmier;
 
-        private DateTime lastPower = DateTime.Now.AddSeconds(-PluginClass.ConfigNTFInfirmier.Cooldown);
+        private DateTime lastPower = DateTime.Now.AddSeconds(-Plugin.ConfigNTFInfirmier.Cooldown);
         protected override void Event()
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnDammage;
@@ -61,7 +61,7 @@ namespace VTCustomClass.PlayerScript
         {
             if (power == (int)PowerType.Defibrillation)
             { 
-                if ((DateTime.Now - lastPower).TotalSeconds > PluginClass.ConfigNTFInfirmier.Cooldown)
+                if ((DateTime.Now - lastPower).TotalSeconds > Plugin.ConfigNTFInfirmier.Cooldown)
                 {
                     Player corpseowner = Methods.GetPlayercoprs(Player, 2.5f);
                     if (Methods.IsScpRole(corpseowner) == false)
@@ -72,7 +72,7 @@ namespace VTCustomClass.PlayerScript
                         lastPower = DateTime.Now;
                     }
                 }
-                else Reponse.Cooldown(Player, lastPower, PluginClass.ConfigNTFInfirmier.Cooldown);
+                else Reponse.Cooldown(Player, lastPower, Plugin.ConfigNTFInfirmier.Cooldown);
             }
             else return false;
             return false;

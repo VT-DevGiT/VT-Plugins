@@ -23,8 +23,8 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.AndersonUTRheavy;
 
-        protected override string RoleName => PluginClass.ConfigAndersonUTRheavy.RoleName;
+        protected override string RoleName => Plugin.ConfigAndersonUTRheavy.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigAndersonUTRheavy;
+        protected override AbstractConfigSection Config => Plugin.ConfigAndersonUTRheavy;
     }
 }

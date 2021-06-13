@@ -18,8 +18,8 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.MTFUTR;
 
-        protected override string RoleName => PluginClass.ConfigMTFUTR.RoleName;
+        protected override string RoleName => Plugin.ConfigMTFUTR.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigMTFUTR;
+        protected override AbstractConfigSection Config => Plugin.ConfigMTFUTR;
     }
 }

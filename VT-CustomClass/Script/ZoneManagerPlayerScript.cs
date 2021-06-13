@@ -9,7 +9,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class ZoneManagerScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.MTFenemy;
 
@@ -21,8 +21,8 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.ZoneManager;
 
-        protected override string RoleName => PluginClass.ConfigZoneManager.RoleName;
+        protected override string RoleName => Plugin.ConfigZoneManager.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigZoneManager;
+        protected override AbstractConfigSection Config => Plugin.ConfigZoneManager;
     }
 }

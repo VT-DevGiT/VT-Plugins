@@ -13,7 +13,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class CHISPYScript : BasePlayerScript
     {
-        protected override string SpawnMessage => PluginClass.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamGroupe.CHIenemy;
 
@@ -25,9 +25,9 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.ChiSpy;
 
-        protected override string RoleName => PluginClass.ConfigCHISPY.RoleName;
+        protected override string RoleName => Plugin.ConfigCHISPY.RoleName;
 
-        protected override AbstractConfigSection Config => PluginClass.ConfigCHISPY;
+        protected override AbstractConfigSection Config => Plugin.ConfigCHISPY;
 
         protected override bool SetDisplayInfo => false;
 
@@ -70,7 +70,7 @@ namespace VTCustomClass.PlayerScript
             if (ev.Victim == Player)
                 Player.ChangeRoleAtPosition(RoleType.ChaosInsurgency);
             else if (ev.Killer == Player)
-                ev.Victim.OpenReportWindow(PluginClass.PluginTranslation.ActiveTranslation.KilledMessage.Replace("%RoleName%", RoleName));
+                ev.Victim.OpenReportWindow(Plugin.PluginTranslation.ActiveTranslation.KilledMessage.Replace("%RoleName%", RoleName));
         }
 
     }
