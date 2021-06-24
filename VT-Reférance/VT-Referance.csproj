@@ -77,16 +77,20 @@
   <ItemGroup>
     <Compile Include="Behaviour\BaseBehaviour.cs" />
     <Compile Include="Behaviour\NpcControlMouvement.cs" />
-    <Compile Include="ItemScript\BaseWeaponScript.cs" />
-    <Compile Include="NpcScript\BaseNpcScript.cs" />
-    <Compile Include="Patch\Event\PatchSynapseDamage.cs" />
+    <Compile Include="Patch\Event\SynapseSetClassIdPatch.cs" />
+    <Compile Include="VTController.cs" />
+    <Compile Include="Method\TextHandle.cs" />
+    <Compile Include="Script\ItemScript\BaseWeaponScript.cs" />
+    <Compile Include="Script\NpcScript\BaseNpcScript.cs" />
+    <Compile Include="Patch\Event\SynapseDamagePatch.cs" />
+    <Compile Include="Patch\VT-Patch\TextHintPatch.cs" />
     <Compile Include="Variable\Npc\CheminZone.cs" />
     <Compile Include="Variable\Npc\NpcDataInit.cs" />
     <Compile Include="Variable\Npc\NpcMapPointRoute.cs" />
     <Compile Include="Patch\Event\CassieAnnouncementPatch.cs" />
     <Compile Include="Patch\Event\WarHeadStartPatch.cs" />
-    <Compile Include="ItemScript\BaseItemScript.cs" />
-    <Compile Include="PlayerScript\BasePlayerScript.cs" />
+    <Compile Include="Script\ItemScript\BaseItemScript.cs" />
+    <Compile Include="Script\PlayerScript\BasePlayerScript.cs" />
     <Compile Include="Event\EventArguments\VT-GrenadeEventArgs.cs" />
     <Compile Include="Event\EventArguments\VT-MapEventArgs.cs" />
     <Compile Include="Event\EventArguments\VT-PlayerEventArgs.cs" />
@@ -100,8 +104,8 @@
     <Compile Include="Event\VT_RoundEvents.cs" />
     <Compile Include="Event\VT_ScpEvents.cs" />
     <Compile Include="Event\VT_ServerEvents.cs" />
-    <Compile Include="PlayerScript\IScpRole.cs" />
-    <Compile Include="PlayerScript\IUtrRole.cs" />
+    <Compile Include="Script\PlayerScript\IScpRole.cs" />
+    <Compile Include="Script\PlayerScript\IUtrRole.cs" />
     <Compile Include="Patch\Event\CollisionGrenadePatch.cs" />
     <Compile Include="Patch\Event\ExplosionGrenadePatch.cs" />
     <Compile Include="Patch\Event\ChangeIntoGrenadePatch.cs" />
@@ -120,8 +124,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Patch\VT-Patch\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

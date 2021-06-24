@@ -13,7 +13,7 @@ namespace VThandcuff
     {
         public static bool Prefix(Handcuffs __instance)
         {
-            if (Plugin.Instance.CuffedPlayer.Where(p => p.PlayerId == __instance.CufferId).Any())
+            if (Plugin.Config.CuffLock) 
                 return false;
             else
                 return true;

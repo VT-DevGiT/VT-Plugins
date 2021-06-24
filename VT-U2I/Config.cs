@@ -14,8 +14,8 @@ namespace VT_U2I
         [Description("The chance that a U2I Squad spawns instead of a MTF")]
         public float SpawnChance = 25f;
 
-        [Description("Role for spawn (this is for RP server)")]
-        public string SpawnNeedRank = "";
+        [Description("Rank for spawn on \"chef\" of the U2I (this is for RP server)")]
+        public List<string> SpawnNeedRank = new List<string>() { };
 
         [Description("The Cassie message when U2I spawn")]
         public string CassieSpawn = "";

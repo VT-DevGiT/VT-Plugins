@@ -18,6 +18,8 @@ namespace VT_Alpha
     {
         public override void Spawn(List<Player> players)
         {
+            if (Plugin.Config.SpawnSize != 0 && players.Count > Plugin.Config.SpawnSize)
+                players = players.GetRange(0, Plugin.Config.SpawnSize);
             if (players.Any())
             { 
                 string Unitname = Methods.GenerateNtfUnitName();

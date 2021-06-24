@@ -27,12 +27,13 @@ namespace VT_U2I
             }
         };
 
+        [Description("Shield of the class")]
+        public int Shield = 110;
+        public int MaxShield = 110;
+
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 50;
         public int MaxArtificialHealth = 100;
-
-        [Description("max of this role which can spawn into a respawn")]
-        public int MaxRespawn = 1;
 
         [Description("The name of the class")]
         public string RoleName = "U2I Liaison-Agent";

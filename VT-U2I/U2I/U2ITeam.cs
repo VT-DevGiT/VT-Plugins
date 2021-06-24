@@ -19,7 +19,6 @@ namespace VT_U2I
     {
         public override void Spawn(List<Player> players)
         {
-            int SpawnAgentLaison = 0;
             List<SerializedMapPoint> SpawnPoints = new List<SerializedMapPoint>()
             {
                 new SerializedMapPoint("Root_*&*Outside Cams", 187.5507f, -8.07251f, -6.48763f),
@@ -35,12 +34,13 @@ namespace VT_U2I
                 new SerializedMapPoint("Root_*&*Outside Cams", 174.7792f, -11.40039f, 2.836424f),
                 new SerializedMapPoint("Root_*&*Outside Cams", 174.6662f, -11.2254f, 2.163314f),
             };
-            SerializedMapPoint SpawnPoint = new SerializedMapPoint("Root_*&*Outside Cams", 187.6646f, -5.909363f, -28.50043f);
-            List<Player> players1 = players.Where(p => p.RankName != Plugin.Config.SpawnNeedRank).ToList();
+            SerializedMapPoint SpawnPointChef = new SerializedMapPoint("Root_*&*Outside Cams", 187.6646f, -5.909363f, -28.50043f);
+            Player playerChef = players.First(p => Plugin.Config.SpawnNeedRank.Contains(p.RankName));
+            if (playerChef != null)
+                players.Remove(playerChef);
+            if (Plugin.Config.SpawnSize != 0 && players.Count > (Plugin.Config.SpawnSize - 1))
+                players = players.GetRange(0, Plugin.Config.SpawnSize - 1);
 
-            if (players.Count > Plugin.Config.SpawnSize)
-                players = players1.GetRange(0, Plugin.Config.SpawnSize + players1.Count);
-            
             if (players.Any())
             {
                 string Unitname = Methods.GenerateNtfUnitName();
@@ -55,19 +55,15 @@ namespace VT_U2I
                     Map.Get.GlitchedCassie(SpawnCassie);
                 }
                 int rnd = UnityEngine.Random.Range(0, 12);
+                if (playerChef != null)
+                { 
+                    playerChef.RoleID = (int)RoleID.U2IAgentLiaison;
+                    playerChef.Position = SpawnPointChef.Parse().Position;
+                }
                 foreach (var player in players)
                 {
-                    if (player.RankName == Plugin.Config.SpawnNeedRank && SpawnAgentLaison > Plugin.ConfigU2IAgentLiaison.MaxRespawn)
-                    {
-                        SpawnAgentLaison++;
-                        player.RoleID = (int)RoleID.U2IAgentLiaison;
-                        player.Position = SpawnPoint.Parse().Position;
-                    }
-                    else
-                    {
-                        player.RoleID = (int)RoleID.U2IAgent;
-                        player.Position = SpawnPoints[rnd].Parse().Position;
-                    }
+                    player.RoleID = (int)RoleID.U2IAgent;
+                    player.Position = SpawnPoints[rnd].Parse().Position;
                     player.UnitName = Unitname;
                 }
             }

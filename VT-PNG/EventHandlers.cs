@@ -13,7 +13,6 @@ namespace VT_PNJ
         private void OnStart()
         {
             NpcDataInit.InitPointForTest();
-            
         }
     }
 }

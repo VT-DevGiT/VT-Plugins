@@ -1,13 +1,5 @@
 ﻿using HarmonyLib;
 
-namespace VT_Referance
-{
-    public class VTController
-    {
-        public static Event.Server Server { get { return Event.ServerSingleton.Instance; } }
-    }
-}
-
 namespace VT_Referance.Event
 {
     internal static class ServerSingleton

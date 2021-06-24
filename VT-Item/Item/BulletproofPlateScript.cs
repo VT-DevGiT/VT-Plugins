@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using VT_Referance.Behaviour;
 using VT_Referance.ItemScript;
+using VT_Referance.Method;
 using VT_Referance.Variable;
 
 namespace VT_Item.Item
@@ -23,9 +24,7 @@ namespace VT_Item.Item
 
         protected override void ChangeToItem(PlayerChangeItemEventArgs ev)
         {
-            ShieldControler shieldPlayer;
-            if (!ev.Player.gameObject.TryGetComponent(out shieldPlayer))
-                shieldPlayer = ev.Player.gameObject.AddComponent<ShieldControler>();
+            var shieldPlayer = ev.Player.GetOrAddComponent<ShieldControler>();
             if (!shieldPlayer.ShieldLock && shieldPlayer.MaxShield != shieldPlayer.Shield)
             { 
                 shieldPlayer.Shield = shieldPlayer.Shield + Plugin.BulletproofPlateConfig.AmoutSheld;

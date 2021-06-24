@@ -84,7 +84,7 @@ namespace VTCustomClass.PlayerScript
                 ev.DamageAmount = ev.DamageAmount/1.5f;
             if (ev.Killer == Player)
             {
-                Player.Heal(ev.DamageAmount / 3);
+                Player.ArtificialHealth += ev.DamageAmount/4;
                 ev.HollowBullet(Player);
             }
         }

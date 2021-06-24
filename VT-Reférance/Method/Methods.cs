@@ -13,7 +13,6 @@ namespace VT_Referance.Method
     public static class Methods
     {
 
-
         /// <summary>
         /// return a player according to the nearest corpse within the limit of a sphere
         /// </summary>

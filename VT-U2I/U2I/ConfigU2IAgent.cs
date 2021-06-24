@@ -27,6 +27,10 @@ namespace VT_U2I
             }
         };
 
+        [Description("Shield of the class")]
+        public int Shield = 25;
+        public int MaxShield = 100;
+
         [Description("ArtificialHealthConfig of the class")]
         public int ArtificialHealth = 50;
         public int MaxArtificialHealth = 100;

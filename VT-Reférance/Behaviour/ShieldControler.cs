@@ -1,7 +1,6 @@
-﻿using HarmonyLib;
-using Synapse;
+﻿using Hints;
+using Mirror;
 using Synapse.Api;
-using Synapse.Api.Events.SynapseEventArguments;
 using UnityEngine;
 using VT_Referance.Event.EventArguments;
 using VT_Referance.Method;
@@ -9,7 +8,7 @@ using VT_Referance.Method;
 namespace VT_Referance.Behaviour
 {
     [API]
-    public class ShieldControler : BaseRepeatingBehaviour
+    public class ShieldControler : NetworkBehaviour
     {
         private Player player;
         private int _Shield = 0;
@@ -18,19 +17,22 @@ namespace VT_Referance.Behaviour
 
         public ShieldControler()
         {
-            base.RefreshTime = 500;
             VTController.Server.Events.Player.PlayerDamagePostEvent += OnDamage;
-            Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
+            VTController.Server.Events.Player.PlayerSetClassEvent += OnSetClass;
         }
 
-        private void OnDeath(PlayerDeathEventArgs ev)
+        void Start()
         {
-            if (ev.Victim == player)
+            player = gameObject.GetPlayer();
+        }
+
+        private void OnSetClass(PlayerSetClassEventArgs ev)
+        {
+            if (ev.Player == player)
             {
                 ShieldLock = false;
                 Shield = 0;
             }
-
         }
 
         private void OnDamage(PlayerDamagePostEventArgs ev)
@@ -54,9 +56,19 @@ namespace VT_Referance.Behaviour
         {
             get { return _Shield; }
             set 
-            { 
+            {
+                if (value == _Shield)
+                    return;
                 if (value > _Shield || !ShieldLock)
-                    _Shield = Mathf.Clamp(value, 0, MaxShield); 
+                    _Shield = Mathf.Clamp(value, 0, MaxShield);
+                if (_Shield != 0)
+                {
+                    //string info = $"<align=right><color=#FFFFFF50><voffset=-21.65em><size=100%><b>Shield : {_Shield}/{MaxShield} | {((double)_Shield / MaxShield) * 100}%</b></voffset></color></align>";
+                    string info = $"<color=#FFFFFF50><size=100%><b>Shield : {_Shield}/{MaxShield} | {_Shield / MaxShield * 100}%</b></color>";
+                    TextHint hint = new TextHint(info, new HintParameter[] { new StringHintParameter("") });
+                    TextHintTimed text = new TextHintTimed(hint, 1, HintTextPos.CENTER, true, 22);
+                    player.GiveTextHintTimed(text);
+                }
             }
         }
 
@@ -76,22 +88,6 @@ namespace VT_Referance.Behaviour
         {
             get { return _ShieldLock; }
             set { _ShieldLock = value; }
-        }
-        
-        
-        protected override void Start()
-        {
-            player = gameObject.GetPlayer();
-            base.Start();
-        }
-
-        protected override void BehaviourAction()
-        {
-            if (Shield != 0)
-            {
-                string info = $"<align=\"right\"><color=#FFFFFF50><voffset=-21.65em><size=100%><b>Shield : {Shield}/{MaxShield} | {((double)Shield / MaxShield) * 100}%</b></voffset></color>";
-                player.SendBrodcastInfo(info);
-            }
         }
     }
 }

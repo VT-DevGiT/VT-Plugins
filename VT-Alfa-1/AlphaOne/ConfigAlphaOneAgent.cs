@@ -31,8 +31,12 @@ namespace VT_Alpha
         };
 
         [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 100;
+        public int ArtificialHealth = 0;
         public int MaxArtificialHealth = 100;
+
+        [Description("Shield of the class")]
+        public int Shield = 150;
+        public int MaxShield = 150;
 
         [Description("The name of the class")]
         public string RoleName = "AlphaOne Agent";

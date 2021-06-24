@@ -26,4 +26,13 @@ namespace VT_Referance.Event.EventArguments
         public PlayerStats.HitInfo HitInfo { get; set; }
         public bool Allow { get; set; }
     }
+
+    public class PlayerSetClassEventArgs : Synapse.Api.Events.EventHandler.ISynapseEventArgs
+    {
+        public Player Player { get; internal set; }
+        public int OldID { get; internal set; }
+        public bool IsCustomClass { get; internal set; }
+        public int NewID { get; set; }
+        public bool Allow { get; set; }
+    }
 }

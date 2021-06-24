@@ -23,15 +23,6 @@ Version = "v.1.0.1"
         [Synapse.Api.Plugin.Config(section = "VT-handcuff")]
         public static Config Config;
 
-        private List<Player> _CuffedPlayer = new List<Player>();
-
-        public List<Player> CuffedPlayer
-        {
-            get { return CuffedPlayer; }
-            set { CuffedPlayer = value; }
-        }
-
-
         private void PatchAll()
         {
             var instance = new Harmony("VThandcuff");

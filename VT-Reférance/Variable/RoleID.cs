@@ -75,7 +75,7 @@ namespace VT_Referance.Variable
         AndersonUTRlight = 140,
         AndersonEngineer = 141,
         AndersonLeader = 142,
-        CdmCadet = 143,
+        CdmCadet  = 143,
         CdmLieutenant = 144,
         CdmCommander = 145,
         GardePrison = 146,

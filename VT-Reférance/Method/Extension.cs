@@ -94,37 +94,50 @@ namespace VT_Referance.Method
             return (item.Ammo == null && (item.Items == null || !item.Items.Any()));
         }
 
-
-        /// <summary>
-        /// Send a Brodcast but not overide the other curent brodcast
-        /// </summary>
         [API]
-        public static void SendBrodcastInfo(this Player player, string message, float duration = 1)
+        public static T GetOrAddComponent<T>(this Player player) where T : Component
         {
-            try
-            {
-                Synapse.Api.Broadcast brc = null;
-                var enumerator = player.ActiveBroadcasts?.GetEnumerator();
-                enumerator.Reset();
-                enumerator.MoveNext();
-                brc = enumerator.Current;
-                if (!string.IsNullOrEmpty(brc?.Message))
-                {
-                    message = brc.Message + message;
-                    Synapse.Api.Logger.Get.Info(message);
-                }
-            }
-            catch (Exception e)
-            {
-                Synapse.Api.Logger.Get.Error($"Get ActiveBroadcasts faild !!! \n{e}\nStackTrace:\n{e.StackTrace}");
-            }
-            Hint hint = new TextHint(
-                message,
-                new HintParameter[] { new StringHintParameter(string.Empty) },
-                null,
-                duration
-                );
-            player.gameObject.GetComponent<ReferenceHub>().hints.Show(hint);
+            GameObject plyGameObject = player.gameObject;
+            return plyGameObject.GetOrAddComponent<T>();
+        }
+
+        [API]
+        public static T GetOrAddComponent<T>(this GameObject gameObject) where T : Component
+        {
+            T Component;
+            if (!gameObject.TryGetComponent(out Component))
+                Component = gameObject.AddComponent<T>();
+            return Component;
+        }
+
+        [API]
+        public static void GiveTextHintTimed(this Player player, TextHintTimed Hint)
+        {
+            VTController.TextHandler.AddMessage(player.NetworkIdentity, Hint);
+        }
+
+        [API]
+        public static string SetLign(this string text, int needLine)
+        {
+            int curLine = text.Count(x => x == '\n');
+            text.AddLigne(needLine - curLine);
+            return text;
+        }
+
+        [API]
+        public static string AddLigne(this string text, int needLigne)
+        {
+            for (int i = 0; i >= needLigne; i++)
+                text += '\n';
+            return text;
+        }
+
+        [API]
+        public static string AddSpace(this string text, int needSpace)
+        {
+            for (int i = 0; i >= needSpace; i++)
+                text += ' ';
+            return text;
         }
     }
 }

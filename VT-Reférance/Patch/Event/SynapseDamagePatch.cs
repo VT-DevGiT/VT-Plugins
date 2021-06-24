@@ -12,7 +12,7 @@ namespace VT_Referance.Patch.Event
 {
 
     [HarmonyPatch(typeof(PlayerEvents), "InvokePlayerDamageEvent")]
-    class PatchSynapseDamage
+    class SynapseDamagePatch
     {
         private static void BaseEvent(PlayerEvents source, PlayerDamageEventArgs ev)
         {
@@ -62,6 +62,5 @@ namespace VT_Referance.Patch.Event
                 return true;
             }
         }
-
     }
 }

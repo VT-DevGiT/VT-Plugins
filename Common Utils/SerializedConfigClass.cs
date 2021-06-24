@@ -32,9 +32,7 @@ public class SerializedConfigClass
 
     public void Applied(Player player)
     {
-        ShieldControler shiledctrl;
-        if (player.gameObject.TryGetComponent(out shiledctrl))
-            shiledctrl = player.gameObject.AddComponent<ShieldControler>();
+        var shiledctrl = player.GetOrAddComponent<ShieldControler>();
 
         if (Health != null)
         {

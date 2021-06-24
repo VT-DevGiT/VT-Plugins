@@ -1,7 +1,7 @@
 ﻿using Synapse.Config;
 using System.Collections.Generic;
 using System.ComponentModel;
-
+using VT_Referance.Variable;
 
 namespace VThandcuff
 {
@@ -11,8 +11,14 @@ namespace VThandcuff
         [Description("Can Cuff ally")]
         public bool CuffAlly = true;
 
-        [Description("Can Cuff 049")]
-        public bool Cuff049 = true;
+        [Description("Can Cuff role (The ID)")]
+        public List<int> CuffId = new List<int>()
+        {
+            (int)RoleID.Scp035,
+            (int)RoleID.Scp049,
+            (int)RoleID.Tutorial,
+            (int)RoleID.SerpentsHand,
+        };
 
         [Description("Cant Cuff UTR")]
         public bool NCuffUTR = true;
@@ -22,6 +28,6 @@ namespace VThandcuff
 
         [Description("like real handcuffs")]
         public bool CuffLock = false;
-        public int Angle = 20;
+        public int Angle = 0; //20 is good
     }
 }

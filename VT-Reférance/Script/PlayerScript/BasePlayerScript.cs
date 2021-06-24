@@ -205,7 +205,7 @@ namespace VT_Referance.PlayerScript
             Role role = new Role();
             role.fullName = ((IScpRole)this).ScpName;
             role.roleId = (RoleType)RoleId;
-
+            NineTailedFoxAnnouncer.singleton.ServerOnlyAddGlitchyPhrase("test message glitch truc",0, 0);
             GameObject gameObject = null;
             foreach (GameObject player in PlayerManager.players)
             {
