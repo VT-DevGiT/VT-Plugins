@@ -19,6 +19,9 @@ namespace VT_Item
     {
         public static Plugin Instance { get; private set; }
 
+        [Synapse.Api.Plugin.Config(section = "VT-Item-Config")]
+        public static PluginConfig PluginConfig;
+
         [Synapse.Api.Plugin.Config(section = "VT-Item-BulletproofPlate")]
         public static BulletproofPlateConfig BulletproofPlateConfig;
 

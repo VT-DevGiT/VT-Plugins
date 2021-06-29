@@ -69,10 +69,5 @@ Time before decontamination : %DecontTime%
         public string RespawnMessageMTF = "%Name% division will arrive in %Temps%";
 
         public string RespawnMessageNoMTF = "No squad is on the way";
-
-
-
-
-
     }
 }

@@ -90,6 +90,7 @@
     <Compile Include="CustomTeam\VIPTeam - Copier.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="Patch.cs" />
+    <Compile Include="Pouvoir\Disabled.cs" />
     <Compile Include="Pouvoir\Green.cs" />
     <Compile Include="Pouvoir\Commands.cs" />
     <Compile Include="Pouvoir\Bullets.cs" />

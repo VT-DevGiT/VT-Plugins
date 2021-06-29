@@ -32,7 +32,6 @@ namespace VTCustomClass.Config
         public int ArtificialHealth = 0;
         public int MaxArtificialHealth = 100;
 
-
         [Description("Shield of the class")]
         public int Shield = 200;
         public int MaxShield = 200;
@@ -47,6 +46,6 @@ namespace VTCustomClass.Config
         public int RequiredPlayers = 3;
 
         [Description("The name of the class")]
-        public string RoleName = " Nine-Tailed Fox U.T.R.";
+        public string RoleName = " U.T.R.";
     }
 }

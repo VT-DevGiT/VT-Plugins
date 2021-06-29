@@ -72,6 +72,7 @@ namespace VT_Referance.Method
             CreateList(netIdentity);
             _Messages[netIdentity].RemoveAll(p => p.IdText == hint.IdText);
 
+            /*
             uint ligne = hint.Ligne;
             List<TextHintTimed> TextToAdd = new List<TextHintTimed>();
 
@@ -93,7 +94,8 @@ namespace VT_Referance.Method
                             string apresEqual = stravecequal.ToString().Substring(1, stravecequal.ToString().Length - 2);
                             uint.TryParse(apresEqual, out uint addligne);
                             ligne += addligne;
-                            TextToAdd.Add(new TextHintTimed(new TextHint(/* */, new HintParameter[] { new StringHintParameter("")),
+                            
+                            TextToAdd.Add(new TextHintTimed(new TextHint(/* *//*, new HintParameter[] { new StringHintParameter("")), 
                                 hint.IdText, HintTextPos.LEFT, hint.NotRemouv, ligne));
                         }
                         break;
@@ -121,15 +123,14 @@ namespace VT_Referance.Method
                     case true when entry.Contains("width"):
                         hint.Text = hint.Text.Replace(entry, string.Empty);
                         break; 
-
                 }
             }
-            if ()
-
+            
             _Messages[netIdentity].Add(hint);
             Refresh(netIdentity);
             if (!hint.NotRemouv)
                 Remove(netIdentity, hint, hint.Hint.DurationScalar);
+            */
         }
         
         public void Remove(NetworkIdentity netIdentity, TextHintTimed text, float time)
@@ -219,7 +220,7 @@ namespace VT_Referance.Method
                     {
                         _instance = new TextHandle();
                         var instance = new Harmony("VT_Referance.Patch.VT_Patch");
-                        instance.PatchAll();
+                        //instance.PatchAll();
                     }
                     return _instance;
                 }

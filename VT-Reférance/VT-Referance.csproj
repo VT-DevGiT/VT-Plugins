@@ -64,6 +64,9 @@
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SynapseSL.2.6.0\lib\net472\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>E:\Games\SteamLibrary\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SynapseSL.2.6.0\lib\net472\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
@@ -77,7 +80,18 @@
   <ItemGroup>
     <Compile Include="Behaviour\BaseBehaviour.cs" />
     <Compile Include="Behaviour\NpcControlMouvement.cs" />
+    <Compile Include="Event\SynapseGroupe.cs" />
+    <Compile Include="Patch\Event\Scp914ActivatePatch.cs" />
+    <Compile Include="Patch\Event\DestroyHubPatch.cs" />
+    <Compile Include="Patch\Event\IntercomSpeakPatch.cs" />
+    <Compile Include="Patch\Event\Scp106UsePortalPatch.cs" />
+    <Compile Include="Patch\Event\UseLockerPatch.cs" />
+    <Compile Include="Patch\Event\UseElevatorPatch.cs" />
+    <Compile Include="Patch\Event\Scp914ChangeSetingPatch.cs" />
+    <Compile Include="Patch\Event\ActivatingWarheadPanelPatch.cs" />
+    <Compile Include="Patch\Event\GeneratorActivatedPatch.cs" />
     <Compile Include="Patch\Event\SynapseSetClassIdPatch.cs" />
+    <Compile Include="Patch\Event\WarHeadStopPatch.cs" />
     <Compile Include="VTController.cs" />
     <Compile Include="Method\TextHandle.cs" />
     <Compile Include="Script\ItemScript\BaseWeaponScript.cs" />

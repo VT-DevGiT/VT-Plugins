@@ -22,7 +22,7 @@ namespace VT_AndersonRobotic
                 players = players.GetRange(0, Plugin.Config.SpawnSizeAsimov);
 
             if (players.Count > 0)
-            { 
+            {
                 players[0].RoleID = (int)RoleID.GeneralAsimov;
                 players.Remove(players[0]);
             }

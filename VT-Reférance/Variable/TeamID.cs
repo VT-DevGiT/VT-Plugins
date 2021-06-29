@@ -30,5 +30,6 @@ namespace VT_Referance.Variable
         AND = 16,
         ASI = 17,
         AL1 = 18,
+        OCM = 19,
     }
 }

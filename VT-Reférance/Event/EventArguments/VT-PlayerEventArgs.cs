@@ -1,4 +1,5 @@
 ﻿using Synapse.Api;
+using Synapse.Permission;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,17 @@ namespace VT_Referance.Event.EventArguments
         public int OldID { get; internal set; }
         public bool IsCustomClass { get; internal set; }
         public int NewID { get; set; }
+        public bool Allow { get; set; }
+    }
+
+    public class PlayerDestroyEventArgs : Synapse.Api.Events.EventHandler.ISynapseEventArgs
+    {
+        public Player Player { get; internal set; }
+    }
+
+    public class PlayerSpeakIntercomEventEventArgs : Synapse.Api.Events.EventHandler.ISynapseEventArgs
+    {
+        public Player Player { get; set; }
         public bool Allow { get; set; }
     }
 }

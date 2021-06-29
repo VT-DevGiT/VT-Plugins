@@ -43,11 +43,11 @@ namespace VTGrenad
 
                     if (!(Object)ev.Grenade.GetFieldValueorOrPerties<GrenadeManager>("thrower") == (Object)null && Flash.GetFieldValueorOrPerties<bool>("_friendlyFlash"))
                     {
-                        float num = 
-                            Flash.powerOverDistance.Evaluate(Vector3.Distance(player.transform.position, position) / ((double)position.y > 900.0 ? 
-                            Flash.distanceMultiplierSurface : 
-                            Flash.distanceMultiplierFacility)) * 
-                                Flash.powerOverDot.Evaluate(Vector3.Dot(hub.PlayerCameraReference.forward, 
+                        float num =
+                            Flash.powerOverDistance.Evaluate(Vector3.Distance(player.transform.position, position) / ((double)position.y > 900.0 ?
+                            Flash.distanceMultiplierSurface :
+                            Flash.distanceMultiplierFacility)) *
+                                Flash.powerOverDot.Evaluate(Vector3.Dot(hub.PlayerCameraReference.forward,
                                     (hub.PlayerCameraReference.position - position).normalized));
                         if ((double)num > 0.0)
                         {

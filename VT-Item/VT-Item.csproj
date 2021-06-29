@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\BulletproofPlateConfig.cs" />
+    <Compile Include="Config\PluginConfig.cs" />
     <Compile Include="Config\MiniGunConfig.cs" />
     <Compile Include="Config\PluginTranslation.cs" />
     <Compile Include="Item\BulletproofPlateScript.cs" />

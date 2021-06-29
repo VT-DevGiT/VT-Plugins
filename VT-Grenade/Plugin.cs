@@ -1,9 +1,5 @@
-﻿using HarmonyLib;
-using Mirror;
-using Synapse;
-using Synapse.Api.Plugin;
+﻿using Synapse.Api.Plugin;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace VTGrenad
 {

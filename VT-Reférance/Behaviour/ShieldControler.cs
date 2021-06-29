@@ -8,7 +8,7 @@ using VT_Referance.Method;
 namespace VT_Referance.Behaviour
 {
     [API]
-    public class ShieldControler : NetworkBehaviour
+    public class ShieldControler : BaseRepeatingBehaviour
     {
         private Player player;
         private int _Shield = 0;
@@ -21,9 +21,10 @@ namespace VT_Referance.Behaviour
             VTController.Server.Events.Player.PlayerSetClassEvent += OnSetClass;
         }
 
-        void Start()
+        protected override void Start()
         {
             player = gameObject.GetPlayer();
+            base.Start();
         }
 
         private void OnSetClass(PlayerSetClassEventArgs ev)
@@ -47,6 +48,12 @@ namespace VT_Referance.Behaviour
             }
         }
 
+        protected override void BehaviourAction()
+        {
+            string info = $"<align=right><color=#FFFFFF50><voffset=-21.65em><size=100%><b>Shield : {_Shield}/{MaxShield} | {((double)_Shield / MaxShield) * 100}%</b></voffset></color></align>";
+            player.HintDisplay.Show(new TextHint(info, new HintParameter[] { new StringHintParameter("") }, null, 1.1f));
+        }
+
         /// <summary>
         /// The amount of shield for this ShieldControler;
         /// cannot exceed the Maxshield and cannot be less than 0;
@@ -63,11 +70,13 @@ namespace VT_Referance.Behaviour
                     _Shield = Mathf.Clamp(value, 0, MaxShield);
                 if (_Shield != 0)
                 {
+                    /*
                     //string info = $"<align=right><color=#FFFFFF50><voffset=-21.65em><size=100%><b>Shield : {_Shield}/{MaxShield} | {((double)_Shield / MaxShield) * 100}%</b></voffset></color></align>";
                     string info = $"<color=#FFFFFF50><size=100%><b>Shield : {_Shield}/{MaxShield} | {_Shield / MaxShield * 100}%</b></color>";
                     TextHint hint = new TextHint(info, new HintParameter[] { new StringHintParameter("") });
                     TextHintTimed text = new TextHintTimed(hint, 1, HintTextPos.CENTER, true, 22);
                     player.GiveTextHintTimed(text);
+                    */
                 }
             }
         }

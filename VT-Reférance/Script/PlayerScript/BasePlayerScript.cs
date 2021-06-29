@@ -5,7 +5,6 @@ using Synapse.Config;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using VT_Referance;
 using VT_Referance.Variable;
 using VT_Referance.Method;
 using Synapse.Api.Events.SynapseEventArguments;

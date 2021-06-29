@@ -8,7 +8,8 @@ namespace VT_Referance.Event
     {
         public event Synapse.Api.Events.EventHandler.OnSynapseEvent<PlayerDamagePostEventArgs> PlayerDamagePostEvent;
         public event Synapse.Api.Events.EventHandler.OnSynapseEvent<PlayerSetClassEventArgs> PlayerSetClassEvent;
-
+        public event Synapse.Api.Events.EventHandler.OnSynapseEvent<PlayerDestroyEventArgs> PlayerDestroyEvent;
+        public event Synapse.Api.Events.EventHandler.OnSynapseEvent<PlayerSpeakIntercomEventEventArgs> PlayerSpeakIntercomEvent;
         #region Invoke
         internal void InvokePlayerDamagePostEvent(Player victim, Player killer, ref PlayerStats.HitInfo info, ref bool allow)
         {
@@ -40,6 +41,28 @@ namespace VT_Referance.Event
             allow = ev.Allow;
         }
 
+        internal void InvokePlayerDestroyEvent(Player player)
+        {
+            var ev = new PlayerDestroyEventArgs
+            {
+                Player = player,
+            };
+
+            PlayerDestroyEvent?.Invoke(ev);
+        }
+
+        internal void InvokePlayerSpeakIntercom(Player player, ref bool allow)
+        {
+            var ev = new PlayerSpeakIntercomEventEventArgs
+            {
+                Player = player,
+                Allow = allow
+            };
+
+            PlayerSpeakIntercomEvent?.Invoke(ev);
+
+            allow = ev.Allow;
+        }
         #endregion
     }
 }

@@ -20,7 +20,7 @@ namespace VT_Alpha
 
         private void OnRestart() => Plugin.Instance.AphaOne = 0;
 
-        private void OnWarHeadStart(WarHeadStartEventArgs ev)
+        private void OnWarHeadStart(WarHeadInteracteEventArgs ev)
         {
             if (Plugin.Instance.AphaOne > Plugin.Config.MaxRepsawn && UnityEngine.Random.Range(1f, 100f) <= Plugin.Config.SpawnChance)
             { 
