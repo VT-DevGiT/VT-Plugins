@@ -42,6 +42,11 @@ namespace VT_Referance.Event.EventArguments
         public Player Player { get; internal set; }
     }
 
+    public class PlayerVerifEventArgs : Synapse.Api.Events.EventHandler.ISynapseEventArgs
+    {
+        public Player Player { get; internal set; }
+    }
+
     public class PlayerSpeakIntercomEventEventArgs : Synapse.Api.Events.EventHandler.ISynapseEventArgs
     {
         public Player Player { get; set; }

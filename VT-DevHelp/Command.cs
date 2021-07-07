@@ -30,7 +30,15 @@ namespace VTDevHelp
             result.State = CommandResultState.Ok;
             if (door.Any())
             {
-                result.Message = $"Door : \n Name -> {door.First().Name} \n Position -> {door.First().Position} \n Rotation -> {door.First().Rotation} \n Is Open -> {door.First().Open} \n Is Breakable -> {door.First().IsBreakable} \n Door Permissions -> {door.First().DoorPermissions}";
+                result.Message = 
+                    $"Door : " +
+                    $"\n Name -> {door.First().Name} " +
+                    $"\n DoorType -> {door.First().DoorType} " +
+                    $"\n Position -> {door.First().Position} " +
+                    $"\n Rotation -> {door.First().Rotation} " +
+                    $"\n Is Open -> {door.First().Open} " +
+                    $"\n Is Breakable -> {door.First().IsBreakable} " +
+                    $"\n Door Permissions -> {door.First().DoorPermissions}";
                 result.State = CommandResultState.Ok;
             }
             return result;

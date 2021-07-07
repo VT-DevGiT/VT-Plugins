@@ -18,7 +18,7 @@ namespace VT_Referance.Patch.Event
                     return false;
 
                 Synapse.Api.Player Player = player ? __instance.GetPlayer() : null;
-                VTController.Server.Events.Player.InvokePlayerSpeakIntercom(Player, ref flag);
+                VTController.Server.Events.Player.InvokePlayerSpeakIntercomEvent(Player, ref flag);
 
                 if (flag) Intercom.host.RequestTransmission(__instance.gameObject);
                 return false;

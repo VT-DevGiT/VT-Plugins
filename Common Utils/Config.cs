@@ -58,16 +58,16 @@ namespace Common_Utiles
         public bool Rnd914Size = false;
 
         [Description("Max and Min Scale in X")]
-        public float Max914SizeX = 1;
-        public float Min914SizeX = 2;
+        public float Max914SizeX = 1.2f;
+        public float Min914SizeX = 0.5f;
 
         [Description("Max and Min Scale in Y")]
-        public float Max914SizeY = 1;
-        public float Min914SizeY = 2;
+        public float Max914SizeY = 1.2f;
+        public float Min914SizeY = 0.5f;
 
         [Description("Max and Min Scale in Z")]
-        public float Max914SizeZ = 1;
-        public float Min914SizeZ = 2;
+        public float Max914SizeZ = 1.2f;
+        public float Min914SizeZ = 0.5f;
 
         [Description("makes players passing through 914 have a random effect")]
         public List<Effect> list914Effect = new List<Effect>()
@@ -83,15 +83,15 @@ namespace Common_Utiles
         public bool Rnd914Life = false;
 
         [Description("Max and Min life")]
-        public float Max914Life = 1;
-        public float Min914Life = 2;
+        public float Max914Life = 200;
+        public float Min914Life = 10;
 
         [Description("makes players passing through 914 have a random artificial life")]
         public bool Rnd914ArtificialLife = false;
 
         [Description("Max and Min artificial life")]
-        public float Max914ArtificialLife = 1;
-        public float Min914ArtificialLife = 2;
+        public float Max914ArtificialLife = 200;
+        public float Min914ArtificialLife = 10;
 
         [Description("The percent chance of dying for players passing through 914")]
         public float Rnd914ChanceDie = 50;

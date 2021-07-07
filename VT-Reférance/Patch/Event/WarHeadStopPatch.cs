@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace VT_Referance.Patch.Event
 {
-    [HarmonyPatch(typeof(AlphaWarheadController), nameof(AlphaWarheadController.CancelDetonation))]
+    [HarmonyPatch(typeof(AlphaWarheadController), nameof(AlphaWarheadController.CancelDetonation), new Type[] { typeof(GameObject) })]
     internal static class Stopping
     {
         private static bool Prefix(AlphaWarheadController __instance, GameObject disabler)

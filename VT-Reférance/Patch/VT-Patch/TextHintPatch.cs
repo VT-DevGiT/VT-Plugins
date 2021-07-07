@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
 using Hints;
-using Synapse;
 using VT_Referance.Method;
 
 namespace VT_Referance.Patch.VT_Patch

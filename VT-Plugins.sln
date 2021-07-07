@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Item", "VT-Item\VT-Item.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-PNJ", "VT-PNG\VT-PNJ.csproj", "{2E012409-B70D-4331-B6CC-FC00A765CC66}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-RpSCP", "VT-RpSCP\VT-RpSCP.csproj", "{2960B150-9396-4CA4-9CB7-ED909A89580E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +155,10 @@ Global
 		{2E012409-B70D-4331-B6CC-FC00A765CC66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E012409-B70D-4331-B6CC-FC00A765CC66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E012409-B70D-4331-B6CC-FC00A765CC66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2960B150-9396-4CA4-9CB7-ED909A89580E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2960B150-9396-4CA4-9CB7-ED909A89580E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2960B150-9396-4CA4-9CB7-ED909A89580E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2960B150-9396-4CA4-9CB7-ED909A89580E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

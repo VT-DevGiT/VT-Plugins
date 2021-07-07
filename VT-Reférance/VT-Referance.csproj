@@ -91,6 +91,7 @@
     <Compile Include="Patch\Event\ActivatingWarheadPanelPatch.cs" />
     <Compile Include="Patch\Event\GeneratorActivatedPatch.cs" />
     <Compile Include="Patch\Event\SynapseSetClassIdPatch.cs" />
+    <Compile Include="Patch\Event\VerifPatch.cs" />
     <Compile Include="Patch\Event\WarHeadStopPatch.cs" />
     <Compile Include="VTController.cs" />
     <Compile Include="Method\TextHandle.cs" />

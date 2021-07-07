@@ -39,12 +39,7 @@ namespace VT_Referance.Method
             Ligne = ligne;
         }
 
-        public override string ToString()
-        {
-            return $"{Text}";
-        }
-
-        
+        public override string ToString() => $"{Text}";
     }
 
     public class TextHandle
@@ -66,13 +61,30 @@ namespace VT_Referance.Method
         }
 
         public void AddMessage(Player player, TextHintTimed hint) => AddMessage(player.Hub.networkIdentity, hint);
-
         public void AddMessage(NetworkIdentity netIdentity, TextHintTimed hint)
         {
             CreateList(netIdentity);
             _Messages[netIdentity].RemoveAll(p => p.IdText == hint.IdText);
+            var reg = new Regex("<.?>");
+            var regEqual = new Regex("=.?>");
+            MatchCollection matches = reg.Matches(hint.Text);
+            string textNoTag = "";
+            foreach (string entry in matches)
+            {
+                switch (true)
+                {
 
-            /*
+                    default:
+                        //hint.Text = hint.Text.Replace(entry, string.Empty);
+                        break;
+                }
+            }
+        }
+        public void AddMessageSave(NetworkIdentity netIdentity, TextHintTimed hint)
+        {
+            CreateList(netIdentity);
+            _Messages[netIdentity].RemoveAll(p => p.IdText == hint.IdText);
+
             uint ligne = hint.Ligne;
             List<TextHintTimed> TextToAdd = new List<TextHintTimed>();
 
@@ -85,44 +97,49 @@ namespace VT_Referance.Method
                 switch(true)
                 {
                     case true when entry.Contains("/voffset"):
-
                         break;
                     case true when entry.Contains("voffset"):
-                        Match stravecequal = regEqual.Match(entry);
+                        /*Match stravecequal = regEqual.Match(entry);
                         if (stravecequal != null && stravecequal.Success)
                         {
                             string apresEqual = stravecequal.ToString().Substring(1, stravecequal.ToString().Length - 2);
                             uint.TryParse(apresEqual, out uint addligne);
                             ligne += addligne;
                             
-                            TextToAdd.Add(new TextHintTimed(new TextHint(/* *//*, new HintParameter[] { new StringHintParameter("")), 
+                            TextToAdd.Add(new TextHintTimed(new TextHint(, new HintParameter[] { new StringHintParameter("")), 
                                 hint.IdText, HintTextPos.LEFT, hint.NotRemouv, ligne));
-                        }
+                        }*/
                         break;
-                    case true when entry.Contains("indent"):
+                    default:
                         hint.Text = hint.Text.Replace(entry, string.Empty);
                         break;
-                    case true when entry.Contains("line-"):
-                        hint.Text = hint.Text.Replace(entry, string.Empty);
-                        break;
-                    case true when entry.Contains("case"):
-                        hint.Text = hint.Text.Replace(entry, string.Empty);
-                        break;
-                    case true when entry.Contains("margin"):
-                        hint.Text = hint.Text.Replace(entry, string.Empty);
-                        break;
-                    case true when entry.Contains("mspace"):
-                        hint.Text = hint.Text.Replace(entry, string.Empty);
-                        break;
-                    case true when entry.Contains("pos"):
-                        hint.Text = hint.Text.Replace(entry, string.Empty);
-                        break;
-                    case true when entry.Contains("style"):
-                        hint.Text = hint.Text.Replace(entry, string.Empty);
-                        break;
-                    case true when entry.Contains("width"):
-                        hint.Text = hint.Text.Replace(entry, string.Empty);
-                        break; 
+                        /*
+                        case true when entry.Contains("/voffset"):
+                            break;
+                        case true when entry.Contains("indent"):
+                            hint.Text = hint.Text.Replace(entry, string.Empty);
+                            break;
+                        case true when entry.Contains("line-"):
+                            hint.Text = hint.Text.Replace(entry, string.Empty);
+                            break;
+                        case true when entry.Contains("case"):
+                            hint.Text = hint.Text.Replace(entry, string.Empty);
+                            break;
+                        case true when entry.Contains("margin"):
+                            hint.Text = hint.Text.Replace(entry, string.Empty);
+                            break;
+                        case true when entry.Contains("mspace"):
+                            hint.Text = hint.Text.Replace(entry, string.Empty);
+                            break;
+                        case true when entry.Contains("pos"):
+                            hint.Text = hint.Text.Replace(entry, string.Empty);
+                            break;
+                        case true when entry.Contains("style"):
+                            hint.Text = hint.Text.Replace(entry, string.Empty);
+                            break;
+                        case true when entry.Contains("width"):
+                            hint.Text = hint.Text.Replace(entry, string.Empty);
+                            break; */
                 }
             }
             
@@ -130,7 +147,7 @@ namespace VT_Referance.Method
             Refresh(netIdentity);
             if (!hint.NotRemouv)
                 Remove(netIdentity, hint, hint.Hint.DurationScalar);
-            */
+            
         }
         
         public void Remove(NetworkIdentity netIdentity, TextHintTimed text, float time)

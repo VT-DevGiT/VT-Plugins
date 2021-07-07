@@ -22,7 +22,5 @@ Version = "v.1.1.0"
             Instance = this;
             new EventHandlers();
         }
-
     }
-
 }

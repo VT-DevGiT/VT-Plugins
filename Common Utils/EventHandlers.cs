@@ -52,9 +52,9 @@ namespace Common_Utiles
             {
                 if (CommonUtiles.Config.Rnd914Size)
                 {
-                    float newScaleX = UnityEngine.Random.Range(CommonUtiles.Config.Max914SizeX, CommonUtiles.Config.Min914SizeX);
-                    float newScaleY = UnityEngine.Random.Range(CommonUtiles.Config.Max914SizeY, CommonUtiles.Config.Min914SizeY);
-                    float newScaleZ = UnityEngine.Random.Range(CommonUtiles.Config.Max914SizeZ, CommonUtiles.Config.Min914SizeZ);
+                    float newScaleX = UnityEngine.Random.Range(CommonUtiles.Config.Min914SizeX, CommonUtiles.Config.Max914SizeX);
+                    float newScaleY = UnityEngine.Random.Range(CommonUtiles.Config.Min914SizeY, CommonUtiles.Config.Max914SizeY);
+                    float newScaleZ = UnityEngine.Random.Range(CommonUtiles.Config.Min914SizeZ, CommonUtiles.Config.Max914SizeZ);
                     player.Scale = new Vector3(newScaleX, newScaleY, newScaleZ);
                 }
                 if (CommonUtiles.Config.list914Effect.Any())
