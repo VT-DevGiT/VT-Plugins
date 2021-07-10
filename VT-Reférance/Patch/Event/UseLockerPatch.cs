@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using Synapse;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,64 +18,60 @@ namespace VT_Referance.Patch.Event
             {
                 if (!__instance._playerInteractRateLimit.CanExecute(true))
                     return false;
-
-                LockerManager singleton = LockerManager.singleton;
-
-                if (lockerId >= singleton.lockers.Length)
+                if (__instance._hc.CufferId > 0 && !PlayerInteract.CanDisarmedInteract)
                     return false;
 
-                if (!__instance.ChckDis(singleton.lockers[lockerId].gameObject.position) ||
-                    !singleton.lockers[lockerId].supportsStandarizedAnimation)
+                LockerManager sing = LockerManager.singleton;
+
+                if (lockerId >= sing.lockers.Length)
                     return false;
 
-                if (chamberNumber >= singleton.lockers[lockerId].chambers.Length)
+                if (!__instance.ChckDis(sing.lockers[lockerId].gameObject.position) ||
+                    !sing.lockers[lockerId].supportsStandarizedAnimation)
                     return false;
 
-                if (singleton.lockers[lockerId].chambers[chamberNumber].doorAnimator == null)
+                if (chamberNumber >= sing.lockers[lockerId].chambers.Length)
                     return false;
 
-                if (!singleton.lockers[lockerId].chambers[chamberNumber].CooldownAtZero())
+                if (sing.lockers[lockerId].chambers[chamberNumber].doorAnimator == null)
                     return false;
 
-                singleton.lockers[lockerId].chambers[chamberNumber].SetCooldown();
+                if (!sing.lockers[lockerId].chambers[chamberNumber].CooldownAtZero())
+                    return false;
 
-                string accessToken = singleton.lockers[lockerId].chambers[chamberNumber].accessToken;
+                sing.lockers[lockerId].chambers[chamberNumber].SetCooldown();
+
+                string accessToken = sing.lockers[lockerId].chambers[chamberNumber].accessToken;
                 var itemById = __instance._inv.GetItemByID(__instance._inv.curItem);
 
-                bool flag = true;
-                if ((__instance._hc.CufferId > 0 && !PlayerInteract.CanDisarmedInteract) || string.IsNullOrEmpty(accessToken) || (itemById != null && itemById.permissions.Contains(accessToken)) || __instance._sr.BypassMode)
-                    flag = false;
-
-                VTController.Server.Events.Map.InvokeLockerIneractEvent(__instance.GetPlayer(), singleton.lockers[lockerId], ref flag);
-
+                bool flag = string.IsNullOrEmpty(accessToken) || (itemById != null && itemById.permissions.Contains(accessToken)) || __instance._sr.BypassMode;
+                VTController.Server.Events.Map.InvokeLockerIneractEvent(__instance.GetPlayer(), sing.lockers[lockerId], ref flag);
                 if (flag)
                 {
-                    bool _flag = (singleton.openLockers[lockerId] & 1 << chamberNumber) != 1 << chamberNumber;
-                    singleton.ModifyOpen(lockerId, chamberNumber, _flag);
-                    singleton.RpcDoSound(lockerId, chamberNumber, _flag);
+                    Server.Get.Logger.Send($"CallCmdUseLocker patch 9", ConsoleColor.Cyan);
+                    bool _flag = (sing.openLockers[lockerId] & 1 << chamberNumber) != 1 << chamberNumber;
+                    sing.ModifyOpen(lockerId, chamberNumber, _flag);
+                    sing.RpcDoSound(lockerId, chamberNumber, _flag);
                     bool anyOpen = true;
-                    for (int i = 0; i < singleton.lockers[lockerId].chambers.Length; i++)
+                    for (int i = 0; i < sing.lockers[lockerId].chambers.Length; i++)
                     {
-                        if ((singleton.openLockers[lockerId] & 1 << i) == 1 << i)
+                        if ((sing.openLockers[lockerId] & 1 << i) == 1 << i)
                         {
                             anyOpen = false;
                             break;
                         }
                     }
-
-                    singleton.lockers[lockerId].LockPickups(!_flag, chamberNumber, anyOpen);
+                    sing.lockers[lockerId].LockPickups(!_flag, chamberNumber, anyOpen);
                     if (!string.IsNullOrEmpty(accessToken))
                     {
-                        singleton.RpcChangeMaterial(lockerId, chamberNumber, false);
+                        sing.RpcChangeMaterial(lockerId, chamberNumber, false);
                     }
+                    __instance.OnInteract();
                 }
                 else
                 {
-                    singleton.RpcChangeMaterial(lockerId, chamberNumber, true);
+                    sing.RpcChangeMaterial(lockerId, chamberNumber, true);
                 }
-
-                __instance.OnInteract();
-
                 return false;
             }
             catch (Exception e)

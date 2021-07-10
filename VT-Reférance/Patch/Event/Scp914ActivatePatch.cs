@@ -14,17 +14,16 @@ namespace VT_Referance.Patch.Event
     {
         private static bool Prefix(PlayerInteract __instance)
         {
+            Synapse.Api.Logger.Get.Info("CallCmdUse914");
             try
             {
-                if (!__instance._playerInteractRateLimit.CanExecute() || !__instance.ChckDis(Scp914Machine.singleton.button.position))
+                if (!__instance._playerInteractRateLimit.CanExecute())
+                    return false; 
+                if (__instance._hc.CufferId > 0 || __instance._hc.ForceCuff && !PlayerInteract.CanDisarmedInteract || (Scp914Machine.singleton.working || !__instance.ChckDis(Scp914Machine.singleton.button.position))) 
                     return false;
                 bool flag = true;
-                if (__instance._hc.CufferId > 0 || __instance._hc.ForceCuff && !PlayerInteract.CanDisarmedInteract || Scp914Machine.singleton.working)
-                    flag = false;
-                if (flag)
-                    Scp914Machine.singleton.RpcActivate(NetworkTime.time);
-                __instance.OnInteract();
-                return false;
+                VTController.Server.Events.Map.InvokeScp914ActivateEvent(__instance.GetPlayer(), ref flag);
+                return flag;
             }
             catch (Exception e)
             {

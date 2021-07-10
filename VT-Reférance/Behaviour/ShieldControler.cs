@@ -50,8 +50,11 @@ namespace VT_Referance.Behaviour
 
         protected override void BehaviourAction()
         {
-            string info = $"<align=right><color=#FFFFFF50><voffset=-21.65em><size=100%><b>Shield : {_Shield}/{MaxShield} | {((double)_Shield / MaxShield) * 100}%</b></voffset></color></align>";
-            player.HintDisplay.Show(new TextHint(info, new HintParameter[] { new StringHintParameter("") }, null, 1.1f));
+            if (Shield != 0)
+            {
+                string info = $"<align=right><color=#FFFFFF50><voffset=-21.65em><size=100%><b>Shield : {_Shield}/{MaxShield} | {((double)_Shield / MaxShield) * 100}%</b></voffset></color></align>";
+                player.HintDisplay.Show(new TextHint(info, new HintParameter[] { new StringHintParameter("") }, null, 1.1f));
+            }
         }
 
         /// <summary>

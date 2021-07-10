@@ -5,6 +5,7 @@ using Synapse;
 using Synapse.Api.Enum;
 using Synapse.Api.Items;
 using System;
+using UnityEngine;
 using VT_Referance.Event;
 
 namespace VT_Referance.Patch.Event
@@ -17,20 +18,43 @@ namespace VT_Referance.Patch.Event
             try
             {
                 if (!NetworkServer.active) return false;
+                __result = false;
+                GrenadeSettings grenadeSettings = null;
+                for (int index = 0; index < __instance.thrower.availableGrenades.Length; ++index)
+                {
+                    GrenadeSettings availableGrenade = __instance.thrower.availableGrenades[index];
+                    if (availableGrenade.inventoryID == item.ItemId)
+                    {
+                        if (!__instance.chainSupportedGrenades.Contains(index))
+                           return false;
+                        grenadeSettings = availableGrenade;
+                        break;
+                    }
+                }
 
                 SynapseItem pickup = item.GetSynapseItem();
                 GrenadeType Type;
+                bool falg = true;
+
                 if (__instance.GetType() == typeof(FragGrenade))
                     Type = GrenadeType.Grenade;
                 else if (__instance.GetType() == typeof(Scp018Grenade))
                     Type = GrenadeType.Scp018;
-                else
+                else 
                     Type = (GrenadeType)4;
-                bool falg = true;
+                
+
                 VTController.Server.Events.Grenade.InvokeChangeIntoFragEvent(pickup, __instance, Type, ref falg);
-                if (!falg) 
-                    __result = false;
-                return falg;
+                if (falg)
+                {
+                    Transform transform = item.transform;
+                    Grenade component = UnityEngine.Object.Instantiate(grenadeSettings.grenadeInstance, transform.position, transform.rotation).GetComponent<Grenade>();
+                    component.InitData(__instance, item);
+                    NetworkServer.Spawn(component.gameObject);                    
+                    item.Delete();
+                    __result = true;
+                }
+                return false;
             }
             catch (Exception e)
             {

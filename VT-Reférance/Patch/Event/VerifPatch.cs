@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace VT_Referance.Patch.Event
 {
-    [HarmonyPatch(typeof(ServerRoles), nameof(ServerRoles.CallCmdServerSignatureComplete))]
+    //[HarmonyPatch(typeof(ServerRoles), nameof(ServerRoles.CallCmdServerSignatureComplete))]
     class VerifPatch
     {
-        //futur patch
         private static bool Prefix(ServerRoles __instance) => true;
     }
 }

@@ -16,7 +16,9 @@ namespace VT_Referance.Patch.Event
         {
             try
             {
-                if (!__instance._playerInteractRateLimit.CanExecute() || __instance._hc.CufferId > 0 || __instance._hc.ForceCuff && !PlayerInteract.CanDisarmedInteract || !__instance._playerInteractRateLimit.CanExecute())
+                if (!__instance._playerInteractRateLimit.CanExecute())
+                    return false;
+                if (__instance._hc.CufferId > 0 || __instance._hc.ForceCuff && !PlayerInteract.CanDisarmedInteract || !__instance._playerInteractRateLimit.CanExecute())
                     return false;
                 GameObject gameObject = GameObject.Find("OutsitePanelScript");
                 if (!__instance.ChckDis(gameObject.transform.position) || !AlphaWarheadOutsitePanel.nukeside.enabled || !gameObject.GetComponent<AlphaWarheadOutsitePanel>().keycardEntered)

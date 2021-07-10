@@ -16,7 +16,9 @@ namespace VT_Referance.Patch.Event
         {
             try
             {
-                if (!__instance._interactRateLimit.CanExecute() || !__instance._hub.playerMovementSync.Grounded || (!__instance.iAm106 || !(__instance.portalPosition != Vector3.zero)) || __instance.goingViaThePortal)
+                if (!__instance._interactRateLimit.CanExecute())
+                    return false;
+                if (!__instance._hub.playerMovementSync.Grounded || (!__instance.iAm106 || !(__instance.portalPosition != Vector3.zero)) || __instance.goingViaThePortal)
                     return false;
                 bool flag = true;
                 VTController.Server.Events.Scp.Scp106.InvokePortalUseEvent(__instance.GetPlayer(), ref flag);

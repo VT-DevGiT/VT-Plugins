@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using Scp914;
+using Synapse;
 using System;
 using UnityEngine;
 
@@ -12,7 +13,9 @@ namespace VT_Referance.Patch.Event
         {
             try
             {
-                if (!__instance._playerInteractRateLimit.CanExecute() || __instance._hc.CufferId > 0 || __instance._hc.ForceCuff && !PlayerInteract.CanDisarmedInteract || elevator == null)
+                if (!__instance._playerInteractRateLimit.CanExecute())
+                    return false;
+                if (__instance._hc.CufferId > 0 || __instance._hc.ForceCuff && !PlayerInteract.CanDisarmedInteract || elevator == null)
                     return false;
                 Lift component = elevator.GetComponent<Lift>();
                 if (component == null)
@@ -23,7 +26,7 @@ namespace VT_Referance.Patch.Event
                     {
                         bool flag = true;
                         VTController.Server.Events.Map.InvokeElevatorIneractEvent(__instance.GetPlayer(), component.GetElevator(), ref flag);
-                        if (!flag)
+                        if (flag)
                         {
                             component.UseLift();
                             __instance.OnInteract();

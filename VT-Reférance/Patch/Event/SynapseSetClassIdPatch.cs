@@ -1,13 +1,6 @@
 ﻿using HarmonyLib;
-using Synapse;
 using Synapse.Api;
-using Synapse.Api.Events;
-using Synapse.Api.Events.SynapseEventArguments;
-using Synapse.Api.Roles;
 using System;
-using System.Reflection;
-using VT_Referance.Event.EventArguments;
-using VT_Referance.Method;
 
 namespace VT_Referance.Patch.Event
 {

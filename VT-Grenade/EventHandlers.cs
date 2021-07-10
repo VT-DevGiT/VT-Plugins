@@ -49,7 +49,7 @@ namespace VTGrenad
                             Flash.distanceMultiplierFacility)) *
                                 Flash.powerOverDot.Evaluate(Vector3.Dot(hub.PlayerCameraReference.forward,
                                     (hub.PlayerCameraReference.position - position).normalized));
-                        if ((double)num > 0.0)
+                        if (num > 0.0)
                         {
                             joueur.GiveEffect(Effect.Deafened, 1, 10);
                             joueur.GiveEffect(Effect.Exhausted, 1, 10);
@@ -60,56 +60,22 @@ namespace VTGrenad
         }
         private void OnCollisionGrenade(CollisionGrenadeEventArgs ev)
         {
-
             if (ev.Type == GrenadeType.Flashbang)
                 ev.Grenade.NetworkfuseTime = 0.01f;
         }
 
         private void OnChangeIntoFragEvent(ChangeIntoFragEventArgs ev)
         {
-            ev.Item.Despawn();
             Map.Get.SpawnGrenade(ev.Item.Position, Vector3.zero, 0.1f);
+            ev.Item.Despawn();
             ev.Allow = false;
-        }
+        }   
 
         private void OnKeyPress(PlayerKeyPressEventArgs ev)
         {
             if (ev.KeyCode == Plugin.Config.Key)
             {
-                if (!Plugin.Config.NotAGrenadeRole.Contains(ev.Player.RoleID) 
-                    && ev.Player?.ItemInHand?.ID == (int)ItemType.WeaponManagerTablet 
-                    && !ev.Player.ItemInHand.IsCustomItem)
-                {
-                    if (Plugin.DictTabletteGrenades.ContainsKey(ev.Player.PlayerId))
-                    {
-                        List<AmorcableGrenade> listGrenade = Plugin.DictTabletteGrenades[ev.Player.PlayerId];
-                        foreach (AmorcableGrenade grenade in listGrenade)
-                        {
-                            try
-                            {
-                                if (grenade.IsArmed)
-                                {
-                                    Map.Get.SpawnGrenade(grenade.GrItem.Position, Vector3.zero, 0.2f, grenade.IsFlash ? GrenadeType.Flashbang : GrenadeType.Grenade, ev.Player);
-                                    grenade.Used = true;
-                                    grenade.GrItem.Destroy();
-                                }
-                            }
-                            catch
-                            {
-
-                            }
-                        }
-                        var listGrenadeNotUsed = listGrenade.Where(p => !p.Used);
-                        if (listGrenadeNotUsed == null || !listGrenadeNotUsed.Any())
-                        {
-                            Plugin.DictTabletteGrenades.Remove(ev.Player.PlayerId);
-                        }
-                        else
-                        {
-                            Plugin.DictTabletteGrenades[ev.Player.PlayerId] = listGrenadeNotUsed.ToList();
-                        }
-                    }
-                }
+                ev.Player.ExecuteCommand(".Boom", false);
             }
         }
 

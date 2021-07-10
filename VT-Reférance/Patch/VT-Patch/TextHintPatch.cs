@@ -10,12 +10,15 @@ namespace VT_Referance.Patch.VT_Patch
     {
         private static bool Prefix(HintDisplay __instance, Hint hint)
         {
+            //futur patch
+            /*
             if (hint is TextHint && !__instance.isLocalPlayer && hint.DurationScalar != 36827)
             {
                 TextHintTimed Text = new TextHintTimed(hint as TextHint);
                 TextHandleSingleton.Instance.AddMessage(__instance.netIdentity, Text);
                 return false;
             }
+            */
             return true;
         }
     }
