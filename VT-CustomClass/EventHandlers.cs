@@ -2,10 +2,11 @@
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using VT_Referance.Variable;
+using VT_Referance;
+using System;
 
 namespace VTCustomClass
 {
@@ -18,11 +19,21 @@ namespace VTCustomClass
             Server.Get.Events.Player.PlayerSetClassEvent += OnClass;
             Server.Get.Events.Player.PlayerJoinEvent += OnJoin;
             Server.Get.Events.Round.RoundRestartEvent += OnRestart;
+            VTController.Server.Events.Player.PlayerSetClassEvent += OnSetID;
+        }
+
+        private void OnSetID(VT_Referance.Event.EventArguments.PlayerSetClassEventArgs ev)
+        {
+            if (ev.NewID != 2 && ev.NewID != 199)
+                ev.Player.SynapseGroup.Permissions.Remove("synapse.see.invisible");
+            else if (ev.Player.RemoteAdminAccess)
+                ev.Player.SynapseGroup.Permissions.Add("synapse.see.invisible");
+
         }
 
         private void OnRestart()
         {
-            VT_Referance.Variable.Data.PlayerRole.Clear();
+            Data.PlayerRole.Clear();
         }
 
         private void OnJoin(PlayerJoinEventArgs ev)
@@ -33,7 +44,7 @@ namespace VTCustomClass
 
         private void OnClass(PlayerSetClassEventArgs ev)
         {
-            VT_Referance.Variable.Data.PlayerRole[ev.Player] = (int)ev.Role;
+            Data.PlayerRole[ev.Player] = (int)ev.Role;
             if (RespawnPlayer.Contains(ev.Player))
             {
                 ev.SpawnRole(RoleType.ChaosInsurgency, new CHILeaderScript());
@@ -51,10 +62,6 @@ namespace VTCustomClass
                 ev.SpawnRole(RoleType.NtfLieutenant, new NTFVirologueScript());
                 RespawnPlayer.Remove(ev.Player);
             }
-            if (ev.Player.RemoteAdminAccess == false || ev.Role != RoleType.Spectator)
-                ev.Player.SynapseGroup.Permissions.Remove("synapse.see.invisible");
-            else if (ev.Player.RemoteAdminAccess == true && ev.Role == RoleType.Spectator)
-                ev.Player.SynapseGroup.Permissions.Add("synapse.see.invisible");
         }
 
         public static List<Player> RespawnPlayer = new List<Player>();

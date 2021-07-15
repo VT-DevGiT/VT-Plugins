@@ -31,7 +31,8 @@ namespace VT_Referance.Patch.Event
                         break;
                     }
                 }
-
+                if (grenadeSettings == null)
+                    return false;
                 SynapseItem pickup = item.GetSynapseItem();
                 GrenadeType Type;
                 bool falg = true;

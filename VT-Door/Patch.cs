@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace VTDoor
 {
-
+    /*
     [HarmonyPatch(typeof(AirlockController), nameof(AirlockController.Update))]
     internal static class KillForTest1
     {
@@ -26,4 +26,5 @@ namespace VTDoor
             return false;
         }
     }
+    */
 }

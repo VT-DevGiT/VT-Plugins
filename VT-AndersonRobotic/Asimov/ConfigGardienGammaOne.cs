@@ -29,8 +29,12 @@ namespace VT_AndersonRobotic
             }
         };
 
+        [Description("Shield of the class")]
+        public int Shield = 50;
+        public int MaxShield = 100;
+
         [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 50;
+        public int ArtificialHealth = 00;
         public int MaxArtificialHealth = 100;
 
         [Description("The name of the class")]

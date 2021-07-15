@@ -17,36 +17,50 @@ namespace VTRpSCP
         public EventHandlers()
         {
             Server.Get.Events.Round.RoundCheckEvent += OnCheck;
-            Server.Get.Events.Scp.Scp173.Scp173BlinkEvent += OnBlink;
-            VTController.Server.Events.Map.ActivatingWarheadPanelEvent += OnWarPanel;
-            VTController.Server.Events.Map.LockerInteractEvent += OnLocker;
-            VTController.Server.Events.Map.Scp914ActivateEvent += On914Active;
-            VTController.Server.Events.Map.Scp914changeSettingEvent += On914Change;
+            Server.Get.Events.Scp.ScpAttackEvent += OnScpAttack;
+            Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
+            Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent += OnScp096Target;
+            Server.Get.Events.Player.PlayerSetClassEvent += OnPlayerSetClass;
         }
 
-        private void OnBlink(Scp173BlinkEventArgs ev)
+        private void OnDeath(PlayerDeathEventArgs ev)
         {
-            ev.Scp173.GetComponent<Scp173PlayerScript>().AllowMove = false;
+            
+            foreach(var Scp in Server.Get.Players.Where(p => p.Scp096Controller.EnrageTimeLeft > 1))
+            {
+                Timing.CallDelayed(0.1f, () =>
+                {
+                    if (!Scp.Scp096Controller.Targets.Any())
+                        Scp.Scp096Controller.EnrageTimeLeft = 0.1f;
+                });
+            }
         }
 
-        private void On914Change(Change914KnobSettingEventArgs ev)
+        private void OnPlayerSetClass(Synapse.Api.Events.SynapseEventArguments.PlayerSetClassEventArgs ev)
         {
-            Server.Get.Logger.Send($"{ev.Allow}", ConsoleColor.Yellow);
+            Timing.CallDelayed(60, () =>
+            {
+                if (!ev.Player.Is939())
+                    ev.Player.GetComponent<DissonanceUserSetup>().DisableSpeaking(TriggerType.Role, Assets._Scripts.Dissonance.RoleType.SCP);
+                if (ev.Player.RoleType == RoleType.Scp049)
+                    ev.Player.GetComponent<DissonanceUserSetup>().EnableSpeaking(TriggerType.Proximity | TriggerType.Intercom);
+            });
         }
 
-        private void On914Active(VT_Referance.Event.EventArguments.Scp914ActivateEventArgs ev)
+        private void OnScp096Target(Scp096AddTargetEventArgument ev)
         {
-            Server.Get.Logger.Send($"{ev.Allow}", ConsoleColor.Yellow);
+            if (ev.Scp096.IsCuffed)
+                ev.Allow = false;
+            else
+            {
+                ev.Scp096.Scp096Controller.EnrageTimeLeft = 600;
+            }
         }
 
-        private void OnLocker(LockerInteractEventArgs ev)
+        private void OnScpAttack(ScpAttackEventArgs ev)
         {
-            Server.Get.Logger.Send($"{ev.Allow}", ConsoleColor.Yellow);
-        }
-
-        private void OnWarPanel(WarHeadInteracteEventArgs ev)
-        {
-            Server.Get.Logger.Send($"{ev.Allow}", ConsoleColor.Yellow);
+            if (ev.Scp.RoleID != (int)RoleType.Scp096 && ev.Scp.IsCuffed)
+                ev.Allow = false;
         }
 
         private void OnCheck(RoundCheckEventArgs ev)

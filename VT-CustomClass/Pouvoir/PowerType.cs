@@ -24,5 +24,6 @@ namespace VTCustomClass.Pouvoir
         BadGreen = 10,
         Attack = 11,
         Clear = 12,
+        invisible = 13
     }
 }

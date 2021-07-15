@@ -32,7 +32,7 @@ namespace VT_U2I
         public int MaxShield = 100;
 
         [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 50;
+        public int ArtificialHealth = 0;
         public int MaxArtificialHealth = 100;
 
         [Description("The name of the class")]

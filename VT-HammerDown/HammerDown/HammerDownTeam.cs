@@ -57,7 +57,6 @@ namespace VT_HammerDown
                 {
                     player.RoleID = (int)RoleID.CdmCadet;
                     player.UnitName = Unitname;
-                    players.Remove(player);
                 }
             }
         }

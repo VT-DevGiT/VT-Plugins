@@ -31,8 +31,12 @@ namespace VT_HammerDown
         };
 
         [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 100;
-        public int MaxArtificialHealth = 125;
+        public int ArtificialHealth = 0;
+        public int MaxArtificialHealth = 100;
+
+        [Description("Shield of the class")]
+        public int Shield = 125;
+        public int MaxShield = 150;
 
         [Description("The Chance of which the class spawns")]
         public int SpawnChance = 50;

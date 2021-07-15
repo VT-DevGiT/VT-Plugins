@@ -9,6 +9,7 @@ using VT_Referance.Variable;
 using VT_Referance.Method;
 using VT_Referance.PlayerScript;
 using static VT_Referance.Variable.Data;
+using System;
 
 namespace VTCustomClass.PlayerScript
 {
@@ -33,33 +34,35 @@ namespace VTCustomClass.PlayerScript
 
         protected override void AditionalInit()
         {
-            Player.Invisible = true;
+            Player.GetOrAddComponent<Invisible>().enabled = true;
         }
 
         protected override void Event()
         {
-            Server.Get.Events.Player.PlayerDamageEvent += OnDamage;
+            Server.Get.Events.Scp.ScpAttackEvent += OnAttack;
+        }
+
+        private void OnAttack(ScpAttackEventArgs ev)
+        {
+            if (ev.Allow && ev.Scp == Player)
+            {
+                ev.Allow = false;
+                ev.Target.Hurt(20, DamageTypes.Scp0492, ev.Scp);
+                if (!ev.Target.IsUTR())
+                {
+                    ev.Target.GiveEffect(Effect.Concussed, 1, 10);
+                    ev.Target.GiveEffect(Effect.Deafened, 1, 10);
+                    ev.Target.GiveEffect(Effect.Exhausted, 1, 10);
+                    ev.Target.GiveEffect(Effect.Asphyxiated, 1, 5);
+                }
+            }
         }
 
         public override void DeSpawn()
         {
-            Player.Invisible = false;
+            Server.Get.Events.Scp.ScpAttackEvent -= OnAttack;
+            Player.GetOrAddComponent<Invisible>().Kill();
             base.DeSpawn();
-            Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
-        }
-
-
-        private void OnDamage(PlayerDamageEventArgs ev)
-        {
-            if (ev.Killer == Player && ev.Victim.IsUTR())
-            {
-                ev.Victim.GiveEffect(Effect.Concussed, 1, 10);
-                ev.Victim.GiveEffect(Effect.Amnesia, 1, 10);
-                ev.Victim.GiveEffect(Effect.Deafened, 1, 10);
-                ev.Victim.GiveEffect(Effect.Exhausted, 1, 10);
-                ev.Victim.GiveEffect(Effect.Asphyxiated, 1, 5);
-                ev.Allow = false;
-            }
         }
     }
 }

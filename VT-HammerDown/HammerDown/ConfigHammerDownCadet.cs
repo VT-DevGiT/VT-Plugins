@@ -30,8 +30,12 @@ namespace VT_HammerDown
         };
 
         [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 30;
-        public int MaxArtificialHealth = 125;
+        public int ArtificialHealth = 0;
+        public int MaxArtificialHealth = 100;
+
+        [Description("Shield of the class")]
+        public int Shield = 75;
+        public int MaxShield = 125;
 
         [Description("The name of the class")]
         public string RoleName = "Hammer-Down Cadet";

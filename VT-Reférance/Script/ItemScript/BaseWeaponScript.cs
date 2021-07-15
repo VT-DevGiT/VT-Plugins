@@ -68,7 +68,7 @@ namespace VT_Referance.ItemScript
 
         private void OnShoot(PlayerShootEventArgs ev)
         {
-            if (ev.Weapon.ID == ID)
+            if (ev.Weapon?.ID == ID)
                 this.Shoot(ev);
         }
 

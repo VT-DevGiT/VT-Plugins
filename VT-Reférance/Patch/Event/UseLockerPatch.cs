@@ -48,7 +48,6 @@ namespace VT_Referance.Patch.Event
                 VTController.Server.Events.Map.InvokeLockerIneractEvent(__instance.GetPlayer(), sing.lockers[lockerId], ref flag);
                 if (flag)
                 {
-                    Server.Get.Logger.Send($"CallCmdUseLocker patch 9", ConsoleColor.Cyan);
                     bool _flag = (sing.openLockers[lockerId] & 1 << chamberNumber) != 1 << chamberNumber;
                     sing.ModifyOpen(lockerId, chamberNumber, _flag);
                     sing.RpcDoSound(lockerId, chamberNumber, _flag);

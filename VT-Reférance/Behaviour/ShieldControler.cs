@@ -1,5 +1,6 @@
 ﻿using Hints;
 using Mirror;
+using Synapse;
 using Synapse.Api;
 using UnityEngine;
 using VT_Referance.Event.EventArguments;
@@ -29,10 +30,14 @@ namespace VT_Referance.Behaviour
 
         private void OnSetClass(PlayerSetClassEventArgs ev)
         {
+            Server.Get.Logger.Info($"{ev.Player} OnSetClass");
+            Server.Get.Logger.Info($"{ev.Player == player}");
             if (ev.Player == player)
             {
+                
                 ShieldLock = false;
                 Shield = 0;
+                Server.Get.Logger.Info($"{ev.Player} Shield = 0");
             }
         }
 

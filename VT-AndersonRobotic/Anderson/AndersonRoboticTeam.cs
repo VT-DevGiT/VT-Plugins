@@ -29,6 +29,7 @@ namespace VT_AndersonRobotic
             }
 
             if (Server.Get.RoleManager.IsIDRegistered((int)RoleID.AndersonUTRheavy) && Server.Get.RoleManager.IsIDRegistered((int)RoleID.AndersonUTRlight))
+            { 
                 foreach (var ply in players)
                 {
                     if (UTRSpawn > 3)
@@ -42,12 +43,11 @@ namespace VT_AndersonRobotic
                         UTRSpawn++;
                     }
                     else ply.RoleID = (int)RoleID.AndersonEngineer;
-                    players.Remove(ply);
                 }
+            }
             else foreach (var ply in players)
             {
                 ply.RoleID = (int)RoleID.AndersonEngineer;
-                players.Remove(ply);
             }
         }
     }

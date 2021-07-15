@@ -42,6 +42,7 @@ Version = "v.1.1.3"
         {
             Instance = this;
             Server.Get.TeamManager.RegisterTeam<AndersonRoboticTeam>();
+            Server.Get.TeamManager.RegisterTeam<AsimovTeam>();
             Server.Get.RoleManager.RegisterCustomRole<AndersonRoboticLeaderScript>();
             Server.Get.RoleManager.RegisterCustomRole<AndersonRoboticEngineerScript>();
             PluginTranslation.AddTranslation(new PluginTranslation());

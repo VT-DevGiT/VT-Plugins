@@ -12,20 +12,29 @@ namespace VT_Referance.Patch.Event
         {
             try
             {
-                bool flag = true;
-                if (!__instance._interactRateLimit.CanExecute(true) || Intercom.AdminSpeaking ||
-                    (player && !__instance.ServerAllowToSpeak()) || Intercom.host.Networkspeaker != __instance.gameObject)
+                if (!__instance._interactRateLimit.CanExecute() || Intercom.AdminSpeaking)
                     return false;
+                if (player)
+                {
+                    if (!__instance.ServerAllowToSpeak())
+                        return false;
 
-                Synapse.Api.Player Player = player ? __instance.GetPlayer() : null;
-                VTController.Server.Events.Player.InvokePlayerSpeakIntercomEvent(Player, ref flag);
-
-                if (flag) Intercom.host.RequestTransmission(__instance.gameObject);
+                    bool flag = true;
+                    Synapse.Api.Player Player = __instance.GetPlayer();
+                    VTController.Server.Events.Player.InvokePlayerSpeakIntercomEvent(Player, ref flag);
+                    if (flag) Intercom.host.RequestTransmission(__instance.gameObject);
+                }
+                else
+                {
+                    if (!(Intercom.host.Networkspeaker == __instance.gameObject))
+                        return false;
+                    Intercom.host.RequestTransmission(null);
+                }
                 return false;
             }
             catch (Exception e)
             {
-                Server.Get.Logger.Error($"Vt-Event: ActivatingWarheadPanel failed!!\n{e}\nStackTrace:\n{e.StackTrace}");
+                Server.Get.Logger.Error($"Vt-Event: IntercomSpeak failed!!\n{e}\nStackTrace:\n{e.StackTrace}");
                 return true;
             }
         }

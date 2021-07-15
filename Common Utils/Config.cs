@@ -41,9 +41,10 @@ namespace Common_Utiles
             }
         };
 
+        [Description("If true it will remove the old recipes of 914.")]
+        public bool RemouvRecipes = true;
 
-
-        [Description("A list of recipes for SCP 914. Be careful if the config is not empty it will remove the old recipes. ")]
+        [Description("A list of recipes for SCP 914.")]
         public List<Serialized914Recipe> Recipes = new List<Serialized914Recipe>()
         {
             new Serialized914Recipe((int)ItemType.KeycardFacilityManager, new List<int>() {(int)ItemType.Coin},

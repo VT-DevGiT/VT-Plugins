@@ -1,18 +1,19 @@
 ﻿using HarmonyLib;
+using Synapse;
 using Synapse.Api;
 using System;
 
 namespace VT_Referance.Patch.Event
 {
-
-    [HarmonyPatch(typeof(Player), "set_RoleID")]
+    [HarmonyPatch(typeof(Player), "RoleID", MethodType.Setter)]
     class SynapseSetClassIdPatch
     {
         private static bool Prefix(Player __instance, int value)
         {
             try
             {
-                bool flag = true; 
+                Server.Get.Logger.Info("Log RoleID set");
+                bool flag = true;
                 VTController.Server.Events.Player.InvokeSetClassEvent(__instance, __instance.RoleID, ref value, ref flag);
                 return flag;
             }

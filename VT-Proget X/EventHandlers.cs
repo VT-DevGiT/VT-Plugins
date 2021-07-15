@@ -1,9 +1,11 @@
 ﻿using MEC;
 using Synapse;
 using Synapse.Api;
+using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using System.Linq;
-using VT_Referance.Method;
+using VT_Referance;
+using VT_Referance.Event.EventArguments;
 
 namespace VTProget_X
 {
@@ -14,13 +16,25 @@ namespace VTProget_X
             Server.Get.Events.Map.TriggerTeslaEvent += OnTriggerTeslaEvent;
             Server.Get.Events.Round.RoundStartEvent += OnRoundStart;
             Server.Get.Events.Round.RoundEndEvent += OnRoundEnd;
+            VTController.Server.Events.Player.PlayerSpeakIntercomEvent += OnSpeakIntercom;
+        }
+
+        private void OnSpeakIntercom(PlayerSpeakIntercomEventEventArgs ev)
+        {
+            
+            if (!Plugin.Config.KeycardSpeak || ev.Player == null || ev.Player.Bypass)
+                return;
+            if (ev.Player?.ItemInHand == null)
+                ev.Allow = false;
+            else if (!Map.Get.GetDoor(DoorType.Intercom).DoorPermissions.CheckPermissions(ev.Player.ItemInHand.ItemType, ev.Player.Hub))
+                ev.Allow = false;
+            
         }
 
         private void OnRoundEnd()
         {
             Plugin.Instance.TeslaEnabled = true;
             Plugin.Instance.DecontInProgress = false;
-            Timing.KillCoroutines("Decont");
         }
 
         private void OnRoundStart()

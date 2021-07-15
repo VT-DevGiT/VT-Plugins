@@ -36,7 +36,8 @@ Version = "v.1.2.2"
         {
             if (Config.Recipes.Any())
             {
-                Map.Get.Scp914.Recipes.Clear();
+                if (Config.RemouvRecipes)
+                    Map.Get.Scp914.Recipes.Clear();
                 foreach (var recipe in Config.Recipes)
                 {
                     Map.Get.Scp914.Recipes.Add(recipe.Parse());

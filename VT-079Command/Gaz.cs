@@ -41,9 +41,10 @@ namespace VT079.Command
                 result.State = CommandResultState.NoPermission;
                 return result;
             }
-            if (context.Player.Room.RoomType != RoomType.HCZ_079)
+            if (context.Player.Room.RoomType != RoomType.HCZ_079 && context.Player.Room.RoomType != RoomType.SURFACE)
                 Timing.RunCoroutine(GasRoom(context.Player.Room, context.Player));
-
+            else
+                result.Message = "Invalide Zone";
             return result;
         }
         private List<RoomType> grandSalle = new List<RoomType>() { RoomType.HCZ_106, RoomType.HCZ_NUKE, RoomType.HCZ_049, RoomType.EZ_INTERCOM };

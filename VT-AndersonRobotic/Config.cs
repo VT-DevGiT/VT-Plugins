@@ -8,12 +8,6 @@ namespace VT_AndersonRobotic
     public class Config : AbstractConfigSection
     {
 
-        [Description("The Health of Anderson Robotic members")]
-        public int Health = 130;
-
-        [Description("The Role Name that is displayed when you look at the Player")]
-        public string CustomRoleName = "<color=yellow>Anderson Unit</color>";
-
         [Description("The chance that a Anderson Robotic Squad spawns instead of a Chaos")]
         public float SpawnChance = 50f;
 
@@ -26,6 +20,7 @@ namespace VT_AndersonRobotic
         [Description("The maximal amount of players that can spawn as Anderson Robotic Unite in one squad")]
         public int SpawnSizeAnderson = 7;
 
-        public int SpawnSizeAsimov { get; internal set; }
+        [Description("The maximal amount of players that can spawn as Asimov Unite in one squad")]
+        public int SpawnSizeAsimov = 20;
     }
 }

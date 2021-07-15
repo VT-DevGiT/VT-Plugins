@@ -14,7 +14,6 @@ namespace VT_Referance.Patch.Event
     {
         private static bool Prefix(PlayerInteract __instance)
         {
-            Synapse.Api.Logger.Get.Info("CallCmdUse914");
             try
             {
                 if (!__instance._playerInteractRateLimit.CanExecute())
@@ -27,7 +26,7 @@ namespace VT_Referance.Patch.Event
             }
             catch (Exception e)
             {
-                Synapse.Api.Logger.Get.Error($"Vt-Event:Activate914Patch failed!!\n{e}\nStackTrace:\n{e.StackTrace}");
+                Synapse.Api.Logger.Get.Error($"Vt-Event: Activate914Patch failed!!\n{e}\nStackTrace:\n{e.StackTrace}");
                 return true;
             }
         }

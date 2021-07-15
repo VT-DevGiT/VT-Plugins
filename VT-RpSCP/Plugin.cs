@@ -17,17 +17,11 @@ namespace VTRpSCP
 
     public class Plugin : AbstractPlugin
     {
-        void PatchAll()
-        { 
-            var instance = new Harmony("VTRpSCP.Patch");
-            instance.PatchAll();
-        }
         public static Plugin Instance { get; private set; }
 
         public override void Load()
         {
             Instance = this;
-            PatchAll();
             new EventHandlers();
         }
 

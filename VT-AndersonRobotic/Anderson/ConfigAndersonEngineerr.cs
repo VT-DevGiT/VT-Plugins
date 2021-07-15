@@ -19,7 +19,7 @@ namespace VT_AndersonRobotic
             Ammo = new SerializedAmmo(100, 100, 100),
             Items = new List<SerializedPlayerItem>()
             {
-                new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 75, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.KeycardNTFLieutenant, 75, 0, 0, 0, Vector3.one, 100, true),
                 new SerializedPlayerItem((int)ItemType.GunE11SR, 75, 0, 0, 0, Vector3.one, 100, true),
                 new SerializedPlayerItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one, 100, true), 
                 new SerializedPlayerItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one, 100, true), 
@@ -29,8 +29,12 @@ namespace VT_AndersonRobotic
             }
         };
 
+        [Description("Shield of the class")]
+        public int Shield = 100;
+        public int MaxShield = 100;
+
         [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 50;
+        public int ArtificialHealth = 0;
         public int MaxArtificialHealth = 100;
 
         [Description("The name of the class")]

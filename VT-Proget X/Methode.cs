@@ -123,7 +123,7 @@ namespace VTProget_X
                 {
                     if (DecontaminationController.Singleton.GetFieldValueorOrPerties<int>("_nextPhase") != 0)
                         DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageReady;
-                    else if (DecontaminationController.Singleton.GetFieldValueorOrPerties<int>("_nextPhase") != DecontaminationController.Singleton.DecontaminationPhases.Length - 1)
+                    else if (DecontaminationController.Singleton.GetFieldValueorOrPerties<int>("_nextPhase") == DecontaminationController.Singleton.DecontaminationPhases.Length - 1)
                         DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageInProgress;
                     else
                         DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageFinished;

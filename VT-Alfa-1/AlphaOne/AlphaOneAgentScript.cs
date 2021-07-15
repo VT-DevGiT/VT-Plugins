@@ -23,6 +23,6 @@ namespace VT_Alpha
 
         protected override string RoleName => Plugin.ConfigAlphaOneAgent.RoleName;
 
-        protected override AbstractConfigSection Config => Plugin.Config;
+        protected override AbstractConfigSection Config => Plugin.ConfigAlphaOneAgent;
     } 
 }

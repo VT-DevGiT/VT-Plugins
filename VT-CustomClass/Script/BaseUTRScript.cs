@@ -48,7 +48,7 @@ namespace VTCustomClass.PlayerScript
 
         private void OnScp173Spawn(PlayerSetClassEventArgs ev)
         {
-            if (ev.Role == RoleType.Scp173 && !ev.Player.Scp173Controller.IgnoredPlayers.Contains(Player))
+            if (ev.Player != Player && ev.Role == RoleType.Scp173 && !ev.Player.Scp173Controller.IgnoredPlayers.Contains(Player))
                 ev.Player.Scp173Controller.IgnoredPlayers.Add(Player);
         }
 
@@ -76,11 +76,11 @@ namespace VTCustomClass.PlayerScript
             if (ev.Victim == Player)
             {
                 var DamageType = ev.HitInfo.GetDamageType();
-                if (!DamageType.isScp && !DamageType.isWeapon && DamageType != DamageTypes.Tesla && DamageType != DamageTypes.Grenade)
+                if (DamageType != null && !DamageType.isScp && !DamageType.isWeapon && DamageType != DamageTypes.Tesla && DamageType != DamageTypes.Grenade)
                     ev.Allow = false;
-                else if (ev.Killer != Player && Plugin.ConfigUTR.ListScpNoDamge.Contains(ev.Killer.RoleID))
+                else if (ev.Killer != Player && Plugin.ConfigUTR.ListScpNoDamge != null && Plugin.ConfigUTR.ListScpNoDamge.Contains(ev.Killer.RoleID))
                     ev.Allow = false;
-                else if (ev.Killer != Player && Plugin.ConfigUTR.ListScpDamge.Contains(ev.Killer.RoleID))
+                else if (ev.Killer != Player && Plugin.ConfigUTR.ListScpDamge != null && Plugin.ConfigUTR.ListScpDamge.Contains(ev.Killer.RoleID))
                     ev.DamageAmount = Plugin.ConfigUTR.damage;
             }
             else if (ev.Killer == Player && ev.Victim?.RoleID == (int)RoleType.Scp096)

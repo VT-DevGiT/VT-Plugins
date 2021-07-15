@@ -66,8 +66,11 @@ namespace VTGrenad
 
         private void OnChangeIntoFragEvent(ChangeIntoFragEventArgs ev)
         {
-            Map.Get.SpawnGrenade(ev.Item.Position, Vector3.zero, 0.1f);
-            ev.Item.Despawn();
+            if (ev.Item != null && ev.Grenade != null)
+            { 
+                Map.Get.Explode(ev.Item.Position, GrenadeType.Grenade, ev.Grenade.throwerGameObject.GetPlayer());
+                ev.Item.Despawn();
+            }
             ev.Allow = false;
         }   
 

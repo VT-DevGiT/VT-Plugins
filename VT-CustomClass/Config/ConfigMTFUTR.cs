@@ -7,9 +7,6 @@ namespace VTCustomClass.Config
 {
     public class ConfigMTFUTR : AbstractConfigSection
     {
-        [Description("The MapPoint where the class should Spawn")]
-        public SerializedMapPoint SpawnPoint = new SerializedMapPoint("LCZ_Plants", -0.0884471f, 2.171398f, -4.554413f);
-
         [Description("The Amount of Health the class have")]
         public int Health = 180;
 

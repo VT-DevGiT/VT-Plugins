@@ -11,7 +11,7 @@ namespace VThandcuff
         [Description("Can Cuff ally")]
         public bool CuffAlly = true;
 
-        [Description("Can Cuff role (The ID)")]
+        [Description("Can Cuff role (ID)")]
         public List<int> CuffId = new List<int>()
         {
             (int)RoleID.Scp035,

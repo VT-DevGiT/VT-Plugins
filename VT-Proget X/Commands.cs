@@ -33,19 +33,17 @@ namespace VTProget_X
                 Server.Get.Logger.Info(DecontaminationController.Singleton.TimeOffset);
                 return result;
             }
-            //if (Methods.GetVoltage() >= 1000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet && context.Player?.Room?.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
+            if (Methods.GetVoltage() >= 1000 && context.Player?.ItemInHand?.ItemType == ItemType.WeaponManagerTablet && context.Player?.Room?.RoomType == RoomInformation.RoomType.EZ_INTERCOM)
             {
+                Map.Get.GlitchedCassie("Decontamination sequence commencing in 2 minutes");
                 Starting.phase = 0;
                 Server.Get.Logger.Info(DecontaminationController.Singleton.TimeOffset);
                 var phase = DecontaminationController.Singleton.DecontaminationPhases;
                 for(int i = 0; i < phase.Length; i++)
                 {
                     var elem = phase[i];
-                    Server.Get.Logger.Info($"phase {i} - {elem.Function} - {elem.AnnouncementLine != null}");
                 }
                 DecontaminationController.DecontaminationPhase[] newPhase = new DecontaminationController.DecontaminationPhase[3];
-                Server.Get.Logger.Info($"Taille {DecontaminationController.Singleton.DecontaminationPhases.Length}");
-                Server.Get.Logger.Info($"Phase {DecontaminationController.Singleton.GetFieldValueorOrPerties<int>("_nextPhase")}");
                 newPhase[0] = new DecontaminationController.DecontaminationPhase()
                 {
                     TimeTrigger = (float)DecontaminationController.GetServerTime + 1,
@@ -61,7 +59,7 @@ namespace VTProget_X
                 };
                 newPhase[2] = new DecontaminationController.DecontaminationPhase()
                 {
-                    TimeTrigger = (float)DecontaminationController.GetServerTime + 20,
+                    TimeTrigger = (float)DecontaminationController.GetServerTime + 120,
                     Function = PhaseFunction.Final,
                     AnnouncementLine = phase[phase.Length - 1].AnnouncementLine
                 };
@@ -73,6 +71,10 @@ namespace VTProget_X
                     door.Locked = true;
                     door.Open = true;
                 }
+                Timing.CallDelayed(125f, () =>
+                {
+                    Map.Get.GlitchedCassie("Light Containment Zone is locked down and ready for decontamination .");
+                });
                 result.Message = "Decontamination Start";
                 result.State = CommandResultState.Ok;
                 Plugin.Instance.DecontInProgress = true;

@@ -30,8 +30,12 @@ namespace VT_HammerDown
         };
 
         [Description("ArtificialHealthConfig of the class")]
-        public int ArtificialHealth = 50;
+        public int ArtificialHealth = 0;
         public int MaxArtificialHealth = 100;
+
+        [Description("Shield of the class")]
+        public int Shield = 100;
+        public int MaxShield = 125;
 
         [Description("max of this role which can spawn into a respawn")]
         public int MaxRespawn = 7;

@@ -16,5 +16,8 @@ namespace VTProget_X
 
         [Description("The tablets disable tesla Gate")]
         public bool TeslaTablets = true;
+
+        [Description("Must have a keycard (intercom level) in your hands to be able to speak")]
+        public bool KeycardSpeak = true;
     }
 }

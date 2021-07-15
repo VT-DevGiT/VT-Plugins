@@ -11,6 +11,7 @@ using VT_Referance.Variable;
 using VT_Referance.Method;
 using VT_Referance.PlayerScript;
 using static VT_Referance.Variable.Data;
+using System;
 
 namespace VTCustomClass.PlayerScript
 {
@@ -57,26 +58,28 @@ namespace VTCustomClass.PlayerScript
             aura.HerHp = 0;
             aura.Distance = 0;
             KillComponent<Aura>();
-            Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
+            Server.Get.Events.Scp.ScpAttackEvent -= OnAttack;
             Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
             if (!Server.Get.Players.Where(p => p.RoleID == (int)RoleID.SCP008).Any())
-                Map.Get.GlitchedCassie("ALL SCP 0 0 8 SUCCESSFULLY TERMINATED");
+                Map.Get.GlitchedCassie("ALL SCP 0 0 8 SUCCESSFULLY TERMINATED . NOSCPSLEFT");
         }
 
         protected override void Event()
         {
-            Server.Get.Events.Player.PlayerDamageEvent += OnDamage;
+            Server.Get.Events.Scp.ScpAttackEvent += OnAttack;
             Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
         }
 
-        private void OnDamage(PlayerDamageEventArgs ev)
+        private void OnAttack(ScpAttackEventArgs ev)
         {
-            if (ev.Killer == Player)
+            if (ev.Scp == Player)
             {
-                ev.Victim.GiveEffect(Effect.Bleeding, 2, 4);
-                ev.DamageAmount = 50;
+                ev.Target.GiveEffect(Effect.Bleeding, 2, 4);
+                ev.Target.Hurt(50, DamageTypes.Scp0492, ev.Scp);
+                ev.Allow = false;
             }
         }
+
 
         private void OnKeyPress(PlayerKeyPressEventArgs ev)
         {

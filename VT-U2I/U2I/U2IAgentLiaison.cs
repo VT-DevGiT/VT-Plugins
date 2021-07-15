@@ -25,5 +25,10 @@ namespace VT_U2I
         protected override string RoleName => Plugin.ConfigU2IAgentLiaison.RoleName;
 
         protected override AbstractConfigSection Config => Plugin.ConfigU2IAgentLiaison;
+
+        protected override void AditionalInit()
+        {
+            Player.Position = new SerializedMapPoint("Root_*&*Outside Cams", 187.6646f, -5.909363f, -28.50043f).Parse().Position;
+        }
     } 
 }

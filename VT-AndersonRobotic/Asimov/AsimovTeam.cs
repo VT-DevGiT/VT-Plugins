@@ -29,7 +29,6 @@ namespace VT_AndersonRobotic
             foreach (var ply in players)
             {
                 ply.RoleID = (int)RoleID.GardienAsimov;
-                players.Remove(ply);
             }
         }
     }

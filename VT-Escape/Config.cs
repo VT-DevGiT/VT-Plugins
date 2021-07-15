@@ -24,11 +24,12 @@ namespace VTEscape
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.RSC, TeamID.CHI, RoleID.ChaosInsurgency),
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.CDP, TeamID.None, RoleID.ChaosInsurgency),
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.CDP, TeamID.NTF, RoleID.NtfCadet),
-
             //Custom
 
             //escapeMTF Role
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.CDP, TeamID.CDM, RoleID.CdmCadet),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.CDP, TeamID.GOC, RoleID.GOCMember),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.RSC, TeamID.GOC, RoleID.GOCMember),
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.DirecteurSite, TeamID.None, TeamID.None, RoleID.NtfLieutenantColonel),
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.GardeSuperviseur, TeamID.None, TeamID.None, RoleID.NtfCommander),
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.ScientifiqueSuperviseur, TeamID.None, TeamID.None, RoleID.NtfExpertReconfinement),

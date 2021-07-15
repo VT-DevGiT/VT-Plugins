@@ -10,6 +10,9 @@ using VT_Referance.Method;
 using Synapse.Api.Events.SynapseEventArguments;
 using RemoteAdmin;
 using VT_Referance.Behaviour;
+using System.Linq;
+using Respawning.NamingRules;
+using Respawning;
 
 namespace VT_Referance.PlayerScript
 {
@@ -201,31 +204,45 @@ namespace VT_Referance.PlayerScript
 
         internal void ScpDeathAnnonce(PlayerDeathEventArgs ev)
         {
-            Role role = new Role();
-            role.fullName = ((IScpRole)this).ScpName;
-            role.roleId = (RoleType)RoleId;
-            NineTailedFoxAnnouncer.singleton.ServerOnlyAddGlitchyPhrase("test message glitch truc",0, 0);
-            GameObject gameObject = null;
-            foreach (GameObject player in PlayerManager.players)
-            {
-                if (player.GetComponent<QueryProcessor>().PlayerId == ev.HitInfo.PlayerId)
-                    gameObject = player;
-            }
-            if (gameObject != null)
-            {
-                NineTailedFoxAnnouncer.AnnounceScpTermination(role, ev.HitInfo, string.Empty);
-            }
+            if (ev.Victim != Player)
+                return;
+            string Name = ((IScpRole)this).ScpName;
+            Player player = Server.Get.Players.FirstOrDefault(p => p.PlayerId == ev.HitInfo.PlayerId);
+            DamageTypes.DamageType damageType = ev.HitInfo.GetDamageType();
+            if (damageType == DamageTypes.Tesla)
+                NineTailedFoxAnnouncer.singleton.ServerOnlyAddGlitchyPhrase($". SCP {Name} SUCCESSFULLY TERMINATED BY AUTOMATIC SECURITY SYSTEM", 0, 0);
+            else if (damageType == DamageTypes.Nuke)
+                NineTailedFoxAnnouncer.singleton.ServerOnlyAddGlitchyPhrase($". SCP {Name} SUCCESSFULLY TERMINATED BY ALPHA WARHEAD", 0, 0);
+            else if (damageType == DamageTypes.Decont)
+                NineTailedFoxAnnouncer.singleton.ServerOnlyAddGlitchyPhrase($". SCP {Name} LOST IN DECONTAMINATION SEQUENCE", 0, 0);
             else
             {
-                DamageTypes.DamageType damageType = ev.HitInfo.GetDamageType();
-                if (damageType == DamageTypes.Tesla)
-                    NineTailedFoxAnnouncer.AnnounceScpTermination(role, ev.HitInfo, "TESLA");
-                else if (damageType == DamageTypes.Nuke)
-                    NineTailedFoxAnnouncer.AnnounceScpTermination(role, ev.HitInfo, "WARHEAD");
-                else if (damageType == DamageTypes.Decont)
-                    NineTailedFoxAnnouncer.AnnounceScpTermination(role, ev.HitInfo, "DECONTAMINATION");
-                else
-                    NineTailedFoxAnnouncer.AnnounceScpTermination(role, ev.HitInfo, "UNKNOWN");
+                string cause = "TERMINATION CAUSE UNSPECIFIED";
+                if (player != null)
+                {
+                    
+                    switch (player.TeamID)
+                    {
+                        case (int)TeamID.NTF:
+                            UnitNamingRule rule;
+                            string Unit = UnitNamingRules.TryGetNamingRule(SpawnableTeamType.NineTailedFox, out rule) ? rule.GetCassieUnitName(player.UnitName) : "UNKNOWN";
+                            cause = "CONTAINEDSUCCESSFULLY CONTAINMENTUNIT " + Unit;
+                            break;
+                        case (int)TeamID.CHI:
+                            cause = "BY CHAOSINSURGENCY";
+                            break;
+                        case (int)TeamID.RSC:
+                            cause = "BY FACILITY PERSONNEL";
+                            break;
+                        case (int)TeamID.CDP:
+                            cause = " BY CLASSD PERSONNEL";
+                            break;
+                        default:
+                            cause = "CONTAINMENTUNIT UNKNOWN";
+                            break;
+                    }
+                }
+                NineTailedFoxAnnouncer.singleton.ServerOnlyAddGlitchyPhrase($". SCP {Name} SUCCESSFULLY TERMINATED . {cause}", 0, 0);
             }
         }
 

@@ -1,14 +1,12 @@
-﻿using MEC;
-using Synapse;
+﻿using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
 using System.Collections.Generic;
 using System.Linq;
 using VT_Referance.Variable;
-using VT_Referance.Method;
 using VT_Referance.PlayerScript;
-
+ 
 namespace VTCustomClass
 {
     public static class Extension

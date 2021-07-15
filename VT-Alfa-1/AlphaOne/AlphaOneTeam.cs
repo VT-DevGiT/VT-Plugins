@@ -37,7 +37,6 @@ namespace VT_Alpha
                 {
                     player.RoleID = (int)RoleID.AlphaOneAgent;
                     player.UnitName = Unitname;
-                    players.Remove(player);
                 }
             }
         }

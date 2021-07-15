@@ -24,7 +24,6 @@ namespace VTDevHelp
         {
             NetworkServer.UnSpawn(ev.Player.LookingAt);
             GameObject.Destroy(ev.Player.LookingAt);
-
         }
     }
 }

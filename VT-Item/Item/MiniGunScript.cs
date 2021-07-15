@@ -130,7 +130,7 @@ namespace VT_Item.Item
                 var hitbox = hits[i].collider.GetComponent<HitboxIdentity>();
                 if (hitbox != null)
                 {
-                    var target = hits[i].collider.GetComponentInParent<Synapse.Api.Player>();
+                    var target = hits[i].collider.GetComponentInParent<Player>();
 
                     if (component.GetShootPermission(target.ClassManager))
                     {
@@ -185,12 +185,11 @@ namespace VT_Item.Item
             protected override void BehaviourAction()
             {
                 PlayerEffect effect1 = player.PlayerEffectsController.GetEffect<Disabled>();
-                if (effect1 != null && effect1.Duration < 1)
+                if (effect1 == null || effect1.Duration < 1 )
                     player.GiveEffect(Effect.Disabled, 1, 0.5f);
 
                 PlayerEffect effect2 = player.PlayerEffectsController.GetEffect<Ensnared>();
-                if (effect2 != null && effect2.Duration < 1 && !player.IsUTR() 
-                    && !Plugin.MiniGunConfig.ByPasseID.Contains(player.RoleID))
+                if ((effect2 == null || effect2.Duration < 1) && !Plugin.MiniGunConfig.ByPasseID.Contains(player.RoleID))
                     player.GiveEffect(Effect.Ensnared, 1, 0.5f);
 
                 if (player.ItemInHand.ID != (int)ItemID.MiniGun)

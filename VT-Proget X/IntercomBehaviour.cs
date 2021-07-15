@@ -33,6 +33,5 @@ namespace VTProget_X
             if (Plugin.Config.IntercomInfomationtime*2 < _timer)
                 _timer = 0;
         }
-
     }
 }

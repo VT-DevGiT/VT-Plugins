@@ -1,15 +1,9 @@
 ﻿using Grenades;
 using HarmonyLib;
 using Mirror;
-using Synapse;
 using Synapse.Api.Enum;
-using Synapse.Api.Items;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VT_Referance.Event;
+
 
 namespace VT_Referance.Patch.Event
 {
