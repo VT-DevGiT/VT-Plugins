@@ -9,23 +9,24 @@ using VT_Referance.Method;
 namespace VT_Referance.Behaviour
 {
     [API]
-    public class ShieldControler : BaseRepeatingBehaviour
+    public class ShieldControler : NetworkBehaviour
     {
         private Player player;
         private int _Shield = 0;
         private int _MaxShield = 100;
         private bool _ShieldLock = false;
 
-        public ShieldControler()
+        private void Start()
         {
             VTController.Server.Events.Player.PlayerDamagePostEvent += OnDamage;
             VTController.Server.Events.Player.PlayerSetClassEvent += OnSetClass;
+            player = gameObject.GetPlayer();
         }
 
-        protected override void Start()
+
+        private void OnDisable()
         {
-            player = gameObject.GetPlayer();
-            base.Start();
+            VTController.Server.Events.Player.PlayerDamagePostEvent -= OnDamage;
         }
 
         private void OnSetClass(PlayerSetClassEventArgs ev)
@@ -34,8 +35,8 @@ namespace VT_Referance.Behaviour
             Server.Get.Logger.Info($"{ev.Player == player}");
             if (ev.Player == player)
             {
-                
                 ShieldLock = false;
+                MaxShield = 100;
                 Shield = 0;
                 Server.Get.Logger.Info($"{ev.Player} Shield = 0");
             }
@@ -53,14 +54,6 @@ namespace VT_Referance.Behaviour
             }
         }
 
-        protected override void BehaviourAction()
-        {
-            if (Shield != 0)
-            {
-                string info = $"<align=right><color=#FFFFFF50><voffset=-21.65em><size=100%><b>Shield : {_Shield}/{MaxShield} | {((double)_Shield / MaxShield) * 100}%</b></voffset></color></align>";
-                player.HintDisplay.Show(new TextHint(info, new HintParameter[] { new StringHintParameter("") }, null, 1.1f));
-            }
-        }
 
         /// <summary>
         /// The amount of shield for this ShieldControler;
@@ -76,16 +69,10 @@ namespace VT_Referance.Behaviour
                     return;
                 if (value > _Shield || !ShieldLock)
                     _Shield = Mathf.Clamp(value, 0, MaxShield);
-                if (_Shield != 0)
-                {
-                    /*
-                    //string info = $"<align=right><color=#FFFFFF50><voffset=-21.65em><size=100%><b>Shield : {_Shield}/{MaxShield} | {((double)_Shield / MaxShield) * 100}%</b></voffset></color></align>";
-                    string info = $"<color=#FFFFFF50><size=100%><b>Shield : {_Shield}/{MaxShield} | {_Shield / MaxShield * 100}%</b></color>";
-                    TextHint hint = new TextHint(info, new HintParameter[] { new StringHintParameter("") });
-                    TextHintTimed text = new TextHintTimed(hint, 1, HintTextPos.CENTER, true, 22);
-                    player.GiveTextHintTimed(text);
-                    */
-                }
+
+                string info = $"<align=right><color=#FFFFFF50><voffset=-21.65em><size=100%><b>Shield : {_Shield}/{MaxShield} | {((double)_Shield / MaxShield) * 100}%</b></voffset></color></align>";
+                player.HintDisplay.Show(new TextHint(info, new HintParameter[] { new StringHintParameter("") }, null, 3f));
+
             }
         }
 

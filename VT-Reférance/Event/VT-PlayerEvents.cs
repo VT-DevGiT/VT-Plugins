@@ -29,6 +29,7 @@ namespace VT_Referance.Event
 
         internal void InvokeSetClassEvent(Player player, int oldId, ref int newId, ref bool allow)
         {
+            Synapse.Server.Get.Logger.Info(player);
             var ev = new PlayerSetClassEventArgs
             {
                 Player = player,

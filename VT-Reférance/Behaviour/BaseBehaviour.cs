@@ -1,4 +1,5 @@
 ﻿using Mirror;
+using Synapse;
 using Synapse.Api;
 
 namespace VT_Referance.Behaviour
@@ -14,9 +15,14 @@ namespace VT_Referance.Behaviour
         [API]
         public virtual int RefreshTime { get; set; }
 
-
-        public BaseRepeatingBehaviour()
+        public BaseRepeatingBehaviour() : this(true)
         {
+
+        }
+
+        public BaseRepeatingBehaviour(bool killAtRoundStart)
+        {
+            if (killAtRoundStart) Server.Get.Events.Round.RoundRestartEvent += () => this.Kill();
             RefreshTime = 1000;
         }
 
@@ -27,7 +33,7 @@ namespace VT_Referance.Behaviour
         [Unstable]
         public void Kill()
         {
-            CancelInvoke("BehaviourAction");
+            OnDisable();
             Destroy(this);
         }
 

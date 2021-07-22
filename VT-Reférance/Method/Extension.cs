@@ -111,12 +111,6 @@ namespace VT_Referance.Method
         }
 
         [API]
-        public static void GiveTextHintTimed(this Player player, TextHintTimed Hint)
-        {
-            VTController.TextHandler.AddMessage(player.NetworkIdentity, Hint);
-        }
-
-        [API]
         public static string SetLign(this string text, int needLine)
         {
             int curLine = text.Count(x => x == '\n');

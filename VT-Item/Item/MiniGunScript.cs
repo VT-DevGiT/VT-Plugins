@@ -131,6 +131,8 @@ namespace VT_Item.Item
                 if (hitbox != null)
                 {
                     var target = hits[i].collider.GetComponentInParent<Player>();
+                    if (target == player)
+                        continue;
 
                     if (component.GetShootPermission(target.ClassManager))
                     {
@@ -145,8 +147,8 @@ namespace VT_Item.Item
                         if (target.RoleType == RoleType.Scp106)
                             damage /= 10;
 
-                        target.Hurt(damage, DamageTypes.Mp7, player);
-                        component.RpcPlaceDecal(true, (sbyte)target.ClassManager.Classes.SafeGet(target.RoleType).bloodType, hits[i].point/* + hits[i].normal * 0.01f*/, Quaternion.FromToRotation(Vector3.up, hits[i].normal));
+                        target.Hurt(damage, DamageTypes.Logicer, player);
+                        component.RpcPlaceDecal(true, (sbyte)target.ClassManager.Classes.SafeGet(target.RoleType).bloodType, hits[i].point + hits[i].normal * 0.01f, Quaternion.FromToRotation(Vector3.up, hits[i].normal));
                         confirm = true;
                     }
 

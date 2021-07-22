@@ -25,14 +25,10 @@ namespace VTRpSCP
 
         private void OnDeath(PlayerDeathEventArgs ev)
         {
-            
             foreach(var Scp in Server.Get.Players.Where(p => p.Scp096Controller.EnrageTimeLeft > 1))
             {
-                Timing.CallDelayed(0.1f, () =>
-                {
-                    if (!Scp.Scp096Controller.Targets.Any())
-                        Scp.Scp096Controller.EnrageTimeLeft = 0.1f;
-                });
+                if (!Scp.Scp096Controller.Targets.Contains(ev.Victim) && Scp.Scp096Controller.Targets.Count >= 1)
+                    Scp.Scp096Controller.EnrageTimeLeft = 0.1f;
             }
         }
 

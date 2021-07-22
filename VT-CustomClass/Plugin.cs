@@ -12,6 +12,8 @@ using Synapse.Config;
 using VT_Referance.PlayerScript;
 using System;
 using VT_Referance.Method;
+using Synapse.Permission;
+using System.Linq;
 
 namespace VTCustomClass
 {
@@ -163,12 +165,11 @@ namespace VTCustomClass
         
         public override void Load()
         {
-            //ConfigHandler
-            var confSynapse = Server.Get.Configs.GetFieldValueorOrPerties<SynapseConfiguration>("synapseConfiguration");
-            //confSynapse.CantLookAt173.Add(-1);
+
             Instance = this;
             RegisterCustomTeam();
             RegisterCustomRole();
+            PatchPermissionGroup();
             PluginTranslation.AddTranslation(new VTCustomClass.PluginTranslation());
             PluginTranslation.AddTranslation(new VTCustomClass.PluginTranslation{
             SpawnMessage = "<color=blue><b>Tu es à présent</b></color> <color=red><b>%RoleName%</b></color>\\n<b>Press Esc pour fermer</b>",
@@ -178,6 +179,22 @@ namespace VTCustomClass
             }, "FRENCH");
             PatchAll();
             new EventHandlers();
+        }
+
+        private void PatchPermissionGroup()
+        {
+            foreach(var group in PermissionHandler.Get.Groups)
+            { 
+                if (group.Value.Permissions.Contains("synapse.see.invisible"))
+                    group.Value.Permissions.Remove("synapse.see.invisible");
+                SynapseGroup SeeInvisbleGroup = group.Value;
+                SeeInvisbleGroup.Permissions.Add("synapse.see.invisible");
+                if (PermissionHandler.Get.Groups.ContainsKey($"VT_SeeInvislble{group.Key}"));
+                    PermissionHandler.Get.AddServerGroup(SeeInvisbleGroup, $"VT_SeeInvislble{group.Key}");
+            }
+
+            
+
         }
 
         public void RegisterCustomTeam()

@@ -7,6 +7,7 @@ using System.Linq;
 using VT_Referance.Variable;
 using VT_Referance;
 using System;
+using Synapse.Permission;
 
 namespace VTCustomClass
 {
@@ -18,28 +19,40 @@ namespace VTCustomClass
             Server.Get.Events.Round.TeamRespawnEvent += OnReSpawn;
             Server.Get.Events.Player.PlayerSetClassEvent += OnClass;
             Server.Get.Events.Player.PlayerJoinEvent += OnJoin;
-            Server.Get.Events.Round.RoundRestartEvent += OnRestart;
+            Server.Get.Events.Round.RoundRestartEvent += () => Data.PlayerRole.Clear();
             VTController.Server.Events.Player.PlayerSetClassEvent += OnSetID;
         }
 
         private void OnSetID(VT_Referance.Event.EventArguments.PlayerSetClassEventArgs ev)
         {
-            if (ev.NewID != 2 && ev.NewID != 199)
-                ev.Player.SynapseGroup.Permissions.Remove("synapse.see.invisible");
-            else if (ev.Player.RemoteAdminAccess)
-                ev.Player.SynapseGroup.Permissions.Add("synapse.see.invisible");
-
-        }
-
-        private void OnRestart()
-        {
-            Data.PlayerRole.Clear();
+            if (ev.NewID != (int)RoleID.Spectator && ev.NewID != (int)RoleID.Staff)
+                RemouveSeeInvisble(ev.Player);
+            else if (ev.Player.RemoteAdminAccess || ev.NewID == (int)RoleID.Staff)
+                AddSeeInvisble(ev.Player);
         }
 
         private void OnJoin(PlayerJoinEventArgs ev)
         {
-            if (ev.Player.RemoteAdminAccess == false)
-                ev.Player.SynapseGroup.Permissions.Remove("synapse.see.invisible");
+            if (ev.Player.RemoteAdminAccess == true)
+                AddSeeInvisble(ev.Player);
+        }
+
+        private void AddSeeInvisble(Player player)
+        {
+            string OrginalGroupeName = PermissionHandler.Get.Groups.FirstOrDefault(g => g.Value == player.SynapseGroup).Key;
+            if (string.IsNullOrEmpty(OrginalGroupeName))
+                return;
+            OrginalGroupeName = $"VT_SeeInvislble{OrginalGroupeName}";
+            player.SynapseGroup = PermissionHandler.Get.GetServerGroup(OrginalGroupeName);
+        }
+
+        private void RemouveSeeInvisble(Player player)
+        {
+            string OrginalGroupeName = PermissionHandler.Get.Groups.FirstOrDefault(g => g.Value == player.SynapseGroup).Key;
+            if (string.IsNullOrEmpty(OrginalGroupeName))
+                return;
+            OrginalGroupeName.Replace("VT_SeeInvislble", "");
+            player.SynapseGroup = PermissionHandler.Get.GetServerGroup(OrginalGroupeName);
         }
 
         private void OnClass(PlayerSetClassEventArgs ev)
@@ -87,7 +100,7 @@ namespace VTCustomClass
                 ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new DirecteurSiteScript());
                 ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new ZoneManagerScript());
                 ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new GardePrisonScript());
-
+                    
                 if (ev.SpawnPlayers.Count() > 25)
                 {
                     ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new SCP008Script());

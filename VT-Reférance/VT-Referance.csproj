@@ -95,11 +95,9 @@
     <Compile Include="Patch\Event\VerifPatch.cs" />
     <Compile Include="Patch\Event\WarHeadStopPatch.cs" />
     <Compile Include="VTController.cs" />
-    <Compile Include="Method\TextHandle.cs" />
     <Compile Include="Script\ItemScript\BaseWeaponScript.cs" />
     <Compile Include="Script\NpcScript\BaseNpcScript.cs" />
     <Compile Include="Patch\Event\SynapseDamagePatch.cs" />
-    <Compile Include="Patch\VT-Patch\TextHintPatch.cs" />
     <Compile Include="Variable\Npc\CheminZone.cs" />
     <Compile Include="Variable\Npc\NpcDataInit.cs" />
     <Compile Include="Variable\Npc\NpcMapPointRoute.cs" />
@@ -140,6 +138,8 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Patch\VT-Patch\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

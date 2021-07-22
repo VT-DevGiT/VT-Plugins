@@ -39,28 +39,27 @@ namespace VTCustomClass.PlayerScript
 
         protected override void Event()
         {
-            Server.Get.Events.Scp.ScpAttackEvent += OnAttack;
+            Server.Get.Events.Player.PlayerDamageEvent += OnAttack;
         }
 
-        private void OnAttack(ScpAttackEventArgs ev)
+        private void OnAttack(PlayerDamageEventArgs ev)
         {
-            if (ev.Allow && ev.Scp == Player)
+            if (ev.Allow && ev.Allow == Player && ev.HitInfo.GetDamageType() == DamageTypes.Scp0492)
             {
-                ev.Allow = false;
-                ev.Target.Hurt(20, DamageTypes.Scp0492, ev.Scp);
-                if (!ev.Target.IsUTR())
+                ev.DamageAmount = 20;
+                if (!ev.Victim.IsUTR())
                 {
-                    ev.Target.GiveEffect(Effect.Concussed, 1, 10);
-                    ev.Target.GiveEffect(Effect.Deafened, 1, 10);
-                    ev.Target.GiveEffect(Effect.Exhausted, 1, 10);
-                    ev.Target.GiveEffect(Effect.Asphyxiated, 1, 5);
+                    ev.Victim.GiveEffect(Effect.Concussed, 1, 10);
+                    ev.Victim.GiveEffect(Effect.Deafened, 1, 10);
+                    ev.Victim.GiveEffect(Effect.Exhausted, 1, 10);
+                    ev.Victim.GiveEffect(Effect.Asphyxiated, 1, 5);
                 }
             }
         }
 
         public override void DeSpawn()
         {
-            Server.Get.Events.Scp.ScpAttackEvent -= OnAttack;
+            Server.Get.Events.Player.PlayerDamageEvent -= OnAttack;
             Player.GetOrAddComponent<Invisible>().Kill();
             base.DeSpawn();
         }

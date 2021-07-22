@@ -20,10 +20,10 @@ namespace VTEscape
         public List<SerializedEscapeConfig> EscapeList = new List<SerializedEscapeConfig>()
         {
             // Vania Game
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.RSC, TeamID.None, RoleID.NtfScientist),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.RSC, TeamID.CHI, RoleID.ChaosInsurgency),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.CDP, TeamID.None, RoleID.ChaosInsurgency),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.CDP, TeamID.NTF, RoleID.NtfCadet),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.RSC, TeamID.None, RoleID.NtfScientist, EscapeEnum.MTF, 3),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.RSC, TeamID.CHI, RoleID.ChaosInsurgency, EscapeEnum.CHI, 2),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.CDP, TeamID.None, RoleID.ChaosInsurgency, EscapeEnum.CHI, 3),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.CDP, TeamID.NTF, RoleID.NtfCadet, EscapeEnum.MTF, 1),
             //Custom
 
             //escapeMTF Role
@@ -44,7 +44,7 @@ namespace VTEscape
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.NTF, TeamID.NTF, RoleID.NtfCadet),
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.NTF, TeamID.CHI, RoleID.ChaosInsurgency),
             new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.AND, TeamID.NTF, RoleID.NtfCadet),
-            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.SCP, TeamID.None, RoleID.Spectator, true, "LOKI - 5 procedure is engaged . the alfa warhead is started , evacuat immediately ."),
+            new SerializedEscapeConfig(EscapeEnum.MTF, RoleID.None, TeamID.SCP, TeamID.None, RoleID.Spectator, EscapeEnum.NONE, 0, true, "LOKI - 5 procedure is engaged . the alfa warhead is started , evacuat immediately ."),
             
             //escapeCHI Role
             new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.ChiIntrus, TeamID.None, TeamID.None, RoleID.ChiLeader),

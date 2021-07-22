@@ -58,7 +58,7 @@ namespace VTCustomClass.PlayerScript
             aura.HerHp = 0;
             aura.Distance = 0;
             KillComponent<Aura>();
-            Server.Get.Events.Scp.ScpAttackEvent -= OnAttack;
+            Server.Get.Events.Player.PlayerDamageEvent -= OnAttack;
             Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
             if (!Server.Get.Players.Where(p => p.RoleID == (int)RoleID.SCP008).Any())
                 Map.Get.GlitchedCassie("ALL SCP 0 0 8 SUCCESSFULLY TERMINATED . NOSCPSLEFT");
@@ -66,17 +66,17 @@ namespace VTCustomClass.PlayerScript
 
         protected override void Event()
         {
-            Server.Get.Events.Scp.ScpAttackEvent += OnAttack;
+            Server.Get.Events.Player.PlayerDamageEvent += OnAttack;
             Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
         }
 
-        private void OnAttack(ScpAttackEventArgs ev)
+        private void OnAttack(PlayerDamageEventArgs ev)
         {
-            if (ev.Scp == Player)
+            if (ev.Allow && ev.Killer == Player && ev.HitInfo.GetDamageType() == DamageTypes.Scp0492)
             {
-                ev.Target.GiveEffect(Effect.Bleeding, 2, 4);
-                ev.Target.Hurt(50, DamageTypes.Scp0492, ev.Scp);
-                ev.Allow = false;
+                if (!ev.Victim.IsUTR())
+                    ev.Victim.GiveEffect(Effect.Bleeding, 2, 4);
+                ev.DamageAmount = 50;
             }
         }
 
