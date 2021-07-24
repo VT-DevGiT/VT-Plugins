@@ -35,7 +35,8 @@ namespace VT_Referance.Method
             return default(T);
         }
 
-        [API]
+
+            [API]
         public static T GetStaticFieldOrPropertyValue<T>(this Type element, string fieldName)
         {
             var prop = element.GetProperty(fieldName, BindingFlags.NonPublic | BindingFlags.Static);

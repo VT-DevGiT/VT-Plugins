@@ -3,15 +3,15 @@
 namespace VTLog
 {
     [PluginInformation(
-Name = "VT-Log",
-Author = "VT",
-Description = "Log all events",
-LoadPriority = 0,
-SynapseMajor = SynapseController.SynapseMajor,
-SynapseMinor = SynapseController.SynapseMinor,
-SynapsePatch = SynapseController.SynapsePatch,
-Version = "v.0.0.1"
-)]
+    Name = "VT-Log",
+    Author = "VT",
+    Description = "Log all events",
+    LoadPriority = 0,
+    SynapseMajor = SynapseController.SynapseMajor,
+    SynapseMinor = SynapseController.SynapseMinor,
+    SynapsePatch = SynapseController.SynapsePatch,
+    Version = "v.0.0.1"
+    )]
 
     public class Plugin : AbstractPlugin
     {
