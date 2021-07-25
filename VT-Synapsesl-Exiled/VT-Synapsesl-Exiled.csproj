@@ -97,8 +97,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
     <Compile Include="ExiledLuncher.cs" />
     <Compile Include="Patch log.cs" />
+    <Compile Include="PatchServeurName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

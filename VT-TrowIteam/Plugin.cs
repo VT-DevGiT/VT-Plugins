@@ -16,7 +16,7 @@ Version = "v.1.2.2"
     {
         public static Plugin Instance { get; private set; }
 
-        [Synapse.Api.Plugin.Config(section = "TrowIteam")]
+        [Synapse.Api.Plugin.Config(section = "VT-TrowIteam")]
         public static Config Config;
 
 

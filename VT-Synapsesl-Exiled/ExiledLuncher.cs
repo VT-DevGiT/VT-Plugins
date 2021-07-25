@@ -23,9 +23,12 @@ namespace VT_Synapsesl_Exiled
     )]
     class ExiledLuncher : AbstractPlugin
     {
+        [Synapse.Api.Plugin.Config(section = "VT-LoaderExiled")]
+        public static Config Config;
 
         public static ExiledLuncher Instance { get; private set; }
         public static bool IsLoaded { get; private set; }
+
 
         public void PatchAll()
         {
@@ -36,14 +39,18 @@ namespace VT_Synapsesl_Exiled
         public override void Load()
         {
             Instance = this;
-            string message = @"
+            if (Config.Warning)
+            {
+                string message = @"
 Warning ! 
 All Exiled plugins are not necessarily stable and compatible for Synapse.
 The plugin only loaded Exiled, it is possible that he has incompatibilities.
 To use this plugin you must also install Exiled and not replaced the Sharp assembly
 ";
-            Logger.Get.Send(message, ConsoleColor.Red);
-            Thread.Sleep(5000);
+                Logger.Get.Send(message, ConsoleColor.Red);
+                Thread.Sleep(5000);
+                Server.Get.Configs.UpdateSection<Config>("VT-LoaderExiled", new Config { Warning = false});
+            }
             try
             {
                 if (IsLoaded)
