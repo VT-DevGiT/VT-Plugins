@@ -28,7 +28,6 @@ namespace VTCustomClass.PlayerScript
 
         protected override void AditionalInit()
         {
-            Player.SynapseGroup.Permissions.Add("synapse.see.invisible");
             Player.Invisible = true;
             Player.NoClip = true;
             Player.GodMode = true;

@@ -35,7 +35,7 @@ namespace VT079.Command
             }
             if (!Methods.isAirBombCurrently)
             {
-                Timing.RunCoroutine(Methods.AirSupportBomb(10, 5));
+                Timing.RunCoroutine(Methods.AirBomb(10, 5));
                 result.State = CommandResultState.Ok;
                 result.Message = "Air Bomb Start";
             }

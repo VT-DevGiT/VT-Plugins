@@ -46,69 +46,69 @@ namespace VTLog
         }
         private void OnRoundRestart()
         {
-            Method.CreeUnNouveauxTXT();
+            Method.CreateNewTXT();
         }
 
         private void PlayerOnDeath(PlayerDeathEventArgs ev)
         {   
             try
             { 
-            Method.EcrirTXT($"Death : {ev?.Killer?.GetInfoPlayer()} Kill {ev?.Killer?.GetInfoPlayer()}---HitInfo : Amout {ev?.HitInfo.Amount}, Attacker {ev?.HitInfo.Attacker},Tool {ev?.HitInfo.Tool},Time {ev?.HitInfo.Time},ItemInHand {ev?.Killer?.ItemInHand.GetInfoItems()}");
+            Method.WriteTXT($"Death : {ev?.Killer?.GetInfoPlayer()} Kill {ev?.Killer?.GetInfoPlayer()}---HitInfo : Amout {ev?.HitInfo.Amount}, Attacker {ev?.HitInfo.Attacker},Tool {ev?.HitInfo.Tool},Time {ev?.HitInfo.Time},ItemInHand {ev?.Killer?.ItemInHand.GetInfoItems()}");
             }
             catch (Exception e)
             {
-                Method.EcrirTXT($"Death : #?Server Exception! {e}"); 
+                Method.WriteTXT($"Death : #?Server Exception! {e}"); 
             }
         }
 
         private void PlayerOnDamage(PlayerDamageEventArgs ev)
         {
-            Method.EcrirTXT($"Damage ? {ev.Allow} : {ev?.Killer?.GetInfoPlayer()} Damage {ev?.Victim?.GetInfoPlayer()} by {ev.DamageAmount}---HitInfo : Amout {ev?.HitInfo.Amount}, Attacker {ev?.HitInfo.Attacker},Tool {ev?.HitInfo.Tool},Time {ev?.HitInfo.Time},ItemInHand {ev?.Killer?.ItemInHand} ");
+            Method.WriteTXT($"Damage ? {ev.Allow} : {ev?.Killer?.GetInfoPlayer()} Damage {ev?.Victim?.GetInfoPlayer()} by {ev.DamageAmount}---HitInfo : Amout {ev?.HitInfo.Amount}, Attacker {ev?.HitInfo.Attacker},Tool {ev?.HitInfo.Tool},Time {ev?.HitInfo.Time},ItemInHand {ev?.Killer?.ItemInHand} ");
         }
 
         private void PlayerOnCuffTarget(PlayerCuffTargetEventArgs ev)
         {
-            Method.EcrirTXT($"Cuff ? {ev.Allow} : {ev?.Cuffer?.GetInfoPlayer()} Cuff {ev?.Target?.GetInfoPlayer()}---Disarmer : item {ev?.Disarmer.GetInfoItems()}");
+            Method.WriteTXT($"Cuff ? {ev.Allow} : {ev?.Cuffer?.GetInfoPlayer()} Cuff {ev?.Target?.GetInfoPlayer()}---Disarmer : item {ev?.Disarmer.GetInfoItems()}");
         }
 
         private void PlayerOnBan(PlayerBanEventArgs ev)
         {
-            Method.EcrirTXT($"Ban ? {ev.Allow} : {ev?.Issuer?.GetInfoPlayer()} ban {ev?.BannedPlayer?.GetInfoPlayer()}---BanInfo : Duration {ev.Duration},Reason {ev.Reason}");
+            Method.WriteTXT($"Ban ? {ev.Allow} : {ev?.Issuer?.GetInfoPlayer()} ban {ev?.BannedPlayer?.GetInfoPlayer()}---BanInfo : Duration {ev.Duration},Reason {ev.Reason}");
         }
 
         private void PlayerOnConnectWorkstation(PlayerConnectWorkstationEventArgs ev)
         {
-            Method.EcrirTXT($"ConnectWorkstation ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} on {ev?.WorkStation?.Name}---TabletteInfo : item {ev.Item.GetInfoItems()}");
+            Method.WriteTXT($"ConnectWorkstation ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} on {ev?.WorkStation?.Name}---TabletteInfo : item {ev.Item.GetInfoItems()}");
         }
 
         private void PlayerOnLoadCompenents(LoadComponentEventArgs ev)
         {
-            Method.EcrirTXT($"LoadCompenents /// GameObject#{ev?.Player?.tag}#{ev?.Player?.GetPlayer()?.GetInfoPlayer()}");
+            Method.WriteTXT($"LoadCompenents /// GameObject#{ev?.Player?.tag}#{ev?.Player?.GetPlayer()?.GetInfoPlayer()}");
         }
 
         private void PlayerOnDropAmmo(PlayerDropAmmoEventArgs ev)
         {
-            Method.EcrirTXT($"DropAmmo ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} drop {ev?.Amount} of {ev?.AmmoType}--- Tablette : item {ev.Tablet.GetInfoItems()}");
+            Method.WriteTXT($"DropAmmo ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} drop {ev?.Amount} of {ev?.AmmoType}--- Tablette : item {ev.Tablet.GetInfoItems()}");
         }
 
         private void PlayerOnGenerator(PlayerGeneratorInteractEventArgs ev)
         {
-            Method.EcrirTXT($"Generator ? {ev.Allow} /// Interaction#{ev?.GeneratorInteraction} : {ev?.Player?.GetInfoPlayer()}");
+            Method.WriteTXT($"Generator ? {ev.Allow} /// Interaction#{ev?.GeneratorInteraction} : {ev?.Player?.GetInfoPlayer()}");
         }
 
         private void PlayerOnUnconnectWrokStation(PlayerUnconnectWorkstationEventArgs ev)
         {
-            Method.EcrirTXT($"UnConnectWorkstation ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} on {ev?.WorkStation?.Name}");
+            Method.WriteTXT($"UnConnectWorkstation ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} on {ev?.WorkStation?.Name}");
         }
 
         private void PlayerOnReconfScp106(Scp106ContainmentEventArgs ev)
         {
-            Method.EcrirTXT($"ReconfScp106 ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()}");
+            Method.WriteTXT($"ReconfScp106 ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()}");
         }
 
         private void PlayerOnUseSinkhole(PocketDimensionEnterEventArgs ev)
         {
-            Method.EcrirTXT($"UseSinkhole ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} 106 {ev?.Player?.GetInfoPlayer()}");
+            Method.WriteTXT($"UseSinkhole ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} 106 {ev?.Player?.GetInfoPlayer()}");
         }
 
         private void RoundOnRespawn(TeamRespawnEventArgs ev)
@@ -119,7 +119,7 @@ namespace VTLog
                 _playersInfo += $" {player?.GetInfoPlayer()} //";
             }
 
-            Method.EcrirTXT($"RoundRespawn ? {ev.Allow} : #{ev?.TeamID}.{ev?.Team}--- Players : Count {ev.Players.Count}, List {_playersInfo}");
+            Method.WriteTXT($"RoundRespawn ? {ev.Allow} : #{ev?.TeamID}.{ev?.Team}--- Players : Count {ev.Players.Count}, List {_playersInfo}");
         }
 
         private void RoundOnSpawn(SpawnPlayersEventArgs ev)
@@ -129,113 +129,113 @@ namespace VTLog
             {
                 _playersInfo += $" {player.Key.GetInfoPlayer()}:{player.Value} //";
             }
-            Method.EcrirTXT($"RoundOn ? {ev.Allow}: --- PlayersInfo : Count {ev?.SpawnPlayers?.Count}, List {_playersInfo}");
+            Method.WriteTXT($"RoundOn ? {ev.Allow}: --- PlayersInfo : Count {ev?.SpawnPlayers?.Count}, List {_playersInfo}");
         }
 
         private void PlayerOnIntercatDoor(DoorInteractEventArgs ev)
         {
-            Method.EcrirTXT($"IntercatDoor ? {ev.Allow} : {ev?.Player.GetInfoPlayer()} open #{ev?.Door?.Name}.{ev?.Door?.Rooms} whits {ev?.Player?.ItemInHand?.GetInfoItems()}");
+            Method.WriteTXT($"IntercatDoor ? {ev.Allow} : {ev?.Player.GetInfoPlayer()} open #{ev?.Door?.Name}.{ev?.Door?.Rooms} whits {ev?.Player?.ItemInHand?.GetInfoItems()}");
         }
 
         private void PlayerOnReconfScp079(Scp079RecontainEventArgs ev)
         {
-            Method.EcrirTXT($"ReconfScp079 ? {ev.Allow} : Status {ev?.Status}");
+            Method.WriteTXT($"ReconfScp079 ? {ev.Allow} : Status {ev?.Status}");
         }
 
         private void PlayerOnCreatSinkhole(PortalCreateEventArgs ev)
         {
-            Method.EcrirTXT($"CreatSinkhole ? {ev.Allow} : {ev?.Scp106?.GetInfoPlayer()}");
+            Method.WriteTXT($"CreatSinkhole ? {ev.Allow} : {ev?.Scp106?.GetInfoPlayer()}");
         }
 
         private void PlayerOnTargetScp096(Scp096AddTargetEventArgument ev)
         {
-            Method.EcrirTXT($"Scp096 ?  {ev.Allow} : {ev?.Scp096?.GetInfoPlayer()} target {ev?.Player?.GetInfoPlayer()}--- InfoScp096 : RageStats {ev?.RageState}");
+            Method.WriteTXT($"Scp096 ?  {ev.Allow} : {ev?.Scp096?.GetInfoPlayer()} target {ev?.Player?.GetInfoPlayer()}--- InfoScp096 : RageStats {ev?.RageState}");
         }
 
         private void PlayerWalkOnSinkhole(PlayerWalkOnSinkholeEventArgs ev)
         {
-            Method.EcrirTXT($"WalkOnSinkhole ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} on #{ev?.Sinkhole?.name}.{ev?.Sinkhole?.netId}");
+            Method.WriteTXT($"WalkOnSinkhole ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} on #{ev?.Sinkhole?.name}.{ev?.Sinkhole?.netId}");
         }
 
         private void PlayerUseHID(PlayerUseMicroEventArgs ev)
         {
-            Method.EcrirTXT($"UseHID : {ev?.Player} use {ev?.Micro?.GetInfoItems()}--- InfoHID : Energy {ev?.Energy}");
+            Method.WriteTXT($"UseHID : {ev?.Player} use {ev?.Micro?.GetInfoItems()}--- InfoHID : Energy {ev?.Energy}");
         }
 
         private void PlayerOnThrowGrenade(PlayerThrowGrenadeEventArgs ev)
         {
-            Method.EcrirTXT($"ThrowGrenade ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()}--- GrenadInfo {ev?.Item?.GetInfoItems()}");
+            Method.WriteTXT($"ThrowGrenade ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()}--- GrenadInfo {ev?.Item?.GetInfoItems()}");
         }
 
         private void PlayerOnSpeak(PlayerSpeakEventArgs ev)
         {
-            Method.EcrirTXT($"Speak ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} speak #{ev?.DissonanceUserSetup?.name}.{ev?.DissonanceUserSetup?.netId}--- SpeakInfo : Intercom {ev?.IntercomTalk},Radio {ev?.RadioTalk},Scp939 {ev.Scp939Talk},ScpChat {ev.ScpChat},Spectator {ev.SpectatorChat}");
+            Method.WriteTXT($"Speak ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} speak #{ev?.DissonanceUserSetup?.name}.{ev?.DissonanceUserSetup?.netId}--- SpeakInfo : Intercom {ev?.IntercomTalk},Radio {ev?.RadioTalk},Scp939 {ev.Scp939Talk},ScpChat {ev.ScpChat},Spectator {ev.SpectatorChat}");
         }
 
         private void PlayerOnShoot(PlayerShootEventArgs ev)
         {
-            Method.EcrirTXT($"Shoot ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} shoot #{ev?.Target?.GetInfoPlayer()} whit {ev.Weapon.GetInfoItems()}");
+            Method.WriteTXT($"Shoot ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} shoot #{ev?.Target?.GetInfoPlayer()} whit {ev.Weapon.GetInfoItems()}");
         }
 
         private void PlayerOnSetClass(PlayerSetClassEventArgs ev)
         {
-            Method.EcrirTXT($"SetClass ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()}--- SetClassInfo : Role {ev?.Player?.RoleID}//{ev?.Player?.RoleName} -> {ev?.Role}, Escape {ev.IsEscaping}");
+            Method.WriteTXT($"SetClass ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()}--- SetClassInfo : Role {ev?.Player?.RoleID}//{ev?.Player?.RoleName} -> {ev?.Role}, Escape {ev.IsEscaping}");
         }
 
         private void PlayerOnReport(PlayerReportEventArgs ev)
         {
-            Method.EcrirTXT($"Report ? {ev.Allow} : {ev?.Reporter?.GetInfoPlayer()} report {ev?.Target?.GetInfoPlayer()}--- ReportInfo : GlobalReport {ev.GlobalReport}, Reason {ev.Reason}");
+            Method.WriteTXT($"Report ? {ev.Allow} : {ev?.Reporter?.GetInfoPlayer()} report {ev?.Target?.GetInfoPlayer()}--- ReportInfo : GlobalReport {ev.GlobalReport}, Reason {ev.Reason}");
         }
 
         private void PlayerOnReload(PlayerReloadEventArgs ev)
         {
-            Method.EcrirTXT($"Reload ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} reload {ev?.Item.GetInfoItems()}");
+            Method.WriteTXT($"Reload ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} reload {ev?.Item.GetInfoItems()}");
         }
 
         private void PlayerOnPickUpIteam(PlayerPickUpItemEventArgs ev)
         {
-            Method.EcrirTXT($"PickUp ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} pickup {ev?.Item.GetInfoItems()}");
+            Method.WriteTXT($"PickUp ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} pickup {ev?.Item.GetInfoItems()}");
         }
 
         private void PlayerOnLeave(PlayerLeaveEventArgs ev)
         {
-            Method.EcrirTXT($"Leave : {ev?.Player?.GetInfoPlayer()}");
+            Method.WriteTXT($"Leave : {ev?.Player?.GetInfoPlayer()}");
         }
 
         private void PlayerOnJoin(PlayerJoinEventArgs ev)
         {
-            Method.EcrirTXT($"Join : {ev?.Player?.GetInfoPlayer()}");
+            Method.WriteTXT($"Join : {ev?.Player?.GetInfoPlayer()}");
         }
 
         private void PlayerOnUseIteam(PlayerItemInteractEventArgs ev)
         {
-            Method.EcrirTXT($"UseIteam ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} use {ev?.CurrentItem.GetInfoItems()}--- State {ev?.State}");
+            Method.WriteTXT($"UseIteam ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} use {ev?.CurrentItem.GetInfoItems()}--- State {ev?.State}");
         }
 
         private void PlayerOnHeal(PlayerHealEventArgs ev)
         {
-            Method.EcrirTXT($"Heal ? {ev.Allow} :  {ev?.Player?.GetInfoPlayer()} of {ev?.Amount}");
+            Method.WriteTXT($"Heal ? {ev.Allow} :  {ev?.Player?.GetInfoPlayer()} of {ev?.Amount}");
         }
 
         private void PlayerOnEnterFermur(PlayerEnterFemurEventArgs ev)
         {
-            Method.EcrirTXT($"EnterFermur ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()}");
+            Method.WriteTXT($"EnterFermur ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()}");
         }
 
         private void PlayerOnDropIteam(PlayerDropItemEventArgs ev)
         {
-            Method.EcrirTXT($"DropIteam ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()}) item {ev?.Item.GetInfoItems()}");
+            Method.WriteTXT($"DropIteam ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()}) item {ev?.Item.GetInfoItems()}");
         }
 
         private void RemoteAdminOnCommand(RemoteAdminCommandEventArgs ev)
         {
-            Method.EcrirTXT($"RemoteAdmin ? {ev.Allow} : {ev?.Command} by Staff:#{ev?.Sender?.SenderId}//{ev?.Sender?.LogName}//{ev?.Sender?.GetPlayer()?.GetInfoPlayer()}!#{ev.Sender.Permissions}");
+            Method.WriteTXT($"RemoteAdmin ? {ev.Allow} : {ev?.Command} by Staff:#{ev?.Sender?.SenderId}//{ev?.Sender?.LogName}//{ev?.Sender?.GetPlayer()?.GetInfoPlayer()}!#{ev.Sender.Permissions}");
         }
 
         private void ConsoleOnCommand(ConsoleCommandEventArgs ev)
         {
             if (!ev.Command.Contains("keypress"))
-                Method.EcrirTXT($"Console : {ev?.Command} by {ev?.Player?.GetInfoPlayer()}");
+                Method.WriteTXT($"Console : {ev?.Command} by {ev?.Player?.GetInfoPlayer()}");
         }
     }
 }

@@ -7,8 +7,8 @@
     <ProjectGuid>{ADA97A09-49F5-433A-AC17-389C0A1EB5E0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VT_Synapsesl_Exiled</RootNamespace>
-    <AssemblyName>VT-Synapsesl-Exiled</AssemblyName>
+    <RootNamespace>VT_MultieLoder</RootNamespace>
+    <AssemblyName>VT-MultieLoder</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -53,6 +53,9 @@
     <Reference Include="Exiled.Events">
       <HintPath>..\..\..\..\EXILED-master\Exiled.Events\obj\Debug\Exiled.Events.dll</HintPath>
     </Reference>
+    <Reference Include="Exiled.Loader">
+      <HintPath>..\..\..\..\Exiled &amp; Smod2\References\Exiled\Exiled.Loader.dll</HintPath>
+    </Reference>
     <Reference Include="Exiled.Permissions">
       <HintPath>C:\Users\valentin\AppData\Roaming\EXILED\Plugins\Exiled.Permissions.dll</HintPath>
     </Reference>
@@ -67,6 +70,9 @@
     </Reference>
     <Reference Include="NorthwoodLib">
       <HintPath>E:\Games\SteamLibrary\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\NorthwoodLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Qurre">
+      <HintPath>..\..\..\..\Qurre\Qurre\Qurre.dll</HintPath>
     </Reference>
     <Reference Include="Synapse, Version=2.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SynapseSL.2.6.0\lib\net472\Synapse.dll</HintPath>
@@ -97,14 +103,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Extanction.cs" />
+    <Compile Include="API\PlayerInfoCompatiblity.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="ExiledLuncher.cs" />
-    <Compile Include="Patch log.cs" />
+    <Compile Include="EventHandler.cs" />
+    <Compile Include="Qurre\EventHandler.cs" />
+    <Compile Include="Exiled\EventHandler.cs" />
+    <Compile Include="Exiled\ExiledHandler.cs" />
+    <Compile Include="MultieLoder.cs" />
     <Compile Include="PatchServeurName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Qurre\QurreHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\VT-Reférance\VT-Referance.csproj">
+      <Project>{ee471bd7-4def-465e-bd1d-555ab6d76e4d}</Project>
+      <Name>VT-Referance</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

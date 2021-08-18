@@ -92,7 +92,7 @@ namespace VTCustomClass.PlayerScript
             if (power == (int)PowerType.Zombifaction)
             {
                 Player corpseowner = Methods.GetPlayercoprs(Player, 4);
-                if (Methods.IsScpRole(corpseowner) == false)
+                if (Methods.IsWasScpRole(corpseowner) == false)
                 {
                     corpseowner.RoleID = (int)RoleID.SCP008;
                     Player.Health += 100;

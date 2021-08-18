@@ -18,9 +18,10 @@ namespace VTGrenad
         {
             Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
             Server.Get.Events.Player.PlayerDeathEvent += PlayedDead;
-            Server.Get.Events.Player.PlayerDropItemEvent += ItemDropped;
             Server.Get.Events.Player.PlayerPickUpItemEvent += PickingUpItem;
             Server.Get.Events.Player.PlayerCuffTargetEvent += OnCuff;
+            if (null != Plugin.Config.Key)
+                Server.Get.Events.Player.PlayerDropItemEvent += ItemDropped;
             if (Plugin.Config.ChaineFuseFragGrenad)
                 VTController.Server.Events.Grenade.ChangeIntoFragEvent += OnChangeIntoFragEvent;
             if (Plugin.Config.FlashbangFuseWithCollision)
@@ -58,6 +59,7 @@ namespace VTGrenad
                 }
             }
         }
+
         private void OnCollisionGrenade(CollisionGrenadeEventArgs ev)
         {
             if (ev.Type == GrenadeType.Flashbang)

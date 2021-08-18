@@ -32,11 +32,6 @@ namespace VTCustomClass.PlayerScript
 
         protected override AbstractConfigSection Config => Plugin.ConfigSCP966;
 
-        protected override void AditionalInit()
-        {
-            Player.GetOrAddComponent<Invisible>().enabled = true;
-        }
-
         protected override void Event()
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnAttack;
@@ -60,7 +55,6 @@ namespace VTCustomClass.PlayerScript
         public override void DeSpawn()
         {
             Server.Get.Events.Player.PlayerDamageEvent -= OnAttack;
-            Player.GetOrAddComponent<Invisible>().Kill();
             base.DeSpawn();
         }
     }

@@ -2,18 +2,11 @@
 using VTCustomClass.PlayerScript;
 using HarmonyLib;
 using Synapse;
-using Synapse.Api;
 using Synapse.Api.Plugin;
 using Synapse.Translation;
 using System.Collections.Generic;
 using VT_Referance.Variable;
 using VTCustomClass.CustomTeam;
-using Synapse.Config;
-using VT_Referance.PlayerScript;
-using System;
-using VT_Referance.Method;
-using Synapse.Permission;
-using System.Linq;
 
 namespace VTCustomClass
 {
@@ -29,10 +22,7 @@ namespace VTCustomClass
     public class Plugin : AbstractPlugin
     {
         public static Plugin Instance { get; internal set; }
-/*
-        [Synapse.Api.Plugin.Config(section = "Synapse")]
-        public static SynapseConfiguration Conf;// => SynapseController.Server.Configs.synapseConfiguration;
-*/
+
         [Synapse.Api.Plugin.Config(section = "CustomClass-General")]
         public static ConfigCustomClass ConfigCustomClass;
 
@@ -155,7 +145,7 @@ namespace VTCustomClass
 
         public Dictionary<RoleID, int> RespawnedPlayer = new Dictionary<RoleID, int>();
 
-        //On lance les patch pour pouvoir kill certaint entiCheat si actif
+        //Pour kill certaint Enti-Cheat
         private void PatchAll()
         {
             var instance = new Harmony("CustomClass");
@@ -169,7 +159,6 @@ namespace VTCustomClass
             Instance = this;
             RegisterCustomTeam();
             RegisterCustomRole();
-            PatchPermissionGroup();
             PluginTranslation.AddTranslation(new VTCustomClass.PluginTranslation());
             PluginTranslation.AddTranslation(new VTCustomClass.PluginTranslation{
             SpawnMessage = "<color=blue><b>Tu es à présent</b></color> <color=red><b>%RoleName%</b></color>\\n<b>Press Esc pour fermer</b>",
@@ -181,22 +170,6 @@ namespace VTCustomClass
             new EventHandlers();
         }
 
-        private void PatchPermissionGroup()
-        {
-            foreach(var group in PermissionHandler.Get.Groups)
-            { 
-                if (group.Value.Permissions.Contains("synapse.see.invisible"))
-                    group.Value.Permissions.Remove("synapse.see.invisible");
-                SynapseGroup SeeInvisbleGroup = group.Value;
-                SeeInvisbleGroup.Permissions.Add("synapse.see.invisible");
-                if (PermissionHandler.Get.Groups.ContainsKey($"VT_SeeInvislble{group.Key}"));
-                    PermissionHandler.Get.AddServerGroup(SeeInvisbleGroup, $"VT_SeeInvislble{group.Key}");
-            }
-
-            
-
-        }
-
         public void RegisterCustomTeam()
         {
             Server.Get.TeamManager.RegisterTeam<NetralSCPTeam>();
@@ -206,11 +179,6 @@ namespace VTCustomClass
 
         public void RegisterCustomRole()
         {
-            //Server.Get.RoleManager.RegisterCustomRole<Scripte201>();
-
-            Type typeScripte = typeof(BasePlayerScript);
-
-            Type[] enfants = typeScripte.GetNestedTypes(System.Reflection.BindingFlags.Public);
             if (Server.Get.TeamManager.IsIDRegistered((int)TeamID.AND))
             { 
                 Server.Get.RoleManager.RegisterCustomRole<AndersonUTRlightScript>();

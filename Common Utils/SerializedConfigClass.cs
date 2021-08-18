@@ -34,21 +34,21 @@ public class SerializedConfigClass
     {
         var shiledctrl = player.GetOrAddComponent<ShieldControler>();
 
-        if (Health != null)
+        if (Health != null && Health != 0)
         {
             if (player.MaxHealth < (int)MaxHealh)
                 player.MaxHealth = (int)MaxHealh;
             player.Health = (int)Health;
         }
-        if (MaxHealh != null)
+        if (MaxHealh != null && MaxHealh != 0)
             player.MaxHealth = (int)MaxHealh;
-        if (Shiled != null)
+        if (Shiled != null && Shiled != 0)
         {
             if (shiledctrl.MaxShield < (int)Shiled)
                 shiledctrl.MaxShield = (int)Shiled;
             shiledctrl.Shield = (int)Shiled;
         }
-        if (MaxShiled != null)
+        if (MaxShiled != null && MaxShiled != 0)
             shiledctrl.MaxShield = (int)MaxShiled;
         if (Inventory.IsDefined() && Inventory != null)
             Inventory.Apply(player);

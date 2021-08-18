@@ -30,7 +30,7 @@ namespace VT_Referance.Patch.Event
                 }
                 else
                 {
-                    Server.Get.Logger.Error("Vt-Event: PlayerDamagePost failed!! \n eventHandlerList null");
+                    //Server.Get.Logger.Error("Vt-Event: PlayerDamagePost failed!! \n eventHandlerList null");
                 }
             }
             else

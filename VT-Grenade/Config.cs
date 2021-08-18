@@ -36,6 +36,6 @@ namespace VTGrenad
         public bool BadFlash = true;
 
         [Description("The bindkey for .Boom")]
-        public KeyCode Key = KeyCode.B;
+        public KeyCode? Key = KeyCode.B;
     }
 }

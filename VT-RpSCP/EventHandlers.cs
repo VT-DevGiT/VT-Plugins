@@ -62,7 +62,7 @@ namespace VTRpSCP
         private void OnCheck(RoundCheckEventArgs ev)
         {
             int[] NoEndTeam = new int[] { (int)TeamID.SCP, (int)TeamID.AND, (int)TeamID.CDP, (int)TeamID.CHI, (int)TeamID.BerserkSCP, (int)TeamID.NetralSCP, (int)TeamID.RSC, (int)TeamID.SHA, (int)TeamID.VIP };
-            if (Server.Get.Players.Where(p => NoEndTeam.Contains(p.TeamID)).Any())
+            if (Server.Get.Players.Where(p => NoEndTeam.Contains(p.TeamID)).Any() && Server.Get.Players.Where(p => p.IsDead == true).Any())
             { 
                 ev.EndRound = false;
             }

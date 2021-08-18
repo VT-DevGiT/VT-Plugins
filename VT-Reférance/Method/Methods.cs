@@ -49,29 +49,28 @@ namespace VT_Referance.Method
             return null;
         }
 
-
+        
         /// <summary>
         /// True if the last role of the played is in the SCP team or null if the player had no role
         /// </summary>
         /// <param name="player">the player you want tested</param>
         /// <returns></returns>
         [API]
-        public static bool? IsScpRole(Player player)
+        public static bool? IsWasScpRole(Player player)
         {
             if (player != null && Data.PlayerRole.ContainsKey(player))
             {
                 int roleId = Data.PlayerRole[player];
-                if (_scpRole.Contains(roleId)) 
+                if (_scpRoleVanila.Contains(roleId)) 
                     return true;
-                else if (roleId > 17)
+                else if (roleId > Synapse.Api.Roles.RoleManager.HighestRole)
                     return Server.Get.RoleManager.GetCustomRole(roleId).GetTeamID() == (int)TeamID.SCP;
                 else return false;
             }
             return null;
         }
-        
 
-        private static List<int> _scpRole = new List<int>()
+        private static List<int> _scpRoleVanila = new List<int>()
         { 
             (int)RoleID.Scp0492,(int)RoleID.Scp079,(int)RoleID.Scp096,
             (int)RoleID.Scp106, (int)RoleID.Scp173,(int)RoleID.Scp93953,
@@ -85,7 +84,7 @@ namespace VT_Referance.Method
         [API]
         public static bool isAirBombCurrently = false;
 
-
+        // Airbomb of SanayaPlugin
         /// <summary>
         /// Start Air Bombardment that detonates grenades all over the outer area
         /// </summary>
@@ -93,14 +92,11 @@ namespace VT_Referance.Method
         /// <param name="limit">if set to -1 it continues indefinitely</param>
         /// <returns></returns>
         [API]
-        public static IEnumerator<float> AirSupportBomb(int waitforready = 7, int limit = -1)
+        public static IEnumerator<float> AirBomb(int waitforready = 7, int limit = -1)
         {
             if (isAirBombCurrently)
-            {
                 yield break;
-            }
-            else
-                isAirBombCurrently = true;
+            else isAirBombCurrently = true;
 
             Map.Get.Cassie("danger . outside zone emergency termination sequence activated .", false);
             yield return Timing.WaitForSeconds(5f);
@@ -168,11 +164,11 @@ namespace VT_Referance.Method
         [API]
         public static string GenerateNtfUnitName()
         {
-            var combi = typeof(UnitNamingRule).GetStaticFieldOrPropertyValue<List<string>>("UsedCombinations");
+            var combi = typeof(UnitNamingRule).GetFieldOrPropertyValue<List<string>>("UsedCombinations");
             string regular;
             do
             {
-                var arrayOfValues = typeof(NineTailedFoxNamingRule).GetStaticFieldOrPropertyValue<string[]>("PossibleCodes");
+                var arrayOfValues = typeof(NineTailedFoxNamingRule).GetFieldOrPropertyValue<string[]>("PossibleCodes");
                 regular = arrayOfValues[UnityEngine.Random.Range(0, arrayOfValues.Length)] + "-" + UnityEngine.Random.Range(1, 20).ToString("00");
             }
             while (combi.Contains(regular));

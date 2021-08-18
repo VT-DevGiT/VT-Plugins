@@ -31,14 +31,14 @@ namespace VT_Referance.Behaviour
 
         private void OnSetClass(PlayerSetClassEventArgs ev)
         {
-            Server.Get.Logger.Info($"{ev.Player} OnSetClass");
+            Server.Get.Logger.Info($"OnSetClass");
             Server.Get.Logger.Info($"{ev.Player == player}");
             if (ev.Player == player)
             {
-                ShieldLock = false;
-                MaxShield = 100;
-                Shield = 0;
-                Server.Get.Logger.Info($"{ev.Player} Shield = 0");
+                _ShieldLock = false;
+                _MaxShield = 100;
+                _Shield = 0;
+                Server.Get.Logger.Info($"Shield = 0");
             }
         }
 

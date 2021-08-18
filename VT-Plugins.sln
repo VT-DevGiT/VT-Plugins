@@ -51,7 +51,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-RpSCP", "VT-RpSCP\VT-RpS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Log", "VT-log\VT-Log.csproj", "{7FBF2270-08C9-4D3F-87F0-827838703C6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Synapsesl-Exiled", "VT-Synapsesl-Exiled\VT-Synapsesl-Exiled.csproj", "{ADA97A09-49F5-433A-AC17-389C0A1EB5E0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-MultiLoader", "VT-Synapsesl-Exiled\VT-MultiLoader.csproj", "{ADA97A09-49F5-433A-AC17-389C0A1EB5E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

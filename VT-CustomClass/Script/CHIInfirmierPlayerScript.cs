@@ -65,7 +65,7 @@ namespace VTCustomClass.PlayerScript
                 if((DateTime.Now - lastPower).TotalSeconds > Plugin.ConfigCHIInfirmier.Cooldown)
                 {
                     Player corpseowner = Methods.GetPlayercoprs(Player, 2.5f);
-                    if (Methods.IsScpRole(corpseowner) == false)
+                    if (Methods.IsWasScpRole(corpseowner) == false)
                     { 
                         corpseowner.RoleID = Data.PlayerRole[corpseowner];
                         corpseowner.Position = corpseowner.DeathPosition;

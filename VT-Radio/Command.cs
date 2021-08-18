@@ -37,7 +37,7 @@ namespace VTRadio
             }
             else if (!Methods.isAirBombCurrently)
             {
-                Timing.RunCoroutine(Methods.AirSupportBomb(7, 5));
+                Timing.RunCoroutine(Methods.AirBomb(7, 5));
                 result.State = CommandResultState.Ok;
                 result.Message = "Air Bomb Start";
             }

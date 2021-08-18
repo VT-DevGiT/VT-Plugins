@@ -6,6 +6,16 @@ namespace VT_Referance.Method
 {
     public static class Reflection
     {
+        [API]
+        public static object CallMethod(this Type o, string methodName, params object[] args)
+        {
+            var mi = o.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static);
+            if (mi != null)
+            {
+                return mi.Invoke(null, args);
+            }
+            return null;
+        }
 
         [API]
         public static object CallMethod(this object o, string methodName, params object[] args)
@@ -36,8 +46,8 @@ namespace VT_Referance.Method
         }
 
 
-            [API]
-        public static T GetStaticFieldOrPropertyValue<T>(this Type element, string fieldName)
+        [API]
+        public static T GetFieldOrPropertyValue<T>(this Type element, string fieldName)
         {
             var prop = element.GetProperty(fieldName, BindingFlags.NonPublic | BindingFlags.Static);
             if (prop != null)
@@ -53,6 +63,16 @@ namespace VT_Referance.Method
         }
 
         [API]
+        public static void SetProperty<T>(this Type element, string fieldName, object value)
+        {
+            var prop = element.GetType().GetProperty(fieldName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+            if (prop != null)
+            {
+                prop.SetValue(null, value);
+            }
+        }
+
+        [API]
         public static void SetProperty<T>(this object element, string fieldName, object value)
         {
             var prop = element.GetType().GetProperty(fieldName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
@@ -61,6 +81,7 @@ namespace VT_Referance.Method
                 prop.SetValue(element, value);
             }
         }
+
 
         [API]
         public static void SetField<T>(this object element, string fieldName, object value)
@@ -73,7 +94,7 @@ namespace VT_Referance.Method
         }
 
         [API]
-        public static void SetStaticField<T>(this Type element, string fieldName, T value)
+        public static void SetField<T>(this Type element, string fieldName, T value)
         {
             var prop = element.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Static);
             if (prop != null)

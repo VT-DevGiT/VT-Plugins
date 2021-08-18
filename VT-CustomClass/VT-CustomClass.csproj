@@ -87,14 +87,13 @@
     <Compile Include="Config\ConfigNTFLieutenantColonel.cs" />
     <Compile Include="Config\ConfigSCP166.cs" />
     <Compile Include="Config\CustomClass.cs" />
-    <Compile Include="CustomTeam\VIPTeam - Copier.cs" />
+    <Compile Include="CustomTeam\VIPTeam.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="Patch.cs" />
     <Compile Include="Pouvoir\Green.cs" />
     <Compile Include="Pouvoir\Commands.cs" />
     <Compile Include="Pouvoir\Bullets.cs" />
     <Compile Include="Pouvoir\Hack.cs" />
-    <Compile Include="Pouvoir\invisible.cs" />
     <Compile Include="Pouvoir\MouveVent.cs" />
     <Compile Include="Config\ConfigGardeSuperviseur.cs" />
     <Compile Include="Config\ConfigCHIExpertPyrotechnie.cs" />

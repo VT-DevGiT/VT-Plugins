@@ -72,7 +72,7 @@ namespace VT_PNJ
             if (context.Arguments.Count == 1 && uint.TryParse(context.Arguments.FirstOrDefault(), out id) && BaseNpcScript.NpcList.ContainsKey(id))
             {
                 BaseNpcScript PNJ = BaseNpcScript.NpcList[id];
-                PNJ.Mouvement.Goto = context.Player.Position;
+                PNJ.CtrMouvement.Goto = context.Player.Position;
                 result.State = CommandResultState.Ok;
                 result.Message = $"NPC of the id : \"{PNJ.Id}\"; \n move to you !\n Position : {context.Player.Position}";
             }
@@ -105,9 +105,9 @@ namespace VT_PNJ
             if (context.Arguments.Count == 1 && uint.TryParse(context.Arguments.FirstOrDefault(), out id) && BaseNpcScript.NpcList.ContainsKey(id))
             {
                 BaseNpcScript PNJ = BaseNpcScript.NpcList[id];
-                if (PNJ.Mouvement.Goto != null)
+                if (PNJ.CtrMouvement.Goto != null)
                 { 
-                    context.Player.Position = (Vector3)PNJ.Mouvement.Goto;
+                    context.Player.Position = (Vector3)PNJ.CtrMouvement.Goto;
                     result.State = CommandResultState.Ok;
                     result.Message = $"you move to the NPC of the id : \"{PNJ.Id}\";";
                 }

@@ -18,9 +18,14 @@ namespace VTCustomClass.Pouvoir
             base.Start();
         }
 
+        protected override void OnDisable()
+        {
+            UnRegisterEvents();
+            base.OnDisable();
+        }
+
         protected override void BehaviourAction()
         {
-            
             if (duraction > 0)
             {
                 player.SendBroadcast(1, Plugin.PluginTranslation.ActiveTranslation.
@@ -36,7 +41,7 @@ namespace VTCustomClass.Pouvoir
         }
         private void OnDoorInteract(DoorInteractEventArgs ev)
         {
-            if (ev.Player == player)
+            if (ev.Player == player && isActiveAndEnabled)
             {
                 ev.Allow = false;
                 ev.Player.Position += (ev.Player.gameObject.transform.forward * 1.5f);
@@ -45,7 +50,7 @@ namespace VTCustomClass.Pouvoir
 
         private void OnPickUpItem(PlayerPickUpItemEventArgs ev)
         {
-            if (ev.Player == player)
+            if (ev.Player == player && isActiveAndEnabled)
             {
                 ev.Allow = false;
             }
@@ -53,7 +58,7 @@ namespace VTCustomClass.Pouvoir
 
         private void OnDamage(PlayerDamageEventArgs ev)
         {
-            if (ev.Victim == player)
+            if (ev.Victim == player && isActiveAndEnabled)
             {
                 ev.Allow = false;
             }

@@ -18,44 +18,31 @@ namespace VTCustomClass
             Server.Get.Events.Round.SpawnPlayersEvent += OnSpawn;
             Server.Get.Events.Round.TeamRespawnEvent += OnReSpawn;
             Server.Get.Events.Player.PlayerSetClassEvent += OnClass;
-            Server.Get.Events.Player.PlayerJoinEvent += OnJoin;
+            Server.Get.Events.Server.TransmitPlayerDataEvent += OnTransmitPlayerData;
             Server.Get.Events.Round.RoundRestartEvent += () => Data.PlayerRole.Clear();
-            VTController.Server.Events.Player.PlayerSetClassEvent += OnSetID;
         }
-
-        private void OnSetID(VT_Referance.Event.EventArguments.PlayerSetClassEventArgs ev)
+        
+        private void OnTransmitPlayerData(TransmitPlayerDataEventArgs ev)
         {
-            if (ev.NewID != (int)RoleID.Spectator && ev.NewID != (int)RoleID.Staff)
-                RemouveSeeInvisble(ev.Player);
-            else if (ev.Player.RemoteAdminAccess || ev.NewID == (int)RoleID.Staff)
-                AddSeeInvisble(ev.Player);
-        }
-
-        private void OnJoin(PlayerJoinEventArgs ev)
-        {
-            if (ev.Player.RemoteAdminAccess == true)
-                AddSeeInvisble(ev.Player);
-        }
-
-        private void AddSeeInvisble(Player player)
-        {
-            string OrginalGroupeName = PermissionHandler.Get.Groups.FirstOrDefault(g => g.Value == player.SynapseGroup).Key;
-            if (string.IsNullOrEmpty(OrginalGroupeName))
+            if (ev.PlayerToShow == ev.Player)
                 return;
-            OrginalGroupeName = $"VT_SeeInvislble{OrginalGroupeName}";
-            player.SynapseGroup = PermissionHandler.Get.GetServerGroup(OrginalGroupeName);
+            if (ev.PlayerToShow.RoleID == (int)RoleID.SCP966)
+            {
+                if (ev.Player.RoleID != (int)RoleID.Staff && ev.Player.RoleID != (int)RoleID.Spectator && ev.Player.TeamID != (int)TeamID.SCP)
+                    ev.Invisible = true;
+                else
+                    ev.Invisible = false;
+            }
+            else if(ev.PlayerToShow.RoleID == (int)RoleID.Staff)
+            {
+                if (ev.Player.RoleID != (int)RoleID.Staff)
+                    ev.Invisible = true;
+                else
+                    ev.Invisible = false;
+            }
         }
-
-        private void RemouveSeeInvisble(Player player)
-        {
-            string OrginalGroupeName = PermissionHandler.Get.Groups.FirstOrDefault(g => g.Value == player.SynapseGroup).Key;
-            if (string.IsNullOrEmpty(OrginalGroupeName))
-                return;
-            OrginalGroupeName.Replace("VT_SeeInvislble", "");
-            player.SynapseGroup = PermissionHandler.Get.GetServerGroup(OrginalGroupeName);
-        }
-
-        private void OnClass(PlayerSetClassEventArgs ev)
+        
+            private void OnClass(PlayerSetClassEventArgs ev)
         {
             Data.PlayerRole[ev.Player] = (int)ev.Role;
             if (RespawnPlayer.Contains(ev.Player))

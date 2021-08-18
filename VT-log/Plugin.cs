@@ -17,13 +17,10 @@ namespace VTLog
     {
         public static Plugin Instance { get; private set; }
 
-        [Synapse.Api.Plugin.Config(section = "VT-Log")]
-        public static Config Config;
-
         public override void Load()
         {
             Instance = this;
-            Method.CreeUnNouveauxTXT();
+            Method.CreateNewTXT();
             new EventHandlers();
         }
 

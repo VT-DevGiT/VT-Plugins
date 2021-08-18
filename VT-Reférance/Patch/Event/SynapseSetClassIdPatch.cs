@@ -14,8 +14,6 @@ namespace VT_Referance.Patch.Event
         {
             try
             {
-                Server.Get.Logger.Info("Log RoleID set : SynapseSetClassIdPatch1");
-                Server.Get.Logger.Info(__instance);
                 if (value == null)
                     return true;
                 bool flag = true;
@@ -35,11 +33,11 @@ namespace VT_Referance.Patch.Event
 
                 value = Server.Get.RoleManager.GetCustomRole(roleID);
 
-                return true;
+                return true;    
             }
             catch (Exception e)
             {
-                Logger.Get.Error($"Vt-Event: PlayerDamagePost failed!!\n{e}\nStackTrace:\n{e.StackTrace}");
+                Logger.Get.Error($"Vt-Event: CustomRole failed!!\n{e}\nStackTrace:\n{e.StackTrace}");
                 return true;
             }
         }
@@ -52,9 +50,9 @@ namespace VT_Referance.Patch.Event
         {
             try
             {
-                Server.Get.Logger.Info("Log RoleType set : SynapseSetClassIdPatch2");
-                Server.Get.Logger.Info(__instance);
-            
+                if (__instance.CustomRole != null)
+                    return true;
+
                 bool flag = true;
                 int roleID = (int)value;
                 VTController.Server.Events.Player.InvokeSetClassEvent(__instance, __instance.RoleID, ref roleID, ref flag);
@@ -85,7 +83,7 @@ namespace VT_Referance.Patch.Event
             }
             catch (Exception e)
             {
-                Logger.Get.Error($"Vt-Event: PlayerDamagePost failed!!\n{e}\nStackTrace:\n{e.StackTrace}");
+                Logger.Get.Error($"Vt-Event: RoleType failed!!\n{e}\nStackTrace:\n{e.StackTrace}");
                 return true;
             }
         }

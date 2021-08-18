@@ -1,5 +1,4 @@
-﻿using Synapse;
-using Synapse.Api;
+﻿using Synapse.Api;
 using Synapse.Api.Items;
 using System;
 
@@ -23,7 +22,8 @@ namespace VTLog
         {
             try
             { 
-            return $"Player:(#{player?.UserId}.{(player?.SecondUserID== null ? "#?null" : player?.SecondUserID)}#{player?.name}//{player?.NickName}.{player?.DisplayName}#{player?.RoleID}#{player?.Room}//{player?.Position}#{player?.IpAddress})";
+                if (!player.IsDummy) return $"Player:(#{player?.UserId}.{(player?.SecondUserID== null ? "#?null" : player?.SecondUserID)}#{player?.name}//{player?.NickName}.{player?.DisplayName}#{player?.RoleID}#{player?.Room}//{player?.Position}#{player?.IpAddress})";
+                else return $"Dummy:(#{player?.UserId}.{(player?.SecondUserID == null ? "#?null" : player?.SecondUserID)}#{player?.name}//{player?.NickName}.{player?.DisplayName}#{player?.RoleID}#{player?.Room}//{player?.Position}#{player?.IpAddress})";
             }
             catch (Exception e)
             { 

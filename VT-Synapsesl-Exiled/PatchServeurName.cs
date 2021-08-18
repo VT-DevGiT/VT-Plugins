@@ -1,18 +1,14 @@
 ﻿using HarmonyLib;
-using Synapse.Api;
 using System;
 using System.Text.RegularExpressions;
 
-namespace VT_Synapsesl_Exiled
+namespace VT_MultieLoder
 {
     [HarmonyPatch(typeof(ServerConsole), nameof(ServerConsole.ReloadServerName))]
 
     class PatchServeurName
     {
-        private static void Postfix()
-        {
-            ServerConsole._serverName = GetName(ServerConsole._serverName);
-        }
+        private static void Postfix() => ServerConsole._serverName = GetName(ServerConsole._serverName);
 
         private static string GetName(string chaine)
         {
@@ -21,14 +17,14 @@ namespace VT_Synapsesl_Exiled
             if (matches.Count >= 1)
             {
                 var modeLoader = GetModeLoader(chaine);
-                return $"{matches[0].ToString()}{modeLoader}</size></color>";
+                return $"{matches[0]}{modeLoader}</size></color>";
             }
             else return chaine;
         }
         private static string GetModeLoader(string chaine)
         {
             string result = "";
-            if (true || ExiledLuncher.Config.NameTracking)
+            if (MultieLoder.Config.NameTracking)
                 result = "VT 1.0.3.0 :";// you add the version in VT reference if you want it to update by itself :)
             var reg = new Regex("<size=1>.*");
             string[] separatingStrings = { "</size>" };

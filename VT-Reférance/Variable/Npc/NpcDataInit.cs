@@ -1,10 +1,5 @@
 ﻿using Synapse.Api.Enum;
 using Synapse.Config;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VT_Referance.NpcScript;
 
 namespace VT_Referance.Variable.Npc
@@ -13,10 +8,7 @@ namespace VT_Referance.Variable.Npc
     {
         public static CheminZone TestCheminZone = null;
 
-        public static void ClearNpc()
-        {
-            BaseNpcScript.clear();
-        }
+        public static void ClearNpc() => BaseNpcScript.NpcList.Clear();
 
         public static void InitPointForTest()
         {
