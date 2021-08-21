@@ -1,5 +1,4 @@
-﻿using Grenades;
-using HarmonyLib;
+﻿using HarmonyLib;
 using Mirror;
 using Synapse;
 using Synapse.Api.Enum;
@@ -13,6 +12,7 @@ using VT_Referance.Event;
 
 namespace VT_Referance.Patch.Event
 {
+    /*
     [HarmonyPatch(typeof(Grenade), nameof(Grenade.OnCollisionEnter))]
     class ColisionGrenadePatch
     {
@@ -42,4 +42,5 @@ namespace VT_Referance.Patch.Event
             }
         }
     }
+    */
 }

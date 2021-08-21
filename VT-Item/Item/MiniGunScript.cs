@@ -137,7 +137,7 @@ namespace VT_Item.Item
                     if (component.GetShootPermission(target.ClassManager))
                     {
                         int damage;
-                        switch (hitbox.id)
+                        switch (hitbox.tag)
                         {
                             case HitBoxType.HEAD: damage = Plugin.MiniGunConfig.DamageHead; break;
                             case HitBoxType.ARM: damage = Plugin.MiniGunConfig.DamageArm; break;

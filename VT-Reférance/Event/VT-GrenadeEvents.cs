@@ -14,6 +14,7 @@ namespace VT_Referance.Event
         public event Synapse.Api.Events.EventHandler.OnSynapseEvent<CollisionGrenadeEventArgs> CollisionGrenadeEvent;
 
         #region Invoke
+        /*
         internal void InvokeCollisionGrenadeEvent(Grenade grenade, GrenadeType type, ref bool allow)
         {
             var ev = new CollisionGrenadeEventArgs
@@ -56,6 +57,7 @@ namespace VT_Referance.Event
 
             allow = ev.Allow;
         }
+        */
         #endregion
     }
 }

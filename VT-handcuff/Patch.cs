@@ -7,17 +7,5 @@ using System.Threading.Tasks;
 
 namespace VThandcuff
 {
-
-    [HarmonyPatch(typeof(Handcuffs), nameof(Handcuffs.UpdateCuffedPlayers))]
-    internal static class ServersideSetupKill
-    {
-        public static bool Prefix(Handcuffs __instance)
-        {
-            if (Plugin.Config.CuffLock) 
-                return false;
-            else
-                return true;
-        }
-    }
     
 }

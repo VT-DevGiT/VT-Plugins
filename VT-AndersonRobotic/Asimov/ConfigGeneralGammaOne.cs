@@ -23,8 +23,7 @@ namespace VT_AndersonRobotic
                 new SerializedPlayerItem((int)ItemType.GunE11SR, 75, 0, 0, 0, Vector3.one, 100, true),
                 new SerializedPlayerItem((int)ItemType.Adrenaline, 1, 0, 0, 0, Vector3.one, 100, true),
                 new SerializedPlayerItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.ArmorHeavy, 1, 0, 0, 0, Vector3.one, 100, true), 
                 new SerializedPlayerItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one, 100, true),
             }
         };

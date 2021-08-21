@@ -112,18 +112,29 @@ namespace VT_MultieLoder.Exiled
 
         private void OnRemoteAdminCommandEvent(RemoteAdminCommandEventArgs ev)
         {
-            (string name, string[] arguments) = ev.Command.ExtractCommand();
-            var arg = new SendingRemoteAdminCommandEventArgs(ev.Sender, ExiledPlayer.Get(ev.Sender), name, arguments.ToList(), ev.Allow);
+            /*
+            try
+            {
+                (string name, string[] arguments) = ev.Command.ExtractCommand();
+                var arg = new SendingRemoteAdminCommandEventArgs(ev.Sender, ExiledPlayer.Get(ev.Sender), name, arguments.ToList(), ev.Allow);
 
-            ServerHandlers.OnSendingRemoteAdminCommand(arg);
+                ServerHandlers.OnSendingRemoteAdminCommand(arg);
+            }
+            catch (Exception e)
+            {
+                Server.Get.Logger.Error($"RemoteAdminCommandEventCall fail ! \n{e.Message}");
+            }
+            */
         }
 
         private void OnPreAuthenticationEvent(PreAuthenticationEventArgs ev)
         {
             try 
             {
-                var arg = new PreAuthenticatingEventArgs(ev.UserId, ev.Request, 0, 0, "null", ev.Allow);
+                var arg = new PreAuthenticatingEventArgs(ev.UserId, ev.Request, 0, 0, "null", 0);
+                arg.IsAllowed = ev.Allow;
                 PlayerHandlers.OnPreAuthenticating(arg);
+                ev.Allow = arg.IsAllowed;
             }
             catch (Exception e)
             {
@@ -133,6 +144,7 @@ namespace VT_MultieLoder.Exiled
 
         private void OnConsoleCommandEvent(ConsoleCommandEventArgs ev)
         {
+            /*
             try
             {
                 (string name, string[] arguments) = ev.Command.ExtractCommand();
@@ -144,8 +156,9 @@ namespace VT_MultieLoder.Exiled
             }
             catch (Exception e)
             {
-                Server.Get.Logger.Error($"RemoteAdminCommandEventCall fail ! \n{e.Message}");
+                Server.Get.Logger.Error($"ConsoleCommandEventCall fail ! \n{e.Message}");
             }
+            */
         }
 
         private void OnScpAttackEvent(ScpAttackEventArgs ev)
@@ -245,7 +258,7 @@ namespace VT_MultieLoder.Exiled
         {
             try
             {
-                var arg = new AddingTargetEventArgs(ev.Scp096.ToExiled(), ev.Player.ToExiled(), (int)ev.Scp096.Scp096Controller.ShieldAmount, ev.Scp096.Scp096Controller.EnrageTimeLeft, ev.Allow);
+                var arg = new AddingTargetEventArgs(ev.Scp096.ToExiled(), ev.Player.ToExiled(), ev.Scp096.Scp096Controller.EnrageTimeLeft, ev.Allow);
                 Scp096Handlers.OnAddingTarget(arg);
 
                 ev.Allow = arg.IsAllowed;
@@ -288,7 +301,7 @@ namespace VT_MultieLoder.Exiled
                 if (ev.TeamID > 2)
                     return;
 
-                var arg = new RespawningTeamEventArgs(ev.Players.ToExiled(), ev.Team, ev.Allow);
+                var arg = new RespawningTeamEventArgs(ev.Players.ToExiled(), ev.Players.Count, ev.Team, ev.Allow);
 
                 ServerHandlers.OnRespawningTeam(arg);
             }
@@ -304,7 +317,7 @@ namespace VT_MultieLoder.Exiled
             {
                 foreach (var spawnPlayer in ev.SpawnPlayers)
                 {
-                    var arg = new SpawningEventArgs(spawnPlayer.Key.ToExiled(), (RoleType)spawnPlayer.Value, Vector3.zero, 0);
+                    var arg = new SpawningEventArgs(spawnPlayer.Key.ToExiled(), (RoleType)spawnPlayer.Value);
                     PlayerHandlers.OnSpawning(arg);
                 }
             }
@@ -410,7 +423,7 @@ namespace VT_MultieLoder.Exiled
         {
             try 
             {
-                var arg = new UsingMicroHIDEnergyEventArgs(ev.Player.ToExiled(), ev.Micro.pickup.gameObject.GetComponent<MicroHID>(), ev.State, ev.Energy, ev.Energy - 0.1f, true);
+                UsingMicroHIDEnergyEventArgs arg = new UsingMicroHIDEnergyEventArgs(ev.Player.ToExiled(), ev.Micro.pickup.gameObject.GetComponent<MicroHID>(), ev.State, ev.Energy, ev.Energy - 0.1f, true);
 
                 PlayerHandlers.OnUsingMicroHIDEnergy(arg);
 

@@ -27,7 +27,7 @@ namespace VT_Referance.Event.EventArguments
         public bool MakeNoise { get; internal set; }
         public bool Allow { get; set; }
     }
-
+    /*
     public class Change914KnobSettingEventArgs : Synapse.Api.Events.EventHandler.ISynapseEventArgs
     {
         public Player Player { get; internal set; }
@@ -35,21 +35,21 @@ namespace VT_Referance.Event.EventArguments
         public Scp914Knob NextSetting { get; set; }
         public bool Allow { get; set; }
     }
-
+    */
     public class ElevatorIneractEventArgs : Synapse.Api.Events.EventHandler.ISynapseEventArgs
     {
         public Player Player { get; internal set; }
         public Elevator Elevator { get; internal set; }
         public bool Allow { get; set; }
     }
-
+    /*
     public class LockerInteractEventArgs : Synapse.Api.Events.EventHandler.ISynapseEventArgs
     {
         public Player Player { get; internal set; }
         public Locker Locker { get; internal set; }
         public bool Allow { get; set; }
     }
-    
+    */
     public class Scp914ActivateEventArgs : Synapse.Api.Events.EventHandler.ISynapseEventArgs
     {
         public Player Player { get; internal set; }

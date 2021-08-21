@@ -15,7 +15,7 @@ namespace VThandcuff
 
         private void OnUnCuff(PlayerUnCuffTargetEventArgs ev)
         {
-            if (Plugin.Config.CuffLock && (ev.FreeWithDisarmer == false || ev.Player?.ItemInHand?.ID != (int)ItemType.Disarmer))
+            if (Plugin.Config.CuffLock && !ev.Player.IsCuffed)
                 ev.Allow = false;
         }
 

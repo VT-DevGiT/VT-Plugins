@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace VT_Referance.Patch.Event
 {
+    /*
     [HarmonyPatch(typeof(PlayerInteract), nameof(PlayerInteract.CallCmdSwitchAWButton))]
     class ActivatingWarheadPanelPatch
     {
@@ -40,4 +41,5 @@ namespace VT_Referance.Patch.Event
             }
         }
     }
+    */
 }

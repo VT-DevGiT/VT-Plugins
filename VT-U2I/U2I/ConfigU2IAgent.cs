@@ -21,7 +21,7 @@ namespace VT_U2I
             Items = new List<SerializedPlayerItem>()
             {
                 new SerializedPlayerItem((int)ItemType.KeycardGuard,0,0,0,0,Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.GunMP7,35,0,0,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GunFSP9,35,0,0,0,Vector3.one, 100, true),
                 new SerializedPlayerItem((int)ItemType.GunCOM15,12,0,0,0,Vector3.one, 100, true),
                 new SerializedPlayerItem((int)ItemType.Flashlight,75,0,0,0,Vector3.one, 100, true),
             }

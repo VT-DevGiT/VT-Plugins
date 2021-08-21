@@ -81,7 +81,7 @@ namespace VT_Referance.Event
 
             allow = ev.Allow;
         }
-
+        /*
         internal void InvokeChange914KnobSettingEvent(Player player, Scp914Knob curSetting, ref Scp914Knob nextSetting, ref bool allow)
         {
             var ev = new Change914KnobSettingEventArgs
@@ -97,6 +97,7 @@ namespace VT_Referance.Event
             allow = ev.Allow;
             nextSetting = ev.NextSetting;
         }
+        */
 
         internal void InvokeElevatorIneractEvent(Player player, Elevator elevator, ref bool allow)
         {
@@ -112,7 +113,7 @@ namespace VT_Referance.Event
             allow = ev.Allow;
         }
 
-
+        /*
         internal void InvokeLockerIneractEvent(Player player, Locker locker, ref bool allow)
         {
             var ev = new LockerInteractEventArgs
@@ -126,6 +127,7 @@ namespace VT_Referance.Event
 
             allow = ev.Allow;
         }
+        */
         internal void InvokeScp914ActivateEvent(Player player, ref bool allow)
         {
             var ev = new Scp914ActivateEventArgs

@@ -16,7 +16,7 @@ namespace VT_U2I
 
         protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.MTFally;
 
-        protected override RoleType RoleType => RoleType.NtfLieutenant;
+        protected override RoleType RoleType => RoleType.NtfSergeant;
 
         protected override int RoleTeam => (int)TeamID.U2I;
 

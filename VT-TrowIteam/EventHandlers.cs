@@ -1,5 +1,4 @@
-﻿using Grenades;
-using MEC;
+﻿using MEC;
 using Synapse;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;

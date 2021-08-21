@@ -7,6 +7,7 @@ using System;
 
 namespace VT_Referance.Patch.Event
 {
+    /*
     [HarmonyPatch(typeof(FragGrenade), nameof(FragGrenade.ServersideExplosion))]
     class FragExplosionGrenadePatch
     {
@@ -63,4 +64,5 @@ namespace VT_Referance.Patch.Event
             }
         }
     }
+    */
 }

@@ -89,5 +89,6 @@ namespace VT_Referance.Variable
         Scp035_Item_Coin = 133,
         MiniGun = 200,
         BulletPlate = 201,
+        turret = 202,
     }
 }

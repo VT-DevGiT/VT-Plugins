@@ -10,7 +10,6 @@ namespace VT079
     {
         public EventHandlers()
         {
-            Server.Get.Events.Scp.Scp079.Scp079RecontainEvent += On079Recontain;
             Server.Get.Events.Player.PlayerSetClassEvent += OnPlayerSet;
             Server.Get.Events.Map.WarheadDetonationEvent+= OnWarhead;
             Server.Get.Events.Map.DoorInteractEvent += OnDoorInteract;
@@ -47,16 +46,6 @@ namespace VT079
             {
                 Plugin.SCPRoleDeconf.Remove((int)ev.Role);
             }
-        }
-        private void On079Recontain(Scp079RecontainEventArgs ev)
-        {
-            Synapse.Api.Door porte = Server.Get.Map.Doors.FirstOrDefault(p => p.Name == "079_SECOND");
-            
-            if (porte != null)
-                porte.Locked = false;
-
-            if (Plugin.Config.Scp079AdvenceRecontain)
-                ev.Allow = false;
         }
     }
 }

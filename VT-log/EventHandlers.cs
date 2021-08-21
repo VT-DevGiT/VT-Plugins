@@ -30,14 +30,13 @@ namespace VTLog
             Server.Get.Events.Player.PlayerShootEvent += PlayerOnShoot;
             //Server.Get.Events.Player.PlayerSpeakEvent += PlayerOnSpeak;
             Server.Get.Events.Player.PlayerThrowGrenadeEvent += PlayerOnThrowGrenade;
-            Server.Get.Events.Player.PlayerUnconnectWorkstationEvent += PlayerOnUnconnectWrokStation;
             Server.Get.Events.Player.PlayerUseMicroEvent += PlayerUseHID;
             Server.Get.Events.Player.PlayerWalkOnSinkholeEvent += PlayerWalkOnSinkhole;
             Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent += PlayerOnTargetScp096;
             Server.Get.Events.Scp.Scp106.Scp106ContainmentEvent += PlayerOnReconfScp106;
             Server.Get.Events.Scp.Scp106.PortalCreateEvent += PlayerOnCreatSinkhole;
             Server.Get.Events.Scp.Scp106.PocketDimensionEnterEvent += PlayerOnUseSinkhole;
-            Server.Get.Events.Scp.Scp079.Scp079RecontainEvent += PlayerOnReconfScp079;
+            Server.Get.Events.Scp.Scp079.RecontainEvent += PlayerOnReconfScp079;
             Server.Get.Events.Map.DoorInteractEvent += PlayerOnIntercatDoor;
             Server.Get.Events.Round.SpawnPlayersEvent += RoundOnSpawn;
             Server.Get.Events.Round.TeamRespawnEvent += RoundOnRespawn;
@@ -78,7 +77,7 @@ namespace VTLog
 
         private void PlayerOnConnectWorkstation(PlayerConnectWorkstationEventArgs ev)
         {
-            Method.WriteTXT($"ConnectWorkstation ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} on {ev?.WorkStation?.Name}---TabletteInfo : item {ev.Item.GetInfoItems()}");
+            Method.WriteTXT($"ConnectWorkstation ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} on {ev?.WorkStation?.Name}");
         }
 
         private void PlayerOnLoadCompenents(LoadComponentEventArgs ev)
@@ -88,17 +87,12 @@ namespace VTLog
 
         private void PlayerOnDropAmmo(PlayerDropAmmoEventArgs ev)
         {
-            Method.WriteTXT($"DropAmmo ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} drop {ev?.Amount} of {ev?.AmmoType}--- Tablette : item {ev.Tablet.GetInfoItems()}");
+            Method.WriteTXT($"DropAmmo ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} drop {ev?.Amount} of {ev?.AmmoType}");
         }
 
         private void PlayerOnGenerator(PlayerGeneratorInteractEventArgs ev)
         {
             Method.WriteTXT($"Generator ? {ev.Allow} /// Interaction#{ev?.GeneratorInteraction} : {ev?.Player?.GetInfoPlayer()}");
-        }
-
-        private void PlayerOnUnconnectWrokStation(PlayerUnconnectWorkstationEventArgs ev)
-        {
-            Method.WriteTXT($"UnConnectWorkstation ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} on {ev?.WorkStation?.Name}");
         }
 
         private void PlayerOnReconfScp106(Scp106ContainmentEventArgs ev)
