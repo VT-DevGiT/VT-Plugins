@@ -16,7 +16,7 @@ namespace VTCustomClass.PlayerScript
 
         protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.MTFally;
 
-        protected override RoleType RoleType => RoleType.NtfLieutenant;
+        protected override RoleType RoleType => RoleType.NtfSergeant;
 
         protected override int RoleTeam => (int)TeamID.NTF;
 
@@ -38,7 +38,7 @@ namespace VTCustomClass.PlayerScript
         }
         private void OnDamage(PlayerDamageEventArgs ev)
         {
-            if (ev.Victim == Player && ev.HitInfo.GetDamageType() == DamageTypes.Grenade)
+            if (ev.Victim == Player && ev.HitInfo.Tool == DamageTypes.Grenade)
                 ev.Allow = false;
         }
     }

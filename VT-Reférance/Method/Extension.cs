@@ -23,7 +23,7 @@ namespace VT_Referance.Method
         [API]
         public static bool IsTargetVisible(this Player player, GameObject obj)
         {
-            Camera camera = player.gameObject.GetComponent<Camera>();
+            UnityEngine.Camera camera = player.gameObject.GetComponent<UnityEngine.Camera>();
             var planes = GeometryUtility.CalculateFrustumPlanes(camera);
             var point = obj.transform.position;
             foreach (var plan in planes)

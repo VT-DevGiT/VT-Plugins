@@ -1,4 +1,6 @@
-﻿using HarmonyLib;
+﻿using Footprinting;
+using HarmonyLib;
+using InventorySystem.Items.ThrowableProjectiles;
 using Mirror;
 using Synapse;
 using Synapse.Api.Enum;
@@ -9,53 +11,34 @@ using VT_Referance.Event;
 
 namespace VT_Referance.Patch.Event
 {
-    /*
-    [HarmonyPatch(typeof(FragGrenade), nameof(FragGrenade.ChangeIntoGrenade))]
+    
+    [HarmonyPatch(typeof(TimedGrenadePickup), nameof(TimedGrenadePickup.OnExplosionDetected))]
     class ChangeIntoFragPatch
     {
-        private static bool Prefix(FragGrenade __instance, Pickup item, ref bool __result)
+        private static bool Prefix(TimedGrenadePickup __instance, Footprint attacker, Vector3 source, float range)
         {
             try
             {
-                if (!NetworkServer.active) return false;
-                __result = false;
-                GrenadeSettings grenadeSettings = null;
-                for (int index = 0; index < __instance.thrower.availableGrenades.Length; ++index)
-                {
-                    GrenadeSettings availableGrenade = __instance.thrower.availableGrenades[index];
-                    if (availableGrenade.inventoryID == item.ItemId)
-                    {
-                        if (!__instance.chainSupportedGrenades.Contains(index))
-                           return false;
-                        grenadeSettings = availableGrenade;
-                        break;
-                    }
-                }
-                if (grenadeSettings == null)
+                if (Vector3.Distance(__instance.transform.position, source) / (double)range > 0.400000005960464)
                     return false;
-                SynapseItem pickup = item.GetSynapseItem();
-                GrenadeType Type;
-                bool falg = true;
 
-                if (__instance.GetType() == typeof(FragGrenade))
+                bool flag = true;
+                GrenadeType Type;
+
+                if (__instance.Info.ItemId == ItemType.GrenadeHE)
                     Type = GrenadeType.Grenade;
-                else if (__instance.GetType() == typeof(Scp018Grenade))
+                else if (__instance.Info.ItemId == ItemType.GrenadeFlash)
+                    Type = GrenadeType.Flashbang;
+                else if (__instance.Info.ItemId == ItemType.SCP018)
                     Type = GrenadeType.Scp018;
                 else 
                     Type = (GrenadeType)4;
-                
 
-                VTController.Server.Events.Grenade.InvokeChangeIntoFragEvent(pickup, __instance, Type, ref falg);
-                if (falg)
-                {
-                    Transform transform = item.transform;
-                    Grenade component = UnityEngine.Object.Instantiate(grenadeSettings.grenadeInstance, transform.position, transform.rotation).GetComponent<Grenade>();
-                    component.InitData(__instance, item);
-                    NetworkServer.Spawn(component.gameObject);                    
-                    item.Delete();
-                    __result = true;
-                }
-                return false;
+
+
+                VTController.Server.Events.Grenade.InvokeChangeIntoFragEvent(__instance.GetSynapseItem(), FragExplosionGrenadePatch.grenade, Type, ref flag);
+               
+                return flag;
             }
             catch (Exception e)
             {
@@ -64,5 +47,5 @@ namespace VT_Referance.Patch.Event
             }
         }
     }
-    */
+    
 }

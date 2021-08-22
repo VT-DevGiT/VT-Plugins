@@ -1,4 +1,4 @@
-﻿using Grenades;
+﻿using InventorySystem.Items.ThrowableProjectiles;
 using Synapse.Api.Enum;
 using Synapse.Api.Items;
 using VT_Referance.Event.EventArguments;
@@ -14,22 +14,19 @@ namespace VT_Referance.Event
         public event Synapse.Api.Events.EventHandler.OnSynapseEvent<CollisionGrenadeEventArgs> CollisionGrenadeEvent;
 
         #region Invoke
-        /*
-        internal void InvokeCollisionGrenadeEvent(Grenade grenade, GrenadeType type, ref bool allow)
+        
+        internal void InvokeCollisionGrenadeEvent(TimeGrenade grenade, GrenadeType type)
         {
             var ev = new CollisionGrenadeEventArgs
             {
                 Grenade = grenade,
                 Type = type,
-                Allow = allow
             };
 
             CollisionGrenadeEvent?.Invoke(ev);
-
-            allow = ev.Allow;
         }
 
-        internal void InvokeExplosionGrenadeEvent(Grenade grenade, GrenadeType type,  ref bool allow)
+        internal void InvokeExplosionGrenadeEvent(TimeGrenade grenade, GrenadeType type,  ref bool allow)
         {
             var ev = new ExplosionGrenadeEventArgs
             {
@@ -43,7 +40,7 @@ namespace VT_Referance.Event
             allow = ev.Allow;
         }
 
-        internal void InvokeChangeIntoFragEvent(SynapseItem item, Grenade grenade, GrenadeType type, ref bool allow)
+        internal void InvokeChangeIntoFragEvent(SynapseItem item, TimeGrenade grenade, GrenadeType type, ref bool allow)
         {
             var ev = new ChangeIntoFragEventArgs
             {
@@ -57,7 +54,7 @@ namespace VT_Referance.Event
 
             allow = ev.Allow;
         }
-        */
+        
         #endregion
     }
 }

@@ -13,15 +13,15 @@ namespace VTCustomClass.Config
         [Description("The Inventory of the class")]
         public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
         {
-            Ammo = new SerializedAmmo(100, 100, 100),
+            Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
             Items = new List<SerializedPlayerItem>() { 
-            new SerializedPlayerItem((int)ItemType.KeycardNTFLieutenant, 1, 0, 0, 0, Vector3.one, 100, true), 
-            new SerializedPlayerItem((int)ItemType.GunProject90, 50, 0, 0, 0, Vector3.one, 100, true), 
-            new SerializedPlayerItem((int)ItemType.Adrenaline, 1, 0, 0, 0, Vector3.one, 100, true), 
-            new SerializedPlayerItem((int)ItemType.SCP500, 1, 0, 0, 0, Vector3.one, 100, true), 
-            new SerializedPlayerItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one, 100, true), 
-            new SerializedPlayerItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one, 100, true), 
-            new SerializedPlayerItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one, 100, true)
+            new SerializedPlayerItem((int)ItemType.KeycardNTFLieutenant, 1, 0, Vector3.one, 100, true), 
+            new SerializedPlayerItem((int)ItemType.GunCrossvec, 50, 0, Vector3.one, 100, true), 
+            new SerializedPlayerItem((int)ItemType.Adrenaline, 1, 0, Vector3.one, 100, true), 
+            new SerializedPlayerItem((int)ItemType.SCP500, 1, 0, Vector3.one, 100, true), 
+            new SerializedPlayerItem((int)ItemType.GrenadeHE, 1, 0, Vector3.one, 100, true), 
+            new SerializedPlayerItem((int)ItemType.Radio, 100, 0, Vector3.one, 100, true), 
+            new SerializedPlayerItem((int)ItemType.ArmorCombat, 1, 0, Vector3.one, 100, true)
             }
         };
 

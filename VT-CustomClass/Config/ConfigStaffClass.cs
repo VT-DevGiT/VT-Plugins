@@ -11,7 +11,7 @@ namespace VTCustomClass.Config
         public int Health = 100;
 
         [Description("The Items the class spawns with")]
-        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.Medkit, 35, 0, 0, 0, Vector3.one) };
+        public List<SerializedItem> Items = new List<SerializedItem>() { new SerializedItem((int)ItemType.Medkit, 35, 0, Vector3.one) };
 
         [Description("The number of players required in the same role to have the chance for the class to appear")]
         public int RequiredPlayers = 0;

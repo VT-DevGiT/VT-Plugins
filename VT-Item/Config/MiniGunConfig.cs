@@ -26,9 +26,7 @@ namespace VT_Item.Config
         public int bullets = 3;
 
         [Description("The damage amount")]
-        public int DamageHead = 50;
-        public int DamageArm = 15;
-        public int DamageLeg = 10;
-        public int DamageBody = 20;
+        public int Damage = 25;
+
     }
 }

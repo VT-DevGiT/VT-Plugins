@@ -153,8 +153,8 @@ namespace VT_Referance.PlayerScript
             if (SetDisplayInfo)
             {
                 Player.RemoveDisplayInfo(PlayerInfoArea.Role);
-                List<RoleType> roleWithSquad = new List<RoleType>() { RoleType.FacilityGuard, RoleType.NtfCadet,
-                    RoleType.NtfLieutenant, RoleType.NtfCommander, RoleType.NtfScientist};
+                List<RoleType> roleWithSquad = new List<RoleType>() { RoleType.FacilityGuard, RoleType.NtfPrivate,
+                    RoleType.NtfSergeant, RoleType.NtfCaptain, RoleType.NtfSpecialist};
                 
                 if (roleWithSquad.Contains(RoleType))
                 {
@@ -187,7 +187,7 @@ namespace VT_Referance.PlayerScript
             Player.MaxHealth = GetConfigValue("MaxHealth", (int)Player.Health);
             Player.Health = GetConfigValue("Health", 100);
             Player.MaxArtificialHealth = GetConfigValue("MaxArtificialHealth", 100);
-            Player.ArtificialHealth = GetConfigValue("ArtificialHealth", 0);
+            Player.ArtificialHP = GetConfigValue<ushort>("ArtificialHealth", 0);
             Shield.MaxShield = GetConfigValue("MaxShield", 0);
             Shield.Shield = GetConfigValue("Shield", 0);
         }
@@ -208,7 +208,7 @@ namespace VT_Referance.PlayerScript
                 return;
             string Name = ((IScpRole)this).ScpName;
             Player player = Server.Get.Players.FirstOrDefault(p => p.PlayerId == ev.HitInfo.PlayerId);
-            DamageTypes.DamageType damageType = ev.HitInfo.GetDamageType();
+            DamageTypes.DamageType damageType = ev.HitInfo.Tool;
             if (damageType == DamageTypes.Tesla)
                 NineTailedFoxAnnouncer.singleton.ServerOnlyAddGlitchyPhrase($". SCP {Name} SUCCESSFULLY TERMINATED BY AUTOMATIC SECURITY SYSTEM", 0, 0);
             else if (damageType == DamageTypes.Nuke)

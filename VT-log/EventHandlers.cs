@@ -11,7 +11,7 @@ namespace VTLog
             Server.Get.Events.Round.RoundRestartEvent += OnRoundRestart;
             //Server.Get.Events.Player.LoadComponentsEvent += PlayerOnLoadCompenents;
             Server.Get.Events.Player.PlayerBanEvent += PlayerOnBan;
-            Server.Get.Events.Player.PlayerConnectWorkstationEvent += PlayerOnConnectWorkstation;
+            Server.Get.Events.Player.PlayerStartWorkstationEvent += PlayerOnConnectWorkstation;
             Server.Get.Events.Player.PlayerCuffTargetEvent += PlayerOnCuffTarget;
             Server.Get.Events.Player.PlayerDamageEvent += PlayerOnDamage;
             Server.Get.Events.Player.PlayerDeathEvent += PlayerOnDeath;
@@ -67,15 +67,15 @@ namespace VTLog
 
         private void PlayerOnCuffTarget(PlayerCuffTargetEventArgs ev)
         {
-            Method.WriteTXT($"Cuff ? {ev.Allow} : {ev?.Cuffer?.GetInfoPlayer()} Cuff {ev?.Target?.GetInfoPlayer()}---Disarmer : item {ev?.Disarmer.GetInfoItems()}");
+            Method.WriteTXT($"Cuff ? {ev.Allow} : {ev?.Cuffer?.GetInfoPlayer()} Cuff {ev?.Target?.GetInfoPlayer()}");
         }
 
         private void PlayerOnBan(PlayerBanEventArgs ev)
         {
-            Method.WriteTXT($"Ban ? {ev.Allow} : {ev?.Issuer?.GetInfoPlayer()} ban {ev?.BannedPlayer?.GetInfoPlayer()}---BanInfo : Duration {ev.Duration},Reason {ev.Reason}");
+            Method.WriteTXT($"Ban ? {ev.Allow} : {ev?.Issuer?.GetInfoPlayer()} ban {ev?.BannedPlayer?.GetInfoPlayer()}---BanInfo : Duration {ev.BanDuration},Reason {ev.Reason}");
         }
 
-        private void PlayerOnConnectWorkstation(PlayerConnectWorkstationEventArgs ev)
+        private void PlayerOnConnectWorkstation(PlayerStartWorkstationEventArgs ev)
         {
             Method.WriteTXT($"ConnectWorkstation ? {ev.Allow} : {ev?.Player?.GetInfoPlayer()} on {ev?.WorkStation?.Name}");
         }

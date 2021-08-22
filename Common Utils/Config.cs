@@ -22,11 +22,11 @@ namespace Common_Utiles
                 MaxShiled = null,
                 Inventory = new SerializedPlayerInventory()
                 {
-                    Ammo = new SerializedAmmo(0, 0, 0),
+                    Ammo = new SerializedAmmo(0, 0, 0, 0, 0),
                     Items = new List<SerializedPlayerItem>()
                     {
-                        new SerializedPlayerItem ((int)ItemType.Coin, 1, 0, 0, 0, Vector3.one, 50, true),
-                        new SerializedPlayerItem ((int)ItemType.Flashlight, 1, 0, 0, 0, Vector3.one, 50, true),
+                        new SerializedPlayerItem ((int)ItemType.Coin, 1, 0, Vector3.one, 50, true),
+                        new SerializedPlayerItem ((int)ItemType.Flashlight, 1, 0, Vector3.one, 50, true),
                     }
                 }
             },
@@ -48,11 +48,11 @@ namespace Common_Utiles
         public List<Serialized914Recipe> Recipes = new List<Serialized914Recipe>()
         {
             new Serialized914Recipe((int)ItemType.KeycardFacilityManager, new List<int>() {(int)ItemType.Coin},
-                new List<int>() {(int)ItemType.WeaponManagerTablet, 55 },new List<int>() {(int)ItemType.Radio, (int)ItemType.Medkit },
-                new List<int>() { (int)ItemType.WeaponManagerTablet},new List<int>() {(int)ItemType.Painkillers}),
-            new Serialized914Recipe((int)ItemType.GunMP7, new List<int>() {(int)ItemType.None},
+                new List<int>() {(int)ItemType.ArmorHeavy, 55 },new List<int>() {(int)ItemType.Radio, (int)ItemType.Medkit },
+                new List<int>() { (int)ItemType.ArmorHeavy},new List<int>() {(int)ItemType.Painkillers}),
+            new Serialized914Recipe((int)ItemType.GunAK, new List<int>() {(int)ItemType.None},
                 new List<int>() {(int)ItemType.Coin},new List<int>() {50 },
-                new List<int>() { (int)ItemType.GunProject90},new List<int>() {52 , 51 }),
+                new List<int>() { (int)ItemType.GunFSP9},new List<int>() {52 , 51 }),
         };
 
         [Description("makes players passing through 914 have a random size")]
@@ -91,8 +91,8 @@ namespace Common_Utiles
         public bool Rnd914ArtificialLife = false;
 
         [Description("Max and Min artificial life")]
-        public float Max914ArtificialLife = 200;
-        public float Min914ArtificialLife = 10;
+        public ushort Max914ArtificialLife = 200;
+        public ushort Min914ArtificialLife = 10;
 
         [Description("The percent chance of dying for players passing through 914")]
         public float Rnd914ChanceDie = 50;

@@ -75,8 +75,8 @@ namespace VTCustomClass.PlayerScript
         {
             if (ev.Victim == Player)
             {
-                var DamageType = ev.HitInfo.GetDamageType();
-                if (DamageType != null && !DamageType.isScp && !DamageType.isWeapon && DamageType != DamageTypes.Tesla && DamageType != DamageTypes.Grenade && DamageType != DamageTypes.Nuke)
+                var DamageType = ev.HitInfo.Tool;
+                if (DamageType != null && DamageType.Scp == RoleType.None && DamageType.Weapon == ItemType.None && DamageType != DamageTypes.Tesla && DamageType != DamageTypes.Grenade && DamageType != DamageTypes.Nuke)
                     ev.Allow = false;
                 else if (ev.Killer != Player && Plugin.ConfigUTR.ListScpNoDamge != null && Plugin.ConfigUTR.ListScpNoDamge.Contains(ev.Killer.RoleID))
                     ev.Allow = false;

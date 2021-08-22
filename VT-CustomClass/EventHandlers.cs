@@ -47,19 +47,19 @@ namespace VTCustomClass
             Data.PlayerRole[ev.Player] = (int)ev.Role;
             if (RespawnPlayer.Contains(ev.Player))
             {
-                ev.SpawnRole(RoleType.ChaosInsurgency, new CHILeaderScript());
-                ev.SpawnRole(RoleType.ChaosInsurgency, new CHIHackerScript());
-                ev.SpawnRole(RoleType.ChaosInsurgency, new CHIExpertPyrotechnieScript());
-                ev.SpawnRole(RoleType.ChaosInsurgency, new CHIKamikazeScript());
-                ev.SpawnRole(RoleType.ChaosInsurgency, new CHIMastodonteScript());
-                ev.SpawnRole(RoleType.ChaosInsurgency, new CHIInfirmierScript());
-                ev.SpawnRole(RoleType.NtfCadet, new CHISPYScript());
-                ev.SpawnRole(RoleType.NtfCadet, new NTFCapitaineScript());
-                ev.SpawnRole(RoleType.NtfCadet, new NTFSergentScript());
-                ev.SpawnRole(RoleType.NtfLieutenant, new NTFExpertPyrotechnieScript());
-                ev.SpawnRole(RoleType.NtfLieutenant, new NTFExpertReconfinementScript());
-                ev.SpawnRole(RoleType.NtfLieutenant, new NTFInfirmierScript());
-                ev.SpawnRole(RoleType.NtfLieutenant, new NTFVirologueScript());
+                ev.SpawnRole(RoleType.ChaosRifleman, new CHILeaderScript());
+                ev.SpawnRole(RoleType.ChaosRifleman, new CHIHackerScript());
+                ev.SpawnRole(RoleType.ChaosRifleman, new CHIExpertPyrotechnieScript());
+                ev.SpawnRole(RoleType.ChaosRepressor, new CHIKamikazeScript());
+                ev.SpawnRole(RoleType.ChaosRepressor, new CHIMastodonteScript());
+                ev.SpawnRole(RoleType.ChaosRifleman, new CHIInfirmierScript());
+                ev.SpawnRole(RoleType.NtfPrivate, new CHISPYScript());
+                ev.SpawnRole(RoleType.NtfPrivate, new NTFCommanderScript());
+                ev.SpawnRole(RoleType.NtfPrivate, new NTFLieutenantScript());
+                ev.SpawnRole(RoleType.NtfSergeant, new NTFExpertPyrotechnieScript());
+                ev.SpawnRole(RoleType.NtfSergeant, new NTFExpertReconfinementScript());
+                ev.SpawnRole(RoleType.NtfSergeant, new NTFInfirmierScript());
+                ev.SpawnRole(RoleType.NtfSergeant, new NTFVirologueScript());
                 RespawnPlayer.Remove(ev.Player);
             }
         }

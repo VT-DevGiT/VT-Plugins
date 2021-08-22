@@ -16,13 +16,13 @@ namespace VTCustomClass.Config
         [Description("The Inventory of the class")]
         public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
         {
-            Ammo = new SerializedAmmo(30, 30, 30),
+            Ammo = new SerializedAmmo(50, 50, 50, 50, 50),
             Items = new List<SerializedPlayerItem>() 
             { 
-                new SerializedPlayerItem((int)ItemType.GunUSP, 18, 2, 1, 1, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, 0, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.Disarmer, 1, 0, 0, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one, 100, true)
+                new SerializedPlayerItem((int)ItemType.GunCOM18, 18, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.Flashlight, 1, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.Medkit, 1, 0, Vector3.one, 100, true)
             }
         };
 

@@ -32,9 +32,6 @@ namespace VTGrenad
         [Description("If you want the Flashgrenade can be activated remotely")]
         public bool FlashRemot = true;
 
-        [Description("If you want the Flashgrenade add new effect")]
-        public bool BadFlash = true;
-
         [Description("The bindkey for .Boom")]
         public KeyCode? Key = KeyCode.B;
     }

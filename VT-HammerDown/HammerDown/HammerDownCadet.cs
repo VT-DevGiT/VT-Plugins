@@ -19,7 +19,7 @@ namespace VT_HammerDown
 
         protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.MTFally;
 
-        protected override RoleType RoleType => RoleType.NtfCadet;
+        protected override RoleType RoleType => RoleType.NtfPrivate;
 
         protected override int RoleTeam => (int)TeamID.CDM;
 

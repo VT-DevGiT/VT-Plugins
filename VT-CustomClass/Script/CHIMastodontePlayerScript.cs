@@ -18,7 +18,7 @@ namespace VTCustomClass.PlayerScript
 
         protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.CHIally;
 
-        protected override RoleType RoleType => RoleType.ChaosInsurgency;
+        protected override RoleType RoleType => RoleType.ChaosMarauder;
 
         protected override int RoleTeam => (int)TeamID.CHI;
 
@@ -84,7 +84,7 @@ namespace VTCustomClass.PlayerScript
                 ev.DamageAmount = ev.DamageAmount/1.5f;
             if (ev.Killer == Player)
             {
-                Player.ArtificialHealth += ev.DamageAmount/4;
+                Player.ArtificialHP += (ushort)(ev.DamageAmount/4);
                 ev.HollowBullet(Player);
             }
         }

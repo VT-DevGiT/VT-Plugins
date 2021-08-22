@@ -21,7 +21,7 @@ namespace VT_Item.Item
 
         protected override string MessageChangeTo => Plugin.PluginTranslation.ActiveTranslation.MessageHandItem;
 
-        protected override uint Ammo => 0;
+        protected override ushort Ammo => 0;
 
         protected override AmmoType AmmoType => (AmmoType)-1;
 
@@ -33,7 +33,7 @@ namespace VT_Item.Item
 
         protected override void PickUp(PlayerPickUpItemEventArgs ev)
         {
-            ev.Item.Durabillity = ev.Player.Ammo7;
+            ev.Item.Durabillity = ev.Player.AmmoBox[AmmoType.Ammo762x39];
             base.PickUp(ev);
         }
 
@@ -43,7 +43,7 @@ namespace VT_Item.Item
                 Script.enabled = true;
             else if (!Plugin.MiniGunConfig.CanMouveEquip)
                 ev.Player.gameObject.AddComponent<MinGunPlayerScript>();
-            ev.NewItem.Durabillity = ev.Player.Ammo7;
+            ev.NewItem.Durabillity = ev.Player.AmmoBox[AmmoType.Ammo762x39];
             base.ChangeToItem(ev);
         }
 
@@ -56,7 +56,7 @@ namespace VT_Item.Item
 
         protected override void Shoot(PlayerShootEventArgs ev)
         {
-            ev.Weapon.Durabillity = ev.Player.Ammo7;
+            ev.Weapon.Durabillity = ev.Player.AmmoBox[AmmoType.Ammo762x39];
             ev.Allow = false;
             if (LastSoot.ContainsKey(ev.Player))
             {
@@ -90,7 +90,7 @@ namespace VT_Item.Item
             if (ev.Allow)
             {
                 ev.Player.GiveEffect(Effect.Ensnared, 1, 2);
-                ev.Player.Ammo7 -= (uint)MultiShoot(ev.Player, ev.Weapon);
+                ev.Player.AmmoBox[AmmoType.Ammo762x39] -= (ushort)MultiShoot(ev.Player, ev.Weapon);
                 ev.Allow = false;
             }
         }
@@ -136,18 +136,7 @@ namespace VT_Item.Item
 
                     if (component.GetShootPermission(target.ClassManager))
                     {
-                        int damage;
-                        switch (hitbox.tag)
-                        {
-                            case HitBoxType.HEAD: damage = Plugin.MiniGunConfig.DamageHead; break;
-                            case HitBoxType.ARM: damage = Plugin.MiniGunConfig.DamageArm; break;
-                            case HitBoxType.LEG: damage = Plugin.MiniGunConfig.DamageLeg; break;
-                            default: damage = Plugin.MiniGunConfig.DamageBody; break;
-                        }
-                        if (target.RoleType == RoleType.Scp106)
-                            damage /= 10;
-
-                        target.Hurt(damage, DamageTypes.Logicer, player);
+                        hitbox.Damage(Plugin.MiniGunConfig.Damage, Weapon., Weapon.ItemHolder, Weapon.ItemHolder.Position);
                         component.RpcPlaceDecal(true, (sbyte)target.ClassManager.Classes.SafeGet(target.RoleType).bloodType, hits[i].point + hits[i].normal * 0.01f, Quaternion.FromToRotation(Vector3.up, hits[i].normal));
                         confirm = true;
                     }
@@ -158,7 +147,7 @@ namespace VT_Item.Item
                 var window = hits[i].collider.GetComponent<BreakableWindow>();
                 if (window != null)
                 {
-                    window.ServerDamageWindow(Plugin.MiniGunConfig.DamageBody);
+                    window.ServerDamageWindow(Plugin.MiniGunConfig.Damage);
                     confirm = true;
                     continue;
                 }

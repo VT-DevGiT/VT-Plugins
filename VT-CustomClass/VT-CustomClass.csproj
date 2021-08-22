@@ -82,8 +82,8 @@
     <Compile Include="Config\ConfigNTFfInfirmier.cs" />
     <Compile Include="Config\ConfigAndersonUTRheavy.cs" />
     <Compile Include="Config\ConfigAndersonUTRlight.cs" />
-    <Compile Include="Config\ConfigNTFSergent.cs" />
-    <Compile Include="Config\ConfigNTFCapitaine.cs" />
+    <Compile Include="Config\ConfigNTFLieutenant.cs" />
+    <Compile Include="Config\ConfigNTFCommander.cs" />
     <Compile Include="Config\ConfigNTFLieutenantColonel.cs" />
     <Compile Include="Config\ConfigSCP166.cs" />
     <Compile Include="Config\CustomClass.cs" />
@@ -146,8 +146,8 @@
     <Compile Include="Script\CHILeaderPlayerScript.cs" />
     <Compile Include="Script\CHIMastodontePlayerScript.cs" />
     <Compile Include="Script\NTFLieutenantColonel.cs" />
-    <Compile Include="Script\NTFCapitaine.cs" />
-    <Compile Include="Script\NTFSergent.cs" />
+    <Compile Include="Script\NTFCommander.cs" />
+    <Compile Include="Script\NTFLieutenant.cs" />
     <Compile Include="Script\NTFExpertPyrotechniePlayerScript.cs" />
     <Compile Include="Script\NTFExpertReconfinementPlayerScript.cs" />
     <Compile Include="Script\CHIInfirmierPlayerScript.cs" />

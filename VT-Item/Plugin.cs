@@ -34,6 +34,7 @@ namespace VT_Item
         public override void Load()
         {
             Instance = this;
+            new EventHandlers();
             base.Load();
             LoadItem();
             PluginTranslation.AddTranslation(new PluginTranslation());

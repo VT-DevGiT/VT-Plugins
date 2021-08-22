@@ -15,7 +15,7 @@ namespace VT_Alpha
 
         protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.MTFally;
 
-        protected override RoleType RoleType => RoleType.NtfCommander;
+        protected override RoleType RoleType => RoleType.NtfCaptain;
 
         protected override int RoleTeam => (int)TeamID.AL1;
 

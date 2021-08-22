@@ -24,7 +24,7 @@ namespace VT_Referance.Patch.Event
                 if (roleID >= 0 && roleID <= RoleManager.HighestRole)
                 {
                     value = null;
-                    __instance.ClassManager.SetPlayersClass((RoleType)roleID, __instance.gameObject);
+                    __instance.ClassManager.SetPlayersClass((RoleType)roleID, __instance.gameObject, CharacterClassManager.SpawnReason.None);
                     return true;
                 }
 

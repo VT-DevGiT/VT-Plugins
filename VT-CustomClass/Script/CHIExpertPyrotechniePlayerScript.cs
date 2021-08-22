@@ -17,7 +17,7 @@ namespace VTCustomClass.PlayerScript
 
         protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.CHIally;
 
-        protected override RoleType RoleType => RoleType.ChaosInsurgency;
+        protected override RoleType RoleType => RoleType.ChaosConscript;
 
         protected override int RoleTeam => (int)TeamID.CHI;
 
@@ -39,7 +39,7 @@ namespace VTCustomClass.PlayerScript
         }
         private void OnDamage(PlayerDamageEventArgs ev)
         {
-            if (ev.Victim == Player && ev.HitInfo.GetDamageType() == DamageTypes.Grenade)
+            if (ev.Victim == Player && ev.HitInfo.Tool == DamageTypes.Grenade)
             {
                 ev.DamageAmount = 100;
                 ev.Allow = false;

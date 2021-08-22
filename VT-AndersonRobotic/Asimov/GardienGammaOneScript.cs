@@ -19,7 +19,7 @@ namespace VT_AndersonRobotic
 
         protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.MTFally;
 
-        protected override RoleType RoleType => RoleType.NtfLieutenant;
+        protected override RoleType RoleType => RoleType.NtfSergeant;
 
         protected override int RoleTeam => (int)TeamID.AND;
 

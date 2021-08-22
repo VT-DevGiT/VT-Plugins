@@ -72,7 +72,7 @@ namespace VTCustomClass.PlayerScript
 
         private void OnAttack(PlayerDamageEventArgs ev)
         {
-            if (ev.Allow && ev.Killer == Player && ev.HitInfo.GetDamageType() == DamageTypes.Scp0492)
+            if (ev.Allow && ev.Killer == Player && ev.HitInfo.Tool == DamageTypes.Scp0492)
             {
                 if (!ev.Victim.IsUTR())
                     ev.Victim.GiveEffect(Effect.Bleeding, 2, 4);

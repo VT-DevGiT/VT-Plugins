@@ -47,6 +47,9 @@
     <Reference Include="Mirror, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SynapseSL.2.7.0-pre-1.0\lib\net472\Mirror.dll</HintPath>
     </Reference>
+    <Reference Include="NorthwoodLib">
+      <HintPath>E:\Games\SteamLibrary\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\NorthwoodLib.dll</HintPath>
+    </Reference>
     <Reference Include="Synapse, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SynapseSL.2.7.0-pre-1.0\lib\net472\Synapse.dll</HintPath>
     </Reference>
@@ -71,6 +74,9 @@
     <Reference Include="UnityEngine.AnimationModule">
       <HintPath>E:\Games\SteamLibrary\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>E:\Games\SteamLibrary\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SynapseSL.2.7.0-pre-1.0\lib\net472\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
@@ -86,17 +92,15 @@
     <Compile Include="Behaviour\NpcControlCortext.cs" />
     <Compile Include="Behaviour\NpcControlMouvement.cs" />
     <Compile Include="Event\SynapseGroupe.cs" />
-    <Compile Include="Patch\Event\Scp914ActivatePatch.cs" />
+    <Compile Include="Patch\Event\Scp914InteractPatch.cs" />
     <Compile Include="Patch\Event\DestroyHubPatch.cs" />
     <Compile Include="Patch\Event\IntercomSpeakPatch.cs" />
     <Compile Include="Patch\Event\Scp106UsePortalPatch.cs" />
     <Compile Include="Patch\Event\UseLockerPatch.cs" />
     <Compile Include="Patch\Event\UseElevatorPatch.cs" />
-    <Compile Include="Patch\Event\Scp914ChangeSetingPatch.cs" />
     <Compile Include="Patch\Event\ActivatingWarheadPanelPatch.cs" />
     <Compile Include="Patch\Event\GeneratorActivatedPatch.cs" />
     <Compile Include="Patch\Event\SynapseSetClassIdPatch.cs" />
-    <Compile Include="Patch\Event\VerifPatch.cs" />
     <Compile Include="Patch\Event\WarHeadStopPatch.cs" />
     <Compile Include="VTController.cs" />
     <Compile Include="Script\ItemScript\BaseWeaponScript.cs" />

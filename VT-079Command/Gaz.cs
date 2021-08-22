@@ -4,13 +4,11 @@ using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Command;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using VT_Referance.Method;
 using VT_Referance.Variable;
-using static RoomInformation;
 
 namespace VT079.Command
 {
@@ -41,13 +39,13 @@ namespace VT079.Command
                 result.State = CommandResultState.NoPermission;
                 return result;
             }
-            if (context.Player.Room.RoomType != RoomType.HCZ_079 && context.Player.Room.RoomType != RoomType.SURFACE)
+            if (context.Player.Room.RoomType != MapGeneration.RoomName.Hcz079 && context.Player.Room.RoomType != MapGeneration.RoomName.Outside)
                 Timing.RunCoroutine(GasRoom(context.Player.Room, context.Player));
             else
                 result.Message = "Invalide Zone";
             return result;
         }
-        private List<RoomType> grandSalle = new List<RoomType>() { RoomType.HCZ_106, RoomType.HCZ_NUKE, RoomType.HCZ_049, RoomType.EZ_INTERCOM };
+        private List<MapGeneration.RoomName> grandSalle = new List<MapGeneration.RoomName>() { MapGeneration.RoomName.Hcz106, MapGeneration.RoomName.HczWarhead, MapGeneration.RoomName.Hcz049, MapGeneration.RoomName.EzIntercom };
 
         private void ChangeDoors(List<Synapse.Api.Door>  doors, bool state)
         {

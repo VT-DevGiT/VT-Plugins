@@ -15,7 +15,7 @@ namespace VTCustomClass.PlayerScript
 
         protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.CHIally;
 
-        protected override RoleType RoleType => RoleType.ChaosInsurgency;
+        protected override RoleType RoleType => RoleType.ChaosRifleman;
 
         protected override int RoleTeam => (int)TeamID.CHI;
 

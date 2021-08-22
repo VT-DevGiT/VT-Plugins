@@ -12,11 +12,11 @@ namespace VTDevHelp
 
         protected override uint Ammo => 100;
 
-        protected override AmmoType AmmoType => AmmoType.Ammo5;
+        protected override AmmoType AmmoType => AmmoType.Ammo556x45;
 
         protected override int ID => 305;
 
-        protected override ItemType ItemType => ItemType.GunUSP;
+        protected override ItemType ItemType => ItemType.GunCOM18;
 
         protected override string Name => "ColleurDeGameObject";
 

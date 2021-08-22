@@ -13,15 +13,15 @@ namespace VTCustomClass.Config
         [Description("The Inventory of the class")]
         public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
         {
-            Ammo = new SerializedAmmo(0, 0, 100),
+            Ammo = new SerializedAmmo(10, 10, 10, 10, 100),
             Items = new List<SerializedPlayerItem>()
             {
-                new SerializedPlayerItem((int)ItemType.KeycardScientistMajor, 1, 0, 0, 0, Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.GunUSP, 18, 0, 0, 0, Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.Painkillers, 1, 0, 0, 0, Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.Painkillers, 1, 0, 0, 0, Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one, 100, true)
+                new SerializedPlayerItem((int)ItemType.KeycardResearchCoordinator, 1, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GunCOM18, 18, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Painkillers, 1, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Painkillers, 1, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Radio, 100, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Flashlight, 1, 0, Vector3.one, 100, true)
             }
         };
 

@@ -20,7 +20,7 @@ namespace VTRadio
         {
             var result = new CommandResult();
             if (context.Player.RoleID != (int)RoleID.NtfCommander && context.Player.RoleID != (int)RoleID.CdmCommander
-             && context.Player.RoleID != (int)RoleID.NtfCapitaine && context.Player.RoleID != (int)RoleID.NtfLieutenantColonel)
+             && context.Player.RoleID != (int)RoleID.NtfCommander && context.Player.RoleID != (int)RoleID.NtfLieutenantColonel)
             {
                 result.Message = "you do not have the accreditation for this order";
                 result.State = CommandResultState.NoPermission;

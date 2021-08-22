@@ -49,7 +49,7 @@ namespace VTCustomClass.PlayerScript
 
         private void OnPickUp(PlayerPickUpItemEventArgs ev)
         {
-            if (ev.Player == Player && ev.Item.ItemCategory != ItemCategory.Weapon && ev.Item.ItemCategory == ItemCategory.Radio && ev.Item.ItemType == ItemType.Disarmer)
+            if (ev.Player == Player && ev.Item.ItemCategory != ItemCategory.Firearm && ev.Item.ItemCategory == ItemCategory.Radio)
                 ev.Allow = false;
         }
 

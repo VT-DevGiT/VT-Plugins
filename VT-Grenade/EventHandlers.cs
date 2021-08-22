@@ -1,4 +1,4 @@
-﻿using Grenades;
+﻿using InventorySystem.Items.ThrowableProjectiles;
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
@@ -26,51 +26,19 @@ namespace VTGrenad
                 VTController.Server.Events.Grenade.ChangeIntoFragEvent += OnChangeIntoFragEvent;
             if (Plugin.Config.FlashbangFuseWithCollision)
                 VTController.Server.Events.Grenade.CollisionGrenadeEvent += OnCollisionGrenade;
-            if (Plugin.Config.BadFlash)
-                VTController.Server.Events.Grenade.ExplosionGrenadeEvent += OnExplosionGrenade;
-        }
-
-        private void OnExplosionGrenade(ExplosionGrenadeEventArgs ev)
-        {
-            if (ev.Type == GrenadeType.Flashbang)
-            {
-                ev.Grenade.GetComponent<FlashGrenade>();
-                foreach (var joueur in Server.Get.Players)
-                {
-                    GameObject player = joueur.gameObject;
-                    Vector3 position = ev.Grenade.transform.position;
-                    ReferenceHub hub = ReferenceHub.GetHub(player);
-                    FlashGrenade Flash = ev.Grenade.GetComponent<FlashGrenade>();
-
-                    if (!(Object)ev.Grenade.GetFieldValueorOrPerties<GrenadeManager>("thrower") == (Object)null && Flash.GetFieldValueorOrPerties<bool>("_friendlyFlash"))
-                    {
-                        float num =
-                            Flash.powerOverDistance.Evaluate(Vector3.Distance(player.transform.position, position) / ((double)position.y > 900.0 ?
-                            Flash.distanceMultiplierSurface :
-                            Flash.distanceMultiplierFacility)) *
-                                Flash.powerOverDot.Evaluate(Vector3.Dot(hub.PlayerCameraReference.forward,
-                                    (hub.PlayerCameraReference.position - position).normalized));
-                        if (num > 0.0)
-                        {
-                            joueur.GiveEffect(Effect.Deafened, 1, 10);
-                            joueur.GiveEffect(Effect.Exhausted, 1, 10);
-                        }
-                    }
-                }
-            }
         }
 
         private void OnCollisionGrenade(CollisionGrenadeEventArgs ev)
         {
             if (ev.Type == GrenadeType.Flashbang)
-                ev.Grenade.NetworkfuseTime = 0.01f;
+                ev.Grenade._fuseTime = 0.01f;
         }
 
         private void OnChangeIntoFragEvent(ChangeIntoFragEventArgs ev)
         {
             if (ev.Item != null && ev.Grenade != null)
             { 
-                Map.Get.Explode(ev.Item.Position, GrenadeType.Grenade, ev.Grenade.throwerGameObject.GetPlayer());
+                Map.Get.Explode(ev.Item.Position, GrenadeType.Grenade, ev.Grenade.PreviousOwner.Hub.GetPlayer());
                 ev.Item.Despawn();
             }
             ev.Allow = false;
@@ -101,9 +69,9 @@ namespace VTGrenad
         }
         private void ItemDropped(PlayerDropItemEventArgs ev)
         {
-            if (ev.Item != null && (ev.Item.ItemType == ItemType.GrenadeFrag 
+            if (ev.Item != null && (ev.Item.ItemType == ItemType.GrenadeHE 
                 || (Plugin.Config.FlashRemot && ev.Item.ItemType == ItemType.GrenadeFlash)) 
-                && ev.Player?.ItemInHand?.ID == (int)ItemType.WeaponManagerTablet 
+                && ev.Player?.ItemInHand?.ID == (int)ItemType.Radio 
                 && !ev.Player.ItemInHand.IsCustomItem)
             {
                 List<AmorcableGrenade> listGrenade = Plugin.DictTabletteGrenades.ContainsKey(ev.Player.PlayerId) ? Plugin.DictTabletteGrenades[ev.Player.PlayerId] : new List<AmorcableGrenade>();

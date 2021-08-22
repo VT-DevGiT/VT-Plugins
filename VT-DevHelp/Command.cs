@@ -132,11 +132,11 @@ namespace VTDevHelp
 
             Server.Get.Logger.Info($"{iteamHand} INFO : \n " +
                              $"Generale : ID->{iteamHand.ID}, Custom->{iteamHand.IsCustomItem}, Category->{iteamHand.ItemCategory}, Name->{iteamHand.Name}, Type->{iteamHand.ItemType}\n" +
-                             $"Weapon : Barrel->{iteamHand.Barrel}, Sight->{iteamHand.Sight}, Other->{iteamHand.Other}, Durabillity->{iteamHand.Durabillity}\n" +
+                             $"Weapon : Attachments->{iteamHand.WeaponAttachments}, Durabillity->{iteamHand.Durabillity}\n" +
                              $"Other : Scale->{iteamHand.Scale}, Scale->{iteamHand.State}");
             result.Message = $"{iteamHand} INFO : \n " +
                              $"Generale : ID->{iteamHand.ID}, Custom->{iteamHand.IsCustomItem}, Category->{iteamHand.ItemCategory}, Name->{iteamHand.Name}, Type->{iteamHand.ItemType}\n" +
-                             $"Weapon : Barrel->{iteamHand.Barrel}, Sight->{iteamHand.Sight}, Other->{iteamHand.Other}, Durabillity->{iteamHand.Durabillity}\n" +
+                             $"Weapon : Attachments->{iteamHand.WeaponAttachments}, Durabillity->{iteamHand.Durabillity}\n" +
                              $"Other : Scale->{iteamHand.Scale}, Scale->{iteamHand.State}";
             result.State = CommandResultState.Ok;
             return result;
@@ -233,7 +233,7 @@ namespace VTDevHelp
             while (i != 0)
             {
                 i--;
-                context.Player.Inventory.AddItem(ItemType.GrenadeFrag, 0, 0, 0, 0);
+                context.Player.Inventory.AddItem(ItemType.GrenadeHE);
             }
             return result;
         }

@@ -23,7 +23,7 @@ namespace VTGrenad
             if (!Plugin.Config.NotAGrenadeRole.Contains(context.Player.RoleID))
             {
                 if (Plugin.DictTabletteGrenades.ContainsKey(context.Player.PlayerId)
-                    && context.Player?.ItemInHand?.ID == (int)ItemType.WeaponManagerTablet
+                    && context.Player?.ItemInHand?.ID == (int)ItemType.Radio
                     && !context.Player.ItemInHand.IsCustomItem)
                 {
                     

@@ -25,7 +25,7 @@ namespace VTProget_X
                 return;
             if (ev.Player?.ItemInHand == null)
                 ev.Allow = false;
-            else if (!Map.Get.GetDoor(DoorType.Intercom).DoorPermissions.CheckPermissions(ev.Player.ItemInHand.ItemType, ev.Player.Hub))
+            else if (!Map.Get.GetDoor(DoorType.Intercom).DoorPermissions.CheckPermissions(ev.Player.ItemInHand.ItemBase, ev.Player.Hub))
                 ev.Allow = false;           
         }
 
@@ -44,7 +44,7 @@ namespace VTProget_X
         {
             if (!Plugin.Instance.TeslaEnabled)
                 ev.Trigger = false;
-            else if (Plugin.Config.TeslaTablets && ev.Player.Inventory.Items.FirstOrDefault(p => p.ID == (int)ItemType.WeaponManagerTablet && !p.IsCustomItem) != null)
+            else if (Plugin.Config.TeslaTablets && ev.Player.Inventory.Items.FirstOrDefault(p => p.ID == (int)ItemType.Radio && !p.IsCustomItem) != null)
             { 
                 ev.Trigger = false;
                 Tesla tesla = ev.Tesla;

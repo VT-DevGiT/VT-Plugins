@@ -68,9 +68,6 @@ namespace VT079
         [Description("Prix for use a speaker")]
         public float Scp079CostSpeakerUpdate = 0f;
 
-        [Description("manually confined from scp 079")]
-        public bool Scp079AdvenceRecontain = true;
-
         [Description("The list of SCPs that 079 can confined for the Deconf command of VT-079Command")]
         public List<int> Scp079ScpDeconf = new List<int>() { (int)RoleID.SCP008, (int)RoleID.Scp173, (int)RoleID.SCP966, (int)RoleID.Scp93989
             , (int)RoleID.Scp93953, (int)RoleID.Scp106, (int)RoleID.Scp049, (int)RoleID.Scp096};

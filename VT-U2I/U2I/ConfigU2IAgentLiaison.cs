@@ -17,13 +17,13 @@ namespace VT_U2I
         [Description("The Inventory of the class")]
         public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
         {
-            Ammo = new SerializedAmmo(80, 0, 24),
+            Ammo = new SerializedAmmo(80, 80, 80, 80, 80),
             Items = new List<SerializedPlayerItem>()
             {
-                new SerializedPlayerItem((int)ItemType.KeycardNTFLieutenant,0,0,0,0,Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.Medkit,0,0,0,0,Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.Adrenaline,0,0,0,0,Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.GunE11SR,40,0,0,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.KeycardNTFLieutenant,0,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Medkit,0,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Adrenaline,0,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GunE11SR,40,0,Vector3.one, 100, true),
             }
         };
 

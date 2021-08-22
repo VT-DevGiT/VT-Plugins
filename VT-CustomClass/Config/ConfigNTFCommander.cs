@@ -5,23 +5,25 @@ using UnityEngine;
 
 namespace VTCustomClass.Config
 {
-    public class ConfigNTFSergent : AbstractConfigSection
+    public class ConfigNTFCommander : AbstractConfigSection
     {
         [Description("The Amount of Health the class have")]
-        public int Health = 110;
+        public int Health = 115;
 
         [Description("The Inventory of the class")]
         public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
         {
-            Ammo = new SerializedAmmo(100, 100, 100),
+            Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
             Items = new List<SerializedPlayerItem>() 
             { 
-                new SerializedPlayerItem((int)ItemType.KeycardNTFLieutenant, 1, 0, 0, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.GunProject90, 50, 0, 0, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.Medkit, 1, 0, 0, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.GrenadeFrag, 1, 0, 0, 0, Vector3.one, 100, true)
+                new SerializedPlayerItem((int)ItemType.KeycardNTFCommander, 1, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GunE11SR, 40, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem(50, 0, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GrenadeHE, 1, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GrenadeHE, 1, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Radio, 100, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.ArmorHeavy, 1, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int) ItemType.Adrenaline, 1, 0, Vector3.one, 100, true)
             }
         };
 
@@ -30,7 +32,7 @@ namespace VTCustomClass.Config
         public int MaxArtificialHealth = 100;
 
         [Description("Shield of the class")]
-        public int Shield = 15;
+        public int Shield = 50;
         public int MaxShield = 100;
 
         [Description("The Chance of which the class spawns")]
@@ -46,6 +48,9 @@ namespace VTCustomClass.Config
         public int RequiredPlayers = 5;
 
         [Description("The name of the class")]
-        public string RoleName = "Nine-Tailed Fox Sergent";
+        public string RoleName = "Nine-Tailed Fox Commander";
+
+        [Description("The cooldown of the class Power")]
+        public int CoolDown = 30;
     }
 }

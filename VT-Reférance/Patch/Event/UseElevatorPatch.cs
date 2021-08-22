@@ -6,16 +6,14 @@ using UnityEngine;
 
 namespace VT_Referance.Patch.Event
 {
-    [HarmonyPatch(typeof(PlayerInteract), nameof(PlayerInteract.CallCmdUseElevator))]
+    [HarmonyPatch(typeof(PlayerInteract), nameof(PlayerInteract.UserCode_CmdUseElevator))]
     class UseElevatorPatch
     {
         private static bool Prefix(PlayerInteract __instance, GameObject elevator)
         {
             try
             {
-                if (!__instance._playerInteractRateLimit.CanExecute())
-                    return false;
-                if (__instance._hc.CufferId > 0 || __instance._hc.ForceCuff && !PlayerInteract.CanDisarmedInteract || elevator == null)
+                if (!__instance.CanInteract || elevator == null)
                     return false;
                 Lift component = elevator.GetComponent<Lift>();
                 if (component == null)

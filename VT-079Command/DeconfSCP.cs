@@ -36,7 +36,7 @@ namespace VT079.Command
             {
                Map.Get.Cassie($"Alert . New containment .g1 breach detected . Code .g4 red .");
 
-               context.Player.Hub.scp079PlayerScript.NetworkcurLvl -= 2;
+               context.Player.Hub.scp079PlayerScript.Network_curLvl -= 2;
                int newRole = VT079.Plugin.SCPRoleDeconf.ElementAt(new System.Random().Next(0, VT079.Plugin.SCPRoleDeconf.Count - 1));
                Player player = Spectator.ElementAt(new System.Random().Next(0, Spectator.Count - 1));
                player.RoleID = newRole;

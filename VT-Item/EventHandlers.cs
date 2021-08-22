@@ -1,11 +1,10 @@
-﻿using InventorySystem.Items.ThrowableProjectiles;
-using MEC;
+﻿using InventorySystem.Items.Pickups;
+using InventorySystem.Items.ThrowableProjectiles;
 using Synapse;
-using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using UnityEngine;
 
-namespace VTTrowItem
+namespace VT_Item
 {
     internal class EventHandlers
     {
@@ -20,7 +19,7 @@ namespace VTTrowItem
             if (ev.TargetPosition != Vector3.zero
                 && Physics.Linecast(ev.Player.Position, ev.TargetPosition, out RaycastHit raycastHit, 1049088))
             {
-                if (Plugin.Config.ShootMouve)
+                if (Plugin.PluginConfig.ShootMouve)
                 {
                     var pickup = raycastHit.transform.GetComponentInParent<ItemPickupBase>();
                     if (pickup != null && pickup.Rb != null)
@@ -29,13 +28,11 @@ namespace VTTrowItem
                     }
                 }
 
-                if (Plugin.Config.ShootInstantFuse)
+                if (Plugin.PluginConfig.ShootInstantFuse)
                 {
                     var grenade = raycastHit.transform.GetComponentInParent<ExplosionGrenade>();
-                    if (grenade != null)
-                    {
-                        grenade.NetworkfuseTime -= grenade.NetworkfuseTime;
-                    }
+                    if (grenade != null) grenade._fuseTime -= grenade._fuseTime;
+                    
                 }
             }
         }

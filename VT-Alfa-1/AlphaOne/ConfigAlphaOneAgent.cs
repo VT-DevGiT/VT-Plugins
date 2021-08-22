@@ -17,16 +17,16 @@ namespace VT_Alpha
         [Description("The Inventory of the class")]
         public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
         {
-            Ammo = new SerializedAmmo(0, 70, 24),
+            Ammo = new SerializedAmmo(0, 0, 0, 70, 24),
             Items = new List<SerializedPlayerItem>()
             {
-                new SerializedPlayerItem((int)ItemType.KeycardO5,0,0,0,0,Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.GunProject90,50,0,0,0,Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.GunUSP,12,0,0,0,Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.GrenadeFrag,0,0,0,0,Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.GrenadeFrag,0,0,0,0,Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.WeaponManagerTablet,12,0,0,0,Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.Medkit,0,0,0,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.KeycardO5,0,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GunCrossvec,50,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GunCOM18,12,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GrenadeHE,0,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GrenadeHE,0,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.ArmorLight,12,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Medkit,0,0,Vector3.one, 100, true),
             }
         };
 

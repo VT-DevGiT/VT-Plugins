@@ -19,7 +19,7 @@ namespace VTCustomClass.PlayerScript
 
         protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.CHIally;
 
-        protected override RoleType RoleType => RoleType.NtfCadet;
+        protected override RoleType RoleType => RoleType.NtfPrivate;
 
         protected override int RoleTeam => (int)TeamID.CHI;
 
@@ -33,10 +33,10 @@ namespace VTCustomClass.PlayerScript
 
         public override bool CallPower(int power)
         {
-            if (power == (int)PowerType.SwitchRole && Player.RoleType == RoleType.NtfCadet)
+            if (power == (int)PowerType.SwitchRole && Player.RoleType == RoleType.NtfPrivate)
             {
                 Server.Get.Map.SpawnGrenade(Player.Position, Vector3.zero, 0.1f, GrenadeType.Flashbang);
-                Player.ChangeRoleAtPosition(RoleType.ChaosInsurgency);
+                Player.ChangeRoleAtPosition(RoleType.ChaosConscript);
                 Player.MaxHealth = Config.GetConfigValue("Health", 120);
                 Player.GiveEffect(Effect.Blinded, 0, 0);
                 return true;
@@ -68,7 +68,7 @@ namespace VTCustomClass.PlayerScript
         private void OnDeath(PlayerDeathEventArgs ev)
         {
             if (ev.Victim == Player)
-                Player.ChangeRoleAtPosition(RoleType.ChaosInsurgency);
+                Player.ChangeRoleAtPosition(RoleType.ChaosConscript);
             else if (ev.Killer == Player)
                 ev.Victim.OpenReportWindow(Plugin.PluginTranslation.ActiveTranslation.KilledMessage.Replace("%RoleName%", RoleName));
         }

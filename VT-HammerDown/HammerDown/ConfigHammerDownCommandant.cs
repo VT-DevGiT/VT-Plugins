@@ -17,16 +17,16 @@ namespace VT_HammerDown
         [Description("The Inventory of the class")]
         public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
         {
-            Ammo = new SerializedAmmo(100, 100, 100),
+            Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
             Items = new List<SerializedPlayerItem>
             {
-                new SerializedPlayerItem((int)ItemType.KeycardNTFCommander,0,0,0,0,Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.GunLogicer,75,0,0,0,Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.GunUSP,75,0,0,0,Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.Medkit,0,0,0,0,Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.Painkillers,0,0,0,0,Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.GrenadeFrag,75,0,0,0,Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.Radio,75,0,0,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.KeycardNTFCommander,0,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GunLogicer,75,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GunCOM18,75,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Medkit,0,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Painkillers,0,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GrenadeHE,75,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Radio,75,0,Vector3.one, 100, true),
             }
         };
 

@@ -1,4 +1,5 @@
-﻿using MEC;
+﻿using MapGeneration.Distributors;
+using MEC;
 using Respawning.NamingRules;
 using Synapse;
 using Synapse.Api;
@@ -143,17 +144,16 @@ namespace VT_Referance.Method
 
 
         /// <summary>
-        /// Get the total voltage of the generators, 1000 for 1 generator finish
+        /// Get the total voltage of the generators, 1000 for 1 generator engaged
         /// </summary>
         /// <returns></returns>
         [API]
         public static int GetVoltage()
         {
             float totalvoltagefloat = 0;
-            foreach (var i in Generator079.Generators)
-            {
-                totalvoltagefloat += i.localVoltage;
-            }
+            foreach (var generator in Server.Get.Map.Generators)
+                totalvoltagefloat += generator.generator._localGauge._values.;
+            
             totalvoltagefloat *= 1000;
             return (int)totalvoltagefloat;
         }

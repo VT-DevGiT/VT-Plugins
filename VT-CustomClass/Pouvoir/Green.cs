@@ -15,6 +15,9 @@ namespace VTCustomClass.Pouvoir
         private Player player;
         public bool DamagGreen;
         private Dictionary<Player, float> playerAffected = new Dictionary<Player, float>();
+
+        public Green() => this.RefreshTime = 250;
+
         protected override void Start()
         {
             player = gameObject.GetPlayer();
@@ -48,7 +51,7 @@ namespace VTCustomClass.Pouvoir
                     playerAffected[target] = playerAffected[target] + 15;
                 else
                     playerAffected[target] = 0;
-                int chance = UnityEngine.Random.Range(1, 100);
+                int chance = Random.Range(1, 100);
                 if (chance <= playerAffected[target])
                 {
                     AffectPlayerStuff(target);
@@ -58,35 +61,33 @@ namespace VTCustomClass.Pouvoir
         }
         private void AffectPlayerStuff(Player target)
         {
-            int chance = UnityEngine.Random.Range(1, 7);
-            var listArme = player.Inventory.Items.Where(p => p.ItemCategory == ItemCategory.Weapon).ToList();
+            int chance = Random.Range(1, 7);
+            var listArme = target.Inventory.Items.Where(p => p.ItemCategory == ItemCategory.Firearm).ToList();
             Synapse.Api.Items.SynapseItem Arme = null;
             if (listArme.Any())
             {
-                Arme = listArme[UnityEngine.Random.Range(0, listArme.Count() - 1)];
+                Arme = listArme[Random.Range(0, listArme.Count() - 1)];
             }
             switch (chance)
             {
                 case 1:
-                    player.Ammo5 -= player.Ammo5 > 5 ? player.Ammo5 - 5 : 0;
+                    target.AmmoBox[AmmoType.Ammo12gauge] -= target.AmmoBox[AmmoType.Ammo12gauge] > 5 ? (ushort)(target.AmmoBox[AmmoType.Ammo12gauge] - 5) : (ushort)0;
                     break;
                 case 2:
-                    player.Ammo7 -= player.Ammo7 > 5 ? player.Ammo7 - 5 : 0;
+                    target.AmmoBox[AmmoType.Ammo44cal] -= target.AmmoBox[AmmoType.Ammo44cal] > 5 ? (ushort)(target.AmmoBox[AmmoType.Ammo44cal] - 5) : (ushort)0;
                     break;
                 case 3:
-                    player.Ammo9 -= player.Ammo9 > 5 ? player.Ammo9 - 5 : 0;
+                    target.AmmoBox[AmmoType.Ammo556x45] -= target.AmmoBox[AmmoType.Ammo556x45] > 5 ? (ushort)(target.AmmoBox[AmmoType.Ammo556x45] - 5) : (ushort)0;
                     break;
                 case 4:
-                    if (Arme != null)
-                        Arme.Barrel = 0;
+                    target.AmmoBox[AmmoType.Ammo762x39] -= target.AmmoBox[AmmoType.Ammo762x39] > 5 ? (ushort)(target.AmmoBox[AmmoType.Ammo762x39] - 5) : (ushort)0;
                     break;
                 case 5:
-                    if (Arme != null)
-                        Arme.Other = 0;
+                    target.AmmoBox[AmmoType.Ammo9x19] -= target.AmmoBox[AmmoType.Ammo9x19] > 5 ? (ushort)(target.AmmoBox[AmmoType.Ammo9x19] - 5) : (ushort)0;
                     break;
                 case 6:
                     if (Arme != null)
-                        Arme.Sight = 0;
+                        Arme.WeaponAttachments = 0;
                     break;
                 case 7:
                     if (Arme != null)

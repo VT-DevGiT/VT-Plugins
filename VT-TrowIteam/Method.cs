@@ -9,8 +9,8 @@ namespace VTTrowItem
     {
         internal static IEnumerator<float> Throw(Synapse.Api.Items.SynapseItem itemDroped, Vector3 direction)
         {
-            yield return Timing.WaitUntilTrue(() => itemDroped.pickup != null && itemDroped.pickup.Rb != null);
-            var item = itemDroped.pickup;
+            yield return Timing.WaitUntilTrue(() => itemDroped.PickupBase != null && itemDroped.PickupBase.Rb != null);
+            var item = itemDroped.PickupBase;
             try
             {
                 item.Rb.transform.Translate(Plugin.Config.initialPosVec3, Space.Self);

@@ -1,6 +1,6 @@
-﻿using Scp914;
+﻿using MapGeneration.Distributors;
+using Scp914;
 using Synapse.Api;
-using Synapse.Api.Items;
 using VT_Referance.Event.EventArguments;
 
 namespace VT_Referance.Event
@@ -56,7 +56,7 @@ namespace VT_Referance.Event
             GeneratorActivatedEvent?.Invoke(ev);
         }
 
-        internal void InvokeActivatWarheadPanelEvent(Player player, SynapseItem item, ref bool allow)
+        internal void InvokeActivatWarheadPanelEvent(Player player, ref bool allow)
         {
             var ev = new WarHeadInteracteEventArgs
             {
@@ -81,23 +81,20 @@ namespace VT_Referance.Event
 
             allow = ev.Allow;
         }
-        /*
-        internal void InvokeChange914KnobSettingEvent(Player player, Scp914Knob curSetting, ref Scp914Knob nextSetting, ref bool allow)
+        
+        internal void InvokeChange914KnobSettingEvent(Player player, ref bool allow)
         {
             var ev = new Change914KnobSettingEventArgs
             {
                 Player = player,
                 Allow = allow,
-                CurSetting = curSetting,
-                NextSetting = nextSetting
             };
 
             Scp914changeSettingEvent?.Invoke(ev);
 
             allow = ev.Allow;
-            nextSetting = ev.NextSetting;
         }
-        */
+        
 
         internal void InvokeElevatorIneractEvent(Player player, Elevator elevator, ref bool allow)
         {
@@ -113,7 +110,7 @@ namespace VT_Referance.Event
             allow = ev.Allow;
         }
 
-        /*
+        
         internal void InvokeLockerIneractEvent(Player player, Locker locker, ref bool allow)
         {
             var ev = new LockerInteractEventArgs
@@ -127,7 +124,7 @@ namespace VT_Referance.Event
 
             allow = ev.Allow;
         }
-        */
+        
         internal void InvokeScp914ActivateEvent(Player player, ref bool allow)
         {
             var ev = new Scp914ActivateEventArgs

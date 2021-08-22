@@ -44,8 +44,8 @@ namespace VT_Referance.Behaviour
 
         private void OnDamage(PlayerDamagePostEventArgs ev)
         {
-            var damageType = ev.HitInfo.GetDamageType();
-            if (ev.Victim == player && Shield != 0 && ev.Allow && (damageType.isWeapon || damageType.isScp || damageType == DamageTypes.Grenade))
+            var damageType = ev.HitInfo.Tool;
+            if (ev.Victim == player && Shield != 0 && ev.Allow && (damageType.Weapon != ItemType.None || damageType.Scp != RoleType.None || damageType == DamageTypes.Grenade))
             {
                 int damge = 2*((int)ev.DamageAmount / 3);
                 damge = Mathf.Clamp(damge, 0, Shield);

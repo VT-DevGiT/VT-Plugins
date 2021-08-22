@@ -8,7 +8,7 @@ using static VT_Referance.Variable.Data;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class NTFSergentScript : BasePlayerScript
+    public class NTFCommanderScript : BasePlayerScript
     {
         protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
@@ -16,14 +16,14 @@ namespace VTCustomClass.PlayerScript
 
         protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.MTFally;
 
-        protected override RoleType RoleType => RoleType.NtfCadet;
+        protected override RoleType RoleType => RoleType.NtfCaptain;
 
         protected override int RoleTeam => (int)TeamID.NTF;
 
-        protected override int RoleId => (int)RoleID.NtfSergent;
+        protected override int RoleId => (int)RoleID.NtfCommander;
 
-        protected override string RoleName => Plugin.ConfigNTFSergent.RoleName;
+        protected override string RoleName => Plugin.ConfigNTFCommander.RoleName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigNTFSergent;
+        protected override AbstractConfigSection Config => Plugin.ConfigNTFCommander;
     }
 }

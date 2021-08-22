@@ -16,10 +16,10 @@ namespace VTCustomClass.Config
         [Description("The Items the class spawns with")]
         public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
         { 
-            Ammo = new SerializedAmmo(0, 0, 0 ),
+            Ammo = new SerializedAmmo(0, 0, 0, 0, 0),
             Items = new List<SerializedPlayerItem>()
             {
-                new SerializedPlayerItem((int)ItemType.Medkit, 35, 0, 0, 0, Vector3.one, 100, true)
+                new SerializedPlayerItem((int)ItemType.Medkit, 35, 0, Vector3.one, 100, true)
             }
         };
 

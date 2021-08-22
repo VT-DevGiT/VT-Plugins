@@ -9,7 +9,7 @@ namespace VT_Referance.ItemScript
     public abstract class BaseWeaponScript : BaseItemScript
     {
         #region Attributes & Properties
-        protected abstract uint Ammo { get; }
+        protected abstract ushort Ammo { get; }
 
         protected abstract AmmoType AmmoType { get; }
         #endregion
@@ -42,24 +42,24 @@ namespace VT_Referance.ItemScript
         [API]
         protected virtual void Reload(PlayerReloadEventArgs ev)
         {
-            uint ammo;
+            ushort ammo;
             if (ev.Item.Durabillity < this.Ammo)
             {
                 switch (this.AmmoType)
                 {
-                    case AmmoType.Ammo5:
-                        ammo = Math.Min(ev.Player.Ammo9, Ammo);
-                        ev.Player.Ammo5 -= ammo;
+                    case AmmoType.Ammo556x45:
+                        ammo = Math.Min(ev.Player.AmmoBox[AmmoType.Ammo556x45], Ammo);
+                        ev.Player.AmmoBox[AmmoType.Ammo556x45] -= ammo;
                         ev.Item.Durabillity += ammo;
                         break;
-                    case AmmoType.Ammo7:
-                        ammo = Math.Min(ev.Player.Ammo9, Ammo);
-                        ev.Player.Ammo5 -= ammo;
+                    case AmmoType.Ammo762x39:
+                        ammo = Math.Min(ev.Player.AmmoBox[AmmoType.Ammo762x39], Ammo);
+                        ev.Player.AmmoBox[AmmoType.Ammo762x39] -= ammo;
                         ev.Item.Durabillity += ammo;
                         break;
-                    case AmmoType.Ammo9:
-                        ammo = Math.Min(ev.Player.Ammo9, Ammo);
-                        ev.Player.Ammo9 -= ammo;
+                    case AmmoType.Ammo9x19:
+                        ammo = Math.Min(ev.Player.AmmoBox[AmmoType.Ammo9x19], Ammo);
+                        ev.Player.AmmoBox[AmmoType.Ammo9x19] -= ammo;
                         ev.Item.Durabillity += ammo;
                         break;
                 }

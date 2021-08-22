@@ -13,16 +13,16 @@ namespace VTCustomClass.Config
         [Description("The Inventory of the class")]
         public SerializedPlayerInventory inventory = new SerializedPlayerInventory()
         {
-            Ammo = new SerializedAmmo(100, 100, 100),
+            Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
             Items = new List<SerializedPlayerItem> () 
             { 
-                new SerializedPlayerItem((int)ItemType.KeycardNTFLieutenant, 1, 0, 0, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.GunE11SR, 17, 1, 3, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem(55, 1, 0, 0, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem(55, 1, 0, 0, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.Adrenaline, 1, 0, 0, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.Radio, 100, 0, 0, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.WeaponManagerTablet, 1, 0, 0, 0, Vector3.one, 100, true)
+                new SerializedPlayerItem((int)ItemType.KeycardNTFLieutenant, 1, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.GunE11SR, 17, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem(55, 1, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem(55, 1, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.Adrenaline, 1, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.Radio, 100, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.ArmorLight, 1, 0, Vector3.one, 100, true)
             }
         };
 

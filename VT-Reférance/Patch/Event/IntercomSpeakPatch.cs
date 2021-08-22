@@ -4,7 +4,7 @@ using System;
 
 namespace VT_Referance.Patch.Event
 {
-    [HarmonyPatch(typeof(Intercom), nameof(Intercom.CallCmdSetTransmit))]
+    [HarmonyPatch(typeof(Intercom), nameof(Intercom.CmdSetTransmit))]
 
     class IntercomSpeakPatch
     {
@@ -34,7 +34,7 @@ namespace VT_Referance.Patch.Event
             }
             catch (Exception e)
             {
-                Server.Get.Logger.Error($"Vt-Event: IntercomSpeak failed!!\n{e}\nStackTrace:\n{e.StackTrace}");
+                Server.Get.Logger.Error($"Vt-Event: IntercomSpeakEvent failed!!\n{e}\nStackTrace:\n{e.StackTrace}");
                 return true;
             }
         }

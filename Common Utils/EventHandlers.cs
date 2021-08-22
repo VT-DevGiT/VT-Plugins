@@ -69,8 +69,8 @@ namespace Common_Utiles
                 }
                 if (CommonUtiles.Config.Rnd914ArtificialLife)
                 {
-                    float newLif = UnityEngine.Random.Range(CommonUtiles.Config.Min914ArtificialLife, CommonUtiles.Config.Max914ArtificialLife);
-                    player.ArtificialHealth = newLif;
+                    ushort newLif = (ushort)UnityEngine.Random.Range(CommonUtiles.Config.Min914ArtificialLife, CommonUtiles.Config.Max914ArtificialLife);
+                    player.ArtificialHP = newLif;
                 }
                 if (CommonUtiles.Config.Rnd914ChanceDie != 0)
                 {

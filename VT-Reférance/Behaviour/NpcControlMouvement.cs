@@ -110,6 +110,8 @@ namespace VT_Referance.Behaviour
 
         protected bool TryInteract()
         {
+            // je retravail sa plus tard car il n'est pas utlisée autre que par les NPC et les NPC sont eux aussi pas finie
+            /*
             if (player.LookingAt == null)
                 return false;
             InteractionCoordinator obj = player.GetComponent<InteractionCoordinator>();
@@ -120,7 +122,7 @@ namespace VT_Referance.Behaviour
             InteractableCollider res;
             if (targetInteractable == null || obj._hub == null || obj._hub.characterClassManager.CurClass == RoleType.Spectator || !targetInteractable.TryGetComponent(out component) || !InteractableCollider.TryGetCollider(component, colId, out res) || !obj.GetSafeRule(component).ServerCanInteract(obj._hub, res))
                 return false;
-            component.ServerInteract(obj._hub, colId);
+            component.ServerInteract(obj._hub, colId);*/
             return true;
         }
         
@@ -132,7 +134,7 @@ namespace VT_Referance.Behaviour
             {
                 if (_Door.DoorPermissions.RequiredPermissions != 0 && !player.Bypass)
                 { 
-                    SynapseItem item = player.Inventory.Items.FirstOrDefault(i => _Door.DoorPermissions.CheckPermissions(i.ItemType, player.Hub));
+                    SynapseItem item = player.Inventory.Items.FirstOrDefault(i => _Door.DoorPermissions.CheckPermissions(i.ItemBase, player.Hub));
                     if (item == null) return false;
                     npc.HeldItem = item.ItemType;
                 }

@@ -48,10 +48,10 @@ namespace VTCustomClass
         public static ConfigGardeSuperviseur ConfigGardeSuperviseur;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFSergent")]
-        public static ConfigNTFSergent ConfigNTFSergent;
+        public static ConfigNTFLieutenant ConfigNTFLieutenant;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFCapitaine")]
-        public static ConfigNTFCapitaine ConfigNTFCapitaine;
+        public static ConfigNTFCommander ConfigNTFCommander;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFLieutenantColonel")]
         public static ConfigNTFLieutenantColonel ConfigNTFLieutenantColonel;
@@ -196,8 +196,8 @@ namespace VTCustomClass
             Server.Get.RoleManager.RegisterCustomRole<CHIMastodonteScript>();
             Server.Get.RoleManager.RegisterCustomRole<CHISPYScript>();
             Server.Get.RoleManager.RegisterCustomRole<GardeSuperviseurScript>();
-            Server.Get.RoleManager.RegisterCustomRole<NTFSergentScript>();
-            Server.Get.RoleManager.RegisterCustomRole<NTFCapitaineScript>();
+            Server.Get.RoleManager.RegisterCustomRole<NTFLieutenantScript>();
+            Server.Get.RoleManager.RegisterCustomRole<NTFCommanderScript>();
             Server.Get.RoleManager.RegisterCustomRole<NTFLieutenantColonel>();
             Server.Get.RoleManager.RegisterCustomRole<NTFExpertPyrotechnieScript>();
             Server.Get.RoleManager.RegisterCustomRole<NTFExpertReconfinementScript>();

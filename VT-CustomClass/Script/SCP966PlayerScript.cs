@@ -39,7 +39,7 @@ namespace VTCustomClass.PlayerScript
 
         private void OnAttack(PlayerDamageEventArgs ev)
         {
-            if (ev.Allow && ev.Allow == Player && ev.HitInfo.GetDamageType() == DamageTypes.Scp0492)
+            if (ev.Allow && ev.Allow == Player && ev.HitInfo.Tool == DamageTypes.Scp0492)
             {
                 ev.DamageAmount = 20;
                 if (!ev.Victim.IsUTR())

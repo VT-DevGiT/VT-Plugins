@@ -12,7 +12,7 @@ namespace VTCustomClass
         {
             if(ev.Killer == player && ev.Victim.IsUTR())
             {
-                if (ev.Victim.TeamID == (int)TeamID.SCP || ev.Victim.ArtificialHealth != 0) 
+                if (ev.Victim.TeamID == (int)TeamID.SCP || ev.Victim.ArtificialHP != 0) 
                 {
                     ev.Victim.GiveEffect(Effect.Disabled, 1, 4);
                 }
@@ -28,7 +28,7 @@ namespace VTCustomClass
         {
             if (ev.Killer == player && ev.Victim.IsUTR())
             { 
-                if (ev.Victim.ArtificialHealth == 0)
+                if (ev.Victim.ArtificialHP == 0)
                 {
                     ev.Victim.GiveEffect(Effect.Burned, 1, 10);
                     ev.Victim.GiveEffect(Effect.Asphyxiated, 1, 10);

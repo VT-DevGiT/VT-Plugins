@@ -1,39 +1,32 @@
 ﻿using HarmonyLib;
+using InventorySystem.Items.ThrowableProjectiles;
 using Mirror;
-using Synapse;
 using Synapse.Api.Enum;
-using Synapse.Api.Items;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VT_Referance.Event;
 
 namespace VT_Referance.Patch.Event
 {
-    /*
-    [HarmonyPatch(typeof(Grenade), nameof(Grenade.OnCollisionEnter))]
+    
+    [HarmonyPatch(typeof(TimeGrenade), nameof(TimeGrenade.OnCollisionEnter))]
     class ColisionGrenadePatch
     {
-        private static bool Prefix(Grenade __instance)
+        private static bool Prefix(TimeGrenade __instance)
         {
             try
             {
-                if (!NetworkServer.active) return false;
-                bool falg = true;
                 GrenadeType Type;
-                if (__instance.GetType() == typeof(FragGrenade))
+                if (__instance.GetType() == typeof(ExplosionGrenade))
                     Type = GrenadeType.Grenade;
-                else if (__instance.GetType() == typeof(FlashGrenade))
+                else if (__instance.GetType() == typeof(FlashbangGrenade))
                     Type = GrenadeType.Flashbang;
-                else if (__instance.GetType() == typeof(Scp018Grenade))
+                else if (__instance.GetType() == typeof(Scp018Projectile))
                     Type = GrenadeType.Scp018;
                 else
                     Type = (GrenadeType)4;
 
-                VTController.Server.Events.Grenade.InvokeCollisionGrenadeEvent(__instance, Type, ref falg);
-                return falg;
+                VTController.Server.Events.Grenade.InvokeCollisionGrenadeEvent(__instance, Type);
+                return true;
             }
             catch (Exception e)
             {
@@ -42,5 +35,5 @@ namespace VT_Referance.Patch.Event
             }
         }
     }
-    */
+    
 }

@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using MapGeneration.Distributors;
 using Synapse;
 using System;
 using System.Collections.Generic;
@@ -8,69 +9,25 @@ using System.Threading.Tasks;
 
 namespace VT_Referance.Patch.Event
 {
-    [HarmonyPatch(typeof(PlayerInteract), nameof(PlayerInteract.CallCmdUseLocker))]
+    [HarmonyPatch(typeof(Locker), nameof(Locker.ServerInteract))]
 
     class UseLockerPatch
     {
-        private static bool Prefix(PlayerInteract __instance, byte lockerId, byte chamberNumber)
+        private static bool Prefix(Locker __instance, ReferenceHub ply, byte colliderId)
         {
             try
             {
-                if (!__instance._playerInteractRateLimit.CanExecute(true))
+                if (colliderId >= __instance.Chambers.Length || !__instance.Chambers[colliderId].CanInteract)
                     return false;
-                if (__instance._hc.CufferId > 0 && !PlayerInteract.CanDisarmedInteract)
-                    return false;
+                bool flag = !__instance.CheckPerms(__instance.Chambers[colliderId].RequiredPermissions, ply) && !ply.serverRoles.BypassMode;
+                VTController.Server.Events.Map.InvokeLockerIneractEvent(__instance.GetPlayer(), __instance, ref flag);
 
-                LockerManager sing = LockerManager.singleton;
-
-                if (lockerId >= sing.lockers.Length)
-                    return false;
-
-                if (!__instance.ChckDis(sing.lockers[lockerId].gameObject.position) ||
-                    !sing.lockers[lockerId].supportsStandarizedAnimation)
-                    return false;
-
-                if (chamberNumber >= sing.lockers[lockerId].chambers.Length)
-                    return false;
-
-                if (sing.lockers[lockerId].chambers[chamberNumber].doorAnimator == null)
-                    return false;
-
-                if (!sing.lockers[lockerId].chambers[chamberNumber].CooldownAtZero())
-                    return false;
-
-                sing.lockers[lockerId].chambers[chamberNumber].SetCooldown();
-
-                string accessToken = sing.lockers[lockerId].chambers[chamberNumber].accessToken;
-                var itemById = __instance._inv.GetItemByID(__instance._inv.curItem);
-
-                bool flag = string.IsNullOrEmpty(accessToken) || (itemById != null && itemById.permissions.Contains(accessToken)) || __instance._sr.BypassMode;
-                VTController.Server.Events.Map.InvokeLockerIneractEvent(__instance.GetPlayer(), sing.lockers[lockerId], ref flag);
                 if (flag)
                 {
-                    bool _flag = (sing.openLockers[lockerId] & 1 << chamberNumber) != 1 << chamberNumber;
-                    sing.ModifyOpen(lockerId, chamberNumber, _flag);
-                    sing.RpcDoSound(lockerId, chamberNumber, _flag);
-                    bool anyOpen = true;
-                    for (int i = 0; i < sing.lockers[lockerId].chambers.Length; i++)
-                    {
-                        if ((sing.openLockers[lockerId] & 1 << i) == 1 << i)
-                        {
-                            anyOpen = false;
-                            break;
-                        }
-                    }
-                    sing.lockers[lockerId].LockPickups(!_flag, chamberNumber, anyOpen);
-                    if (!string.IsNullOrEmpty(accessToken))
-                    {
-                        sing.RpcChangeMaterial(lockerId, chamberNumber, false);
-                    }
-                    __instance.OnInteract();
+                    __instance.Chambers[colliderId].SetDoor(!__instance.Chambers[colliderId].IsOpen, __instance._grantedBeep);
+                    __instance.RefreshOpenedSyncvar();
                 }
-                else
-                {
-                    sing.RpcChangeMaterial(lockerId, chamberNumber, true);
-                }
+                else  __instance.RpcPlayDenied(colliderId);
                 return false;
             }
             catch (Exception e)

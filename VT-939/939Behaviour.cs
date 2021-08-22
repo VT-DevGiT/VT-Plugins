@@ -68,7 +68,7 @@ namespace VT939
                 return;
             }
 
-            if (!scp207.Enabled && !sinkHole.Enabled && Plugin.Config.IsFasterThanHumans)
+            if (!scp207.enabled && !sinkHole.enabled && Plugin.Config.IsFasterThanHumans)
                 player.GiveEffect(Effect.Scp207);
         }
 
@@ -76,10 +76,10 @@ namespace VT939
         {
             if (ev.Victim == player)
             {
-                if (ev.HitInfo.GetDamageType() != DamageTypes.Scp207)
+                if (ev.HitInfo.Tool != DamageTypes.Scp207)
                     player.Health += ev.DamageAmount < 0 ? -9999999f : -ev.DamageAmount;
 
-                if (!excludedDamages.Contains(ev.HitInfo.GetDamageType()))
+                if (!excludedDamages.Contains(ev.HitInfo.Tool))
                 {
                     AngerMeter += ev.DamageAmount;
                 }
@@ -94,7 +94,7 @@ namespace VT939
                 if (AngerMeter > Plugin.Config.AngerMeterMaximum)
                     AngerMeter = Plugin.Config.AngerMeterMaximum;
 
-                player.ArtificialHealth = (byte)(AngerMeter / Plugin.Config.AngerMeterMaximum * player.MaxArtificialHealth);
+                player.ArtificialHP = (byte)(AngerMeter / Plugin.Config.AngerMeterMaximum * player.MaxArtificialHealth);
 
                 if (!angerMeterDecayCoroutine.IsRunning)
                     angerMeterDecayCoroutine = Timing.RunCoroutine(AngerMeterDecay(Plugin.Config.AngerMeterDecayTime), Segment.FixedUpdate);
@@ -115,13 +115,13 @@ namespace VT939
             if (player == null)
                 return;
 
-            scp207.ServerDisable();
-            sinkHole.ServerDisable();
+            scp207.Disabled();
+            sinkHole.Disabled();
 
             AngerMeter = 0;
 
             player.Scale = new Vector3(1, 1, 1);
-            player.ArtificialHealth = 0;
+            player.ArtificialHP = 0;
             Kill();
         }
 
@@ -138,11 +138,11 @@ namespace VT939
         {
             var waitedTime = 0f;
 
-            scp207.ServerDisable();
+            scp207.Disabled();
 
             while (waitedTime < totalWaitTime)
             {
-                if (!sinkHole.Enabled && Plugin.Config.ShouldGetSlowed)
+                if (!sinkHole.enabled && Plugin.Config.ShouldGetSlowed)
                     player.GiveEffect(Effect.SinkHole);
 
                 waitedTime += interval;
@@ -150,17 +150,17 @@ namespace VT939
                 yield return Timing.WaitForSeconds(interval);
             }
 
-            sinkHole.ServerDisable();
+            sinkHole.Disabled();
 
             if (Plugin.Config.ResetAngerAfterHitSlowDown)
-                AngerMeter = player.ArtificialHealth = 0;
+                AngerMeter = player.ArtificialHP = 0;
         }
 
         private IEnumerator<float> AngerMeterDecay(float waitTime)
         {
             while (AngerMeter > 0)
             {
-                player.ArtificialHealth = (byte)(AngerMeter / Plugin.Config.AngerMeterMaximum * player.ArtificialHealth);
+                player.ArtificialHP = (byte)(AngerMeter / Plugin.Config.AngerMeterMaximum * player.ArtificialHP);
 
                 yield return Timing.WaitForSeconds(waitTime);
 

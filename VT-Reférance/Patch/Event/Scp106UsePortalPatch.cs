@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace VT_Referance.Patch.Event
 {
-    [HarmonyPatch(typeof(Scp106PlayerScript), nameof(Scp106PlayerScript.CallCmdUsePortal))]
+    [HarmonyPatch(typeof(Scp106PlayerScript), nameof(Scp106PlayerScript.CmdUsePortal))]
     class Scp106UsePortalPatch
     {
         private static bool Prefix(Scp106PlayerScript __instance)
