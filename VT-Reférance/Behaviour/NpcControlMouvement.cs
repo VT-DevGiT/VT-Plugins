@@ -15,14 +15,26 @@ using UnityEngine.AI;
 
 namespace VT_Referance.Behaviour
 {
-    [API]
+    [API] [RequireComponent(typeof(NavMeshAgent))]
     public class NpcControlMouvement : BaseRepeatingBehaviour
-    { 
-        NpcControlMouvement() => this.RefreshTime = 100;
+    {
+        #region Constructors & Destructor
+        NpcControlMouvement()
+        {
+            this.RefreshTime = 100;
+            player = gameObject.GetPlayer();
+            npc = (BaseNpcScript)Map.Get.Dummies.FirstOrDefault(x => x.Player == player);
+        }
+        #endregion
 
-        BaseNpcScript npc;
-        Player player;
+        #region Attributes & Properties
+
+        public readonly BaseNpcScript npc;
+        public readonly Player player;
+        NavMeshAgent agent;
+        List<NpcMapPointRoute> Chemin;
         Vector3? _Goto;
+
 
         Vector3 _NextPostion
         {
@@ -43,8 +55,6 @@ namespace VT_Referance.Behaviour
             } 
         }
 
-        List<NpcMapPointRoute> Chemin;
-
         public Vector3? Goto
         {
             get { return _Goto; }
@@ -54,47 +64,54 @@ namespace VT_Referance.Behaviour
                 if (value == null) enabled = false;
                 else
                 {
+                    agent.destination = (Vector3)value;
+                    enabled = true;
+                    /*
                     NpcMapPointRoute FirstPoint = NpcMapPointRoute.GetNearestPoint(npc.Position);
                     NpcMapPointRoute LastPoint = NpcMapPointRoute.GetNearestPoint((Vector3)value);
                     if (LastPoint == FirstPoint) Chemin = new List<NpcMapPointRoute>();
                     else Chemin = NpcDataInit.TestCheminZone.PlusCourtChemin(FirstPoint.Id, LastPoint.Id);
                     enabled = true;
+                     */
                 }
             }
         }
 
+        #endregion
+
+        #region Methods
         protected override void Start()
         {
-            player = gameObject.GetPlayer();
-            npc = (BaseNpcScript)Map.Get.Dummies.FirstOrDefault(x => x.Player == player);
-            base.Start();
+            agent = GetComponent<NavMeshAgent>();
             enabled = false;
         }
 
         protected override void OnDisable()
         {
-            npc.Direction = MovementDirection.Stop;
+            /*npc.Direction = MovementDirection.Stop;*/
             base.OnDisable();
         }
 
         protected override void OnEnable()
         {
+            /*
             npc.Direction = MovementDirection.Forward;
-            npc.RotateToPosition(_NextPostion);
+            npc.RotateToPosition(_NextPostion);*/
             base.OnEnable();
         }
 
         protected override void BehaviourAction()
         {
-            if (Chemin == null || _Goto == null)
+            /*if (Chemin == null || _Goto == null)
             { 
                 enabled = false;
                 return;
-            }
+            }*/
 
             if (TryOpenDoor() == true) Timing.RunCoroutine(DoorChek());
-            mouve();
+            /*mouve();*/
         }
+        #endregion
 
         #region Interaction
 
@@ -108,23 +125,9 @@ namespace VT_Referance.Behaviour
             }
         }
 
-        protected bool TryInteract()
-        {
-            // je retravail sa plus tard car il n'est pas utlisée autre que par les NPC et les NPC sont eux aussi pas finie
-            /*
-            if (player.LookingAt == null)
-                return false;
-            InteractionCoordinator obj = player.GetComponent<InteractionCoordinator>();
-            NetworkReader reader = player.LookingAt.GetComponent<NetworkReader>();
-            NetworkIdentity targetInteractable = reader.ReadNetworkIdentity();
-            byte colId = NetworkReaderExtensions.ReadByte(reader);
-            IInteractable component;
-            InteractableCollider res;
-            if (targetInteractable == null || obj._hub == null || obj._hub.characterClassManager.CurClass == RoleType.Spectator || !targetInteractable.TryGetComponent(out component) || !InteractableCollider.TryGetCollider(component, colId, out res) || !obj.GetSafeRule(component).ServerCanInteract(obj._hub, res))
-                return false;
-            component.ServerInteract(obj._hub, colId);*/
-            return true;
-        }
+        // train ... 
+        protected bool TryInteract() => false;
+        
         
         protected virtual bool? TryOpenDoor()
         {

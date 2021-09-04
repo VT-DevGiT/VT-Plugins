@@ -13,15 +13,23 @@ namespace VT_Item.Item
 {
     public class Turret : BaseWeaponScript
     {
-        protected override uint Ammo => 0;
+        public override float Weight => 25;
 
-        protected override AmmoType AmmoType => AmmoType.Ammo556x45;
+        public override ushort Ammos => 0;
 
-        protected override int ID => (int)ItemID.MiniGun;
+        public override AmmoType AmmoType => AmmoType.Ammo556x45;
 
-        protected override ItemType ItemType => ItemType.GunLogicer;
+        public override int ID => (int)ItemID.MiniGun;
 
-        protected override string Name => "Turret";
+        public override ItemType ItemType => ItemType.GunLogicer;
+
+        public override string Name => "Turret";
+
+        public override DamageTypes.DamageType DamageType => DamageTypes.Wall;
+
+        public override float ArmorPenetration => 0;
+
+        public override bool UseHitboxMultipliers => false;
 
         protected override void Drop(PlayerDropItemEventArgs ev)
         {

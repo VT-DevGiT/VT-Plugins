@@ -42,7 +42,7 @@ namespace VTCustomClass
             }
         }
         
-            private void OnClass(PlayerSetClassEventArgs ev)
+        private void OnClass(PlayerSetClassEventArgs ev)
         {
             Data.PlayerRole[ev.Player] = (int)ev.Role;
             if (RespawnPlayer.Contains(ev.Player))
@@ -50,7 +50,7 @@ namespace VTCustomClass
                 ev.SpawnRole(RoleType.ChaosRifleman, new CHILeaderScript());
                 ev.SpawnRole(RoleType.ChaosRifleman, new CHIHackerScript());
                 ev.SpawnRole(RoleType.ChaosRifleman, new CHIExpertPyrotechnieScript());
-                ev.SpawnRole(RoleType.ChaosRepressor, new CHIKamikazeScript());
+                ev.SpawnRole(RoleType.ChaosMarauder, new CHIKamikazeScript());
                 ev.SpawnRole(RoleType.ChaosRepressor, new CHIMastodonteScript());
                 ev.SpawnRole(RoleType.ChaosRifleman, new CHIInfirmierScript());
                 ev.SpawnRole(RoleType.NtfPrivate, new CHISPYScript());

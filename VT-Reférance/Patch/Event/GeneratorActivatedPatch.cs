@@ -11,7 +11,8 @@ namespace VT_Referance.Patch.Event
     [HarmonyPatch(typeof(Scp079Generator), nameof(Scp079Generator.ServerUpdate))]
     class GeneratorActivated
     {
-        private static bool Prefix(Scp079Generator __instance)
+        [HarmonyPrefix]
+        private static bool GeneratorUpdate(Scp079Generator __instance)
         {
             try
             { 

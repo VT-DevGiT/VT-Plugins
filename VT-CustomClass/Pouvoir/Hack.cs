@@ -24,7 +24,7 @@ namespace VTCustomClass.Pouvoir
                 });
             }
         }
-        public static void light() => Generator079.mainGenerator.ServerOvercharge(30, false);
+        public static void light() => Server.Get.Map.HeavyController.LightsOut(30, false);
 
         public static void Message()
         {

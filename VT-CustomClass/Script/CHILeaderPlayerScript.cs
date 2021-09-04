@@ -25,7 +25,7 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleTeam => (int)TeamID.CHI;
 
-        protected override int RoleId => (int)RoleID.ChiLeader;
+        protected override int RoleId => (int)RoleID.ChaosLeader;
 
         protected override string RoleName => Plugin.ConfigCHILeader.RoleName;
 

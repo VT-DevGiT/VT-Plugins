@@ -4,33 +4,42 @@ using Synapse.Api.Events.SynapseEventArguments;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using VT_Referance.Script.ItemScript;
 using VT_Referance.ItemScript;
 using VT_Referance.Variable;
 using VT_Referance.Method;
 using VT_Referance.Behaviour;
-using System.Linq;
 using CustomPlayerEffects;
 
 namespace VT_Item.Item
 {
     class MiniGunScript : BaseWeaponScript
     {
+        #region Attributes & Properties
         static Dictionary<Player, DateTime> StartShoot = new Dictionary<Player, DateTime>();
         static Dictionary<Player, DateTime> LastSoot = new Dictionary<Player, DateTime>();
-        protected override string MessagePickUp => Plugin.PluginTranslation.ActiveTranslation.MessageGetItem;
 
-        protected override string MessageChangeTo => Plugin.PluginTranslation.ActiveTranslation.MessageHandItem;
+        public override string MessagePickUp => Plugin.PluginTranslation.ActiveTranslation.MessageGetItem;
+        public override string MessageChangeTo => Plugin.PluginTranslation.ActiveTranslation.MessageHandItem;
+        public override ushort Ammos => 0;
+        public override AmmoType AmmoType => (AmmoType)-1;
+        public override int ID => (int)ItemID.MiniGun;
+        public override ItemType ItemType => ItemType.GunLogicer;
+        public override string Name => Plugin.PluginTranslation.ActiveTranslation.NameMiniGun;
+        public override float Weight => 21.5f;
+        public override int DamageAmmont => Plugin.MiniGunConfig.Damage;
+        #endregion
 
-        protected override ushort Ammo => 0;
+        #region Constructors & Destructor
+        public MiniGunScript()
+        {
+            DamageType = DamageTypes.Logicer; 
+            ArmorPenetration = 3; 
+            UseHitboxMultipliers = false;
+        }
+        #endregion
 
-        protected override AmmoType AmmoType => (AmmoType)-1;
-
-        protected override int ID => (int)ItemID.MiniGun;
-
-        protected override ItemType ItemType => ItemType.GunLogicer;
-
-        protected override string Name => Plugin.PluginTranslation.ActiveTranslation.NameMiniGun;
-
+        #region Methods
         protected override void PickUp(PlayerPickUpItemEventArgs ev)
         {
             ev.Item.Durabillity = ev.Player.AmmoBox[AmmoType.Ammo762x39];
@@ -112,53 +121,51 @@ namespace VT_Item.Item
             int bullets = Plugin.MiniGunConfig.bullets;
             if (Weapon.Durabillity <= bullets)
                 bullets = (int)Weapon.Durabillity;
-            var rays = new Ray[bullets];
+            Ray[] rays = new Ray[bullets];
             for (int i = 0; i < rays.Length; i++)
                 rays[i] = new Ray(player.CameraReference.position + player.CameraReference.forward, RandomAimcone() * player.CameraReference.forward);
 
-            var hits = new RaycastHit[bullets];
-            var didHit = new bool[hits.Length];
+            RaycastHit[] hits = new RaycastHit[bullets];
+            bool[] didHit = new bool[hits.Length];
             for (int i = 0; i < hits.Length; i++)
-                didHit[i] = Physics.Raycast(rays[i], out hits[i], 500f, 1208246273);
+                didHit[i] = Physics.Raycast(rays[i], out hits[i], 100f, 1208246273);
 
-            var component = player.GetComponent<WeaponManager>();
-            var confirm = false;
+            bool hit = false;
             for (int i = 0; i < hits.Length; i++)
             {
                 if (!didHit[i]) continue;
 
-                var hitbox = hits[i].collider.GetComponent<HitboxIdentity>();
+                HitboxIdentity hitbox = hits[i].collider.GetComponent<HitboxIdentity>();
                 if (hitbox != null)
                 {
                     var target = hits[i].collider.GetComponentInParent<Player>();
                     if (target == player)
                         continue;
 
-                    if (component.GetShootPermission(target.ClassManager))
+                    if (SynapseExtensions.GetHarmPermission(player, target))
                     {
-                        hitbox.Damage(Plugin.MiniGunConfig.Damage, Weapon., Weapon.ItemHolder, Weapon.ItemHolder.Position);
-                        component.RpcPlaceDecal(true, (sbyte)target.ClassManager.Classes.SafeGet(target.RoleType).bloodType, hits[i].point + hits[i].normal * 0.01f, Quaternion.FromToRotation(Vector3.up, hits[i].normal));
-                        confirm = true;
-                    }
+                        hitbox.Damage(Plugin.MiniGunConfig.Damage, this, new Footprinting.Footprint(Weapon.ItemHolder.Hub), Weapon.ItemHolder.Position);
 
+                        //component.RpcPlaceDecal(true, (sbyte)target.ClassManager.Classes.SafeGet(target.RoleType).bloodType, hits[i].point + hits[i].normal * 0.01f, Quaternion.FromToRotation(Vector3.up, hits[i].normal));
+                        hit = true;
+                    }
+                    
                     continue;
                 }
 
-                var window = hits[i].collider.GetComponent<BreakableWindow>();
+                IDestructible window = hits[i].collider.GetComponent<IDestructible>();
                 if (window != null)
                 {
-                    window.ServerDamageWindow(Plugin.MiniGunConfig.Damage);
-                    confirm = true;
+                    window.Damage(Plugin.MiniGunConfig.Damage, this, new Footprinting.Footprint(Weapon.ItemHolder.Hub), Weapon.ItemHolder.Position);
+                    hit = true;
                     continue;
                 }
 
-                component.RpcPlaceDecal(false, component.curWeapon, hits[i].point + hits[i].normal * 0.01f, Quaternion.FromToRotation(Vector3.up, hits[i].normal));
+                //component.RpcPlaceDecal(false, component.curWeapon, hits[i].point + hits[i].normal * 0.01f, Quaternion.FromToRotation(Vector3.up, hits[i].normal));
             }
 
-            for (int i = 0; i < bullets; i++)
-                component.RpcConfirmShot(confirm, component.curWeapon);
+            if (hit) player.GetComponent<Hitmarker>().Trigger();
             return bullets;
-
         }
 
         private class MinGunPlayerScript : BaseRepeatingBehaviour
@@ -187,5 +194,6 @@ namespace VT_Item.Item
                     this.enabled = false;
             }
         }
+        #endregion
     }
 }

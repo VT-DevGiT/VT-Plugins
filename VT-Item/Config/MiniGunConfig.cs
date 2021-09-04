@@ -16,7 +16,7 @@ namespace VT_Item.Config
 
         [Description("The list of Role can mouve with the MiniGun")]
         public List<int> ByPasseID = new List<int>{
-            (int)RoleID.ChiMastodonte
+            (int)RoleID.ChaosMastodonte
         };
 
         [Description("How big the spread should be")]

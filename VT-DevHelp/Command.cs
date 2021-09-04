@@ -98,7 +98,7 @@ namespace VTDevHelp
      Aliases = new[] { "VTTest" },
      Description = "For TEST",
      Permission = "",
-     Platforms = new[] { Platform.RemoteAdmin },
+     Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole },
      Usage = ""
      )]
     public class AdvenceEscapeCommand : ISynapseCommand
@@ -106,6 +106,14 @@ namespace VTDevHelp
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
+            int i = 0;
+            while (true)
+            {
+                Server.Get.Logger.Info($"[{i}].Name = {LayerMask.LayerToName(i)}");
+                i++;
+                if (i == int.MaxValue)
+                    break;
+            }
             return result;
         }
     }

@@ -38,7 +38,8 @@ namespace VT_Referance.Patch.Event
                 Server.Get.Logger.Error("Vt-Event: PlayerDamagePost failed!! \n eventsField null");
             }
         }
-        private static bool Prefix(PlayerEvents __instance, Player victim, Player killer, ref PlayerStats.HitInfo info, out bool allow)
+        [HarmonyPrefix]
+        private static bool DamageEvent(PlayerEvents __instance, Player victim, Player killer, ref PlayerStats.HitInfo info, out bool allow)
         {
             try
             {

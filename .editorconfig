@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CS0006: Fichier de métadonnées '..\lib\Assembly-CSharp Vanila.dll' introuvable
+dotnet_diagnostic.CS0006.severity = none

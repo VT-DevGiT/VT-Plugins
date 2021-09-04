@@ -152,9 +152,7 @@ namespace VT_Referance.Method
         {
             float totalvoltagefloat = 0;
             foreach (var generator in Server.Get.Map.Generators)
-                totalvoltagefloat += generator.generator._localGauge._values.;
-            
-            totalvoltagefloat *= 1000;
+                totalvoltagefloat += generator.generator._currentTime / generator.generator._totalActivationTime * 1000;
             return (int)totalvoltagefloat;
         }
 
@@ -175,5 +173,8 @@ namespace VT_Referance.Method
             combi.Add(regular);
             return regular;
         }
+
+
+
     }
 }

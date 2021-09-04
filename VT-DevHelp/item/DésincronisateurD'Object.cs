@@ -8,15 +8,23 @@ namespace VTDevHelp
 {
     internal class DésincronisateurD_Object : BaseWeaponScript
     {
-        protected override uint Ammo => 100;
+        public override float Weight => 0.01f;
 
-        protected override AmmoType AmmoType => AmmoType.Ammo556x45;
+        public override ushort Ammos => 100;
 
-        protected override int ID => 302;
+        public override AmmoType AmmoType => AmmoType.Ammo556x45;
 
-        protected override ItemType ItemType => ItemType.GunCOM18;
+        public override int ID => 302;
 
-        protected override string Name => "DésincronisateurD'Object";
+        public override ItemType ItemType => ItemType.GunCOM18;
+
+        public override string Name => "DésincronisateurD'Object";
+
+        public override DamageTypes.DamageType DamageType => DamageTypes.Wall;
+
+        public override float ArmorPenetration => 0;
+
+        public override bool UseHitboxMultipliers => false;
 
         protected override void Shoot(PlayerShootEventArgs ev)
         {

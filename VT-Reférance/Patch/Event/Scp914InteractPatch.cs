@@ -12,7 +12,8 @@ namespace VT_Referance.Patch.Event
     [HarmonyPatch(typeof(Scp914Controller), nameof(Scp914Controller.ServerInteract))]
     class Scp914InteractPatch
     {
-        private static bool Prefix(Scp914Controller __instance, ReferenceHub ply, byte colliderId)
+        [HarmonyPrefix]
+        private static bool Scp914Interact(Scp914Controller __instance, ReferenceHub ply, byte colliderId)
         {
             try
             {

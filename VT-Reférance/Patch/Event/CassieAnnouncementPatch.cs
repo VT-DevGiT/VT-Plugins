@@ -11,7 +11,8 @@ namespace VT_Referance.Patch.Event
     [HarmonyPatch(typeof(RespawnEffectsController), nameof(RespawnEffectsController.RpcCassieAnnouncement))]
     class Starting
     {
-        private static bool Prefix(RespawnEffectsController __instance, string words, bool makeHold, bool makeNoise)
+        [HarmonyPrefix]
+        private static bool CassieAnnoncement(RespawnEffectsController __instance, string words, bool makeHold, bool makeNoise)
         {
             try
             {

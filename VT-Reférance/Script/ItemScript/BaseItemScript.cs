@@ -1,4 +1,5 @@
-﻿using Synapse;
+﻿using InventorySystem.Items;
+using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Api.Items;
@@ -7,19 +8,19 @@ using Synapse.Api.Items;
 namespace VT_Referance.ItemScript
 {
     [API]
-    public abstract class BaseItemScript
+    public abstract class BaseItemScript : ItemBase
     {
         #region Attributes & Properties
         
-        protected abstract int ID { get; }
+        public abstract int ID { get; }
 
-        protected abstract ItemType ItemType { get; }
+        public abstract ItemType ItemType { get; }
 
-        protected abstract string Name { get; }
+        public abstract string Name { get; }
 
-        protected virtual string MessagePickUp { get; } = null;
+        public virtual string MessagePickUp { get; } = null;
 
-        protected virtual string MessageChangeTo { get; } = null;
+        public virtual string MessageChangeTo { get; } = null;
 
         #endregion
 

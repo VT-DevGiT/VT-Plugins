@@ -14,13 +14,15 @@ namespace VT_Item.Item
 {
     class BulletproofPlateScript : BaseItemScript
     {
-        protected override string MessagePickUp => Plugin.PluginTranslation.ActiveTranslation.MessageGetItem;
+        public override float Weight => 1;
 
-        protected override int ID => (int)ItemID.BulletPlate;
+        public override string MessagePickUp => Plugin.PluginTranslation.ActiveTranslation.MessageGetItem;
 
-        protected override ItemType ItemType => ItemType.ArmorLight;
+        public override int ID => (int)ItemID.BulletPlate;
 
-        protected override string Name => Plugin.PluginTranslation.ActiveTranslation.NameBulletproofPlate;
+        public override ItemType ItemType => ItemType.ArmorLight;
+
+        public override string Name => Plugin.PluginTranslation.ActiveTranslation.NameBulletproofPlate;
 
         protected override void ChangeToItem(PlayerChangeItemEventArgs ev)
         {

@@ -8,7 +8,8 @@ namespace VT_Referance.Patch.Event
 
     class IntercomSpeakPatch
     {
-        private static bool Prefix(Intercom __instance, bool player)
+        [HarmonyPrefix]
+        private static bool IntercomStartTransmit(Intercom __instance, bool player)
         {
             try
             {

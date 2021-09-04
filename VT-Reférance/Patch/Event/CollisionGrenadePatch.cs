@@ -1,20 +1,24 @@
 ﻿using HarmonyLib;
+using InventorySystem.Items.Pickups;
 using InventorySystem.Items.ThrowableProjectiles;
-using Mirror;
 using Synapse.Api.Enum;
 using System;
-using VT_Referance.Event;
+using UnityEngine;
 
 namespace VT_Referance.Patch.Event
 {
     
-    [HarmonyPatch(typeof(TimeGrenade), nameof(TimeGrenade.OnCollisionEnter))]
+    [HarmonyPatch(typeof(CollisionDetectionPickup), nameof(CollisionDetectionPickup.ProcessCollision))]
     class ColisionGrenadePatch
     {
-        private static bool Prefix(TimeGrenade __instance)
+        [HarmonyPrefix]
+        private static bool Collision(CollisionDetectionPickup __instance, Collision collision)
         {
             try
             {
+                if (!(__instance is TimeGrenade))
+                    return true;
+
                 GrenadeType Type;
                 if (__instance.GetType() == typeof(ExplosionGrenade))
                     Type = GrenadeType.Grenade;
@@ -25,7 +29,7 @@ namespace VT_Referance.Patch.Event
                 else
                     Type = (GrenadeType)4;
 
-                VTController.Server.Events.Grenade.InvokeCollisionGrenadeEvent(__instance, Type);
+                VTController.Server.Events.Grenade.InvokeCollisionGrenadeEvent((TimeGrenade)__instance, Type);
                 return true;
             }
             catch (Exception e)

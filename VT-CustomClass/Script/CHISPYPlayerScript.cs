@@ -23,7 +23,7 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleTeam => (int)TeamID.CHI;
 
-        protected override int RoleId => (int)RoleID.ChiSpy;
+        protected override int RoleId => (int)RoleID.ChaosSpy;
 
         protected override string RoleName => Plugin.ConfigCHISPY.RoleName;
 

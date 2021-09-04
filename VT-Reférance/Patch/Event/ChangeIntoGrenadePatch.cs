@@ -15,7 +15,8 @@ namespace VT_Referance.Patch.Event
     [HarmonyPatch(typeof(TimedGrenadePickup), nameof(TimedGrenadePickup.OnExplosionDetected))]
     class ChangeIntoFragPatch
     {
-        private static bool Prefix(TimedGrenadePickup __instance, Footprint attacker, Vector3 source, float range)
+        [HarmonyPrefix]
+        private static bool ExplosionDetected(TimedGrenadePickup __instance, Footprint attacker, Vector3 source, float range)
         {
             try
             {

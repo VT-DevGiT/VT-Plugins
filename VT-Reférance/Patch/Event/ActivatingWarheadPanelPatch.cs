@@ -11,7 +11,8 @@ namespace VT_Referance.Patch.Event
     [HarmonyPatch(typeof(PlayerInteract), nameof(PlayerInteract.UserCode_CmdSwitchAWButton))]
     class ActivatingWarheadPanelPatch
     {
-        private static bool Prefix(PlayerInteract __instance)
+        [HarmonyPrefix]
+        private static bool NukeLever(PlayerInteract __instance)
         {
             try
             {

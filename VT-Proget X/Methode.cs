@@ -175,7 +175,7 @@ namespace VTProget_X
                 else if (_intercom.speaker != null)
                 {
                     IntercomStatueMessage = Plugin.PluginTranslation.ActiveTranslation.IntercomStatuePlayer.
-                        Replace("%Player%", _intercom.GetPlayer().NickName).Replace("%Temps%", ((int)_intercom.speechRemainingTime).ToString());
+                        Replace("%Player%", _intercom.speaker.GetPlayer().NickName).Replace("%Temps%", ((int)_intercom.speechRemainingTime).ToString());
                 }
                 else
                 {
@@ -250,7 +250,7 @@ namespace VTProget_X
 
                     case screenEnum.Custom:
                         ScreenMessage = string.Concat(
-                            $"<color=#9300FF>Azarus</color>\n",
+                            $"\n",
                             $"───────────────────────────────────── \n ",
                             $"           [Insérée Message] ",
                             $"             I like train ! "

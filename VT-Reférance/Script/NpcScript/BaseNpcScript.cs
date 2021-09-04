@@ -18,15 +18,13 @@ namespace VT_Referance.NpcScript
         public BaseNpcScript(Vector3 pos, Vector2 rot, RoleType role, string name, string badgetext = "", string badgecolor = "") : base(pos, rot, role, name, badgetext, badgecolor)
         {
             CtrMouvement = GameObject.AddComponent<NpcControlMouvement>();
+            CtrCortext = GameObject.AddComponent<NpcControlCortext>();
             uint newId;
             if (NpcList.Any()) newId = NpcList.Keys.OrderByDescending(p => p).First() + 1;
             else newId = 1;
             NpcList.Add(newId, this); Id = newId;
             Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
         }
-
-
-        public NpcControlMouvement CtrMouvement;
 
         protected virtual void OnDeath(PlayerDeathEventArgs ev)
         {
@@ -37,6 +35,8 @@ namespace VT_Referance.NpcScript
             }
         }
 
+        public readonly NpcControlMouvement CtrMouvement;
+        public readonly NpcControlCortext CtrCortext;
         public virtual PlayerMovementState MouventState()
         {
             return PlayerMovementState.Walking;

@@ -10,8 +10,8 @@ namespace VT_Referance.Patch.Event
     [HarmonyPatch(typeof(ReferenceHub), nameof(ReferenceHub.OnDestroy))]
     class DestroyHubPatch
     {
-       
-        private static void Prefix(ReferenceHub __instance)
+        [HarmonyPrefix]
+        private static void HubDestroy(ReferenceHub __instance)
         {
             try
             {

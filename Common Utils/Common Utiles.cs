@@ -36,12 +36,13 @@ Version = "v.1.2.2"
         {
             if (Config.Recipes.Any())
             {
-                if (Config.RemouvRecipes)
-                    Map.Get.Scp914.Recipes.Clear();
-                foreach (var recipe in Config.Recipes)
-                {
-                    Map.Get.Scp914.Recipes.Add(recipe.Parse());
-                }
+                // When the Recipes was back it was back
+                //if (Config.RemouvRecipes)
+                //    Map.Get.Scp914.Recipes.Clear();
+                //foreach (var recipe in Config.Recipes)
+                //{
+                //    Map.Get.Scp914.Recipes.Add(recipe.Parse());
+                //}
             }
         }
     }

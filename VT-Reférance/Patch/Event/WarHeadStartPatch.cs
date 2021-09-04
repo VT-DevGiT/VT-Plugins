@@ -12,7 +12,8 @@ namespace VT_Referance.Patch.Event
     [HarmonyPatch(typeof(PlayerInteract), nameof(PlayerInteract.UserCode_CmdDetonateWarhead))]
     internal static class StartingWarHead
     {
-        private static bool Prefix(PlayerInteract __instance)
+        [HarmonyPrefix]
+        private static bool NukeStart(PlayerInteract __instance)
         {
             try
             {

@@ -1,44 +1,84 @@
 ﻿using Synapse.Api;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AI;
 using VT_Referance.NpcScript;
 
 namespace VT_Referance.Behaviour
 {
-    class NpcControlCortext : BaseRepeatingBehaviour
+    public class NpcControlCortext : BaseRepeatingBehaviour
     {
-        BaseNpcScript npc;
-        public NavMeshAgent agent;
-        public LayerMask ground;
-        Vector3? _Goto;
+        public readonly BaseNpcScript npc;
+        public readonly Player player;
 
-        protected override void BehaviourAction() { }
+        public Transform target = null;
+        public float maxDistance = 10f;
+        public bool TargetIsVisible { get; set; }
 
-        protected override void Start()
+        [Range(0f, 360f)]
+        public float angle = 45f;
+
+        [SerializeField] bool visualize = true;
+
+        
+
+        public NpcControlCortext()
         {
-            npc = (BaseNpcScript)Map.Get.Dummies.FirstOrDefault(n => n.GameObject == gameObject);
-            agent = GetComponent<NavMeshAgent>();
-            base.Start();
+            this.RefreshTime = 10;
+            player = gameObject.GetPlayer();
+            npc = (BaseNpcScript)Map.Get.Dummies.FirstOrDefault(x => x.Player == player);
         }
 
-        public Vector3? Goto
+        protected override void BehaviourAction() 
         {
-            get { return _Goto; }
-            set 
+            TargetIsVisible = CheckVisibility();
+        
+            if (visualize)
             {
-                if (value == null) { enabled = false; return; }
-                if (Physics.Raycast((Vector3)value, -transform.up, 2f, ground))
-                    throw new Exception($"imposible d'accéder à cet zone PNJ ({npc.Id})");
-                agent.SetDestination((Vector3)value);
-                enabled = true;
+                Color color = TargetIsVisible ? Color.yellow : Color.white;
+                GetComponent<Renderer>().material.color = color;
             }
         }
 
+        public bool CheckVisibilityToPoint(Vector3 worldPoint)
+        {
+            Vector3 directionToTarget = worldPoint - transform.position;
+            float degressToTarget = Vector3.Angle(transform.forward, directionToTarget);
+            bool withinArc = degressToTarget < (angle / 2);
 
+            if (!withinArc) return false;
+
+            float distanceToTarget = directionToTarget.magnitude;
+            float rayDisantce = Mathf.Min(maxDistance, distanceToTarget);
+            Ray ray = new Ray(transform.position, directionToTarget);
+        
+            if (Physics.Raycast(ray, out RaycastHit Hit, rayDisantce))
+                if (Hit.collider.transform == target) return true; else return false;
+            return true;
+
+        }
+
+        public bool CheckVisibility()
+        {
+            Vector3 directionToTarget = target.position - transform.position;
+            float degreesToTarget = Vector3.Angle(transform.forward, directionToTarget);
+            bool withinArc = degreesToTarget < (angle / 2);
+
+            if (!withinArc) return false;
+
+            float distanceToTarget = directionToTarget.magnitude;
+            float rayDistance = Mathf.Min(maxDistance, distanceToTarget);
+            Ray ray = new Ray(transform.position, directionToTarget);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, rayDistance))
+                if (hit.collider.transform == target)
+                    return true;
+            return false;
+        }
+
+        protected override void Start()
+        {
+            //base.Start();
+        } 
     }
 }
