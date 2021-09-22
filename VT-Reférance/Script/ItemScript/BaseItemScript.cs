@@ -3,7 +3,9 @@ using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Api.Items;
-
+using System.Collections.Generic;
+using System.Linq;
+using VT_Referance.Method;
 
 namespace VT_Referance.ItemScript
 {
@@ -11,16 +13,24 @@ namespace VT_Referance.ItemScript
     public abstract class BaseItemScript : ItemBase
     {
         #region Attributes & Properties
-        
-        public abstract int ID { get; }
+        private string _Name;
 
-        public abstract ItemType ItemType { get; }
+        public readonly int ID;
+        public readonly ItemType ItemType;
 
-        public abstract string Name { get; }
-
-        public virtual string MessagePickUp { get; } = null;
-
-        public virtual string MessageChangeTo { get; } = null;
+        public string Name 
+        {   
+            get => _Name;
+            set 
+            { 
+                if (value == _Name) return; 
+                Server.Get.ItemManager.GetFieldValueorOrPerties<List<CustomItemInformation>>("customItems")
+                                      .FirstOrDefault(i => i.ID == this.ID).Name = value; 
+               _Name = value; 
+            }
+        }
+        public string MessagePickUp { get; set; } = null;
+        public string MessageChangeTo { get; set; } = null;
 
         #endregion
 
@@ -29,6 +39,7 @@ namespace VT_Referance.ItemScript
         [API]
         public BaseItemScript()
         {
+            //if (ID == -1) throw new System.Exception($"Error ! the item failed to be register: \n ID of a item is not found \n It was in the class {}");
             Server.Get.ItemManager.RegisterCustomItem(new CustomItemInformation()
             {
                 ID = this.ID,
@@ -67,7 +78,7 @@ namespace VT_Referance.ItemScript
         [API]
         protected virtual void ChangeToItem(PlayerChangeItemEventArgs ev)
         {
-            if (MessageChangeTo != null)
+            if (!string.IsNullOrEmpty(MessageChangeTo))
             { 
                 string message = MessageChangeTo.Replace("%Name%", Name).Replace("\\n", "\n");
                 ev.Player.GiveTextHint(message);
@@ -95,7 +106,7 @@ namespace VT_Referance.ItemScript
         [API]
         protected virtual void PickUp(PlayerPickUpItemEventArgs ev)
         {
-            if(MessagePickUp != null)
+            if (!string.IsNullOrEmpty(MessagePickUp))
             { 
                 string message = MessagePickUp.Replace("%Name%", Name).Replace("\\n", "\n");
                 ev.Player.GiveTextHint(message);

@@ -3,6 +3,7 @@ using Synapse;
 using Synapse.Api;
 using Synapse.Api.Plugin;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading;
@@ -28,7 +29,9 @@ namespace VT_MultieLoder
         public static MultieLoder Instance { get; private set; }
         public static bool IsLoaded { get; private set; }
         public static ExiledHandler ExiledHandler { get; private set; }
+        public static List<Assembly> ExiledPrimaryDll { get; private set; }
         public static QurreHandler QurreHandler { get; private set; }
+        public static List<Assembly> QurrePrimaryDll { get; private set; }
         public static FileLocations Files { get; } = new FileLocations();
 
         public void PatchAll()
@@ -39,15 +42,26 @@ namespace VT_MultieLoder
 
         public override void Load()
         {
+            ExiledPrimaryDll = new List<Assembly>();
+            QurrePrimaryDll = new List<Assembly>();
             Instance = this;
-            if (Config.Warning)
+            //if (Config.Warning)
             {
-                string message = @"
-Warning ! 
+                string message = $@"Loading...
+____________________________________________________________________________Loader___________________________________________________________________________
+Warning !
 Don't use this plugin if you are not a developpeur of the team (this plugin is currently in development).
+ _______ _     _        _______ _____ _______      |       _____  _______ ______  _______  ______
+ |  |  | |     | |         |      |   |______      |      |     | |_____| |     \ |______ |_____/
+ |  |  | |_____| |_____    |    __|__ |______      |_____ |_____| |     | |_____/ |______ |    \_
 
-Le syteme changera régulerement. contactée Warkis si vous avez des question et passée en vocale sur la RDPSF.
-Les tests se feront en locale.";
+Le syteme changera régulerement. contactée Warkis si vous avez des question et passée en vocale sur le quartier générale des petits serveur...
+Les tests se feront en locale.
+
+Exiled enabled : {Config.EnabledExiled}
+Querre enabled : {Config.EnabledQurre}
+____________________________________________________________________________Loader___________________________________________________________________________
+";
                 Logger.Get.Send(message, ConsoleColor.Red);
                 Thread.Sleep(5000);
                 Server.Get.Configs.UpdateSection("VT-MultieLoder", new Config { Warning = false});
@@ -56,15 +70,15 @@ Les tests se feront en locale.";
             if (Config.EnabledExiled)
             { 
                 foreach (string file in Directory.GetFiles(Files.ExiledDirectory, "*.dll"))
-                    Assembly.Load(File.ReadAllBytes(file));
-
+                    ExiledPrimaryDll.Add(Assembly.Load(File.ReadAllBytes(file)));
+                
                 ExiledHandler = new ExiledHandler();
             }
             if (Config.EnabledQurre)
             { 
-                foreach (string file in Directory.GetFiles(Files.ExiledDirectory, "*.dll"))
-                    Assembly.Load(File.ReadAllBytes(file));
-
+                foreach (string file in Directory.GetFiles(Files.QuerryDirectory, "*.dll"))
+                    QurrePrimaryDll.Add(Assembly.Load(File.ReadAllBytes(file)));
+           
                 QurreHandler = new QurreHandler();
             }
 
@@ -82,13 +96,18 @@ Les tests se feront en locale.";
             
             private string _ExiledDirectory;
             private string _ExiledPluginDirectory;
+            private string _ExiledConfigsFile;
+            private string _ExiledConfigDirectory;
+            private string _ExiledTranslationsFile;
 
             private string _QuerryDirectory;
             private string _QuerryPluginDirectory;
+            private string _ExiledLogDirectory;
 
             #endregion
 
             #region prop
+
             public string MultiLoderDirectory
             {
                 get
@@ -101,6 +120,8 @@ Les tests se feront en locale.";
                 private set => _multiLoderDirectory = value;
             }
 
+
+            //Exiled
             public string ExiledDirectory
             {
                 get
@@ -125,6 +146,58 @@ Les tests se feront en locale.";
                 private set => _ExiledPluginDirectory = value;
             }
 
+            public string ExiledConfigsFile
+            {
+                get
+                {
+                    if (!File.Exists(_ExiledConfigsFile))
+                        File.Create(_ExiledConfigsFile);
+
+                    return _ExiledConfigsFile;
+                }
+                private set => _ExiledConfigsFile = value;
+            }
+
+            public string ExiledConfigDirectory
+            {
+                get
+                {
+                    if (!Directory.Exists(_ExiledConfigDirectory))
+                        Directory.CreateDirectory(_ExiledConfigDirectory);
+
+                    return _ExiledConfigDirectory;
+                }
+                private set => _ExiledConfigDirectory = value;
+            }
+
+            public string ExiledTranslationsFile
+            {
+                get
+                {
+                    if (!File.Exists(_ExiledTranslationsFile))
+                        File.Create(_ExiledTranslationsFile);
+
+                    return _ExiledTranslationsFile;
+                }
+                private set => _ExiledTranslationsFile = value;
+            }
+
+            public string ExiledLogFile
+            {
+                get
+                {
+                    Server.Get.Logger.Info(_ExiledLogDirectory);
+                    Server.Get.Logger.Info(!File.Exists(_ExiledLogDirectory));
+
+                    if (!File.Exists(_ExiledLogDirectory))
+                        File.Create(_ExiledLogDirectory);
+
+                    return _ExiledLogDirectory;
+                }
+                private set => _ExiledLogDirectory = value;
+            }
+            
+            //Querry
             public string QuerryDirectory
             {
                 get
@@ -148,17 +221,6 @@ Les tests se feront en locale.";
                 }
                 private set => _QuerryPluginDirectory = value;
             }
-
-            public string ConfigsDirectory
-            {
-                get 
-                {
-                    if (Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Contains("server-shared"))
-                        return Server.Get.Files.SharedConfigDirectory;
-                    else return Server.Get.Files.ConfigDirectory;
-                }
-            }
-
             #endregion
 
             public void Refresh()
@@ -167,6 +229,10 @@ Les tests se feront en locale.";
 
                 ExiledDirectory = Path.Combine(MultiLoderDirectory, "Exiled");
                 ExiledPluginDirectory = Path.Combine(ExiledDirectory, "Plugins");
+                ExiledConfigDirectory = Path.Combine(ExiledDirectory, "Configs");
+                ExiledLogFile = Path.Combine(ExiledDirectory, $"{Server.Get.Port}-RemoteAdminLog.txt");
+                ExiledConfigsFile = Path.Combine(ExiledConfigDirectory, $"{Server.Get.Port}-config.yml");
+                ExiledTranslationsFile = Path.Combine(ExiledConfigDirectory, $"{Server.Get.Port}-translations.yml");
 
                 QuerryDirectory = Path.Combine(MultiLoderDirectory, "Querry");
                 QuerryPluginDirectory = Path.Combine(QuerryDirectory, "Plugins");

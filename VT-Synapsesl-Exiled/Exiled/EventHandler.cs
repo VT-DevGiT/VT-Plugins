@@ -1,43 +1,39 @@
-﻿using Synapse.Api.Events.SynapseEventArguments;
-using System;
-using Synapse;
+﻿using Exiled.API.Enums;
 using Exiled.Events.EventArgs;
-using VT_MultieLoder.API;
-using System.Collections.Generic;
-using MEC;
-using UnityEngine;
-using Exiled.API.Enums;
-using Exiled.API.Extensions;
+using Exiled.Loader.Features;
+using HarmonyLib;
+using Synapse;
+using Synapse.Api.Events.SynapseEventArguments;
+using System;
 using System.Linq;
-
+using UnityEngine;
+using VT_MultieLoder.API;
 using MapHandlers = Exiled.Events.Handlers.Map;
 using PlayerHandlers = Exiled.Events.Handlers.Player;
-using Scp106Handlers = Exiled.Events.Handlers.Scp106;
-using Scp173Handlers = Exiled.Events.Handlers.Scp173;
 using Scp079Handlers = Exiled.Events.Handlers.Scp079;
 using Scp096Handlers = Exiled.Events.Handlers.Scp096;
+using Scp106Handlers = Exiled.Events.Handlers.Scp106;
+using Scp173Handlers = Exiled.Events.Handlers.Scp173;
 using Scp914Handlers = Exiled.Events.Handlers.Scp914;
 using ServerHandlers = Exiled.Events.Handlers.Server;
 using WarHeadHandlers = Exiled.Events.Handlers.Warhead;
-using ExiledPlayer = Exiled.API.Features.Player;
-using Scp914;
-using Grenades;
 
-namespace VT_MultieLoder.Exiled
+namespace VT_MultieLoder.Exiled.Event
 {
     public class EventHandler
     {
         public EventHandler()
         {
+            
+            VT_Referance.VTController.Server.Events.Map.Scp914ActivateEvent += OnScp914ActivateEvent;
             Server.Get.Events.Map.LCZDecontaminationEvent += OnLCZDecontaminationEvent;
-            Server.Get.Events.Map.Scp914ActivateEvent += OnScp914ActivateEvent;
             Server.Get.Events.Map.TriggerTeslaEvent += OnTriggerTeslaEvent;
             Server.Get.Events.Map.WarheadDetonationEvent += OnWarheadDetonationEvent;
             Server.Get.Events.Map.DoorInteractEvent += OnDoorInteractEvent;
             Server.Get.Events.Player.LoadComponentsEvent += OnLoadComponentsEvent;
             Server.Get.Events.Player.PlayerBanEvent += OnPlayerBanEvent;
             Server.Get.Events.Player.PlayerChangeItemEvent += OnPlayerChangeItemEvent;
-            Server.Get.Events.Player.PlayerConnectWorkstationEvent += OnPlayerConnectWorkstationEvent;
+            Server.Get.Events.Player.PlayerStartWorkstationEvent += OnPlayerConnectWorkstationEvent;
             Server.Get.Events.Player.PlayerCuffTargetEvent += OnPlayerCuffTargetEvent;
             Server.Get.Events.Player.PlayerDamageEvent += OnPlayerDamageEvent;
             Server.Get.Events.Player.PlayerDamagePermissionEvent += OnPlayerDamagePermissionEvent;
@@ -48,7 +44,6 @@ namespace VT_MultieLoder.Exiled
             Server.Get.Events.Player.PlayerEscapesEvent += OnPlayerEscapesEvent;
             Server.Get.Events.Player.PlayerGeneratorInteractEvent += OnPlayerGeneratorInteractEvent;
             Server.Get.Events.Player.PlayerHealEvent += OnPlayerHealEvent;
-            Server.Get.Events.Player.PlayerItemUseEvent += OnPlayerItemUseEvent;
             Server.Get.Events.Player.PlayerJoinEvent += OnPlayerJoinEvent;
             Server.Get.Events.Player.PlayerKeyPressEvent += OnPlayerKeyPressEvent;
             Server.Get.Events.Player.PlayerLeaveEvent += OnPlayerLeaveEvent;
@@ -59,11 +54,10 @@ namespace VT_MultieLoder.Exiled
             Server.Get.Events.Player.PlayerShootEvent += OnPlayerShootEvent;
             Server.Get.Events.Player.PlayerSpeakEvent += OnPlayerSpeakEvent;
             Server.Get.Events.Player.PlayerSyncDataEvent += OnPlayerSyncDataEvent;
-            Server.Get.Events.Player.PlayerThrowGrenadeEvent += OnPlayerThrowGrenadeEvent;
-            Server.Get.Events.Player.PlayerUnconnectWorkstationEvent += OnPlayerUnconnectWorkstationEvent;
             Server.Get.Events.Player.PlayerUncuffTargetEvent += OnPlayerUncuffTargetEvent;
             Server.Get.Events.Player.PlayerUseMicroEvent += OnPlayerUseMicroEvent;
             Server.Get.Events.Player.PlayerWalkOnSinkholeEvent += OnPlayerWalkOnSinkholeEvent;
+            Server.Get.Events.Player.PlayerItemUseEvent += OnUseItemEvent;
             Server.Get.Events.Round.RoundCheckEvent += OnRoundCheckEvent;
             Server.Get.Events.Round.RoundEndEvent += OnRoundEndEvent;
             Server.Get.Events.Round.RoundRestartEvent += OnRoundRestartEvent;
@@ -71,7 +65,13 @@ namespace VT_MultieLoder.Exiled
             Server.Get.Events.Round.SpawnPlayersEvent += OnSpawnPlayersEvent;
             Server.Get.Events.Round.TeamRespawnEvent += OnTeamRespawnEvent;
             Server.Get.Events.Round.WaitingForPlayersEvent += OnWaitingForPlayersEvent;
-            Server.Get.Events.Scp.Scp079.Scp079RecontainEvent += OnScp079RecontainEvent;
+            Server.Get.Events.Scp.Scp079.CameraSwitch += OnScp079CameraSwitch;
+            Server.Get.Events.Scp.Scp079.DoorInteract += OnScp079DoorInteract;
+            Server.Get.Events.Scp.Scp079.ElevatorInteract += OnScp079ElevatorInteract;
+            Server.Get.Events.Scp.Scp079.RecontainEvent += OnScp079RecontainEvent;
+            Server.Get.Events.Scp.Scp079.RoomLockdown += OnScp079RoomLockdown;
+            Server.Get.Events.Scp.Scp079.SpeakerInteract += OnScp079SpeakerInteract;
+            Server.Get.Events.Scp.Scp079.TeslaInteract += OnScp079TeslaInteract;
             Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent += OnScp096AddTargetEvent;
             Server.Get.Events.Scp.Scp106.PocketDimensionEnterEvent += OnPocketDimensionEnterEvent;
             Server.Get.Events.Scp.Scp106.PocketDimensionLeaveEvent += OnPocketDimensionLeaveEvent;
@@ -85,13 +85,124 @@ namespace VT_MultieLoder.Exiled
             Server.Get.Events.Server.TransmitPlayerDataEvent += OnTransmitPlayerDataEvent;
             Server.Get.Events.Server.UpdateEvent += OnUpdateEvent;
         }
+        private void OnUseItemEvent(PlayerItemInteractEventArgs ev)
+        {
+            try
+            {
+                var arg = new UsedItemEventArgs(ev.Player.ToExiled(), (InventorySystem.Items.Usables.UsableItem)ev.CurrentItem.ItemBase);
+
+                PlayerHandlers.OnItemUsed(arg);
+            }
+            catch (Exception e)
+            {
+                Server.Get.Logger.Error($"UseItemEventCall fail ! \n{e.Message}");
+            }
+        }
+
+        private void OnScp079TeslaInteract(Scp079TeslaInteractEventArgs ev)
+        {
+            try
+            {
+                var arg = new InteractingTeslaEventArgs(ev.Scp079.ToExiled(), ev.Tesla.GameObject.GetComponent<TeslaGate>(), ev.EnergyNeeded);
+
+                Scp079Handlers.OnInteractingTesla(arg);
+
+                ev.Result = arg.IsAllowed ? Scp079EventMisc.InteractionResult.Allow : Scp079EventMisc.InteractionResult.Disallow;
+            }
+            catch (Exception e)
+            {
+                Server.Get.Logger.Error($"UseItemEventCall fail ! \n{e.Message}");
+            }
+        }
+
+        private void OnScp079SpeakerInteract(Scp079SpeakerInteractEventArgs ev)
+        {
+            try
+            {
+                var arg = new StartingSpeakerEventArgs(ev.Scp079.ToExiled(), ev.Scp079.Room.GameObject.GetComponent<global::Exiled.API.Features.Room>(), ev.EnergyNeeded);
+
+                Scp079Handlers.OnStartingSpeaker(arg);
+
+                ev.Result = arg.IsAllowed ? Scp079EventMisc.InteractionResult.Allow : Scp079EventMisc.InteractionResult.Disallow;
+            }
+            catch (Exception e)
+            {
+                Server.Get.Logger.Error($"UseItemEventCall fail ! \n{e.Message}");
+            }
+        }
+
+        private void OnScp079RoomLockdown(Scp079RoomLockdownEventArgs ev)
+        {
+            try
+            {
+                var arg = new LockingDownEventArgs(ev.Scp079.ToExiled(), ev.Room.Identifier, ev.EnergyNeeded);
+
+                Scp079Handlers.OnLockingDown(arg);
+
+                ev.Result = arg.IsAllowed ? Scp079EventMisc.InteractionResult.Allow : Scp079EventMisc.InteractionResult.Disallow;
+            }
+            catch (Exception e)
+            {
+                Server.Get.Logger.Error($"UseItemEventCall fail ! \n{e.Message}");
+            }
+        }
+
+        private void OnScp079ElevatorInteract(Scp079ElevatorInteractEventArgs ev)
+        {
+            try
+            {
+                var arg = new ElevatorTeleportEventArgs(ev.Scp079.ToExiled(), ev.Scp079.Scp079Controller.Camera.GameObject.GetComponent<Camera079>(), ev.EnergyNeeded);
+
+                Scp079Handlers.OnElevatorTeleporting(arg);
+
+                ev.Result = arg.IsAllowed ? Scp079EventMisc.InteractionResult.Allow : Scp079EventMisc.InteractionResult.Disallow;
+            }
+            catch (Exception e)
+            {
+                Server.Get.Logger.Error($"UseItemEventCall fail ! \n{e.Message}");
+            }
+        }
+
+        private void OnScp079DoorInteract(Scp079DoorInteractEventArgs ev)
+        {
+            try
+            {
+                var arg = new TriggeringDoorEventArgs(ev.Scp079.ToExiled(), ev.Door.GameObject.GetComponent<Interactables.Interobjects.DoorUtils.DoorVariant>(), ev.EnergyNeeded);
+
+                Scp079Handlers.OnTriggeringDoor(arg);
+
+                ev.Result = arg.IsAllowed ? Scp079EventMisc.InteractionResult.Allow : Scp079EventMisc.InteractionResult.Disallow;
+            }
+            catch (Exception e)
+            {
+                Server.Get.Logger.Error($"UseItemEventCall fail ! \n{e.Message}");
+            }
+        }
+
+        private void OnScp079CameraSwitch(Scp079CameraSwitchEventArgs ev)
+        {
+            try
+            {
+                var arg = new ChangingCameraEventArgs(ev.Scp079.ToExiled(), ev.Camera.GameObject.GetComponent<Camera079>(), 0);
+
+                Scp079Handlers.OnChangingCamera(arg);
+
+                ev.Allow = arg.IsAllowed;
+            }
+            catch (Exception e)
+            {
+                Server.Get.Logger.Error($"UseItemEventCall fail ! \n{e.Message}");
+            }
+        }
 
         private void OnDoorInteractEvent(DoorInteractEventArgs ev)
         {
             try
             {
                 var arg = new InteractingDoorEventArgs(ev.Player.ToExiled(), ev.Door.VDoor, ev.Allow);
+
                 PlayerHandlers.OnInteractingDoor(arg);
+                
                 ev.Allow = arg.IsAllowed;
             }
             catch (Exception e)
@@ -170,7 +281,7 @@ namespace VT_MultieLoder.Exiled
         {
             try
             {
-                var arg = new BlinkingEventArgs(ev.Scp173.ToExiled(), ev.Scp173.Scp173Controller.ConfrontingPlayers.ToList().ToExiled());
+                var arg = new BlinkingEventArgs(ev.Scp173.ToExiled(), ev.Scp173.Scp173Controller.ConfrontingPlayers.ToExiled(), ev.Position);
 
                 Scp173Handlers.OnBlinking(arg);
             }
@@ -286,6 +397,20 @@ namespace VT_MultieLoder.Exiled
         {
             try
             {
+                MultiAdminFeatures.CallEvent(MultiAdminFeatures.EventType.WAITING_FOR_PLAYERS);
+
+                if (global::Exiled.Events.Events.Instance.Config.ShouldReloadConfigsAtRoundRestart)
+                {
+                    global::Exiled.Loader.ConfigManager.Reload();
+                }
+
+                if (global::Exiled.Events.Events.Instance.Config.ShouldReloadTranslationsAtRoundRestart)
+                {
+                    global::Exiled.Loader.TranslationManager.Reload();
+                }
+
+                RoundSummary.RoundLock = false;
+
                 ServerHandlers.OnWaitingForPlayers();
             }
             catch (Exception e)
@@ -317,8 +442,11 @@ namespace VT_MultieLoder.Exiled
             {
                 foreach (var spawnPlayer in ev.SpawnPlayers)
                 {
-                    var arg = new SpawningEventArgs(spawnPlayer.Key.ToExiled(), (RoleType)spawnPlayer.Value);
-                    PlayerHandlers.OnSpawning(arg);
+                    var arg1 = new SpawningEventArgs(spawnPlayer.Key.ToExiled(), (RoleType)spawnPlayer.Value);
+                    PlayerHandlers.OnSpawning(arg1);
+
+                    var arg2 = new ChangingRoleEventArgs(spawnPlayer.Key.ToExiled(), (RoleType)spawnPlayer.Value, false, CharacterClassManager.SpawnReason.RoundStart);
+                    PlayerHandlers.OnChangingRole(arg2);
                 }
             }
             catch (Exception e)
@@ -331,6 +459,7 @@ namespace VT_MultieLoder.Exiled
         {
             try
             {
+                MultiAdminFeatures.CallEvent(MultiAdminFeatures.EventType.ROUND_START);
                 ServerHandlers.OnRoundStarted();
             }
             catch (Exception e)
@@ -344,6 +473,10 @@ namespace VT_MultieLoder.Exiled
             try
             {
                 ServerHandlers.OnRestartingRound();
+                MultiAdminFeatures.CallEvent(MultiAdminFeatures.EventType.ROUND_END);
+
+                global::Exiled.API.Features.Scp173.TurnedPlayers.Clear();
+                global::Exiled.API.Features.Scp096.TurnedPlayers.Clear();
             }
             catch (Exception e)
             {
@@ -423,11 +556,9 @@ namespace VT_MultieLoder.Exiled
         {
             try 
             {
-                UsingMicroHIDEnergyEventArgs arg = new UsingMicroHIDEnergyEventArgs(ev.Player.ToExiled(), ev.Micro.pickup.gameObject.GetComponent<MicroHID>(), ev.State, ev.Energy, ev.Energy - 0.1f, true);
+                UsingMicroHIDEnergyEventArgs arg = new UsingMicroHIDEnergyEventArgs(ev.Player.ToExiled(), (InventorySystem.Items.MicroHID.MicroHIDItem)ev.Micro.ItemBase, ev.State, 1, true);
 
                 PlayerHandlers.OnUsingMicroHIDEnergy(arg);
-
-                ev.Energy = arg.NewValue + 0.1f;
             }
             catch (Exception e)
             {
@@ -453,41 +584,13 @@ namespace VT_MultieLoder.Exiled
         {
             try
             {
-                var arg = new DeactivatingWorkstationEventArgs(ev.Player.ToExiled(), ev.WorkStation.GameObject.GetComponent<WorkStation>(), ev.Allow);
+                var arg = new DeactivatingWorkstationEventArgs(ev.WorkStation.GameObject.GetComponent<InventorySystem.Items.Firearms.Attachments.WorkstationController>(), ev.Allow);
                 PlayerHandlers.OnDeactivatingWorkstation(arg);
                 ev.Allow = arg.IsAllowed;
             }
             catch (Exception e)
             {
                 Server.Get.Logger.Error($"DeactivatingWorkstationEventCall fail ! \n{e.Message}");
-            }
-        }
-
-        private void OnPlayerThrowGrenadeEvent(PlayerThrowGrenadeEventArgs ev)
-        {
-            try
-            {
-                GrenadeType type = GrenadeType.FragGrenade;
-                switch (ev.Item.ItemType)
-                {
-                    case ItemType.GrenadeFlash:
-                        type = GrenadeType.Flashbang;
-                        break;
-                    case ItemType.GrenadeFrag:
-                        type = GrenadeType.FragGrenade;
-                        break;
-                    case ItemType.SCP018:
-                        type = GrenadeType.Scp018;
-                        break;
-                }
-
-                var arg = new ThrowingGrenadeEventArgs(ev.Player.ToExiled(), ev.Item.pickup.gameObject.GetComponent<GrenadeManager>(), type, ev.ForceMultiplier > 1, ev.Delay, ev.Allow);
-
-                PlayerHandlers.OnThrowingGrenade(arg);
-            }
-            catch (Exception e)
-            {
-                Server.Get.Logger.Error($"ThrowGrenadeEventCall fail ! \n{e.Message}");
             }
         }
 
@@ -518,7 +621,17 @@ namespace VT_MultieLoder.Exiled
             {
                 Physics.Linecast(ev.Player.Position, ev.TargetPosition, out RaycastHit raycastHit, 1049088);
 
-                var arg = new ShootingEventArgs(ev.Player.ToExiled(), raycastHit.transform?.gameObject, ev.TargetPosition, ev.Allow);
+                var arg = new ShootingEventArgs(ev.Player.ToExiled(), new InventorySystem.Items.Firearms.BasicMessages.ShotMessage()
+                {
+                    ShooterCameraRotation = ev.Player.Rotation.y,
+                    ShooterCharacterRotation = ev.Player.Rotation.x,
+                    ShooterPosition = ev.Player.Position,
+                    ShooterWeaponSerial = ev.Weapon.Serial,
+                    TargetNetId = ev.Target.NetworkIdentity.netId,
+                    TargetPosition = ev.Target.Position,
+                    TargetRotation = new Quaternion(ev.Target.Rotation.x, ev.Target.Rotation.y, 0, 0)
+                });
+                arg.IsAllowed = ev.Allow;
 
                 PlayerHandlers.OnShooting(arg);
 
@@ -534,20 +647,18 @@ namespace VT_MultieLoder.Exiled
         {
             try
             {
-                List<ItemType> items = new List<ItemType>();
-                foreach (var synapseItem in ev.Items)
-                    items.Add(synapseItem.ItemType);
+                if (ev.Player != null || string.IsNullOrEmpty(ev.Player.UserId))
+                    return;
 
-                var arg = new ChangingRoleEventArgs(ev.Player.ToExiled(), ev.Role, items, ev.Player.Position == ev.Position, ev.IsEscaping);
+                if (ev.Role == RoleType.Spectator && global::Exiled.Events.Events.Instance.Config.ShouldDropInventory)
+                    ev.Player.Inventory.DropAll();
+
+                var arg = new ChangingRoleEventArgs(ev.Player.ToExiled(), ev.Role, false, CharacterClassManager.SpawnReason.Respawn);
 
                 PlayerHandlers.OnChangingRole(arg);
 
-                if (arg.ShouldPreservePosition)
-                    ev.Position = ev.Player.Position;
                 ev.Role = arg.NewRole;
-                ev.Allow = ev.Player.RoleType != ev.Role;
-
-                Timing.RunCoroutine(ChangedRoleEventCall(ev));
+                ev.Allow = arg.NewRole != ev.Role && arg.IsAllowed;
             }
             catch (Exception e)
             {
@@ -586,7 +697,7 @@ namespace VT_MultieLoder.Exiled
         {
             try
             {
-                var arg = new ReloadingWeaponEventArgs(ev.Player.ToExiled(), false, ev.Allow);
+                var arg = new ReloadingWeaponEventArgs(ev.Player.ToExiled(), ev.Allow);
                 PlayerHandlers.OnReloadingWeapon(arg);
                 ev.Allow = arg.IsAllowed;
             }
@@ -600,19 +711,20 @@ namespace VT_MultieLoder.Exiled
         {
             try
             {
-                if (ev.Item.ItemType != ItemType.Ammo556 && ev.Item.ItemType != ItemType.Ammo9mm && ev.Item.ItemType != ItemType.Ammo762)
+                if (ev.Item.ItemType.ToString().Contains("ammo"))
                 {
-                    var arg = new PickingUpItemEventArgs(ev.Player.ToExiled(), ev.Item.pickup, ev.Allow);
 
-                    PlayerHandlers.OnPickingUpItem(arg);
+                    var arg = new PickingUpAmmoEventArgs(ev.Player.ToExiled(), ev.Item.PickupBase, ev.Allow);
+
+                    PlayerHandlers.OnPickingUpAmmo(arg);
 
                     ev.Allow = arg.IsAllowed;
                 }
                 else
                 {
-                    var arg = new PickingUpAmmoEventArgs(ev.Player.ToExiled(), ev.Item.pickup, ev.Allow);
+                    var arg = new PickingUpItemEventArgs(ev.Player.ToExiled(), ev.Item.PickupBase, ev.Allow);
 
-                    PlayerHandlers.OnPickingUpAmmo(arg);
+                    PlayerHandlers.OnPickingUpItem(arg);
 
                     ev.Allow = arg.IsAllowed;
                 }
@@ -656,67 +768,6 @@ namespace VT_MultieLoder.Exiled
             }
         }
 
-        private void OnPlayerItemUseEvent(PlayerItemInteractEventArgs ev)
-        {
-            try
-            {
-                if (ev.CurrentItem.ItemCategory != ItemCategory.Medical)
-                    return;
-
-                var consumable = ev.Player.GetComponent<ConsumableAndWearableItems>();
-
-                switch (ev.State)
-                {
-                    case ItemInteractState.Initiating:
-
-                        for (int i = 0; i < consumable.usableItems.Length; ++i)
-                        {
-                            if (consumable.usableItems[i].inventoryID == ev.CurrentItem.ItemType &&
-                                consumable.usableCooldowns[i] <= 0.0)
-                            {
-                                var arg1 = new UsingMedicalItemEventArgs(ev.Player.ToExiled(), ev.CurrentItem.ItemType, consumable.usableItems[i].animationDuration);
-
-                                PlayerHandlers.OnUsingMedicalItem(arg1);
-
-                                consumable.cooldown = arg1.Cooldown;
-
-                                ev.Allow = arg1.IsAllowed;
-                            }
-                        }
-
-                        break;
-                    case ItemInteractState.Finalizing:
-                        var arg2 = new UsedMedicalItemEventArgs(ev.Player.ToExiled(), ev.CurrentItem.ItemType);
-                        var arg3 = new DequippedMedicalItemEventArgs(ev.Player.ToExiled(), ev.CurrentItem.ItemType);
-
-                        PlayerHandlers.OnMedicalItemUsed(arg2);
-                        PlayerHandlers.OnMedicalItemDequipped(arg3);
-                        break;
-                    case ItemInteractState.Stopping:
-                        for (int i = 0; i < consumable.usableItems.Length; ++i)
-                        {
-                            if (consumable.usableItems[i].inventoryID == ev.CurrentItem.ItemType &&
-                                consumable.usableCooldowns[i] <= 0.0)
-                            {
-                                var arg4 = new StoppingMedicalItemEventArgs(ev.Player.ToExiled(), ev.CurrentItem.ItemType, consumable.usableItems[i].animationDuration);
-
-                                PlayerHandlers.OnStoppingMedicalItem(arg4);
-
-                                consumable.cooldown = arg4.Cooldown;
-
-                                ev.Allow = arg4.IsAllowed;
-                            }
-                        }
-
-                        break;
-                }
-            }
-            catch (Exception e)
-            {
-                Server.Get.Logger.Error($"UseMedicalItemEventCall fail ! \n{e.Message}");
-            }
-        }
-
         private void OnPlayerHealEvent(PlayerHealEventArgs ev)
         {
 
@@ -726,7 +777,7 @@ namespace VT_MultieLoder.Exiled
         {
             try
             {
-                Generator079 generator = ev.Generator.GameObject.GetComponent<Generator079>();
+                MapGeneration.Distributors.Scp079Generator generator = ev.Generator.GameObject.GetComponent<MapGeneration.Distributors.Scp079Generator>();
                 switch (ev.GeneratorInteraction)
                 {
                     case Synapse.Api.Enum.GeneratorInteraction.CloseDoor:
@@ -741,16 +792,16 @@ namespace VT_MultieLoder.Exiled
                         PlayerHandlers.OnOpeningGenerator(arg2);
                         ev.Allow = arg2.IsAllowed;
                         break;
-                    case Synapse.Api.Enum.GeneratorInteraction.TabledEjected:
-                        var arg3 = new EjectingGeneratorTabletEventArgs(ev.Player.ToExiled(), generator, ev.Allow);
+                    case Synapse.Api.Enum.GeneratorInteraction.Activated:
+                        var arg3 = new ActivatingGeneratorEventArgs(ev.Player.ToExiled(), generator, ev.Allow);
 
-                        PlayerHandlers.OnEjectingGeneratorTablet(arg3);
+                        PlayerHandlers.OnActivatingGenerator(arg3);
                         ev.Allow = arg3.IsAllowed;
                         break;
-                    case Synapse.Api.Enum.GeneratorInteraction.TabletInjected:
-                        var arg4 = new InsertingGeneratorTabletEventArgs(ev.Player.ToExiled(), generator, ev.Allow);
+                    case Synapse.Api.Enum.GeneratorInteraction.Disabled:
+                        var arg4 = new StoppingGeneratorEventArgs(ev.Player.ToExiled(), generator, ev.Allow);
 
-                        PlayerHandlers.OnInsertingGeneratorTablet(arg4);
+                        PlayerHandlers.OnStoppingGenerator(arg4);
                         ev.Allow = arg4.IsAllowed;
                         break;
                     case Synapse.Api.Enum.GeneratorInteraction.Unlocked:
@@ -771,8 +822,11 @@ namespace VT_MultieLoder.Exiled
         {
             try
             {
-                var arg = new ChangedRoleEventArgs(ev.Player.ToExiled(), (RoleType)ev.SpawnRole, ev.Player.Cuffer.PlayerId, false, true);
-                PlayerHandlers.OnChangedRole(arg);
+                var arg = new ChangingRoleEventArgs(ev.Player.ToExiled(), (RoleType)ev.SpawnRole, false, CharacterClassManager.SpawnReason.Escaped);
+
+                PlayerHandlers.OnChangingRole(arg);
+
+
             }
             catch (Exception e)
             {
@@ -800,11 +854,9 @@ namespace VT_MultieLoder.Exiled
         {
             try
             {
-                var arg = new DroppingItemEventArgs(ev.Player.ToExiled(), ev.Item.itemInfo, ev.Allow);
+                var arg = new DroppingItemEventArgs(ev.Player.ToExiled(), ev.Item.ItemBase, ev.Allow);
                 PlayerHandlers.OnDroppingItem(arg);
                 ev.Allow = arg.IsAllowed;
-                if (arg.IsAllowed)
-                    Timing.RunCoroutine(ItemDroppedEventCall(ev));
             }
             catch (Exception e)
             {
@@ -862,11 +914,11 @@ namespace VT_MultieLoder.Exiled
             }
         }
 
-        private void OnPlayerConnectWorkstationEvent(PlayerConnectWorkstationEventArgs ev)
+        private void OnPlayerConnectWorkstationEvent(PlayerStartWorkstationEventArgs ev)
         {
             try
             {
-                var arg = new ActivatingWorkstationEventArgs(ev.Player.ToExiled(), ev.WorkStation.GameObject.GetComponent<WorkStation>(), ev.Allow);
+                var arg = new ActivatingWorkstationEventArgs(ev.Player.ToExiled(), ev.WorkStation.GameObject.GetComponent<InventorySystem.Items.Firearms.Attachments.WorkstationController>(), ev.Allow);
                 PlayerHandlers.OnActivatingWorkstation(arg);
                 ev.Allow = arg.IsAllowed;
             }
@@ -880,19 +932,13 @@ namespace VT_MultieLoder.Exiled
         {
             try
             {
-                Inventory.SyncItemInfo newItemInfo;
+                InventorySystem.Items.ItemBase newItemInfo;
                 if (ev.NewItem != null)
-                    newItemInfo = ev.NewItem.itemInfo;
-                else
-                    newItemInfo = new Inventory.SyncItemInfo() { id = ItemType.None };
-                Inventory.SyncItemInfo oldItemInfo;
-                if (ev.OldItem != null)
-                    oldItemInfo = ev.NewItem.itemInfo;
-                else
-                    oldItemInfo = new Inventory.SyncItemInfo() { id = ItemType.None };
-
-                var arg = new ChangingItemEventArgs(ev.Player.ToExiled(), oldItemInfo, newItemInfo);
-                PlayerHandlers.OnChangingItem(arg);
+                { 
+                    newItemInfo = ev.NewItem.ItemBase;
+                    var arg = new ChangingItemEventArgs(ev.Player.ToExiled(), newItemInfo);
+                    PlayerHandlers.OnChangingItem(arg);
+                }
             }
             catch (Exception e)
             {
@@ -904,20 +950,19 @@ namespace VT_MultieLoder.Exiled
         {
             try
             {
-                if (ev.Duration > 1)
+                if (ev.Allow)
                 {
-                    var arg = new KickedEventArgs(ev.BannedPlayer.ToExiled(), ev.Reason, ev.Allow);
-                    PlayerHandlers.OnKicked(arg);
-                    ev.Allow = arg.IsAllowed;
-                    ev.Reason = arg.Reason;
-                }
-                else
-                {
-                    var arg = new BanningEventArgs(ev.BannedPlayer.ToExiled(), ev.Issuer.ToExiled(), ev.Duration, ev.Reason, ev.Reason);
+                    var arg = new BanningEventArgs(ev.BannedPlayer.ToExiled(), ev.Issuer.ToExiled(), ev.BanDuration, ev.Reason, ev.Reason);
                     PlayerHandlers.OnBanning(arg);
                     ev.Allow = arg.IsAllowed;
                     ev.Reason = arg.Reason;
-                    ev.Duration = arg.Duration;
+                    ev.BanDuration = arg.Duration;
+                }
+                else if (ev.BanDuration > 1 && ev.Allow)
+                {
+                    var arg = new KickedEventArgs(ev.BannedPlayer.ToExiled(), ev.Reason);
+                    PlayerHandlers.OnKicked(arg);
+                    ev.Reason = arg.Reason;
                 }
             }
             catch (Exception e)
@@ -948,21 +993,15 @@ namespace VT_MultieLoder.Exiled
             }
         }
 
-        private void OnScp914ActivateEvent(Scp914ActivateEventArgs ev)
+        private void OnScp914ActivateEvent(VT_Referance.Event.EventArguments.Scp914ActivateEventArgs ev)
         {
             try
             {
-                List<Pickup> pickups = new List<Pickup>();
-                Scp914Machine scp914 = Server.Get.Map.Scp914.GameObject.GetComponent<Scp914Machine>();
-                foreach (var synapseItem in ev.Items)
-                    pickups.Add(synapseItem.pickup);
+                var arg = new ActivatingEventArgs(ev.Player.ToExiled(), ev.Allow);
 
-                var arg = new UpgradingItemsEventArgs(scp914, ev.Players.ToExiled(), pickups, scp914.knobState, ev.Allow);
-
-                Scp914Handlers.OnUpgradingItems(arg);
+                Scp914Handlers.OnActivating(arg);
 
                 ev.Allow = arg.IsAllowed;
-                Synapse.Server.Get.Map.Scp914.KnobState = arg.KnobSetting;
             }
             catch (Exception e)
             {
@@ -985,45 +1024,26 @@ namespace VT_MultieLoder.Exiled
                 Server.Get.Logger.Error($"DecontaminatingEventCall fail ! \n{e.Message}");
             }
         }
+    }
 
+    [HarmonyPatch(typeof(global::Exiled.Events.Events), nameof(global::Exiled.Events.Events.OnEnabled))]
+    internal static class KillExiledEventPatch
+    {
+        [HarmonyPrefix]
+        private static bool killExiledPatching(global::Exiled.Events.Events __instance) => false;
+    }
 
-        private static IEnumerator<float> ItemDroppedEventCall(PlayerDropItemEventArgs ev)
+    [HarmonyPatch(typeof(ServerConsole), nameof(ServerConsole.ReloadServerName))]
+    internal static class ServerNamePatch
+    {
+        [HarmonyPostfix]
+        private static void ExiledTagName()
         {
-            yield return Timing.WaitUntilTrue(() => ev.Item.pickup != ev.Player);
+            var instance = global::Exiled.Events.Events.Instance;
+            if (!instance.Config.IsNameTrackingEnabled)
+                return;
 
-            try
-            {
-                var arg = new ItemDroppedEventArgs(ev.Player.ToExiled(), ev.Item.pickup);
-
-                PlayerHandlers.OnItemDropped(arg);
-
-                yield break;
-            }
-            catch (Exception e)
-            {
-                Server.Get.Logger.Error($"ItemDroppedEventCall fail ! \n{e.Message}");
-            }
-        }
-
-        private static IEnumerator<float> ChangedRoleEventCall(PlayerSetClassEventArgs ev)
-        {
-            RoleType oldRole = ev.Player.RoleType;
-            int oldCufferId = ev.Player.Cuffer.PlayerId;
-            Vector3 oldPos = ev.Player.Position;
-            yield return Timing.WaitUntilTrue(() => ev.Role != ev.Player.RoleType);
-
-            try
-            {
-                var arg = new ChangedRoleEventArgs(ev.Player.ToExiled(), oldRole, oldCufferId, oldPos == ev.Player.Position, ev.IsEscaping);
-
-                PlayerHandlers.OnChangedRole(arg);
-
-                yield break;
-            }
-            catch (Exception e)
-            {
-                Server.Get.Logger.Error($"OnChangedRole fail ! \n{e.Message}");
-            }
+            ServerConsole._serverName += $"<color=#00000000><size=1>Exiled {instance.Version.ToString(3)}</size></color>";
         }
     }
 }

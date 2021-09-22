@@ -9,7 +9,7 @@ namespace VT_Referance.Method
         [API]
         public static object CallMethod(this Type o, string methodName, params object[] args)
         {
-            var mi = o.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static);
+            var mi = o.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
             if (mi != null)
             {
                 return mi.Invoke(null, args);
@@ -20,7 +20,7 @@ namespace VT_Referance.Method
         [API]
         public static object CallMethod(this object o, string methodName, params object[] args)
         {
-            var mi = o.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+            var mi = o.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
             if (mi != null)
             {
                 return mi.Invoke(o, args);
@@ -28,7 +28,7 @@ namespace VT_Referance.Method
             return null;
         }
 
-
+        
         [API]
         public static T GetFieldValueorOrPerties<T>(this object element, string fieldName)
         {

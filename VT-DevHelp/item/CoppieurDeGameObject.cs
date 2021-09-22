@@ -21,11 +21,13 @@ namespace VTDevHelp
 
         public override string Name => "CoppieurDeGameObject";
 
-        public override DamageTypes.DamageType DamageType => DamageTypes.Wall;
+        public override int DamageAmmont => throw new System.NotImplementedException();
 
-        public override float ArmorPenetration => 0;
+        // public override DamageTypes.DamageType DamageType => DamageTypes.Wall;
 
-        public override bool UseHitboxMultipliers => false;
+        // public override float ArmorPenetration => 0;
+
+        // public override bool UseHitboxMultipliers => false;
 
         protected override void Shoot(PlayerShootEventArgs ev)
         {

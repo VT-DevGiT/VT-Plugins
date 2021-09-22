@@ -15,7 +15,7 @@ namespace VT_MultieLoder.Qurre
             Server.Get.Events.Player.LoadComponentsEvent += OnLoadComponentsEvent;
             Server.Get.Events.Player.PlayerBanEvent += OnPlayerBanEvent;
             Server.Get.Events.Player.PlayerChangeItemEvent += OnPlayerChangeItemEvent;
-            Server.Get.Events.Player.PlayerConnectWorkstationEvent += OnPlayerConnectWorkstationEvent;
+            //Server.Get.Events.Player.PlayerConnectWorkstationEvent += OnPlayerConnectWorkstationEvent;
             Server.Get.Events.Player.PlayerCuffTargetEvent += OnPlayerCuffTargetEvent;
             Server.Get.Events.Player.PlayerDamageEvent += OnPlayerDamageEvent;
             Server.Get.Events.Player.PlayerDamagePermissionEvent += OnPlayerDamagePermissionEvent;
@@ -38,7 +38,7 @@ namespace VT_MultieLoder.Qurre
             Server.Get.Events.Player.PlayerSpeakEvent += OnPlayerSpeakEvent;
             Server.Get.Events.Player.PlayerSyncDataEvent += OnPlayerSyncDataEvent;
             Server.Get.Events.Player.PlayerThrowGrenadeEvent += OnPlayerThrowGrenadeEvent;
-            Server.Get.Events.Player.PlayerUnconnectWorkstationEvent += OnPlayerUnconnectWorkstationEvent;
+            //Server.Get.Events.Player.PlayerUnconnectWorkstationEvent += OnPlayerUnconnectWorkstationEvent;
             Server.Get.Events.Player.PlayerUncuffTargetEvent += OnPlayerUncuffTargetEvent;
             Server.Get.Events.Player.PlayerUseMicroEvent += OnPlayerUseMicroEvent;
             Server.Get.Events.Player.PlayerWalkOnSinkholeEvent += OnPlayerWalkOnSinkholeEvent;
@@ -49,7 +49,7 @@ namespace VT_MultieLoder.Qurre
             Server.Get.Events.Round.SpawnPlayersEvent += OnSpawnPlayersEvent;
             Server.Get.Events.Round.TeamRespawnEvent += OnTeamRespawnEvent;
             Server.Get.Events.Round.WaitingForPlayersEvent += OnWaitingForPlayersEvent;
-            Server.Get.Events.Scp.Scp079.Scp079RecontainEvent += OnScp079RecontainEvent;
+            //Server.Get.Events.Scp.Scp079.Scp079RecontainEvent += OnScp079RecontainEvent;
             Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent += OnScp096AddTargetEvent;
             Server.Get.Events.Scp.Scp106.PocketDimensionEnterEvent += OnPocketDimensionEnterEvent;
             Server.Get.Events.Scp.Scp106.PocketDimensionLeaveEvent += OnPocketDimensionLeaveEvent;

@@ -20,11 +20,13 @@ namespace VTDevHelp
 
         public override string Name => "DestructeurDeGameObject";
 
-        public override DamageTypes.DamageType DamageType => DamageTypes.Wall;
+        // public override DamageTypes.DamageType DamageType => DamageTypes.Wall;
 
-        public override float ArmorPenetration => 0;
+        // public override float ArmorPenetration => 0;
 
-        public override bool UseHitboxMultipliers => false;
+        // public override bool UseHitboxMultipliers => false;
+
+        public override int DamageAmmont => throw new System.NotImplementedException();
 
         protected override void Shoot(PlayerShootEventArgs ev)
         {

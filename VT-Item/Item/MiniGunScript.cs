@@ -13,19 +13,30 @@ using CustomPlayerEffects;
 
 namespace VT_Item.Item
 {
+    [ItemInfomation( 
+        ID = (int)ItemID.MiniGun,
+        ItemType = ItemType.GunLogicer,
+        MessagePickUp = Plugin.PluginTranslation.ActiveTranslation.MessageGetItem,
+        MessageChangeTo = Plugin.PluginTranslation.ActiveTranslation.MessageHandItem,
+        Name = Plugin.PluginTranslation.ActiveTranslation.NameMiniGun,
+        Weight = 21.5f
+        )]
+    [WeaponInformation(
+        Ammos = 0,
+        AmmoType = (AmmoType)(-1),
+        ArmorPenetration = 3,
+        DamageAmmont = Plugin.MiniGunConfig.Damage,
+        DamageType = DamageTypes.Logicer,
+        UseHitboxMultipliers = false
+        )]
     class MiniGunScript : BaseWeaponScript
     {
         #region Attributes & Properties
         static Dictionary<Player, DateTime> StartShoot = new Dictionary<Player, DateTime>();
         static Dictionary<Player, DateTime> LastSoot = new Dictionary<Player, DateTime>();
 
-        public override string MessagePickUp => Plugin.PluginTranslation.ActiveTranslation.MessageGetItem;
-        public override string MessageChangeTo => Plugin.PluginTranslation.ActiveTranslation.MessageHandItem;
         public override ushort Ammos => 0;
-        public override AmmoType AmmoType => (AmmoType)-1;
-        public override int ID => (int)ItemID.MiniGun;
-        public override ItemType ItemType => ItemType.GunLogicer;
-        public override string Name => Plugin.PluginTranslation.ActiveTranslation.NameMiniGun;
+        public override AmmoType AmmoType => AmmoType-1;
         public override float Weight => 21.5f;
         public override int DamageAmmont => Plugin.MiniGunConfig.Damage;
         #endregion
@@ -128,7 +139,7 @@ namespace VT_Item.Item
             RaycastHit[] hits = new RaycastHit[bullets];
             bool[] didHit = new bool[hits.Length];
             for (int i = 0; i < hits.Length; i++)
-                didHit[i] = Physics.Raycast(rays[i], out hits[i], 100f, 1208246273);
+                didHit[i] = Physics.Raycast(rays[i], out hits[i], 100f, (int)LayerID.Hitbox);
 
             bool hit = false;
             for (int i = 0; i < hits.Length; i++)
@@ -146,7 +157,8 @@ namespace VT_Item.Item
                     {
                         hitbox.Damage(Plugin.MiniGunConfig.Damage, this, new Footprinting.Footprint(Weapon.ItemHolder.Hub), Weapon.ItemHolder.Position);
 
-                        //component.RpcPlaceDecal(true, (sbyte)target.ClassManager.Classes.SafeGet(target.RoleType).bloodType, hits[i].point + hits[i].normal * 0.01f, Quaternion.FromToRotation(Vector3.up, hits[i].normal));
+                        Synapse.Server.Get.Map.PlaceBlood(hits[i].point + hits[i].normal * 0.01f);
+
                         hit = true;
                     }
                     
@@ -161,7 +173,7 @@ namespace VT_Item.Item
                     continue;
                 }
 
-                //component.RpcPlaceDecal(false, component.curWeapon, hits[i].point + hits[i].normal * 0.01f, Quaternion.FromToRotation(Vector3.up, hits[i].normal));
+                this.FuckshotHitreg.PlaceBullethole(new Ray(player.Hub.PlayerCameraReference.position, player.Hub.PlayerCameraReference.forward), hits[i]);
             }
 
             if (hit) player.GetComponent<Hitmarker>().Trigger();

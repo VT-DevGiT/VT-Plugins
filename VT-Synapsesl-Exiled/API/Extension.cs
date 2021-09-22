@@ -10,7 +10,7 @@ using QurrePlayer = Qurre.API.Player;
 
 namespace VT_MultieLoder.API
 {
-    static class Extanction
+    static class Extension
     {
         public static ExiledPlayer ToExiled(this SynapsePlayer player) => player.GetComponent<PlayerInfoCompatiblity>().ExiledPlayer;
         
@@ -24,37 +24,37 @@ namespace VT_MultieLoder.API
         
         public static SynapsePlayer ToSynapse(this QurrePlayer player) => player.GameObject.GetComponent<PlayerInfoCompatiblity>().SynapsePlayer;
 
-        public static List<ExiledPlayer> ToExiled(this List<SynapsePlayer> players)
+        public static List<ExiledPlayer> ToExiled(this IEnumerable<SynapsePlayer> players)
         {
             List<ExiledPlayer> Exiledplayers = new List<ExiledPlayer>();
             foreach (SynapsePlayer player in players) Exiledplayers.Add(player.ToExiled());
             return Exiledplayers;
         }
-        public static List<ExiledPlayer> ToExiled(this List<QurrePlayer> players) 
+        public static List<ExiledPlayer> ToExiled(this IEnumerable<QurrePlayer> players) 
         {
             List<ExiledPlayer> Exiledplayers = new List<ExiledPlayer>();
             foreach (QurrePlayer player in players) Exiledplayers.Add(player.ToExiled());
             return Exiledplayers;
         }
-        public static List<QurrePlayer> ToQurre(this List<SynapsePlayer> players) 
+        public static List<QurrePlayer> ToQurre(this IEnumerable<SynapsePlayer> players) 
         {
             List<QurrePlayer> Qurreplayers = new List<QurrePlayer>();
             foreach (SynapsePlayer player in players) Qurreplayers.Add(player.ToQurre());
             return Qurreplayers;
         }
-        public static List<QurrePlayer> ToQurre(this List<ExiledPlayer> players) 
+        public static List<QurrePlayer> ToQurre(this IEnumerable<ExiledPlayer> players) 
         {
             List<QurrePlayer> Qurreplayers = new List<QurrePlayer>();
             foreach  (ExiledPlayer player in players) Qurreplayers.Add(player.ToQurre());
             return Qurreplayers;
         }
-        public static List<SynapsePlayer> ToSynapse(this List<ExiledPlayer> players) 
+        public static List<SynapsePlayer> ToSynapse(this IEnumerable<ExiledPlayer> players) 
         {
             List<SynapsePlayer> Synapseplayers = new List<SynapsePlayer>();
             foreach (ExiledPlayer player in players) Synapseplayers.Add(player.ToSynapse());
             return Synapseplayers;
         }
-        public static List<SynapsePlayer> ToSynapse(this List<QurrePlayer> players)
+        public static List<SynapsePlayer> ToSynapse(this IEnumerable<QurrePlayer> players)
         {
             List<SynapsePlayer> Synapseplayers = new List<SynapsePlayer>();
             foreach (QurrePlayer player in players) Synapseplayers.Add(player.ToSynapse());

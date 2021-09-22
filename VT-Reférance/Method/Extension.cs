@@ -24,6 +24,7 @@ namespace VT_Referance.Method
         public static bool IsTargetVisible(this Player player, GameObject obj)
         {
             UnityEngine.Camera camera = player.gameObject.GetComponent<UnityEngine.Camera>();
+            
             var planes = GeometryUtility.CalculateFrustumPlanes(camera);
             var point = obj.transform.position;
             foreach (var plan in planes)
@@ -33,6 +34,7 @@ namespace VT_Referance.Method
             }
             return true;
         }
+
         /// <summary>
         /// True if the player is a 939
         /// </summary>
@@ -56,26 +58,6 @@ namespace VT_Referance.Method
             return player.CustomRole is IUtrRole;
         }
 
-        [Obsolete("I need to rework this one", true)]
-        private static List<List<int>> Ally = new List<List<int>>()
-        {
-            new List<int>{ (int)TeamID.VIP, (int)TeamID.NetralSCP, (int)TeamID.NTF, (int)TeamID.CDM, (int)TeamID.RSC},
-            new List<int>{ (int)TeamID.AND},
-            new List<int>{ (int)TeamID.SCP, (int)TeamID.SHA},
-            new List<int>{ (int)TeamID.CDP, (int)TeamID.RSC}
-        };
-        /// <summary>
-        /// Check if a team is ally to an other team
-        /// </summary>
-        /// <param name="team1">ID of team One</param>
-        /// <param name="team2">ID of team tow</param>
-        /// <returns></returns>
-        [API]
-        [Obsolete("I need to rework this one", true)]
-        public static bool IsAlly(this int team1, int team2)
-        {
-            return Ally.Any(p => p.Contains(team1) && p.Contains(team2));
-        }
         /// <summary>
         /// Check if the config of the Inventory is not empty
         /// </summary>
@@ -108,30 +90,6 @@ namespace VT_Referance.Method
             if (!gameObject.TryGetComponent(out Component))
                 Component = gameObject.AddComponent<T>();
             return Component;
-        }
-
-        [API]
-        public static string SetLign(this string text, int needLine)
-        {
-            int curLine = text.Count(x => x == '\n');
-            text.AddLigne(needLine - curLine);
-            return text;
-        }
-
-        [API]
-        public static string AddLigne(this string text, int needLigne)
-        {
-            for (int i = 0; i >= needLigne; i++)
-                text += '\n';
-            return text;
-        }
-
-        [API]
-        public static string AddSpace(this string text, int needSpace)
-        {
-            for (int i = 0; i >= needSpace; i++)
-                text += ' ';
-            return text;
         }
     }
 }

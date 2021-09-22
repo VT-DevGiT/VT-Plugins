@@ -25,11 +25,13 @@ namespace VT_Item.Item
 
         public override string Name => "Turret";
 
-        public override DamageTypes.DamageType DamageType => DamageTypes.Wall;
+        public override int DamageAmmont => throw new NotImplementedException();
 
-        public override float ArmorPenetration => 0;
+        //public override DamageTypes.DamageType DamageType => DamageTypes.Wall;
 
-        public override bool UseHitboxMultipliers => false;
+        //public override float ArmorPenetration => 0;
+
+        // public override bool UseHitboxMultipliers => false;
 
         protected override void Drop(PlayerDropItemEventArgs ev)
         {

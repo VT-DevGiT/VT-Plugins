@@ -18,7 +18,7 @@ namespace VT_MultieLoder.Qurre
         {
             typeof(PluginManager).SetProperty<string>("QurreDirectory", MultieLoder.Files.QuerryDirectory);
             typeof(PluginManager).SetProperty<string>("PluginsDirectory", MultieLoder.Files.ExiledPluginDirectory);
-            typeof(PluginManager).SetProperty<string>("ConfigsDirectory", MultieLoder.Files.ConfigsDirectory);
+            //typeof(PluginManager).SetProperty<string>("ConfigsDirectory", MultieLoder.Files.ConfigsDirectory);
 
 
             loadPlugin();

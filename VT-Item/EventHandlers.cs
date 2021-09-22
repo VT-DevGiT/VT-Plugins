@@ -1,5 +1,6 @@
 ﻿using InventorySystem.Items.Pickups;
 using InventorySystem.Items.ThrowableProjectiles;
+using VT_Referance.Variable;
 using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace VT_Item
         private void OnShootEvent(PlayerShootEventArgs ev)
         {
             if (ev.TargetPosition != Vector3.zero
-                && Physics.Linecast(ev.Player.Position, ev.TargetPosition, out RaycastHit raycastHit, 1049088))
+                && Physics.Linecast(ev.Player.Position, ev.TargetPosition, out RaycastHit raycastHit, (int)LayerID.Pickup))
             {
                 if (Plugin.PluginConfig.ShootMouve)
                 {

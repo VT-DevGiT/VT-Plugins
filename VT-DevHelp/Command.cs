@@ -1,7 +1,7 @@
 ﻿using Assets._Scripts.Dissonance;
 using Interactables.Interobjects.DoorUtils;
 using Synapse;
-using Synapse.Api.Items;
+using Synapse.Api;
 using Synapse.Command;
 using Synapse.Config;
 using System;
@@ -106,14 +106,10 @@ namespace VTDevHelp
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            int i = 0;
-            while (true)
-            {
-                Server.Get.Logger.Info($"[{i}].Name = {LayerMask.LayerToName(i)}");
-                i++;
-                if (i == int.MaxValue)
-                    break;
-            }
+
+            Synapse.Api.Ragdoll ragdoll2 = Map.Get.Ragdolls.Last();
+            Server.Get.Logger.Info(ragdoll2 != null);
+            Server.Get.Logger.Info(ragdoll2?.RoleType);
             return result;
         }
     }

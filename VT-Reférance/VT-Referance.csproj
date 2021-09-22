@@ -103,8 +103,7 @@
     <Compile Include="Patch\Event\GeneratorActivatedPatch.cs" />
     <Compile Include="Patch\Event\SynapseSetClassIdPatch.cs" />
     <Compile Include="Patch\Event\WarHeadStopPatch.cs" />
-    <Compile Include="Script\ItemScript\IteamAttribute.cs" />
-    <Compile Include="Script\ItemScript\WeaponAttribute.cs" />
+    <Compile Include="Script\ItemScript\IteamsAttribute.cs" />
     <Compile Include="Variable\LayerID.cs" />
     <Compile Include="VTController.cs" />
     <Compile Include="Script\ItemScript\BaseWeaponScript.cs" />
