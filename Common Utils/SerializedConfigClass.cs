@@ -26,7 +26,7 @@ public class SerializedConfigClass
         MaxHealh = maxHealh;
         Shiled = shiled;
         MaxShiled = shiled;
-        Inventory = null;
+        Inventory = inventory;
     }
 
 
@@ -50,7 +50,7 @@ public class SerializedConfigClass
         }
         if (MaxShiled != null && MaxShiled != 0)
             shiledctrl.MaxShield = (int)MaxShiled;
-        if (Inventory.IsDefined() && Inventory != null)
+        if (Inventory.IsDefined())
             Inventory.Apply(player);
     }
 }

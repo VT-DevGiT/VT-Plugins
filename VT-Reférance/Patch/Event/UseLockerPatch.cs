@@ -14,7 +14,7 @@ namespace VT_Referance.Patch.Event
     class UseLockerPatch
     {
         [HarmonyPrefix]
-        private static bool UseLocker(Locker __instance, ReferenceHub ply, byte colliderId)
+        private static bool InteractLockerPatch(Locker __instance, ReferenceHub ply, byte colliderId)
         {
             try
             {

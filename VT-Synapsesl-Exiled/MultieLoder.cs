@@ -236,7 +236,6 @@ ____________________________________________________________________________Load
 
                 QuerryDirectory = Path.Combine(MultiLoderDirectory, "Querry");
                 QuerryPluginDirectory = Path.Combine(QuerryDirectory, "Plugins");
-
             }
         }
     }

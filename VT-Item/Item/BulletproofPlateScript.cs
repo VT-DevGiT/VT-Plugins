@@ -1,28 +1,16 @@
-﻿using MEC;
-using Synapse;
-using Synapse.Api.Enum;
-using Synapse.Api.Events.SynapseEventArguments;
-using Synapse.Api.Items;
-using System;
-using System.Linq;
+﻿using Synapse.Api.Events.SynapseEventArguments;
 using VT_Referance.Behaviour;
-using VT_Referance.ItemScript;
+using VT_Referance.Script.ItemScript;
 using VT_Referance.Method;
 using VT_Referance.Variable;
 
 namespace VT_Item.Item
 {
+    [ItemInformation(ID = 201, ItemType = ItemType.Coin, Name = "BuletPrufPlat")]
     class BulletproofPlateScript : BaseItemScript
     {
-        public override float Weight => 1;
-
+        public override string ScrenName => Plugin.PluginTranslation.ActiveTranslation.NameBulletproofPlate;
         public override string MessagePickUp => Plugin.PluginTranslation.ActiveTranslation.MessageGetItem;
-
-        public override int ID => (int)ItemID.BulletPlate;
-
-        public override ItemType ItemType => ItemType.ArmorLight;
-
-        public override string Name => Plugin.PluginTranslation.ActiveTranslation.NameBulletproofPlate;
 
         protected override void ChangeToItem(PlayerChangeItemEventArgs ev)
         {

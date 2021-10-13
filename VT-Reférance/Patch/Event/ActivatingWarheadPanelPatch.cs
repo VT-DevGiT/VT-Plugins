@@ -12,7 +12,7 @@ namespace VT_Referance.Patch.Event
     class ActivatingWarheadPanelPatch
     {
         [HarmonyPrefix]
-        private static bool NukeLever(PlayerInteract __instance)
+        private static bool NukeLeverPatch(PlayerInteract __instance)
         {
             try
             {

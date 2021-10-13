@@ -7,11 +7,11 @@ using VT_Referance.Method;
 
 namespace VT_Referance.Patch.Event
 {
-    //[HarmonyPatch(typeof(Player), "CustomRole", MethodType.Setter)]
+    [HarmonyPatch(typeof(Player), "CustomRole", MethodType.Setter)]
     class SynapseSetClassIdPatch1
     {
-        //[HarmonyPrefix]
-        private static bool CustomRole(Player __instance, IRole value)
+        [HarmonyPrefix]
+        private static bool CustomRolePatch(Player __instance, IRole value)
         {
             try
             {
@@ -44,11 +44,11 @@ namespace VT_Referance.Patch.Event
         }
     }
 
-    //[HarmonyPatch(typeof(Player), "RoleType", MethodType.Setter)]
+    [HarmonyPatch(typeof(Player), "RoleType", MethodType.Setter)]
     class SynapseSetClassIdPatch2
     {
-        //[HarmonyPrefix]
-        private static bool RoleType(Player __instance, RoleType value)
+        [HarmonyPrefix]
+        private static bool RoleTypePatch(Player __instance, RoleType value)
         {
             try
             {

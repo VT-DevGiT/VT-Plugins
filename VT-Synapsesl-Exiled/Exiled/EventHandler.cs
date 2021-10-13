@@ -6,8 +6,10 @@ using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using VT_MultieLoder.API;
+using VT_Referance.Method;
 using MapHandlers = Exiled.Events.Handlers.Map;
 using PlayerHandlers = Exiled.Events.Handlers.Player;
 using Scp079Handlers = Exiled.Events.Handlers.Scp079;
@@ -80,7 +82,7 @@ namespace VT_MultieLoder.Exiled.Event
             Server.Get.Events.Scp.Scp173.Scp173BlinkEvent += OnScp173BlinkEvent;
             Server.Get.Events.Scp.ScpAttackEvent += OnScpAttackEvent;
             Server.Get.Events.Server.ConsoleCommandEvent += OnConsoleCommandEvent;
-            Server.Get.Events.Server.PreAuthenticationEvent += OnPreAuthenticationEvent;
+            //Server.Get.Events.Server.PreAuthenticationEvent += OnPreAuthenticationEvent; error repatch this method
             Server.Get.Events.Server.RemoteAdminCommandEvent += OnRemoteAdminCommandEvent;
             Server.Get.Events.Server.TransmitPlayerDataEvent += OnTransmitPlayerDataEvent;
             Server.Get.Events.Server.UpdateEvent += OnUpdateEvent;
@@ -461,6 +463,12 @@ namespace VT_MultieLoder.Exiled.Event
             {
                 MultiAdminFeatures.CallEvent(MultiAdminFeatures.EventType.ROUND_START);
                 ServerHandlers.OnRoundStarted();
+                
+                var ass = Assembly.GetAssembly(typeof(global::Exiled.Events.Events));
+                var type = ass.GetType("Exiled.Events.Handlers.Internal.MapGenerated");
+                type.CallMethod("OnMapGenerated");
+                
+                
             }
             catch (Exception e)
             {

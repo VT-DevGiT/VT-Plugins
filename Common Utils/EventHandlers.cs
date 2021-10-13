@@ -4,13 +4,8 @@ using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using VT_Referance.Behaviour;
-using VT_Referance.Method;
-using VT_Referance.Variable;
 
 namespace Common_Utiles
 {
@@ -45,39 +40,43 @@ namespace Common_Utiles
 
         private void On914Activate(Scp914ActivateEventArgs ev)
         {
-            if (!ev.Players.Any())
-                return;
+            if (!ev.Players.Any()) foreach (var player in ev.Players)
+                Player914(player);
 
-            foreach (var player in ev.Players)
+            
+        }
+
+        private void Player914(Player player)
+        {
+            System.Func<float, float, float> rnd = (min, max) => Random.Range(min, max);
+
+            if (CommonUtiles.Config.Rnd914Size)
             {
-                if (CommonUtiles.Config.Rnd914Size)
-                {
-                    float newScaleX = UnityEngine.Random.Range(CommonUtiles.Config.Min914SizeX, CommonUtiles.Config.Max914SizeX);
-                    float newScaleY = UnityEngine.Random.Range(CommonUtiles.Config.Min914SizeY, CommonUtiles.Config.Max914SizeY);
-                    float newScaleZ = UnityEngine.Random.Range(CommonUtiles.Config.Min914SizeZ, CommonUtiles.Config.Max914SizeZ);
-                    player.Scale = new Vector3(newScaleX, newScaleY, newScaleZ);
-                }
-                if (CommonUtiles.Config.list914Effect.Any())
-                {
-                    Effect effect = CommonUtiles.Config.list914Effect[UnityEngine.Random.Range(0, CommonUtiles.Config.list914Effect.Count() - 1)];
-                    player.GiveEffect(effect);
-                }
-                if (CommonUtiles.Config.Rnd914Life)
-                {
-                    float newLif = UnityEngine.Random.Range(CommonUtiles.Config.Min914Life, CommonUtiles.Config.Max914Life);
-                    player.Health = newLif;
-                }
-                if (CommonUtiles.Config.Rnd914ArtificialLife)
-                {
-                    ushort newLif = (ushort)UnityEngine.Random.Range(CommonUtiles.Config.Min914ArtificialLife, CommonUtiles.Config.Max914ArtificialLife);
-                    player.ArtificialHP = newLif;
-                }
-                if (CommonUtiles.Config.Rnd914ChanceDie != 0)
-                {
-                    float Rnd = UnityEngine.Random.Range(0, 100);
-                    if (Rnd >= CommonUtiles.Config.Rnd914ChanceDie)
-                        player.Kill();
-                }
+                float newScaleX = rnd(CommonUtiles.Config.Min914SizeX, CommonUtiles.Config.Max914SizeX);
+                float newScaleY = rnd(CommonUtiles.Config.Min914SizeY, CommonUtiles.Config.Max914SizeY);
+                float newScaleZ = rnd(CommonUtiles.Config.Min914SizeZ, CommonUtiles.Config.Max914SizeZ);
+                player.Scale = new Vector3(newScaleX, newScaleY, newScaleZ);
+            }
+            if (CommonUtiles.Config.list914Effect.Any())
+            {
+                Effect effect = CommonUtiles.Config.list914Effect[(int)rnd(0, CommonUtiles.Config.list914Effect.Count() - 1)];
+                player.GiveEffect(effect);
+            }
+            if (CommonUtiles.Config.Rnd914Life)
+            {
+                float newLif = rnd(CommonUtiles.Config.Min914Life, CommonUtiles.Config.Max914Life);
+                player.Health = newLif;
+            }
+            if (CommonUtiles.Config.Rnd914ArtificialLife)
+            {
+                float newLif = rnd(CommonUtiles.Config.Min914ArtificialLife, CommonUtiles.Config.Max914ArtificialLife);
+                player.ArtificialHealth = newLif;
+            }
+            if (CommonUtiles.Config.Rnd914ChanceDie != 0)
+            {
+                float Rnd = rnd(0, 100);
+                if (Rnd >= CommonUtiles.Config.Rnd914ChanceDie)
+                    player.Kill();
             }
         }
     }

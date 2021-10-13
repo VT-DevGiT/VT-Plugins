@@ -39,7 +39,7 @@ namespace VT_Referance.Patch.Event
             }
         }
         [HarmonyPrefix]
-        private static bool DamageEvent(PlayerEvents __instance, Player victim, Player killer, ref PlayerStats.HitInfo info, out bool allow)
+        private static bool DamageEventPatch(PlayerEvents __instance, Player victim, Player killer, ref PlayerStats.HitInfo info, out bool allow)
         {
             try
             {

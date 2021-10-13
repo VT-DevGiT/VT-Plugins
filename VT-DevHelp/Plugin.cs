@@ -19,9 +19,7 @@ Version = "v1.2.3"
 
     public class Plugin : AbstractPlugin
     {
-
         public static Plugin Instance { get; private set; }
-        public GameObject GameObjectMemory { get; internal set; }
 
         public static SerializedMapPoint DoorPosition;
         public static Quaternion DoorRotation;
@@ -35,9 +33,7 @@ Version = "v1.2.3"
 
         public void ItemLoader()
         {
-            new ColleurDeGameObject();
             new DestructeurDeGameObject();
-            new CoppieurDeGameObject();
             new DésincronisateurD_Object();
             new TerminatorDeGameObject();
         }

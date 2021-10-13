@@ -12,7 +12,7 @@ namespace VT_Referance.Patch.Event
     class GeneratorActivated
     {
         [HarmonyPrefix]
-        private static bool GeneratorUpdate(Scp079Generator __instance)
+        private static bool GeneratorUpdatePatch(Scp079Generator __instance)
         {
             try
             { 

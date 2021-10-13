@@ -5,49 +5,27 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using VT_Referance.Script.ItemScript;
-using VT_Referance.ItemScript;
 using VT_Referance.Variable;
 using VT_Referance.Method;
 using VT_Referance.Behaviour;
 using CustomPlayerEffects;
+using InventorySystem.Items;
+using InventorySystem.Items.Firearms;
+using InventorySystem.Items.Firearms.Modules;
 
 namespace VT_Item.Item
 {
-    [ItemInfomation( 
-        ID = (int)ItemID.MiniGun,
-        ItemType = ItemType.GunLogicer,
-        MessagePickUp = Plugin.PluginTranslation.ActiveTranslation.MessageGetItem,
-        MessageChangeTo = Plugin.PluginTranslation.ActiveTranslation.MessageHandItem,
-        Name = Plugin.PluginTranslation.ActiveTranslation.NameMiniGun,
-        Weight = 21.5f
-        )]
-    [WeaponInformation(
-        Ammos = 0,
-        AmmoType = (AmmoType)(-1),
-        ArmorPenetration = 3,
-        DamageAmmont = Plugin.MiniGunConfig.Damage,
-        DamageType = DamageTypes.Logicer,
-        UseHitboxMultipliers = false
-        )]
+    [ItemInformation(ID = 200, ItemType = ItemType.GunRevolver, Name = "MiniGun")]
     class MiniGunScript : BaseWeaponScript
     {
         #region Attributes & Properties
         static Dictionary<Player, DateTime> StartShoot = new Dictionary<Player, DateTime>();
         static Dictionary<Player, DateTime> LastSoot = new Dictionary<Player, DateTime>();
 
+        public override string ScrenName => Plugin.PluginTranslation.ActiveTranslation.NameMiniGun;
         public override ushort Ammos => 0;
         public override AmmoType AmmoType => AmmoType-1;
-        public override float Weight => 21.5f;
         public override int DamageAmmont => Plugin.MiniGunConfig.Damage;
-        #endregion
-
-        #region Constructors & Destructor
-        public MiniGunScript()
-        {
-            DamageType = DamageTypes.Logicer; 
-            ArmorPenetration = 3; 
-            UseHitboxMultipliers = false;
-        }
         #endregion
 
         #region Methods
@@ -155,7 +133,7 @@ namespace VT_Item.Item
 
                     if (SynapseExtensions.GetHarmPermission(player, target))
                     {
-                        hitbox.Damage(Plugin.MiniGunConfig.Damage, this, new Footprinting.Footprint(Weapon.ItemHolder.Hub), Weapon.ItemHolder.Position);
+                        hitbox.Damage(Plugin.MiniGunConfig.Damage, (IDamageDealer)player.ItemInHand.ItemBase, new Footprinting.Footprint(Weapon.ItemHolder.Hub), Weapon.ItemHolder.Position);
 
                         Synapse.Server.Get.Map.PlaceBlood(hits[i].point + hits[i].normal * 0.01f);
 
@@ -168,15 +146,16 @@ namespace VT_Item.Item
                 IDestructible window = hits[i].collider.GetComponent<IDestructible>();
                 if (window != null)
                 {
-                    window.Damage(Plugin.MiniGunConfig.Damage, this, new Footprinting.Footprint(Weapon.ItemHolder.Hub), Weapon.ItemHolder.Position);
+                    window.Damage(Plugin.MiniGunConfig.Damage, (IDamageDealer)player.ItemInHand.ItemBase, new Footprinting.Footprint(Weapon.ItemHolder.Hub), Weapon.ItemHolder.Position);
                     hit = true;
                     continue;
                 }
 
-                this.FuckshotHitreg.PlaceBullethole(new Ray(player.Hub.PlayerCameraReference.position, player.Hub.PlayerCameraReference.forward), hits[i]);
+                ((SingleBulletHitreg)((AutomaticFirearm)player.ItemInHand.ItemBase).HitregModule).PlaceBullethole(new Ray(player.Hub.PlayerCameraReference.position, player.Hub.PlayerCameraReference.forward), hits[i]);
             }
 
-            if (hit) player.GetComponent<Hitmarker>().Trigger();
+            if (hit) Hitmarker.SendHitmarker(player.Hub, 1.2f);
+
             return bullets;
         }
 

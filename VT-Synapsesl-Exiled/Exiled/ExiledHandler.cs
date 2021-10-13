@@ -25,8 +25,7 @@ namespace VT_MultieLoder.Exiled
             typeof(Loader).CallMethod("LoadDependencies");
             Loader.LoadPlugins();
 
-            global::Exiled.Loader.ConfigManager.Reload();
-            global::Exiled.Loader.TranslationManager.Reload();
+
 
             @eventExiled = new Event.EventHandler();
             PatchExiled(true);
@@ -37,6 +36,9 @@ namespace VT_MultieLoder.Exiled
                 if (plugin != null) Loader.Plugins.Add(plugin);
             }
             Loader.EnablePlugins();
+
+            global::Exiled.Loader.ConfigManager.Reload();
+            global::Exiled.Loader.TranslationManager.Reload();
 
             ServerConsole.ReloadServerName();
 

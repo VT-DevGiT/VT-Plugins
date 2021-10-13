@@ -18,7 +18,7 @@ namespace VT_Referance.Patch.Event
         internal static TimeGrenade grenade;
 
         [HarmonyPrefix]
-        private static bool GrenadeExplosion(ExplosionGrenade __instance)
+        private static bool GrenadeExplosionPatch(ExplosionGrenade __instance)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace VT_Referance.Patch.Event
     class FlashExplosionGrenadePatch
     {
         [HarmonyPrefix]
-        private static bool FlashExplosion(FlashbangGrenade __instance)
+        private static bool FlashExplosionPatch(FlashbangGrenade __instance)
         {
             try
             {

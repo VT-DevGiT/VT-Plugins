@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 namespace VT_Referance.Patch.Event
 {
     [HarmonyPatch(typeof(RespawnEffectsController), nameof(RespawnEffectsController.RpcCassieAnnouncement))]
-    class Starting
+    class CassiePatch
     {
         [HarmonyPrefix]
-        private static bool CassieAnnoncement(RespawnEffectsController __instance, string words, bool makeHold, bool makeNoise)
+        private static bool CassieAnnoncementPatch(RespawnEffectsController __instance, string words, bool makeHold, bool makeNoise)
         {
             try
             {

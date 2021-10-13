@@ -1,36 +1,26 @@
-﻿using InventorySystem.Items;
-using Synapse;
+﻿using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Api.Items;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using VT_Referance.Method;
 
-namespace VT_Referance.ItemScript
+namespace VT_Referance.Script.ItemScript
 {
     [API]
-    public abstract class BaseItemScript : ItemBase
+    public abstract class BaseItemScript
     {
         #region Attributes & Properties
-        private string _Name;
-
         public readonly int ID;
         public readonly ItemType ItemType;
+        private readonly string Name;
 
-        public string Name 
-        {   
-            get => _Name;
-            set 
-            { 
-                if (value == _Name) return; 
-                Server.Get.ItemManager.GetFieldValueorOrPerties<List<CustomItemInformation>>("customItems")
-                                      .FirstOrDefault(i => i.ID == this.ID).Name = value; 
-               _Name = value; 
-            }
-        }
-        public string MessagePickUp { get; set; } = null;
-        public string MessageChangeTo { get; set; } = null;
+        public virtual string ScrenName { get; set; } = null;
+        public virtual string MessagePickUp { get; set; } = null;
+        public virtual string MessageChangeTo { get; set; } = null;
 
         #endregion
 
@@ -39,18 +29,44 @@ namespace VT_Referance.ItemScript
         [API]
         public BaseItemScript()
         {
-            //if (ID == -1) throw new System.Exception($"Error ! the item failed to be register: \n ID of a item is not found \n It was in the class {}");
-            Server.Get.ItemManager.RegisterCustomItem(new CustomItemInformation()
-            {
-                ID = this.ID,
-                BasedItemType = this.ItemType,
-                Name = this.Name
-            });
+            var itemInfo = new ItemInformation(); 
+            itemInfo = GetType().GetCustomAttribute<ItemInformation>();
+            Name = itemInfo.Name;
+            ID = itemInfo.ID;
+            ItemType = itemInfo.ItemType; 
+            Registere();
             Event();
         }
         #endregion
 
         #region Methods
+
+        private void Registere()
+        {
+            try
+            {
+                if (!Server.Get.ItemManager.IsIDRegistered(ID) && ID != -1)
+                    Server.Get.ItemManager.RegisterCustomItem(new CustomItemInformation()
+                    {
+                        ID = ID,
+                        BasedItemType = ItemType,
+                        Name = Name
+                    });
+                
+                else if (ID == -1)
+                    Server.Get.Logger.Error($"Error ! the item {this} failed to be register:\nIt didt ave ItemInformation");
+                else if (Server.Get.ItemManager.GetName(ID) == Name)
+                    Server.Get.Logger.Error($"Error ! the item {this} failed to be register:\nIt was already registerd");
+                else
+                    Server.Get.Logger.Error($"Error ! the item {this} failed to be register:\nThe ID {ID} was already registerd");
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Error ! the item {this} failed to be register:\n{e}\n{e}");
+            }
+        }
+
+
         /// <summary>
         ///  for attached additional events 
         ///  Waring, there are already events that are attached
@@ -75,12 +91,12 @@ namespace VT_Referance.ItemScript
         /// this method is called when the player have a item but change to this item
         /// </summary>
         /// <param name="ev"></param>
-        [API]
+        [Unstable]
         protected virtual void ChangeToItem(PlayerChangeItemEventArgs ev)
         {
             if (!string.IsNullOrEmpty(MessageChangeTo))
             { 
-                string message = MessageChangeTo.Replace("%Name%", Name).Replace("\\n", "\n");
+                string message = MessageChangeTo.Replace("%Name%", ScrenName).Replace("\\n", "\n");
                 ev.Player.GiveTextHint(message);
             }
         }
@@ -103,12 +119,12 @@ namespace VT_Referance.ItemScript
         /// this method is called when the object is picked up
         /// </summary>
         /// <param name="ev">The contexte</param>
-        [API]
+        [Unstable]
         protected virtual void PickUp(PlayerPickUpItemEventArgs ev)
         {
             if (!string.IsNullOrEmpty(MessagePickUp))
             { 
-                string message = MessagePickUp.Replace("%Name%", Name).Replace("\\n", "\n");
+                string message = MessagePickUp.Replace("%Name%", ScrenName).Replace("\\n", "\n");
                 ev.Player.GiveTextHint(message);
             }
         }

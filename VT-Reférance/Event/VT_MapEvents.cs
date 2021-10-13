@@ -1,6 +1,7 @@
 ﻿using MapGeneration.Distributors;
 using Scp914;
 using Synapse.Api;
+using Synapse.Api.Items;
 using VT_Referance.Event.EventArguments;
 
 namespace VT_Referance.Event
@@ -16,6 +17,9 @@ namespace VT_Referance.Event
         public event Synapse.Api.Events.EventHandler.OnSynapseEvent<ElevatorIneractEventArgs> ElevatorIneractEvent;
         public event Synapse.Api.Events.EventHandler.OnSynapseEvent<LockerInteractEventArgs> LockerInteractEvent;
         public event Synapse.Api.Events.EventHandler.OnSynapseEvent<Scp914ActivateEventArgs> Scp914ActivateEvent;
+        public event Synapse.Api.Events.EventHandler.OnSynapseEvent<Scp914UpgradeItemEventArgs> Scp914UpgradeItemEvent;
+
+
 
         #region Invoke
         internal void InvokeWarHeadStartEvent(Player player, ref bool allow)
@@ -25,7 +29,7 @@ namespace VT_Referance.Event
                 Player = player,
                 Allow = allow
             };
-
+            
             WarHeadStartEvent?.Invoke(ev);
 
             allow = ev.Allow;
@@ -136,6 +140,20 @@ namespace VT_Referance.Event
             Scp914ActivateEvent?.Invoke(ev);
 
             allow = ev.Allow;
+        }
+
+        internal void InvokeScp914UpgradeItemEvent(SynapseItem item, Scp914KnobSetting setting, out SynapseItem newItem)
+        {
+            var ev = new Scp914UpgradeItemEventArgs
+            {
+                Item = item,
+                NewItem = null,
+                Setting = setting
+            };
+
+            Scp914UpgradeItemEvent?.Invoke(ev);
+
+            newItem = ev.NewItem;
         }
         #endregion
     }

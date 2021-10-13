@@ -13,7 +13,7 @@ namespace VT_Referance.Patch.Event
     class Scp106UsePortalPatch
     {
         [HarmonyPrefix]
-        private static bool Scp106UsePortal(Scp106PlayerScript __instance)
+        private static bool Scp106HabilityPatch(Scp106PlayerScript __instance)
         {
             try
             {

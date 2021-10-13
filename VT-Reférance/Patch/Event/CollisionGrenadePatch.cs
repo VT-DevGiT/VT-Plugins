@@ -12,7 +12,7 @@ namespace VT_Referance.Patch.Event
     class ColisionGrenadePatch
     {
         [HarmonyPrefix]
-        private static bool Collision(CollisionDetectionPickup __instance, Collision collision)
+        private static bool CollisionPatch(CollisionDetectionPickup __instance, Collision collision)
         {
             try
             {

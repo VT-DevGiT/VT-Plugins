@@ -29,7 +29,7 @@ Version = "v.1.2.2"
             Instance = this;
             base.Load();
             new EventHandlers();
-            LoadRecipes();
+            //LoadRecipes();
         }
 
         private void LoadRecipes()

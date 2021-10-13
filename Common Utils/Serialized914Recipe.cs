@@ -15,17 +15,10 @@ namespace Common_Utiles
         public List<int> Fine { get; set; }
         public List<int> VeryFine { get; set; }
 
-
-        /*
-        public Serialized914Recipe(Scp914Recipe recipe)
+        public Serialized914Recipe()
         {
-            ItemID = recipe.itemID;
-            Rough = recipe.rough;
-            Coarse = recipe.coarse;
-            OneToOne = recipe.oneToOne;
-            Fine = recipe.fine;
-            VeryFine = recipe.veryFine;
-        }*/
+
+        }
 
         public Serialized914Recipe(int itemID, List<int> rough, List<int> coarse, List<int> oneToOne, List<int> fine, List<int> veryFine)
         {
@@ -36,27 +29,5 @@ namespace Common_Utiles
             Fine = fine;
             VeryFine = veryFine;
         }
-        /*
-        public Serialized914Recipe()
-        {
-
-        }
-
-
-
-        public Scp914Recipe Parse()
-        {
-            return new Scp914Recipe()
-            {
-                itemID = this.ItemID,
-                rough = this.Rough,
-                coarse = this.Coarse,
-                oneToOne = this.OneToOne,
-                fine = this.Fine,
-                veryFine = this.VeryFine,
-            };
-
-        }
-        */
     }
 }

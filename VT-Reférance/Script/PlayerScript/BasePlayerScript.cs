@@ -187,7 +187,7 @@ namespace VT_Referance.PlayerScript
             Player.MaxHealth = GetConfigValue("MaxHealth", (int)Player.Health);
             Player.Health = GetConfigValue("Health", 100);
             Player.MaxArtificialHealth = GetConfigValue("MaxArtificialHealth", 100);
-            Player.ArtificialHP = GetConfigValue<ushort>("ArtificialHealth", 0);
+            Player.ArtificialHealth = GetConfigValue<ushort>("ArtificialHealth", 0);
             Shield.MaxShield = GetConfigValue("MaxShield", 0);
             Shield.Shield = GetConfigValue("Shield", 0);
         }

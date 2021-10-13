@@ -13,7 +13,7 @@ namespace VT_Referance.Patch.Event
     internal static class StartingWarHead
     {
         [HarmonyPrefix]
-        private static bool NukeStart(PlayerInteract __instance)
+        private static bool NuckStartPatch(PlayerInteract __instance)
         {
             try
             {

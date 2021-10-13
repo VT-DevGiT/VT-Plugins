@@ -64,7 +64,7 @@ namespace VT_Referance.Method
         [API]
         public static bool IsDefined(this SerializedPlayerInventory item)
         {
-            return !(item.IsUnDefined());
+            return !item.IsUnDefined();
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace VT_Referance.Method
         [API]
         public static bool IsUnDefined(this SerializedPlayerInventory item)
         {
-            return (item.Ammo == null && (item.Items == null || !item.Items.Any()));
+            return item == null || item.Ammo == null && (item.Items == null || !item.Items.Any());
         }
 
         [API]

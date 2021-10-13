@@ -94,7 +94,7 @@ namespace VT939
                 if (AngerMeter > Plugin.Config.AngerMeterMaximum)
                     AngerMeter = Plugin.Config.AngerMeterMaximum;
 
-                player.ArtificialHP = (byte)(AngerMeter / Plugin.Config.AngerMeterMaximum * player.MaxArtificialHealth);
+                player.ArtificialHealth = (byte)(AngerMeter / Plugin.Config.AngerMeterMaximum * player.MaxArtificialHealth);
 
                 if (!angerMeterDecayCoroutine.IsRunning)
                     angerMeterDecayCoroutine = Timing.RunCoroutine(AngerMeterDecay(Plugin.Config.AngerMeterDecayTime), Segment.FixedUpdate);
@@ -121,7 +121,7 @@ namespace VT939
             AngerMeter = 0;
 
             player.Scale = new Vector3(1, 1, 1);
-            player.ArtificialHP = 0;
+            player.ArtificialHealth = 0;
             Kill();
         }
 
@@ -153,14 +153,14 @@ namespace VT939
             sinkHole.Disabled();
 
             if (Plugin.Config.ResetAngerAfterHitSlowDown)
-                AngerMeter = player.ArtificialHP = 0;
+                AngerMeter = player.ArtificialHealth = 0;
         }
 
         private IEnumerator<float> AngerMeterDecay(float waitTime)
         {
             while (AngerMeter > 0)
             {
-                player.ArtificialHP = (byte)(AngerMeter / Plugin.Config.AngerMeterMaximum * player.ArtificialHP);
+                player.ArtificialHealth = (byte)(AngerMeter / Plugin.Config.AngerMeterMaximum * player.ArtificialHealth);
 
                 yield return Timing.WaitForSeconds(waitTime);
 

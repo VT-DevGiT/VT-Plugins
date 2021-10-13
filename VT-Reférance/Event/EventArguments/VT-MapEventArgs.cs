@@ -1,6 +1,7 @@
 ﻿using MapGeneration.Distributors;
 using Scp914;
 using Synapse.Api;
+using Synapse.Api.Items;
 
 namespace VT_Referance.Event.EventArguments
 {
@@ -47,5 +48,12 @@ namespace VT_Referance.Event.EventArguments
     {
         public Player Player { get; internal set; }
         public bool Allow { get; set; }
+    }
+
+    public class Scp914UpgradeItemEventArgs : Synapse.Api.Events.EventHandler.ISynapseEventArgs
+    {
+        public SynapseItem Item { get; internal set; }
+        public Scp914KnobSetting Setting { get; internal set; }
+        public SynapseItem NewItem { get; set; }
     }
 }

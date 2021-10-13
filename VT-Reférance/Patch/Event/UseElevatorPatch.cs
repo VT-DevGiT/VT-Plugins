@@ -10,7 +10,7 @@ namespace VT_Referance.Patch.Event
     class UseElevatorPatch
     {
         [HarmonyPrefix]
-        private static bool UseElevator(PlayerInteract __instance, GameObject elevator)
+        private static bool UseElevatorPatch(PlayerInteract __instance, GameObject elevator)
         {
             try
             {

@@ -13,38 +13,22 @@ namespace Common_Utiles
         [Description("The Config of the class")]
         public List<SerializedConfigClass> configClasses = new List<SerializedConfigClass>()
         {
-            new SerializedConfigClass()
+            new SerializedConfigClass((int)RoleID.ClassD, null, null, null, null, new SerializedPlayerInventory()
             {
-                ClassID = (int)RoleID.ClassD,
-                Health = null,
-                MaxHealh = null,
-                Shiled = null,
-                MaxShiled = null,
-                Inventory = new SerializedPlayerInventory()
+                Ammo = new SerializedAmmo(0, 0, 0, 0, 0),
+                Items = new List<SerializedPlayerItem>()
                 {
-                    Ammo = new SerializedAmmo(0, 0, 0, 0, 0),
-                    Items = new List<SerializedPlayerItem>()
-                    {
-                        new SerializedPlayerItem ((int)ItemType.Coin, 1, 0, Vector3.one, 50, true),
-                        new SerializedPlayerItem ((int)ItemType.Flashlight, 1, 0, Vector3.one, 50, true),
-                    }
+                    new SerializedPlayerItem ((int)ItemType.Coin, 1, 0, Vector3.one, 50, true),
+                    new SerializedPlayerItem ((int)ItemType.Flashlight, 1, 0, Vector3.one, 50, true),
                 }
-            },
-            new SerializedConfigClass()
-            {
-                ClassID = (int)RoleID.SerpentsHand,
-                Health = null,
-                MaxHealh = null,
-                Shiled = 40,
-                MaxShiled = null,
-                Inventory = new SerializedPlayerInventory()
-            }
+            }),
+            new SerializedConfigClass((int)RoleID.SerpentsHand, null, null, 40, null, null)
         };
 
-        [Description("If true it will remove the old recipes of 914.")]
+        [Description("If true it will remove the old recipes of 914. Curently not working.")]
         public bool RemouvRecipes = true;
 
-        [Description("A list of recipes for SCP 914.")]
+        [Description("A list of recipes to add for SCP 914. Curently not working.")]
         public List<Serialized914Recipe> Recipes = new List<Serialized914Recipe>()
         {
             new Serialized914Recipe((int)ItemType.KeycardFacilityManager, new List<int>() {(int)ItemType.Coin},
