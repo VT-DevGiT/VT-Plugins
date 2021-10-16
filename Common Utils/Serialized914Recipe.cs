@@ -1,4 +1,5 @@
-﻿using Synapse.Api;
+﻿using Scp914;
+using Synapse.Api;
 using System;
 using System.Collections.Generic;
 
@@ -28,6 +29,19 @@ namespace Common_Utiles
             OneToOne = oneToOne;
             Fine = fine;
             VeryFine = veryFine;
+        }
+
+        public List<int> Parse(Scp914KnobSetting setting)
+        {
+            switch (setting)
+            {
+                case Scp914KnobSetting.Rough: return Fine;
+                case Scp914KnobSetting.Coarse: return Fine;
+                case Scp914KnobSetting.OneToOne: return OneToOne;
+                case Scp914KnobSetting.Fine: return Fine;
+                case Scp914KnobSetting.VeryFine: return VeryFine;
+                default: return null;
+            }
         }
     }
 }

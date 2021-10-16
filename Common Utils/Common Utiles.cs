@@ -1,5 +1,6 @@
 ﻿using Synapse.Api;
 using Synapse.Api.Plugin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -24,26 +25,13 @@ Version = "v.1.2.2"
         [Synapse.Api.Plugin.Config(section = "Common Utiles")]
         public static Config Config;
 
+        public static Serialized914Recipe[] Recipes;
+
         public override void Load()
         {
             Instance = this;
             base.Load();
             new EventHandlers();
-            //LoadRecipes();
-        }
-
-        private void LoadRecipes()
-        {
-            if (Config.Recipes.Any())
-            {
-                // When the Recipes was back it was back
-                //if (Config.RemouvRecipes)
-                //    Map.Get.Scp914.Recipes.Clear();
-                //foreach (var recipe in Config.Recipes)
-                //{
-                //    Map.Get.Scp914.Recipes.Add(recipe.Parse());
-                //}
-            }
         }
     }
 }

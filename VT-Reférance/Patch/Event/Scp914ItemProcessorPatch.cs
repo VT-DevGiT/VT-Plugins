@@ -20,9 +20,13 @@ namespace VT_Referance.Patch.Event
             VTController.Server.Events.Map.InvokeScp914UpgradeItemEvent(item, setting, out newItem);
             if (newItem != null) return true;
 
-            item.Destroy();
             if (newItem != SynapseItem.None)
+            {
                 newItem.Position = newPosition;
+                newItem.Rotation = item.Rotation;
+            }
+            item.Destroy();
+
 
             return false;
         }

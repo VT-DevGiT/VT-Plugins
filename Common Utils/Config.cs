@@ -26,7 +26,7 @@ namespace Common_Utiles
         };
 
         [Description("If true it will remove the old recipes of 914. Curently not working.")]
-        public bool RemouvRecipes = true;
+        public bool RemouvRecipes = false;
 
         [Description("A list of recipes to add for SCP 914. Curently not working.")]
         public List<Serialized914Recipe> Recipes = new List<Serialized914Recipe>()
@@ -68,17 +68,20 @@ namespace Common_Utiles
         public bool Rnd914Life = false;
 
         [Description("Max and Min life")]
-        public float Max914Life = 200;
-        public float Min914Life = 10;
+        public int Max914Life = 200;
+        public int Min914Life = 10;
 
         [Description("makes players passing through 914 have a random artificial life")]
         public bool Rnd914ArtificialLife = false;
 
         [Description("Max and Min artificial life")]
-        public ushort Max914ArtificialLife = 200;
-        public ushort Min914ArtificialLife = 10;
+        public int Max914ArtificialLife = 200;
+        public int Min914ArtificialLife = 10;
 
         [Description("The percent chance of dying for players passing through 914")]
         public float Rnd914ChanceDie = 50;
+
+        [Description("Unifed the Unity Name and Role Name for every class")]
+        public bool UnifedNameStyle = true;
     }
 }
