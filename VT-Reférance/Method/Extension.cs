@@ -1,4 +1,5 @@
 ﻿using Hints;
+using MEC;
 using Synapse;
 using Synapse.Api;
 using Synapse.Config;
@@ -91,5 +92,28 @@ namespace VT_Referance.Method
                 Component = gameObject.AddComponent<T>();
             return Component;
         }
+
+
+        /// <summary>
+        /// Waring it wait 0.01 second if the player is spawning
+        /// </summary>
+        [API]
+        public static void SetDisplayCustomRole(this Player player, string roleName)
+        {
+            player.RemoveDisplayInfo(PlayerInfoArea.Role);
+
+            RoleType[] roleWithSquad = new RoleType[] { RoleType.FacilityGuard, RoleType.NtfPrivate,
+                    RoleType.NtfSergeant, RoleType.NtfCaptain, RoleType.NtfSpecialist};
+            if (roleWithSquad.Contains(player.RoleType))
+            {
+                player.RemoveDisplayInfo(PlayerInfoArea.UnitName);
+                player.DisplayInfo = $"{roleName} ({player.UnitName})";
+            }
+            else
+            {
+                player.DisplayInfo = roleName;
+            }
+        }
+
     }
 }

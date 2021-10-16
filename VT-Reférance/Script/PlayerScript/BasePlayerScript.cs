@@ -4,11 +4,9 @@ using Synapse.Api;
 using Synapse.Config;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using VT_Referance.Variable;
 using VT_Referance.Method;
 using Synapse.Api.Events.SynapseEventArguments;
-using RemoteAdmin;
 using VT_Referance.Behaviour;
 using System.Linq;
 using Respawning.NamingRules;
@@ -28,10 +26,10 @@ namespace VT_Referance.PlayerScript
         protected abstract int RoleTeam { get; }
         protected abstract int RoleId { get; }
         protected abstract string RoleName { get; }
-        protected abstract AbstractConfigSection Config { get; }
+        protected abstract AbstractConfigSection Config { get; } 
 
         protected ShieldControler Shield;
-        public AbstractConfigSection GetConfig() => Config;
+        public AbstractConfigSection GetConfig() => (AbstractConfigSection)Config;
 
         public override List<int> GetEnemiesID() => EnemysList;
         
@@ -131,11 +129,8 @@ namespace VT_Referance.PlayerScript
             Player.RoleType = RoleType;
             Shield = ActiveComponent<ShieldControler>();
 
-            if (RoleTeam == (int)TeamID.CHI || RoleTeam == (int)TeamID.NTF)
-                Timing.CallDelayed(1f, () => InitPlayer());
-            else InitPlayer();
-            
-
+            Timing.CallDelayed(0.01f, () => InitPlayer());
+             
             SerializedMapPoint spawnPoint = GetConfigValue<SerializedMapPoint>("SpawnPoint", null);
             if (spawnPoint != null)
             {
@@ -148,24 +143,15 @@ namespace VT_Referance.PlayerScript
                     Server.Get.Logger.Error($"Error Config SpawnPoint at {this.RoleName} : {spawnPoint.Room} - {e}");
                 }
             }
+
             AditionalInit();
-            Player.OpenReportWindow(SpawnMessage.Replace("%RoleName%", RoleName).Replace("\\n", "\n"));
+
+            if (!string.IsNullOrEmpty(SpawnMessage))
+                Player.OpenReportWindow(SpawnMessage.Replace("%RoleName%", RoleName).Replace("\\n", "\n"));
+
             if (SetDisplayInfo)
-            {
-                Player.RemoveDisplayInfo(PlayerInfoArea.Role);
-                List<RoleType> roleWithSquad = new List<RoleType>() { RoleType.FacilityGuard, RoleType.NtfPrivate,
-                    RoleType.NtfSergeant, RoleType.NtfCaptain, RoleType.NtfSpecialist};
-                
-                if (roleWithSquad.Contains(RoleType))
-                {
-                    Player.RemoveDisplayInfo(PlayerInfoArea.UnitName);
-                    Timing.CallDelayed(1f, () => Player.DisplayInfo = $"{RoleName} ({Player.UnitName})" );
-                }
-                else
-                {
-                    Player.DisplayInfo = $"{RoleName}";
-                }
-            }
+                Timing.CallDelayed(0.01f, () => Player.SetDisplayCustomRole(RoleName));
+            
             if (this is IScpRole)
                 Server.Get.Events.Player.PlayerDeathEvent += ScpDeathAnnonce;
         }
@@ -201,6 +187,10 @@ namespace VT_Referance.PlayerScript
             if (this is IScpRole)
                 Server.Get.Events.Player.PlayerDeathEvent -= ScpDeathAnnonce;
         }
+
+        #endregion
+
+        #region Event
 
         internal void ScpDeathAnnonce(PlayerDeathEventArgs ev)
         {

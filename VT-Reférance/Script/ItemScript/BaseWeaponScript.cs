@@ -4,7 +4,7 @@ using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
 
-namespace VT_Referance.Script.ItemScript
+namespace VT_Referance.ItemScript
 {
     public abstract class BaseWeaponScript : BaseItemScript
     {

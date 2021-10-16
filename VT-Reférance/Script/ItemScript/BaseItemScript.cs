@@ -3,12 +3,9 @@ using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Api.Items;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using VT_Referance.Method;
 
-namespace VT_Referance.Script.ItemScript
+namespace VT_Referance.ItemScript
 {
     [API]
     public abstract class BaseItemScript

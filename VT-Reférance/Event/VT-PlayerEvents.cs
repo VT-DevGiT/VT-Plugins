@@ -11,6 +11,7 @@ namespace VT_Referance.Event
         public event Synapse.Api.Events.EventHandler.OnSynapseEvent<PlayerDestroyEventArgs> PlayerDestroyEvent;
         public event Synapse.Api.Events.EventHandler.OnSynapseEvent<PlayerSpeakIntercomEventEventArgs> PlayerSpeakIntercomEvent;
         public event Synapse.Api.Events.EventHandler.OnSynapseEvent<PlayerVerifEventArgs> PlayerVerif;
+        
         #region Invoke
         internal void InvokePlayerDamagePostEvent(Player victim, Player killer, ref PlayerStats.HitInfo info, ref bool allow)
         {

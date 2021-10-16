@@ -1,7 +1,6 @@
-﻿using Synapse.Api.Enum;
-using System;
+﻿using System;
 
-namespace VT_Referance.Script.ItemScript
+namespace VT_Referance.ItemScript
 {
     public class ItemInformation : Attribute
     {

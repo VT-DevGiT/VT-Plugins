@@ -7,7 +7,6 @@ using System.Linq;
 using UnityEngine;
 using VT_Referance.Behaviour;
 
-
 namespace VT_Referance.NpcScript
 {
     public class BaseNpcScript : Dummy

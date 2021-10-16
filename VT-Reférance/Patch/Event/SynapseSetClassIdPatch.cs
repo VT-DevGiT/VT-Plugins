@@ -7,34 +7,23 @@ using VT_Referance.Method;
 
 namespace VT_Referance.Patch.Event
 {
-    [HarmonyPatch(typeof(Player), "CustomRole", MethodType.Setter)]
-    class SynapseSetClassIdPatch1
+   
+    static class SynapseSetClassIdPatch
     {
-        [HarmonyPrefix]
+
+        [HarmonyPrefix, HarmonyPatch(typeof(Player), "CustomRole", MethodType.Setter)]
         private static bool CustomRolePatch(Player __instance, IRole value)
         {
             try
             {
-                if (value == null)
-                    return true;
                 bool flag = true;
                 int roleID = value.GetRoleID();
+
                 VTController.Server.Events.Player.InvokeSetClassEvent(__instance, __instance.RoleID, ref roleID, ref flag);
-                if (roleID == value.GetRoleID() || !flag)
-                    return flag;
-                if (roleID >= 0 && roleID <= RoleManager.HighestRole)
-                {
-                    value = null;
-                    __instance.ClassManager.SetPlayersClass((RoleType)roleID, __instance.gameObject, CharacterClassManager.SpawnReason.None);
-                    return true;
-                }
 
-                if (!Server.Get.RoleManager.IsIDRegistered(roleID))
-                    Logger.Get.Error("Plugin tried to set the RoleId of a Player with an not registered RoldeID");
+                if (flag) __instance.SetRoleID(roleID);
 
-                value = Server.Get.RoleManager.GetCustomRole(roleID);
-
-                return true;    
+                return false;
             }
             catch (Exception e)
             {
@@ -42,51 +31,56 @@ namespace VT_Referance.Patch.Event
                 return true;
             }
         }
-    }
 
-    [HarmonyPatch(typeof(Player), "RoleType", MethodType.Setter)]
-    class SynapseSetClassIdPatch2
-    {
-        [HarmonyPrefix]
+        [HarmonyPrefix, HarmonyPatch(typeof(Player), "RoleType", MethodType.Setter)]
         private static bool RoleTypePatch(Player __instance, RoleType value)
         {
             try
             {
-                if (__instance.CustomRole != null)
-                    return true;
-
                 bool flag = true;
                 int roleID = (int)value;
+
                 VTController.Server.Events.Player.InvokeSetClassEvent(__instance, __instance.RoleID, ref roleID, ref flag);
-                if (roleID == (int)value || !flag)
-                    return flag;
-                if (roleID >= 0 && roleID <= RoleManager.HighestRole)
-                {
-                    value = (RoleType)roleID;
-                    return true;
-                }
 
-                if (!Server.Get.RoleManager.IsIDRegistered(roleID))
-                    Logger.Get.Error("Plugin tried to set the RoleId of a Player with an not registered RoldeID");
+                __instance.ClassManager.SetPlayersClass(value, __instance.gameObject, CharacterClassManager.SpawnReason.None);
 
+                if (flag) __instance.SetRoleID(roleID);
 
-                if (__instance.CustomRole != null)
-                    __instance.CustomRole.DeSpawn();
-                
-
-                IRole _role = __instance.GetFieldValueorOrPerties<IRole>("_role");
-                _role = Server.Get.RoleManager.GetCustomRole(roleID);
-
-
-                __instance.CustomRole.Player = __instance;
-                __instance.CustomRole.Spawn();
-               
                 return false;
             }
             catch (Exception e)
             {
                 Logger.Get.Error($"Vt-Event: RoleType failed!!\n{e}\nStackTrace:\n{e.StackTrace}");
                 return true;
+            }
+        }
+
+        private static void SetRoleID(this Player player, int Id)
+        {
+            IRole old_role = player.GetFieldValueorOrPerties<IRole>("_role");
+
+            // Basic Role
+            if (Id >= 0 && Id <= RoleManager.HighestRole)
+            {
+                player.SetField<IRole>("_role", null);
+                player.ClassManager.SetPlayersClass((RoleType)Id, player.gameObject, CharacterClassManager.SpawnReason.None);
+                return;
+            }
+            // Custom Role
+            else
+            {
+                if (!Server.Get.RoleManager.IsIDRegistered(Id))
+                    throw new Exception("Vt-Event: A Plugin tried to set the RoleId of a Player with an not registered RoldeID");
+
+                IRole new_role = Server.Get.RoleManager.GetCustomRole(Id);
+
+                player.SetField<IRole>("_role", new_role);
+
+                if (old_role != null) old_role.DeSpawn();
+                if (new_role == null) return;
+
+                new_role.Player = player;
+                new_role.Spawn();
             }
         }
     }

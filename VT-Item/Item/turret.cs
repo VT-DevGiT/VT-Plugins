@@ -2,7 +2,7 @@
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
 using VT_Referance.Behaviour;
-using VT_Referance.Script.ItemScript;
+using VT_Referance.ItemScript;
 
 namespace VT_Item.Item
 {

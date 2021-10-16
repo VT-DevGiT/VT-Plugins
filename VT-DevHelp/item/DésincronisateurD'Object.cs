@@ -1,7 +1,7 @@
 ﻿using Mirror;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
-using VT_Referance.Script.ItemScript;
+using VT_Referance.ItemScript;
 
 namespace VTDevHelp
 {

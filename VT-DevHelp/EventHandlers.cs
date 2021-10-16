@@ -8,15 +8,15 @@ namespace VTDevHelp
     {
         public EventHandlers()
         {
-            Server.Get.Events.Player.PlayerSyncDataEvent += OnSyncData;
+            Server.Get.Events.Server.UpdateEvent += OnUpdate;
         
         }
 
-        private void OnSyncData(PlayerSyncDataEventArgs ev)
+        private void OnUpdate()
         {
-            if (ev.Player.AnimationController.curAnim == 1)
+            foreach (var player in Server.Get.Players)
             {
-                ev.Allow = false;
+
             }
         }
     }

@@ -4,7 +4,7 @@ using Synapse.Api.Events.SynapseEventArguments;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using VT_Referance.Script.ItemScript;
+using VT_Referance.ItemScript;
 using VT_Referance.Variable;
 using VT_Referance.Method;
 using VT_Referance.Behaviour;

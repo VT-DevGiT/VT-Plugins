@@ -1,8 +1,7 @@
 ﻿using Synapse.Api.Events.SynapseEventArguments;
 using VT_Referance.Behaviour;
-using VT_Referance.Script.ItemScript;
+using VT_Referance.ItemScript;
 using VT_Referance.Method;
-using VT_Referance.Variable;
 
 namespace VT_Item.Item
 {
