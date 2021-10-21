@@ -13,7 +13,7 @@ namespace Common_Utiles
         [Description("The Config of the class")]
         public List<SerializedConfigClass> configClasses = new List<SerializedConfigClass>()
         {
-            new SerializedConfigClass((int)RoleID.ClassD, null, null, null, null, new SerializedPlayerInventory()
+            new SerializedConfigClass(null, (int)RoleID.ClassD, null, null, null, null, new SerializedPlayerInventory()
             {
                 Ammo = new SerializedAmmo(0, 0, 0, 0, 0),
                 Items = new List<SerializedPlayerItem>()
@@ -22,7 +22,7 @@ namespace Common_Utiles
                     new SerializedPlayerItem ((int)ItemType.Flashlight, 1, 0, Vector3.one, 50, true),
                 }
             }),
-            new SerializedConfigClass((int)RoleID.SerpentsHand, null, null, 40, null, null)
+            new SerializedConfigClass(null, (int)RoleID.SerpentsHand, null, null, 40, null, null)
         };
 
         [Description("If true it will remove the old recipes of 914. Curently not working.")]
@@ -80,8 +80,5 @@ namespace Common_Utiles
 
         [Description("The percent chance of dying for players passing through 914")]
         public float Rnd914ChanceDie = 50;
-
-        [Description("Unifed the Unity Name and Role Name for every class")]
-        public bool UnifedNameStyle = true;
     }
 }

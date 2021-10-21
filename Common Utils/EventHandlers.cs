@@ -92,9 +92,6 @@ namespace Common_Utiles
 
                 SerializedConfigClass config = CommonUtiles.Config.configClasses.Where(x => x.ClassID == ev.Player.RoleID).FirstOrDefault();
                 config?.Applied(ev.Player);
-
-                if (CommonUtiles.Config.UnifedNameStyle && string.IsNullOrWhiteSpace(ev.Player.DisplayInfo))
-                    ev.Player.SetDisplayCustomRole(ev.Player.RoleName);
             });
         }
 

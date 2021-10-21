@@ -7,7 +7,7 @@ namespace VTEscape
 {
     public class Config : AbstractConfigSection
     {
-        [Description("Add the shelter")]
+        [Description("Add the shelter (In dev...)")]
         public bool ShelterIsEnabled { get; set; } = true;
 
         [Description("Modify main escape")]
@@ -56,7 +56,7 @@ namespace VTEscape
             new SerializedEscapeConfig(EscapeEnum.CHI, RoleID.None, TeamID.RSC, TeamID.None, RoleID.Spectator),
         };
 
-        [Description("the WarHeadEscape can be disabled")]
+        [Description("the WarHeadEscape cant be disabled")]
         public bool WarHeadLockEnabled = false;
     }
 }

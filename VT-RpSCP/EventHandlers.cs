@@ -2,11 +2,7 @@
 using MEC;
 using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using VT_Referance;
-using VT_Referance.Event.EventArguments;
 using VT_Referance.Method;
 using VT_Referance.Variable;
 

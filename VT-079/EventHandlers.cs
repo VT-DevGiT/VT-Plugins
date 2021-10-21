@@ -1,8 +1,5 @@
 ﻿using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
-using System;
-using System.Linq;
-using VT_Referance.Method;
 
 namespace VT079
 {
@@ -16,7 +13,7 @@ namespace VT079
 
         private void OnDoorInteract(DoorInteractEventArgs ev)
         {
-            //Pour que 079 puisse blockée les SCP
+            //Pour que 079 bloque les SCPs... 
             if (ev.Door.Locked && !ev.Player.Bypass && ev.Player.RealTeam == Team.SCP)
                 ev.Allow = false;
         }

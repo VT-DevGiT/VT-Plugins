@@ -35,7 +35,7 @@ namespace VT_Referance.Event
             allow = ev.Allow;
         }
 
-        internal void InvokeCassieAnnouncementEvent(string worlds, bool makeHold, bool makeNoise, ref bool allow)
+        internal void InvokeCassieAnnouncementEvent(ref string worlds,ref bool makeHold,ref bool makeNoise, ref bool allow)
         {
             var ev = new CassieAnnouncementEventArgs
             {
@@ -48,6 +48,9 @@ namespace VT_Referance.Event
             CassieAnnouncementEvent?.Invoke(ev);
 
             allow = ev.Allow;
+            worlds = ev.Words;
+            makeHold = ev.MakeHold;
+            makeNoise = ev.MakeNoise;
         }
 
         internal void InvokeGeneratorActivatedEvent(Generator generator)

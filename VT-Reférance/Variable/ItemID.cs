@@ -50,7 +50,6 @@ namespace VT_Referance.Variable
         ArmorHeavy = 38,
         GunRevolver = 39,
         GunAK = 40,
-        GunShotgun = 41,
         Tranquilizer = 50,
         GrenadeLauncher = 51,
         ShotGun = 52,

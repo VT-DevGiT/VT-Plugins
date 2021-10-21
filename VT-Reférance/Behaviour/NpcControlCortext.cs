@@ -55,7 +55,6 @@ namespace VT_Referance.Behaviour
             if (Physics.Raycast(ray, out RaycastHit Hit, rayDisantce))
                 if (Hit.collider.transform == target) return true; else return false;
             return true;
-
         }
 
         public bool CheckVisibility()

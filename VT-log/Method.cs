@@ -18,9 +18,9 @@ namespace VTLog
             logFile = Path.Combine(subLogDir, $"Log_{date}.txt");
 
             if (!Directory.Exists(logDir))
-            {
                 Directory.CreateDirectory(logDir);
-            }
+            if (!Directory.Exists(subLogDir))
+                Directory.CreateDirectory(subLogDir);
 
             File.CreateText(logFile);
         }

@@ -18,14 +18,12 @@ namespace VT_Referance.Method
         /// <summary>
         /// True if the player can see a gameobject
         /// </summary>
-        /// <param name="player">The tested player</param>
+        /// <param name="camera">The tested camera</param>
         /// <param name="obj">The Tested GameObject</param>
         /// <returns></returns>
-        [API]
-        public static bool IsTargetVisible(this Player player, GameObject obj)
+        [Unstable] // change this to a ray cast ?
+        public static bool IsTargetVisible(UnityEngine.Camera camera, GameObject obj)
         {
-            UnityEngine.Camera camera = player.gameObject.GetComponent<UnityEngine.Camera>();
-            
             var planes = GeometryUtility.CalculateFrustumPlanes(camera);
             var point = obj.transform.position;
             foreach (var plan in planes)
@@ -35,6 +33,19 @@ namespace VT_Referance.Method
             }
             return true;
         }
+
+
+
+
+        /// <summary>
+        /// True if the player can see a gameobject
+        /// </summary>
+        /// <param name="player">The tested player</param>
+        /// <param name="obj">The Tested GameObject</param>
+        /// <returns></returns>
+        [Unstable]
+        public static bool IsTargetVisible(this Player player, GameObject obj) 
+            => IsTargetVisible(player.gameObject.GetComponent<UnityEngine.Camera>(), obj);
 
         /// <summary>
         /// True if the player is a 939
@@ -67,6 +78,7 @@ namespace VT_Referance.Method
         {
             return !item.IsUnDefined();
         }
+        
 
         /// <summary>
         /// Check if the config of the Inventory is not empty
@@ -74,7 +86,7 @@ namespace VT_Referance.Method
         [API]
         public static bool IsUnDefined(this SerializedPlayerInventory item)
         {
-            return item == null || item.Ammo == null && (item.Items == null || !item.Items.Any());
+            return item.Ammo == null && (item.Items == null || !item.Items.Any());
         }
 
         [API]

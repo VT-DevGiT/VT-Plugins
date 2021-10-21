@@ -50,9 +50,9 @@ namespace VTCustomClass
                 ev.SpawnRole(RoleType.ChaosRifleman, new CHILeaderScript());
                 ev.SpawnRole(RoleType.ChaosRifleman, new CHIHackerScript());
                 ev.SpawnRole(RoleType.ChaosRifleman, new CHIExpertPyrotechnieScript());
+                ev.SpawnRole(RoleType.ChaosRifleman, new CHIInfirmierScript());
                 ev.SpawnRole(RoleType.ChaosMarauder, new CHIKamikazeScript());
                 ev.SpawnRole(RoleType.ChaosRepressor, new CHIMastodonteScript());
-                ev.SpawnRole(RoleType.ChaosRifleman, new CHIInfirmierScript());
                 ev.SpawnRole(RoleType.NtfPrivate, new CHISPYScript());
                 ev.SpawnRole(RoleType.NtfPrivate, new NTFCommanderScript());
                 ev.SpawnRole(RoleType.NtfPrivate, new NTFLieutenantScript());

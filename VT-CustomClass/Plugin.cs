@@ -98,14 +98,8 @@ namespace VTCustomClass
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP008")]
         public static ConfigSCP008 ConfigSCP008;
 
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP166")]
-        public static ConfigSCP166 ConfigSCP166Az;
-
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP1048")]
         public static ConfigSCP1048 ConfigSCP1048;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP507")]
-        public static ConfigSCP507 ConfigSCP507;
 
         [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP682")]
         public static ConfigSCP682 ConfigSCP682;
@@ -155,7 +149,6 @@ namespace VTCustomClass
         
         public override void Load()
         {
-
             Instance = this;
             RegisterCustomTeam();
             RegisterCustomRole();
@@ -204,10 +197,8 @@ namespace VTCustomClass
             Server.Get.RoleManager.RegisterCustomRole<NTFInfirmierScript>();
             Server.Get.RoleManager.RegisterCustomRole<NTFVirologueScript>();
             Server.Get.RoleManager.RegisterCustomRole<FoundationUTRScript>();
-            Server.Get.RoleManager.RegisterCustomRole<SCP166AzScript>();
             Server.Get.RoleManager.RegisterCustomRole<SCP008Script>();
             Server.Get.RoleManager.RegisterCustomRole<SCP1048cript>();
-            Server.Get.RoleManager.RegisterCustomRole<SCP507Script>();
             Server.Get.RoleManager.RegisterCustomRole<SCP682Script>();
             Server.Get.RoleManager.RegisterCustomRole<SCP953Script>();
             Server.Get.RoleManager.RegisterCustomRole<SCP966cript>();

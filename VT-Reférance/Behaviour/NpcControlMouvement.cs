@@ -1,9 +1,6 @@
-﻿using Interactables;
-using Interactables.Interobjects.DoorUtils;
+﻿using Interactables.Interobjects.DoorUtils;
 using MEC;
-using Mirror;
 using Synapse.Api;
-using Synapse.Api.Enum;
 using Synapse.Api.Items;
 using System;
 using System.Collections.Generic;

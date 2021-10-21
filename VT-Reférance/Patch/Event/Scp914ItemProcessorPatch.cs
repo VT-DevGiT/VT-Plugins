@@ -8,11 +8,25 @@ using UnityEngine;
 
 namespace VT_Referance.Patch.Event
 {
-    [HarmonyPatch(typeof(Scp914ItemProcessor), nameof(Scp914ItemProcessor.OnPickupUpgraded))]
+    
     class Scp914ItemProcessorPatch1
     {
+        [HarmonyPatch(typeof(AmmoItemProcessor), nameof(AmmoItemProcessor.OnPickupUpgraded))]
+        [HarmonyPrefix]
+        private static bool AmmoUpgradePatch(Scp914KnobSetting setting, ItemPickupBase ipb, Vector3 newPosition)
+            => ItemUpgrade(setting, ipb, newPosition);
+
+        [HarmonyPatch(typeof(FirearmItemProcessor), nameof(FirearmItemProcessor.OnPickupUpgraded))]
+        [HarmonyPrefix]
+        private static bool FirearmUpgradePatch(Scp914KnobSetting setting, ItemPickupBase ipb, Vector3 newPosition)
+            => ItemUpgrade(setting, ipb, newPosition);
+
+        [HarmonyPatch(typeof(FirearmItemProcessor), nameof(FirearmItemProcessor.OnPickupUpgraded))]
         [HarmonyPrefix]
         private static bool ItemUpgradePatch(Scp914KnobSetting setting, ItemPickupBase ipb, Vector3 newPosition)
+            => ItemUpgrade(setting, ipb, newPosition);
+
+        private static bool ItemUpgrade(Scp914KnobSetting setting, ItemPickupBase ipb, Vector3 newPosition)
         {
             SynapseItem newItem;
             SynapseItem item = ipb.GetSynapseItem();
@@ -27,17 +41,27 @@ namespace VT_Referance.Patch.Event
             }
             item.Destroy();
 
-
             return false;
         }
-
     }
 
-    [HarmonyPatch(typeof(Scp914ItemProcessor), nameof(Scp914ItemProcessor.OnInventoryItemUpgraded))]
     class Scp914ItemProcessorPatch2
     {
+        [HarmonyPatch(typeof(AmmoItemProcessor), nameof(AmmoItemProcessor.OnInventoryItemUpgraded))]
+        [HarmonyPrefix]
+        private static bool AmmoUpgradePatch(Scp914KnobSetting setting, ReferenceHub hub, ushort serial)
+            => ItemUpgrade(setting, hub, serial);
+
+        [HarmonyPatch(typeof(FirearmItemProcessor), nameof(FirearmItemProcessor.OnInventoryItemUpgraded))]
+        [HarmonyPrefix]
+        private static bool FirearmUpgradePatch(Scp914KnobSetting setting, ReferenceHub hub, ushort serial)
+            => ItemUpgrade(setting, hub, serial);
+
+        [HarmonyPatch(typeof(StandardItemProcessor), nameof(StandardItemProcessor.OnInventoryItemUpgraded))]
         [HarmonyPrefix]
         private static bool ItemUpgradePatch(Scp914KnobSetting setting, ReferenceHub hub, ushort serial)
+            => ItemUpgrade(setting, hub, serial);
+        private static bool ItemUpgrade(Scp914KnobSetting setting, ReferenceHub hub, ushort serial)
         {
             SynapseItem newItem;
             SynapseItem item;
@@ -65,6 +89,5 @@ namespace VT_Referance.Patch.Event
 
             return false;
         }
-
     }
 }

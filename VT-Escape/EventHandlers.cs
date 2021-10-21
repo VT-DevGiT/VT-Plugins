@@ -1,7 +1,5 @@
 ﻿using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
-using System;
-using UnityEngine;
 
 namespace VTEscape
 {
@@ -11,15 +9,7 @@ namespace VTEscape
         {
             Server.Get.Events.Player.PlayerSetClassEvent += OnPlayerSetClassEvent;
             Server.Get.Events.Player.PlayerEscapesEvent += OnEscapesEvent;
-            if (Plugin.Config.ShelterIsEnabled)
-                Server.Get.Events.Round.WaitingForPlayersEvent += OnWaiting;
         }
-
-        private void OnWaiting()
-        {
-            GameObject.Find("Nodoor");
-        }
-
         private void OnEscapesEvent(PlayerEscapeEventArgs ev)
         {
             if(Plugin.Config.MTFEscapeIsEnabled)

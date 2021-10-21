@@ -1,8 +1,4 @@
-﻿using Synapse.Api;
-using Synapse.Api.Plugin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Synapse.Api.Plugin;
 
 namespace Common_Utiles
 {
@@ -15,7 +11,7 @@ LoadPriority = 5,
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,
 SynapsePatch = SynapseController.SynapsePatch,
-Version = "v.1.2.2"
+Version = "v.1.3.1"
 )]
     public class CommonUtiles : AbstractPlugin
     {

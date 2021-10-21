@@ -1,10 +1,6 @@
 ﻿using HarmonyLib;
 using Respawning;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VT_Referance.Patch.Event
 {
@@ -17,7 +13,7 @@ namespace VT_Referance.Patch.Event
             try
             {
                 bool flag = true;
-                VTController.Server.Events.Map.InvokeCassieAnnouncementEvent(words, makeHold, makeNoise, ref flag);
+                VTController.Server.Events.Map.InvokeCassieAnnouncementEvent(ref words,ref makeHold,ref makeNoise, ref flag);
                 return flag;
             }
             catch (Exception e)

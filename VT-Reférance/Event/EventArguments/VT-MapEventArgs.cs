@@ -18,9 +18,9 @@ namespace VT_Referance.Event.EventArguments
 
     public class CassieAnnouncementEventArgs : Synapse.Api.Events.EventHandler.ISynapseEventArgs
     {
-        public string Words { get; internal set; }
-        public bool MakeHold { get; internal set; }
-        public bool MakeNoise { get; internal set; }
+        public string Words { get; set; }
+        public bool MakeHold { get; set; }
+        public bool MakeNoise { get; set; }
         public bool Allow { get; set; }
     }
     

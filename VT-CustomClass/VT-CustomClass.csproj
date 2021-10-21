@@ -85,12 +85,10 @@
     <Compile Include="Config\ConfigNTFLieutenant.cs" />
     <Compile Include="Config\ConfigNTFCommander.cs" />
     <Compile Include="Config\ConfigNTFLieutenantColonel.cs" />
-    <Compile Include="Config\ConfigSCP166.cs" />
     <Compile Include="Config\CustomClass.cs" />
     <Compile Include="CustomTeam\VIPTeam.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="Patch.cs" />
-    <Compile Include="Pouvoir\Green.cs" />
     <Compile Include="Pouvoir\Commands.cs" />
     <Compile Include="Pouvoir\Bullets.cs" />
     <Compile Include="Pouvoir\Hack.cs" />
@@ -109,7 +107,6 @@
     <Compile Include="Config\ConfigNTFVirologue.cs" />
     <Compile Include="Config\ConfigFoundationUTR.cs" />
     <Compile Include="Config\ConfigSCP008.cs" />
-    <Compile Include="Config\ConfigSCP507.cs" />
     <Compile Include="Config\ConfigSCP682.cs" />
     <Compile Include="Config\ConfigSCP966.cs" />
     <Compile Include="Config\ConfigSCP953.cs" />
@@ -122,7 +119,6 @@
     <Compile Include="Pouvoir\PowerType.cs" />
     <Compile Include="Pouvoir\Reponse.cs" />
     <Compile Include="Pouvoir\Aura.cs" />
-    <Compile Include="Pouvoir\SCP507.cs" />
     <Compile Include="Config\Config201.cs" />
     <Compile Include="Config\ConfigConcierge.cs" />
     <Compile Include="Config\ConfigDirecteurSite.cs" />
@@ -156,10 +152,8 @@
     <Compile Include="Script\FoundationUTRPlayerScript.cs" />
     <Compile Include="Script\ScientifiqueSuperviseurPlayerScript.cs" />
     <Compile Include="Script\SCP008PlayerScript.cs" />
-    <Compile Include="Script\SCP507PlayerScript.cs" />
     <Compile Include="Script\SCP682PlayerScript.cs" />
     <Compile Include="Script\SCP1048PlayerScript.cs" />
-    <Compile Include="Script\SCP166AzPlayerScript.cs" />
     <Compile Include="Script\SCP966PlayerScript.cs" />
     <Compile Include="Script\SCP953PlayerScript.cs" />
     <Compile Include="Script\SCP999PlayerScript.cs" />

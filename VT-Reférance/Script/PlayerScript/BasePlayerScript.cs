@@ -1,16 +1,11 @@
-﻿using MEC;
-using Synapse;
+﻿using Synapse;
 using Synapse.Api;
+using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
 using System;
 using System.Collections.Generic;
-using VT_Referance.Variable;
-using VT_Referance.Method;
-using Synapse.Api.Events.SynapseEventArguments;
 using VT_Referance.Behaviour;
-using System.Linq;
-using Respawning.NamingRules;
-using Respawning;
+using VT_Referance.Method;
 
 namespace VT_Referance.PlayerScript
 {
@@ -29,7 +24,7 @@ namespace VT_Referance.PlayerScript
         protected abstract AbstractConfigSection Config { get; } 
 
         protected ShieldControler Shield;
-        public AbstractConfigSection GetConfig() => (AbstractConfigSection)Config;
+        public AbstractConfigSection GetConfig() => Config;
 
         public override List<int> GetEnemiesID() => EnemysList;
         
@@ -41,10 +36,8 @@ namespace VT_Referance.PlayerScript
 
         public override int GetTeamID() => RoleTeam;
 
-        public virtual bool CallPower(int power)
-        {
-            return false;
-        }
+        public virtual bool CallPower(int power) => false;
+        
         
         internal bool Spawned = false;
 
@@ -94,12 +87,19 @@ namespace VT_Referance.PlayerScript
         /// <returns></returns>
         private T GetConfigValue<T>(string Name, T defaultValue)
         {
-            T value = defaultValue;
-            if (Config != null && Config.GetType().GetField(Name) != null)
+            try
             {
-                value = (T)Config.GetType().GetField(Name).GetValue(this.Config);
+                T value = defaultValue;
+                if (Config != null && Config.GetType().GetField(Name) != null)
+                {
+                    value = (T)Config.GetType().GetField(Name).GetValue(this.Config);
+                }
+                return value;
             }
-            return value;
+            catch (Exception e)
+            {
+                throw new Exception($"{typeof(T).Name} {Name} :\n{e.Message}");
+            }
         }
 
         /// <summary>
@@ -125,24 +125,10 @@ namespace VT_Referance.PlayerScript
         public override void Spawn()
         {
             Event();
-            Spawned = false;
-            Player.RoleType = RoleType;
+            Player.ChangeRoleAtPosition(RoleType);
             Shield = ActiveComponent<ShieldControler>();
 
-            Timing.CallDelayed(0.01f, () => InitPlayer());
-             
-            SerializedMapPoint spawnPoint = GetConfigValue<SerializedMapPoint>("SpawnPoint", null);
-            if (spawnPoint != null)
-            {
-                try
-                {
-                    Player.Position = spawnPoint.Parse().Position;
-                }
-                catch (Exception e)
-                {
-                    Server.Get.Logger.Error($"Error Config SpawnPoint at {this.RoleName} : {spawnPoint.Room} - {e}");
-                }
-            }
+            InitPlayer();
 
             AditionalInit();
 
@@ -150,10 +136,12 @@ namespace VT_Referance.PlayerScript
                 Player.OpenReportWindow(SpawnMessage.Replace("%RoleName%", RoleName).Replace("\\n", "\n"));
 
             if (SetDisplayInfo)
-                Timing.CallDelayed(0.01f, () => Player.SetDisplayCustomRole(RoleName));
-            
+                Player.SetDisplayCustomRole(RoleName);
+                //Timing.CallDelayed(0.01f, () => Player.SetDisplayCustomRole(RoleName));
+
             if (this is IScpRole)
                 Server.Get.Events.Player.PlayerDeathEvent += ScpDeathAnnonce;
+            Spawned = true;
         }
 
         private void InitPlayer()
@@ -170,14 +158,32 @@ namespace VT_Referance.PlayerScript
                     }
                 inventory.Apply(Player);
             }
-            Player.MaxHealth = GetConfigValue("MaxHealth", (int)Player.Health);
             Player.Health = GetConfigValue("Health", 100);
+            Player.MaxHealth = GetConfigValue("MaxHealth", (int)Player.Health);
+            Player.ArtificialHealth = GetConfigValue("ArtificialHealth", 0);
             Player.MaxArtificialHealth = GetConfigValue("MaxArtificialHealth", 100);
-            Player.ArtificialHealth = GetConfigValue<ushort>("ArtificialHealth", 0);
-            Shield.MaxShield = GetConfigValue("MaxShield", 0);
             Shield.Shield = GetConfigValue("Shield", 0);
-        }
+            Shield.MaxShield = GetConfigValue("MaxShield", 100);
+            Server.Get.Logger.Info("Test");
+            SerializedMapPoint spawnPoint = GetConfigValue<SerializedMapPoint>("SpawnPoint", null);
+            try
+            {
+                if (spawnPoint != null)
+                {
+                    Server.Get.Logger.Info(spawnPoint != null);
+                    Server.Get.Logger.Info(spawnPoint);
+                    Server.Get.Logger.Info(spawnPoint.Parse());
+                    Server.Get.Logger.Info(spawnPoint.Parse().Position);
+                    Player.Position = spawnPoint.Parse().Position;
+                }
+            }
+            catch (Exception e)
+            {
+                Server.Get.Logger.Error($"Error Config SpawnPoint at {this.RoleName} : {spawnPoint.Room} - {e}");
 
+            }
+        }
+        
         [API]
         public override void DeSpawn()
         {
@@ -186,56 +192,20 @@ namespace VT_Referance.PlayerScript
             Player.AddDisplayInfo(PlayerInfoArea.UnitName);
             if (this is IScpRole)
                 Server.Get.Events.Player.PlayerDeathEvent -= ScpDeathAnnonce;
+            
         }
 
+        public override string ToString() => $"{this.RoleName}({this.RoleId})";
         #endregion
 
         #region Event
-
-        internal void ScpDeathAnnonce(PlayerDeathEventArgs ev)
+        private void ScpDeathAnnonce(PlayerDeathEventArgs ev)
         {
             if (ev.Victim != Player)
                 return;
-            string Name = ((IScpRole)this).ScpName;
-            Player player = Server.Get.Players.FirstOrDefault(p => p.PlayerId == ev.HitInfo.PlayerId);
-            DamageTypes.DamageType damageType = ev.HitInfo.Tool;
-            if (damageType == DamageTypes.Tesla)
-                NineTailedFoxAnnouncer.singleton.ServerOnlyAddGlitchyPhrase($". SCP {Name} SUCCESSFULLY TERMINATED BY AUTOMATIC SECURITY SYSTEM", 0, 0);
-            else if (damageType == DamageTypes.Nuke)
-                NineTailedFoxAnnouncer.singleton.ServerOnlyAddGlitchyPhrase($". SCP {Name} SUCCESSFULLY TERMINATED BY ALPHA WARHEAD", 0, 0);
-            else if (damageType == DamageTypes.Decont)
-                NineTailedFoxAnnouncer.singleton.ServerOnlyAddGlitchyPhrase($". SCP {Name} LOST IN DECONTAMINATION SEQUENCE", 0, 0);
-            else
-            {
-                string cause = "TERMINATION CAUSE UNSPECIFIED";
-                if (player != null)
-                {
-                    
-                    switch (player.TeamID)
-                    {
-                        case (int)TeamID.NTF:
-                            UnitNamingRule rule;
-                            string Unit = UnitNamingRules.TryGetNamingRule(SpawnableTeamType.NineTailedFox, out rule) ? rule.GetCassieUnitName(player.UnitName) : "UNKNOWN";
-                            cause = "CONTAINEDSUCCESSFULLY CONTAINMENTUNIT " + Unit;
-                            break;
-                        case (int)TeamID.CHI:
-                            cause = "BY CHAOSINSURGENCY";
-                            break;
-                        case (int)TeamID.RSC:
-                            cause = "BY FACILITY PERSONNEL";
-                            break;
-                        case (int)TeamID.CDP:
-                            cause = " BY CLASSD PERSONNEL";
-                            break;
-                        default:
-                            cause = "CONTAINMENTUNIT UNKNOWN";
-                            break;
-                    }
-                }
-                NineTailedFoxAnnouncer.singleton.ServerOnlyAddGlitchyPhrase($". SCP {Name} SUCCESSFULLY TERMINATED . {cause}", 0, 0);
-            }
+            string Name = (this as IScpRole)?.ScpName;
+            Server.Get.Map.AnnounceScpDeath(Name, ev.HitInfo.GetScpRecontainmentType());            
         }
-
         #endregion
 
     }

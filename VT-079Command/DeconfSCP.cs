@@ -5,7 +5,6 @@ using Synapse.Command;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using VT079;
 
 namespace VT079.Command
 {
@@ -44,7 +43,7 @@ namespace VT079.Command
             else
             {
                 context.Player.Scp079Controller.Energy =+ 200;
-                result.Message = ("you cannot currently free a scp, try again later");
+                result.Message = "you cannot currently free a scp, try again later";
             }
             return result;
         }

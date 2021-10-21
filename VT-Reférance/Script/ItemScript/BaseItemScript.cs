@@ -30,7 +30,7 @@ namespace VT_Referance.ItemScript
             itemInfo = GetType().GetCustomAttribute<ItemInformation>();
             Name = itemInfo.Name;
             ID = itemInfo.ID;
-            ItemType = itemInfo.ItemType; 
+            ItemType = itemInfo.ItemType;
             Registere();
             Event();
         }

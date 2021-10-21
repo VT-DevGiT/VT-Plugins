@@ -11,7 +11,7 @@ LoadPriority = 15,
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,
 SynapsePatch = SynapseController.SynapsePatch,
-Version = "079v.1.3.1 079Commandv1.3.1"
+Version = "079v.1.4.1 079Commandv1.3.1"
 )]
 
     public class Plugin : AbstractPlugin

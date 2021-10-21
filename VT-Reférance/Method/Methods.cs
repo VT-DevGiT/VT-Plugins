@@ -1,5 +1,4 @@
-﻿using MapGeneration.Distributors;
-using MEC;
+﻿using MEC;
 using Respawning.NamingRules;
 using Synapse;
 using Synapse.Api;
@@ -8,6 +7,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using VT_Referance.Variable;
+
+using Dissonance;
+using Dissonance.Audio.Capture;
+using Dissonance.Audio.Codecs;
+using Dissonance.Integrations.MirrorIgnorance;
+using Dissonance.Networking;
+using Mirror;
+using NAudio.Wave;
+using System.IO;
+using System.Net;
 
 namespace VT_Referance.Method
 {
@@ -23,7 +32,9 @@ namespace VT_Referance.Method
         [API]
         public static Player GetPlayercoprs(Player player, float rayon)
         {
-           // Physics.OverlapSphere(player.Position, 3f).Where(e => e.gameObject.GetComponentInParent<Ragdoll>() != null).ToList();
+           // Physics.OverlapSphere(player.Position, 3f).Where(e => e.gameObject.GetComponentInParent<Ragdoll>() != null).ToList
+            
+            
             List<Collider> colliders = Physics.OverlapSphere(player.Position, rayon)
                 .Where(e => e.gameObject.GetComponentInParent<Ragdoll>() != null).ToList();
             colliders.Sort((Collider x, Collider y) =>
@@ -173,8 +184,136 @@ namespace VT_Referance.Method
             combi.Add(regular);
             return regular;
         }
+    }
 
+    public static class Audio
+    {
+        public static MirrorIgnoranceClient client;
+        public static ClientInfo<MirrorConn> СlientInfo;
 
+        public static void Play(Stream stream, float volume) => Play(stream, 999, volume);
 
+        public static void PlayFromFile(string path, float volume) => Play(new FileStream(path, FileMode.Open), volume);
+
+        public static void PlayFromUrl(string url, float volume)
+        {
+            using (WebClient webClient = new WebClient())
+                Play(new MemoryStream(webClient.DownloadData(url)), volume);
+        }
+
+        private static void Play(Stream stream, ushort playerid, float volume)
+        {
+            MirrorIgnoranceCommsNetwork objectOfType1 = UnityEngine.Object.FindObjectOfType<MirrorIgnoranceCommsNetwork>();
+            DissonanceComms objectOfType2 = UnityEngine.Object.FindObjectOfType<DissonanceComms>();
+            if (objectOfType1.Client == null)
+                objectOfType1.StartClient(Unit.None);
+            client = objectOfType1.Client;
+            IMicrophoneCapture component;
+            if (objectOfType2.TryGetComponent(out component))
+            {
+                if (component.IsRecording)
+                    component.StopCapture();
+                UnityEngine.Object.Destroy((UnityEngine.Object)component);
+            }
+            objectOfType1.Mode = (NetworkMode)1;
+            MicrophoneModule microphoneModule = (objectOfType2).gameObject.AddComponent<MicrophoneModule>();
+            microphoneModule._file = stream;
+            objectOfType2._capture.Start(objectOfType1, microphoneModule);
+            objectOfType2._capture.MicrophoneName = "StreamedMic";
+            СlientInfo = (objectOfType1.Server._clients).GetOrCreateClientInfo(playerid, "MusicBot", new CodecSettings((Codec)1, 48000U, 960), new MirrorConn(NetworkServer.localConnection));
+            ClientInfo<MirrorConn> сlientInfo = СlientInfo;
+            objectOfType2.IsMuted = false;
+            foreach (KeyValuePair<ushort, RoomChannel> keyValuePair in (objectOfType2.RoomChannels)._openChannelsBySubId.ToArray()) objectOfType2.RoomChannels.Close(keyValuePair.Value);
+            objectOfType1.Server._clients.LeaveRoom("Null", сlientInfo);
+            objectOfType1.Server._clients.LeaveRoom("Intercom", сlientInfo);
+            objectOfType1.Server._clients.JoinRoom("Null", сlientInfo);
+            objectOfType1.Server._clients.JoinRoom("Intercom", сlientInfo);
+            objectOfType2.RoomChannels.Open("Null", false, (ChannelPriority)2, volume);
+            objectOfType2.RoomChannels.Open("Intercom", false, (ChannelPriority)2, volume);
+        }
+
+        public class MicrophoneModule : MonoBehaviour, IMicrophoneCapture
+        {
+            private readonly List<IMicrophoneSubscriber> _subscribers = new List<IMicrophoneSubscriber>();
+            private readonly WaveFormat _format = new WaveFormat(48000, 1);
+            private readonly float[] _frame = new float[960];
+            private readonly byte[] _frameBytes = new byte[3840];
+            private float _elapsedTime;
+            public Stream _file;
+            private int _readOffset;
+            private bool _stopped = false;
+
+            public bool IsRecording { get; private set; }
+
+            public TimeSpan Latency { get; private set; }
+
+            public WaveFormat StartCapture(string name)
+            {
+                WaveFormat format;
+                if (_file == null || !this._file.CanRead)
+                {
+                    if (!_stopped && /*Debug ?*/ true)
+                    {
+                        Server.Get.Logger.Error((object)string.Format("[Audio] _file==null: {0}", (_file == null)));
+                        if (_file != null)
+                            Server.Get.Logger.Error((object)string.Format("[Audio] _file.CanRead=={0}", _file.CanRead));
+                    }
+                    this.IsRecording = false;
+                    this.Latency = TimeSpan.FromMilliseconds(0.0);
+                    format = _format;
+                }
+                else
+                {
+                    this._stopped = false;
+                    this.IsRecording = true;
+                    this.Latency = TimeSpan.FromMilliseconds(0.0);
+                    Server.Get.Logger.Info((object)("[Audio] Enabled: " + name));
+                    format = this._format;
+                }
+                return format;
+            }
+
+            public void StopCapture()
+            {
+                IsRecording = false;
+                Server.Get.Logger.Info((object)"[Audio] Disabled");
+                if (_file != null)
+                {
+                    _file.Dispose();
+                    _file.Close();
+                }
+                _stopped = true;
+                _file = null;
+            }
+
+            public void Subscribe(IMicrophoneSubscriber listener) => this._subscribers.Add(listener);
+
+            public bool Unsubscribe(IMicrophoneSubscriber listener) => this._subscribers.Remove(listener);
+
+            public bool UpdateSubscribers()
+            {
+                bool flag;
+                if (_file == null)
+                {
+                    flag = true;
+                }
+                else
+                {
+                    _elapsedTime += Time.unscaledDeltaTime;
+                    while (_elapsedTime > 0.0199999995529652)
+                    {
+                        _elapsedTime -= 0.02f;
+                        int count = _file.Read(_frameBytes, 0, _frameBytes.Length);
+                        _readOffset += count;
+                        Array.Clear(_frame, 0, _frame.Length);
+                        Buffer.BlockCopy(_frameBytes, 0, _frame, 0, count);
+                        foreach (IMicrophoneSubscriber subscriber in _subscribers)
+                            subscriber.ReceiveMicrophoneData(new ArraySegment<float>(_frame), _format);
+                    }
+                    flag = false;
+                }
+                return flag;
+            }
+        }
     }
 }
