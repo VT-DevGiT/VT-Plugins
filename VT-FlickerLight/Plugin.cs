@@ -30,15 +30,12 @@ namespace VT_FlickerLight
 
         public void OnRoundStart()
         {
-
             Timing.RunCoroutine(RedLigthFlicking());
-
         }
 
 
         private IEnumerator<float> RedLigthFlicking()
         {
-
             yield return Timing.WaitForSeconds(1f);
             for (int i = 0; i < Config.NumberOfLightFlickingAtTheBegining; i++)
             {
@@ -53,25 +50,19 @@ namespace VT_FlickerLight
 
         public void ResetLight()
         {
-
             foreach (Room room in SynapseController.Server.Map.Rooms)
             {
                 room.LightController.WarheadLightOverride = false;
             }
         }
+        
         public void ChangeRoomLightColor(Color color)
         {
             foreach (Room room in SynapseController.Server.Map.Rooms)
             {
                 room.LightController.WarheadLightOverride = true;
                 room.LightController.WarheadLightColor = color;
-
             }
-        }
-
-        public override void ReloadConfigs()
-        {
-            base.ReloadConfigs();
         }
     }
 }
