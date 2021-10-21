@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-FlickerLight", "VT-FlickerLight.csproj", "{BA9F5D7B-BF16-424C-A810-090365CC485A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA9F5D7B-BF16-424C-A810-090365CC485A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA9F5D7B-BF16-424C-A810-090365CC485A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA9F5D7B-BF16-424C-A810-090365CC485A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA9F5D7B-BF16-424C-A810-090365CC485A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7EE86D7A-3021-4825-B7EC-B7D4EEE35767}
+	EndGlobalSection
+EndGlobal
