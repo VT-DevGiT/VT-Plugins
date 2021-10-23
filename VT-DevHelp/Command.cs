@@ -2,6 +2,7 @@
 using Interactables.Interobjects.DoorUtils;
 using Synapse;
 using Synapse.Api;
+using Synapse.Api.Roles;
 using Synapse.Command;
 using Synapse.Config;
 using System;
@@ -106,10 +107,7 @@ namespace VTDevHelp
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-
-            Synapse.Api.Ragdoll ragdoll2 = Map.Get.Ragdolls.Last();
-            Server.Get.Logger.Info(ragdoll2 != null);
-            Server.Get.Logger.Info(ragdoll2?.RoleType);
+            context.Player.ChangeRoleAtPosition((RoleType)int.Parse(context.Arguments.FirstElement()));
             return result;
         }
     }

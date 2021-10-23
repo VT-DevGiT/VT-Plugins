@@ -32,7 +32,7 @@ public class SerializedConfigClass
     }
 
 
-    public void Applied(Player player)
+    public void Apply(Player player)
     {
         var shiledctrl = player.GetOrAddComponent<ShieldControler>();
 
@@ -58,5 +58,6 @@ public class SerializedConfigClass
             shiledctrl.MaxShield = (int)MaxShiled;
         if (Inventory.IsDefined())
             Inventory.Apply(player);
+        
     }
 }

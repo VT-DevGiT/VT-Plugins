@@ -1,4 +1,5 @@
 ﻿using Synapse;
+using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
 
@@ -9,7 +10,12 @@ namespace VTDevHelp
         public EventHandlers()
         {
             Server.Get.Events.Server.UpdateEvent += OnUpdate;
-        
+            Server.Get.Events.Player.PlayerSetClassEvent += OnSetClass;
+        }
+
+        private void OnSetClass(PlayerSetClassEventArgs ev)
+        {
+            Logger.Get.Info($"{ev.Player}-{(int)ev.Role}");
         }
 
         private void OnUpdate()

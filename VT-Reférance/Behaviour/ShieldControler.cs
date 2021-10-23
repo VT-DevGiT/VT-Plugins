@@ -23,29 +23,28 @@ namespace VT_Referance.Behaviour
             player = gameObject.GetPlayer();
         }
 
-
-        private void OnDisable()
+        private void OnEnable()
         {
-            VTController.Server.Events.Player.PlayerDamagePostEvent -= OnDamage;
+            VTController.Server.Events.Player.PlayerDamagePostEvent += OnDamage;
+            VTController.Server.Events.Player.PlayerSetClassEvent += OnSetClass;
+            player = gameObject.GetPlayer();
         }
 
         private void OnSetClass(PlayerSetClassEventArgs ev)
         {
-            Server.Get.Logger.Info($"OnSetClass");
-            Server.Get.Logger.Info($"{ev.Player == player}");
             if (ev.Player == player)
             {
                 _ShieldLock = false;
                 _MaxShield = 100;
                 _Shield = 0;
-                Server.Get.Logger.Info($"Shield = 0");
             }
         }
 
         private void OnDamage(PlayerDamagePostEventArgs ev)
         {
             var damageType = ev.HitInfo.Tool;
-            if (ev.Victim == player && Shield != 0 && ev.Allow && (damageType.Weapon != ItemType.None || damageType.Scp != RoleType.None || damageType == DamageTypes.Grenade))
+            if (Shield != 0 && ev.Victim == player && ev.Allow 
+                && (damageType.Weapon != ItemType.None || damageType.Scp != RoleType.None || damageType == DamageTypes.Grenade))
             {
                 int damge = 2*((int)ev.DamageAmount / 3);
                 damge = Mathf.Clamp(damge, 0, Shield);
@@ -70,9 +69,8 @@ namespace VT_Referance.Behaviour
                 if (value > _Shield || !ShieldLock)
                     _Shield = Mathf.Clamp(value, 0, MaxShield);
 
-                string info = $"<align=right><color=#FFFFFF50><voffset=-21.65em><size=100%><b>Shield : {_Shield}/{MaxShield} | {((double)_Shield / MaxShield) * 100}%</b></voffset></color></align>";
+                string info = $"<align=right><color=#FFFFFF50><voffset=-21.65em><size=100%><b>Shield : {_Shield}/{MaxShield} | {(double)_Shield / MaxShield * 100}%</b></voffset></color></align>";
                 player.HintDisplay.Show(new TextHint(info, new HintParameter[] { new StringHintParameter("") }, null, 3f));
-
             }
         }
 

@@ -9,35 +9,6 @@ using VT_Referance.PlayerScript;
 namespace VTCustomClass
 {
     [CommandInformation(
-           Name = "SCP507Tp",
-           Aliases = new[] { "507" },
-           Description = "Teste The config",
-           Permission = "",
-           Platforms = new[] { Platform.RemoteAdmin },
-           Usage = ".507 [Config x]"
-           )]
-    class Cmd507 : ISynapseCommand
-    {
-        public CommandResult Execute(CommandContext context)
-        {
-            var result = new CommandResult();
-            int configX;
-            if (!context.Arguments.Any() || !int.TryParse(context.Arguments.FirstElement().ToString(), out configX) || configX > Plugin.ConfigSCP507.ListRoom.Count-1 || configX < 0)
-            {
-                result.State = CommandResultState.Error;
-                result.Message = $"Please enter a corect number min : 0, max : {Plugin.ConfigSCP507.ListRoom.Count-1}";
-            }
-            else
-            {
-                context.Player.Position = Plugin.ConfigSCP507.ListRoom[configX].Parse().Position;
-                result.State = CommandResultState.Ok;
-                result.Message = $"TP to {Plugin.ConfigSCP507.ListRoom[configX]}";
-            }
-            return result;
-        }
-    }
-
-    [CommandInformation(
            Name = "MoveVent",
            Aliases = new[] { "Vent" },
            Description = "to use the capacity of your role",

@@ -28,7 +28,7 @@ namespace VTRpSCP
             }
         }
 
-        private void OnPlayerSetClass(Synapse.Api.Events.SynapseEventArguments.PlayerSetClassEventArgs ev)
+        private void OnPlayerSetClass(PlayerSetClassEventArgs ev)
         {
             Timing.CallDelayed(60, () =>
             {

@@ -91,7 +91,7 @@ namespace Common_Utiles
                 SerializedPlayerInventory nullSerializedPlayerInventory = new SerializedPlayerInventory();
 
                 SerializedConfigClass config = CommonUtiles.Config.configClasses.Where(x => x.ClassID == ev.Player.RoleID).FirstOrDefault();
-                config?.Applied(ev.Player);
+                config?.Apply(ev.Player);
             });
         }
 
