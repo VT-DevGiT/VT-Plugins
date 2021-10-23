@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30128.74
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31808.319
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Grenade", "VT-Grenade\VT-Grenade.csproj", "{40BCB6EB-AFFF-471C-A0B1-8A4747FF59CB}"
 EndProject
@@ -50,6 +50,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Log", "VT-log\VT-Log.csproj", "{7FBF2270-08C9-4D3F-87F0-827838703C6E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-MultiLoader", "VT-Synapsesl-Exiled\VT-MultiLoader.csproj", "{ADA97A09-49F5-433A-AC17-389C0A1EB5E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-FlickerLight", "VT-FlickerLight\VT-FlickerLight.csproj", "{BA9F5D7B-BF16-424C-A810-090365CC485A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -153,6 +155,10 @@ Global
 		{ADA97A09-49F5-433A-AC17-389C0A1EB5E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADA97A09-49F5-433A-AC17-389C0A1EB5E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADA97A09-49F5-433A-AC17-389C0A1EB5E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA9F5D7B-BF16-424C-A810-090365CC485A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA9F5D7B-BF16-424C-A810-090365CC485A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA9F5D7B-BF16-424C-A810-090365CC485A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA9F5D7B-BF16-424C-A810-090365CC485A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

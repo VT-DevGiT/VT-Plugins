@@ -28,7 +28,7 @@ namespace VT_Referance.Method
         /// </summary>
         /// <param name="player">center of the sphere</param>
         /// <param name="rayon">radius of the sphere</param>
-        /// <returns></returns>
+        /// <returns>null if the player is not found</returns>
         [API]
         public static Player GetPlayercoprs(Player player, float rayon)
         {
@@ -66,7 +66,7 @@ namespace VT_Referance.Method
         /// True if the last role of the played is in the SCP team or null if the player had no role
         /// </summary>
         /// <param name="player">the player you want tested</param>
-        /// <returns></returns>
+        /// <returns>true if it was, false if not, null if the player is not referenced</returns>
         [API]
         public static bool? IsWasScpRole(Player player)
         {
@@ -102,7 +102,6 @@ namespace VT_Referance.Method
         /// </summary>
         /// <param name="waitforready">time before the start</param>
         /// <param name="limit">if set to -1 it continues indefinitely</param>
-        /// <returns></returns>
         [API]
         public static IEnumerator<float> AirBomb(int waitforready = 7, int limit = -1)
         {
@@ -155,9 +154,9 @@ namespace VT_Referance.Method
 
 
         /// <summary>
-        /// Get the total voltage of the generators, 1000 for 1 generator engaged
+        /// Get the total voltage of the generators
         /// </summary>
-        /// <returns></returns>
+        /// <returns>1000 for 1 generator engaged</returns>
         [API]
         public static int GetVoltage()
         {
@@ -166,6 +165,7 @@ namespace VT_Referance.Method
                 totalvoltagefloat += generator.generator._currentTime / generator.generator._totalActivationTime * 1000;
             return (int)totalvoltagefloat;
         }
+
 
         /// <summary>
         /// Creat new NTF name Unit
@@ -183,6 +183,44 @@ namespace VT_Referance.Method
             while (combi.Contains(regular));
             combi.Add(regular);
             return regular;
+        }
+
+        /// <summary>
+        /// Reset all color of the room light
+        /// </summary>
+        public static void ResetRoomsLightColor()
+        {
+            foreach (Room room in SynapseController.Server.Map.Rooms)
+                room.ChangeRoomLightColor(new Color(1,0,0), false);
+        }
+
+        /// <summary>
+        /// Change the color of all room light
+        /// </summary>
+        /// <param name="color">The new color</param>
+        public static void ChangeRoomsLightColor(Color color)
+        {
+            foreach (Room room in SynapseController.Server.Map.Rooms)
+                room.ChangeRoomLightColor(color);
+        }
+
+        /// <summary>
+        /// if the player can see a gameobject
+        /// </summary>
+        /// <param name="camera">The tested camera</param>
+        /// <param name="obj">The Tested GameObject</param>
+        /// <returns>True if hi can see it, false if hi cant</returns>
+        [Unstable] // change this to a ray cast ?
+        public static bool IsTargetVisible(UnityEngine.Camera camera, GameObject obj)
+        {
+            var planes = GeometryUtility.CalculateFrustumPlanes(camera);
+            var point = obj.transform.position;
+            foreach (var plan in planes)
+            {
+                if (plan.GetDistanceToPoint(point) < 0)
+                    return false;
+            }
+            return true;
         }
     }
 

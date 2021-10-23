@@ -12,57 +12,39 @@ namespace VT_FlickerLight
         Author = "Antoniofo",
         Description = "Flicker the light at the start of the game",
         LoadPriority = 0,
-        SynapseMajor = 2,
-        SynapseMinor = 7,
-        SynapsePatch = 1,
-        Version = "v.1.0.0"
+        SynapseMajor = SynapseController.SynapseMajor,
+        SynapseMinor = SynapseController.SynapseMinor,
+        SynapsePatch = SynapseController.SynapsePatch,
+        Version = "v.1.0.1"
         )]
     public class Plugin : AbstractPlugin
     {
+        public static Plugin Instance { get; private set; }
+
         [Synapse.Api.Plugin.Config(section = "VT-FlickerLight")]
         public static Config Config { get; set; }
 
+        public Color firstColor;
+        public Color secondColor;
+
         public override void Load()
         {
+            Instance = this;
             base.Load();
-            Server.Get.Events.Round.RoundStartEvent += OnRoundStart;
+            new EventHandler();
+            SetColorValue();
         }
 
-        public void OnRoundStart()
+        public override void ReloadConfigs()
         {
-            Timing.RunCoroutine(RedLigthFlicking());
+            SetColorValue();
+            base.ReloadConfigs();
         }
 
-
-        private IEnumerator<float> RedLigthFlicking()
+        public void SetColorValue()
         {
-            yield return Timing.WaitForSeconds(1f);
-            for (int i = 0; i < Config.NumberOfLightFlickingAtTheBegining; i++)
-            {
-                ChangeRoomLightColor(new Color(Config.FirstColor[0] / (byte.MaxValue), Config.FirstColor[1] / (byte.MaxValue), Config.FirstColor[2] / (byte.MaxValue)));
-                yield return Timing.WaitForSeconds(Config.TimeBetweenFlicker);
-                ChangeRoomLightColor(new Color(Config.SecondColor[0] / (byte.MaxValue), Config.SecondColor[1] / (byte.MaxValue), Config.SecondColor[2] / (byte.MaxValue)));
-                yield return Timing.WaitForSeconds(Config.TimeBetweenFlicker);
-            }
-            ResetLight();
-            yield break;
-        }
-
-        public void ResetLight()
-        {
-            foreach (Room room in SynapseController.Server.Map.Rooms)
-            {
-                room.LightController.WarheadLightOverride = false;
-            }
-        }
-        
-        public void ChangeRoomLightColor(Color color)
-        {
-            foreach (Room room in SynapseController.Server.Map.Rooms)
-            {
-                room.LightController.WarheadLightOverride = true;
-                room.LightController.WarheadLightColor = color;
-            }
+            firstColor = new Color(Config.FirstColor[0] / byte.MaxValue, Config.FirstColor[1] / byte.MaxValue, Config.FirstColor[2] / byte.MaxValue);
+            secondColor = new Color(Config.SecondColor[0] / byte.MaxValue, Config.SecondColor[1] / byte.MaxValue, Config.SecondColor[2] / byte.MaxValue);
         }
     }
 }

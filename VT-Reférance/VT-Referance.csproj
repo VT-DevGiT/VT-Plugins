@@ -95,6 +95,8 @@
     <Compile Include="Behaviour\NpcControlCortext.cs" />
     <Compile Include="Behaviour\NpcControlMouvement.cs" />
     <Compile Include="Event\SynapseGroupe.cs" />
+    <Compile Include="Method\Config Extension.cs" />
+    <Compile Include="Method\Room Extension.cs" />
     <Compile Include="Patch\Event\Scp914InteractPatch.cs" />
     <Compile Include="Patch\Event\DestroyHubPatch.cs" />
     <Compile Include="Patch\Event\IntercomSpeakPatch.cs" />
@@ -143,7 +145,7 @@
     <Compile Include="Variable\TeamID.cs" />
     <Compile Include="Variable\RoleID.cs" />
     <Compile Include="Method\Reflection.cs" />
-    <Compile Include="Method\Extension.cs" />
+    <Compile Include="Method\Player Extension.cs" />
     <Compile Include="Method\Methods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Variable\Data.cs" />

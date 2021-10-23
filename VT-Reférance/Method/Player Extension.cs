@@ -1,10 +1,5 @@
-﻿using Hints;
-using MEC;
-using Synapse;
-using Synapse.Api;
+﻿using Synapse.Api;
 using Synapse.Config;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using VT_Referance.PlayerScript;
@@ -13,30 +8,8 @@ using VT_Referance.Variable;
 namespace VT_Referance.Method
 {
     [API]
-    public static class Extension
+    public static class Player_Extension
     {
-        /// <summary>
-        /// True if the player can see a gameobject
-        /// </summary>
-        /// <param name="camera">The tested camera</param>
-        /// <param name="obj">The Tested GameObject</param>
-        /// <returns></returns>
-        [Unstable] // change this to a ray cast ?
-        public static bool IsTargetVisible(UnityEngine.Camera camera, GameObject obj)
-        {
-            var planes = GeometryUtility.CalculateFrustumPlanes(camera);
-            var point = obj.transform.position;
-            foreach (var plan in planes)
-            {
-                if (plan.GetDistanceToPoint(point) < 0)
-                    return false;
-            }
-            return true;
-        }
-
-
-
-
         /// <summary>
         /// True if the player can see a gameobject
         /// </summary>
@@ -45,7 +18,7 @@ namespace VT_Referance.Method
         /// <returns></returns>
         [Unstable]
         public static bool IsTargetVisible(this Player player, GameObject obj) 
-            => IsTargetVisible(player.gameObject.GetComponent<UnityEngine.Camera>(), obj);
+            => Methods.IsTargetVisible(player.gameObject.GetComponent<UnityEngine.Camera>(), obj);
 
         /// <summary>
         /// True if the player is a 939
@@ -68,25 +41,6 @@ namespace VT_Referance.Method
         public static bool IsUTR(this Player player)
         {
             return player.CustomRole is IUtrRole;
-        }
-
-        /// <summary>
-        /// Check if the config of the Inventory is not empty
-        /// </summary>
-        [API]
-        public static bool IsDefined(this SerializedPlayerInventory item)
-        {
-            return !item.IsUnDefined();
-        }
-        
-
-        /// <summary>
-        /// Check if the config of the Inventory is not empty
-        /// </summary>
-        [API]
-        public static bool IsUnDefined(this SerializedPlayerInventory item)
-        {
-            return item.Ammo == null && (item.Items == null || !item.Items.Any());
         }
 
         [API]
