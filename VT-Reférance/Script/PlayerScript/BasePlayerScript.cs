@@ -1,9 +1,11 @@
-﻿using Synapse;
+﻿using MEC;
+using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using VT_Referance.Behaviour;
 using VT_Referance.Method;
 
@@ -67,14 +69,8 @@ namespace VT_Referance.PlayerScript
             where T : UnityEngine.Behaviour
         {
             T composant;
-            if (!Player.gameObject.TryGetComponent<T>(out composant))
-            {
-                composant = Player.gameObject.AddComponent<T>();
-            }
-            else
-            {
-                composant.enabled = true;
-            }
+            composant = Player.gameObject.GetOrAddComponent<T>();
+            composant.enabled = true;
             return composant;
         }
 
@@ -84,7 +80,6 @@ namespace VT_Referance.PlayerScript
         /// <typeparam name="T"></typeparam>
         /// <param name="Name">Config name</param>
         /// <param name="defaultValue">Default value if the config is not found</param>
-        /// <returns></returns>
         private T GetConfigValue<T>(string Name, T defaultValue)
         {
             try
@@ -125,65 +120,72 @@ namespace VT_Referance.PlayerScript
         public override void Spawn()
         {
             Event();
-            Player.ChangeRoleAtPosition(RoleType);
+            Player.RoleType = RoleType;
             Shield = ActiveComponent<ShieldControler>();
-
-            InitPlayer();
-
-            AditionalInit();
 
             if (!string.IsNullOrEmpty(SpawnMessage))
                 Player.OpenReportWindow(SpawnMessage.Replace("%RoleName%", RoleName).Replace("\\n", "\n"));
 
-            if (SetDisplayInfo)
-                Player.SetDisplayCustomRole(RoleName);
-                //Timing.CallDelayed(0.01f, () => Player.SetDisplayCustomRole(RoleName));
+            Timing.CallDelayed(0.25f, () =>
+            { 
+                InitPlayer();
 
-            if (this is IScpRole)
-                Server.Get.Events.Player.PlayerDeathEvent += ScpDeathAnnonce;
-            Spawned = true;
+                AditionalInit();
+            
+                if (SetDisplayInfo)
+                    Player.SetDisplayCustomRole(RoleName);
+
+                if (this is IScpRole)
+                    Server.Get.Events.Player.PlayerDeathEvent += ScpDeathAnnonce;
+                Spawned = true;
+            });
         }
 
         private void InitPlayer()
         {
             Player.Inventory.Clear();
-            var inventory = GetConfigValue("inventory", new SerializedPlayerInventory());
+            SerializedPlayerInventory inventory = GetConfigValue("inventory", new SerializedPlayerInventory());
+            checkItems(ref inventory);
+            
             if (inventory.IsDefined())
-            { 
-                foreach(var item in inventory.Items)
-                    if (!Server.Get.ItemManager.IsIDRegistered(item.ID))
-                    {
-                        Server.Get.Logger.Error($"VT-CustomRole : \n Config error in {nameof(Config)} of the role {RoleName} \n unknown Item ID : {item.ID} ! \n you need to change the configuration!");
-                        inventory.Items.Remove(item);
-                    }
                 inventory.Apply(Player);
-            }
+
             Player.Health = GetConfigValue("Health", 100);
             Player.MaxHealth = GetConfigValue("MaxHealth", (int)Player.Health);
             Player.ArtificialHealth = GetConfigValue("ArtificialHealth", 0);
             Player.MaxArtificialHealth = GetConfigValue("MaxArtificialHealth", 100);
             Shield.Shield = GetConfigValue("Shield", 0);
             Shield.MaxShield = GetConfigValue("MaxShield", 100);
-            Server.Get.Logger.Info("Test");
             SerializedMapPoint spawnPoint = GetConfigValue<SerializedMapPoint>("SpawnPoint", null);
             try
             {
                 if (spawnPoint != null)
-                {
-                    Server.Get.Logger.Info(spawnPoint != null);
-                    Server.Get.Logger.Info(spawnPoint);
-                    Server.Get.Logger.Info(spawnPoint.Parse());
-                    Server.Get.Logger.Info(spawnPoint.Parse().Position);
                     Player.Position = spawnPoint.Parse().Position;
-                }
             }
             catch (Exception e)
             {
-                Server.Get.Logger.Error($"Error Config SpawnPoint at {this.RoleName} : {spawnPoint.Room} - {e}");
+                Server.Get.Logger.Error($"Error for spawn the role {this} : {e}");
 
             }
         }
         
+        private void checkItems(ref SerializedPlayerInventory inventory)
+        {
+            if (inventory.Items.Any()) // remouve all unRegitered ID for a void error
+            {
+                var listToRemove = new List<SerializedPlayerItem>();
+                foreach (SerializedPlayerItem item in inventory.Items)
+                {
+                    if (!Server.Get.ItemManager.IsIDRegistered(item.ID))
+                    {
+                        Server.Get.Logger.Error($"VT-CustomRole : \n Config error in {nameof(Config)} of the role {this} \n unknown Item ID : {item.ID} ! \n you need to change the configuration!");
+                        listToRemove.Add(item);
+                    }
+                }
+                if (listToRemove.Any()) inventory.Items.RemoveAll(p => listToRemove.Contains(p));
+            }
+        }
+
         [API]
         public override void DeSpawn()
         {

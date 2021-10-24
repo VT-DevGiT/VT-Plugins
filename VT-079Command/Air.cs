@@ -10,7 +10,7 @@ namespace VT079.Command
 {
     public class Air : I079Command
     {
-        public KeyCode Key => KeyCode.None;
+        public KeyCode Key => KeyCode.Alpha0;
 
         public int RequiredLevel => PluginExtensions.GetRequiredLevel(Name, 4);
 

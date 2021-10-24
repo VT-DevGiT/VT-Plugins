@@ -1,17 +1,10 @@
-﻿using VTCustomClass.Pouvoir;
-using Interactables.Interobjects.DoorUtils;
+﻿using Interactables.Interobjects.DoorUtils;
 using MEC;
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
-using Synapse.Config;
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-using VT_Referance.Behaviour;
 using VT_Referance.PlayerScript;
-using VT_Referance.Variable;
 
 namespace VTCustomClass.PlayerScript
 {
@@ -20,20 +13,15 @@ namespace VTCustomClass.PlayerScript
         protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
         protected virtual bool heavyUTR => true;
-
-        protected float oldStaminaUse;
-
+        protected float StaminaUse;
         protected bool _protected096 = true;
 
         protected override void AditionalInit()
         {
-            oldStaminaUse = Player.StaminaUsage;
+            StaminaUse = Player.StaminaUsage;
             Player.StaminaUsage = 0;
-            Timing.CallDelayed(1f, () =>
-            {
-                Player.GiveEffect(Effect.Visuals939);
-                if (heavyUTR) Player.GiveEffect(Effect.Disabled);
-            });
+            Player.GiveEffect(Effect.Visuals939);
+            if (heavyUTR) Player.GiveEffect(Effect.Disabled);
         }
 
         protected override void Event()
@@ -103,7 +91,7 @@ namespace VTCustomClass.PlayerScript
                 if (player.Scp173Controller.IgnoredPlayers.Contains(Player))
                     player.Scp173Controller.IgnoredPlayers.Remove(player);
             }
-            Player.StaminaUsage = oldStaminaUse;
+            Player.StaminaUsage = StaminaUse;
             base.DeSpawn();
             Server.Get.Events.Player.PlayerItemUseEvent -= OnUseIteam;
             Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;

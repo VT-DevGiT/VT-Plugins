@@ -21,7 +21,7 @@ namespace VTProget_X
 
         private void OnSpeakIntercom(PlayerSpeakIntercomEventEventArgs ev)
         {
-            if (!Plugin.Config.KeycardSpeak || ev.Player == null || ev.Player.Bypass)
+            if (!Plugin.Config.KeycardSpeak || ev.Player?.IsDummy == true || ev.Player.Bypass)
                 return;
             if (ev.Player?.ItemInHand == null)
                 ev.Allow = false;

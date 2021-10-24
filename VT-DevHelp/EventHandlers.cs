@@ -15,7 +15,7 @@ namespace VTDevHelp
 
         private void OnSetClass(PlayerSetClassEventArgs ev)
         {
-            Logger.Get.Info($"{ev.Player}-{(int)ev.Role}");
+            Logger.Get.Info($"Player Set class : {ev.Player} {ev.Player.RoleID} -> {(int)ev.Role}");
         }
 
         private void OnUpdate()

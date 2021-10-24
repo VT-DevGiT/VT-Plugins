@@ -1,9 +1,5 @@
-﻿using Dissonance;
-using Synapse;
-using Synapse.Api;
+﻿using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
-using System;
-using System.Collections.Generic;
 
 namespace VT939
 {

@@ -1,43 +1,35 @@
-﻿using Hints;
+﻿using HarmonyLib;
+using Hints;
 using Mirror;
-using Synapse;
 using Synapse.Api;
 using UnityEngine;
 using VT_Referance.Event.EventArguments;
-using VT_Referance.Method;
 
 namespace VT_Referance.Behaviour
 {
     [API]
     public class ShieldControler : NetworkBehaviour
     {
+        static bool IsPatch = false;
+
         private Player player;
         private int _Shield = 0;
         private int _MaxShield = 100;
         private bool _ShieldLock = false;
 
+        private void Patch()
+        {
+            if (IsPatch) return;
+            IsPatch = true;
+            var instance = new Harmony("VT_Referance.Patch.VT_Patch");
+            instance.PatchAll();
+        }
+
         private void Start()
         {
-            VTController.Server.Events.Player.PlayerDamagePostEvent += OnDamage;
-            VTController.Server.Events.Player.PlayerSetClassEvent += OnSetClass;
+            Patch();
             player = gameObject.GetPlayer();
-        }
-
-        private void OnEnable()
-        {
             VTController.Server.Events.Player.PlayerDamagePostEvent += OnDamage;
-            VTController.Server.Events.Player.PlayerSetClassEvent += OnSetClass;
-            player = gameObject.GetPlayer();
-        }
-
-        private void OnSetClass(PlayerSetClassEventArgs ev)
-        {
-            if (ev.Player == player)
-            {
-                _ShieldLock = false;
-                _MaxShield = 100;
-                _Shield = 0;
-            }
         }
 
         private void OnDamage(PlayerDamagePostEventArgs ev)
@@ -61,7 +53,7 @@ namespace VT_Referance.Behaviour
         /// </summary>
         public int Shield
         {
-            get { return _Shield; }
+            get => _Shield; 
             set 
             {
                 if (value == _Shield)
@@ -69,20 +61,20 @@ namespace VT_Referance.Behaviour
                 if (value > _Shield || !ShieldLock)
                     _Shield = Mathf.Clamp(value, 0, MaxShield);
 
-                string info = $"<align=right><color=#FFFFFF50><voffset=-21.65em><size=100%><b>Shield : {_Shield}/{MaxShield} | {(double)_Shield / MaxShield * 100}%</b></voffset></color></align>";
-                player.HintDisplay.Show(new TextHint(info, new HintParameter[] { new StringHintParameter("") }, null, 3f));
+                string info = $"<align=left><color=#FFFFFF50><voffset=-21.5em><size=100%><b><space=2em> Shield : {_Shield}/{MaxShield} | {_Shield / MaxShield * 100}%</b></voffset></color></align>";
+                player.HintDisplay.Show(new TextHint(info, new HintParameter[] { new StringHintParameter("") }, null, 8f));
             }
         }
 
         /// <summary>
         ///  The max amount of shield for this ShieldControler
         /// </summary>
-
         public int MaxShield
         {
             get { return _MaxShield; }
             set { _MaxShield = value; }
         }
+
         /// <summary>
         /// if it is possible to increase the shield
         /// </summary>

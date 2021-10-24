@@ -109,14 +109,19 @@ namespace VT_Referance.Method
                 yield break;
             else isAirBombCurrently = true;
 
+            Room OutsideRoom = Server.Get.Map.GetRoom(MapGeneration.RoomName.Outside);
+
             Map.Get.Cassie("danger . outside zone emergency termination sequence activated .", false);
             yield return Timing.WaitForSeconds(5f);
 
             while (waitforready > 0)
             {
                 PlayAmbientSound(7);
+                OutsideRoom.ChangeRoomLightColor(new Color(0.5f, 0, 0));
+                yield return Timing.WaitForSeconds(0.5f);
+                OutsideRoom.ChangeRoomLightColor(new Color(1, 0, 0));
+                yield return Timing.WaitForSeconds(0.5f);
                 waitforready--;
-                yield return Timing.WaitForSeconds(1f);
             }
 
             int throwcount = 0;
@@ -136,7 +141,7 @@ namespace VT_Referance.Method
                 }
                 yield return Timing.WaitForSeconds(0.25f);
             }
-
+            OutsideRoom.ChangeRoomLightColor(new Color(1, 0, 0), false);
             Map.Get.Cassie("outside zone termination completed .", false);
             yield break;
         }

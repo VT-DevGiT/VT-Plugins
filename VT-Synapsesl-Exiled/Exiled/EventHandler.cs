@@ -337,7 +337,7 @@ namespace VT_MultieLoder.Exiled.Event
             {
                 var pdt = new PocketDimensionTeleport
                 {
-                    type = ev.TeleportType,
+                    _type = ev.TeleportType,
                 };
 
                 var arg = new FailingEscapePocketDimensionEventArgs(ev.Player.ToExiled(), pdt, ev.Allow);
@@ -345,7 +345,7 @@ namespace VT_MultieLoder.Exiled.Event
                 PlayerHandlers.OnFailingEscapePocketDimension(arg);
 
                 ev.Allow = arg.IsAllowed;
-                ev.TeleportType = arg.Teleporter.type;
+                ev.TeleportType = arg.Teleporter._type;
             }
             catch (Exception e)
             {
@@ -606,11 +606,11 @@ namespace VT_MultieLoder.Exiled.Event
         {
             try
             {
-                var arg = new SyncingDataEventArgs(ev.Player.ToExiled(), ev.Player.AnimationController.speed, ev.Player.AnimationController.Network_curMoveState, ev.Allow);
+                /*var arg = new SyncingDataEventArgs(ev.Player.ToExiled(), ev.Player.AnimationController.an, ev.Player.AnimationController., ev.Allow);
 
                 PlayerHandlers.OnSyncingData(arg);
 
-                ev.Allow = arg.IsAllowed;
+                ev.Allow = arg.IsAllowed;*/
             }
             catch (Exception e)
             {

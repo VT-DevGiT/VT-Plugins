@@ -1,5 +1,4 @@
 ﻿using Synapse;
-using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
 using System.Collections.Generic;
 using VT_Referance.PlayerScript;

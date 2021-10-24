@@ -204,10 +204,8 @@ namespace VTDevHelp
         {
             var result = new CommandResult();
             result.State = CommandResultState.Error;
-            int ID;
-            if (int.TryParse(context.Arguments.FirstElement(), out ID))
+            if (int.TryParse(context.Arguments.FirstElement(),out int ID))
             {
-                DissonanceUserSetup dissonanceUserSetup = context.Player.gameObject.GetComponent<DissonanceUserSetup>();
                 Methods.PlayAmbientSound(ID);
                 result.State = CommandResultState.Ok;
             }
@@ -284,7 +282,7 @@ namespace VTDevHelp
 
     [CommandInformation(
      Name = "Méliodas",
-     Aliases = new[] { "Méliodas" },
+     Aliases = new[] { "Meliodas" },
      Description = "Méliodas!!!!!!!!!",
      Permission = "",
      Platforms = new[] { Platform.ClientConsole, Platform.RemoteAdmin }, 

@@ -6,7 +6,7 @@ namespace VT079.Command
 {
     public class Nuke : I079Command
     {
-        public KeyCode Key => KeyCode.None;
+        public KeyCode Key => KeyCode.Alpha9;
 
         public int RequiredLevel => PluginExtensions.GetRequiredLevel(Name, 4);
 

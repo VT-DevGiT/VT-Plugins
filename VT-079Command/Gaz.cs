@@ -14,7 +14,7 @@ namespace VT079.Command
 {
     public class Gaz : I079Command
     {
-        public KeyCode Key => KeyCode.Alpha5;
+        public KeyCode Key => KeyCode.Alpha7;
 
         public int RequiredLevel => PluginExtensions.GetRequiredLevel(Name, 3);
 
@@ -32,6 +32,13 @@ namespace VT079.Command
         {
             var result = new CommandResult();
 
+            if (Map.Get.Nuke.Active)
+            {
+                context.Player.Hub.scp079PlayerScript.Mana += 25;
+                result.Message = "You can't gass when the WarHead is active";
+                result.State = CommandResultState.NoPermission;
+                return result;
+            }
             if (context.Player.Room == null)
             {
                 context.Player.Hub.scp079PlayerScript.Mana += 25;

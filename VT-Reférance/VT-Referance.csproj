@@ -106,7 +106,7 @@
     <Compile Include="Patch\Event\UseElevatorPatch.cs" />
     <Compile Include="Patch\Event\ActivatingWarheadPanelPatch.cs" />
     <Compile Include="Patch\Event\GeneratorActivatedPatch.cs" />
-    <Compile Include="Patch\Event\SynapseSetClassIdPatch.cs" />
+    <Compile Include="Patch\VT-Patch\SynapseSetClassIdPatch.cs" />
     <Compile Include="Patch\Event\WarHeadStopPatch.cs" />
     <Compile Include="Script\ItemScript\ItemInformation.cs" />
     <Compile Include="Variable\LayerID.cs" />
@@ -154,8 +154,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Patch\VT-Patch\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

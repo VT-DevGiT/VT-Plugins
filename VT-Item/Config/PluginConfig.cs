@@ -19,6 +19,6 @@ namespace VT_Item.Config
         public bool ShootMouve = true;
 
         [Description("if a grenade and shoot it and it is active it explodes")]
-        public bool ShootInstantFuse = false;
+        public bool ShootInstantFuse = true;
     }
 }

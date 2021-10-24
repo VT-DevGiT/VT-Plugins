@@ -26,13 +26,14 @@ namespace VT_FlickerLight
 
         public Color firstColor;
         public Color secondColor;
+        public Color thirdColor;
 
         public override void Load()
         {
             Instance = this;
             base.Load();
-            new EventHandler();
             SetColorValue();
+            new EventHandler();
         }
 
         public override void ReloadConfigs()
@@ -45,6 +46,7 @@ namespace VT_FlickerLight
         {
             firstColor = new Color(Config.FirstColor[0] / byte.MaxValue, Config.FirstColor[1] / byte.MaxValue, Config.FirstColor[2] / byte.MaxValue);
             secondColor = new Color(Config.SecondColor[0] / byte.MaxValue, Config.SecondColor[1] / byte.MaxValue, Config.SecondColor[2] / byte.MaxValue);
+            thirdColor = new Color(Config.ThirdColor[0] / byte.MaxValue, Config.ThirdColor[1] / byte.MaxValue, Config.ThirdColor[2] / byte.MaxValue);
         }
     }
 }

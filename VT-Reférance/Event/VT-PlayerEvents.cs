@@ -7,7 +7,6 @@ namespace VT_Referance.Event
     public class VT_PlayerEvents
     {
         public event Synapse.Api.Events.EventHandler.OnSynapseEvent<PlayerDamagePostEventArgs> PlayerDamagePostEvent;
-        public event Synapse.Api.Events.EventHandler.OnSynapseEvent<PlayerSetClassEventArgs> PlayerSetClassEvent;
         public event Synapse.Api.Events.EventHandler.OnSynapseEvent<PlayerDestroyEventArgs> PlayerDestroyEvent;
         public event Synapse.Api.Events.EventHandler.OnSynapseEvent<PlayerSpeakIntercomEventEventArgs> PlayerSpeakIntercomEvent;
         public event Synapse.Api.Events.EventHandler.OnSynapseEvent<PlayerVerifEventArgs> PlayerVerif;
@@ -25,22 +24,6 @@ namespace VT_Referance.Event
             };
             PlayerDamagePostEvent?.Invoke(ev);
             info = ev.HitInfo;
-            allow = ev.Allow;
-        }
-
-        internal void InvokeSetClassEvent(Player player, int oldId, ref int newId, ref bool allow)
-        {
-            Synapse.Server.Get.Logger.Info(player);
-            var ev = new PlayerSetClassEventArgs
-            {
-                Player = player,
-                OldID = oldId,
-                NewID = newId,
-                Allow = allow,
-            };
-
-            PlayerSetClassEvent?.Invoke(ev);
-            newId = ev.NewID;
             allow = ev.Allow;
         }
 

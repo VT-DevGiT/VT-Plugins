@@ -21,7 +21,7 @@ namespace VT_HammerDown
             Items = new List<SerializedPlayerItem>
             {
                 new SerializedPlayerItem((int)ItemType.KeycardNTFLieutenant,0,0,Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.GunLogicer,75,0,Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.GunLogicer,100,0,Vector3.one, 100, true),
                 new SerializedPlayerItem((int)ItemType.Medkit,0,0,Vector3.one, 100, true),
                 new SerializedPlayerItem((int)ItemType.Adrenaline,0,0,Vector3.one, 100, true),
                 new SerializedPlayerItem((int)ItemType.GrenadeHE,75,0,Vector3.one, 100, true),

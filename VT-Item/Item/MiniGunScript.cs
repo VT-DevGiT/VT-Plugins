@@ -15,7 +15,7 @@ using InventorySystem.Items.Firearms.Modules;
 
 namespace VT_Item.Item
 {
-    [ItemInformation(ID = 200, ItemType = ItemType.GunRevolver, Name = "MiniGun")]
+    [ItemInformation(ID = 200, ItemType = ItemType.GunLogicer, Name = "MiniGun")]
     class MiniGunScript : BaseWeaponScript
     {
         #region Attributes & Properties
@@ -24,11 +24,17 @@ namespace VT_Item.Item
 
         public override string ScrenName => Plugin.PluginTranslation.ActiveTranslation.NameMiniGun;
         public override ushort Ammos => 0;
-        public override AmmoType AmmoType => AmmoType-1;
+        public override AmmoType AmmoType => AmmoType.Ammo762x39;
         public override int DamageAmmont => Plugin.MiniGunConfig.Damage;
         #endregion
 
         #region Methods
+
+        protected override void Reload(PlayerReloadEventArgs ev) 
+        {
+            ev.Item.Durabillity = ev.Player.AmmoBox[AmmoType.Ammo762x39];
+        }
+
         protected override void PickUp(PlayerPickUpItemEventArgs ev)
         {
             ev.Item.Durabillity = ev.Player.AmmoBox[AmmoType.Ammo762x39];
@@ -37,18 +43,16 @@ namespace VT_Item.Item
 
         protected override void ChangeToItem(PlayerChangeItemEventArgs ev)
         {
-            if (!Plugin.MiniGunConfig.CanMouveEquip && ev.Player.TryGetComponent<MinGunPlayerScript>(out var Script))
-                Script.enabled = true;
-            else if (!Plugin.MiniGunConfig.CanMouveEquip)
-                ev.Player.gameObject.AddComponent<MinGunPlayerScript>();
+            if (!Plugin.MiniGunConfig.CanMouveEquip)
+                ev.Player.GetOrAddComponent<MinGunPlayerScript>().enabled = true;
             ev.NewItem.Durabillity = ev.Player.AmmoBox[AmmoType.Ammo762x39];
             base.ChangeToItem(ev);
         }
 
         protected override void ChangedFromItem(PlayerChangeItemEventArgs ev)
         {
-            if (!Plugin.MiniGunConfig.CanMouveEquip && ev.Player.TryGetComponent<MinGunPlayerScript>(out var Script))
-                Script.enabled = false;
+            if (!Plugin.MiniGunConfig.CanMouveEquip)
+                ev.Player.GetOrAddComponent<MinGunPlayerScript>().enabled = false;
             base.ChangedFromItem(ev);
         }
 

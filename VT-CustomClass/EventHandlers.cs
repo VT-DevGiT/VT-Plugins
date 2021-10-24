@@ -5,9 +5,6 @@ using Synapse.Api.Events.SynapseEventArguments;
 using System.Collections.Generic;
 using System.Linq;
 using VT_Referance.Variable;
-using VT_Referance;
-using System;
-using Synapse.Permission;
 
 namespace VTCustomClass
 {
@@ -78,7 +75,6 @@ namespace VTCustomClass
             if (ev.SpawnPlayers != null)
             {
                 ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new ConciergeScript());
-                ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new SCP507Script());
                 ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new CHIIntrusScript());
                 ev.SpawnPlayers.SpawnRole(RoleType.Scientist, new ScientifiqueSuperviseurScript());
                 ev.SpawnPlayers.SpawnRole(RoleType.FacilityGuard, new FoundationUTRScript());

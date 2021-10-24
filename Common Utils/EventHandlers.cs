@@ -17,9 +17,9 @@ namespace Common_Utiles
     {
         public EventHandlers()
         {
-            VTController.Server.Events.Player.PlayerSetClassEvent += OnSpawn;
             VTController.Server.Events.Map.Scp914UpgradeItemEvent += On914Upgrade;
             Server.Get.Events.Map.Scp914ActivateEvent += On914Activate;
+            Server.Get.Events.Player.PlayerSetClassEvent += OnSpawn;
             Server.Get.Events.Round.TeamRespawnEvent += OnRespawn;
             Server.Get.Events.Round.RoundStartEvent += OnStart;
         }
@@ -81,11 +81,11 @@ namespace Common_Utiles
             else ev.NewItem = new SynapseItem(NewIdItems[intRnd(0, NewIdItems.Count - 1)]);
         }
 
-        private void OnSpawn(VT_Referance.Event.EventArguments.PlayerSetClassEventArgs ev)
+        private void OnSpawn(PlayerSetClassEventArgs ev)
         {
             Timing.CallDelayed(0.015f, () =>
             {
-                if (ev.NewID == (int)RoleType.Spectator && ev.Player.Scale != new Vector3(1, 1, 1))
+                if (ev.Role == RoleType.Spectator && ev.Player.Scale != new Vector3(1, 1, 1))
                     ev.Player.Scale = new Vector3(1, 1, 1);
 
                 SerializedPlayerInventory nullSerializedPlayerInventory = new SerializedPlayerInventory();

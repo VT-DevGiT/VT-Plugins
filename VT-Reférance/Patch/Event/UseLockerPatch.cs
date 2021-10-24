@@ -18,17 +18,20 @@ namespace VT_Referance.Patch.Event
         {
             try
             {
-                if (colliderId >= __instance.Chambers.Length || !__instance.Chambers[colliderId].CanInteract)
-                    return false;
-                bool flag = !__instance.CheckPerms(__instance.Chambers[colliderId].RequiredPermissions, ply) && !ply.serverRoles.BypassMode;
-                VTController.Server.Events.Map.InvokeLockerIneractEvent(__instance.GetPlayer(), __instance, ref flag);
-
-                if (flag)
+                if (colliderId < __instance.Chambers.Length && __instance.Chambers[colliderId].CanInteract)
                 {
+                    bool flag = !__instance.CheckPerms(__instance.Chambers[colliderId].RequiredPermissions, ply) && !ply.serverRoles.BypassMode;
+
+                    VTController.Server.Events.Map.InvokeLockerIneractEvent(__instance.GetPlayer(), __instance, ref flag);
+                    if (flag)
+                    {
+                        __instance.RpcPlayDenied(colliderId);
+                        return false;
+                    }
+
                     __instance.Chambers[colliderId].SetDoor(!__instance.Chambers[colliderId].IsOpen, __instance._grantedBeep);
                     __instance.RefreshOpenedSyncvar();
                 }
-                else  __instance.RpcPlayDenied(colliderId);
                 return false;
             }
             catch (Exception e)
