@@ -171,11 +171,11 @@ namespace VTCustomClass
     }
     [CommandInformation(
            Name = "kamikaze",
-           Aliases = new[] { "kamikaze" },
+           Aliases = new[] { "kamikaz", "explose", "kam" },
            Description = "to use the capacity of your role",
            Permission = "",
            Platforms = new[] { Platform.ClientConsole },
-           Usage = ".Suicide"
+           Usage = ".explose"
            )]
     class CmdSuicide : ISynapseCommand
     {
@@ -184,7 +184,7 @@ namespace VTCustomClass
             var result = new CommandResult();
             if (context.Player.CustomRole is BasePlayerScript script)
             {
-                script.CallPower((int)PowerType.Suicide);
+                script.CallPower((int)PowerType.kamikaze);
                 result.State = CommandResultState.Ok;
             }
             else

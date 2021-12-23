@@ -13,7 +13,7 @@ using System;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class SCP966cript : BasePlayerScript, IScpRole
+    public class SCP966cript : BasePlayerScript, IScpDeathAnnonce
     {
         public string ScpName => "9 6 6";
         protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
@@ -39,9 +39,9 @@ namespace VTCustomClass.PlayerScript
 
         private void OnAttack(PlayerDamageEventArgs ev)
         {
-            if (ev.Allow && ev.Allow == Player && ev.HitInfo.Tool == DamageTypes.Scp0492)
+            if (ev.Allow && ev.Killer == Player && ev.DamageType == DamageType.Scp)
             {
-                ev.DamageAmount = 20;
+                ev.Damage = 20;
                 if (!ev.Victim.IsUTR())
                 {
                     ev.Victim.GiveEffect(Effect.Concussed, 1, 10);

@@ -50,24 +50,23 @@ namespace VTCustomClass.PlayerScript
         public override void DeSpawn()
         {
             base.DeSpawn();
-            aura.PlayerEffect = null;
-            aura.TargetEffect = null;
-            aura.HerIntencty = 0;
-            aura.HerTime = 0;
-            aura.MyHp = 0;
-            aura.HerHp = 0;
-            aura.Distance = 0;
             KillComponent<Aura>();
             Server.Get.Events.Player.PlayerDamageEvent -= OnAttack;
             Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
-            if (!Server.Get.Players.Where(p => p.RoleID == (int)RoleID.SCP008).Any())
-                Map.Get.GlitchedCassie("ALL SCP 0 0 8 SUCCESSFULLY TERMINATED . NOSCPSLEFT");
+            Server.Get.Events.Player.PlayerDeathEvent -= OnDeath;
         }
 
         protected override void Event()
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnAttack;
             Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
+            Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
+        }
+
+        private void OnDeath(PlayerDeathEventArgs ev)
+        {
+            if (Player == ev.Victim && !Server.Get.Players.Where(p => p.RoleID == (int)RoleID.SCP008).Any())
+                Map.Get.GlitchedCassie("ALL SCP 0 0 8 SUCCESSFULLY TERMINATED . NOSCPSLEFT");
         }
 
         private void OnAttack(PlayerDamageEventArgs ev)

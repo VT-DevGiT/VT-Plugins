@@ -27,7 +27,8 @@ namespace VTEscape
 
         static public void ChangeRole(Player player, int Role)
         {
-            player.Inventory.Clear();
+            if (!Plugin.Config.keepInvotory)
+                player.Inventory.Clear();
             player.RoleID = Role;
         }
     }

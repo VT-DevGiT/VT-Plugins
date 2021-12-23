@@ -7,7 +7,7 @@ using VT_Referance.Behaviour;
 [Serializable]
 public class SerializedConfigClass
 {
-    public string RoleName { get; set; } = null;
+    public string Display { get; set; } = null;
     public int ClassID { get; set; } = -1;
     public int? Health { get; set; } = null;
     public int? MaxHealh { get; set; } = null;
@@ -20,9 +20,9 @@ public class SerializedConfigClass
        
     }
 
-    public SerializedConfigClass(string name, int id, int? healh, int? maxHealh, int? shiled, int? maxShiled, SerializedPlayerInventory inventory)
+    public SerializedConfigClass(string display, int id, int? healh, int? maxHealh, int? shiled, int? maxShiled, SerializedPlayerInventory inventory)
     {
-        RoleName = name;
+        Display = display;
         ClassID = id;
         Health = healh;
         MaxHealh = maxHealh;
@@ -36,9 +36,9 @@ public class SerializedConfigClass
     {
         var shiledctrl = player.GetOrAddComponent<ShieldControler>();
 
-        if (string.IsNullOrWhiteSpace(RoleName))
+        if (!string.IsNullOrWhiteSpace(Display))
         {
-            player.SetDisplayCustomRole(RoleName);
+            player.SetDisplayCustomRole(Display);
         }
         if (Health != null && Health != 0)
         {
@@ -59,5 +59,16 @@ public class SerializedConfigClass
         if (Inventory.IsDefined())
             Inventory.Apply(player);
         
+    }
+
+    private string ParseDisplay(Player player)
+    {
+        Display = Display.Replace( "%name%", player.name);
+        Display = Display.Replace( "%unitname%", player.UnitName);
+        Display = Display.Replace("%name%", player.name);
+        Display = Display.Replace("%name%", player.name);
+        Display = Display.Replace("%name%", player.name);
+        Display = Display.Replace("%name%", player.name);
+        return Display;
     }
 }

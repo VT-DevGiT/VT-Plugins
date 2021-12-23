@@ -1,6 +1,6 @@
 ﻿namespace VTEscape
 {
-    public enum EscapeEnum
+    public enum EscapeType
     {
         NONE = -1,
         MTF = 0,

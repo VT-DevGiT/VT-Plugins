@@ -4,7 +4,7 @@ using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Api.Items;
 using System;
 using System.Reflection;
-
+    
 namespace VT_Referance.ItemScript
 {
     [API]
@@ -92,7 +92,7 @@ namespace VT_Referance.ItemScript
         protected virtual void ChangeToItem(PlayerChangeItemEventArgs ev)
         {
             if (!string.IsNullOrEmpty(MessageChangeTo))
-            { 
+            {
                 string message = MessageChangeTo.Replace("%Name%", ScrenName).Replace("\\n", "\n");
                 ev.Player.GiveTextHint(message);
             }

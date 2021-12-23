@@ -12,10 +12,10 @@ namespace VTCustomClass.Pouvoir
         public static void Cooldown(Player player, DateTime lastPower, int Time)
         {
             int cooldown = Time - (int)(DateTime.Now - lastPower).TotalSeconds;
-            player.SendBroadcast(1, Plugin.PluginTranslation.ActiveTranslation.
-                           PowerCooldown.Replace("%Time%", cooldown.ToString()));
-            player.SendConsoleMessage(Plugin.PluginTranslation.ActiveTranslation.
-                PowerCooldown.Replace("%Time%", cooldown.ToString()));
+            string message = Plugin.PluginTranslation.ActiveTranslation.PowerCooldown.Replace("%Time%", cooldown.ToString());
+
+            player.SendBroadcast(1, message, true);
+            player.SendConsoleMessage(message);
         }
     }
 }

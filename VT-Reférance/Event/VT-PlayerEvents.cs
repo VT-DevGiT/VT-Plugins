@@ -1,4 +1,5 @@
 ﻿using Synapse.Api;
+using Synapse.Api.Items;
 using VT_Referance.Event.EventArguments;
 
 namespace VT_Referance.Event
@@ -10,21 +11,21 @@ namespace VT_Referance.Event
         public event Synapse.Api.Events.EventHandler.OnSynapseEvent<PlayerDestroyEventArgs> PlayerDestroyEvent;
         public event Synapse.Api.Events.EventHandler.OnSynapseEvent<PlayerSpeakIntercomEventEventArgs> PlayerSpeakIntercomEvent;
         public event Synapse.Api.Events.EventHandler.OnSynapseEvent<PlayerVerifEventArgs> PlayerVerif;
-        
+        public event Synapse.Api.Events.EventHandler.OnSynapseEvent<PlayerSetClassEventArgs> PlayerSetClassEvent;
         #region Invoke
-        internal void InvokePlayerDamagePostEvent(Player victim, Player killer, ref PlayerStats.HitInfo info, ref bool allow)
+        internal void InvokePlayerDamagePostEvent(Player victim, Player killer, ref float damage, ItemType weaponType, SynapseItem weapon)
         {
             var ev = new PlayerDamagePostEventArgs
             {
-                HitInfo = info,
                 Killer = killer,
                 Victim = victim,
-                Allow = allow,
-
+                Damage = damage,
+                Weapon = weapon,
+                WeaponType = weaponType
             };
             PlayerDamagePostEvent?.Invoke(ev);
-            info = ev.HitInfo;
-            allow = ev.Allow;
+
+            damage = ev.Damage;
         }
 
         internal void InvokePlayerDestroyEvent(Player player)
@@ -59,6 +60,20 @@ namespace VT_Referance.Event
 
             PlayerVerif?.Invoke(ev);
         }
+
+        internal void InvokeSetClassEvent(Player player, int oldId, int newId)
+        {
+            Synapse.Server.Get.Logger.Info(player);
+            var ev = new PlayerSetClassEventArgs
+            {
+                Player = player,
+                OldID = oldId,
+                NewID = newId,
+            };
+
+            PlayerSetClassEvent?.Invoke(ev);
+        }
+
         #endregion
     }
 }

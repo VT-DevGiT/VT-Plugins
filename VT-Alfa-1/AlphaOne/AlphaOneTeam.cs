@@ -26,7 +26,7 @@ namespace VT_Alpha
                 RespawnManager.Singleton.NamingManager.AllUnitNames.Add(new SyncUnit()
                 {
                     SpawnableTeam = 2,
-                    UnitName = Plugin.Config.UnitName.Replace("%RandomName%", Unitname)
+                    UnitName = Plugin.Config.UnitName.Replace( "%RandomName%", Unitname)
                 });
                 if (!string.IsNullOrWhiteSpace(Plugin.Config.CassieSpawn))
                 {

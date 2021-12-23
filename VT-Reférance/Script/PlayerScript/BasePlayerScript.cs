@@ -1,4 +1,5 @@
-﻿using MEC;
+﻿using HarmonyLib;
+using MEC;
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
@@ -46,6 +47,14 @@ namespace VT_Referance.PlayerScript
         #endregion
 
         #region Constructors & Destructor
+        static bool Patached = false;
+        public BasePlayerScript()
+        {
+            if (Patached) return;
+            Patached = true;
+            var instance = new Harmony("VT_Referance.Patch.VT_Patch");
+            instance.PatchAll();
+        }
         #endregion
 
         #region Methods
@@ -126,7 +135,7 @@ namespace VT_Referance.PlayerScript
             if (!string.IsNullOrEmpty(SpawnMessage))
                 Player.OpenReportWindow(SpawnMessage.Replace("%RoleName%", RoleName).Replace("\\n", "\n"));
 
-            Timing.CallDelayed(0.25f, () =>
+            Timing.CallDelayed(0.5f, () =>
             { 
                 InitPlayer();
 
@@ -135,7 +144,7 @@ namespace VT_Referance.PlayerScript
                 if (SetDisplayInfo)
                     Player.SetDisplayCustomRole(RoleName);
 
-                if (this is IScpRole)
+                if (this is IScpDeathAnnonce)
                     Server.Get.Events.Player.PlayerDeathEvent += ScpDeathAnnonce;
                 Spawned = true;
             });
@@ -192,7 +201,7 @@ namespace VT_Referance.PlayerScript
             Player.DisplayInfo = null;
             Player.AddDisplayInfo(PlayerInfoArea.Role);
             Player.AddDisplayInfo(PlayerInfoArea.UnitName);
-            if (this is IScpRole)
+            if (this is IScpDeathAnnonce)
                 Server.Get.Events.Player.PlayerDeathEvent -= ScpDeathAnnonce;
             
         }
@@ -205,8 +214,8 @@ namespace VT_Referance.PlayerScript
         {
             if (ev.Victim != Player)
                 return;
-            string Name = (this as IScpRole)?.ScpName;
-            Server.Get.Map.AnnounceScpDeath(Name, ev.HitInfo.GetScpRecontainmentType());            
+            string Name = (this as IScpDeathAnnonce)?.ScpName;
+            //Server.Get.Map.AnnounceScpDeath(Name, ev.HitInfo.GetScpRecontainmentType());            
         }
         #endregion
 

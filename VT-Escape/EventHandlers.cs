@@ -1,5 +1,7 @@
 ﻿using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
+using System;
+using VT_Referance.Method;
 
 namespace VTEscape
 {
@@ -9,7 +11,17 @@ namespace VTEscape
         {
             Server.Get.Events.Player.PlayerSetClassEvent += OnPlayerSetClassEvent;
             Server.Get.Events.Player.PlayerEscapesEvent += OnEscapesEvent;
+            Server.Get.Events.Player.LoadComponentsEvent += OnLoadComonentsEvent;
         }
+
+        private void OnLoadComonentsEvent(LoadComponentEventArgs ev)
+        {
+            if (Plugin.Config.MTFEscapeIsEnabled)
+                ev.Player.GetOrAddComponent<NTFEscape>();
+            if (Plugin.Config.ICEscapeIsEnabled)
+                ev.Player.GetOrAddComponent<CHIEscape>();
+        }
+
         private void OnEscapesEvent(PlayerEscapeEventArgs ev)
         {
             if(Plugin.Config.MTFEscapeIsEnabled)
@@ -18,20 +30,9 @@ namespace VTEscape
 
         private void OnPlayerSetClassEvent(PlayerSetClassEventArgs ev)
         {
-            if (Plugin.Config.MTFEscapeIsEnabled)
-            {
-                if (ev.Role == RoleType.Spectator && ev.Player.gameObject.GetComponent<NTFEscape>() != null)
-                    ev.Player.gameObject.GetComponent<NTFEscape>()?.Kill();
-                else if (ev.Role != RoleType.Spectator && ev.Player.gameObject.GetComponent<NTFEscape>() == null)
-                    ev.Player.gameObject.AddComponent<NTFEscape>();
-            }
-            if (Plugin.Config.ICEscapeIsEnabled)
-            {
-                if (ev.Role == RoleType.Spectator && ev.Player.gameObject.GetComponent<CHIEscape>() != null)
-                    ev.Player.gameObject.GetComponent<CHIEscape>()?.Kill();
-                else if (ev.Role != RoleType.Spectator && ev.Player.gameObject.GetComponent<CHIEscape>() == null)
-                    ev.Player.gameObject.AddComponent<CHIEscape>();
-            }
+            var escapes = ev.Player.GetComponents<BaseEscape>();
+            foreach (var escape in escapes)
+                escape.ChangeClassEvent();
         }
     }
 }

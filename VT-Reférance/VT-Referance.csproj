@@ -36,25 +36,25 @@
       <HintPath>..\packages\Lib.Harmony.2.1.1\lib\net472\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.7.0\lib\net472\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.7.0\lib\net472\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
-    <Reference Include="DissonanceVoip_publicized">
-      <HintPath>..\lib\DissonanceVoip_publicized.dll</HintPath>
+    <Reference Include="DissonanceVoip-Publicized">
+      <HintPath>..\lib\DissonanceVoip-Publicized.dll</HintPath>
     </Reference>
     <Reference Include="LiteDB, Version=5.0.11.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\packages\LiteDB.5.0.11\lib\net45\LiteDB.dll</HintPath>
     </Reference>
     <Reference Include="Mirror, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.7.0\lib\net472\Mirror.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\Mirror.dll</HintPath>
     </Reference>
-    <Reference Include="NorthwoodLib">
-      <HintPath>E:\Games\SteamLibrary\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\NorthwoodLib.dll</HintPath>
+    <Reference Include="NorthwoodLib-Publicized">
+      <HintPath>..\lib\NorthwoodLib-Publicized.dll</HintPath>
     </Reference>
-    <Reference Include="Synapse, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.7.0\lib\net472\Synapse.dll</HintPath>
+    <Reference Include="Synapse, Version=2.7.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\Synapse.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -69,7 +69,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.7.0\lib\net472\UnityEngine.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>E:\Games\SteamLibrary\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\UnityEngine.AIModule.dll</HintPath>
@@ -81,10 +81,13 @@
       <HintPath>E:\Games\SteamLibrary\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.7.0\lib\net472\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.7.0\lib\net472\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="VoiceChatManager.Core">
+      <HintPath>..\lib\VoiceChatManager.Core.dll</HintPath>
     </Reference>
     <Reference Include="YamlDotNet, Version=11.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
       <HintPath>..\packages\YamlDotNet.11.2.1\lib\net45\YamlDotNet.dll</HintPath>
@@ -106,8 +109,10 @@
     <Compile Include="Patch\Event\UseElevatorPatch.cs" />
     <Compile Include="Patch\Event\ActivatingWarheadPanelPatch.cs" />
     <Compile Include="Patch\Event\GeneratorActivatedPatch.cs" />
-    <Compile Include="Patch\VT-Patch\SynapseSetClassIdPatch.cs" />
+    <Compile Include="Patch\Event\SynapseSetClassIdPatch.cs" />
     <Compile Include="Patch\Event\WarHeadStopPatch.cs" />
+    <Compile Include="Patch\VT-Patch\RemoveEverythingExceedingLimitsPatch.cs" />
+    <Compile Include="Patch\VT-Patch\VoiceChat.cs" />
     <Compile Include="Script\ItemScript\ItemInformation.cs" />
     <Compile Include="Variable\LayerID.cs" />
     <Compile Include="VTController.cs" />
@@ -134,7 +139,7 @@
     <Compile Include="Event\VT_RoundEvents.cs" />
     <Compile Include="Event\VT_ScpEvents.cs" />
     <Compile Include="Event\VT_ServerEvents.cs" />
-    <Compile Include="Script\PlayerScript\IScpRole.cs" />
+    <Compile Include="Script\PlayerScript\IScpDeathAnnonce.cs" />
     <Compile Include="Script\PlayerScript\IUtrRole.cs" />
     <Compile Include="Patch\Event\CollisionGrenadePatch.cs" />
     <Compile Include="Patch\Event\ExplosionGrenadePatch.cs" />
@@ -154,6 +159,8 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DissonanceManager\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

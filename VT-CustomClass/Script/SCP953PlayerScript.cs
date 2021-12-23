@@ -6,7 +6,7 @@ using static VT_Referance.Variable.Data;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class SCP953Script : BasePlayerScript, IScpRole
+    public class SCP953Script : BasePlayerScript, IScpDeathAnnonce
     {
         public string ScpName => "9 5 3";
         protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;

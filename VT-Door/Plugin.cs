@@ -6,28 +6,30 @@ namespace VTDoor
 {
 
     [PluginInformation(
-Author = "VT",
-Description = "add a new Door",
-LoadPriority = 5,
-Name = "VT-Door",
-SynapseMajor = SynapseController.SynapseMajor,
-SynapseMinor = SynapseController.SynapseMinor,
-SynapsePatch = SynapseController.SynapsePatch,
-Version = "v.1.0.0"
-)]
+    Author = "VT",
+    Description = "add a new Door",
+    LoadPriority = 5,
+    Name = "VT-Door",
+    SynapseMajor = SynapseController.SynapseMajor,
+    SynapseMinor = SynapseController.SynapseMinor,
+    SynapsePatch = SynapseController.SynapsePatch,
+    Version = "v.1.0.3"
+    )]
     public class Plugin : AbstractPlugin
     {
         public static Plugin Instance { get; private set; }
 
         [Synapse.Api.Plugin.Config(section = "VT-Door")]
         public static Config Config;
-        // 
+        
         public override void Load()
         {
-            Instance = this;
+            Server.Get.Logger.Error("This plugin dont work (or yes it work but crash som client)");
+            return;
+            /*Instance = this;
             PatchAll();
             base.Load();
-            new EventHandlers();
+            new EventHandlers();*/
         }
 
         private void PatchAll()

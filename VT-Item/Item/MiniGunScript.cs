@@ -12,6 +12,7 @@ using CustomPlayerEffects;
 using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Modules;
+using PlayerStatsSystem;
 
 namespace VT_Item.Item
 {
@@ -137,7 +138,7 @@ namespace VT_Item.Item
 
                     if (SynapseExtensions.GetHarmPermission(player, target))
                     {
-                        hitbox.Damage(Plugin.MiniGunConfig.Damage, (IDamageDealer)player.ItemInHand.ItemBase, new Footprinting.Footprint(Weapon.ItemHolder.Hub), Weapon.ItemHolder.Position);
+                        hitbox.Damage(Plugin.MiniGunConfig.Damage, new FirearmDamageHandler(), player.Position);
 
                         Synapse.Server.Get.Map.PlaceBlood(hits[i].point + hits[i].normal * 0.01f);
 
@@ -150,7 +151,7 @@ namespace VT_Item.Item
                 IDestructible window = hits[i].collider.GetComponent<IDestructible>();
                 if (window != null)
                 {
-                    window.Damage(Plugin.MiniGunConfig.Damage, (IDamageDealer)player.ItemInHand.ItemBase, new Footprinting.Footprint(Weapon.ItemHolder.Hub), Weapon.ItemHolder.Position);
+                    window.Damage(Plugin.MiniGunConfig.Damage, new FirearmDamageHandler(), player.Position);
                     hit = true;
                     continue;
                 }

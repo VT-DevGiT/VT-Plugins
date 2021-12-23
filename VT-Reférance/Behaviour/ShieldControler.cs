@@ -2,12 +2,16 @@
 using Hints;
 using Mirror;
 using Synapse.Api;
+using System;
 using UnityEngine;
 using VT_Referance.Event.EventArguments;
+using VT_Referance.Method;
+using VT_Referance.Variable;
 
 namespace VT_Referance.Behaviour
 {
     [API]
+    [Obsolete("Do a Rework using Module")]
     public class ShieldControler : NetworkBehaviour
     {
         static bool IsPatch = false;
@@ -23,20 +27,35 @@ namespace VT_Referance.Behaviour
             IsPatch = true;
             var instance = new Harmony("VT_Referance.Patch.VT_Patch");
             instance.PatchAll();
+            VTController.Server.Events.Player.PlayerSetClassEvent += OnSetClass;
+        }
+
+        private void OnSetClass(PlayerSetClassEventArgs ev)
+        {
+            if (ev.NewID == (int)RoleID.Scp035) return;
+
+            Synapse.Server.Get.Logger.Info("OnSetClass VT");
+
+            ShieldControler shield = ev.Player.GetOrAddComponent<ShieldControler>();
+            shield.ShieldLock = false;
+            shield.MaxShield = 100;
+            shield.Shield = 0;
         }
 
         private void Start()
         {
-            Patch();
+            //Patch();
             player = gameObject.GetPlayer();
-            VTController.Server.Events.Player.PlayerDamagePostEvent += OnDamage;
-        }
+/*            VTController.Server.Events.Player.PlayerDamagePostEvent += OnDamage;
+*/        }
 
-        private void OnDamage(PlayerDamagePostEventArgs ev)
+/*        private void OnDamage(PlayerDamagePostEventArgs ev)
         {
-            var damageType = ev.HitInfo.Tool;
-            if (Shield != 0 && ev.Victim == player && ev.Allow 
-                && (damageType.Weapon != ItemType.None || damageType.Scp != RoleType.None || damageType == DamageTypes.Grenade))
+            DamageTypes.DamageType damageType = ev.HitInfo.Tool;
+            if (damageType == null || ev.DamageAmount == 0) return;
+
+            if (Shield != 0 && ev?.Victim == player && ev.Allow 
+                && (damageType?.Weapon != ItemType.None || damageType?.Scp != RoleType.None || damageType == DamageTypes.Grenade))
             {
                 int damge = 2*((int)ev.DamageAmount / 3);
                 damge = Mathf.Clamp(damge, 0, Shield);
@@ -44,7 +63,7 @@ namespace VT_Referance.Behaviour
                 ev.DamageAmount -= damge;
             }
         }
-
+*/
 
         /// <summary>
         /// The amount of shield for this ShieldControler;
@@ -61,7 +80,7 @@ namespace VT_Referance.Behaviour
                 if (value > _Shield || !ShieldLock)
                     _Shield = Mathf.Clamp(value, 0, MaxShield);
 
-                string info = $"<align=left><color=#FFFFFF50><voffset=-21.5em><size=100%><b><space=2em> Shield : {_Shield}/{MaxShield} | {_Shield / MaxShield * 100}%</b></voffset></color></align>";
+                string info = $"<align=left><color=#FFFFFF50><voffset=-21.5em><size=100%><b><space=2em> Shield : {_Shield}/{MaxShield} | {(_Shield / MaxShield) * 100}%</b></voffset></color></align>";
                 player.HintDisplay.Show(new TextHint(info, new HintParameter[] { new StringHintParameter("") }, null, 8f));
             }
         }

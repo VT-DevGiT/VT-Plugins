@@ -28,8 +28,8 @@ namespace VTCustomClass.Pouvoir
         {
             if (duraction > 0)
             {
-                player.SendBroadcast(1, Plugin.PluginTranslation.ActiveTranslation.
-                    VentMessage.Replace("%Time%", duraction.ToString()));
+                string message = Plugin.PluginTranslation.ActiveTranslation.VentMessage.Replace("%Time%", duraction.ToString());
+                player.SendBroadcast(1, message);
                 duraction--;
             }
             else if (duraction < 0)

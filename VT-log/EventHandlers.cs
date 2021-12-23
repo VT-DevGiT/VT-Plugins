@@ -52,7 +52,7 @@ namespace VTLog
         {   
             try
             { 
-            Method.WriteTXT($"Death : {ev?.Killer?.GetInfoPlayer()} Kill {ev?.Killer?.GetInfoPlayer()}---HitInfo : Amout {ev?.HitInfo.Amount}, Attacker {ev?.HitInfo.Attacker},Tool {ev?.HitInfo.Tool},Time {ev?.HitInfo.Time},ItemInHand {ev?.Killer?.ItemInHand.GetInfoItems()}");
+                Method.WriteTXT($"Death : {ev?.Victim?.GetInfoPlayer()} killed by {ev?.Killer?.GetInfoPlayer()} Amout {ev?.Damage}");
             }
             catch (Exception e)
             {
@@ -62,7 +62,7 @@ namespace VTLog
 
         private void PlayerOnDamage(PlayerDamageEventArgs ev)
         {
-            Method.WriteTXT($"Damage ? {ev.Allow} : {ev?.Killer?.GetInfoPlayer()} Damage {ev?.Victim?.GetInfoPlayer()} by {ev.DamageAmount}---HitInfo : Amout {ev?.HitInfo.Amount}, Attacker {ev?.HitInfo.Attacker},Tool {ev?.HitInfo.Tool},Time {ev?.HitInfo.Time},ItemInHand {ev?.Killer?.ItemInHand} ");
+            Method.WriteTXT($"Damage ? {ev.Allow} : {ev?.Victim?.GetInfoPlayer()} attaked by {ev?.Killer?.GetInfoPlayer()} Amout {ev?.Damage}");
         }
 
         private void PlayerOnCuffTarget(PlayerCuffTargetEventArgs ev)

@@ -16,13 +16,13 @@ namespace VTCustomClass.Config
             Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
             Items = new List<SerializedPlayerItem>() 
             { 
-                new SerializedPlayerItem((int)ItemType.KeycardNTFLieutenant, 1, 0, Vector3.one, 100, true), 
+                new SerializedPlayerItem((int)ItemType.KeycardNTFLieutenant, 1, 0, Vector3.one, 100, false), 
                 new SerializedPlayerItem((int)ItemType.GunE11SR, 50, 0, Vector3.one, 100, true),
                 new SerializedPlayerItem((int)ItemType.GunShotgun, 50, 0, Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.Medkit, 1, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.ArmorHeavy, 1, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.Radio, 100, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.GrenadeHE, 1, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.Medkit, 1, 0, Vector3.one, 100, false), 
+                new SerializedPlayerItem((int)ItemType.ArmorHeavy, 1, 0, Vector3.one, 100, false), 
+                new SerializedPlayerItem((int)ItemType.Radio, 100, 0, Vector3.one, 100, false), 
+                new SerializedPlayerItem((int)ItemType.GrenadeHE, 1, 0, Vector3.one, 100, false),
 
             }
         };

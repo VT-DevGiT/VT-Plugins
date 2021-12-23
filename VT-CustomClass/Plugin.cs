@@ -142,7 +142,7 @@ namespace VTCustomClass
         //Pour kill certaint Enti-Cheat
         private void PatchAll()
         {
-            var instance = new Harmony("CustomClass");
+            var instance = new Harmony("VTCustomClass");
             instance.PatchAll();
             Server.Get.Logger.Info("Custom class Harmony Patch done!");
         }

@@ -18,7 +18,7 @@ namespace VTCustomClass.Pouvoir
         Respawn = 4,
         SwitchRole = 5,
         DropSheld = 6,
-        Suicide = 7,
+        kamikaze = 7,
         Zombifaction = 8,
         Defibrillation = 9,
         BadGreen = 10,

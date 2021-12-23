@@ -1,5 +1,6 @@
 ﻿using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
+using VT_Referance.Method;
 
 namespace VT939
 {
@@ -14,13 +15,9 @@ namespace VT939
         private void OnSetClass(PlayerSetClassEventArgs ev)
         {
             if (ev.Role.Is939())
-            {
-                if (ev.Player.gameObject.TryGetComponent(out Scp939Controller customScp939))
-                    customScp939.Kill();
-                ev.Player.gameObject.AddComponent<Scp939Controller>();
-            }
+                ev.Player.GetOrAddComponent<Scp939Controller>();
+            else if (ev.Player.TryGetComponent<Scp939Controller>(out var ctr) && ctr.enabled)
+                ctr.enabled = false;
         }
-
-
     }
 }

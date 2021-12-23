@@ -6,7 +6,7 @@ using System;
 using VT_Referance.Behaviour;
 using VT_Referance.Method;
 
-namespace VT_Referance.Patch.VT_Patch
+namespace VT_Referance.Patch.Event
 {
 
     [HarmonyPatch(typeof(Player), "CustomRole", MethodType.Setter)]
@@ -18,10 +18,9 @@ namespace VT_Referance.Patch.VT_Patch
         {
             try
             {
-                ShieldControler shield = __instance.GetOrAddComponent<ShieldControler>();
-                shield.ShieldLock = false;
-                shield.MaxShield = 100;
-                shield.Shield = 0;
+                if (__instance == null) Server.Get.Logger.Info("Vt-Patch : CustomRole\n__instance == null");
+                if (value != null)
+                    VTController.Server.Events.Player.InvokeSetClassEvent(__instance, __instance.RoleID, value.GetRoleID());
                 return true;
             }
             catch (Exception e)
@@ -41,13 +40,10 @@ namespace VT_Referance.Patch.VT_Patch
         {
             try
             {
+                if (__instance == null) Server.Get.Logger.Error("Vt-Patch : RoleType\n__instance == null");
                 if (__instance.CustomRole == null)
-                {
-                    ShieldControler shield = __instance.GetOrAddComponent<ShieldControler>();
-                    shield.ShieldLock = false;
-                    shield.MaxShield = 100;
-                    shield.Shield = 0;
-                }
+                    VTController.Server.Events.Player.InvokeSetClassEvent(__instance, __instance.RoleID, (int)value);
+
                 return true;
             }
             catch (Exception e)

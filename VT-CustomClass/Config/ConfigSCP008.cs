@@ -6,7 +6,7 @@ namespace VTCustomClass.Config
     public class ConfigSCP008 : AbstractConfigSection
     {
         [Description("The MapPoint where the class should Spawn")]
-        public SerializedMapPoint SpawnPoint = new SerializedMapPoint("HCZ_Room3ar", -1.792f, 1.330017f, -0.004005589f);
+        public SerializedMapPoint SpawnPoint = new SerializedMapPoint("LCZ_012 (12)", 12.0223f, 1.333964f, -0.1024685f);
 
         [Description("The Amount of Health the class have")]
         public int Health = 750;

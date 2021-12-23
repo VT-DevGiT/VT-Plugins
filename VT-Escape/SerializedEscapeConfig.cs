@@ -10,7 +10,7 @@ namespace VTEscape
     [Serializable]
     public class SerializedEscapeConfig
     {
-        public EscapeEnum Escape { get; set; }
+        public EscapeType Escape { get; set; }
         public RoleID Role { get; set; }
         public TeamID Team { get; set; }
         public TeamID CufferTeam { get; set; }
@@ -20,7 +20,7 @@ namespace VTEscape
         public SpawnableTeamType TicketsTem { get; set; }
         public int TicketsAmont { get; set; }
 
-        public SerializedEscapeConfig(EscapeEnum escape, RoleID role, TeamID team, TeamID cufferTeam, RoleID newRole, EscapeEnum ticketsTem = EscapeEnum.NONE, int ticketsAmont = 0, bool startWarHead = false, string escapeMessage = null)
+        public SerializedEscapeConfig(EscapeType escape, RoleID role, TeamID team, TeamID cufferTeam, RoleID newRole, EscapeType ticketsTem = EscapeType.NONE, int ticketsAmont = 0, bool startWarHead = false, string escapeMessage = null)
         {
             Escape = escape;
             Role = role;

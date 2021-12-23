@@ -4,6 +4,7 @@ using Synapse.Api;
 using Synapse.Api.Teams;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using VT_Referance.Method;
 using VT_Referance.Variable;
 
@@ -25,11 +26,11 @@ namespace VT_HammerDown
                 RespawnManager.Singleton.NamingManager.AllUnitNames.Add(new SyncUnit()
                 {
                     SpawnableTeam = 2,
-                    UnitName = Plugin.Config.UnitName.Replace("%RandomName%", Unitname)
+                    UnitName = Regex.Replace(Plugin.Config.UnitName, "%RandomName%", Unitname, RegexOptions.IgnoreCase)
                 });
                 if (!string.IsNullOrWhiteSpace(Plugin.Config.CassieSpawn))
                 {
-                    string SpawnCassie = Plugin.Config.CassieSpawn.Replace("%UnitName%", Unitname.Replace("-", " "));
+                    string SpawnCassie = Regex.Replace(Plugin.Config.CassieSpawn, "%UnitName%", Unitname.Replace("-", " "), RegexOptions.IgnoreCase);
                     Map.Get.GlitchedCassie(SpawnCassie);
                 }
 

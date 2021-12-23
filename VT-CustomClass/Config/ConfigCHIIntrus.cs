@@ -20,9 +20,9 @@ namespace VTCustomClass.Config
             Items = new List<SerializedPlayerItem>() 
             { 
                 new SerializedPlayerItem((int)ItemType.GunCOM18, 18, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.Flashlight, 1, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.Medkit, 1, 0, Vector3.one, 100, true)
+                new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, Vector3.one, 100, false), 
+                new SerializedPlayerItem((int)ItemType.Flashlight, 1, 0, Vector3.one, 100, false), 
+                new SerializedPlayerItem((int)ItemType.Medkit, 1, 0, Vector3.one, 100, false)
             }
         };
 

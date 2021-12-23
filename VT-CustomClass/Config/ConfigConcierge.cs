@@ -19,8 +19,8 @@ namespace VTCustomClass.Config
             Ammo = new SerializedAmmo (0, 0, 0, 0, 0),
             Items = new List<SerializedPlayerItem> ()
             { 
-                new SerializedPlayerItem((int)ItemType.KeycardJanitor, 1, 0, Vector3.one, 100, true), 
-                new SerializedPlayerItem((int)ItemType.Painkillers, 1, 0, Vector3.one, 100, true)
+                new SerializedPlayerItem((int)ItemType.KeycardJanitor, 1, 0, Vector3.one, 100, false), 
+                new SerializedPlayerItem((int)ItemType.Painkillers, 1, 0, Vector3.one, 100, false)
             }
         };
 

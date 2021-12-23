@@ -68,8 +68,9 @@ namespace VT_Referance.Method
         {
             player.RemoveDisplayInfo(PlayerInfoArea.Role);
 
-            RoleType[] roleWithSquad = new RoleType[] { RoleType.FacilityGuard, RoleType.NtfPrivate,
+            var roleWithSquad = new RoleType[] { RoleType.FacilityGuard, RoleType.NtfPrivate,
                     RoleType.NtfSergeant, RoleType.NtfCaptain, RoleType.NtfSpecialist};
+
             if (roleWithSquad.Contains(player.RoleType))
             {
                 player.RemoveDisplayInfo(PlayerInfoArea.UnitName);
@@ -80,6 +81,5 @@ namespace VT_Referance.Method
                 player.DisplayInfo = roleName;
             }
         }
-
     }
 }

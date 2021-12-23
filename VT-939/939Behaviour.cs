@@ -18,31 +18,28 @@ namespace VT939
         private Player player;
         private Scp207 scp207;
         private SinkHole sinkHole;
-        private List<DamageTypes.DamageType> excludedDamages;
+        private List<DamageType> excludedDamages;
         private CoroutineHandle forceSlowDownCoroutine;
         private CoroutineHandle angerMeterDecayCoroutine;
         private const float forceSlowDownInterval = 0.1f;
 
         public float AngerMeter { get; private set; }
 
-        private void BefortStart()
+        private void init()
         {
-            RegisterEvents();
-
             player = gameObject.GetPlayer();
             scp207 = player.Hub.playerEffectsController.GetEffect<Scp207>();
             sinkHole = player.Hub.playerEffectsController.GetEffect<SinkHole>();
-            excludedDamages = new List<DamageTypes.DamageType>()
+            excludedDamages = new List<DamageType>()
             {
-                DamageTypes.Tesla,
-                DamageTypes.Wall,
-                DamageTypes.Nuke,
-                DamageTypes.RagdollLess,
-                DamageTypes.Contain,
-                DamageTypes.Lure,
-                DamageTypes.Recontainment,
-                DamageTypes.Scp207,
-                DamageTypes.None
+                DamageType.Tesla,
+                DamageType.Falldown,
+                DamageType.Nuck,
+                DamageType.Crushed,
+                DamageType.Recontainment,
+                DamageType.Recontainment,
+                DamageType.Scp207,
+                DamageType.Unknown
             };
             AngerMeter = Plugin.Config.StartingAnger;
             sinkHole.slowAmount = Plugin.Config.SlowAmount;
@@ -50,24 +47,24 @@ namespace VT939
 
         protected override void Start()
         {
-            BefortStart();
+            init();
+            base.Start();
+        }
+
+        protected override void OnEnable()
+        {
+            RegisterEvents();
             player.Scale *= Plugin.Config.Size;
 
             if (Plugin.Config.ShowSpawnBroadcastMessage)
             {
                 player.SendBroadcast(Plugin.Config.SpawnBroadcastMessageDuration, string.Format(Plugin.Config.SpawnBroadcastMessage, Plugin.Config.ForceSlowDownTime));
             }
-            base.Start();
+            base.OnEnable();
         }
 
         protected override void BehaviourAction()
         {
-            if (player == null || !player.RoleType.Is939())
-            {
-                OnDestroy();
-                return;
-            }
-
             if (!scp207.enabled && !sinkHole.enabled && Plugin.Config.IsFasterThanHumans)
                 player.GiveEffect(Effect.Scp207);
         }
@@ -76,20 +73,20 @@ namespace VT939
         {
             if (ev.Victim == player)
             {
-                if (ev.HitInfo.Tool != DamageTypes.Scp207)
-                    player.Health += ev.DamageAmount < 0 ? -9999999f : -ev.DamageAmount;
+                if (ev.DamageType != DamageType.Scp207)
+                    player.Health += ev.Damage < 0 ? -9999999f : - ev.Damage;
 
-                if (!excludedDamages.Contains(ev.HitInfo.Tool))
+                if (!excludedDamages.Contains(ev.DamageType))
                 {
-                    AngerMeter += ev.DamageAmount;
+                    AngerMeter += ev.Damage;
                 }
                 else
                 {
-                    ev.DamageAmount = 0;
+                    ev.Damage = 0;
                     return;
                 }
 
-                ev.DamageAmount = 0;
+                ev.Damage = 0;
 
                 if (AngerMeter > Plugin.Config.AngerMeterMaximum)
                     AngerMeter = Plugin.Config.AngerMeterMaximum;
@@ -99,15 +96,15 @@ namespace VT939
                 if (!angerMeterDecayCoroutine.IsRunning)
                     angerMeterDecayCoroutine = Timing.RunCoroutine(AngerMeterDecay(Plugin.Config.AngerMeterDecayTime), Segment.FixedUpdate);
             }
-            else if (ev.Killer == player && ev.DamageAmount > 0)
+            else if (ev.Killer == player && ev.Damage > 0)
             {
-                ev.DamageAmount = Plugin.Config.BaseDamage + (AngerMeter / Plugin.Config.AngerMeterMaximum) * Plugin.Config.BonusAttackMaximum;
+                ev.Damage = Plugin.Config.BaseDamage + (AngerMeter / Plugin.Config.AngerMeterMaximum) * Plugin.Config.BonusAttackMaximum;
 
                 forceSlowDownCoroutine = Timing.RunCoroutine(ForceSlowDown(Plugin.Config.ForceSlowDownTime, forceSlowDownInterval), Segment.FixedUpdate);
             }
         }
 
-        private void OnDestroy()
+        protected override void OnDisable()
         {
             UnregisterEvents();
             KillCoroutines();
@@ -122,6 +119,12 @@ namespace VT939
 
             player.Scale = new Vector3(1, 1, 1);
             player.ArtificialHealth = 0;
+            base.OnDisable();
+        }
+
+        private void OnDestroy()
+        {
+            OnDisable();
             Kill();
         }
 

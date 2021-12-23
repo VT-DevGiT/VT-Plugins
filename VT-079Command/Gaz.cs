@@ -35,14 +35,14 @@ namespace VT079.Command
             if (Map.Get.Nuke.Active)
             {
                 context.Player.Hub.scp079PlayerScript.Mana += 25;
-                result.Message = "You can't gass when the WarHead is active";
+                result.Message = "You can't gaz when the WarHead is active";
                 result.State = CommandResultState.NoPermission;
                 return result;
             }
             if (context.Player.Room == null)
             {
                 context.Player.Hub.scp079PlayerScript.Mana += 25;
-                result.Message = "You can't gass here";
+                result.Message = "You can't gaz here";
                 result.State = CommandResultState.NoPermission;
                 return result;
             }
@@ -52,17 +52,19 @@ namespace VT079.Command
                 result.Message = "Invalide Zone";
             return result;
         }
+        
         private List<MapGeneration.RoomName> grandSalle = new List<MapGeneration.RoomName>() { MapGeneration.RoomName.Hcz106, MapGeneration.RoomName.HczWarhead, MapGeneration.RoomName.Hcz049, MapGeneration.RoomName.EzIntercom };
 
-        private void ChangeDoors(List<Synapse.Api.Door>  doors, bool state)
+        private void ChangeDoors(List<Synapse.Api.Door> doors, bool open, bool locked = true)
         {
             foreach (var door in doors)
             {
-                door.Open = state;
-                door.Locked = true;
+                door.Open = open;
+                door.Locked = locked;
             } 
         }
-    public IEnumerator<float> GasRoom(Room room, Player scp)
+
+        public IEnumerator<float> GasRoom(Room room, Player scp)
         {
             float a2cooldown = Time.timeSinceLevelLoad;
             List<Synapse.Api.Door> doors = room.Doors;
@@ -74,7 +76,7 @@ namespace VT079.Command
             {
                 foreach (var player in Server.Get.Players.Where(p => p.Room == room && p.RoleID != (int)RoleType.Scp079))
                 {
-                    player.SendBroadcast(1, $"The room will be Gassed in {Temps} second(s)", true);
+                    player.SendBroadcast(1, $"The room will be Gazed in {Temps} second(s)", true);
                 }
                 ChangeDoors(doors,true);
                 yield return Timing.WaitForSeconds(1f);
@@ -85,8 +87,7 @@ namespace VT079.Command
                 foreach (var player in Server.Get.Players.Where(p => p.Team != Team.SCP && p.Team != Team.RIP 
                 && p.RoleID != (int)RoleID.NtfVirologue && !p.IsUTR() && p.Room == room))
                 {
-                    
-                    player.Hurt(10, DamageTypes.Decont, player);
+                    player.Hurt(10);
                     player.GiveEffect(Effect.Poisoned, 3, 1);
                     if (player.Health < 35)
                         player.GiveEffect(Effect.SinkHole, 3, 1);
@@ -97,10 +98,7 @@ namespace VT079.Command
                 }
                 yield return Timing.WaitForSeconds(0.5f);
             }
-            foreach (var item in doors)
-            {
-                item.Locked = false;
-            }
+            ChangeDoors(doors, true, false);
         }
 
     }

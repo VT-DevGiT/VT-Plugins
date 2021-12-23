@@ -16,12 +16,12 @@ namespace VTCustomClass.Config
             Ammo = new SerializedAmmo(10, 10, 10, 10, 100),
             Items = new List<SerializedPlayerItem>()
             {
-                new SerializedPlayerItem((int)ItemType.KeycardResearchCoordinator, 1, 0, Vector3.one, 100, true),
+                new SerializedPlayerItem((int)ItemType.KeycardResearchCoordinator, 1, 0, Vector3.one, 100, false),
                 new SerializedPlayerItem((int)ItemType.GunCOM18, 18, 0, Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.Painkillers, 1, 0, Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.Painkillers, 1, 0, Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.Radio, 100, 0, Vector3.one, 100, true),
-                new SerializedPlayerItem((int)ItemType.Flashlight, 1, 0, Vector3.one, 100, true)
+                new SerializedPlayerItem((int)ItemType.Painkillers, 1, 0, Vector3.one, 100, false),
+                new SerializedPlayerItem((int)ItemType.Painkillers, 1, 0, Vector3.one, 100, false),
+                new SerializedPlayerItem((int)ItemType.Radio, 100, 0, Vector3.one, 100, false),
+                new SerializedPlayerItem((int)ItemType.Flashlight, 1, 0, Vector3.one, 100, false)
             }
         };
 

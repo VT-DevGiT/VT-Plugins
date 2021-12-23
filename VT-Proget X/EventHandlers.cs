@@ -44,7 +44,7 @@ namespace VTProget_X
         {
             if (!Plugin.Instance.TeslaEnabled)
                 ev.Trigger = false;
-            else if (Plugin.Config.TeslaTablets && ev.Player.Inventory.Items.FirstOrDefault(p => p.ID == (int)ItemType.Radio && !p.IsCustomItem) != null)
+            else if (Plugin.Config.TeslaRadio && ev.Player.Inventory.Items.FirstOrDefault(p => p.ID == (int)ItemType.Radio && !p.IsCustomItem) != null)
             { 
                 ev.Trigger = false;
                 Tesla tesla = ev.Tesla;

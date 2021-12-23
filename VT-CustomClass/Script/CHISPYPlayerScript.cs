@@ -70,7 +70,10 @@ namespace VTCustomClass.PlayerScript
             if (ev.Victim == Player)
                 Player.ChangeRoleAtPosition(RoleType.ChaosConscript);
             else if (ev.Killer == Player)
-                ev.Victim.OpenReportWindow(Plugin.PluginTranslation.ActiveTranslation.KilledMessage.Replace("%RoleName%", RoleName));
+            {
+                string message = Plugin.PluginTranslation.ActiveTranslation.KilledMessage.Replace( "%RoleName%", RoleName);
+                ev.Victim.OpenReportWindow(message);
+            }
         }
 
     }

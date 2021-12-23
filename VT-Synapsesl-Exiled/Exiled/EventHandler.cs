@@ -55,7 +55,6 @@ namespace VT_MultieLoder.Exiled.Event
             Server.Get.Events.Player.PlayerSetClassEvent += OnPlayerSetClassEvent;
             Server.Get.Events.Player.PlayerShootEvent += OnPlayerShootEvent;
             Server.Get.Events.Player.PlayerSpeakEvent += OnPlayerSpeakEvent;
-            Server.Get.Events.Player.PlayerSyncDataEvent += OnPlayerSyncDataEvent;
             Server.Get.Events.Player.PlayerUncuffTargetEvent += OnPlayerUncuffTargetEvent;
             Server.Get.Events.Player.PlayerUseMicroEvent += OnPlayerUseMicroEvent;
             Server.Get.Events.Player.PlayerWalkOnSinkholeEvent += OnPlayerWalkOnSinkholeEvent;
@@ -602,22 +601,6 @@ namespace VT_MultieLoder.Exiled.Event
             }
         }
 
-        private void OnPlayerSyncDataEvent(PlayerSyncDataEventArgs ev)
-        {
-            try
-            {
-                /*var arg = new SyncingDataEventArgs(ev.Player.ToExiled(), ev.Player.AnimationController.an, ev.Player.AnimationController., ev.Allow);
-
-                PlayerHandlers.OnSyncingData(arg);
-
-                ev.Allow = arg.IsAllowed;*/
-            }
-            catch (Exception e)
-            {
-                Server.Get.Logger.Error($"SyncDataEventCall fail ! \n{e.Message}");
-            }
-        }
-
         private void OnPlayerSpeakEvent(PlayerSpeakEventArgs ev)
         {
 
@@ -881,7 +864,7 @@ namespace VT_MultieLoder.Exiled.Event
         {
             try
             {
-                PlayerHandlers.OnDied(new DiedEventArgs(ev.Killer.ToExiled(), ev.Victim.ToExiled(), ev.HitInfo));
+                //PlayerHandlers.OnDied(new DiedEventArgs(ev.Victim.ToExiled()));
             }
             catch (Exception e)
             {
@@ -898,9 +881,9 @@ namespace VT_MultieLoder.Exiled.Event
         {
             try
             {
-                var arg = new HurtingEventArgs(ev.Killer.ToExiled(), ev.Victim.ToExiled(), ev.HitInfo, ev.Allow);
+/*                var arg = new HurtingEventArgs(ev.Killer.ToExiled(), ev.Victim.ToExiled(), ev.HitInfo, ev.Allow);
                 
-                PlayerHandlers.OnHurting(arg);    
+                PlayerHandlers.OnHurting(arg);    */
             }
             catch (Exception e)
             {

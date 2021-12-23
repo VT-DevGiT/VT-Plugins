@@ -3,6 +3,7 @@ using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events;
 using Synapse.Api.Events.SynapseEventArguments;
+using Synapse.Api.Items;
 using System;
 using System.Reflection;
 using VT_Referance.Event.EventArguments;
@@ -14,9 +15,9 @@ namespace VT_Referance.Patch.Event
     [HarmonyPatch(typeof(PlayerEvents), "InvokePlayerDamageEvent")]
     class SynapseDamagePatch
     {
-        private static void BaseEvent(PlayerEvents source, PlayerDamageEventArgs ev)
+        private static void BaseEvent(PlayerEvents source, string eventName, object[] parameters)
         {
-            var eventsField = typeof(PlayerEvents).GetField("PlayerDamageEvent", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            var eventsField = typeof(PlayerEvents).GetField(eventName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             if (eventsField != null)
             {
                 object eventHandlerList = eventsField.GetValue(source);
@@ -25,13 +26,10 @@ namespace VT_Referance.Patch.Event
                     var my_event_invoke = eventHandlerList.GetType().GetMethod("Invoke");
                     if (my_event_invoke != null)
                     {
-                        my_event_invoke.Invoke(eventHandlerList, new object[] { ev });
+                        my_event_invoke.Invoke(eventHandlerList, parameters);
                     }
                 }
-                else
-                {
-                    //Server.Get.Logger.Error("Vt-Event: PlayerDamagePost failed!! \n eventHandlerList null");
-                }
+                else Server.Get.Logger.Error("Vt-Event: PlayerDamagePost failed!! \n eventHandlerList null");
             }
             else
             {
@@ -39,21 +37,24 @@ namespace VT_Referance.Patch.Event
             }
         }
         [HarmonyPrefix]
-        private static bool DamageEventPatch(PlayerEvents __instance, Player victim, Player killer, ref PlayerStats.HitInfo info, out bool allow)
+        private static bool DamageEventPatch(PlayerEvents __instance, Player victim, Player killer, ref float damage, ItemType weaponType, SynapseItem weapon, out bool allow)
         {
             try
             {
                 var ev = new PlayerDamageEventArgs
                 {
-                    HitInfo = info,
+                    DamageAmount = damage,
                 };
                 ev.SetProperty<Player>("Killer", killer);
                 ev.SetProperty<Player>("Victim", victim);
+                ev.SetProperty<SynapseItem>("Weapon", weapon);
+                ev.SetProperty<SynapseItem>("WeaponType", weaponType);
 
-                BaseEvent(__instance, ev);
-                info = ev.HitInfo;
+                BaseEvent(__instance, "PlayerDamageEvent", new object[] { ev });
+                damage = ev.DamageAmount;
                 allow = ev.Allow;
-                VTController.Server.Events.Player.InvokePlayerDamagePostEvent(victim, killer, ref info, ref allow);
+
+                VTController.Server.Events.Player.InvokePlayerDamagePostEvent(victim, killer, ref damage, weaponType, weapon);
                 return false;
             }
             catch (Exception e)

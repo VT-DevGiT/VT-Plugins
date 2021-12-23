@@ -34,7 +34,7 @@ namespace VTCustomClass.PlayerScript
 
         public override bool CallPower(int power)
         {
-            if (power == (int)PowerType.Suicide && (DateTime.Now - coolDown).TotalSeconds > 30)
+            if (power == (int)PowerType.kamikaze && (DateTime.Now - coolDown).TotalSeconds > 30)
             {
                 Server.Get.Map.SpawnGrenade(Player.Position, Vector3.zero, 0.1f, GrenadeType.Grenade, Player);
                 Player.Kill(DamageTypes.Grenade);
@@ -59,7 +59,7 @@ namespace VTCustomClass.PlayerScript
         private void OnKeyPress(PlayerKeyPressEventArgs ev)
         {
             if (ev.Player == Player && ev.KeyCode == KeyCode.Alpha1)
-                CallPower((int)PowerType.Suicide);
+                CallPower((int)PowerType.kamikaze);
 
         }
 
