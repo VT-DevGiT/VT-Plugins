@@ -7,7 +7,7 @@ VT plugins are plugins for SCP sl servers under the [synapse loader](https://git
 3. Place the dll file in your plugin directory.
 4. Restart/Start your server.
 
-All dll can be download [here](https://github.com/Fondation-Azarus/Azarus-Plugins/releases) 
+All dll can be download [here](https://github.com/VT-DevGiT/VT-Plugins/releases) 
 
 Waring :
 for Vt-079Command you need the plugin [Scp 079 Rework](https://github.com/SynapseSL/Scp079Rework) and VT-079. Place Vt-079Command in Scp079Rework folder.
