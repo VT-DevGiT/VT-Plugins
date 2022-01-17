@@ -15,7 +15,7 @@ for Vt-079Command you need the plugin [Scp 079 Rework](https://github.com/Synaps
 ## Credits
 ### Devloppeurs :
 * Warkis ([warquys@GitHub](https://github.com/warquys))
-* Antonio ([Antoniofo@GitHub](https://github.com/orgs/VT-DevGiT/people/Antoniofo))
+* Antonio ([Antoniofo@GitHub](https://github.com/Antoniofo))
 * Meliodas ([MeliodasDeadly@GitHub](https://github.com/MeliodasDeadly))
 
 ### Original Plugin : 
