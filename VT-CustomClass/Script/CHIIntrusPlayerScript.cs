@@ -1,19 +1,21 @@
 ﻿using Synapse;
 using Synapse.Config;
 using System.Collections.Generic;
-using VT_Referance.PlayerScript;
-using VT_Referance.Variable;
-using static VT_Referance.Variable.Data;
+using System.Linq;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class CHIIntrusScript : BasePlayerScript
+    public class CHIIntrusScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => TeamGroupe.CHIenemy;
+        protected override List<int> EnemysList => TeamManager.Group.CHIenemy.ToList();
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.CHIally;
+        protected override List<int> FriendsList => TeamManager.Group.CHIally.ToList();
 
         protected override RoleType RoleType => RoleType.ChaosRifleman;
 
@@ -21,10 +23,10 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.ChaosIntrus;
 
-        protected override string RoleName => Plugin.ConfigCHIntrus.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.IntruderName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigCHIntrus;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.IntruderConfig;
 
-        protected override bool SetDisplayInfo => false;
+        public override void SetDisplayInfo() { }
     }
 }

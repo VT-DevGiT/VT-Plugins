@@ -36,10 +36,10 @@
       <HintPath>..\packages\Lib.Harmony.2.1.1\lib\net472\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.2.8.1\lib\net472\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.2.8.1\lib\net472\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="DissonanceVoip-Publicized">
       <HintPath>..\lib\DissonanceVoip-Publicized.dll</HintPath>
@@ -48,13 +48,13 @@
       <HintPath>..\packages\LiteDB.5.0.11\lib\net45\LiteDB.dll</HintPath>
     </Reference>
     <Reference Include="Mirror, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\Mirror.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.2.8.1\lib\net472\Mirror.dll</HintPath>
     </Reference>
     <Reference Include="NorthwoodLib-Publicized">
       <HintPath>..\lib\NorthwoodLib-Publicized.dll</HintPath>
     </Reference>
-    <Reference Include="Synapse, Version=2.7.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\Synapse.dll</HintPath>
+    <Reference Include="Synapse, Version=2.8.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SynapseSL.2.8.1\lib\net472\Synapse.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -69,7 +69,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\UnityEngine.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.2.8.1\lib\net472\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>E:\Games\SteamLibrary\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\UnityEngine.AIModule.dll</HintPath>
@@ -81,10 +81,10 @@
       <HintPath>E:\Games\SteamLibrary\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.2.8.1\lib\net472\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.2.8.1\lib\net472\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="VoiceChatManager.Core">
       <HintPath>..\lib\VoiceChatManager.Core.dll</HintPath>
@@ -99,6 +99,7 @@
     <Compile Include="Behaviour\NpcControlMouvement.cs" />
     <Compile Include="Event\SynapseGroupe.cs" />
     <Compile Include="Method\Config Extension.cs" />
+    <Compile Include="Method\Other Extentsion.cs" />
     <Compile Include="Method\Room Extension.cs" />
     <Compile Include="Patch\Event\Scp914InteractPatch.cs" />
     <Compile Include="Patch\Event\DestroyHubPatch.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Patch\VT-Patch\RemoveEverythingExceedingLimitsPatch.cs" />
     <Compile Include="Patch\VT-Patch\VoiceChat.cs" />
     <Compile Include="Script\ItemScript\ItemInformation.cs" />
+    <Compile Include="Script\PrimitiveObjectScript\PrimitiveObjectScript.cs" />
     <Compile Include="Variable\LayerID.cs" />
     <Compile Include="VTController.cs" />
     <Compile Include="Script\ItemScript\BaseWeaponScript.cs" />
@@ -157,7 +159,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DissonanceManager\" />

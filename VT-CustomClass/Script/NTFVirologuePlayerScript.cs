@@ -1,21 +1,22 @@
 ﻿using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
-using System;
 using System.Collections.Generic;
-using VT_Referance.PlayerScript;
-using VT_Referance.Variable;
-using static VT_Referance.Variable.Data;
+using System.Linq;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class NTFVirologueScript : BasePlayerScript
+    public class NTFVirologueScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => TeamGroupe.MTFenemy;
+        protected override List<int> EnemysList => TeamManager.Group.MTFenemy.ToList();
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.MTFally;
+        protected override List<int> FriendsList => TeamManager.Group.MTFally.ToList();
 
         protected override RoleType RoleType => RoleType.NtfSergeant;
 
@@ -23,30 +24,19 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.NtfVirologue;
 
-        protected override string RoleName => Plugin.ConfigNTFVirologue.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.VirologueName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigNTFVirologue;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.VirologueConfig;
 
-        protected override void Event()
+        protected override void InitEvent()
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnDammage;
         }
 
-        protected override void AditionalInit()
+        private static void OnDammage(PlayerDamageEventArgs ev)
         {
-            if (Player.UserId == "76561198880515778@steam")
-                Player.DisplayInfo = $"Agent du CDA(Virologue) {Player.UnitName}";
-        }
-        public override void DeSpawn()
-        {
-            base.DeSpawn();
-            Server.Get.Events.Player.PlayerDamageEvent -= OnDammage;
-        }
-
-        private void OnDammage(PlayerDamageEventArgs ev)
-        {
-            if (ev.Killer == Player)
-                ev.ChemicalBullet(Player);
+            if (ev.Killer?.CustomRole is NTFVirologueScript)
+                ev.ChemicalBullet();
         }
     }
 }

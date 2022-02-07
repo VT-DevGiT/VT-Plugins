@@ -1,14 +1,15 @@
 ﻿using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
-using VT_Referance.Behaviour;
+using VT_Api.Core.Behaviour;
 
 namespace VTCustomClass.Pouvoir
 {
-    class MouveVent : BaseRepeatingBehaviour
+    class MouveVent : RepeatingBehaviour
     {
         private Player player;
         public int duraction = -1;
+        public bool cantAtackAndKeepInviblity = false;
 
         protected override void Start()
         {
@@ -18,63 +19,61 @@ namespace VTCustomClass.Pouvoir
             base.Start();
         }
 
-        protected override void OnDisable()
-        {
-            UnRegisterEvents();
-            base.OnDisable();
-        }
-
         protected override void BehaviourAction()
         {
             if (duraction > 0)
             {
-                string message = Plugin.PluginTranslation.ActiveTranslation.VentMessage.Replace("%Time%", duraction.ToString());
+                string message = Plugin.Instance.Translation.ActiveTranslation.VentMessage.Replace("%Time%", duraction.ToString());
                 player.SendBroadcast(1, message);
                 duraction--;
             }
             else if (duraction < 0)
             {
-                player.BroadcastMessage(Plugin.PluginTranslation.ActiveTranslation.NoTimeVentMessage, 1);
+                player.BroadcastMessage(Plugin.Instance.Translation.ActiveTranslation.NoTimeVentMessage, 1);
             }
-            else
-                Kill();
+            else Kill();
         }
-        private void OnDoorInteract(DoorInteractEventArgs ev)
+
+        public override void Kill()
         {
-            if (ev.Player == player && isActiveAndEnabled)
-            {
+            player.Invisible = false;
+            base.Kill();
+        }
+
+        private static void OnDoorInteract(DoorInteractEventArgs ev)
+        {
+            if (ev.Player.GetComponent<RepeatingBehaviour>()?.isActiveAndEnabled ?? false)
                 ev.Allow = false;
                 ev.Player.Position += (ev.Player.gameObject.transform.forward * 1.5f);
-            }
         }
 
-        private void OnPickUpItem(PlayerPickUpItemEventArgs ev)
+        private static void OnPickUpItem(PlayerPickUpItemEventArgs ev)
         {
-            if (ev.Player == player && isActiveAndEnabled)
-            {
+            if (ev.Player.GetComponent<RepeatingBehaviour>()?.isActiveAndEnabled ?? false)
                 ev.Allow = false;
-            }
         }
 
-        private void OnDamage(PlayerDamageEventArgs ev)
+        private static void OnDamage(PlayerDamageEventArgs ev)
         {
-            if (ev.Victim == player && isActiveAndEnabled)
-            {
+            if (ev.Victim.GetComponent<RepeatingBehaviour>()?.isActiveAndEnabled ?? false)
                 ev.Allow = false;
-            }
+
+            MouveVent bh = ev.Killer?.GetComponent<MouveVent>();
+            
+            if (bh?.isActiveAndEnabled ?? false && !bh.cantAtackAndKeepInviblity)
+                bh.Kill();
         }
 
-        private void UnRegisterEvents()
-        {
-            Server.Get.Events.Map.DoorInteractEvent -= OnDoorInteract;
-            Server.Get.Events.Player.PlayerPickUpItemEvent -= OnPickUpItem;
-            Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
-        }
+        private static bool _firstInit = true;
+
         private void RegisterEvents()
         {
+            if (!_firstInit)
+                return;
             Server.Get.Events.Map.DoorInteractEvent += OnDoorInteract;
             Server.Get.Events.Player.PlayerPickUpItemEvent += OnPickUpItem;
             Server.Get.Events.Player.PlayerDamageEvent += OnDamage;
+            _firstInit = false;
         }
     }
 }

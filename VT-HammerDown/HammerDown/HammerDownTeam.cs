@@ -5,8 +5,8 @@ using Synapse.Api.Teams;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using VT_Referance.Method;
-using VT_Referance.Variable;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Teams;
 
 namespace VT_HammerDown
 {
@@ -14,52 +14,36 @@ namespace VT_HammerDown
         ID = (int)TeamID.CDM,
         Name = "HammerDown"
         )]
-    public class HammerDownTeam : SynapseTeam
+    public class HammerDownTeam : AbstractTeam
     {
-        public override void Spawn(List<Player> players)
-        {            
-            if (Plugin.Config.SpawnSize != 0 && players.Count > Plugin.Config.SpawnSize)
-                players = players.GetRange(0, Plugin.Config.SpawnSize);
-            if (players.Any())
+        public override List<RespawnRoleInfo> Roles { get; set; }
+
+        public override string GetNewUniteName()
+        {
+            string unitName = VtController.Get.Team.GenerateNtfUnitName();
+            RespawnManager.Singleton.NamingManager.AllUnitNames.Add(new SyncUnit()
             {
-                string Unitname = Methods.GenerateNtfUnitName();
-                RespawnManager.Singleton.NamingManager.AllUnitNames.Add(new SyncUnit()
-                {
-                    SpawnableTeam = 2,
-                    UnitName = Regex.Replace(Plugin.Config.UnitName, "%RandomName%", Unitname, RegexOptions.IgnoreCase)
-                });
-                if (!string.IsNullOrWhiteSpace(Plugin.Config.CassieSpawn))
-                {
-                    string SpawnCassie = Regex.Replace(Plugin.Config.CassieSpawn, "%UnitName%", Unitname.Replace("-", " "), RegexOptions.IgnoreCase);
-                    Map.Get.GlitchedCassie(SpawnCassie);
-                }
+                SpawnableTeam = 2,
+                UnitName = Regex.Replace(Plugin.Config.UnitName, "%RandomName%", unitName, RegexOptions.IgnoreCase)
+            });
+            return unitName;
+        }
 
-                //random Commander
-                int chance = players.Count() > 1? UnityEngine.Random.Range(0, players.Count() - 1) : 0;
-                var commander = players[chance];
-                commander.RoleID = (int)RoleID.CdmCommander;
-                commander.UnitName = Unitname;
-                players.Remove(commander);
+        public override string GetSpawnAnnonce(string uniteName)
+        {
+            if (!string.IsNullOrWhiteSpace(Plugin.Config.CassieSpawn))
+                return Regex.Replace(Plugin.Config.CassieSpawn, "%UnitName%", uniteName.Replace("-", " "), RegexOptions.IgnoreCase);
+            return "";
+        }
 
-                // Spawn lieutenant
-                int nbLieu = 0;
-                while (players.Any() && nbLieu < Plugin.ConfigHammerDownLieutenant.MaxRespawn)
-                {
-                    int chanceLieu = UnityEngine.Random.Range(0, players.Count() - 1);
-                    var lieutenant = players[chanceLieu];
-                    lieutenant.RoleID = (int)RoleID.CdmLieutenant;
-                    lieutenant.UnitName = Unitname;
-                    players.Remove(lieutenant);
-                    nbLieu++;
-                }
-
-                //For all last player
-                foreach(var player in players)
-                {
-                    player.RoleID = (int)RoleID.CdmCadet;
-                    player.UnitName = Unitname;
-                }
-            }
+        public override void Initialise()
+        {
+            Roles = new List<RespawnRoleInfo>()
+            {
+                new RespawnRoleInfo((int)RoleID.CdmCommander, 2, 1),
+                new RespawnRoleInfo((int)RoleID.CdmLieutenant, 1, Plugin.ConfigHammerDownLieutenant.MaxRespawn),
+                new RespawnRoleInfo((int)RoleID.CdmCadet),
+            }; 
         }
     }
 }

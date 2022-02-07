@@ -1,7 +1,7 @@
 ﻿using Synapse.Config;
 using System.Collections.Generic;
 using System.ComponentModel;
-using VT_Referance.Variable;
+using VT_Api.Core.Enum;
 
 namespace VT079
 {

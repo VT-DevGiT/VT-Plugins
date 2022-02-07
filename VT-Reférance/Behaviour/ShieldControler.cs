@@ -11,7 +11,7 @@ using VT_Referance.Variable;
 namespace VT_Referance.Behaviour
 {
     [API]
-    [Obsolete("Do a Rework using Module")]
+    [Obsolete("Do a Rework using Module", false)]
     public class ShieldControler : NetworkBehaviour
     {
         static bool IsPatch = false;
@@ -52,15 +52,15 @@ namespace VT_Referance.Behaviour
 /*        private void OnDamage(PlayerDamagePostEventArgs ev)
         {
             DamageTypes.DamageType damageType = ev.HitInfo.Tool;
-            if (damageType == null || ev.DamageAmount == 0) return;
+            if (damageType == null || ev.Damage == 0) return;
 
             if (Shield != 0 && ev?.Victim == player && ev.Allow 
                 && (damageType?.Weapon != ItemType.None || damageType?.Scp != RoleType.None || damageType == DamageTypes.Grenade))
             {
-                int damge = 2*((int)ev.DamageAmount / 3);
+                int damge = 2*((int)ev.Damage / 3);
                 damge = Mathf.Clamp(damge, 0, Shield);
                 Shield -= damge;
-                ev.DamageAmount -= damge;
+                ev.Damage -= damge;
             }
         }
 */

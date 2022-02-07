@@ -1,23 +1,22 @@
-﻿using Synapse.Api;
+﻿using CustomPlayerEffects;
+using InventorySystem.Items.Firearms;
+using InventorySystem.Items.Firearms.Modules;
+using PlayerStatsSystem;
+using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using VT_Referance.ItemScript;
-using VT_Referance.Variable;
-using VT_Referance.Method;
-using VT_Referance.Behaviour;
-using CustomPlayerEffects;
-using InventorySystem.Items;
-using InventorySystem.Items.Firearms;
-using InventorySystem.Items.Firearms.Modules;
-using PlayerStatsSystem;
+using VT_Api.Core.Behaviour;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Items;
+using VT_Api.Extension;
 
 namespace VT_Item.Item
 {
-    [ItemInformation(ID = 200, ItemType = ItemType.GunLogicer, Name = "MiniGun")]
-    class MiniGunScript : BaseWeaponScript
+    [VtItemInformation(ID = 200, BasedItemType = ItemType.GunLogicer, Name = "MiniGun")]
+    class MiniGunScript : AbstractWeapon
     {
         #region Attributes & Properties
         static Dictionary<Player, DateTime> StartShoot = new Dictionary<Player, DateTime>();
@@ -31,7 +30,7 @@ namespace VT_Item.Item
 
         #region Methods
 
-        protected override void Reload(PlayerReloadEventArgs ev) 
+        protected override  void Reload(PlayerReloadEventArgs ev) 
         {
             ev.Item.Durabillity = ev.Player.AmmoBox[AmmoType.Ammo762x39];
         }
@@ -110,7 +109,7 @@ namespace VT_Item.Item
         private int MultiShoot(Player player, Synapse.Api.Items.SynapseItem Weapon)
         {
 
-            player.PlayerInteract.CallMethod("OnInteract");
+            player.PlayerInteract.OnInteract();
 
             int bullets = Plugin.MiniGunConfig.bullets;
             if (Weapon.Durabillity <= bullets)
@@ -164,7 +163,7 @@ namespace VT_Item.Item
             return bullets;
         }
 
-        private class MinGunPlayerScript : BaseRepeatingBehaviour
+        private class MinGunPlayerScript : RepeatingBehaviour
         {
             private Player player;
 

@@ -9,10 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
+using System.Text.RegularExpressions;
 using UnityEngine;
-using VT_Referance.Method;
-using VT_Referance.Variable;
+using VT_Api.Core.Enum;
+using VT_Api.Extension;
 
 namespace VTProget_X
 {
@@ -34,7 +34,7 @@ namespace VTProget_X
             }
             while (AlertTime > 0)
             {
-                Methods.PlayAmbientSound(7);
+                Map.Get.PlayAmbientSound(7);
                 AlertTime--;
                 yield return Timing.WaitForSeconds(1f);
             }
@@ -42,13 +42,13 @@ namespace VTProget_X
             WaitForStart += 5;
             while (WaitForStart > 0)
             {
-                Methods.PlayAmbientSound(5);
+                Map.Get.PlayAmbientSound(5);
                 WaitForStart--;
                 yield return Timing.WaitForSeconds(1f);
             }
             Map.Get.GlitchedCassie($"Light Containment Zone is locked down and ready for decontamination .");
-            Server.Get.Map.Decontamination?.CallMethod("InstantStart");
-            Server.Get.Map.Decontamination?.Controller?.CallMethod("FinishDecontamination");
+            Server.Get.Map.Decontamination?.InstantStart();
+            Server.Get.Map.Decontamination?.Controller?.FinishDecontamination();
             yield break;
         }
         public static float TimeLeftDecon()
@@ -101,9 +101,9 @@ namespace VTProget_X
                     ? (int)Mathf.Clamp(AlphaWarheadController.Host.timeToDetonation - RoundSummary.roundTime, 0, AlphaWarheadController.Host.timeToDetonation)
                     : -1;
                 nextRespawnTime = (int)Math.Truncate(RespawnManager.CurrentSequence() == RespawnManager.RespawnSequencePhase.RespawnCooldown
-                    ? RespawnManager.Singleton.GetFieldValueorOrPerties<float>("_timeForNextSequence") - RespawnManager.Singleton.GetFieldValueorOrPerties<Stopwatch>("_stopwatch").Elapsed.TotalSeconds
+                    ? RespawnManager.Singleton._timeForNextSequence - RespawnManager.Singleton._stopwatch.Elapsed.TotalSeconds
                     : 0);
-                isContain = PlayerManager.localPlayer.GetComponent<CharacterClassManager>().GetFieldValueorOrPerties<LureSubjectContainer>("_lureSpj").allowContain;
+                isContain = PlayerManager.localPlayer.GetComponent<CharacterClassManager>()._lureSpj.allowContain;
                 isAlreadyUsed = OneOhSixContainer.used;
                 leftdecont = Mathf.Clamp(leftdecont, 0, leftdecont);
                 #endregion
@@ -117,13 +117,13 @@ namespace VTProget_X
                 #endregion
 
                 #region DecontaMessage
-                if (Methods.GetVoltage() < 100)
+                if (Map.Get.GetVoltage() < 100)
                     DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageNotEnoughEnergy;
                 else
                 {
-                    if (DecontaminationController.Singleton.GetFieldValueorOrPerties<int>("_nextPhase") != 0)
+                    if (DecontaminationController.Singleton._nextPhase != 0)
                         DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageReady;
-                    else if (DecontaminationController.Singleton.GetFieldValueorOrPerties<int>("_nextPhase") == DecontaminationController.Singleton.DecontaminationPhases.Length - 1)
+                    else if (DecontaminationController.Singleton._nextPhase == DecontaminationController.Singleton.DecontaminationPhases.Length - 1)
                         DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageInProgress;
                     else
                         DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageFinished;
@@ -184,7 +184,7 @@ namespace VTProget_X
                 #endregion
 
                 #region GeneratorVoltage
-                Voltage = Methods.GetVoltage();
+                Voltage = Map.Get.GetVoltage();
                 #endregion
 
                 #region SCP106Message
@@ -221,22 +221,22 @@ namespace VTProget_X
                 switch (screen)
                 {
                     case screenEnum.GeneralInfo:
-                        ScreenMessage = Plugin.PluginTranslation.ActiveTranslation.IntercomGeneralInformation
-                            .Replace("\\n", "\n")
-                            .Replace("%RoundTime%", roundTime)
-                            .Replace("%nSCP%", nSCP.ToString())
-                            .Replace("%nCDP%", nCDP.ToString())
-                            .Replace("%nRSC%", nRSC.ToString())
-                            .Replace("%nVIP%", nVIP.ToString())
-                            .Replace("%nMTF%", nFIM.ToString())
-                            .Replace("%TotalVoltage%", Voltage.ToString())
-                            .Replace("%AlfaWarheadStatut%", AlfaWarheadMessage)
-                            .Replace("%Tesla%", TeslaMessage)
-                            .Replace("%IsContain%", SCP106Message)
-                            .Replace("%DecontMessage%", DecontMessage)
-                            .Replace("%DecontTime%", DecontTime.ToString())
-                            .Replace("%RespawnMessage%", RespawnMessage)
-                            .Replace("%IntercomStatue%", IntercomStatueMessage);
+                        ScreenMessage = Plugin.PluginTranslation.ActiveTranslation.IntercomGeneralInformation;
+                        ScreenMessage = Regex.Replace(ScreenMessage, "\\n", "\n", RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%RoundTime%", roundTime, RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%nSCP%", nSCP.ToString(), RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%nCDP%", nCDP.ToString(), RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%nRSC%", nRSC.ToString(), RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%nVIP%", nVIP.ToString(), RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%nMTF%", nFIM.ToString(), RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%TotalVoltage%", Voltage.ToString(), RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%AlfaWarheadStatut%", AlfaWarheadMessage, RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%Tesla%", TeslaMessage, RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%IsContain%", SCP106Message, RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%DecontMessage%", DecontMessage, RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%DecontTime%", DecontTime.ToString(), RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%RespawnMessage%", RespawnMessage, RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%IntercomStatue%", IntercomStatueMessage, RegexOptions.IgnoreCase);
                         Map.Get.IntercomText = ScreenMessage;
                         break;
 

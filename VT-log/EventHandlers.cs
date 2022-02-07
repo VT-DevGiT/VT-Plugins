@@ -52,7 +52,7 @@ namespace VTLog
         {   
             try
             { 
-                Method.WriteTXT($"Death : {ev?.Victim?.GetInfoPlayer()} killed by {ev?.Killer?.GetInfoPlayer()} Amout {ev?.Damage}");
+                Method.WriteTXT($"Death : {ev?.Victim?.GetInfoPlayer()} killed by {ev?.Killer?.GetInfoPlayer()} -- {ev?.DamageType}");
             }
             catch (Exception e)
             {

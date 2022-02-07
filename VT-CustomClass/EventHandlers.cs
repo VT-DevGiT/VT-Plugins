@@ -1,24 +1,37 @@
-﻿using VTCustomClass.PlayerScript;
-using Synapse;
+﻿using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using VT_Referance.Variable;
+using VT_Api.Core.Enum;
 
 namespace VTCustomClass
 {
     public class EventHandlers
     {
+        public List<Player> RespawnPlayer = new List<Player>();
+        public int[] VanilaScpID = { (int)RoleType.Scp049,   (int)RoleType.Scp0492, (int)RoleType.Scp079, 
+                                     (int)RoleType.Scp096,   (int)RoleType.Scp106,  (int)RoleType.Scp173, 
+                                     (int)RoleType.Scp93953, (int)RoleType.Scp93989 };
+
+        public Dictionary<int, int> RoleIDSpawned = new Dictionary<int, int>();
+        public Dictionary<int, int> RoleIDTotalSpawned = new Dictionary<int, int>();
+
         public EventHandlers()
         {
             Server.Get.Events.Round.SpawnPlayersEvent += OnSpawn;
             Server.Get.Events.Round.TeamRespawnEvent += OnReSpawn;
+            Server.Get.Events.Round.RoundRestartEvent += OnRestart;
             Server.Get.Events.Player.PlayerSetClassEvent += OnClass;
             Server.Get.Events.Server.TransmitPlayerDataEvent += OnTransmitPlayerData;
-            Server.Get.Events.Round.RoundRestartEvent += () => Data.PlayerRole.Clear();
         }
-        
+
+        private void OnRestart()
+        {
+            RoleIDTotalSpawned.Clear();
+        }
+
         private void OnTransmitPlayerData(TransmitPlayerDataEventArgs ev)
         {
             if (ev.PlayerToShow == ev.Player)
@@ -38,65 +51,108 @@ namespace VTCustomClass
                     ev.Invisible = false;
             }
         }
-        
-        private void OnClass(PlayerSetClassEventArgs ev)
-        {
-            Data.PlayerRole[ev.Player] = (int)ev.Role;
-            if (RespawnPlayer.Contains(ev.Player))
-            {
-                ev.SpawnRole(RoleType.ChaosRifleman, new CHILeaderScript());
-                ev.SpawnRole(RoleType.ChaosRifleman, new CHIHackerScript());
-                ev.SpawnRole(RoleType.ChaosRifleman, new CHIExpertPyrotechnieScript());
-                ev.SpawnRole(RoleType.ChaosRifleman, new CHIInfirmierScript());
-                ev.SpawnRole(RoleType.ChaosMarauder, new CHIKamikazeScript());
-                ev.SpawnRole(RoleType.ChaosRepressor, new CHIMastodonteScript());
-                ev.SpawnRole(RoleType.NtfPrivate, new CHISPYScript());
-                ev.SpawnRole(RoleType.NtfPrivate, new NTFCommanderScript());
-                ev.SpawnRole(RoleType.NtfPrivate, new NTFLieutenantScript());
-                ev.SpawnRole(RoleType.NtfSergeant, new NTFExpertPyrotechnieScript());
-                ev.SpawnRole(RoleType.NtfSergeant, new NTFExpertReconfinementScript());
-                ev.SpawnRole(RoleType.NtfSergeant, new NTFInfirmierScript());
-                ev.SpawnRole(RoleType.NtfSergeant, new NTFVirologueScript());
-                RespawnPlayer.Remove(ev.Player);
-            }
-        }
-
-        public static List<Player> RespawnPlayer = new List<Player>();
 
         private void OnReSpawn(TeamRespawnEventArgs ev)
         {
+            RoleIDTotalSpawned.Clear();
             RespawnPlayer.Clear();
-            Plugin.Instance.RespawnedPlayer.Clear();
             RespawnPlayer.AddRange(ev.Players);
+        }
+
+        private void OnClass(PlayerSetClassEventArgs ev)
+        {
+            if (RespawnPlayer.Contains(ev.Player))
+            {
+                var possiblesRoles = Plugin.Instance.Config.RespawnClassConfig.Where(r => r.ReplaceRoleID == (int)ev.Role);
+
+                foreach(var possibleRole in possiblesRoles)
+                {
+                    if ((0 < possibleRole.MaxRequiredPlayersInGame && Server.Get.PlayersAmount > possibleRole.MaxRequiredPlayersInGame) ||
+                        (0 < possibleRole.MinRequiredPlayersInGame && Server.Get.PlayersAmount < possibleRole.MinRequiredPlayersInGame) ||
+                        (0 < possibleRole.MaxRequiredPlayers && Server.Get.PlayersAmount > possibleRole.MaxRequiredPlayers) ||
+                        (0 < possibleRole.MinRequiredPlayers && Server.Get.PlayersAmount < possibleRole.MinRequiredPlayers))
+                        continue;
+
+                    if (possibleRole.SpawnChance >= UnityEngine.Random.Range(1, 100) &&
+                        (!RoleIDSpawned.ContainsKey(possibleRole.RoleID) || RoleIDSpawned[possibleRole.RoleID] > possibleRole.MaxPerRespawn) &&
+                        (!RoleIDTotalSpawned.ContainsKey(possibleRole.RoleID) || RoleIDTotalSpawned[possibleRole.RoleID] > possibleRole.MaxRespawn) &&
+                        (possibleRole.MinRequiredPlayers < 0 ||true /*TODO: Faire un teste sur le max player*/) &&
+                        (possibleRole.MinRequiredPlayersInGame < 0 || possibleRole.MinRequiredPlayersInGame <= Server.Get.PlayersAmount) &&
+                        (possibleRole.MaxRequiredPlayersInGame < 0 || possibleRole.MaxRequiredPlayersInGame >= Server.Get.PlayersAmount))
+                    {
+                        ev.Player.RoleID = possibleRole.RoleID;
+                        
+                        if (RoleIDSpawned.ContainsKey(possibleRole.RoleID))
+                            RoleIDSpawned.Add(possibleRole.RoleID, 1);
+                        else
+                            RoleIDSpawned[possibleRole.RoleID]++;
+
+                        if (RoleIDTotalSpawned.ContainsKey(possibleRole.RoleID))
+                            RoleIDTotalSpawned.Add(possibleRole.RoleID, 1);
+                        else
+                            RoleIDTotalSpawned[possibleRole.RoleID]++;
+                    }
+                }
+
+                RespawnPlayer.Remove(ev.Player);
+            }
+            // faire un poste traintement ?
         }
 
         private void OnSpawn(SpawnPlayersEventArgs ev)
         {
-            if (ev.SpawnPlayers != null)
+            if (ev.SpawnPlayers == null)
+                return;
+        
+            if (Plugin.Instance.Config.SpawnClassConfigs != null && Plugin.Instance.Config.SpawnClassConfigs.Any())
             {
-                ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new ConciergeScript());
-                ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new CHIIntrusScript());
-                ev.SpawnPlayers.SpawnRole(RoleType.Scientist, new ScientifiqueSuperviseurScript());
-                ev.SpawnPlayers.SpawnRole(RoleType.FacilityGuard, new FoundationUTRScript());
-                ev.SpawnPlayers.SpawnRole(RoleType.FacilityGuard, new GardeSuperviseurScript());
-                ev.SpawnPlayers.SpawnRole(RoleType.FacilityGuard, new TechnicienScript());
-                ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new DirecteurSiteScript());
-                ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new ZoneManagerScript());
-                ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new GardePrisonScript());
+                foreach (var classToSpawn in Plugin.Instance.Config.SpawnClassConfigs)
+                {
+                    if ((0 < classToSpawn.MaxRequiredPlayersInGame && Server.Get.PlayersAmount > classToSpawn.MaxRequiredPlayersInGame) ||
+                        (0 < classToSpawn.MinRequiredPlayersInGame && Server.Get.PlayersAmount < classToSpawn.MinRequiredPlayersInGame))
+                        continue;
+
+                    var playersRoles = ev.SpawnPlayers.Where(r => r.Value == classToSpawn.ReplaceRoleID);
                     
-                if (ev.SpawnPlayers.Count() > 25)
-                {
-                    ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new SCP008Script());
-                    ev.SpawnPlayers.SpawnRole(RoleType.ClassD, new SCP966cript());
+                    for (int i = 0; i < classToSpawn.MaxSpawn; i++)
+                    {
+                        if (!playersRoles.Any() ||
+                            (0 < classToSpawn.MaxRequiredPlayers && Server.Get.PlayersAmount > classToSpawn.MaxRequiredPlayers) ||
+                            (0 < classToSpawn.MinRequiredPlayers && Server.Get.PlayersAmount < classToSpawn.MinRequiredPlayers))
+                            break;
+
+                        if (classToSpawn.SpawnChance >= UnityEngine.Random.Range(1, 100))
+                        {
+                            var key = playersRoles.ElementAt(UnityEngine.Random.Range(0, playersRoles.Count() - 1)).Key;
+                            ev.SpawnPlayers[key] = classToSpawn.RoleID;
+                        }
+                    }
                 }
-                else
+            }
+
+            if (Plugin.Instance.Config.SpawnReplaceScpClassConfig != null && Plugin.Instance.Config.SpawnReplaceScpClassConfig.Any())
+            {
+                foreach (var classToSpawn in Plugin.Instance.Config.SpawnReplaceScpClassConfig)
                 {
-                    ev.SpawnPlayers.SpawnSCPRole(new SCP008Script());
-                    ev.SpawnPlayers.SpawnSCPRole(new SCP966cript());
-                }
-                foreach (var player in ev.SpawnPlayers.Keys)
-                {
-                    Data.PlayerRole[player] = ev.SpawnPlayers[player];
+                    if ((0 < classToSpawn.MaxRequiredPlayersInGame && Server.Get.PlayersAmount > classToSpawn.MaxRequiredPlayersInGame) ||
+                        (0 < classToSpawn.MinRequiredPlayersInGame && Server.Get.PlayersAmount < classToSpawn.MinRequiredPlayersInGame))
+                        continue;
+
+                    var playersRoles = ev.SpawnPlayers.Where(r => VanilaScpID.Contains(r.Value));
+
+                    for (int i = 0; i < classToSpawn.MaxSpawn; i++)
+                    {
+                        if (!playersRoles.Any() ||
+                            (0 < classToSpawn.MaxRequiredScpPlayers && Server.Get.PlayersAmount > classToSpawn.MaxRequiredScpPlayers) ||
+                            (0 < classToSpawn.MinRequiredScpPlayers && Server.Get.PlayersAmount < classToSpawn.MinRequiredScpPlayers))
+                            break;
+
+                        if (classToSpawn.SpawnChance >= UnityEngine.Random.Range(1, 100))
+                        {
+                            var key = playersRoles.ElementAt(UnityEngine.Random.Range(0, playersRoles.Count() - 1)).Key;
+                            ev.SpawnPlayers[key] = classToSpawn.RoleID;
+                        }
+                    }
                 }
             }
         }

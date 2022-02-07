@@ -1,12 +1,14 @@
-﻿using VTCustomClass.Config;
-using VTCustomClass.PlayerScript;
-using HarmonyLib;
+﻿using HarmonyLib;
 using Synapse;
 using Synapse.Api.Plugin;
 using Synapse.Translation;
+using System;
 using System.Collections.Generic;
-using VT_Referance.Variable;
+using System.Linq;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Plugin;
 using VTCustomClass.CustomTeam;
+using VTCustomClass.PlayerScript;
 
 namespace VTCustomClass
 {
@@ -19,150 +21,49 @@ namespace VTCustomClass
         SynapseMinor = SynapseController.SynapseMinor,
         SynapsePatch = SynapseController.SynapsePatch,
         Version = "v.1.3.0")]
-    public class Plugin : AbstractPlugin
+    public class Plugin : VtAbstractPlugin<EventHandlers, Config, Translation>
     {
-        public static Plugin Instance { get; internal set; }
+        public override bool AutoRegister =>  true;
 
-        [Synapse.Api.Plugin.Config(section = "CustomClass-General")]
-        public static ConfigCustomClass ConfigCustomClass;
-
-        //[Synapse.Api.Plugin.Config(section = "CustomClass-CustomClass201")]
-        //public static Config201 Config201;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigConcierge")]
-        public static ConfigConcierge ConfigConcierge;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigAndersonUTRheavy")]
-        public static ConfigAndersonUTRheavy ConfigAndersonUTRheavy;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigAndersonUTRlight")]
-        public static ConfigAndersonUTRlight ConfigAndersonUTRlight;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigDirecteurSite")]
-        public static ConfigDirecteurSite ConfigDirecteurSite;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigScientifiqueSuperviseur")]
-        public static ConfigScientifiqueSuperviseur ConfigScientifiqueSuperviseur;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigGardeSuperviseur")]
-        public static ConfigGardeSuperviseur ConfigGardeSuperviseur;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFSergent")]
-        public static ConfigNTFLieutenant ConfigNTFLieutenant;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFCapitaine")]
-        public static ConfigNTFCommander ConfigNTFCommander;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFLieutenantColonel")]
-        public static ConfigNTFLieutenantColonel ConfigNTFLieutenantColonel;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFExpertPyrotechnie")]
-        public static ConfigNTFExpertPyrotechnie ConfigNTFExpertPyrotechnie;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFExpertReconfinement")]
-        public static ConfigNTFExpertReconfinement ConfigNTFExpertReconfinement;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFInfirmier")]
-        public static ConfigNTFInfirmier ConfigNTFInfirmier;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHIInfirmier")]
-        public static ConfigCHIInfirmier ConfigCHIInfirmier;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigNTFVirologue")]
-        public static ConfigNTFVirologue ConfigNTFVirologue;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHIExpertPyrotechnie")]
-        public static ConfigCHIExpertPyrotechnie ConfigCHIExpertPyrotechnie;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHIHacker")]
-        public static ConfigCHIHacker ConfigCHIHacker;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHIIntrus")]
-        public static ConfigCHIIntrus ConfigCHIntrus;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHIKamikaze")]
-        public static ConfigCHIKamikaze ConfigCHIKamikaze;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHILeader")]
-        public static ConfigCHILeader ConfigCHILeader;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHIMastondonte")]
-        public static ConfigCHIMastodonte ConfigCHIMastodonte;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigCHISPY")]
-        public static ConfigCHISpy ConfigCHISPY;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigFoundationUTR")]
-        public static ConfigMTFUTR ConfigFoundationUTR;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP008")]
-        public static ConfigSCP008 ConfigSCP008;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP1048")]
-        public static ConfigSCP1048 ConfigSCP1048;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP682")]
-        public static ConfigSCP682 ConfigSCP682;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP966")]
-        public static ConfigSCP966 ConfigSCP966;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP953")]
-        public static ConfigSCP953 ConfigSCP953;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigSCP999")]
-        public static ConfigSCP999 ConfigSCP999;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigTechnicien")]
-        public static ConfigTechnicien ConfigTechnicien;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigStaff")]
-        public static ConfigStaff ConfigStaff;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigTestClass")]
-        public static ConfigTestClass ConfigTestClass;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigGardePrison")]
-        public static ConfigGardePrison ConfigGardePrison;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigZoneManager")]
-        public static ConfigZoneMageur ConfigZoneManager;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigMTFUTR")]
-        public static ConfigMTFUTR ConfigMTFUTR;
-
-        [Synapse.Api.Plugin.Config(section = "CustomClass-ConfigUTR")]
-        public static ConfigUTR ConfigUTR;
-
-        [SynapseTranslation]
-        public static SynapseTranslation<PluginTranslation> PluginTranslation;
-
-        public Dictionary<RoleID, int> RespawnedPlayer = new Dictionary<RoleID, int>();
-
-        //Pour kill certaint Enti-Cheat
+        //kill Enti-Cheat
         private void PatchAll()
         {
             var instance = new Harmony("VTCustomClass");
             instance.PatchAll();
             Server.Get.Logger.Info("Custom class Harmony Patch done!");
         }
-        
+
         public override void Load()
         {
-            Instance = this;
-            RegisterCustomTeam();
-            RegisterCustomRole();
-            PluginTranslation.AddTranslation(new VTCustomClass.PluginTranslation());
-            PluginTranslation.AddTranslation(new VTCustomClass.PluginTranslation{
-            SpawnMessage = "<color=blue><b>Tu es à présent</b></color> <color=red><b>%RoleName%</b></color>\\n<b>Press Esc pour fermer</b>",
-            VentMessage = "Vous pouvez rester encore %Time% secondes dans la ventilation",
-            NoTimeVentMessage = "Vous vous trouvez dans les ventilation",
-            PowerCooldown = "vous pouvez utiliser ce pouvoir dans %Time% secondes"
+            base.Load();
+            Translation.AddTranslation(new Translation {
+                SpawnMessage = "<color=blue><b>Tu es à présent</b></color> <color=red><b>%RoleName%</b></color>\\n<b>Press Esc pour fermer</b>",
+                VentMessage = "Vous pouvez rester encore %Time% secondes dans la ventilation",
+                NoTimeVentMessage = "Vous vous trouvez dans les ventilation",
+                PowerCooldown = "vous pouvez utiliser ce pouvoir dans %Time% secondes"
             }, "FRENCH");
             PatchAll();
-            new EventHandlers();
+            // Parse the config
+            for (int i = 0; i < Config.SpawnClassConfigs.Count; i++)
+                if (Config.SpawnClassConfigs[i].SpawnChance < 1)
+                {
+                    Config.SpawnClassConfigs.RemoveAt(i);
+                    i--;
+                }
+            // Sort by highest MaxRequiredPlayers if is the same by thhe lowest SpawnChance
+            // But if the chance is over or at 100 % is it becoms 
+            Config.SpawnClassConfigs.Sort((a, b) =>
+            a.SpawnChance == 100 ? (b.SpawnChance == 100 ?  0 : 1) :
+                                   (b.SpawnChance == 100 ? -1 :
+                a.MaxRequiredPlayers == b.MaxRequiredPlayers ?
+                    b.SpawnChance - a.SpawnChance : 
+                    a.MaxRequiredPlayers - b.MaxRequiredPlayers));
+
+
         }
 
+
+        [Obsolete("Use auto Register Systeme")]
         public void RegisterCustomTeam()
         {
             Server.Get.TeamManager.RegisterTeam<NetralSCPTeam>();
@@ -170,6 +71,7 @@ namespace VTCustomClass
             Server.Get.TeamManager.RegisterTeam<VIPTeam>();
         }
 
+        [Obsolete("Use auto Register Systeme")]
         public void RegisterCustomRole()
         {
             if (Server.Get.TeamManager.IsIDRegistered((int)TeamID.AND))
@@ -177,7 +79,7 @@ namespace VTCustomClass
                 Server.Get.RoleManager.RegisterCustomRole<AndersonUTRlightScript>();
                 Server.Get.RoleManager.RegisterCustomRole<AndersonUTRheavyScript>();
             }
-            Server.Get.RoleManager.RegisterCustomRole<ConciergeScript>();
+            Server.Get.RoleManager.RegisterCustomRole<JanitorScript>();
             Server.Get.RoleManager.RegisterCustomRole<DirecteurSiteScript>();
             Server.Get.RoleManager.RegisterCustomRole<ScientifiqueSuperviseurScript>();
             Server.Get.RoleManager.RegisterCustomRole<CHIExpertPyrotechnieScript>();

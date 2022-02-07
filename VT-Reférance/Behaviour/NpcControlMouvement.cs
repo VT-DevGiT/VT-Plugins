@@ -12,7 +12,7 @@ using UnityEngine.AI;
 
 namespace VT_Referance.Behaviour
 {
-    [API] [RequireComponent(typeof(NavMeshAgent))]
+    [API] [RequireComponent(typeof(NavMeshAgent))]// It was stupid to use the RequireComponent() but fun
     public class NpcControlMouvement : BaseRepeatingBehaviour
     {
         #region Constructors & Destructor

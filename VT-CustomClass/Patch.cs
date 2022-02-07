@@ -8,7 +8,7 @@ namespace VTCustomClass
         [HarmonyPrefix]
         private static bool PatchKillPlayer(PlayerMovementSync __instance, string message, string code)
         {
-            if (Plugin.ConfigCustomClass.killAntiCheatPatch)
+            if (Plugin.Instance.Config.killAntiCheatPatch)
                 return false;
             
             return true;

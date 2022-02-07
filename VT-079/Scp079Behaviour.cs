@@ -1,10 +1,10 @@
 ﻿using Mirror;
 using System.Linq;
-using VT_Referance.Behaviour;
+using VT_Api.Core.Behaviour;
 
 namespace VT079
 {
-    public class Scp079Behaviour : BaseRepeatingBehaviour
+    public class Scp079Behaviour : RepeatingBehaviour
     {
         protected override void BehaviourAction()
         {

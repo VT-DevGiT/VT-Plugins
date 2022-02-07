@@ -1,16 +1,8 @@
 ﻿using Synapse;
-using Synapse.Api;
-using Synapse.Api.Enum;
 using Synapse.Command;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using VT_Referance.NpcScript;
-using VT_Referance.Variable;
-using VT_Referance.Variable.Npc;
 
 namespace VT_PNJ
 {
@@ -27,7 +19,7 @@ namespace VT_PNJ
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            BaseNpcScript PNJ;
+/*            BaseNpcScript PNJ;
             if (!context.Arguments.Any())
             {
                 PNJ = new BaseNpcScript(
@@ -50,7 +42,7 @@ namespace VT_PNJ
             }
             PNJ.Player.GodMode = false;
             result.State = CommandResultState.Ok;
-            result.Message = $"New NPC id is \"{PNJ.Id}\"";
+            result.Message = $"New NPC id is \"{PNJ.Id}\"";*/
             return result;
         }
     }
@@ -68,7 +60,7 @@ namespace VT_PNJ
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            uint id;
+            /*uint id;
             if (context.Arguments.Count == 1 && uint.TryParse(context.Arguments.FirstOrDefault(), out id) && BaseNpcScript.NpcList.ContainsKey(id))
             {
                 BaseNpcScript PNJ = BaseNpcScript.NpcList[id];
@@ -83,7 +75,7 @@ namespace VT_PNJ
                     result.Message = "you must give the id of the Npc";
                 else
                     result.Message = "No NPC has its id!";
-            }
+            }*/
             return result;
         }
     }
@@ -101,7 +93,7 @@ namespace VT_PNJ
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            uint id;
+            /*uint id;
             if (context.Arguments.Count == 1 && uint.TryParse(context.Arguments.FirstOrDefault(), out id) && BaseNpcScript.NpcList.ContainsKey(id))
             {
                 BaseNpcScript PNJ = BaseNpcScript.NpcList[id];
@@ -124,7 +116,7 @@ namespace VT_PNJ
                     result.Message = "you must give the id of the Npc";
                 else
                     result.Message = "No NPC has its id!";
-            }
+            }*/
             return result;
         }
     }
@@ -142,7 +134,7 @@ namespace VT_PNJ
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            int id;
+            /*int id;
             if (context.Arguments.Count == 1 && int.TryParse(context.Arguments.FirstOrDefault(), out id))
             {
                 NpcMapPointRoute PointPNJ = NpcMapPointRoute.NpcMapPoints.Where(p => p.Id == id).FirstOrDefault();
@@ -165,7 +157,7 @@ namespace VT_PNJ
                     result.Message = "you must give the id of the PointPNJ";
                 else
                     result.Message = "No PointPNJ has its id!";
-            }
+            }*/
             return result;
         }
     }
@@ -183,13 +175,13 @@ namespace VT_PNJ
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            Server.Get.Logger.Send($"All point :", ConsoleColor.White);
+            /*Server.Get.Logger.Send($"All point :", ConsoleColor.White);
             foreach (var point in NpcMapPointRoute.NpcMapPoints)
             {
                 Server.Get.Logger.Send($"{point.Id} : {point.Position}", ConsoleColor.White);
             }
             result.State = CommandResultState.Ok;
-            result.Message = "chek the consol of the serveur";
+            result.Message = "chek the consol of the serveur";*/
             return result;
         }
     }

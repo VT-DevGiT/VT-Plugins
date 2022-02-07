@@ -5,7 +5,8 @@ using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Command;
-using VT_Referance.Method;
+using VT_Api.Extension;
+using VT_Api.Reflexion;
 using static LightContainmentZoneDecontamination.DecontaminationController.DecontaminationPhase;
 
 namespace VTProget_X
@@ -177,7 +178,7 @@ namespace VTProget_X
         }
 
         public static bool IsValidInteract(int Voltage, CommandContext context)
-            => Methods.GetVoltage() >= Voltage && context.Player?.ItemInHand?.ItemType == ItemType.Radio && context.Player?.Room?.RoomType == MapGeneration.RoomName.EzIntercom;
+            => Map.Get.GetVoltage() >= Voltage && context.Player?.ItemInHand?.ItemType == ItemType.Radio && context.Player?.Room?.RoomType == MapGeneration.RoomName.EzIntercom;
         
     }
 }

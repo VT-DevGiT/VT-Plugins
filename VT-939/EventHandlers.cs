@@ -1,6 +1,6 @@
 ﻿using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
-using VT_Referance.Method;
+using VT_Api.Extension;
 
 namespace VT939
 {
@@ -10,7 +10,6 @@ namespace VT939
         {
             Server.Get.Events.Player.PlayerSetClassEvent += OnSetClass;
         }
-
 
         private void OnSetClass(PlayerSetClassEventArgs ev)
         {

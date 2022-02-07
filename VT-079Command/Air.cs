@@ -4,7 +4,6 @@ using Scp079Rework;
 using Synapse.Command;
 using System.Linq;
 using UnityEngine;
-using VT_Referance.Method;
 
 namespace VT079.Command
 {
@@ -28,14 +27,14 @@ namespace VT079.Command
         {
             var result = new CommandResult();
 
-            if (RespawnManager.Singleton.GetFieldValueorOrPerties<float>("_timeForNextSequence") <= 15)
+            if (RespawnManager.Singleton._timeForNextSequence <= 15)
             {
                 result.State = CommandResultState.NoPermission;
                 result.Message = "too close to a respawn";
             }
-            if (!Methods.isAirBombCurrently)
+            if (!VtController.Get.MapAction.isAirBombCurrently)
             {
-                Timing.RunCoroutine(Methods.AirBomb(10, 5));
+                VtController.Get.MapAction.StartAirBombardement(10, 5);
                 result.State = CommandResultState.Ok;
                 result.Message = "Air Bomb Start";
             }

@@ -1,25 +1,25 @@
-﻿using VTCustomClass.Pouvoir;
-using Synapse;
+﻿using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
-using Synapse.Config;
-using System.Collections.Generic;
-using UnityEngine;
-using VT_Referance.Variable;
-using VT_Referance.Method;
 using System;
-using VT_Referance.PlayerScript;
-using static VT_Referance.Variable.Data;
+using System.Collections.Generic;
+using System.Linq;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
+using VT_Api.Extension;
+using VTCustomClass.Pouvoir;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class CHIInfirmierScript : BasePlayerScript
+    public class CHIInfirmierScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => TeamGroupe.CHIenemy;
+        protected override List<int> EnemysList => TeamManager.Group.CHIenemy.ToList();
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.CHIally;
+        protected override List<int> FriendsList => TeamManager.Group.CHIally.ToList();
 
         protected override RoleType RoleType => RoleType.ChaosRepressor;
 
@@ -27,55 +27,54 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.ChaosInfirmier;
 
-        protected override string RoleName => Plugin.ConfigCHIInfirmier.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.ChiInfirmierName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigCHIInfirmier;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.ChiInfirmierConfig;
 
-        private DateTime lastPower = DateTime.Now.AddSeconds(-Plugin.ConfigCHIInfirmier.Cooldown);
+        private DateTime lastPower = DateTime.Now.AddSeconds(-Plugin.Instance.Config.ChiInfirmierCooldown);
 
-        protected override void Event()
+        protected override void InitEvent()
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnDammage;
-            Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
         }
         
-        public override void DeSpawn()
+
+        private static void OnDammage(PlayerDamageEventArgs ev)
         {
-            base.DeSpawn();
-            Server.Get.Events.Player.PlayerDamageEvent -= OnDammage;
-            Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
+            if (ev.Killer?.CustomRole is CHIInfirmierScript)
+                ev.HollowBullet();
         }
 
-        private void OnDammage(PlayerDamageEventArgs ev)
-        {
-            if (ev.Killer == Player)
-                ev.HollowBullet(Player);
-        }
-
-        private void OnKeyPress(PlayerKeyPressEventArgs ev)
-        {
-            if (ev.Player == Player && ev.KeyCode == KeyCode.Alpha1)
-                CallPower((int)PowerType.Defibrillation);
-        }
-
-        public override bool CallPower(int power)
+        public override bool CallPower(byte power, out string message)
         {
             if (power == (int)PowerType.Defibrillation)
-            { 
-                if((DateTime.Now - lastPower).TotalSeconds > Plugin.ConfigCHIInfirmier.Cooldown)
+            {
+                if ((DateTime.Now - lastPower).TotalSeconds > Plugin.Instance.Config.ChiInfirmierCooldown)
                 {
-                    Player corpseowner = Methods.GetPlayercoprs(Player, 2.5f);
-                    if (Methods.IsWasScpRole(corpseowner) == false)
-                    { 
-                        corpseowner.RoleID = Data.PlayerRole[corpseowner];
-                        corpseowner.Position = corpseowner.DeathPosition;
-                        corpseowner.Inventory.Clear();
-                        lastPower = DateTime.Now;
+                    Player owner = Map.Get.GetPlayercoprs(Player, 2.5f);
+                    if (owner == null)
+                    {
+                        message = "You cant..";
+                        return false;
                     }
+
+                    var oldteam = VtController.Get.Role.OldTeam(owner);
+                    var oldrole = VtController.Get.Role.OldRoleID(owner);
+                    if (oldteam != (int)TeamID.SCP && oldteam != (int)TeamID.BerserkSCP && (!Synapse.Api.Roles.RoleManager.Get.IsIDRegistered(oldrole) || !(Synapse.Api.Roles.RoleManager.Get.GetCustomRole(oldrole) is IUtrRole)))
+                    {
+                        owner.RoleID = VtController.Get.Role.OldPlayerRole[owner];
+                        owner.Position = owner.DeathPosition;
+                        owner.Inventory.Clear();
+                        lastPower = DateTime.Now;
+                        message = "You successfully revive (s)he";
+                    }
+                    else 
+                        message = "You try to revive a scp or a UTR";
                 }
-                else Reponse.Cooldown(Player, lastPower, Plugin.ConfigCHIInfirmier.Cooldown);
+                else
+                    message = Reponse.Cooldown(lastPower, Plugin.Instance.Config.ChiInfirmierCooldown);
             }
-            else return false;
+            else message = "You ave only one power";
             return false;
         }
     }

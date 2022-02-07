@@ -1,16 +1,16 @@
 ﻿using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
-using System;
 using System.Collections.Generic;
-using VT_Referance.PlayerScript;
-using VT_Referance.Variable;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class StaffClassScript : BasePlayerScript
+    public class StaffClassScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
         
         protected override List<int> EnemysList => new List<int> { };
 
@@ -22,31 +22,30 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.Staff;
 
-        protected override string RoleName => Plugin.ConfigStaff.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.StaffName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigStaff;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.StaffConfig;
 
-        protected override void AditionalInit()
+        protected override void AditionalInit(PlayerSetClassEventArgs ev)
         {
             Player.Invisible = true;
             Player.NoClip = true;
             Player.GodMode = true;
         }
 
-        protected override void Event()
+        protected override void InitEvent()
         {
             Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
         }
 
-        private void OnKeyPress(PlayerKeyPressEventArgs ev)
+        private static void OnKeyPress(PlayerKeyPressEventArgs ev)
         {
-            if (ev.Player == Player && ev.KeyCode == UnityEngine.KeyCode.Alpha1)
-                Player.Invisible = !Player.Invisible;
+            if (ev.Player.CustomRole is StaffClassScript && ev.KeyCode == UnityEngine.KeyCode.Alpha5)
+                ev.Player.Invisible = !ev.Player.Invisible;
         }
 
         public override void DeSpawn()
         {
-            Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
             Player.NoClip = false;
             Player.Invisible = false;
             Player.GodMode = false;

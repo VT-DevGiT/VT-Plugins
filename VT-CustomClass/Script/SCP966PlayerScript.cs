@@ -1,26 +1,27 @@
-﻿using VTCustomClass.Pouvoir;
-using Synapse;
-using Synapse.Api;
+﻿using Synapse;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
 using System.Collections.Generic;
-using VT_Referance.Variable;
-using VT_Referance.Method;
-using VT_Referance.PlayerScript;
-using static VT_Referance.Variable.Data;
-using System;
+using System.Linq;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
+using VT_Api.Extension;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class SCP966cript : BasePlayerScript, IScpDeathAnnonce
+    public class SCP966cript : AbstractRole, IScpDeathAnnonce
     {
         public string ScpName => "9 6 6";
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => TeamGroupe.SCPenemy;
+        protected override List<int> EnemysList => TeamManager.Group.SCPenemy.ToList();
 
-        protected override List<int> FriendsList => TeamGroupe.SCPally;
+        protected override List<int> FriendsList => TeamManager.Group.SCPally.ToList();
+
+        protected override List<int> FfFriendsList => FriendsList;
 
         protected override RoleType RoleType => RoleType.Scp0492;
 
@@ -28,18 +29,18 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.SCP966;
 
-        protected override string RoleName => Plugin.ConfigSCP966.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.Scp966Name;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigSCP966;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.Scp966Config;
 
-        protected override void Event()
+        protected override void InitEvent()
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnAttack;
         }
 
-        private void OnAttack(PlayerDamageEventArgs ev)
+        private static void OnAttack(PlayerDamageEventArgs ev)
         {
-            if (ev.Allow && ev.Killer == Player && ev.DamageType == DamageType.Scp)
+            if (ev.Allow && ev.Killer?.CustomRole is AbstractRole && ev.DamageType == DamageType.Scp)
             {
                 ev.Damage = 20;
                 if (!ev.Victim.IsUTR())

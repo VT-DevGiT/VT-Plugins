@@ -1,14 +1,14 @@
 ﻿using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
-using VT_Referance.Behaviour;
-using VT_Referance.ItemScript;
+using VT_Api.Core.Behaviour;
+using VT_Api.Core.Items;
 
 namespace VT_Item.Item
 {
-    [ItemInformation(ID = 202, ItemType = ItemType.GunRevolver, Name = "Turret")]
+    [VtItemInformation(ID = 202, BasedItemType = ItemType.GunRevolver, Name = "Turret")]
 
-    public class Turret : BaseWeaponScript
+    public class Turret : AbstractWeapon
     {
         public override string ScrenName => "Turret";
 
@@ -30,7 +30,7 @@ namespace VT_Item.Item
             ev.Allow = false;
         }
 
-        private class TurretScript : BaseRepeatingBehaviour
+        private class TurretScript : RepeatingBehaviour
         {
             protected override void Start()
             {

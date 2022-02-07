@@ -1,25 +1,27 @@
-﻿using VTCustomClass.Pouvoir;
-using MEC;
+﻿using MEC;
 using Synapse;
-using Synapse.Api.Enum;
+using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using VT_Referance.PlayerScript;
-using VT_Referance.Variable;
-using static VT_Referance.Variable.Data;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
+using VTCustomClass.Pouvoir;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class CHIHackerScript : BasePlayerScript
+    public class CHIHackerScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => TeamGroupe.CHIenemy;
+        protected override List<int> EnemysList => TeamManager.Group.CHIenemy.ToList();
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.CHIally;
+        protected override List<int> FriendsList => TeamManager.Group.CHIally.ToList();
 
         protected override RoleType RoleType => RoleType.ChaosMarauder;
 
@@ -27,75 +29,85 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.ChaosHacker;
 
-        protected override string RoleName => Plugin.ConfigCHIHacker.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.HackerName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigCHIHacker;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.HackerConfig;
 
-        public override bool CallPower(int power)
+        public override bool CallPower(byte power, out string message)
         {
-            switch (power)
+            switch (power) // TODO : add tranlastion
             {
-                case (int)PowerType.DoorHack:
-                    if ((DateTime.Now - lastPowerDoor).TotalSeconds > Plugin.ConfigCHIHacker.CoolDownDoor)
-                    {
-                        Hack.Door(Player);
-                        lastPowerDoor = DateTime.Now;
-                    }
-                    else
-                        Reponse.Cooldown(Player, lastPowerDoor, Plugin.ConfigCHIHacker.CoolDownDoor);
-                    return true;
-
                 case (int)PowerType.LightHack:
 
-                    if ((DateTime.Now - lastPowerLight).TotalSeconds > Plugin.ConfigCHIHacker.CoolDownDoor)
+                    if ((DateTime.Now - lastPowerLight).TotalSeconds > Plugin.Instance.Config.HackerCoolDownLight)
                     {
-                        Hack.light();
+                        light();
                         lastPowerLight = DateTime.Now;
+                        message = "Light Hacked"; //here
+                        return true;
                     }
                     else
-                        Reponse.Cooldown(Player, lastPowerLight, Plugin.ConfigCHIHacker.CoolDownDoor);
-                    return true;
-
-                case (int)PowerType.CASSIEHack:
-                    if ((DateTime.Now - lastPowerMessage).TotalSeconds > Plugin.ConfigCHIHacker.CoolDownDoor)
                     {
-                        Hack.Message();
-                        lastPowerMessage = DateTime.Now;
+                        message = Reponse.Cooldown(lastPowerLight, Plugin.Instance.Config.HackerCoolDownLight);
+                        return false;
+                    }
+                case (int)PowerType.DoorHack:
+                    if ((DateTime.Now - lastPowerDoor).TotalSeconds > Plugin.Instance.Config.HackerCoolDownLight)
+                    {
+                        Door();
+                        lastPowerDoor = DateTime.Now;
+                        message = "Door Hacked"; //here
+                        return true;
                     }
                     else
-                        Reponse.Cooldown(Player, lastPowerMessage, Plugin.ConfigCHIHacker.CoolDownDoor);
-                    return true;
-                
+                    {
+                        message = Reponse.Cooldown(lastPowerDoor, Plugin.Instance.Config.HackerCoolDownMessage);
+                        return false;
+                    }
+                case (int)PowerType.CASSIEHack:
+                    if ((DateTime.Now - lastPowerMessage).TotalSeconds > Plugin.Instance.Config.HackerCoolDownMessage)
+                    {
+                        Message();
+                        lastPowerMessage = DateTime.Now;
+                        message = "Cassie Hacked"; //here
+                        return true;
+                    }
+                    else
+                    {
+                        message = Reponse.Cooldown(lastPowerMessage, Plugin.Instance.Config.HackerCoolDownMessage);
+                        return true;
+                    }
                 default:
+                    message = "You ave only 3 power"; //here
                     return false;
             }
         }
 
-        private DateTime lastPowerDoor = DateTime.Now.AddSeconds(-Plugin.ConfigCHIHacker.CoolDownDoor);
-        private DateTime lastPowerLight = DateTime.Now.AddSeconds(-Plugin.ConfigCHIHacker.CoolDownDoor);
-        private DateTime lastPowerMessage = DateTime.Now.AddSeconds(-Plugin.ConfigCHIHacker.CoolDownDoor);
-        protected override void Event()
+        public void Door()
         {
-            Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress; 
-        }
-
-        public override void DeSpawn()
-        {
-            base.DeSpawn();
-            Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
-        }
-
-        private void OnKeyPress(PlayerKeyPressEventArgs ev)
-        {
-            if (ev.Player == Player)
+            IOrderedEnumerable<Synapse.Api.Door> doors = Map.Get.Doors.OrderBy(p => Math.Abs(Vector3.Distance(p.Position, Player.Position)));
+            if (doors.Any())
             {
-                switch (ev.KeyCode)
+                var door = doors.First();
+                door.Open = true;
+                door.Locked = true;
+                Timing.CallDelayed(4f, () =>
                 {
-                    case KeyCode.Alpha1: CallPower((int)PowerType.DoorHack);break;
-                    case KeyCode.Alpha2: CallPower((int)PowerType.LightHack);break;
-                    case KeyCode.Alpha3: CallPower((int)PowerType.CASSIEHack);break;
-                }
+                    door.Locked = false;
+                });
             }
         }
+        public void light() => Server.Get.Map.HeavyController.LightsOut(30, false);
+
+        public void Message()
+        {
+            var Nato = $"Nato_{(char)(new System.Random().Next('a', 'z'))}";
+            var scps = SynapseController.Server.GetPlayers(x => x.TeamID == (int)TeamID.SCP).Count;
+            Synapse.Api.Map.Get.Cassie($"MTFUnit Epsilon 11 designated {Nato} 07 HasEntered AllRemaining AwaitingRecontainment {scps} ScpSubjects");
+        }
+
+        private DateTime lastPowerDoor = DateTime.Now.AddSeconds(-Plugin.Instance.Config.HackerCoolDownDoor);
+        private DateTime lastPowerLight = DateTime.Now.AddSeconds(-Plugin.Instance.Config.HackerCoolDownLight);
+        private DateTime lastPowerMessage = DateTime.Now.AddSeconds(-Plugin.Instance.Config.HackerCoolDownMessage);
     }
 }

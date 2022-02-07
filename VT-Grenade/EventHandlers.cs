@@ -5,10 +5,7 @@ using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using VT_Referance;
-using VT_Referance.Event.EventArguments;
-using VT_Referance.Method;
+using VT_Api.Core.Events.EventArguments;
 
 namespace VTGrenad
 {
@@ -23,15 +20,15 @@ namespace VTGrenad
             if (null != Plugin.Config.Key)
                 Server.Get.Events.Player.PlayerDropItemEvent += ItemDropped;
             if (Plugin.Config.ChaineFuseFragGrenad)
-                VTController.Server.Events.Grenade.ChangeIntoFragEvent += OnChangeIntoFragEvent;
+                VtController.Get.Events.Item.ChangeIntoFragEvent += OnChangeIntoFragEvent;
             if (Plugin.Config.FlashbangFuseWithCollision)
-                VTController.Server.Events.Grenade.CollisionGrenadeEvent += OnCollisionGrenade;
+                VtController.Get.Events.Item.CollisionEvent += OnCollisionGrenade;
         }
 
-        private void OnCollisionGrenade(CollisionGrenadeEventArgs ev)
+        private void OnCollisionGrenade(CollisionEventArgs ev)
         {
-            if (ev.Type == GrenadeType.Flashbang)
-                ev.Grenade._fuseTime = 0.01f;
+            if (ev.Item.ItemType == ItemType.GrenadeFlash && ev.Item.PickupBase is TimeGrenade grenad)
+                grenad._fuseTime = 0.01f;
         }
 
         private void OnChangeIntoFragEvent(ChangeIntoFragEventArgs ev)

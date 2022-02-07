@@ -1,9 +1,4 @@
-﻿using MEC;
-using Synapse;
-using Synapse.Api;
-using System.Linq;
-using UnityEngine;
-using VT_Referance.Behaviour;
+﻿using UnityEngine;
 
 namespace VTEscape
 {
@@ -13,6 +8,6 @@ namespace VTEscape
 
         public override int Radius => Escape.radius;
 
-        public override EscapeType EscapeType => throw new System.NotImplementedException();
+        public override EscapeType EscapeType => EscapeType.MTF;
     }
 }

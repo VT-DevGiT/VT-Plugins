@@ -39,5 +39,4 @@ namespace VT_Referance.Patch.Event
             }
         }
     }
-    
 }

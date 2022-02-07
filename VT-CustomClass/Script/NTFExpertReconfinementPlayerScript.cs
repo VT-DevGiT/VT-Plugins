@@ -1,21 +1,23 @@
 ﻿using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
-using System;
 using System.Collections.Generic;
-using VT_Referance.PlayerScript;
-using VT_Referance.Variable;
-using static VT_Referance.Variable.Data;
+using System.Linq;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class NTFExpertReconfinementScript : BasePlayerScript
+    public class NTFExpertReconfinementScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        #region Properties & Variable
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => TeamGroupe.MTFenemy;
+        protected override List<int> EnemysList => TeamManager.Group.MTFenemy.ToList();
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.MTFally;
+        protected override List<int> FriendsList => TeamManager.Group.MTFally.ToList();
 
         protected override RoleType RoleType => RoleType.NtfSergeant;
 
@@ -23,39 +25,35 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.NtfExpertReconfinement;
 
-        protected override string RoleName => Plugin.ConfigNTFExpertReconfinement.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.ReconfinementExpName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigNTFExpertReconfinement;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.ReconfinementExpConfig;
 
-        protected override void Event()
+
+        private bool _target096 = false;
+        #endregion
+
+        #region Events
+        protected override void InitEvent()
         {
             Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent += OnTarget;
             Server.Get.Events.Player.PlayerDamageEvent += OnDamage;
         }
 
-        public override void DeSpawn()
+        private static void OnDamage(PlayerDamageEventArgs ev)
         {
-            Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent -= OnTarget;
-            Server.Get.Events.Player.PlayerDamageEvent -= OnDamage;
-            base.DeSpawn();
+            if (ev.Killer?.CustomRole is NTFExpertReconfinementScript role && ev.Victim.RoleID == (int)RoleType.Scp096)
+                role._target096 = true;
         }
 
-        private bool _target096 = false;
-        private void OnDamage(PlayerDamageEventArgs ev)
+        private static void OnTarget(Scp096AddTargetEventArgument ev)
         {
-            if (ev.Killer == Player && ev.Victim.RoleID == (int)RoleType.Scp096)
-            {
-                _target096 = true;
-            }
-        }
-
-        private void OnTarget(Scp096AddTargetEventArgument ev)
-        {
-            if (ev.Player == Player && !_target096)
+            if (ev.Player?.CustomRole is NTFExpertReconfinementScript role && !role._target096)
             {
                 ev.Scp096.Scp096Controller.RemoveTarget(ev.Player);
                 ev.Allow = false;
             }
         }
+        #endregion
     }
 }

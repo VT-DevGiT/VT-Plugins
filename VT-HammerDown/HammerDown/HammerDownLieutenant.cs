@@ -1,23 +1,21 @@
 ﻿using Synapse;
 using Synapse.Config;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VT_Referance.PlayerScript;
-using VT_Referance.Variable;
-using static VT_Referance.Variable.Data;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
 
 namespace VT_HammerDown
 {
-    public class HammerDownLieutenant : BasePlayerScript
+    public class HammerDownLieutenant : AbstractRole
     {
         protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => TeamGroupe.MTFenemy;
+        protected override List<int> EnemysList => TeamManager.Group.MTFenemy.ToList();
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.MTFally;
+        protected override List<int> FriendsList => TeamManager.Group.MTFally.ToList();
 
         protected override RoleType RoleType => RoleType.NtfSergeant;
 
@@ -27,6 +25,6 @@ namespace VT_HammerDown
 
         protected override string RoleName => Plugin.ConfigHammerDownLieutenant.RoleName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigHammerDownLieutenant;
+        protected override SerializedPlayerRole Config => throw new System.NotImplementedException();
     } 
 }

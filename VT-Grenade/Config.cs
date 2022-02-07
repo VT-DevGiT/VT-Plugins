@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
-using VT_Referance.Variable;
+using VT_Api.Core.Enum;
 
 namespace VTGrenad
 {
@@ -16,11 +16,11 @@ namespace VTGrenad
 
         public List<int> NotAGrenadeRole = new List<int>
         {
-            (int)RoleType.ClassD,
-            (int)RoleType.Scientist,
-            (int)RoleType.Spectator,
+            (int)RoleID.ClassD,
+            (int)RoleID.Scientist,
+            (int)RoleID.Spectator,
             (int)RoleID.FacilityGuard,
-            (int)RoleID.Concierge,
+            (int)RoleID.Janitor,
             (int)RoleID.ScientifiqueSuperviseur,
             (int)RoleID.DirecteurSite
         };

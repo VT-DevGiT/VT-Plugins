@@ -2,13 +2,13 @@
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using UnityEngine;
-using VT_Referance.ItemScript;
+using VT_Api.Core.Items;
 
 namespace VTDevHelp
 {
-    [ItemInformation(ID = 302, ItemType = ItemType.GunRevolver, Name = "TerminatorDeGameObject'Object")]
+    [VtItemInformation(ID = 302, BasedItemType = ItemType.GunRevolver, Name = "TerminatorDeGameObject'Object")]
 
-    internal class TerminatorDeGameObject : BaseWeaponScript
+    internal class TerminatorDeGameObject : AbstractWeapon
     {
         public override ushort Ammos => 100;
 

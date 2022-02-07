@@ -1,24 +1,16 @@
-﻿using Assets._Scripts.Dissonance;
-using Interactables.Interobjects.DoorUtils;
-using InventorySystem.Items.Firearms;
-using InventorySystem.Items.Firearms.Modules;
-using Synapse;
+﻿using Synapse;
 using Synapse.Api;
-using Synapse.Api.Items;
-using Synapse.Api.Roles;
 using Synapse.Command;
 using Synapse.Config;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using VoiceChatManager.Core.Audio.Capture;
-using VoiceChatManager.Core.Audio.Playback;
 using VoiceChatManager.Core.Extensions;
-using VT_Referance.Method;
+using VT_Api.Extension;
 using Xabe.FFmpeg;
 
 namespace VTDevHelp
@@ -79,6 +71,27 @@ namespace VTDevHelp
             Plugin.DoorRotation = context.Player.gameObject.transform.rotation;
             Server.Get.Logger.Info(context.Player.Rotation);
             
+            return result;
+        }
+    }
+    [CommandInformation(
+    Name = "DevSpawnTruc",
+    Aliases = new[] { "VTStruc" },
+    Description = "",
+    Permission = "",
+    Platforms = new[] { Platform.RemoteAdmin },
+    Usage = ""
+    )]
+    public class SpawnCommand : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+
+            var door = Synapse.Api.Door.SpawnDoorVariant(Plugin.DoorPosition.Parse().Position, Plugin.DoorRotation);
+            door.Open = true;
+            door.Open = false;
+
             return result;
         }
     }
@@ -349,8 +362,8 @@ namespace VTDevHelp
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            Server.Get.Map.Decontamination?.CallMethod("InstantStart");
-            Server.Get.Map.Decontamination?.Controller?.CallMethod("FinishDecontamination");
+            Server.Get.Map.Decontamination.InstantStart();
+            Server.Get.Map.Decontamination?.Controller?.FinishDecontamination();
             result.State = CommandResultState.Error;
             return result;
         }
@@ -397,7 +410,7 @@ namespace VTDevHelp
             result.State = CommandResultState.Error;
             if (int.TryParse(context.Arguments.FirstElement(),out int ID))
             {
-                Methods.PlayAmbientSound(ID);
+                Map.Get.PlayAmbientSound(ID);
                 result.State = CommandResultState.Ok;
             }
             return result;

@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VTCustomClass</RootNamespace>
     <AssemblyName>VT-CustomClass</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,23 +32,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lib.Harmony.2.1.1\lib\net472\0Harmony.dll</HintPath>
+    <Reference Include="0Harmony, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lib.Harmony.2.2.0\lib\net48\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.2.8.1\lib\net472\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.2.8.1\lib\net472\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="LiteDB, Version=5.0.11.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\packages\LiteDB.5.0.11\lib\net45\LiteDB.dll</HintPath>
     </Reference>
     <Reference Include="Mirror, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\Mirror.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.2.8.1\lib\net472\Mirror.dll</HintPath>
     </Reference>
-    <Reference Include="Synapse, Version=2.7.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\Synapse.dll</HintPath>
+    <Reference Include="Synapse, Version=2.8.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SynapseSL.2.8.1\lib\net472\Synapse.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -62,67 +63,32 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\UnityEngine.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.2.8.1\lib\net472\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.2.8.1\lib\net472\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.8.0\lib\net472\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>..\packages\SynapseSL.2.8.1\lib\net472\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="VT-Api">
+      <HintPath>..\lib\VT-Api.dll</HintPath>
     </Reference>
     <Reference Include="YamlDotNet, Version=11.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
       <HintPath>..\packages\YamlDotNet.11.2.1\lib\net45\YamlDotNet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\ConfigMTFUTR.cs" />
-    <Compile Include="Config\ConfigUTR.cs" />
-    <Compile Include="Config\ConfigZoneMageur.cs" />
-    <Compile Include="Config\ConfigGardePrison.cs" />
-    <Compile Include="Config\ConfigNTFfInfirmier.cs" />
-    <Compile Include="Config\ConfigAndersonUTRheavy.cs" />
-    <Compile Include="Config\ConfigAndersonUTRlight.cs" />
-    <Compile Include="Config\ConfigNTFLieutenant.cs" />
-    <Compile Include="Config\ConfigNTFCommander.cs" />
-    <Compile Include="Config\ConfigNTFLieutenantColonel.cs" />
-    <Compile Include="Config\CustomClass.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="SpawnClassConfig.cs" />
     <Compile Include="CustomTeam\VIPTeam.cs" />
-    <Compile Include="Extension.cs" />
     <Compile Include="Patch.cs" />
-    <Compile Include="Pouvoir\Commands.cs" />
     <Compile Include="Pouvoir\Bullets.cs" />
-    <Compile Include="Pouvoir\Hack.cs" />
     <Compile Include="Pouvoir\MouveVent.cs" />
-    <Compile Include="Config\ConfigGardeSuperviseur.cs" />
-    <Compile Include="Config\ConfigCHIExpertPyrotechnie.cs" />
-    <Compile Include="Config\ConfigCHIHacker.cs" />
-    <Compile Include="Config\ConfigCHIIntrus.cs" />
-    <Compile Include="Config\ConfigCHIKamikaze.cs" />
-    <Compile Include="Config\ConfigCHILeader.cs" />
-    <Compile Include="Config\ConfigCHIMastodonte.cs" />
-    <Compile Include="Config\ConfigCHISpy.cs" />
-    <Compile Include="Config\ConfigNTFExpertPyrotechnie.cs" />
-    <Compile Include="Config\ConfigNTFExpertReconfinement.cs" />
-    <Compile Include="Config\ConfigCHIInfirmier.cs" />
-    <Compile Include="Config\ConfigNTFVirologue.cs" />
-    <Compile Include="Config\ConfigFoundationUTR.cs" />
-    <Compile Include="Config\ConfigSCP008.cs" />
-    <Compile Include="Config\ConfigSCP682.cs" />
-    <Compile Include="Config\ConfigSCP966.cs" />
-    <Compile Include="Config\ConfigSCP953.cs" />
-    <Compile Include="Config\ConfigSCP999.cs" />
-    <Compile Include="Config\ConfigTechnicien.cs" />
-    <Compile Include="Config\ConfigStaffClass.cs" />
-    <Compile Include="Config\ConfigSCP1048.cs" />
-    <Compile Include="Config\ConfigTestClass.cs" />
-    <Compile Include="PluginTranslation.cs" />
+    <Compile Include="Translation.cs" />
     <Compile Include="Pouvoir\PowerType.cs" />
     <Compile Include="Pouvoir\Reponse.cs" />
     <Compile Include="Pouvoir\Aura.cs" />
-    <Compile Include="Config\Config201.cs" />
-    <Compile Include="Config\ConfigConcierge.cs" />
-    <Compile Include="Config\ConfigDirecteurSite.cs" />
-    <Compile Include="Config\ConfigScientifiqueSuperviseur.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -168,12 +134,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\VT-Reférance\VT-Referance.csproj">
-      <Project>{ee471bd7-4def-465e-bd1d-555ab6d76e4d}</Project>
-      <Name>VT-Referance</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

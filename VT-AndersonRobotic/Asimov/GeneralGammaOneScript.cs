@@ -1,23 +1,21 @@
-﻿using System;
+﻿using Synapse;
+using Synapse.Config;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VT_Referance.Variable;
-using VT_Referance.PlayerScript;
-using Synapse.Config;
-using Synapse;
-using static VT_Referance.Variable.Data;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
 
 namespace VT_AndersonRobotic
 {
-    public class GeneralGammaOneScript : BasePlayerScript
+    public class GeneralGammaOneScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => TeamGroupe.MTFenemy;
+        protected override List<int> EnemysList => TeamManager.Group.MTFenemy.ToList();
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.MTFally;
+        protected override List<int> FriendsList => TeamManager.Group.MTFally.ToList();
 
         protected override RoleType RoleType => RoleType.NtfCaptain;
 
@@ -25,8 +23,8 @@ namespace VT_AndersonRobotic
 
         protected override int RoleId => (int)RoleID.AndersonEngineer;
 
-        protected override string RoleName => Plugin.ConfigGeneralGammaOne.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.GeneralName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigGeneralGammaOne;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.GeneralAsimov;
     } 
 }

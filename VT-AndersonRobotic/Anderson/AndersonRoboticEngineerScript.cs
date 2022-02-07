@@ -1,22 +1,20 @@
-﻿using System;
+﻿using Synapse.Config;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VT_Referance.Variable;
-using VT_Referance.PlayerScript;
-using Synapse.Config;
-using Synapse;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
 
 namespace VT_AndersonRobotic
 {
-    public class AndersonRoboticEngineerScript : BasePlayerScript
+    public class AndersonRoboticEngineerScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.RSC, (int)TeamID.NTF, (int)TeamID.CDM, (int)TeamID.U2I, (int)TeamID.AL1, (int)TeamID.ASI };
+        protected override List<int> EnemysList => TeamManager.Group.ANDennemy.ToList();
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : new List<int> { (int)TeamID.AND };
+        protected override List<int> FriendsList => TeamManager.Group.ANDally.ToList();
 
         protected override RoleType RoleType => RoleType.Tutorial;
 
@@ -24,8 +22,8 @@ namespace VT_AndersonRobotic
 
         protected override int RoleId => (int)RoleID.AndersonEngineer;
 
-        protected override string RoleName => Plugin.ConfigAndersonEngineer.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.EngineerName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigAndersonEngineer;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.EngineerConfig;
     } 
 }

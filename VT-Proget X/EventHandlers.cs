@@ -4,8 +4,7 @@ using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using System.Linq;
-using VT_Referance;
-using VT_Referance.Event.EventArguments;
+using VT_Api.Core.Events.EventArguments;
 
 namespace VTProget_X
 {
@@ -16,7 +15,7 @@ namespace VTProget_X
             Server.Get.Events.Map.TriggerTeslaEvent += OnTriggerTeslaEvent;
             Server.Get.Events.Round.RoundStartEvent += OnRoundStart;
             Server.Get.Events.Round.RoundEndEvent += OnRoundEnd;
-            VTController.Server.Events.Player.PlayerSpeakIntercomEvent += OnSpeakIntercom;
+            VtController.Get.Events.Player.PlayerSpeakIntercomEvent += OnSpeakIntercom;
         }
 
         private void OnSpeakIntercom(PlayerSpeakIntercomEventEventArgs ev)

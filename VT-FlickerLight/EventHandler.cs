@@ -2,7 +2,7 @@
 using Synapse;
 using Synapse.Api;
 using System.Collections.Generic;
-using VT_Referance.Method;
+using VT_Api.Extension;
 
 namespace VT_FlickerLight
 {
@@ -18,17 +18,17 @@ namespace VT_FlickerLight
             yield return Timing.WaitForSeconds(1f);
             for (int i = 0; i < Plugin.Config.NumberOfLightFlickingAtTheBegining; i++)
             {
-                if (Plugin.Config.PlaySound) Methods.PlayAmbientSound(7);
-                Methods.ChangeRoomsLightColor(Plugin.Instance.firstColor);
+                if (Plugin.Config.PlaySound) Map.Get.PlayAmbientSound(7);
+                Map.Get.ChangeRoomsLightColor(Plugin.Instance.firstColor);
                 yield return Timing.WaitForSeconds(Plugin.Config.TimeBetweenFlicker);
-                Methods.ChangeRoomsLightColor(Plugin.Instance.secondColor);
+                Map.Get.ChangeRoomsLightColor(Plugin.Instance.secondColor);
                 yield return Timing.WaitForSeconds(Plugin.Config.TimeBetweenFlicker);
-                Methods.ChangeRoomsLightColor(Plugin.Instance.thirdColor);
+                Map.Get.ChangeRoomsLightColor(Plugin.Instance.thirdColor);
                 yield return Timing.WaitForSeconds(Plugin.Config.TimeBetweenFlicker);
             }
             if (!string.IsNullOrWhiteSpace(Plugin.Config.CassieAnnonce)) Map.Get.Cassie(Plugin.Config.CassieAnnonce);
-            Methods.ResetRoomsLightColor();
-            Methods.ResetRoomsLightColor();// for patch client bug
+            Map.Get.ResetRoomsLightColor();
+            Map.Get.ResetRoomsLightColor();// for patch client bug
             yield break;
         }
     }

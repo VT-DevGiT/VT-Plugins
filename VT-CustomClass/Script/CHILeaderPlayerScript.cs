@@ -1,5 +1,4 @@
-﻿using VTCustomClass.Pouvoir;
-using Synapse;
+﻿using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
@@ -7,19 +6,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using VT_Referance.PlayerScript;
-using VT_Referance.Variable;
-using static VT_Referance.Variable.Data;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
+using VTCustomClass.Pouvoir;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class CHILeaderScript : BasePlayerScript
+    public class CHILeaderScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => TeamGroupe.CHIenemy;
+        protected override List<int> EnemysList => TeamManager.Group.CHIenemy.ToList();
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.CHIally;
+        protected override List<int> FriendsList => TeamManager.Group.CHIally.ToList();
 
         protected override RoleType RoleType => RoleType.ChaosMarauder;
 
@@ -27,51 +28,42 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.ChaosLeader;
 
-        protected override string RoleName => Plugin.ConfigCHILeader.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.LeaderName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigCHILeader;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.LeaderConfig;
 
         private DateTime lastPower = DateTime.Now;
-        public override bool CallPower(int  power)
+        public override bool CallPower(byte power, out string message)
         {
-            if (power == (int)PowerType.Respawn && (DateTime.Now - lastPower).TotalSeconds > Plugin.ConfigCHILeader.Cooldown)
+            if (power == (int)PowerType.Respawn)
             {
+                if ((DateTime.Now - lastPower).TotalSeconds < Plugin.Instance.Config.LeaderCooldown)
+                {
+                    message = Reponse.Cooldown(lastPower, Plugin.Instance.Config.LeaderCooldown);
+                    return false;
+                }
+
                 List<Player> spawnPlayer = new List<Player>();
                 spawnPlayer.AddRange(Server.Get.Players.Where(p => p.RoleID == (int)RoleType.Spectator && !p.OverWatch));
                 Server.Get.TeamManager.SpawnTeam((int)TeamID.CHI, spawnPlayer);
                 lastPower = DateTime.Now;
+
+                message = "the allys are here! ...maby ?";
+                return true;
             }
-            else if (power == (int)PowerType.Respawn)
-                Reponse.Cooldown(Player, lastPower, Plugin.ConfigCHILeader.Cooldown);
-            else return false;
-            return true;
+            message = "You ave only one power";
+            return false;
         }
 
-        protected override void Event()
+        protected override void InitEvent()
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnDammage;
-            Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
         }
 
-        public override void DeSpawn()
+        private static void OnDammage(PlayerDamageEventArgs ev)
         {
-            base.DeSpawn();
-            Server.Get.Events.Player.PlayerDamageEvent -= OnDammage;
-            Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
-        }
-
-        private void OnKeyPress(PlayerKeyPressEventArgs ev)
-        {
-            if (ev.Player == Player && ev.KeyCode == KeyCode.Alpha1)
-            {
-                CallPower((int)PowerType.Respawn);
-            }
-        }
-
-        private void OnDammage(PlayerDamageEventArgs ev)
-        {
-            if (ev.Killer == Player)
-                ev.HollowBullet(Player);
+            if (ev.Killer?.CustomRole is CHILeaderScript)
+                ev.HollowBullet();
         }
     }
 }

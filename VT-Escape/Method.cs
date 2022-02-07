@@ -2,7 +2,7 @@
 using Synapse;
 using Synapse.Api;
 using System.Collections.Generic;
-using VT_Referance.Method;
+using VT_Api.Extension;
 
 namespace VTEscape
 {
@@ -13,7 +13,7 @@ namespace VTEscape
             yield return Timing.WaitForSeconds(10f);
             while (waitforready > 0)
             {
-                Methods.PlayAmbientSound(7);
+                Map.Get.PlayAmbientSound(7);
                 waitforready--;
                 yield return Timing.WaitForSeconds(1f);
             }

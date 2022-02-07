@@ -37,24 +37,26 @@ namespace VT_Referance.Patch.Event
             }
         }
         [HarmonyPrefix]
-        private static bool DamageEventPatch(PlayerEvents __instance, Player victim, Player killer, ref float damage, ItemType weaponType, SynapseItem weapon, out bool allow)
+        private static bool DamageEventPatch(PlayerEvents __instance, Player victim, Player killer, ref float damage, PlayerStatsSystem.DamageHandlerBase handlerBase, out bool allow)
         {
             try
             {
                 var ev = new PlayerDamageEventArgs
                 {
-                    DamageAmount = damage,
+                    Damage = damage,
                 };
                 ev.SetProperty<Player>("Killer", killer);
                 ev.SetProperty<Player>("Victim", victim);
-                ev.SetProperty<SynapseItem>("Weapon", weapon);
-                ev.SetProperty<SynapseItem>("WeaponType", weaponType);
+                ev.SetProperty<SynapseItem>("DamageType", handlerBase.GetDamageType());
+
+               // VTController.Server.Events.Player.InvokePlayerDamagePreEvent(victim, killer, ref damage, handlerBase);
 
                 BaseEvent(__instance, "PlayerDamageEvent", new object[] { ev });
-                damage = ev.DamageAmount;
+                
+                damage = ev.Damage;
                 allow = ev.Allow;
 
-                VTController.Server.Events.Player.InvokePlayerDamagePostEvent(victim, killer, ref damage, weaponType, weapon);
+               // VTController.Server.Events.Player.InvokePlayerDamagePostEvent(victim, killer, ref damage, handlerBase);
                 return false;
             }
             catch (Exception e)

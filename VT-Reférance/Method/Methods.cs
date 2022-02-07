@@ -35,9 +35,9 @@ namespace VT_Referance.Method
         public static Player GetPlayercoprs(Player player, float rayon)
         {
             List<Synapse.Api.Ragdoll> ragdolls = 
-                Map.Get.Ragdolls.Where(r => Vector3.Distance(r.Position, player.Position) < rayon).ToList();
+                Map.Get.Ragdolls.Where(r => Vector3.Distance(r.GameObject.transform.position, player.Position) < rayon).ToList();
             ragdolls.Sort((Synapse.Api.Ragdoll x, Synapse.Api.Ragdoll y) =>
-                Vector3.Distance(x.Position, player.Position).CompareTo(Vector3.Distance(y.Position, player.Position)));
+                Vector3.Distance(x.GameObject.transform.position, player.Position).CompareTo(Vector3.Distance(y.GameObject.transform.position, player.Position)));
             if (ragdolls.Count == 0) 
                 return null;
             Player owner = ragdolls.First().Owner;

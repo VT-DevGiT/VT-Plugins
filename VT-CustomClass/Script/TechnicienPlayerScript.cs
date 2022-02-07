@@ -1,23 +1,25 @@
-﻿using VTCustomClass.Pouvoir;
-using MEC;
+﻿using MEC;
 using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
 using System;
 using System.Collections.Generic;
-using VT_Referance.PlayerScript;
-using VT_Referance.Variable;
-using static VT_Referance.Variable.Data;
+using System.Linq;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
+using VTCustomClass.Pouvoir;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class TechnicienScript : BasePlayerScript
+    public class TechnicienScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => TeamGroupe.RSCennemy;
+        protected override List<int> EnemysList => TeamManager.Group.RSCennemy.ToList();
 
-        protected override List<int> FriendsList => TeamGroupe.RSCally;
+        protected override List<int> FriendsList => TeamManager.Group.RSCally.ToList();
 
         protected override RoleType RoleType => RoleType.FacilityGuard;
 
@@ -25,65 +27,42 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.Technicien;
 
-        protected override string RoleName => Plugin.ConfigTechnicien.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.TechnicienName;
 
-        protected override bool SetDisplayInfo => false;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.TechnicienConfig;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigTechnicien;
-
-        protected override void AditionalInit()
+        public override void SetDisplayInfo()
         {
-            Player.RemoveDisplayInfo(PlayerInfoArea.Role);
-            Player.RemoveDisplayInfo(PlayerInfoArea.UnitName);
-            Player.DisplayInfo = RoleName;
             Player.UnitName = null;
+            base.SetDisplayInfo();
         }
 
-        public override void DeSpawn()
-        {
-            base.DeSpawn();
-            Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
-        }
+        private DateTime lastPower = DateTime.Now;
 
-        public override bool CallPower(int power)
+        public override bool CallPower(byte power, out string message)
         {
             if (power == (int)PowerType.MoveVent)
             {
-                if (Player.gameObject.GetComponent<MouveVent>() == null 
-                    && (DateTime.Now - lastPower).TotalSeconds > Plugin.ConfigTechnicien.CoolDown)
+                if (Player.gameObject.GetComponent<MouveVent>() == null && (DateTime.Now - lastPower).TotalSeconds > Plugin.Instance.Config.Scp1048CoolDown)
                 {
                     Player.gameObject.AddComponent<MouveVent>();
-                    Player.gameObject.GetComponent<MouveVent>().duraction = Plugin.ConfigTechnicien.PowerTime;
-                    Timing.CallDelayed(Plugin.ConfigTechnicien.PowerTime, () =>
-                    {
-                        if (Player.gameObject.GetComponent<MouveVent>() == null)
-                        {
-                            Player.gameObject.GetComponent<MouveVent>()?.Kill();
-                            lastPower = DateTime.Now;
-                        }
-                    });
+                    message = "Here you are in the ventilation !";
                 }
                 else if (Player.gameObject.GetComponent<MouveVent>() != null)
                 {
-                    Player.gameObject.GetComponent<MouveVent>()?.Kill();
+                    Player.gameObject.GetComponent<MouveVent>().Kill();
                     lastPower = DateTime.Now;
+                    message = "you came out of ventilation !";
                 }
-                else Reponse.Cooldown(Player, lastPower, Plugin.ConfigTechnicien.CoolDown);
+                else
+                {
+                    message = Reponse.Cooldown(lastPower, Plugin.Instance.Config.Scp1048CoolDown);
+                    return false;
+                }
                 return true;
             }
+            message = "You ave only one power";
             return false;
-        }
-        protected override void Event()
-        {
-            Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
-        }
-        private DateTime lastPower = DateTime.Now;
-        private void OnKeyPress(PlayerKeyPressEventArgs ev)
-        {
-            if (ev.Player == Player && ev.KeyCode == UnityEngine.KeyCode.Alpha1)
-            {
-                CallPower((int)PowerType.MoveVent);
-            }
         }
     }
 }

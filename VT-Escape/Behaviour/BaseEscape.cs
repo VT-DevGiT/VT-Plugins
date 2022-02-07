@@ -1,15 +1,13 @@
-﻿using MEC;
-using Synapse;
-using Synapse.Api;
+﻿using Synapse.Api;
 using System.Linq;
 using UnityEngine;
-using VT_Referance.Behaviour;
-using VT_Referance.Variable;
+using VT_Api.Core.Behaviour;
+using VT_Api.Core.Enum;
 
 namespace VTEscape
 {
     [API]
-    public abstract class BaseEscape : BaseRepeatingBehaviour
+    public abstract class BaseEscape : RepeatingBehaviour
     {
 
         public BaseEscape()

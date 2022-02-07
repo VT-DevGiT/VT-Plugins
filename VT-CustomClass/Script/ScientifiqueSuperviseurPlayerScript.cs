@@ -1,22 +1,21 @@
 ﻿using Synapse;
-using Synapse.Api.Enum;
-using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
-using System;
 using System.Collections.Generic;
-using VT_Referance.PlayerScript;
-using VT_Referance.Variable;
-using static VT_Referance.Variable.Data;
+using System.Linq;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class ScientifiqueSuperviseurScript : BasePlayerScript
+    public class ScientifiqueSuperviseurScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => TeamGroupe.RSCennemy;
+        protected override List<int> EnemysList => TeamManager.Group.RSCennemy.ToList();
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.RSCally;
+        protected override List<int> FriendsList => TeamManager.Group.RSCally.ToList();
 
         protected override RoleType RoleType => RoleType.Scientist;
 
@@ -24,8 +23,8 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.ScientifiqueSuperviseur;
 
-        protected override string RoleName => Plugin.ConfigScientifiqueSuperviseur.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.SciSupervisorName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigScientifiqueSuperviseur;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.GuarSupervisorConfig;
     }
 }

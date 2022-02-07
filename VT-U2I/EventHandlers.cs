@@ -1,11 +1,11 @@
 ﻿using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
 using System.Linq;
-using VT_Referance.Variable;
+using VT_Api.Core.Enum;
 
 namespace VT_U2I
 {
-    internal class EventHandlers
+    public class EventHandlers
     {
         public EventHandlers()
         {
@@ -15,8 +15,8 @@ namespace VT_U2I
         private void OnRespawn(TeamRespawnEventArgs ev)
         {
             if (ev.Team == Respawning.SpawnableTeamType.NineTailedFox 
-                && (ev.Players.Where(p => Plugin.Config.SpawnNeedRank.Contains(p.RankName)).Count() > 0 || !Plugin.Config.SpawnNeedRank.Any())
-                && UnityEngine.Random.Range(1f, 100f) <= Plugin.Config.SpawnChance)
+                && (ev.Players.Where(p => Plugin.Instance.Config.SpawnNeedRank.Contains(p.RankName)).Count() > 0 || !Plugin.Instance.Config.SpawnNeedRank.Any())
+                && UnityEngine.Random.Range(1f, 100f) <= Plugin.Instance.Config.SpawnChance)
                 ev.TeamID = (int)TeamID.U2I;
         }
     }

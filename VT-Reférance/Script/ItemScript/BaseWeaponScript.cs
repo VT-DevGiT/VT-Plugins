@@ -61,7 +61,7 @@ namespace VT_Referance.ItemScript
 
         private void OnDamage(PlayerDamageEventArgs ev)
         {
-            if (ev.Killer.ItemInHand?.ID == ID)
+            if (ev.Killer?.ItemInHand?.ID == ID)
                 this.Damage(ev);
         }
 
@@ -73,7 +73,7 @@ namespace VT_Referance.ItemScript
         [Unstable]
         protected virtual void Damage(PlayerDamageEventArgs ev)
         {
-            ev.DamageAmount = DamageAmmont;
+            ev.Damage = DamageAmmont;
         }
         #endregion
     }

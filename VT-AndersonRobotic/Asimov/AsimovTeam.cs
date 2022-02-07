@@ -6,7 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VT_Referance.Variable;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Teams;
 
 namespace VT_AndersonRobotic
 {
@@ -14,22 +15,14 @@ namespace VT_AndersonRobotic
         ID = (int)TeamID.ASI,
         Name = "AsimovTeam"
         )]
-    public class AsimovTeam : SynapseTeam
+    public class AsimovTeam : AbstractTeam
     {
-        public override void Spawn(List<Player> players)
-        {
-            if (players.Count > Plugin.Config.SpawnSizeAsimov)
-                players = players.GetRange(0, Plugin.Config.SpawnSizeAsimov);
+        public override List<RespawnRoleInfo> Roles { get ; set; }
 
-            if (players.Count > 0)
-            {
-                players[0].RoleID = (int)RoleID.GeneralAsimov;
-                players.Remove(players[0]);
-            }
-            foreach (var ply in players)
-            {
-                ply.RoleID = (int)RoleID.GardienAsimov;
-            }
+        public override void Initialise()
+        {
+            Roles.Add(new RespawnRoleInfo() { Max = 1, Min = -1, Priority = 1, RoleID = (int)RoleID.GeneralAsimov});
+            Roles.Add(new RespawnRoleInfo() { Max = -1, RoleID = (int)RoleID.GardienAsimov });
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using VT_Referance.Behaviour;
+﻿using VT_Api.Core.Behaviour;
 
 namespace VTProget_X
 {
-    public class IntercomBehaviour : BaseRepeatingBehaviour
+    public class IntercomBehaviour : RepeatingBehaviour
     {
         public IntercomBehaviour()
         {

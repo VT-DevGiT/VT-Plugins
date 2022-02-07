@@ -1,8 +1,7 @@
 ﻿using MEC;
 using Respawning;
 using Synapse.Command;
-using VT_Referance.Method;
-using VT_Referance.Variable;
+using VT_Api.Core.Enum;
 
 namespace VTRadio
 {
@@ -30,14 +29,14 @@ namespace VTRadio
                 result.Message = "you need a radio !";
                 result.State = CommandResultState.NoPermission;
             }
-            else if (RespawnManager.Singleton.GetFieldValueorOrPerties<float>("_timeForNextSequence") <= 15)
+            else if (RespawnManager.Singleton._timeForNextSequence <= 15)
             {
                 result.State = CommandResultState.NoPermission;
                 result.Message = "too close to a respawn";
             }
-            else if (!Methods.isAirBombCurrently)
+            else if (!VtController.Get.MapAction.isAirBombCurrently)
             {
-                Timing.RunCoroutine(Methods.AirBomb(7, 5));
+                VtController.Get.MapAction.AirBomb(7, 5);
                 result.State = CommandResultState.Ok;
                 result.Message = "Air Bomb Start";
             }

@@ -7,9 +7,8 @@ using Synapse.Api.Items;
 using Synapse.Config;
 using System.Collections.Generic;
 using System.Linq;
+using VT_Api.Extension;
 using UnityEngine;
-using VT_Referance;
-using VT_Referance.Method;
 
 namespace Common_Utiles
 {
@@ -17,8 +16,8 @@ namespace Common_Utiles
     {
         public EventHandlers()
         {
-            VTController.Server.Events.Player.PlayerSetClassEvent += OnSpawn;
-            VTController.Server.Events.Map.Scp914UpgradeItemEvent += On914Upgrade;
+            VtController.Get.Events.Map.Scp914UpgradeItemEvent += On914Upgrade;
+            Server.Get.Events.Player.PlayerSetClassEvent += OnSpawn;
             Server.Get.Events.Map.Scp914ActivateEvent += On914Activate;
             Server.Get.Events.Round.TeamRespawnEvent += OnRespawn;
             Server.Get.Events.Round.RoundStartEvent += OnStart;
@@ -26,12 +25,15 @@ namespace Common_Utiles
 
         System.Func<float, float, float> floatRnd = (min, max) => Random.Range(min, max);
         System.Func<int, int, int> intRnd = (min, max) => Random.Range(min, max);
-
-        private void OnStart() => CommonUtiles.Instance.RespawnAllow = true;
+        
+        Config cfg => CommonUtiles.Instance.Config;
+        public bool RespawnAllow { get; set; }
+        
+        private void OnStart() => RespawnAllow = true;
 
         private void OnRespawn(TeamRespawnEventArgs ev)
         {
-            if (!CommonUtiles.Instance.RespawnAllow)
+            if (!RespawnAllow)
                 ev.Allow = false;
         }
 
@@ -43,56 +45,73 @@ namespace Common_Utiles
 
         private void Player914(Player player)
         {
-            if (CommonUtiles.Config.Rnd914Size)
+            if (CommonUtiles.Instance.Config.Rnd914Size)
             {
-                float newScaleX = floatRnd(CommonUtiles.Config.Min914SizeX, CommonUtiles.Config.Max914SizeX);
-                float newScaleY = floatRnd(CommonUtiles.Config.Min914SizeY, CommonUtiles.Config.Max914SizeY);
-                float newScaleZ = floatRnd(CommonUtiles.Config.Min914SizeZ, CommonUtiles.Config.Max914SizeZ);
+                float newScaleX = floatRnd(cfg.Min914SizeX, cfg.Max914SizeX);
+                float newScaleY = floatRnd(cfg.Min914SizeY, cfg.Max914SizeY);
+                float newScaleZ = floatRnd(cfg.Min914SizeZ, cfg.Max914SizeZ);
                 player.Scale = new Vector3(newScaleX, newScaleY, newScaleZ);
             }
-            if (CommonUtiles.Config.list914Effect.Any())
+            if (cfg.list914Effect.Any())
             {
-                Effect effect = CommonUtiles.Config.list914Effect[intRnd(0, CommonUtiles.Config.list914Effect.Count() - 1)];
+                var effect = cfg.list914Effect[intRnd(0, cfg.list914Effect.Count() - 1)];
                 player.GiveEffect(effect);
             }
-            if (CommonUtiles.Config.Rnd914Life)
+            if (cfg.Rnd914Life)
             {
-                int newLif = intRnd(CommonUtiles.Config.Min914Life, CommonUtiles.Config.Max914Life);
+                var newLif = intRnd(cfg.Min914Life, cfg.Max914Life);
                 player.Health = newLif;
             }
-            if (CommonUtiles.Config.Rnd914ArtificialLife)
+            if (cfg.Rnd914ArtificialLife)
             {
-                int newLif = intRnd(CommonUtiles.Config.Min914ArtificialLife, CommonUtiles.Config.Max914ArtificialLife);
+                var newLif = intRnd(cfg.Min914ArtificialLife, cfg.Max914ArtificialLife);
                 player.ArtificialHealth = newLif;
             }
-            if (CommonUtiles.Config.Rnd914ChanceDie != 0)
+            if (cfg.Rnd914ChanceDie != 0)
             {
-                float Rnd = floatRnd(0, 100);
-                if (Rnd >= CommonUtiles.Config.Rnd914ChanceDie)
-                    player.Kill();
+                var Rnd = floatRnd(0, 100);
+                if (Rnd >= cfg.Rnd914ChanceDie)
+                    player.Kill("Crush by SCP 914");
             }
         }
 
-        private void On914Upgrade(VT_Referance.Event.EventArguments.Scp914UpgradeItemEventArgs ev)
+        private void On914Upgrade(VT_Api.Core.Events.EventArguments.Scp914UpgradeItemEventArgs ev)
         {
-            List<int> NewIdItems = CommonUtiles.Config.Recipes.FirstOrDefault(r => r.ItemID == ev.Item.ID).Parse(ev.Setting);
+            var NewIdItems = cfg.Recipes.FirstOrDefault(r => r.ItemID == ev.Item.ID).Parse(ev.Setting);
             if (NewIdItems == null)
-                ev.NewItem = CommonUtiles.Config.RemouvRecipes ? SynapseItem.None : null;
+                ev.NewItem = cfg.RemouvRecipes ? SynapseItem.None : null;
             else ev.NewItem = new SynapseItem(NewIdItems[intRnd(0, NewIdItems.Count - 1)]);
         }
 
-        private void OnSpawn(VT_Referance.Event.EventArguments.PlayerSetClassEventArgs ev)
+        private void OnSpawn(PlayerSetClassEventArgs ev)
         {
-            Timing.CallDelayed(0.015f, () =>
+
+            if (ev.Role == RoleType.Spectator && ev.Player.Scale != new Vector3(1, 1, 1))
             {
-                if (ev.NewID == (int)RoleType.Spectator && ev.Player.Scale != new Vector3(1, 1, 1))
-                    ev.Player.Scale = new Vector3(1, 1, 1);
+                ev.Player.Scale = new Vector3(1, 1, 1);
+                return;
+            }
 
-                SerializedPlayerInventory nullSerializedPlayerInventory = new SerializedPlayerInventory();
+            var roleId = ev.Player.CustomRole != null ? ev.Player.CustomRole.GetRoleID() : (int)ev.Role;
 
-                SerializedConfigClass config = CommonUtiles.Config.configClasses.Where(x => x.ClassID == ev.Player.RoleID).FirstOrDefault();
-                Timing.CallDelayed(0.5f, () => config?.Apply(ev.Player));
-            });
+            if (cfg.configClasses.ContainsKey(roleId))
+            {
+                var config = cfg.configClasses[roleId];
+                
+                config.Extract(ev.Player, out var mapPoint, out var rotation, out var items, out var ammos);
+                
+                if (mapPoint != null)
+                    ev.Position = mapPoint.Position;
+
+                if (rotation != null)
+                    ev.Rotation = rotation.Value.x;
+                
+                if (items != null)
+                    ev.Items = items;
+                
+                if (ammos != null)
+                    ev.Ammo = ammos;
+            }            
         }
 
     }

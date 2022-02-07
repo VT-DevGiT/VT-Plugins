@@ -1,9 +1,8 @@
 ﻿using Synapse;
-using VT_Referance.Variable.Npc;
 
 namespace VT_PNJ
 {
-    internal class EventHandlers
+    public class EventHandlers
     {
         public EventHandlers()
         {
@@ -12,8 +11,8 @@ namespace VT_PNJ
 
         private void OnStart()
         {
-            NpcDataInit.InitPointForTest();
-            NpcDataInit.ClearNpc();
+            //NpcDataInit.InitPointForTest();
+            //NpcDataInit.ClearNpc();
         }
     }
 }

@@ -1,26 +1,24 @@
-﻿using Synapse.Config;
-using System.Collections.Generic;
-using VT_Referance.Variable;
+﻿using System.Collections.Generic;
+using System.Linq;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Plugin;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
 
 namespace VTCustomClass.PlayerScript
 {
-    // juste un teste, il y a rien a voir... :( 
-    /*
-    public class Scripte201 : BasePlayerScript
+    [AutoRegisterManager.Ignore]
+    public class Scripte201 : AbstractRole
     {
-        protected override List<int> EnemysList => new List<int> { (int)TeamID.CDP, (int)TeamID.MTF, (int)TeamID.RSC };
-
-        protected override List<int> FriendsList => new List<int> { (int)TeamID.SCP };
-
-        protected override RoleType RoleType => RoleType.FacilityGuard;
-
+        protected override List<int> EnemysList => new List<int>();
+        protected override List<int> FfFriendsList => TeamManager.Group.SCPally.ToList();
+        protected override List<int> FriendsList => TeamManager.Group.VIPally.ToList();
+        protected override RoleType RoleType => RoleType.Tutorial;
         protected override int RoleTeam => (int)TeamID.SCP;
-
         protected override int RoleId => 201;
-
-        protected override string RoleName => "Test 201";
-
-        protected override AbstractConfigSection Config => PluginClass.Config201;
+        protected override string RoleName => "201";
+        protected override SerializedPlayerRole Config => new SerializedPlayerRole();
+        protected override string SpawnMessage => "Good Luck";
     }
-    */
 }

@@ -1,23 +1,25 @@
-﻿using VTCustomClass.Pouvoir;
-using Synapse;
+﻿using Synapse;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using VT_Referance.PlayerScript;
-using VT_Referance.Variable;
-using static VT_Referance.Variable.Data;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
+using VTCustomClass.Pouvoir;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class CHISPYScript : BasePlayerScript
+    public class CHISPYScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => TeamGroupe.CHIenemy;
+        protected override List<int> EnemysList => TeamManager.Group.CHIenemy.ToList();
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.CHIally;
+        protected override List<int> FriendsList => TeamManager.Group.CHIenemy.ToList();
 
         protected override RoleType RoleType => RoleType.NtfPrivate;
 
@@ -25,56 +27,48 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.ChaosSpy;
 
-        protected override string RoleName => Plugin.ConfigCHISPY.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.SpyName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigCHISPY;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.SpyConfig;
 
-        protected override bool SetDisplayInfo => false;
+        public override void SetDisplayInfo() { }
 
-        public override bool CallPower(int power)
+        public override bool CallPower(byte power, out string message)
         {
-            if (power == (int)PowerType.SwitchRole && Player.RoleType == RoleType.NtfPrivate)
+            if (power == (int)PowerType.SwitchRole)
             {
+                if (Player.RoleType != RoleType.NtfPrivate)
+                {
+                    message = "You have already removed your disguise";
+                    return false;
+                }
+
                 Server.Get.Map.SpawnGrenade(Player.Position, Vector3.zero, 0.1f, GrenadeType.Flashbang);
                 Player.ChangeRoleAtPosition(RoleType.ChaosConscript);
-                Player.MaxHealth = Config.GetConfigValue("Health", 120);
+                Player.MaxHealth = Config.Health ?? 120;
                 Player.GiveEffect(Effect.Blinded, 0, 0);
+
+                message = "You have removed your disguise !";
                 return true;
             }
+            message = "You ave only one power";
             return false;
         }
 
-        protected override void Event()
+        protected override void InitEvent()
         {
             Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
-            Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
         }
 
-        public override void DeSpawn()
+        private static void OnDeath(PlayerDeathEventArgs ev)
         {
-            base.DeSpawn();
-            Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
-            Server.Get.Events.Player.PlayerDeathEvent -= OnDeath;
-        }
-
-        private void OnKeyPress(PlayerKeyPressEventArgs ev)
-        {
-            if (ev.Player == Player && ev.KeyCode == UnityEngine.KeyCode.Alpha1)
+            if (ev.Victim.CustomRole is CHISPYScript)
+                ev.Victim.ChangeRoleAtPosition(RoleType.ChaosConscript);
+            else if (ev.Killer?.CustomRole is CHISPYScript role)
             {
-                CallPower((int)PowerType.SwitchRole);
-            }
-        }
-
-        private void OnDeath(PlayerDeathEventArgs ev)
-        {
-            if (ev.Victim == Player)
-                Player.ChangeRoleAtPosition(RoleType.ChaosConscript);
-            else if (ev.Killer == Player)
-            {
-                string message = Plugin.PluginTranslation.ActiveTranslation.KilledMessage.Replace( "%RoleName%", RoleName);
+                string message = Plugin.Instance.Translation.ActiveTranslation.KilledMessage.Replace("%RoleName%", role.RoleName);
                 ev.Victim.OpenReportWindow(message);
             }
         }
-
     }
 }

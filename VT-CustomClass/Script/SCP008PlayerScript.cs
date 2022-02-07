@@ -1,5 +1,4 @@
-﻿using VTCustomClass.Pouvoir;
-using Synapse;
+﻿using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
@@ -7,21 +6,24 @@ using Synapse.Config;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using VT_Referance.Variable;
-using VT_Referance.Method;
-using VT_Referance.PlayerScript;
-using static VT_Referance.Variable.Data;
-using System;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
+using VT_Api.Extension;
+using VTCustomClass.Pouvoir;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class SCP008Script : BasePlayerScript
+    public class SCP008Script : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => TeamGroupe.SCPenemy;
+        protected override List<int> EnemysList => TeamManager.Group.SCPenemy.ToList();
 
-        protected override List<int> FriendsList => TeamGroupe.SCPally;
+        protected override List<int> FriendsList => TeamManager.Group.SCPally.ToList();
+        
+        protected override List<int> FfFriendsList => FriendsList;
 
         protected override RoleType RoleType => RoleType.Scp0492;
 
@@ -29,21 +31,21 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.SCP008;
 
-        protected override string RoleName => Plugin.ConfigSCP008.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.Scp008Name;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigSCP008;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.Scp008Config;
         Aura aura;
-        protected override void AditionalInit()
+        protected override void AditionalInit(PlayerSetClassEventArgs ev)
         {
             aura = ActiveComponent<Aura>();
             {
-                aura.PlayerEffect = Effect.ArtificialRegen;
-                aura.TargetEffect = Effect.Poisoned;
-                aura.HerIntencty = 6;
-                aura.HerTime = 5;
-                aura.MyHp = Plugin.ConfigSCP008.HealHp;
-                aura.HerHp = -Plugin.ConfigSCP008.DomageHp;
-                aura.Distance = Plugin.ConfigSCP008.Distance;
+                aura.playerEffect = Effect.ArtificialRegen;
+                aura.targetEffect = Effect.Poisoned;
+                aura.effectIntencty = 6;
+                aura.effectTime = 5;
+                aura.playerAddHp = Plugin.Instance.Config.Scp008AuraHeal;
+                aura.targetAddHp = -Plugin.Instance.Config.Scp008AuraDomage;
+                aura.distance = Plugin.Instance.Config.Scp008AuraDistance;
             }
         }
 
@@ -51,54 +53,57 @@ namespace VTCustomClass.PlayerScript
         {
             base.DeSpawn();
             KillComponent<Aura>();
-            Server.Get.Events.Player.PlayerDamageEvent -= OnAttack;
-            Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
-            Server.Get.Events.Player.PlayerDeathEvent -= OnDeath;
         }
 
-        protected override void Event()
+        protected override void InitEvent()
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnAttack;
-            Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
             Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
         }
 
-        private void OnDeath(PlayerDeathEventArgs ev)
+        private static void OnDeath(PlayerDeathEventArgs ev)
         {
-            if (Player == ev.Victim && !Server.Get.Players.Where(p => p.RoleID == (int)RoleID.SCP008).Any())
+            if (ev.Victim?.CustomRole is SCP008Script && !Server.Get.Players.Where(p => p.RoleID == (int)RoleID.SCP008).Any())
                 Map.Get.GlitchedCassie("ALL SCP 0 0 8 SUCCESSFULLY TERMINATED . NOSCPSLEFT");
         }
 
-        private void OnAttack(PlayerDamageEventArgs ev)
+        private static void OnAttack(PlayerDamageEventArgs ev)
         {
-            if (ev.Allow && ev.Killer == Player && ev.HitInfo.Tool == DamageTypes.Scp0492)
+            if (ev.Allow && ev.Victim?.CustomRole is SCP008Script && ev.DamageType == DamageType.Zombie)
             {
                 if (!ev.Victim.IsUTR())
                     ev.Victim.GiveEffect(Effect.Bleeding, 2, 4);
-                ev.DamageAmount = 50;
+                ev.Damage = 50;
             }
         }
 
-
-        private void OnKeyPress(PlayerKeyPressEventArgs ev)
-        {
-            if (ev.Player == Player && ev.KeyCode == KeyCode.Alpha1)
-                CallPower((int)PowerType.Zombifaction);
-        }
-
-        public override bool CallPower(int power)
+        public override bool CallPower(byte power, out string message)
         {
             if (power == (int)PowerType.Zombifaction)
             {
-                Player corpseowner = Methods.GetPlayercoprs(Player, 4);
-                if (Methods.IsWasScpRole(corpseowner) == false)
+                Player owner = Map.Get.GetPlayercoprs(Player, 4);
+                if (owner == null)
                 {
-                    corpseowner.RoleID = (int)RoleID.SCP008;
-                    Player.Health += 100;
-                    corpseowner.Position = Player.Position;
+                    message = "You cant..";
+                    return false;
                 }
-                return true;
+
+                var oldteam = VtController.Get.Role.OldTeam(owner);
+                var oldrole = VtController.Get.Role.OldRoleID(owner);
+                if (oldteam != (int)TeamID.SCP && oldteam != (int)TeamID.BerserkSCP && (!Synapse.Api.Roles.RoleManager.Get.IsIDRegistered(oldrole) || !(Synapse.Api.Roles.RoleManager.Get.GetCustomRole(oldrole) is IUtrRole)))
+                {
+                    owner.RoleID = (int)RoleID.SCP008;
+                    Player.Health += 100;
+                    owner.Position = Player.Position;
+                    message = "You ave new freend !";
+                }
+                else
+                {
+                    message = "Impossible sory";
+                    return false;
+                }
             }
+            message = "You ave only one power";
             return false;
         }
     }

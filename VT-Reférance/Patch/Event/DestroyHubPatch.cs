@@ -27,6 +27,5 @@ namespace VT_Referance.Patch.Event
                 Synapse.Api.Logger.Get.Error($"Vt-Event: DestroyHub failed!!\n{e}\nStackTrace:\n{e.StackTrace}");
             }
         }
-        
     }
 }

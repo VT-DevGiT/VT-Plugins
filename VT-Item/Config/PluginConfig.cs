@@ -1,7 +1,6 @@
 ﻿using Synapse.Config;
 using System.Collections.Generic;
 using System.ComponentModel;
-using VT_Referance.Variable;
 
 namespace VT_Item.Config
 {

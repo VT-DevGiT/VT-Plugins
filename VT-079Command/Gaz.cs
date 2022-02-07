@@ -7,8 +7,8 @@ using Synapse.Command;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using VT_Referance.Method;
-using VT_Referance.Variable;
+using VT_Api.Core.Enum;
+using VT_Api.Extension;
 
 namespace VT079.Command
 {

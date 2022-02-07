@@ -1,7 +1,7 @@
 ﻿using Synapse.Config;
 using System.Collections.Generic;
 using System.ComponentModel;
-using VT_Referance.Variable;
+using VT_Api.Core.Enum;
 
 namespace VTEscape
 {
@@ -36,7 +36,7 @@ namespace VTEscape
             new SerializedEscapeConfig(EscapeType.MTF, RoleID.DirecteurSite, TeamID.None, TeamID.None, RoleID.NtfLieutenantColonel),
             new SerializedEscapeConfig(EscapeType.MTF, RoleID.GardeSuperviseur, TeamID.None, TeamID.None, RoleID.NtfCommander),
             new SerializedEscapeConfig(EscapeType.MTF, RoleID.ScientifiqueSuperviseur, TeamID.None, TeamID.None, RoleID.NtfExpertReconfinement),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.Concierge, TeamID.None, TeamID.None, RoleID.NtfLieutenant),
+            new SerializedEscapeConfig(EscapeType.MTF, RoleID.Janitor, TeamID.None, TeamID.None, RoleID.NtfLieutenant),
             new SerializedEscapeConfig(EscapeType.MTF, RoleID.FacilityGuard, TeamID.None, TeamID.None, RoleID.NtfSergeant),
             new SerializedEscapeConfig(EscapeType.MTF, RoleID.GardePrison, TeamID.None, TeamID.None, RoleID.NtfSergeant),
             new SerializedEscapeConfig(EscapeType.MTF, RoleID.ZoneManager, TeamID.None, TeamID.None, RoleID.NtfSergeant),

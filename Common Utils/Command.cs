@@ -6,13 +6,13 @@ using UnityEngine;
 namespace Common_Utiles
 {
     [CommandInformation(
-              Name = "Location",
-              Aliases = new[] { "loc" },
-              Description = "MapPoint of the player for config",
-              Permission = "",
-              Platforms = new[] { Platform.RemoteAdmin },
-              Usage = "Loc"
-              )]
+        Name = "Location",
+        Aliases = new[] { "loc" },
+        Description = "Get a MapPoint for config",
+        Permission = "",
+        Platforms = new[] { Platform.RemoteAdmin },
+        Usage = "go to the desired position and execute the command"
+        )]
     class Cmdloc : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
@@ -28,13 +28,13 @@ namespace Common_Utiles
     }
 
     [CommandInformation(
-          Name = "Rotation",
-          Aliases = new[] { "rot" },
-          Description = "Rotation of the player for config",
-          Permission = "",
-          Platforms = new[] { Platform.RemoteAdmin },
-          Usage = "Rot"
-          )]
+        Name = "Rotation",
+        Aliases = new[] { "rot" },
+        Description = "Get a Vector2 for config",
+        Permission = "",
+        Platforms = new[] { Platform.RemoteAdmin },
+        Usage = "Look to the desired point and execute the command"
+        )]
     class CmdRot : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
@@ -50,33 +50,34 @@ namespace Common_Utiles
     }
 
     [CommandInformation(
-      Name = "StopRespawn",
-      Aliases = new[] { "StopRespawn" },
-      Description = "Stop all Respawns",
-      Permission = "",
-      Platforms = new[] { Platform.RemoteAdmin },
-      Usage = "StopRespawn"
-      )]
+        Name = "StopRespawn",
+        Aliases = new[] { "StopRespawn" },
+        Description = "Stop all Respawns or allow Respawn",
+        Permission = "",
+        Platforms = new[] { Platform.RemoteAdmin },
+        Usage = "Execute the command"
+        )]
     class CmdStopRespawn : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            CommonUtiles.Instance.RespawnAllow = !CommonUtiles.Instance.RespawnAllow;
+            CommonUtiles.Instance.EventHandler.RespawnAllow = !CommonUtiles.Instance.EventHandler.RespawnAllow;
             result.State = CommandResultState.Ok;
-            result.Message = $"the new valeur of ReSpawnAllow is {CommonUtiles.Instance.RespawnAllow}";
+            result.Message = $"the new valeur of ReSpawnAllow is {CommonUtiles.Instance.EventHandler.RespawnAllow}";
             return result;
         }
     }
 
     [CommandInformation(
-      Name = "UnBanSteam",
-      Aliases = new[] { "UBSteam", "UnBanS", "UBanS" },
-      Description = "Stop all Respawns",
-      Permission = "vanilla.LongTermBanning",
-      Platforms = new[] { Platform.RemoteAdmin },
-      Usage = "UBanS [SteamID64]"
-      )]
+        Name = "UnBanSteam",
+        Aliases = new[] { "UBSteam", "UnBanS", "UBanS" },
+        Description = "Unbalck list a steam ID",
+        Permission = "vanilla.LongTermBanning",
+        Platforms = new[] { Platform.RemoteAdmin },
+        Usage = "Enter the steamID without the @",
+        Arguments = new[] { "SteamID" }
+        )]
     class UnBanSteam : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
@@ -101,13 +102,14 @@ namespace Common_Utiles
     }
 
     [CommandInformation(
-      Name = "BanSteam",
-      Aliases = new[] { "BSteam", "BanS"},
-      Description = "Stop all Respawns",
-      Permission = "vanilla.LongTermBanning",
-      Platforms = new[] { Platform.RemoteAdmin },
-      Usage = "BanS [SteamID64] [Duration] [Reason]"
-      )]
+        Name = "BanSteam",
+        Aliases = new[] { "BSteam", "BanS"},
+        Description = "Black list a SteamID",
+        Permission = "vanilla.LongTermBanning",
+        Platforms = new[] { Platform.RemoteAdmin },
+        Usage = "Enter the steamID without the @",
+        Arguments = new[] { "SteamID64", "Duration", "Reason" }
+        )]
     class BanSteam : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
@@ -144,13 +146,14 @@ namespace Common_Utiles
     }
 
     [CommandInformation(
-      Name = "UnBanDiscord",
-      Aliases = new[] { "UBDiscord", "UnBanD", "UBanD" },
-      Description = "Stop all Respawns",
-      Permission = "vanilla.LongTermBanning",
-      Platforms = new[] { Platform.RemoteAdmin },
-      Usage = "UBanD [DiscordID]"
-      )]
+        Name = "UnBanDiscord",
+        Aliases = new[] { "UBDiscord", "UnBanD", "UBanD" },
+        Description = "Unbalck list a discordID",
+        Permission = "vanilla.LongTermBanning",
+        Platforms = new[] { Platform.RemoteAdmin },
+        Usage = "Enter the discordID without the @",
+        Arguments = new [] {"DiscordID"}
+        )]
     class UnBanDiscord : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
@@ -175,13 +178,14 @@ namespace Common_Utiles
     }
 
     [CommandInformation(
-      Name = "BanDiscord",
-      Aliases = new[] { "BDiscord", "BanD" },
-      Description = "Stop all Respawns",
-      Permission = "vanilla.LongTermBanning",
-      Platforms = new[] { Platform.RemoteAdmin },
-      Usage = "BanD [DiscordID] [Duration] [Reason]"
-      )]
+        Name = "BanDiscord",
+        Aliases = new[] { "BDiscord", "BanD" },
+        Description = "Stop all Respawns",
+        Permission = "vanilla.LongTermBanning",
+        Platforms = new[] { Platform.RemoteAdmin },
+        Usage = "Enter the DiscordID without the @",
+        Arguments = new[] { "DiscordID", "Duration", "Reason" }
+        )]
     class BanDiscord : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
@@ -213,6 +217,60 @@ namespace Common_Utiles
                 Server.Get.OfflineBanID(reason, context.Player.UserId, $"{context.Arguments.At(0)}@Discord", duration);
             else
                 Server.Get.OfflineBanID(reason, "ServeurConsol", $"{context.Arguments.At(0)}@Discord", duration);
+
+            return result;
+        }
+    }
+
+    [CommandInformation(
+        Name = "ChangeServeur",
+        Aliases = new[] { "SwitchServeur", "MoveServeur" },
+        Description = "Move player(s) to an other serveur",
+        Permission = "vanilla.PlayersManagement",
+        Platforms = new[] { Platform.RemoteAdmin },
+        Usage = "Entre the serveur port and after the player or the players to move to an other serveur, if the player ave a space in the name (use ID)",
+        Arguments = new[] { "ServeurPort", "Player", "OtherPlayer", "OtherPlayer..." }
+        )]
+
+    class ChangeServer : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+
+            if (context.Arguments.Count == 0)
+            {
+                result.Message = "Entre the serveur port and after the player or the players to move to an other serveur, if the player ave a space in the name (use ID)";
+                result.State = CommandResultState.Error;
+                return result;
+            }
+
+            if (!ushort.TryParse(context.Arguments.FirstElement(), out var server))
+            {
+                result.Message = "Invalid serveur port";
+                result.State = CommandResultState.Error;
+                return result;
+            }
+
+            var players = new Player[context.Arguments.Count - 1];
+
+            for (int i = 1; i < context.Arguments.Count; i++)
+            {
+                var player = Server.Get.GetPlayer(context.Arguments.Array[i]);
+                players[i - 1] = player;
+            }
+
+            result.Message = string.Concat("Players move to serveur port {0} :", server);
+            result.State = CommandResultState.Ok;
+
+            foreach (var player in players)
+            {
+                if (player != null)
+                {
+                    result.Message = "\n\t" + player.name;
+                    player.SendToServer(server);
+                }
+            }
 
             return result;
         }

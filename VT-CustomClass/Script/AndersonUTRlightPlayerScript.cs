@@ -1,16 +1,18 @@
 ﻿using Synapse;
+using VT_Api.Core.Teams;
 using Synapse.Config;
 using System.Collections.Generic;
-using VT_Referance.Variable;
-using static VT_Referance.Variable.Data;
+using System.Linq;
+using VT_Api.Core.Enum;
+using VT_Api.Config;
 
 namespace VTCustomClass.PlayerScript
 {
     public class AndersonUTRlightScript : BaseUTRScript
     {
-        protected override List<int> EnemysList => TeamGroupe.ANDennemy;
+        protected override List<int> EnemysList => TeamManager.Group.ANDennemy.ToList();
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.ANDally;
+        protected override List<int> FriendsList => TeamManager.Group.ANDally.ToList();
 
         protected override RoleType RoleType => RoleType.Tutorial;
 
@@ -18,9 +20,9 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.AndersonUTRlight;
 
-        protected override string RoleName => Plugin.ConfigAndersonUTRlight.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.AndUTRLightName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigAndersonUTRlight;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.AndUTRLightConfig;
 
         protected override bool heavyUTR => false;
     }

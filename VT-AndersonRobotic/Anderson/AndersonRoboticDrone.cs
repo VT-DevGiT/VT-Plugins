@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Synapse.Config;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
 
 namespace VT_AndersonRobotic
 {
     class AndersonRoboticDrone
     {
+        // maby .... TODO
     }
 }

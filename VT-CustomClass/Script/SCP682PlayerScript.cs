@@ -1,19 +1,21 @@
 ﻿using Synapse.Config;
 using System.Collections.Generic;
-using VT_Referance.PlayerScript;
-using VT_Referance.Variable;
-using static VT_Referance.Variable.Data;
+using System.Linq;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class SCP682Script : BasePlayerScript, IScpDeathAnnonce
+    public class SCP682Script : AbstractRole, IScpDeathAnnonce
     {
         public string ScpName => "6 8 2";
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => TeamGroupe.BerserkSCPennemy;
+        protected override List<int> EnemysList => TeamManager.Group.BerserkSCPennemy.ToList();
 
-        protected override List<int> FriendsList => new List<int> { };
+        protected override List<int> FriendsList => TeamManager.Group.BerserkSCPally.ToList();
 
         protected override RoleType RoleType => RoleType.Scp93953;
 
@@ -21,8 +23,8 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.SCP682;
 
-        protected override string RoleName => Plugin.ConfigSCP682.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.Scp682Name;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigSCP682;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.Scp682Config;
     }
 }

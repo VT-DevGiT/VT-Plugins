@@ -1,16 +1,18 @@
 ﻿using Synapse;
 using Synapse.Config;
 using System.Collections.Generic;
-using VT_Referance.Variable;
-using static VT_Referance.Variable.Data;
+using System.Linq;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Teams;
 
 namespace VTCustomClass.PlayerScript
 {
     public class FoundationUTRScript : BaseUTRScript
     {
-        protected override List<int> EnemysList => TeamGroupe.MTFenemy;
+        protected override List<int> EnemysList => TeamManager.Group.MTFenemy.ToList();
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.MTFally;
+        protected override List<int> FriendsList => TeamManager.Group.MTFally.ToList();
 
         protected override RoleType RoleType => RoleType.NtfSergeant;
 
@@ -18,8 +20,8 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.FoundationUTR;
 
-        protected override string RoleName => Plugin.ConfigFoundationUTR.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.FUTRName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigFoundationUTR;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.FUTRConfig;
     }
 }

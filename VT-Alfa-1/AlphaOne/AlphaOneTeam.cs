@@ -1,44 +1,38 @@
 ﻿using Respawning;
 using Respawning.NamingRules;
-using Synapse;
-using Synapse.Api;
-using Synapse.Api.Teams;
 using System.Collections.Generic;
-using System.Linq;
-using VT_Referance.Method;
-using VT_Referance.Variable;
+using System.Text.RegularExpressions;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Teams;
 
 namespace VT_Alpha
 {
-    [SynapseTeamInformation(
+    [Synapse.Api.Teams.SynapseTeamInformation(
         ID = (int)TeamID.AL1,
         Name = "Alfa-1 Agent"
         )]
-    public class AlphaOneTeam : SynapseTeam
+    public class AlphaOneTeam : AbstractTeam
     {
-        public override void Spawn(List<Player> players)
+        public override List<RespawnRoleInfo> Roles { get => roles; set => roles = value; }
+
+        private List<RespawnRoleInfo> roles = new List<RespawnRoleInfo>()
         {
-            if (Plugin.Config.SpawnSize != 0 && players.Count > Plugin.Config.SpawnSize)
-                players = players.GetRange(0, Plugin.Config.SpawnSize);
-            if (players.Any())
-            { 
-                string Unitname = Methods.GenerateNtfUnitName();
-                RespawnManager.Singleton.NamingManager.AllUnitNames.Add(new SyncUnit()
-                {
-                    SpawnableTeam = 2,
-                    UnitName = Plugin.Config.UnitName.Replace( "%RandomName%", Unitname)
-                });
-                if (!string.IsNullOrWhiteSpace(Plugin.Config.CassieSpawn))
-                {
-                    string SpawnCassie = Plugin.Config.CassieSpawn.Replace("%UnitName%", Unitname.Replace("-", " "));
-                    Map.Get.GlitchedCassie(SpawnCassie);
-                }
-                foreach (var player in players)
-                {
-                    player.RoleID = (int)RoleID.AlphaOneAgent;
-                    player.UnitName = Unitname;
-                }
-            }
+            new RespawnRoleInfo() { Max = Plugin.Instance.Config.MaxRepsawn, Min = Plugin.Instance.Config.MinPlayer, RoleID = (int)RoleID.AlphaOneAgent }
+        };
+
+        public override string GetSpawnAnnonce(string uniteName)
+            => Plugin.Instance.Config.CassieSpawn?.Replace("%UnitName%", uniteName.Replace("-", " "));
+
+        public override string GetNewUniteName()
+        {
+            var unitName = Regex.Replace(Plugin.Instance.Config.UnitName, "%RandomName%", TeamManager.Get.GenerateNtfUnitName(), RegexOptions.IgnoreCase);
+
+            RespawnManager.Singleton.NamingManager.AllUnitNames.Add(new SyncUnit()
+            {
+                SpawnableTeam = 2,
+                UnitName = unitName
+            });
+            return unitName;
         }
     }
 }

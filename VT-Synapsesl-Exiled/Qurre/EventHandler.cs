@@ -36,7 +36,6 @@ namespace VT_MultieLoder.Qurre
             Server.Get.Events.Player.PlayerSetClassEvent += OnPlayerSetClassEvent;
             Server.Get.Events.Player.PlayerShootEvent += OnPlayerShootEvent;
             Server.Get.Events.Player.PlayerSpeakEvent += OnPlayerSpeakEvent;
-            Server.Get.Events.Player.PlayerSyncDataEvent += OnPlayerSyncDataEvent;
             Server.Get.Events.Player.PlayerThrowGrenadeEvent += OnPlayerThrowGrenadeEvent;
             //Server.Get.Events.Player.PlayerUnconnectWorkstationEvent += OnPlayerUnconnectWorkstationEvent;
             Server.Get.Events.Player.PlayerUncuffTargetEvent += OnPlayerUncuffTargetEvent;
@@ -189,10 +188,6 @@ namespace VT_MultieLoder.Qurre
 
         }
 
-        private void OnPlayerSyncDataEvent(PlayerSyncDataEventArgs ev)
-        {
-
-        }
 
         private void OnPlayerSpeakEvent(PlayerSpeakEventArgs ev)
         {

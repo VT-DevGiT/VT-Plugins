@@ -3,7 +3,7 @@ using Respawning;
 using Synapse;
 using Synapse.Api;
 using System;
-using VT_Referance.Variable;
+using VT_Api.Core.Enum;
 
 namespace VTEscape
 {

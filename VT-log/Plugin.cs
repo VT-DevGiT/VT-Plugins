@@ -23,7 +23,5 @@ namespace VTLog
             Method.CreateNewTXT();
             new EventHandlers();
         }
-
     }
-
 }

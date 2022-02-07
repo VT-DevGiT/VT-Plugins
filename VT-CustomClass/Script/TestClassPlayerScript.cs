@@ -1,17 +1,18 @@
-﻿using VTCustomClass.Pouvoir;
-using Synapse;
-using Synapse.Api.Events.SynapseEventArguments;
-using Synapse.Config;
+﻿using Synapse;
 using System.Collections.Generic;
 using UnityEngine;
-using VT_Referance.PlayerScript;
-using VT_Referance.Variable;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Plugin;
+using VT_Api.Core.Roles;
+using VTCustomClass.Pouvoir;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class TestClassScript : BasePlayerScript
+    [AutoRegisterManager.Ignore]
+    public class TestClassScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
         protected override List<int> EnemysList => new List<int> { };
 
         protected override List<int> FriendsList => new List<int> { };
@@ -22,47 +23,28 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.TestClass;
 
-        protected override string RoleName => Plugin.ConfigTestClass.RoleName;
+        protected override string RoleName => "Test";
 
-        protected override AbstractConfigSection Config => Plugin.ConfigTestClass;
+        protected override SerializedPlayerRole Config => new SerializedPlayerRole();
 
-        Vector3 oldScale;
-
-        public override void DeSpawn()
-        {
-            base.DeSpawn();
-            Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
-        }
-
-        public override bool CallPower(int power)
+        public override bool CallPower(byte power, out string message)
         {
             if (power == (int)PowerType.MoveVent)
             {
                 if (Player.gameObject.GetComponent<MouveVent>() == null)
                 {
-                    oldScale = Player.Scale;
-                    Player.Scale = new Vector3(0, 0, 0);
                     Player.gameObject.AddComponent<MouveVent>();
+                    message = "Here you are in the ventilation !";
                 }
-                else if (Player.gameObject.GetComponent<MouveVent>() != null)
+                else
                 {
-                    Player.Scale = oldScale;
-                    Player.gameObject.GetComponent<MouveVent>()?.Kill();
+                    Player.gameObject.GetComponent<MouveVent>().Kill();
+                    message = "you came out of ventilation !";
                 }
                 return true;
             }
+            message = "You ave only one power";
             return false;
-        }
-        protected override void Event()
-        {
-            Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
-        }
-        private void OnKeyPress(PlayerKeyPressEventArgs ev)
-        {
-            if (ev.Player == Player && ev.KeyCode == UnityEngine.KeyCode.Alpha1)
-            {
-                CallPower((int)PowerType.MoveVent);
-            }
         }
     }
 }

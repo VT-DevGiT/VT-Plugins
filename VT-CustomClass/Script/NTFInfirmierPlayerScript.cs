@@ -1,25 +1,27 @@
-﻿using VTCustomClass.Pouvoir;
-using Synapse;
+﻿using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
-using System.Collections.Generic;
-using UnityEngine;
-using VT_Referance.Variable;
-using VT_Referance.Method;
-using VT_Referance.PlayerScript;
-using static VT_Referance.Variable.Data;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
+using VT_Api.Extension;
+using VTCustomClass.Pouvoir;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class NTFInfirmierScript : BasePlayerScript
+    public class NTFInfirmierScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => TeamGroupe.MTFenemy;
+        protected override List<int> EnemysList => TeamManager.Group.MTFenemy.ToList();
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.MTFally;
+        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamManager.Group.MTFally.ToList();
 
         protected override RoleType RoleType => RoleType.NtfSergeant;
 
@@ -27,54 +29,50 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.NtfInfirmier;
 
-        protected override string RoleName => Plugin.ConfigNTFInfirmier.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.NtfInfirmierName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigNTFInfirmier;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.NtfInfirmierConfig;
 
-        private DateTime lastPower = DateTime.Now.AddSeconds(-Plugin.ConfigNTFInfirmier.Cooldown);
-        protected override void Event()
+        private DateTime lastPower = DateTime.Now.AddSeconds(-Plugin.Instance.Config.NtfInfirmierCooldown);
+        protected override void InitEvent()
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnDammage;
-            Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
         }
         
-        public override void DeSpawn()
+        private static void OnDammage(PlayerDamageEventArgs ev)
         {
-            base.DeSpawn();
-            Server.Get.Events.Player.PlayerDamageEvent -= OnDammage;
-            Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
+            if (ev.Killer?.CustomRole is NTFInfirmierScript)
+                ev.HollowBullet();
         }
 
-        private void OnDammage(PlayerDamageEventArgs ev)
-        {
-            if (ev.Killer == Player)
-                ev.HollowBullet(Player);
-        }
-
-        private void OnKeyPress(PlayerKeyPressEventArgs ev)
-        {
-            if (ev.Player == Player && ev.KeyCode == KeyCode.Alpha1)
-                CallPower((int)PowerType.Defibrillation);
-        }
-
-        public override bool CallPower(int power)
+        public override bool CallPower(byte power, out string message)
         {
             if (power == (int)PowerType.Defibrillation)
-            { 
-                if ((DateTime.Now - lastPower).TotalSeconds > Plugin.ConfigNTFInfirmier.Cooldown)
+            {
+                if ((DateTime.Now - lastPower).TotalSeconds > Plugin.Instance.Config.NtfInfirmierCooldown)
                 {
-                    Player corpseowner = Methods.GetPlayercoprs(Player, 2.5f);
-                    if (Methods.IsWasScpRole(corpseowner) == false)
-                    { 
-                        corpseowner.RoleID = Data.PlayerRole[corpseowner];
-                        corpseowner.Position = corpseowner.DeathPosition;
-                        corpseowner.Inventory.Clear();
-                        lastPower = DateTime.Now;
+                    Player owner = Map.Get.GetPlayercoprs(Player, 2.5f);
+                    if (owner == null)
+                    {
+                        message = "You cant..";
+                        return false;
                     }
+
+                    if (VtController.Get.Role.OldTeam(owner) != (int)TeamID.SCP)
+                    {
+                        owner.RoleID = VtController.Get.Role.OldPlayerRole[owner];
+                        owner.Position = owner.DeathPosition;
+                        owner.Inventory.Clear();
+                        lastPower = DateTime.Now;
+                        message = "You successfully revive (s)he";
+                    }
+                    else
+                        message = "You try to revive a scp";
                 }
-                else Reponse.Cooldown(Player, lastPower, Plugin.ConfigNTFInfirmier.Cooldown);
+                else
+                    message = Reponse.Cooldown(lastPower, Plugin.Instance.Config.NtfInfirmierCooldown);
             }
-            else return false;
+            else message = "You ave only one power";
             return false;
         }
     }

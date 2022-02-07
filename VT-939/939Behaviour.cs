@@ -1,24 +1,22 @@
 ﻿using CustomPlayerEffects;
 using MEC;
-using Mirror;
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using VT_Referance.Behaviour;
+using VT_Api.Core.Behaviour;
 
 namespace VT939
 {
     //https://github.com/iopietro/BetterScp939/releases/tag/1.0.7
-    public class Scp939Controller : BaseRepeatingBehaviour
+    public class Scp939Controller : RepeatingBehaviour
     {
         private Player player;
         private Scp207 scp207;
         private SinkHole sinkHole;
-        private List<DamageType> excludedDamages;
+        private DamageType[] excludedDamages;
         private CoroutineHandle forceSlowDownCoroutine;
         private CoroutineHandle angerMeterDecayCoroutine;
         private const float forceSlowDownInterval = 0.1f;
@@ -30,11 +28,11 @@ namespace VT939
             player = gameObject.GetPlayer();
             scp207 = player.Hub.playerEffectsController.GetEffect<Scp207>();
             sinkHole = player.Hub.playerEffectsController.GetEffect<SinkHole>();
-            excludedDamages = new List<DamageType>()
+            excludedDamages = new DamageType[]
             {
                 DamageType.Tesla,
                 DamageType.Falldown,
-                DamageType.Nuck,
+                DamageType.Warhead,
                 DamageType.Crushed,
                 DamageType.Recontainment,
                 DamageType.Recontainment,

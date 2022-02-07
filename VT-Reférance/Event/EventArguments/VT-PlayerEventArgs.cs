@@ -37,11 +37,4 @@ namespace VT_Referance.Event.EventArguments
         public Player Player { get; set; }
         public bool Allow { get; set; }
     }
-
-    public class PlayerSetClassEventArgs : Synapse.Api.Events.EventHandler.ISynapseEventArgs
-    {
-        public Player Player { get; internal set; }
-        public int OldID { get; internal set; }
-        public int NewID { get; internal set; }
-    }
 }

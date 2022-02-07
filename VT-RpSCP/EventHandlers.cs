@@ -3,8 +3,8 @@ using MEC;
 using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
 using System.Linq;
-using VT_Referance.Method;
-using VT_Referance.Variable;
+using VT_Api.Core.Enum;
+using VT_Api.Extension;
 
 namespace VTRpSCP
 {

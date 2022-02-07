@@ -5,11 +5,11 @@ using Synapse.Api.Events.SynapseEventArguments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using VT_Referance.Variable;
+using VT_Api.Core.Enum;
 
 namespace VT_AndersonRobotic
 {
-    internal class EventHandlers
+    public class EventHandlers
     {
         public EventHandlers()
         {
@@ -17,15 +17,17 @@ namespace VT_AndersonRobotic
             Server.Get.Events.Round.RoundRestartEvent += RoundResart;
         }
 
-        private void RoundResart() => Plugin.Instance.AndersonSapwn = 0;
+        int andersonSapwn = 0;
+
+        private void RoundResart() => andersonSapwn = 0;
 
         private void Respawn(TeamRespawnEventArgs ev)
         {
-            if (Plugin.Instance.AndersonSapwn > Plugin.Config.SpawnMax && ev.Team == Respawning.SpawnableTeamType.ChaosInsurgency && 
-                UnityEngine.Random.Range(1f, 100f) <= Plugin.Config.SpawnChance)
+            if (andersonSapwn > Plugin.Instance.Config.SpawnMax && ev.Team == Respawning.SpawnableTeamType.ChaosInsurgency && 
+                UnityEngine.Random.Range(1f, 100f) <= Plugin.Instance.Config.SpawnChance)
             {
                 ev.TeamID = (int)TeamID.AND;
-                Plugin.Instance.AndersonSapwn++;
+                andersonSapwn++;
                 Timing.CallDelayed(35f, () =>
                 {
                     List<Player> spawnPlayer = new List<Player>();

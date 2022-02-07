@@ -1,22 +1,24 @@
-﻿using VTCustomClass.Pouvoir;
-using Synapse;
+﻿using Synapse;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
 using System.Collections.Generic;
-using VT_Referance.PlayerScript;
-using VT_Referance.Variable;
-using static VT_Referance.Variable.Data;
+using System.Linq;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
+using VTCustomClass.Pouvoir;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class CHIMastodonteScript : BasePlayerScript
+    public class CHIMastodonteScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => TeamGroupe.CHIenemy;
+        protected override List<int> EnemysList => TeamManager.Group.CHIenemy.ToList();
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.CHIally;
+        protected override List<int> FriendsList => TeamManager.Group.CHIally.ToList();
 
         protected override RoleType RoleType => RoleType.ChaosMarauder;
 
@@ -24,68 +26,66 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.ChaosMastodonte;
 
-        protected override string RoleName => Plugin.ConfigCHIMastodonte.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.MastondonteName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigCHIMastodonte;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.MastondonteConfig;
 
-        public override bool CallPower(int power)
+        public bool shieldActif = true;
+        public float oldusage;
+
+        public override bool CallPower(byte power, out string message)
         {
-            if (power == (int)PowerType.DropSheld && Shield.ShieldLock)
+            if (power == (int)PowerType.DropSheld)
             {
-                Shield.ShieldLock = false;
-                Shield.MaxShield = 100;
-                Shield.Shield = 0;
-                Player.StaminaUsage /= 2;
-                Server.Get.Events.Player.PlayerItemUseEvent -= OnUseItem;
+                if (!shieldActif)
+                {
+                    message = "you have already removed your shield";
+                    return false;
+                }
+                shieldActif = false;
+                Player.StaminaUsage = oldusage;
+                message = "you have removed your shield !";
                 return true;
             }
+            message = "you ave only one power";
             return false;
         }
 
 
-        protected override void Event()
+        protected override void InitEvent()
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnDomage;
             Server.Get.Events.Player.PlayerItemUseEvent += OnUseItem;
-            Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
         }
 
         public override void DeSpawn()
         {
+            Player.StaminaUsage = oldusage;
             base.DeSpawn();
-            Server.Get.Events.Player.PlayerDamageEvent -= OnDomage;
-            Server.Get.Events.Player.PlayerItemUseEvent -= OnUseItem;
-            Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
-            Shield.ShieldLock = false;
         }
 
-        protected override void AditionalInit()
+        protected override void AditionalInit(PlayerSetClassEventArgs ev)
         {
-            Shield.ShieldLock = true;
-            Player.StaminaUsage *= 2;
-            Player.GiveEffect(Effect.Disabled);
+            oldusage = Player.StaminaUsage;
+            Player.StaminaUsage = 0;
+            Player.GiveEffect(Effect.Disabled, 2);
         }
 
-        private void OnKeyPress(PlayerKeyPressEventArgs ev)
-        {
-            if (ev.Player == Player && ev.KeyCode == UnityEngine.KeyCode.Alpha1)
-                CallPower((int)PowerType.DropSheld);
-        }
 
-        private void OnUseItem(PlayerItemInteractEventArgs ev)
+        private static void OnUseItem(PlayerItemInteractEventArgs ev)
         {
-            if (ev.Player == Player && ev.CurrentItem.ItemCategory == ItemCategory.Medical)
+            if (ev.CurrentItem.ItemCategory == ItemCategory.Medical && ev.Player.CustomRole is CHIMastodonteScript role && role.shieldActif)
                 ev.Allow = false;
         }
 
-        private void OnDomage(PlayerDamageEventArgs ev)
+        private static void OnDomage(PlayerDamageEventArgs ev)
         {
-            if (ev.Victim == Player)
-                ev.DamageAmount = ev.DamageAmount/1.5f;
-            if (ev.Killer == Player)
+            if (ev.Victim.CustomRole is CHIMastodonteScript)
+                ev.Damage = ev.Damage / 1.5f;
+            if (ev.Killer?.CustomRole is CHIMastodonteScript role && ev.DamageType != DamageType.Explosion && !role.shieldActif)
             {
-                Player.ArtificialHealth += (ushort)(ev.DamageAmount/4);
-                ev.HollowBullet(Player);
+                ev.Killer.ArtificialHealth += ev.Damage / 4;
+                ev.HollowBullet();
             }
         }
     }

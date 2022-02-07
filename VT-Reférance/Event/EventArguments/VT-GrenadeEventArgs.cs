@@ -12,6 +12,7 @@ namespace VT_Referance.Event.EventArguments
         public GrenadeType Type { get; internal set; }
         public bool Allow { get; set; }
     }
+
     public class ExplosionGrenadeEventArgs : Synapse.Api.Events.EventHandler.ISynapseEventArgs
     {
         public TimeGrenade Grenade { get; internal set; }

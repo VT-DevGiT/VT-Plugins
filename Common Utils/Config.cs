@@ -3,7 +3,8 @@ using Synapse.Config;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
-using VT_Referance.Variable;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
 
 namespace Common_Utiles
 {
@@ -11,18 +12,25 @@ namespace Common_Utiles
     public class Config : AbstractConfigSection
     {
         [Description("The Config of the class")]
-        public List<SerializedConfigClass> configClasses = new List<SerializedConfigClass>()
+        public Dictionary<int, SerializedPlayerRole> configClasses = new Dictionary<int, SerializedPlayerRole>()
         {
-            new SerializedConfigClass(null, (int)RoleID.ClassD, null, null, null, null, new SerializedPlayerInventory()
+            {(int)RoleID.ClassD, new SerializedPlayerRole()
             {
-                Ammo = new SerializedAmmo(0, 0, 0, 0, 0),
-                Items = new List<SerializedPlayerItem>()
+                Inventory = new SerializedPlayerInventory()
                 {
-                    new SerializedPlayerItem ((int)ItemType.Coin, 1, 0, Vector3.one, 50, true),
-                    new SerializedPlayerItem ((int)ItemType.Flashlight, 1, 0, Vector3.one, 50, true),
-                }
-            }),
-            new SerializedConfigClass(null, (int)RoleID.SerpentsHand, null, null, 40, null, null)
+                    Ammo = new SerializedAmmo(0, 0, 0, 0, 0),
+                    Items = new List<SerializedPlayerItem>()
+                    {
+                        new SerializedPlayerItem ((int)ItemType.Coin, 1, 0, Vector3.one, 50, true),
+                        new SerializedPlayerItem ((int)ItemType.Flashlight, 1, 0, Vector3.one, 50, true),
+                    }
+                },
+            }},
+            {(int)RoleID.SerpentsHand, new SerializedPlayerRole()
+            {
+                Health = 110,
+                MaxHealth = 110,
+            }},
         };
 
         [Description("If true it will remove the old recipes of 914. Curently not working.")]
@@ -31,12 +39,19 @@ namespace Common_Utiles
         [Description("A list of recipes to add for SCP 914. Curently not working.")]
         public List<Serialized914Recipe> Recipes = new List<Serialized914Recipe>()
         {
-            new Serialized914Recipe((int)ItemType.KeycardFacilityManager, new List<int>() {(int)ItemType.Coin},
-                new List<int>() {(int)ItemType.ArmorHeavy, 55 },new List<int>() {(int)ItemType.Radio, (int)ItemType.Medkit },
-                new List<int>() { (int)ItemType.ArmorHeavy},new List<int>() {(int)ItemType.Painkillers}),
-            new Serialized914Recipe((int)ItemType.GunAK, new List<int>() {(int)ItemType.None},
-                new List<int>() {(int)ItemType.Coin},new List<int>() {50 },
-                new List<int>() { (int)ItemType.GunFSP9},new List<int>() {52 , 51 }),
+            new Serialized914Recipe((int)ItemType.KeycardFacilityManager, 
+                new List<int>() { (int)ItemType.Coin },
+                new List<int>() { (int)ItemType.ArmorHeavy, 55 },
+                new List<int>() { (int)ItemType.Radio, (int)ItemType.Medkit },
+                new List<int>() { (int)ItemType.ArmorHeavy },
+                new List<int>() { (int)ItemType.Painkillers }),
+            
+            new Serialized914Recipe((int)ItemType.GunAK, 
+                new List<int>() { (int)ItemType.None },
+                new List<int>() { (int)ItemType.Coin },
+                new List<int>() { 50 },
+                new List<int>() { (int)ItemType.GunFSP9 },
+                new List<int>() { 52, 51 }),
         };
 
         [Description("makes players passing through 914 have a random size")]

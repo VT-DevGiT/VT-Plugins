@@ -11,19 +11,19 @@ namespace VTCustomClass.Pouvoir
     /// </summary>
     public enum PowerType : int
     {
-        MoveVent = 0,
+        MoveVent = 1,
+        Respawn = 1,
+        SwitchRole = 1,
+        DropSheld = 1,
+        kamikaze = 1,
+        Zombifaction = 1,
+        Defibrillation = 1,
+        BadGreen = 1,
+        Attack = 1,
+        Clear = 1,
+        invisible = 1,
         LightHack = 1,
         DoorHack = 2,
         CASSIEHack = 3,
-        Respawn = 4,
-        SwitchRole = 5,
-        DropSheld = 6,
-        kamikaze = 7,
-        Zombifaction = 8,
-        Defibrillation = 9,
-        BadGreen = 10,
-        Attack = 11,
-        Clear = 12,
-        invisible = 13
     }
 }

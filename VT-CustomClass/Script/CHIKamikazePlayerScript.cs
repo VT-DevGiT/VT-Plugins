@@ -1,24 +1,27 @@
-﻿using VTCustomClass.Pouvoir;
+﻿using PlayerStatsSystem;
 using Synapse;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Config;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using VT_Referance.PlayerScript;
-using VT_Referance.Variable;
-using static VT_Referance.Variable.Data;
+using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
+using VT_Api.Core.Teams;
+using VTCustomClass.Pouvoir;
 
 namespace VTCustomClass.PlayerScript
 {
-    public class CHIKamikazeScript : BasePlayerScript
+    public class CHIKamikazeScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
-        protected override List<int> EnemysList => TeamGroupe.CHIenemy;
+        protected override List<int> EnemysList => TeamManager.Group.CHIenemy.ToList();
 
-        protected override List<int> FriendsList => Server.Get.FF ? new List<int> { } : TeamGroupe.CHIally;
+        protected override List<int> FriendsList => TeamManager.Group.CHIally.ToList();
 
         protected override RoleType RoleType => RoleType.ChaosRepressor;
 
@@ -26,48 +29,41 @@ namespace VTCustomClass.PlayerScript
 
         protected override int RoleId => (int)RoleID.ChaosKamikaze;
 
-        protected override string RoleName => Plugin.ConfigCHIKamikaze.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.KamikazeName;
 
-        protected override AbstractConfigSection Config => Plugin.ConfigCHIKamikaze;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.KamikazeConfig;
 
         private DateTime coolDown = DateTime.Now;
 
-        public override bool CallPower(int power)
+        public override bool CallPower(byte power, out string message)
         {
-            if (power == (int)PowerType.kamikaze && (DateTime.Now - coolDown).TotalSeconds > 30)
+            if (power == (int)PowerType.kamikaze)
             {
-                Server.Get.Map.SpawnGrenade(Player.Position, Vector3.zero, 0.1f, GrenadeType.Grenade, Player);
-                Player.Kill(DamageTypes.Grenade);
+                if ((DateTime.Now - coolDown).TotalSeconds < 30)
+                {
+                    message = "you just spawned!";
+                    return false;
+                }
+                
+                Server.Get.Map.Explode(Player.Position, GrenadeType.Grenade, Player);
+                Player.Hurt(new ExplosionDamageHandler(new Footprinting.Footprint(Player.Hub), Vector3.zero, -1, 100));
+                message = "BOOM";
                 return true;
             }
+            message = "You ave only one power";
             return false;
         }
 
-        protected override void Event()
+        protected override void InitEvent()
         {
             Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
-            Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
         }
 
-        public override void DeSpawn()
+        private static void OnDeath(PlayerDeathEventArgs ev)
         {
-            base.DeSpawn();
-            Server.Get.Events.Player.PlayerDeathEvent -= OnDeath;
-            Server.Get.Events.Player.PlayerKeyPressEvent -= OnKeyPress;
-        }
-
-        private void OnKeyPress(PlayerKeyPressEventArgs ev)
-        {
-            if (ev.Player == Player && ev.KeyCode == KeyCode.Alpha1)
-                CallPower((int)PowerType.kamikaze);
-
-        }
-
-        private void OnDeath(PlayerDeathEventArgs ev)
-        {
-            if (ev.Victim == this.Player)
+            if (ev.Victim?.CustomRole is CHIKamikazeScript)
             {
-                Server.Get.Map.SpawnGrenade(Player.DeathPosition, Vector3.zero, Plugin.ConfigCHIKamikaze.GrenadeTime, GrenadeType.Grenade, Player);
+                Server.Get.Map.SpawnGrenade(ev.Victim.DeathPosition, Vector3.zero, Plugin.Instance.Config.KamikazeGrenadeTimeDeath, GrenadeType.Grenade, ev.Victim);
             }
         }
     }

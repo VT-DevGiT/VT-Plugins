@@ -2,31 +2,37 @@
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using VT_Referance.Variable;
-using VT_Referance.Method;
-using VT_Referance.Event.EventArguments;
-using VT_Referance;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Events.EventArguments;
+using VT_Api.Core.Teams;
 
 namespace VT_Alpha
 {
-    internal class EventHandlers
+    public class EventHandlers
     {
         public EventHandlers()
         {
-            VTController.Server.Events.Map.WarHeadStartEvent += OnWarHeadStart;
-            Server.Get.Events.Round.RoundRestartEvent += OnRestart;
+            VtController.Get.Events.Map.WarHeadStartEvent += OnWarHeadStart;
+            Server.Get.Events.Round.RoundRestartEvent += () => AphaOne = 0;
         }
 
-        private void OnRestart() => Plugin.Instance.AphaOne = 0;
+        internal int AphaOne = 0;
 
         private void OnWarHeadStart(WarHeadInteracteEventArgs ev)
         {
-            if (Plugin.Instance.AphaOne > Plugin.Config.MaxRepsawn && UnityEngine.Random.Range(1f, 100f) <= Plugin.Config.SpawnChance)
+            if (AphaOne > Plugin.Instance.Config.MaxRepsawn && UnityEngine.Random.Range(1f, 100f) <= Plugin.Instance.Config.SpawnChance)
             { 
-                Round.Get.NextRespawn += 50f;
-                Server.Get.TeamManager.SpawnTeam((int)TeamID.AL1, Server.Get.Players.Where(p => p.RoleID == (int)RoleID.Spectator).ToList());
-                Plugin.Instance.AphaOne++;
+                Round.Get.NextRespawn += 120f;
+                
+                var players = new List<Player>();
+                var amount = UnityEngine.Random.Range(Plugin.Instance.Config.MinPlayer, Plugin.Instance.Config.MaxPlayer);
+                
+                TeamManager.Get.RemoveOrFillWithSpectator(players, amount);
+                Server.Get.TeamManager.SpawnTeam((int)TeamID.AL1, players);
+                
+                AphaOne++;
             }
         }
     }

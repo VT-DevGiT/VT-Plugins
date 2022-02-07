@@ -1,7 +1,6 @@
 ﻿using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
-using System;
-using VT_Referance.Method;
+using VT_Api.Extension;
 
 namespace VTEscape
 {
