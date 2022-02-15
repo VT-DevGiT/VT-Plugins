@@ -20,7 +20,7 @@ namespace VTProget_X
 
         private void OnSpeakIntercom(PlayerSpeakIntercomEventEventArgs ev)
         {
-            if (!Plugin.Config.KeycardSpeak || ev.Player?.IsDummy == true || ev.Player.Bypass)
+            if (!Plugin.Instance.Config.KeycardSpeak || ev.Player?.IsDummy == true || ev.Player.Bypass)
                 return;
             if (ev.Player?.ItemInHand == null)
                 ev.Allow = false;
@@ -30,8 +30,8 @@ namespace VTProget_X
 
         private void OnRoundEnd()
         {
-            Plugin.Instance.TeslaEnabled = true;
-            Plugin.Instance.DecontInProgress = false;
+            ((Plugin)Plugin.Instance).TeslaEnabled = true;
+            ((Plugin)Plugin.Instance).DecontInProgress = false;
         }
 
         private void OnRoundStart()
@@ -41,9 +41,9 @@ namespace VTProget_X
 
         private void OnTriggerTeslaEvent(TriggerTeslaEventArgs ev)
         {
-            if (!Plugin.Instance.TeslaEnabled)
+            if (!((Plugin)Plugin.Instance).TeslaEnabled)
                 ev.Trigger = false;
-            else if (Plugin.Config.TeslaRadio && ev.Player.Inventory.Items.FirstOrDefault(p => p.ID == (int)ItemType.Radio && !p.IsCustomItem) != null)
+            else if (Plugin.Instance.Config.TeslaRadio && ev.Player.Inventory.Items.FirstOrDefault(p => p.ID == (int)ItemType.Radio && !p.IsCustomItem) != null)
             { 
                 ev.Trigger = false;
                 Tesla tesla = ev.Tesla;

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace VT_Item.Config
+namespace VT_Item.Configs
 {
-    public class PluginConfig : AbstractConfigSection
+    public class Config : AbstractConfigSection
     {
         [Description("The ID of item if you have them in your hands you are slow")]
         public List<int> IdOfSlowItem = new List<int>()

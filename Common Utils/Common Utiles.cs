@@ -1,4 +1,5 @@
 ﻿using Synapse.Api.Plugin;
+using VT_Api.Core.Plugin;
 
 namespace Common_Utiles
 {
@@ -13,7 +14,7 @@ namespace Common_Utiles
         SynapsePatch = SynapseController.SynapsePatch,
         Version = "v.1.4.0"
         )]
-    public class CommonUtiles : VT_Api.Core.Plugin.VtAbstractPlugin<EventHandlers, Config>
+    public class CommonUtiles : VtAbstractPlugin<EventHandlers, Config>
     {
         public override bool AutoRegister => false;
     }

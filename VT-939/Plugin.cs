@@ -1,4 +1,5 @@
 ﻿using Synapse.Api.Plugin;
+using VT_Api.Core.Plugin;
 
 namespace VT939
 {
@@ -10,22 +11,11 @@ LoadPriority = 5,
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,
 SynapsePatch = SynapseController.SynapsePatch,
-Version = "v.1.2.1"
+Version = "v.1.3.0"
 )]
 
-    public class Plugin : AbstractPlugin
+    public class Plugin : VtAbstractPlugin<EventHandlers, Config>
     {
-        public static Plugin Instance { get; private set; }
-        public float Scp939SeeingAhpAmount { get; internal set; }
-
-        [Synapse.Api.Plugin.Config(section = "VT-939")]
-        public static Config Config;
-
-        public override void Load()
-        {
-            Instance = this;
-            base.Load();
-            new EventHandlers();
-        }
+        public override bool AutoRegister => false;
     }
 }

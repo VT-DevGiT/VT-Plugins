@@ -79,9 +79,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HammerDown\ConfigHammerDownCadet.cs" />
-    <Compile Include="HammerDown\ConfigHammerDownCommandant.cs" />
-    <Compile Include="HammerDown\ConfigHammerDownLieutenant.cs" />
     <Compile Include="HammerDown\HammerDownCommandant .cs" />
     <Compile Include="HammerDown\HammerDownLieutenant.cs" />
     <Compile Include="HammerDown\HammerDownTeam.cs" />
@@ -89,7 +86,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="Plugin.cs" />
-    <Compile Include="PluginTranslation.cs" />
+    <Compile Include="Translation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

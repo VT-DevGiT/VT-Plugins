@@ -3,11 +3,11 @@ VT plugins are plugins for SCP sl servers under the [synapse loader](https://git
 
 ## Installation
 1. [Install Synapse](https://github.com/SynapseSL/Synapse/wiki#hosting-guides).
-2. Place the dll VT-Reference in the synapse reference folder.
+2. Place the dll VT-API in the synapse reference folder (can be found [here](https://github.com/VT-DevGiT/VT-Api)).
 3. Place the dll file in your plugin directory.
 4. Restart/Start your server.
 
-All dll can be download [here](https://github.com/VT-DevGiT/VT-Plugins/releases) 
+All plugins dll can be download [here](https://github.com/VT-DevGiT/VT-Plugins/releases) 
 
 Waring :
 for Vt-079Command you need the plugin [Scp 079 Rework](https://github.com/SynapseSL/Scp079Rework) and VT-079. Place Vt-079Command in Scp079Rework folder.

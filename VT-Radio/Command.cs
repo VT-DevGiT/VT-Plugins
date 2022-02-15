@@ -23,30 +23,33 @@ namespace VTRadio
             {
                 result.Message = "you do not have the accreditation for this order";
                 result.State = CommandResultState.NoPermission;
+                return result;
             }
             else if (context.Player.ItemInHand.ID != (int)ItemType.Radio)
             {
                 result.Message = "you need a radio !";
                 result.State = CommandResultState.NoPermission;
+                return result;
             }
             else if (RespawnManager.Singleton._timeForNextSequence <= 15)
             {
                 result.State = CommandResultState.NoPermission;
                 result.Message = "too close to a respawn";
+                return result;
             }
             else if (!VtController.Get.MapAction.isAirBombCurrently)
             {
                 VtController.Get.MapAction.AirBomb(7, 5);
                 result.State = CommandResultState.Ok;
                 result.Message = "Air Bomb Start";
+                return result;
             }
             else
             {
                 result.State = CommandResultState.NoPermission;
                 result.Message = "there is already a bombardment";
+                return result;
             }
-            return result;
         }
     }
-
 }

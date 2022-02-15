@@ -17,7 +17,7 @@ namespace VTEscape
         protected override void Start()
         {
             Player = gameObject.GetPlayer();
-            ChangeClassEvent();
+            Refresh();
             base.Start();
         }
 
@@ -25,32 +25,36 @@ namespace VTEscape
         public abstract Vector3 Postion { get; }
         public abstract int Radius { get; }
         public abstract EscapeType EscapeType { get; }
-        public SerializedEscapeConfig EscapeConfig { get; }
+        public SerializedEscapeConfig EscapeConfig { get; protected set; }
 
 
-        public SerializedEscapeConfig ChangeClassEvent()
+        public void Refresh()
         {
             this.enabled = Player.RoleType != RoleType.Spectator;
 
             if (Player.RoleType == RoleType.Spectator)
-                return null;
+            {
+                EscapeConfig = null;
+                return;
+            }
+            
             // Get for the roll
-            var configEscape = Plugin.Config.EscapeList.FirstOrDefault(c => Player.RoleID == (int)c.Role && EscapeType == c.Escape && 
-                ((Player.Cuffer == null && c.CufferTeam == TeamID.None) ||  Player.Cuffer?.TeamID == (int)c.CufferTeam));
+            var configEscape = Plugin.Config.EscapeList.FirstOrDefault(c => Player.RoleID == c.RoleID && EscapeType == c.Escape && 
+                ((Player.Cuffer == null && c.CufferTeamID == (int)TeamID.None) ||  Player.Cuffer?.TeamID == c.CufferTeamID));
             if (configEscape != null)
             {
-                configEscape.Use(Player);
-                return configEscape;
+                EscapeConfig = configEscape;
+                return;
             }
+
             // Get for the team
-            configEscape = Plugin.Config.EscapeList.FirstOrDefault(c => Player.TeamID == (int)c.Team && EscapeType == c.Escape &&
-                ((Player.Cuffer == null && c.CufferTeam == TeamID.None) || Player.Cuffer?.TeamID == (int)c.CufferTeam));
+            configEscape = Plugin.Config.EscapeList.FirstOrDefault(c => Player.TeamID == c.TeamID && EscapeType == c.Escape &&
+                ((Player.Cuffer == null && c.CufferTeamID == (int)TeamID.None) || Player.Cuffer?.TeamID == c.CufferTeamID));
             if (configEscape != null)
             {
-                configEscape.Use(Player);
-                return configEscape;
+                EscapeConfig = configEscape;
+                return;
             }
-            return null;
         }
 
         protected override void BehaviourAction()
@@ -62,6 +66,7 @@ namespace VTEscape
 
                 if (Player.CustomRole != null)
                     Player.TriggerEscape();
+
                 return;
             }
         }

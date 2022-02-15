@@ -1,17 +1,16 @@
 ﻿using Synapse;
 using Synapse.Api;
+using Synapse.Api.Roles;
 using Synapse.Command;
 using Synapse.Config;
 using System;
-using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using UnityEngine;
-using VoiceChatManager.Core.Audio.Capture;
-using VoiceChatManager.Core.Extensions;
 using VT_Api.Extension;
-using Xabe.FFmpeg;
+using System.Reflection;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Roles;
 
 namespace VTDevHelp
 {
@@ -126,192 +125,90 @@ namespace VTDevHelp
      Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole },
      Usage = ""
      )]
-    public class AdvenceEscapeCommand : ISynapseCommand
+    public class TestCommand : ISynapseCommand
     {
-        const string ConvertedFileExtension = ".f32le";
-        string DurationFormat = "hh\\:mm\\:ss\\.ff";
-        string InvalidVolumeError = "{0} is not a valid volume, range varies from 0 to 100!";
-        string PlayCommandUsage = 
-             "\nvoicechatmanager play [File alias/File path] [Volume (0-100)]" +
-             "\nvoicechatmanager play [File alias/File path] [Volume (0-100)] [Channel name (SCP, Intercom, Proximity, Ghost)]" +
-             "\nvoicechatmanager play [File alias/File path] [Volume (0-100)] proximity [Player ID/Player Name/Player]" +
-             "\nvoicechatmanager play [File alias/File path] [Volume (0-100)] proximity [X] [Y] [Z]";
-        string FFmpegDirectoryIsNotSetUpProperlyError = "Your FFmpeg directory isn't set up properly, \"path\" won't be converted and played.";
-        bool IsFFmpegInstalled = false;
-        string GetChannelName(string rawChannelName)
-        {
-            switch (rawChannelName.ToLower())
-            {
-                default:
-                case "intercom":
-                    return "Intercom";
-
-                case "p":
-                case "proximity":
-                    return "Proximity";
-
-                case "spec":
-                case "spectators":
-                case "spectator":
-                case "ghost":
-                    return "Ghost";
-
-                case "scp":
-                    return "SCP";
-            }
-        }
-        
-        public static async Task<IConversionResult> ConvertFileAsync(string path, int sampleRate = 48000, int channels = 1, float speed = 1, Format format = Format.f32le, ConversionPreset preset = ConversionPreset.Medium, bool canOverwriteOutput = true, string extraParameters = null)
-        {
-            return await ConvertFileAsync(path, default, sampleRate, channels, speed, format, preset, canOverwriteOutput, extraParameters);
-        }
-
-        public static async Task<IConversionResult> ConvertFileAsync(string path, CancellationToken cancellationToken, int sampleRate = 48000, int channels = 1, float speed = 1, Format format = Format.f32le, ConversionPreset preset = ConversionPreset.Medium, bool canOverwriteOutput = true, string extraParameters = null)
-        {
-            if (!File.Exists(path))
-                throw new FileNotFoundException(null, path);
-
-            var conversion = FFmpeg.Conversions.New()
-                .AddParameter($"-i \"{path}\" -ar {sampleRate} -ac {channels} -filter:a \"atempo = {speed}\"", ParameterPosition.PreInput)
-                .SetOutput($"{Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path))}.{format}")
-                .SetOutputFormat(format)
-                .SetOverwriteOutput(canOverwriteOutput)
-                .SetPreset(preset);
-
-            if (!string.IsNullOrEmpty(extraParameters))
-                conversion.AddParameter(extraParameters);
-
-            return await conversion.Start(cancellationToken);
-        }
-
         public CommandResult Execute(CommandContext context)
         {
-            
             var result = new CommandResult();
-            if (context.Arguments.Count < 2 || context.Arguments.Count > 6 || context.Arguments.Count == 5)
+
+            VtController.Get.MapAction.MtfRespawn(true, RoleType.Spectator.GetPlayers());
+
+            return result;
+        }
+    }
+
+    [CommandInformation(
+     Name = "DevRoles",
+     Aliases = new[] { "VTRoles" },
+     Description = "For get all roles info",
+     Permission = "",
+     Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole },
+     Usage = ""
+     )]
+    public class RolesInfoCommand : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+
+            result.Message = "All registred roles :\n";
+            foreach (var role in Server.Get.RoleManager.CustomRoles.OrderBy(r => r.ID))
             {
-                result.Message = PlayCommandUsage;
-                result.State = CommandResultState.Error;
-                return result;
+                string name = Regex.Replace(role.Name, "<.*?>", String.Empty);
+                bool valid = typeof(IRole).IsAssignableFrom(role.RoleScript);
+                result.Message += String.Format("\t{0,-60} {1,-5} : valide {2}\n", name, role.ID, valid.ToString());
             }
+            return result;
+        }
+    }
 
-            if (!float.TryParse(context.Arguments.At(1), out var volume))
+    [CommandInformation(
+     Name = "DevRole",
+     Aliases = new[] { "VTRole" },
+     Description = "For get this role info",
+     Permission = "",
+     Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole },
+     Usage = ""
+     )]
+    public class RoleInfoCommand : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+
+            Player player;
+
+            if (context.Arguments.Count > 0)
+                player = Server.Get.GetPlayer(context.Arguments.FirstElement()) ?? context.Player;
+            else
+                player = context.Player;
+
+            if (player.CustomRole != null)
             {
-                result.Message = string.Format(InvalidVolumeError, context.Arguments.At(1));
-                result.State = CommandResultState.Error;
-                return result;
-            }
-
-            var channelName = context.Arguments.Count == 2 ? "Intercom" : GetChannelName(context.Arguments.At(2));
-
-            /*if (!VoiceChatManager.Instance.Config.Presets.TryGetValue(context.Arguments.At(0), out var path))*/
-            string path = context.Arguments.At(0);
-
-            var convertedFilePath = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path)) + ConvertedFileExtension;
-
-            if (File.Exists(path) && !path.EndsWith(ConvertedFileExtension) && !File.Exists(convertedFilePath))
-            {
-                if (!IsFFmpegInstalled)
-                {
-                    result.Message = string.Format(FFmpegDirectoryIsNotSetUpProperlyError, path);
-                    result.State = CommandResultState.Error;
-                    return result;
-                }
-
-                result.Message = $"Converting \"{path}\"...";
-
-                ConvertFileAsync(path).ContinueWith(
-                    task =>
-                    {
-                        if (task.IsCompleted)
-                        {
-                            var arg = context.Arguments.ToArray();
-                            arg[0] = convertedFilePath;
-
-                            var isSucceded = Execute(new CommandContext() { Arguments = new ArraySegment<string>(arg), Platform = context.Platform, Player = context.Player });
-                        }
-                        else
-                        {
-                            Server.Get.Logger.Error(string.Format("Failed to convert \"{0}\": {1}", path, task.Exception));
-                        }
-                    }, TaskContinuationOptions.ExecuteSynchronously);
-
-                result.State = CommandResultState.Ok;
-                return result;
-            }
-
-            if (int.TryParse(path, out var id) && id.TryPlay(volume, channelName, out var streamedMicrophone))
-            {
-                result.Message = string.Format(
-                    "Playing \"{0}\" with {1} volume on \"{2}\" channel, duration: {3}", id, volume, streamedMicrophone.ChannelName, streamedMicrophone.Duration.ToString(DurationFormat));
-
-                result.State = CommandResultState.Ok;
-                return result;
-            }
-
-            if (!path.EndsWith(ConvertedFileExtension))
-                path = convertedFilePath;
-
-            if (context.Arguments.Count == 2 || context.Arguments.Count == 3)
-            {
-                if (path.TryPlay(volume, channelName, out streamedMicrophone))
-                {
-                    result.Message = string.Format(
-                        "Playing \"{0}\" with {1} volume on \"{2}\" channel, duration: {3}", id, volume, streamedMicrophone.ChannelName, streamedMicrophone.Duration.ToString(DurationFormat));
-
-                    result.State = CommandResultState.Ok;
-                    return result;
-                }
-            }
-            else if (context.Arguments.Count == 4)
-            {
-                int.TryParse(context.Arguments.At(3), out int playerId);
-                Player player = Server.Get.Players.FirstOrDefault(p => p.PlayerId == playerId);
-                if (player?.gameObject == null)
-                {
-                    result.Message = string.Format("Player \"{0}\" not found!", context.Arguments.At(3));
-                    result.State = CommandResultState.Error;
-                    return result;
-                }
-                else if (path.TryPlay(Talker.GetOrCreate(player.gameObject), volume, channelName, out streamedMicrophone))
-                {
-                    result.Message = string.Format(
-                        "Playing \"{0}\" with {1} volume, in the proximity of \"{2}\", duration: {3}", path, volume, player.NickName, streamedMicrophone.Duration.ToString(DurationFormat));
-                    result.State = CommandResultState.Ok;
-                    return result;
-                }
+                result.Message = $@"Role of {player.name} : 
+CustomRole !
+Name     -> {player.CustomRole.GetRoleName()}
+ID       -> {player.RoleID}
+RoleType -> {player.RoleType}
+Team     -> {(TeamID)player.CustomRole.GetTeamID()}
+Abstract -> {player.CustomRole is AbstractRole}
+Enemies  -> {string.Join(",", player.CustomRole.GetEnemiesID())}
+Friends  -> {string.Join(",", player.CustomRole.GetFriendsID())}
+";
             }
             else
             {
-                if (!float.TryParse(context.Arguments.At(3), out var x))
-                {
-                    result.Message = string.Format("\"{0}\" is not a valid {1} coordinate!", context.Arguments.At(3), "x");
-                    result.State = CommandResultState.Error;
-                    return result;
-                }
-                else if (!float.TryParse(context.Arguments.At(4), out var y))
-                {
-                    result.Message = string.Format("\"{0}\" is not a valid {1} coordinate!", context.Arguments.At(4), "y");
-                    result.State = CommandResultState.Error;
-                    return result;
-                }
-                else if (!float.TryParse(context.Arguments.At(5), out var z))
-                {
-                    result.Message = string.Format("\"{0}\" is not a valid {1} coordinate!", context.Arguments.At(5), "z");
-                    result.State = CommandResultState.Error;
-                    return result;
-                }
-                else if (path.TryPlay(new Vector3(x, y, z), volume, channelName, out streamedMicrophone))
-                {
-                    result.Message = string.Format(
-                        "Playing \"{0}\" with {1} volume, in the proximity of ({2}, {3}, {4}) duration: {5}", path, volume, x, y, z, streamedMicrophone.Duration.ToString(DurationFormat));
-                    result.State = CommandResultState.Ok;
-                    return result;
-                }
+                result.Message = $@"Role of  {player.name} : 
+VanilaRole !
+Name     -> {player.RoleType}
+ID       -> {player.RoleID}
+Team     -> {player.Team}
+MaxHp    -> {player.ClassManager.CurRole.maxHP}
+Abilitie -> {player.ClassManager.CurRole.abilities.Any()}
+";
             }
+            result.State = CommandResultState.Ok;
 
-            result.Message = string.Format("Audio \"{0}\" not found or it's already playing!", path);
-            result.State = CommandResultState.Error;
             return result;
         }
     }
@@ -324,7 +221,7 @@ namespace VTDevHelp
      Platforms = new[] { Platform.RemoteAdmin },
      Usage = ""
      )]
-    public class itemInfo : ISynapseCommand
+    public class ItemInfoCommand : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
         {
@@ -357,7 +254,7 @@ namespace VTDevHelp
     Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole },
     Usage = ""
     )]
-    public class TestDecont : ISynapseCommand
+    public class TestDecontCommand : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
         {
@@ -402,7 +299,7 @@ namespace VTDevHelp
        Platforms = new[] { Platform.RemoteAdmin },
        Usage = ""
        )]
-    public class Song : ISynapseCommand
+    public class SongCommand : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
         {
@@ -425,7 +322,7 @@ namespace VTDevHelp
     Platforms = new[] { Platform.RemoteAdmin },
     Usage = ""
     )]
-    public class DevGrenad : ISynapseCommand
+    public class GrenadCommand : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
         {
@@ -451,7 +348,7 @@ namespace VTDevHelp
        Platforms = new[] { Platform.RemoteAdmin },
        Usage = ".VTClear (Iteam, Corp ou All)"
        )]
-    public class Clear : ISynapseCommand
+    public class ClearCommand : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
         {

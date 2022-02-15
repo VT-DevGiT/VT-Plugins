@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VT_Item.Config
+namespace VT_Item.Configs
 {
-    public class PluginTranslation : IPluginTranslation
+    public class Translation : IPluginTranslation
     {
         public string NameBulletproofPlate = "BulletproofPlate";
         public string NameMiniGun = "MiniGun";

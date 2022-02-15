@@ -21,7 +21,7 @@ namespace VT_AndersonRobotic
 
         protected override int RoleTeam => (int)TeamID.AND;
 
-        protected override int RoleId => (int)RoleID.AndersonEngineer;
+        protected override int RoleId => (int)RoleID.GeneralAsimov;
 
         protected override string RoleName => Plugin.Instance.Config.GeneralName;
 

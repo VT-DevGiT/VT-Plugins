@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,7 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Patch.cs" />
-    <Compile Include="screenEnum.cs" />
+    <Compile Include="ScreenType.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="EventHandlers.cs" />
@@ -42,7 +43,7 @@
     <Compile Include="Methode.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PluginTranslation.cs" />
+    <Compile Include="Translation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -3,6 +3,7 @@ using Synapse;
 using Synapse.Api;
 using Synapse.Api.Plugin;
 using Synapse.Translation;
+using VT_Api.Core.Plugin;
 
 namespace VTProget_X
 {
@@ -18,20 +19,14 @@ SynapsePatch = SynapseController.SynapsePatch,
 Version = "v.1.3.2"
 )]
 
-    public class Plugin : AbstractPlugin
+    public class Plugin : VtAbstractPlugin<EventHandlers, Config, Translation>
     {
-
-        public static Plugin Instance { get; private set; }
+        public override bool AutoRegister => false;
 
         public bool DecontInProgress = false;
         public bool TeslaEnabled = true;
         public bool CustomScreen = false;
 
-        [Synapse.Api.Plugin.Config(section = "VT-ProgetX")]
-        public static Config Config;
-
-        [SynapseTranslation]
-        public static SynapseTranslation<PluginTranslation> PluginTranslation;
         private void PatchAll()
         {
             var instance = new Harmony("VTProget_X");
@@ -40,11 +35,9 @@ Version = "v.1.3.2"
         }
         public override void Load()
         {
-            Instance = this;
-            PatchAll();
             base.Load();
-            PluginTranslation.AddTranslation(new VTProget_X.PluginTranslation());
-            PluginTranslation.AddTranslation(new VTProget_X.PluginTranslation
+            PatchAll();
+            Translation.AddTranslation(new VTProget_X.Translation
             {
                IntercomGeneralInformation = 
 @"─────────── Centre d'information FIM ───────────
@@ -86,7 +79,6 @@ Temps avent la décontamination : %DecontTime%
                 RespawnMessageMTF = "la division %Name% arrivera dans %Temps%",
                 RespawnMessageNoMTF = "Aucune escouade n'est en route",
             }, "FRENCH");
-            new EventHandlers();
         }
     }
 }

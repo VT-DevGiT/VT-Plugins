@@ -1,5 +1,6 @@
 ﻿using Synapse.Api.Plugin;
 using System.Collections.Generic;
+using VT_Api.Core.Plugin;
 
 namespace VTGrenad
 {
@@ -13,19 +14,16 @@ namespace VTGrenad
         SynapsePatch = SynapseController.SynapsePatch,
         Version = "v.1.3.2"
         )]
-    public class Plugin : AbstractPlugin
+    public class Plugin : VtAbstractPlugin<EventHandlers, Config>
     {
-        public static Plugin Instance { get; private set; }
-        public static Dictionary<int, List<AmorcableGrenade>> DictTabletteGrenades = new Dictionary<int, List<AmorcableGrenade>>();
+        public override bool AutoRegister => false;
 
-        [Synapse.Api.Plugin.Config(section = "VT-Grenade")]
-        public static Config Config;
+        public static Dictionary<int, List<AmorcableGrenade>> DictRadioGrenads = new Dictionary<int, List<AmorcableGrenade>>();
 
-        public override void Load()
+        public override void ReloadConfigs()
         {
-            Instance = this;
-            base.Load();
-            new EventHandlers();
+            EventHandler.RealoadEventConfig();
+            base.ReloadConfigs();
         }
     }
 }

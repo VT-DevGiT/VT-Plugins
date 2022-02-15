@@ -39,8 +39,8 @@ namespace VT939
                 DamageType.Scp207,
                 DamageType.Unknown
             };
-            AngerMeter = Plugin.Config.StartingAnger;
-            sinkHole.slowAmount = Plugin.Config.SlowAmount;
+            AngerMeter = Plugin.Instance.Config.StartingAnger;
+            sinkHole.slowAmount = Plugin.Instance.Config.SlowAmount;
         }
 
         protected override void Start()
@@ -52,18 +52,18 @@ namespace VT939
         protected override void OnEnable()
         {
             RegisterEvents();
-            player.Scale *= Plugin.Config.Size;
+            player.Scale *= Plugin.Instance.Config.Size;
 
-            if (Plugin.Config.ShowSpawnBroadcastMessage)
+            if (Plugin.Instance.Config.ShowSpawnBroadcastMessage)
             {
-                player.SendBroadcast(Plugin.Config.SpawnBroadcastMessageDuration, string.Format(Plugin.Config.SpawnBroadcastMessage, Plugin.Config.ForceSlowDownTime));
+                player.SendBroadcast(Plugin.Instance.Config.SpawnBroadcastMessageDuration, string.Format(Plugin.Instance.Config.SpawnBroadcastMessage, Plugin.Instance.Config.ForceSlowDownTime));
             }
             base.OnEnable();
         }
 
         protected override void BehaviourAction()
         {
-            if (!scp207.enabled && !sinkHole.enabled && Plugin.Config.IsFasterThanHumans)
+            if (!scp207.enabled && !sinkHole.enabled && Plugin.Instance.Config.IsFasterThanHumans)
                 player.GiveEffect(Effect.Scp207);
         }
 
@@ -86,19 +86,19 @@ namespace VT939
 
                 ev.Damage = 0;
 
-                if (AngerMeter > Plugin.Config.AngerMeterMaximum)
-                    AngerMeter = Plugin.Config.AngerMeterMaximum;
+                if (AngerMeter > Plugin.Instance.Config.AngerMeterMaximum)
+                    AngerMeter = Plugin.Instance.Config.AngerMeterMaximum;
 
-                player.ArtificialHealth = (byte)(AngerMeter / Plugin.Config.AngerMeterMaximum * player.MaxArtificialHealth);
+                player.ArtificialHealth = (byte)(AngerMeter / Plugin.Instance.Config.AngerMeterMaximum * player.MaxArtificialHealth);
 
                 if (!angerMeterDecayCoroutine.IsRunning)
-                    angerMeterDecayCoroutine = Timing.RunCoroutine(AngerMeterDecay(Plugin.Config.AngerMeterDecayTime), Segment.FixedUpdate);
+                    angerMeterDecayCoroutine = Timing.RunCoroutine(AngerMeterDecay(Plugin.Instance.Config.AngerMeterDecayTime), Segment.FixedUpdate);
             }
             else if (ev.Killer == player && ev.Damage > 0)
             {
-                ev.Damage = Plugin.Config.BaseDamage + (AngerMeter / Plugin.Config.AngerMeterMaximum) * Plugin.Config.BonusAttackMaximum;
+                ev.Damage = Plugin.Instance.Config.BaseDamage + (AngerMeter / Plugin.Instance.Config.AngerMeterMaximum) * Plugin.Instance.Config.BonusAttackMaximum;
 
-                forceSlowDownCoroutine = Timing.RunCoroutine(ForceSlowDown(Plugin.Config.ForceSlowDownTime, forceSlowDownInterval), Segment.FixedUpdate);
+                forceSlowDownCoroutine = Timing.RunCoroutine(ForceSlowDown(Plugin.Instance.Config.ForceSlowDownTime, forceSlowDownInterval), Segment.FixedUpdate);
             }
         }
 
@@ -143,7 +143,7 @@ namespace VT939
 
             while (waitedTime < totalWaitTime)
             {
-                if (!sinkHole.enabled && Plugin.Config.ShouldGetSlowed)
+                if (!sinkHole.enabled && Plugin.Instance.Config.ShouldGetSlowed)
                     player.GiveEffect(Effect.SinkHole);
 
                 waitedTime += interval;
@@ -153,7 +153,7 @@ namespace VT939
 
             sinkHole.Disabled();
 
-            if (Plugin.Config.ResetAngerAfterHitSlowDown)
+            if (Plugin.Instance.Config.ResetAngerAfterHitSlowDown)
                 AngerMeter = player.ArtificialHealth = 0;
         }
 
@@ -161,11 +161,11 @@ namespace VT939
         {
             while (AngerMeter > 0)
             {
-                player.ArtificialHealth = (byte)(AngerMeter / Plugin.Config.AngerMeterMaximum * player.ArtificialHealth);
+                player.ArtificialHealth = (byte)(AngerMeter / Plugin.Instance.Config.AngerMeterMaximum * player.ArtificialHealth);
 
                 yield return Timing.WaitForSeconds(waitTime);
 
-                AngerMeter -= Plugin.Config.AngerMeterDecayValue;
+                AngerMeter -= Plugin.Instance.Config.AngerMeterDecayValue;
 
                 if (AngerMeter < 0)
                     AngerMeter = 0;

@@ -1,11 +1,10 @@
-﻿using Synapse.Api.Plugin;
-using Synapse.Translation;
-using VT_Item.Config;
+﻿using VT_Api.Core.Plugin;
 using VT_Item.Item;
+using VT_Item.Configs;
 
 namespace VT_Item
 {
-    [PluginInformation(
+    [Synapse.Api.Plugin.PluginInformation(
         Author = "VT",
         Description = "Add new Cool Item",
         LoadPriority = 100,
@@ -15,12 +14,9 @@ namespace VT_Item
         SynapsePatch = SynapseController.SynapsePatch,
         Version = "v.1.1.1"
         )]
-    public class Plugin : AbstractPlugin
+    public class Plugin : VtAbstractPlugin<EventHandlers, Config, Translation>
     {
-        public static Plugin Instance { get; private set; }
-
-        [Synapse.Api.Plugin.Config(section = "VT-Item-Config")]
-        public static PluginConfig PluginConfig;
+        public override bool AutoRegister => true;
 
         [Synapse.Api.Plugin.Config(section = "VT-Item-BulletproofPlate")]
         public static BulletproofPlateConfig BulletproofPlateConfig;
@@ -28,29 +24,16 @@ namespace VT_Item
         [Synapse.Api.Plugin.Config(section = "VT-Item-MiniGun")]
         public static MiniGunConfig MiniGunConfig;
 
-        [SynapseTranslation]
-        public static SynapseTranslation<PluginTranslation> PluginTranslation;
-
         public override void Load()
         {
-            Instance = this;
-            new EventHandlers();
-            base.Load();
-            LoadItem();
-            PluginTranslation.AddTranslation(new PluginTranslation());
-            PluginTranslation.AddTranslation(new PluginTranslation
+            Translation.AddTranslation(new Translation
             {
                 MessageGetItem = "Vous avez récupéré un(e) %Name%",
                 MessageHandItem = "Vous avez pris un(e) %Name%",
                 NameBulletproofPlate = "plaque par balle",
                 NameMiniGun = "Mini-Gun"
             }, "FRENCH");
-        }
-
-        private void LoadItem()
-        {
-            new MiniGunScript();
-            new BulletproofPlateScript();
+            base.Load();
         }
     }
 }

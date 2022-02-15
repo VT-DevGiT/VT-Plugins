@@ -4,7 +4,7 @@ using VT_Api.Extension;
 
 namespace VT939
 {
-    internal class EventHandlers
+    public class EventHandlers
     {
         public EventHandlers()
         {
@@ -15,7 +15,7 @@ namespace VT939
         {
             if (ev.Role.Is939())
                 ev.Player.GetOrAddComponent<Scp939Controller>();
-            else if (ev.Player.TryGetComponent<Scp939Controller>(out var ctr) && ctr.enabled)
+            else if (ev.Player. TryGetComponent<Scp939Controller>(out var ctr) && ctr.enabled)
                 ctr.enabled = false;
         }
     }

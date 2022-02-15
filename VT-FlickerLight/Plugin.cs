@@ -4,6 +4,7 @@ using Synapse.Api;
 using Synapse.Api.Plugin;
 using System.Collections.Generic;
 using UnityEngine;
+using VT_Api.Core.Plugin;
 
 namespace VT_FlickerLight
 {
@@ -17,12 +18,9 @@ namespace VT_FlickerLight
         SynapsePatch = SynapseController.SynapsePatch,
         Version = "v.1.0.1"
         )]
-    public class Plugin : AbstractPlugin
+    public class Plugin : VtAbstractPlugin<EventHandler, Config>
     {
-        public static Plugin Instance { get; private set; }
-
-        [Synapse.Api.Plugin.Config(section = "VT-FlickerLight")]
-        public static Config Config { get; set; }
+        public override bool AutoRegister => false;
 
         public Color firstColor;
         public Color secondColor;
@@ -30,10 +28,8 @@ namespace VT_FlickerLight
 
         public override void Load()
         {
-            Instance = this;
             base.Load();
             SetColorValue();
-            new EventHandler();
         }
 
         public override void ReloadConfigs()

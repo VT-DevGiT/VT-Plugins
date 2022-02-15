@@ -23,40 +23,41 @@ namespace VTEscape
         public List<SerializedEscapeConfig> EscapeList = new List<SerializedEscapeConfig>()
         {
             // Vania Game
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.None, TeamID.RSC, TeamID.None, RoleID.NtfSpecialist, EscapeType.MTF, 3),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.None, TeamID.RSC, TeamID.CHI, RoleID.ChaosConscript, EscapeType.CHI, 2),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.None, TeamID.CDP, TeamID.None, RoleID.ChaosRepressor, EscapeType.CHI, 3),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.None, TeamID.CDP, TeamID.NTF, RoleID.NtfPrivate, EscapeType.MTF, 1),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None, (int)TeamID.RSC, (int)TeamID.None, (int)RoleID.NtfSpecialist,  EscapeType.MTF, 3),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None, (int)TeamID.RSC, (int)TeamID.CHI,  (int)RoleID.ChaosConscript, EscapeType.CHI, 2),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None, (int)TeamID.CDP, (int)TeamID.None, (int)RoleID.ChaosRepressor, EscapeType.CHI, 3),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None, (int)TeamID.CDP, (int)TeamID.NTF,  (int)RoleID.NtfPrivate,     EscapeType.MTF, 1),
             //Custom
 
             //escapeMTF Role
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.None, TeamID.CDP, TeamID.CDM, RoleID.CdmCadet),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.None, TeamID.CDP, TeamID.GOC, RoleID.GOCMember),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.None, TeamID.RSC, TeamID.GOC, RoleID.GOCMember),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.DirecteurSite, TeamID.None, TeamID.None, RoleID.NtfLieutenantColonel),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.GardeSuperviseur, TeamID.None, TeamID.None, RoleID.NtfCommander),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.ScientifiqueSuperviseur, TeamID.None, TeamID.None, RoleID.NtfExpertReconfinement),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.Janitor, TeamID.None, TeamID.None, RoleID.NtfLieutenant),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.FacilityGuard, TeamID.None, TeamID.None, RoleID.NtfSergeant),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.GardePrison, TeamID.None, TeamID.None, RoleID.NtfSergeant),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.ZoneManager, TeamID.None, TeamID.None, RoleID.NtfSergeant),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.Scp0492, TeamID.None, TeamID.None, RoleID.Spectator),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None,                    (int)TeamID.CDP,  (int)TeamID.CDM,  (int)RoleID.CdmCadet),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None,                    (int)TeamID.CDP,  (int)TeamID.GOC,  (int)RoleID.GOCMember),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None,                    (int)TeamID.RSC,  (int)TeamID.GOC,  (int)RoleID.GOCMember),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.DirecteurSite,           (int)TeamID.None, (int)TeamID.None, (int)RoleID.NtfLieutenantColonel),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.GardeSuperviseur,        (int)TeamID.None, (int)TeamID.None, (int)RoleID.NtfCommander),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.ScientifiqueSuperviseur, (int)TeamID.None, (int)TeamID.None, (int)RoleID.NtfExpertReconfinement),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.Janitor,                 (int)TeamID.None, (int)TeamID.None, (int)RoleID.NtfLieutenant),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.FacilityGuard,           (int)TeamID.None, (int)TeamID.None, (int)RoleID.NtfSergeant),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.GardePrison,             (int)TeamID.None, (int)TeamID.None, (int)RoleID.NtfSergeant),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.ZoneManager,             (int)TeamID.None, (int)TeamID.None, (int)RoleID.NtfSergeant),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.Scp0492,                 (int)TeamID.None, (int)TeamID.None, (int)RoleID.Spectator),
+            
             //escapeMTF Team
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.None, TeamID.NetralSCP, TeamID.None, RoleID.NtfSergeant),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.None, TeamID.NTF, TeamID.NTF, RoleID.NtfPrivate),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.None, TeamID.NTF, TeamID.NTF, RoleID.NtfPrivate),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.None, TeamID.NTF, TeamID.CHI, RoleID.ChaosConscript),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.None, TeamID.AND, TeamID.NTF, RoleID.NtfPrivate),
-            new SerializedEscapeConfig(EscapeType.MTF, RoleID.None, TeamID.SCP, TeamID.None, RoleID.Spectator, EscapeType.NONE, 0, true, "LOKI - 5 procedure is engaged . the alfa warhead is started , evacuat immediately ."),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None, (int)TeamID.NetralSCP, (int)TeamID.None, (int)RoleID.NtfSergeant),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None, (int)TeamID.NTF,       (int)TeamID.NTF,  (int)RoleID.NtfPrivate),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None, (int)TeamID.NTF,       (int)TeamID.NTF,  (int)RoleID.NtfPrivate),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None, (int)TeamID.NTF,       (int)TeamID.CHI,  (int)RoleID.ChaosConscript),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None, (int)TeamID.AND,       (int)TeamID.NTF,  (int)RoleID.NtfPrivate),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None, (int)TeamID.SCP,       (int)TeamID.None, (int)RoleID.Spectator, EscapeType.NONE, 0, true, "LOKI - 5 procedure is engaged . the alfa warhead is started , evacuat immediately ."),
             
             //escapeCHI Role
-            new SerializedEscapeConfig(EscapeType.CHI, RoleID.ChaosIntrus, TeamID.None, TeamID.None, RoleID.ChaosLeader),
+            new SerializedEscapeConfig(EscapeType.CHI, (int)RoleID.ChaosIntrus, (int)TeamID.None, (int)TeamID.None, (int)RoleID.ChaosLeader),
             //escapeCHI Team
-            new SerializedEscapeConfig(EscapeType.CHI, RoleID.None, TeamID.CDP, TeamID.None, RoleID.ChaosExpertPyrotechnie),
-            new SerializedEscapeConfig(EscapeType.CHI, RoleID.None, TeamID.RSC, TeamID.CHI, RoleID.ChaosConscript),
-            new SerializedEscapeConfig(EscapeType.CHI, RoleID.None, TeamID.NTF, TeamID.CHI, RoleID.ChaosConscript),
-            new SerializedEscapeConfig(EscapeType.CHI, RoleID.None, TeamID.SCP, TeamID.None, RoleID.Spectator),
-            new SerializedEscapeConfig(EscapeType.CHI, RoleID.None, TeamID.RSC, TeamID.None, RoleID.Spectator),
+            new SerializedEscapeConfig(EscapeType.CHI, (int)RoleID.None, (int)TeamID.CDP, (int)TeamID.None, (int)RoleID.ChaosExpertPyrotechnie),
+            new SerializedEscapeConfig(EscapeType.CHI, (int)RoleID.None, (int)TeamID.RSC, (int)TeamID.CHI,  (int)RoleID.ChaosConscript),
+            new SerializedEscapeConfig(EscapeType.CHI, (int)RoleID.None, (int)TeamID.NTF, (int)TeamID.CHI,  (int)RoleID.ChaosConscript),
+            new SerializedEscapeConfig(EscapeType.CHI, (int)RoleID.None, (int)TeamID.SCP, (int)TeamID.None, (int)RoleID.Spectator),
+            new SerializedEscapeConfig(EscapeType.CHI, (int)RoleID.None, (int)TeamID.RSC, (int)TeamID.None, (int)RoleID.Spectator),
         };
 
         [Description("the WarHeadEscape cant be disabled")]

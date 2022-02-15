@@ -8,7 +8,7 @@ namespace VTEscape
 {
     public class Method
     {
-        public IEnumerator<float> WarHeadEscape(int waitforready = 3)
+        public static IEnumerator<float> WarHeadEscape(int waitforready = 3)
         {
             yield return Timing.WaitForSeconds(10f);
             while (waitforready > 0)

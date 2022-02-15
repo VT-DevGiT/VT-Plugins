@@ -16,13 +16,15 @@ namespace VTCustomClass
         Author = "VT",
         Description = "A plugin for add new class",
         LoadPriority = 3,
-        Name = "CustomClass",
+        Name = "VT-CustomClass",
         SynapseMajor = SynapseController.SynapseMajor,
         SynapseMinor = SynapseController.SynapseMinor,
         SynapsePatch = SynapseController.SynapsePatch,
         Version = "v.1.3.0")]
     public class Plugin : VtAbstractPlugin<EventHandlers, Config, Translation>
     {
+        //TODO : Fix bug null error Expetion at the start of the round
+
         public override bool AutoRegister =>  true;
 
         //kill Enti-Cheat
@@ -43,25 +45,66 @@ namespace VTCustomClass
                 PowerCooldown = "vous pouvez utiliser ce pouvoir dans %Time% secondes"
             }, "FRENCH");
             PatchAll();
+
             // Parse the config
+            ParseConfig();
+        }
+
+        void ParseConfig()
+        { 
             for (int i = 0; i < Config.SpawnClassConfigs.Count; i++)
                 if (Config.SpawnClassConfigs[i].SpawnChance < 1)
                 {
                     Config.SpawnClassConfigs.RemoveAt(i);
                     i--;
                 }
+
+            for (int i = 0; i < Config.SpawnReplaceScpClassConfig.Count; i++)
+                if (Config.SpawnReplaceScpClassConfig[i].SpawnChance < 1)
+                {
+                    Config.SpawnReplaceScpClassConfig.RemoveAt(i);
+                    i--;
+                }
+
+            for (int i = 0; i < Config.RespawnClassConfig.Count; i++)
+                if (Config.RespawnClassConfig[i].SpawnChance < 1)
+                {
+                    Config.RespawnClassConfig.RemoveAt(i);
+                    i--;
+                }
+
             // Sort by highest MaxRequiredPlayers if is the same by thhe lowest SpawnChance
             // But if the chance is over or at 100 % is it becoms 
             Config.SpawnClassConfigs.Sort((a, b) =>
-            a.SpawnChance == 100 ? (b.SpawnChance == 100 ?  0 : 1) :
-                                   (b.SpawnChance == 100 ? -1 :
-                a.MaxRequiredPlayers == b.MaxRequiredPlayers ?
-                    b.SpawnChance - a.SpawnChance : 
-                    a.MaxRequiredPlayers - b.MaxRequiredPlayers));
+                a.SpawnChance == 100 ? (b.SpawnChance == 100 ?  0 : 1) :
+                                       (b.SpawnChance == 100 ? -1 :
+                    a.MaxRequiredPlayers == b.MaxRequiredPlayers ?
+                        b.SpawnChance - a.SpawnChance : 
+                        a.MaxRequiredPlayers - b.MaxRequiredPlayers
+                        ));
 
+            Config.SpawnReplaceScpClassConfig.Sort((a, b) =>
+                a.SpawnChance == 100 ? (b.SpawnChance == 100 ? 0 : 1) :
+                                       (b.SpawnChance == 100 ? -1 :
+                    a.MaxRequiredScpPlayers == b.MaxRequiredScpPlayers ?
+                        b.SpawnChance - a.SpawnChance :
+                        a.MaxRequiredScpPlayers - b.MaxRequiredScpPlayers
+                        ));
 
+            Config.RespawnClassConfig.Sort((a, b) =>
+                a.SpawnChance == 100 ? (b.SpawnChance == 100 ? 0 : 1) :
+                                       (b.SpawnChance == 100 ? -1 :
+                    a.MaxRequiredPlayers == b.MaxRequiredPlayers ?
+                        b.SpawnChance - a.SpawnChance :
+                        a.MaxRequiredPlayers - b.MaxRequiredPlayers
+                        ));
         }
 
+        public override void ReloadConfigs()
+        {
+            base.ReloadConfigs();
+            ParseConfig();
+        }
 
         [Obsolete("Use auto Register Systeme")]
         public void RegisterCustomTeam()

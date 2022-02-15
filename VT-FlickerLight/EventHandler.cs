@@ -16,17 +16,28 @@ namespace VT_FlickerLight
         private IEnumerator<float> LigthFlicking()
         {
             yield return Timing.WaitForSeconds(1f);
-            for (int i = 0; i < Plugin.Config.NumberOfLightFlickingAtTheBegining; i++)
+            for (int i = 0; i < Plugin.Instance.Config.NumberOfLightFlickingAtTheBegining; i++)
             {
-                if (Plugin.Config.PlaySound) Map.Get.PlayAmbientSound(7);
-                Map.Get.ChangeRoomsLightColor(Plugin.Instance.firstColor);
-                yield return Timing.WaitForSeconds(Plugin.Config.TimeBetweenFlicker);
-                Map.Get.ChangeRoomsLightColor(Plugin.Instance.secondColor);
-                yield return Timing.WaitForSeconds(Plugin.Config.TimeBetweenFlicker);
-                Map.Get.ChangeRoomsLightColor(Plugin.Instance.thirdColor);
-                yield return Timing.WaitForSeconds(Plugin.Config.TimeBetweenFlicker);
+                var waitTime = Plugin.Instance.Config.TimeBetweenFlicker;
+
+                if (Plugin.Instance.Config.PlaySound) 
+                    Map.Get.PlayAmbientSound(7);
+
+                Map.Get.ChangeRoomsLightColor(((Plugin)Plugin.Instance).firstColor);
+                
+                yield return Timing.WaitForSeconds(waitTime);
+                
+                Map.Get.ChangeRoomsLightColor(((Plugin)Plugin.Instance).secondColor);
+                
+                yield return Timing.WaitForSeconds(waitTime);
+                
+                Map.Get.ChangeRoomsLightColor(((Plugin)Plugin.Instance).thirdColor);
+                
+                yield return Timing.WaitForSeconds(waitTime);
             }
-            if (!string.IsNullOrWhiteSpace(Plugin.Config.CassieAnnonce)) Map.Get.Cassie(Plugin.Config.CassieAnnonce);
+            if (!string.IsNullOrWhiteSpace(Plugin.Instance.Config.CassieAnnonce)) 
+                Map.Get.Cassie(Plugin.Instance.Config.CassieAnnonce);
+
             Map.Get.ResetRoomsLightColor();
             Map.Get.ResetRoomsLightColor();// for patch client bug
             yield break;

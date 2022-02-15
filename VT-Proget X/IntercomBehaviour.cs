@@ -6,7 +6,7 @@ namespace VTProget_X
     {
         public IntercomBehaviour()
         {
-            this.RefreshTime = 500;
+            this.RefreshTime = 1000;
         }
 
         protected override void Start()
@@ -18,19 +18,20 @@ namespace VTProget_X
         private int _timer = 0;
         protected override void BehaviourAction()
         {
-            screenEnum screen;
+            ScreenType screen;
             _timer++;
-            if (Plugin.Instance.CustomScreen)
-                screen = screenEnum.Custom;
-            else if (Plugin.Config.IntercomInfomationtime > _timer)
-                screen = screenEnum.GeneralInfo;
-            else if (Plugin.Config.IntercomInfomationtime <= _timer)
-                screen = screenEnum.ListScp;
+            if (((Plugin)Plugin.Instance).CustomScreen)
+                screen = ScreenType.Custom;
+            else if (Plugin.Instance.Config.IntercomInfomationtime > _timer)
+                screen = ScreenType.GeneralInfo;
+            else if (Plugin.Instance.Config.IntercomInfomationtime <= _timer)
+                screen = ScreenType.ListScp;
             else
-                screen = screenEnum.Defaux;
+                screen = ScreenType.Defaux;
 
-            Methode.SendInterComInfoGeneral(screen);
-            if (Plugin.Config.IntercomInfomationtime*2 < _timer)
+            Methode.SetIntercomScreen(screen);
+
+            if (Plugin.Instance.Config.IntercomInfomationtime * 2 < _timer)
                 _timer = 0;
         }
     }

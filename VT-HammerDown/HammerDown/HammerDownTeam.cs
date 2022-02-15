@@ -24,15 +24,15 @@ namespace VT_HammerDown
             RespawnManager.Singleton.NamingManager.AllUnitNames.Add(new SyncUnit()
             {
                 SpawnableTeam = 2,
-                UnitName = Regex.Replace(Plugin.Config.UnitName, "%RandomName%", unitName, RegexOptions.IgnoreCase)
+                UnitName = Regex.Replace(Plugin.Instance.Config.UnitName, "%RandomName%", unitName, RegexOptions.IgnoreCase)
             });
             return unitName;
         }
 
         public override string GetSpawnAnnonce(string uniteName)
         {
-            if (!string.IsNullOrWhiteSpace(Plugin.Config.CassieSpawn))
-                return Regex.Replace(Plugin.Config.CassieSpawn, "%UnitName%", uniteName.Replace("-", " "), RegexOptions.IgnoreCase);
+            if (!string.IsNullOrWhiteSpace(Plugin.Instance.Config.CassieSpawn))
+                return Regex.Replace(Plugin.Instance.Config.CassieSpawn, "%UnitName%", uniteName.Replace("-", " "), RegexOptions.IgnoreCase);
             return "";
         }
 
@@ -40,8 +40,8 @@ namespace VT_HammerDown
         {
             Roles = new List<RespawnRoleInfo>()
             {
-                new RespawnRoleInfo((int)RoleID.CdmCommander, 2, 1),
-                new RespawnRoleInfo((int)RoleID.CdmLieutenant, 1, Plugin.ConfigHammerDownLieutenant.MaxRespawn),
+                new RespawnRoleInfo((int)RoleID.CdmCommander, 2,  Plugin.Instance.Config.CmdMaxPerRespawn),
+                new RespawnRoleInfo((int)RoleID.CdmLieutenant, 1, Plugin.Instance.Config.LtnMaxPerRespawn),
                 new RespawnRoleInfo((int)RoleID.CdmCadet),
             }; 
         }

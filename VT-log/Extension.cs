@@ -10,7 +10,7 @@ namespace VTLog
         {
             try
             {
-                return $"Items:({items?.Name}#{items?.ID}:{items?.IsCustomItem}#{items?.PickupBase?.netId}:{items?.PickupBase?.NetworkInfo}#{items?.Position}:{items?.Scale}#{items?.State}#{items?.Durabillity}.{"null"/*items?.Barrel*/}.{"null"/*items?.Other*/}.{"null"/*items?.Sight*/}|{"null"/*items?.ItemHolder?.UserId*/})";
+                return $"Items:({items?.Name}#{items?.ID}:{items?.IsCustomItem}#{items?.PickupBase?.netId}:{items?.PickupBase?.NetworkInfo}#{items?.Position}:{items?.Scale}#{items?.State}#{items?.Durabillity}.{items?.ItemData?.Count}.{items?.WeaponAttachments}|{items?.ItemHolder?.UserId})";
             }
             catch (Exception e)
             {

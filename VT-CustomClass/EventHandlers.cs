@@ -11,12 +11,9 @@ namespace VTCustomClass
     public class EventHandlers
     {
         public List<Player> RespawnPlayer = new List<Player>();
-        public int[] VanilaScpID = { (int)RoleType.Scp049,   (int)RoleType.Scp0492, (int)RoleType.Scp079, 
-                                     (int)RoleType.Scp096,   (int)RoleType.Scp106,  (int)RoleType.Scp173, 
-                                     (int)RoleType.Scp93953, (int)RoleType.Scp93989 };
 
-        public Dictionary<int, int> RoleIDSpawned = new Dictionary<int, int>();
-        public Dictionary<int, int> RoleIDTotalSpawned = new Dictionary<int, int>();
+        public Dictionary<int, int> RoleIDSpawnedInRound = new Dictionary<int, int>();
+        public Dictionary<Player, int> IDRespawnPlayer = new Dictionary<Player, int>();
 
         public EventHandlers()
         {
@@ -29,7 +26,7 @@ namespace VTCustomClass
 
         private void OnRestart()
         {
-            RoleIDTotalSpawned.Clear();
+            IDRespawnPlayer.Clear();
         }
 
         private void OnTransmitPlayerData(TransmitPlayerDataEventArgs ev)
@@ -54,49 +51,64 @@ namespace VTCustomClass
 
         private void OnReSpawn(TeamRespawnEventArgs ev)
         {
-            RoleIDTotalSpawned.Clear();
-            RespawnPlayer.Clear();
-            RespawnPlayer.AddRange(ev.Players);
+            Server.Get.Logger.Info($"OnReSpawn !!!!");
+            IDRespawnPlayer.Clear();
+            RespawnPlayer = ev.Players;
         }
 
         private void OnClass(PlayerSetClassEventArgs ev)
         {
+            Server.Get.Logger.Info($"OnClass {ev.Player.CustomRole?.GetRoleID()}");
+
             if (RespawnPlayer.Contains(ev.Player))
             {
-                var possiblesRoles = Plugin.Instance.Config.RespawnClassConfig.Where(r => r.ReplaceRoleID == (int)ev.Role);
-
-                foreach(var possibleRole in possiblesRoles)
+                Server.Get.Logger.Info($"OnClass RespawnPlayer");
+                if (ev.Player.CustomRole == null)
                 {
-                    if ((0 < possibleRole.MaxRequiredPlayersInGame && Server.Get.PlayersAmount > possibleRole.MaxRequiredPlayersInGame) ||
-                        (0 < possibleRole.MinRequiredPlayersInGame && Server.Get.PlayersAmount < possibleRole.MinRequiredPlayersInGame) ||
-                        (0 < possibleRole.MaxRequiredPlayers && Server.Get.PlayersAmount > possibleRole.MaxRequiredPlayers) ||
-                        (0 < possibleRole.MinRequiredPlayers && Server.Get.PlayersAmount < possibleRole.MinRequiredPlayers))
-                        continue;
-
-                    if (possibleRole.SpawnChance >= UnityEngine.Random.Range(1, 100) &&
-                        (!RoleIDSpawned.ContainsKey(possibleRole.RoleID) || RoleIDSpawned[possibleRole.RoleID] > possibleRole.MaxPerRespawn) &&
-                        (!RoleIDTotalSpawned.ContainsKey(possibleRole.RoleID) || RoleIDTotalSpawned[possibleRole.RoleID] > possibleRole.MaxRespawn) &&
-                        (possibleRole.MinRequiredPlayers < 0 ||true /*TODO: Faire un teste sur le max player*/) &&
-                        (possibleRole.MinRequiredPlayersInGame < 0 || possibleRole.MinRequiredPlayersInGame <= Server.Get.PlayersAmount) &&
-                        (possibleRole.MaxRequiredPlayersInGame < 0 || possibleRole.MaxRequiredPlayersInGame >= Server.Get.PlayersAmount))
-                    {
-                        ev.Player.RoleID = possibleRole.RoleID;
-                        
-                        if (RoleIDSpawned.ContainsKey(possibleRole.RoleID))
-                            RoleIDSpawned.Add(possibleRole.RoleID, 1);
-                        else
-                            RoleIDSpawned[possibleRole.RoleID]++;
-
-                        if (RoleIDTotalSpawned.ContainsKey(possibleRole.RoleID))
-                            RoleIDTotalSpawned.Add(possibleRole.RoleID, 1);
-                        else
-                            RoleIDTotalSpawned[possibleRole.RoleID]++;
-                    }
+                    Server.Get.Logger.Info($"OnClass Addeed");
+                    IDRespawnPlayer.Add(ev.Player, (int)ev.Role);
+                    ev.Allow = false;
                 }
 
                 RespawnPlayer.Remove(ev.Player);
             }
-            // faire un poste traintement ?
+
+            if (!RespawnPlayer.Any() && IDRespawnPlayer != null && IDRespawnPlayer.Any())
+            {
+                Server.Get.Logger.Info($"RespawnPlayer 1 ");
+                if (Plugin.Instance.Config.SpawnClassConfigs != null && Plugin.Instance.Config.SpawnClassConfigs.Any())
+                {
+                    Server.Get.Logger.Info($"RespawnPlayer 2 ");
+                    foreach (var classToSpawn in Plugin.Instance.Config.RespawnClassConfig)
+                    {
+                        if ((0 < classToSpawn.MaxRequiredPlayersInGame && Server.Get.PlayersAmount > classToSpawn.MaxRequiredPlayersInGame) ||
+                            (0 < classToSpawn.MinRequiredPlayersInGame && Server.Get.PlayersAmount < classToSpawn.MinRequiredPlayersInGame) ||
+                            (0 < classToSpawn.MaxRespawnPerRound && classToSpawn.MaxRespawnPerRound >= RoleIDSpawnedInRound[classToSpawn.RoleID]))
+                            continue;
+
+                        var playersRoles = IDRespawnPlayer.Where(r => r.Value == classToSpawn.ReplaceRoleID);
+
+                        for (int i = 0; i < classToSpawn.MaxPerRespawn; i++)
+                        {
+                            if (!playersRoles.Any() ||
+                                (0 < classToSpawn.MaxRequiredPlayers && Server.Get.PlayersAmount > classToSpawn.MaxRequiredPlayers) ||
+                                (0 < classToSpawn.MinRequiredPlayers && Server.Get.PlayersAmount < classToSpawn.MinRequiredPlayers))
+                                break;
+
+                            if (classToSpawn.SpawnChance >= UnityEngine.Random.Range(1, 100))
+                            {
+                                var key = playersRoles.ElementAt(UnityEngine.Random.Range(0, playersRoles.Count() - 1)).Key;
+                                IDRespawnPlayer[key] = classToSpawn.RoleID;
+                            }
+                        }
+                    }
+                }
+
+                foreach (var rolePlayer in IDRespawnPlayer)
+                    rolePlayer.Key.RoleID = rolePlayer.Value;
+
+                IDRespawnPlayer.Clear();
+            }
         }
 
         private void OnSpawn(SpawnPlayersEventArgs ev)
@@ -138,7 +150,7 @@ namespace VTCustomClass
                         (0 < classToSpawn.MinRequiredPlayersInGame && Server.Get.PlayersAmount < classToSpawn.MinRequiredPlayersInGame))
                         continue;
 
-                    var playersRoles = ev.SpawnPlayers.Where(r => VanilaScpID.Contains(r.Value));
+                    var playersRoles = ev.SpawnPlayers.Where(r => VT_Api.Core.Roles.RoleManager.VanilaScpID.Contains(r.Value));
 
                     for (int i = 0; i < classToSpawn.MaxSpawn; i++)
                     {

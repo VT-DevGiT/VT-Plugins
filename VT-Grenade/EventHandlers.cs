@@ -17,14 +17,26 @@ namespace VTGrenad
             Server.Get.Events.Player.PlayerDeathEvent += PlayedDead;
             Server.Get.Events.Player.PlayerPickUpItemEvent += PickingUpItem;
             Server.Get.Events.Player.PlayerCuffTargetEvent += OnCuff;
-            if (null != Plugin.Config.Key)
+
+            RealoadEventConfig();
+        }
+        
+        public void RealoadEventConfig()
+        {
+            Server.Get.Events.Player.PlayerDropItemEvent -= ItemDropped;
+            VtController.Get.Events.Item.ChangeIntoFragEvent -= OnChangeIntoFragEvent;
+            VtController.Get.Events.Item.CollisionEvent -= OnCollisionGrenade;
+
+            if (null != Plugin.Instance.Config.Key)
                 Server.Get.Events.Player.PlayerDropItemEvent += ItemDropped;
-            if (Plugin.Config.ChaineFuseFragGrenad)
+
+            if (Plugin.Instance.Config.ChaineFuseFragGrenad)
                 VtController.Get.Events.Item.ChangeIntoFragEvent += OnChangeIntoFragEvent;
-            if (Plugin.Config.FlashbangFuseWithCollision)
+
+            if (Plugin.Instance.Config.FlashbangFuseWithCollision)
                 VtController.Get.Events.Item.CollisionEvent += OnCollisionGrenade;
         }
-
+        
         private void OnCollisionGrenade(CollisionEventArgs ev)
         {
             if (ev.Item.ItemType == ItemType.GrenadeFlash && ev.Item.PickupBase is TimeGrenade grenad)
@@ -43,7 +55,7 @@ namespace VTGrenad
 
         private void OnKeyPress(PlayerKeyPressEventArgs ev)
         {
-            if (ev.KeyCode == Plugin.Config.Key)
+            if (ev.KeyCode == Plugin.Instance.Config.Key)
             {
                 ev.Player.ExecuteCommand(".Boom", false);
             }
@@ -53,13 +65,13 @@ namespace VTGrenad
         {
             if (ev.Item != null)
             {
-                var keys = Plugin.DictTabletteGrenades.Keys.ToList();
+                var keys = Plugin.DictRadioGrenads.Keys.ToList();
                 foreach (var key in keys)
                 {
-                    var list = Plugin.DictTabletteGrenades[key];
+                    var list = Plugin.DictRadioGrenads[key];
                     if (list.Any(p => p.GrItem == ev.Item))
                     {
-                        Plugin.DictTabletteGrenades[key] = list.Where(p => p.GrItem != ev.Item).ToList();
+                        Plugin.DictRadioGrenads[key] = list.Where(p => p.GrItem != ev.Item).ToList();
                     }
                 }
             }
@@ -67,18 +79,18 @@ namespace VTGrenad
         private void ItemDropped(PlayerDropItemEventArgs ev)
         {
             if (ev.Item != null && (ev.Item.ItemType == ItemType.GrenadeHE 
-                || (Plugin.Config.FlashRemot && ev.Item.ItemType == ItemType.GrenadeFlash)) 
+                || (Plugin.Instance.Config.FlashRemot && ev.Item.ItemType == ItemType.GrenadeFlash)) 
                 && ev.Player?.ItemInHand?.ID == (int)ItemType.Radio 
                 && !ev.Player.ItemInHand.IsCustomItem)
             {
-                List<AmorcableGrenade> listGrenade = Plugin.DictTabletteGrenades.ContainsKey(ev.Player.PlayerId) ? Plugin.DictTabletteGrenades[ev.Player.PlayerId] : new List<AmorcableGrenade>();
+                List<AmorcableGrenade> listGrenade = Plugin.DictRadioGrenads.ContainsKey(ev.Player.PlayerId) ? Plugin.DictRadioGrenads[ev.Player.PlayerId] : new List<AmorcableGrenade>();
 
                 if (listGrenade != null && !listGrenade.Any(p => p.GrItem == ev.Item))
                 {
                     listGrenade.Add(new AmorcableGrenade(ev.Item));
-                    if (!Plugin.DictTabletteGrenades.ContainsKey(ev.Player.PlayerId))
+                    if (!Plugin.DictRadioGrenads.ContainsKey(ev.Player.PlayerId))
                     {
-                        Plugin.DictTabletteGrenades.Add(ev.Player.PlayerId, listGrenade);
+                        Plugin.DictRadioGrenads.Add(ev.Player.PlayerId, listGrenade);
                     }
                 }
             }
@@ -86,17 +98,17 @@ namespace VTGrenad
         }
         private void OnCuff(PlayerCuffTargetEventArgs ev)
         {
-            if (Plugin.DictTabletteGrenades.ContainsKey(ev.Target.PlayerId))
+            if (Plugin.DictRadioGrenads.ContainsKey(ev.Target.PlayerId))
             {
-                Plugin.DictTabletteGrenades.Remove(ev.Target.PlayerId);
+                Plugin.DictRadioGrenads.Remove(ev.Target.PlayerId);
             }
         }
 
         private void PlayedDead(PlayerDeathEventArgs ev)
         {
-            if (Plugin.DictTabletteGrenades.ContainsKey(ev.Victim.PlayerId))
+            if (Plugin.DictRadioGrenads.ContainsKey(ev.Victim.PlayerId))
             {
-                Plugin.DictTabletteGrenades.Remove(ev.Victim.PlayerId);
+                Plugin.DictRadioGrenads.Remove(ev.Victim.PlayerId);
             }
         }
     }

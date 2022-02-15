@@ -2,11 +2,11 @@
 
 namespace VTProget_X
 {
-    public class PluginTranslation : IPluginTranslation
+    public class Translation : IPluginTranslation
     {
         public string IntercomGeneralInformation = 
 @"─────────── MTF Information Center ───────────
-Duration of the breach : %RoundTime%
+Duration of the breach  : %RoundTime%
 Remaining SCP : %nSCP%
 Remaining Class D : %nCDP%
 Remaining staff : %nRSC%
@@ -46,7 +46,7 @@ Time before decontamination : %DecontTime%
         public string IntercomStatueAdmin = "%Player% Admin broadcasts ";
 
         public string IntercomStatueReady = "Intercom ready to use.";
-
+        
         public string IntercomStatueMute = "Access denied";
 
         public string DecontMessageNotEnoughEnergy = "NOT ENOUGH ENERGY";

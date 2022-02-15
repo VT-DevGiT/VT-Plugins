@@ -7,9 +7,9 @@ using Synapse.Api;
 using Mirror;
 using Synapse.Api.Events.SynapseEventArguments;
 
-namespace VTDoor
+namespace VTMap
 {
-    internal class EventHandlers
+    public class EventHandlers
     {
         public EventHandlers()
         {
@@ -18,8 +18,8 @@ namespace VTDoor
 
         private void OnStart()
         {
-            if (Plugin.Config.DoorList.Any())
-               foreach (var Door in Plugin.Config.DoorList) 
+            if (Plugin.Instance.Config.DoorList.Any())
+               foreach (var Door in Plugin.Instance.Config.DoorList) 
                {
                     Quaternion? Roation;
                     if (Door.Rotation != null)

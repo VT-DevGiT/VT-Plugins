@@ -10,7 +10,7 @@ namespace VT_Item.Item
 
     public class Turret : AbstractWeapon
     {
-        public override string ScrenName => "Turret";
+        public override string ScreenName => "Turret";
 
         public override ushort Ammos => 0;
 

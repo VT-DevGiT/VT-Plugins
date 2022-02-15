@@ -11,7 +11,7 @@ namespace VT079
             var scripte = Scp079PlayerScript.instances.FirstOrDefault(p => p.GetPlayer() == this.GetPlayer());
             if (scripte != null)
             {
-                Plugin.Instance.ChangeCoutUnScripte(scripte);
+                Plugin.Instance.ChangeCost(scripte);
                 Kill();
             }
         }

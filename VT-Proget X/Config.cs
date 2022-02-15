@@ -8,10 +8,10 @@ namespace VTProget_X
         [Description("Intercom information")]
         public bool IntercomInformation = true;
 
-        [Description("time for one information cycle")]
+        [Description("second for one information cycle")]
         public int IntercomInfomationtime = 30;
 
-        [Description("time for one BlackOut")]
+        [Description("second for one BlackOut")]
         public int BlackOutTime = 60;
 
         [Description("The radio disable tesla Gate")]

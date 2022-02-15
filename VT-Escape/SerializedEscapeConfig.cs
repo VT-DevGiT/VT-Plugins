@@ -11,22 +11,22 @@ namespace VTEscape
     public class SerializedEscapeConfig
     {
         public EscapeType Escape { get; set; }
-        public RoleID Role { get; set; }
-        public TeamID Team { get; set; }
-        public TeamID CufferTeam { get; set; }
-        public RoleID NewRole { get; set; }
+        public int RoleID { get; set; }
+        public int TeamID { get; set; }
+        public int CufferTeamID { get; set; }
+        public int NewRoleID { get; set; }
         public bool StartWarHead { get; set; }
         public string EscapeMessage { get; set; }
         public SpawnableTeamType TicketsTem { get; set; }
         public int TicketsAmont { get; set; }
 
-        public SerializedEscapeConfig(EscapeType escape, RoleID role, TeamID team, TeamID cufferTeam, RoleID newRole, EscapeType ticketsTem = EscapeType.NONE, int ticketsAmont = 0, bool startWarHead = false, string escapeMessage = null)
+        public SerializedEscapeConfig(EscapeType escape, int roleID, int teamID, int cufferTeamID, int newRoleID, EscapeType ticketsTem = EscapeType.NONE, int ticketsAmont = 0, bool startWarHead = false, string escapeMessage = null)
         {
             Escape = escape;
-            Role = role;
-            Team = team;
-            CufferTeam = cufferTeam;
-            NewRole = newRole;
+            RoleID = roleID;
+            TeamID = teamID;
+            CufferTeamID = cufferTeamID;
+            NewRoleID = newRoleID;
             StartWarHead = startWarHead;
             EscapeMessage = escapeMessage;
             TicketsTem = (SpawnableTeamType)ticketsTem;
@@ -36,12 +36,12 @@ namespace VTEscape
         public void Use(Player player)
         {
             if (StartWarHead == true && !Server.Get.Map.Nuke.Detonated)
-                Timing.RunCoroutine(new Method().WarHeadEscape(3));
+                Timing.RunCoroutine(Method.WarHeadEscape(3));
             if (EscapeMessage != null && !Server.Get.Map.Nuke.Detonated)
                 Server.Get.Map.Cassie(EscapeMessage, false);
             if (TicketsTem != SpawnableTeamType.None && TicketsAmont != 0)
                     RespawnTickets.Singleton.GrantTickets(TicketsTem, TicketsAmont);
-            Method.ChangeRole(player, (int)NewRole);
+            Method.ChangeRole(player, (int)NewRoleID);
         }
 
         public SerializedEscapeConfig()

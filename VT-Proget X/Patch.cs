@@ -22,7 +22,7 @@ namespace VTProget_X
         public static bool Prefix(DecontaminationController __instance)
         {
             // remètre le song (attenction lors des teste à tuée un SCP)
-            if (Plugin.Instance.DecontInProgress)
+            if (((Plugin)Plugin.Instance).DecontInProgress)
             { 
                 //Server.Get.Logger.Info($"Test {DecontaminationController.GetServerTime} {phase} {DecontaminationPhases[phase].TimeTrigger}");
                 if (DecontaminationController.GetServerTime <= DecontaminationPhases[phase].TimeTrigger)
@@ -53,7 +53,7 @@ namespace VTProget_X
                     DoorEventOpenerExtension.TriggerAction(DoorEventOpenerExtension.OpenerEventType.DeconEvac);
                 }
                 if (phase == DecontaminationPhases.Length - 1)
-                    Plugin.Instance.DecontInProgress = false;
+                    ((Plugin)Plugin.Instance).DecontInProgress = false;
                 else
                     ++phase;
             }

@@ -13,7 +13,7 @@ namespace VTGrenad
         {
             get
             {
-                return (DateTime.Now - DropTime).Seconds >= Plugin.Config.Time;
+                return (DateTime.Now - DropTime).Seconds >= Plugin.Instance.Config.Time;
             }
         }
 

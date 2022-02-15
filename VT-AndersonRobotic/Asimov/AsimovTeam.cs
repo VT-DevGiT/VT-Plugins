@@ -21,8 +21,11 @@ namespace VT_AndersonRobotic
 
         public override void Initialise()
         {
-            Roles.Add(new RespawnRoleInfo() { Max = 1, Min = -1, Priority = 1, RoleID = (int)RoleID.GeneralAsimov});
-            Roles.Add(new RespawnRoleInfo() { Max = -1, RoleID = (int)RoleID.GardienAsimov });
+            Roles = new List<RespawnRoleInfo>()
+            {
+                new RespawnRoleInfo() { Max = 1, Min = -1, Priority = 1, RoleID = (int)RoleID.GeneralAsimov},
+                new RespawnRoleInfo() { Max = -1, RoleID = (int)RoleID.GardienAsimov }
+            };
         }
     }
 }

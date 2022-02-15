@@ -8,23 +8,18 @@ namespace VTDevHelp
     [PluginInformation(
     Name = "VT-DevTool",
     Author = "VT/Oka",
-    Description = "Dev Tool for help Dev (or fun for mod)",
+    Description = "Dev Tool for help Dev (or just a funny plugin for moderator)",
     LoadPriority = 0,
     SynapseMajor = SynapseController.SynapseMajor,
     SynapseMinor = SynapseController.SynapseMinor,
     SynapsePatch = SynapseController.SynapsePatch,
     Version = "v2.3.5"
     )]
-
-    public class Plugin : AbstractPlugin
+    public class Plugin : VtAbstractPlugin<EventHandlers>
     {
+        public override bool AutoRegister => true;
+
         public static SerializedMapPoint DoorPosition;
         public static Quaternion DoorRotation;
-
-        public override void Load()
-        {
-            new EventHandlers();
-            base.Load();
-        }
     }
 }

@@ -1,15 +1,14 @@
 ﻿using Interactables.Interobjects.DoorUtils;
-using MEC;
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
-using System;
-using System.Collections.Generic;
+using VT_Api.Core.Plugin;
 using VT_Api.Core.Roles;
 
 namespace VTCustomClass.PlayerScript
 {
+    [AutoRegisterManager.Ignore]
     public abstract class BaseUTRScript : AbstractRole, IUtrRole
     {
         #region Properties & Variable

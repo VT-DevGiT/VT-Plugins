@@ -20,7 +20,7 @@ namespace VTProget_X
     {
         public static IEnumerator<float> Decontamination(int WaitForStart = 120, int AlertTime = 3)
         {
-            Plugin.Instance.DecontInProgress = true;
+            ((Plugin)Plugin.Instance).DecontInProgress = true;
             foreach (var room in Server.Get.Map.Rooms.FindAll(p => p.Zone == ZoneType.LCZ))
             {
                 foreach (var door in room.Doors)
@@ -59,7 +59,7 @@ namespace VTProget_X
         }
 
 
-        public static void SendInterComInfoGeneral(screenEnum screen)
+        public static void SetIntercomScreen(ScreenType screen)
         {
             try
             {
@@ -110,33 +110,33 @@ namespace VTProget_X
 
                 #region AlfaWarheadMessage
                 if (AlphaWarheadOutsitePanel.nukeside.enabled)
-                    AlfaWarheadMessage = Plugin.PluginTranslation.ActiveTranslation.AlfaWarheadMessageReady;
+                    AlfaWarheadMessage = Plugin.Instance.Translation.ActiveTranslation.AlfaWarheadMessageReady;
                 else
-                    AlfaWarheadMessage = Plugin.PluginTranslation.ActiveTranslation.AlfaWarheadMessageDisabled;
+                    AlfaWarheadMessage = Plugin.Instance.Translation.ActiveTranslation.AlfaWarheadMessageDisabled;
 
                 #endregion
 
                 #region DecontaMessage
                 if (Map.Get.GetVoltage() < 100)
-                    DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageNotEnoughEnergy;
+                    DecontMessage = Plugin.Instance.Translation.ActiveTranslation.DecontMessageNotEnoughEnergy;
                 else
                 {
                     if (DecontaminationController.Singleton._nextPhase != 0)
-                        DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageReady;
+                        DecontMessage = Plugin.Instance.Translation.ActiveTranslation.DecontMessageReady;
                     else if (DecontaminationController.Singleton._nextPhase == DecontaminationController.Singleton.DecontaminationPhases.Length - 1)
-                        DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageInProgress;
+                        DecontMessage = Plugin.Instance.Translation.ActiveTranslation.DecontMessageInProgress;
                     else
-                        DecontMessage = Plugin.PluginTranslation.ActiveTranslation.DecontMessageFinished;
+                        DecontMessage = Plugin.Instance.Translation.ActiveTranslation.DecontMessageFinished;
                 }
 
                 #endregion
 
                 #region RespawnMessage
                 if (RespawnManager.Singleton.NextKnownTeam == SpawnableTeamType.NineTailedFox)
-                    RespawnMessage = Plugin.PluginTranslation.ActiveTranslation.RespawnMessageMTF
+                    RespawnMessage = Plugin.Instance.Translation.ActiveTranslation.RespawnMessageMTF
                         .Replace("%Name%", RespawnManager.Singleton.NamingManager.name).Replace("%Temps%", $"t-{ nextRespawnTime / 60:00}:{ nextRespawnTime % 60:00}");
                 else
-                    RespawnMessage = Plugin.PluginTranslation.ActiveTranslation.RespawnMessageNoMTF;
+                    RespawnMessage = Plugin.Instance.Translation.ActiveTranslation.RespawnMessageNoMTF;
                 #endregion
 
                 #region SCPListMessage
@@ -144,11 +144,11 @@ namespace VTProget_X
                 foreach (var scp in listScp)
                 {
                     if (scp.RoleID == (int)RoleType.Scp079)
-                        scpListMessage += Plugin.PluginTranslation.ActiveTranslation.IntercomScpInformation079
+                        scpListMessage += Plugin.Instance.Translation.ActiveTranslation.IntercomScpInformation079
                             .Replace("%Name%", scp.RoleName)
                             .Replace("%Tier%", scp.Hub.scp079PlayerScript.Lvl.ToString());
                     else
-                        scpListMessage += Plugin.PluginTranslation.ActiveTranslation.IntercomScpInformation
+                        scpListMessage += Plugin.Instance.Translation.ActiveTranslation.IntercomScpInformation
                             .Replace("%Name%", scp.RoleName)
                             .Replace("%Zone%", scp.Zone.ToString())
                             .Replace("%Room%", scp.Room.RoomName);
@@ -160,26 +160,26 @@ namespace VTProget_X
 
                 if (_intercom.Muted)
                 {
-                    IntercomStatueMessage = Plugin.PluginTranslation.ActiveTranslation.IntercomStatueMute;
+                    IntercomStatueMessage = Plugin.Instance.Translation.ActiveTranslation.IntercomStatueMute;
                 }
                 else if (Intercom.AdminSpeaking)
                 {
-                    IntercomStatueMessage = Plugin.PluginTranslation.ActiveTranslation.IntercomStatueAdmin.
+                    IntercomStatueMessage = Plugin.Instance.Translation.ActiveTranslation.IntercomStatueAdmin.
                         Replace("%Player%", _intercom.GetPlayer().NickName);
                 }
                 else if (_intercom.remainingCooldown > 0f)
                 {
-                    IntercomStatueMessage = Plugin.PluginTranslation.ActiveTranslation.IntercomStatueRestart.
+                    IntercomStatueMessage = Plugin.Instance.Translation.ActiveTranslation.IntercomStatueRestart.
                         Replace("%Temps%", ((int)_intercom.remainingCooldown).ToString());
                 }
                 else if (_intercom.speaker != null)
                 {
-                    IntercomStatueMessage = Plugin.PluginTranslation.ActiveTranslation.IntercomStatuePlayer.
+                    IntercomStatueMessage = Plugin.Instance.Translation.ActiveTranslation.IntercomStatuePlayer.
                         Replace("%Player%", _intercom.speaker.GetPlayer().NickName).Replace("%Temps%", ((int)_intercom.speechRemainingTime).ToString());
                 }
                 else
                 {
-                    IntercomStatueMessage = Plugin.PluginTranslation.ActiveTranslation.IntercomStatueReady;
+                    IntercomStatueMessage = Plugin.Instance.Translation.ActiveTranslation.IntercomStatueReady;
                 }
                 #endregion
 
@@ -191,21 +191,21 @@ namespace VTProget_X
                 if (isContain)
                 {
                     if (isAlreadyUsed)
-                        SCP106Message = Plugin.PluginTranslation.ActiveTranslation.SCP106Use;
+                        SCP106Message = Plugin.Instance.Translation.ActiveTranslation.SCP106Use;
                     else
-                        SCP106Message = Plugin.PluginTranslation.ActiveTranslation.SCP106Ready;
+                        SCP106Message = Plugin.Instance.Translation.ActiveTranslation.SCP106Ready;
                 }
                 else
                 {
-                    SCP106Message = Plugin.PluginTranslation.ActiveTranslation.SCP106Empty;
+                    SCP106Message = Plugin.Instance.Translation.ActiveTranslation.SCP106Empty;
                 }
                 #endregion
 
                 #region Tesla
-                if (Plugin.Instance.TeslaEnabled)
-                    TeslaMessage = Plugin.PluginTranslation.ActiveTranslation.TeslaOn;
+                if (((Plugin)Plugin.Instance).TeslaEnabled)
+                    TeslaMessage = Plugin.Instance.Translation.ActiveTranslation.TeslaOn;
                 else
-                    TeslaMessage = Plugin.PluginTranslation.ActiveTranslation.TeslaOff;
+                    TeslaMessage = Plugin.Instance.Translation.ActiveTranslation.TeslaOff;
                 #endregion
 
                 #region DecontTime
@@ -220,35 +220,35 @@ namespace VTProget_X
                 
                 switch (screen)
                 {
-                    case screenEnum.GeneralInfo:
-                        ScreenMessage = Plugin.PluginTranslation.ActiveTranslation.IntercomGeneralInformation;
+                    case ScreenType.GeneralInfo:
+                        ScreenMessage = Plugin.Instance.Translation.ActiveTranslation.IntercomGeneralInformation;
                         ScreenMessage = Regex.Replace(ScreenMessage, "\\n", "\n", RegexOptions.IgnoreCase);
-                        ScreenMessage = Regex.Replace(ScreenMessage, "%RoundTime%", roundTime, RegexOptions.IgnoreCase);
-                        ScreenMessage = Regex.Replace(ScreenMessage, "%nSCP%", nSCP.ToString(), RegexOptions.IgnoreCase);
-                        ScreenMessage = Regex.Replace(ScreenMessage, "%nCDP%", nCDP.ToString(), RegexOptions.IgnoreCase);
-                        ScreenMessage = Regex.Replace(ScreenMessage, "%nRSC%", nRSC.ToString(), RegexOptions.IgnoreCase);
-                        ScreenMessage = Regex.Replace(ScreenMessage, "%nVIP%", nVIP.ToString(), RegexOptions.IgnoreCase);
-                        ScreenMessage = Regex.Replace(ScreenMessage, "%nMTF%", nFIM.ToString(), RegexOptions.IgnoreCase);
-                        ScreenMessage = Regex.Replace(ScreenMessage, "%TotalVoltage%", Voltage.ToString(), RegexOptions.IgnoreCase);
-                        ScreenMessage = Regex.Replace(ScreenMessage, "%AlfaWarheadStatut%", AlfaWarheadMessage, RegexOptions.IgnoreCase);
-                        ScreenMessage = Regex.Replace(ScreenMessage, "%Tesla%", TeslaMessage, RegexOptions.IgnoreCase);
-                        ScreenMessage = Regex.Replace(ScreenMessage, "%IsContain%", SCP106Message, RegexOptions.IgnoreCase);
-                        ScreenMessage = Regex.Replace(ScreenMessage, "%DecontMessage%", DecontMessage, RegexOptions.IgnoreCase);
-                        ScreenMessage = Regex.Replace(ScreenMessage, "%DecontTime%", DecontTime.ToString(), RegexOptions.IgnoreCase);
-                        ScreenMessage = Regex.Replace(ScreenMessage, "%RespawnMessage%", RespawnMessage, RegexOptions.IgnoreCase);
-                        ScreenMessage = Regex.Replace(ScreenMessage, "%IntercomStatue%", IntercomStatueMessage, RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%RoundTime%",             roundTime,              RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%nSCP%",                  nSCP.ToString(),        RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%nCDP%",                  nCDP.ToString(),        RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%nRSC%",                  nRSC.ToString(),        RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%nVIP%",                  nVIP.ToString(),        RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%nMTF%",                  nFIM.ToString(),        RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%TotalVoltage%",          Voltage.ToString(),     RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%AlfaWarheadStatut%",     AlfaWarheadMessage,     RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%Tesla%",                 TeslaMessage,           RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%IsContain%",             SCP106Message,          RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%DecontMessage%",         DecontMessage,          RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%DecontTime%",            DecontTime.ToString(),  RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%RespawnMessage%",        RespawnMessage,         RegexOptions.IgnoreCase);
+                        ScreenMessage = Regex.Replace(ScreenMessage, "%IntercomStatue%",        IntercomStatueMessage,  RegexOptions.IgnoreCase);
                         Map.Get.IntercomText = ScreenMessage;
                         break;
 
-                    case screenEnum.ListScp:
+                    case ScreenType.ListScp:
                         ScreenMessage = string.Concat(
-                        $"{(scpListMessage.Any() ? scpListMessage : Plugin.PluginTranslation.ActiveTranslation.IntercomNoScpInformation)}\n",
+                        $"{(scpListMessage.Any() ? scpListMessage : Plugin.Instance.Translation.ActiveTranslation.IntercomNoScpInformation)}\n",
                         $"─────────────────────────────────────\n");
                         ScreenMessage += IntercomStatueMessage;
                         Map.Get.IntercomText = ScreenMessage;
                         break;
 
-                    case screenEnum.Custom:
+                    case ScreenType.Custom:
                         ScreenMessage = string.Concat(
                             $"\n",
                             $"───────────────────────────────────── \n ",
@@ -258,7 +258,7 @@ namespace VTProget_X
                         Map.Get.IntercomText = ScreenMessage;
                         break;
 
-                    case screenEnum.Defaux:
+                    case ScreenType.Defaux:
                         Map.Get.IntercomText = $"Error Please Screen {DateTime.Now}";
                         break;
                 }
@@ -266,7 +266,7 @@ namespace VTProget_X
             catch (Exception e)
             {
                 Synapse.Api.Logger.Get.Error($"Erreur Intercom{e.Message}");
-                Map.Get.IntercomText = $"Error Please Screen {DateTime.Now}";
+                Map.Get.IntercomText = $"Error Please Screen {DateTime.Now}:\n{e.Message}";
             }
 
         }

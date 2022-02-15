@@ -37,7 +37,7 @@ namespace VTCustomClass
 
         public int MaxPerRespawn;
 
-        public int MaxRespawn;
+        public int MaxRespawnPerRound;
 
         public int MaxAlive;
 

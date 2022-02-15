@@ -3,7 +3,7 @@ using Synapse.Config;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace VTDoor
+namespace VTMap
 {
     public class Config : AbstractConfigSection
     {

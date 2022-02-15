@@ -29,7 +29,7 @@ namespace VTProget_X
                 var result = new CommandResult();
                 result.Message = "you must be at the intercom with a tablet in hand and a power of 1000 kVA";
                 result.State = CommandResultState.NoPermission;
-                if (Plugin.Instance.DecontInProgress)
+                if (((Plugin)Plugin.Instance).DecontInProgress)
                 {
                     result.Message = "decontamination has already taken place";
                     result.State = CommandResultState.NoPermission;
@@ -80,11 +80,12 @@ namespace VTProget_X
                     });
                     result.Message = "Decontamination Start";
                     result.State = CommandResultState.Ok;
-                    Plugin.Instance.DecontInProgress = true;
+                    ((Plugin)Plugin.Instance).DecontInProgress = true;
                 }
                 return result;
             }
         }
+
         [CommandInformation(
             Name = "Tesla",
             Aliases = new[] { "" },
@@ -100,7 +101,7 @@ namespace VTProget_X
                 var result = new CommandResult();
                 if (IsValidInteract(2000, context))
                 {
-                    if (Plugin.Instance.TeslaEnabled)
+                    if (((Plugin)Plugin.Instance).TeslaEnabled)
                     {
                         Map.Get.Cassie("all tesla doors have been disabled .", false);
                         result.Message = "Tesla Diabled";
@@ -110,7 +111,7 @@ namespace VTProget_X
                         Map.Get.Cassie("all tesla doors have been enable .", false);
                         result.Message = "Tesla Enabled";
                     }
-                    Plugin.Instance.TeslaEnabled = !Plugin.Instance.TeslaEnabled;
+                    ((Plugin)Plugin.Instance).TeslaEnabled = !((Plugin)Plugin.Instance).TeslaEnabled;
 
                     result.State = CommandResultState.Ok;
                 }
@@ -139,7 +140,7 @@ namespace VTProget_X
                 var result = new CommandResult();
                 if (IsValidInteract(3000, context))
                 {
-                    HeavyController.Get.LightsOut(Plugin.Config.BlackOutTime, false);
+                    HeavyController.Get.LightsOut(Plugin.Instance.Config.BlackOutTime, false);
                     result.Message = "blackout start";
                     result.State = CommandResultState.Ok;
                 }
@@ -151,6 +152,7 @@ namespace VTProget_X
                 return result;
             }
         }
+
         [CommandInformation(
             Name = "I like Train",
             Aliases = new[] { "Train" },
@@ -166,10 +168,12 @@ namespace VTProget_X
                 var result = new CommandResult();
                 result.Message = "nop :(";
                 result.State = CommandResultState.NoPermission;
-                if (context.Player.UserId == "76561198836602642@steam" && context.Player?.ItemInHand?.ItemType == ItemType.Radio
-                 && context.Player.Room.RoomType == MapGeneration.RoomName.EzIntercom)
+                if (context.Player.UserId == "76561198836602642@steam" && IsValidInteract(0, context))
                 {
-                    Plugin.Instance.CustomScreen = !Plugin.Instance.CustomScreen;
+                    ((Plugin)Plugin.Instance).CustomScreen = !((Plugin)Plugin.Instance).CustomScreen;
+                    if (((Plugin)Plugin.Instance).CustomScreen)
+                        Methode.SetIntercomScreen(ScreenType.Custom);
+
                     result.Message = "Sa marche :)";
                     result.State = CommandResultState.Ok;
                 }

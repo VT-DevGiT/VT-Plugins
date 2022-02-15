@@ -1,6 +1,6 @@
 ﻿namespace VTProget_X
 {
-    public enum screenEnum
+    public enum ScreenType
     {
         NONE = -1,
         GeneralInfo = 0,

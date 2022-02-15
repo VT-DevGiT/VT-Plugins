@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using VT_Api.Core.Enum;
 
-namespace VT_Item.Config
+namespace VT_Item.Configs
 {
     public class MiniGunConfig : AbstractConfigSection
     {

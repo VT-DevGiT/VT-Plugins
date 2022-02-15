@@ -20,15 +20,15 @@ namespace VTGrenad
         {
             //SynapseController.Server.Logger.Info("AdvencedGrenadeCommand : run");
             var result = new CommandResult();
-            if (!Plugin.Config.NotAGrenadeRole.Contains(context.Player.RoleID))
+            if (!Plugin.Instance.Config.NotAGrenadeRole.Contains(context.Player.RoleID))
             {
-                if (Plugin.DictTabletteGrenades.ContainsKey(context.Player.PlayerId)
+                if (Plugin.DictRadioGrenads.ContainsKey(context.Player.PlayerId)
                     && context.Player?.ItemInHand?.ID == (int)ItemType.Radio
                     && !context.Player.ItemInHand.IsCustomItem)
                 {
                     
                     //DebugLog.LogWarning($"{context.Player.name} Command Valide player with grenade {context.Player.name}");
-                    List<AmorcableGrenade> listGrenade = Plugin.DictTabletteGrenades[context.Player.PlayerId];
+                    List<AmorcableGrenade> listGrenade = Plugin.DictRadioGrenads[context.Player.PlayerId];
                     foreach (AmorcableGrenade grenade in listGrenade)
                     {
                         try
@@ -49,11 +49,11 @@ namespace VTGrenad
                     var listGrenadeNotUsed = listGrenade.Where(p => !p.Used);
                     if (listGrenadeNotUsed == null || !listGrenadeNotUsed.Any())
                     {
-                        Plugin.DictTabletteGrenades.Remove(context.Player.PlayerId);
+                        Plugin.DictRadioGrenads.Remove(context.Player.PlayerId);
                     }
                     else
                     {
-                        Plugin.DictTabletteGrenades[context.Player.PlayerId] = listGrenadeNotUsed.ToList();
+                        Plugin.DictRadioGrenads[context.Player.PlayerId] = listGrenadeNotUsed.ToList();
                     }
                     result.Message = "BOOM";
                     result.State = CommandResultState.Ok;

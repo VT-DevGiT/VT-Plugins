@@ -1,4 +1,5 @@
 ﻿using Synapse;
+using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using VT_Api.Extension;
 
@@ -23,7 +24,7 @@ namespace VTEscape
 
         private void OnEscapesEvent(PlayerEscapeEventArgs ev)
         {
-            if(Plugin.Config.MTFEscapeIsEnabled)
+            if (Plugin.Config.MTFEscapeIsEnabled)
                 ev.Allow = false;
         }
 
@@ -31,7 +32,7 @@ namespace VTEscape
         {
             var escapes = ev.Player.GetComponents<BaseEscape>();
             foreach (var escape in escapes)
-                escape.ChangeClassEvent();
+                escape.Refresh();
         }
     }
 }

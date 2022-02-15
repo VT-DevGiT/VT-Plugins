@@ -16,7 +16,7 @@ namespace VTDevHelp
         {
             Logger.Get.Info("Spawble Prefabs :");
             foreach (var pre in NetworkManager.singleton.spawnPrefabs)
-                Logger.Get.Info(pre.name);
+                Logger.Get.Info(pre. name);
         }
     }
 }

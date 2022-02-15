@@ -29,7 +29,7 @@ Version = "079v.1.4.1 079Commandv1.3.1"
             SCPRoleDeconf = Config.Scp079ScpDeconf;
         }
 
-        internal void ChangeCoutUnScripte(Scp079PlayerScript player079Script)
+        internal void ChangeCost(Scp079PlayerScript player079Script)
         {
             foreach (Scp079PlayerScript.Ability079 ability in player079Script.abilities)
             {

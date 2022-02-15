@@ -22,7 +22,7 @@ namespace VT_Item.Item
         static Dictionary<Player, DateTime> StartShoot = new Dictionary<Player, DateTime>();
         static Dictionary<Player, DateTime> LastSoot = new Dictionary<Player, DateTime>();
 
-        public override string ScrenName => Plugin.PluginTranslation.ActiveTranslation.NameMiniGun;
+        public override string ScreenName => Plugin.Instance.Translation.ActiveTranslation.NameMiniGun;
         public override ushort Ammos => 0;
         public override AmmoType AmmoType => AmmoType.Ammo762x39;
         public override int DamageAmmont => Plugin.MiniGunConfig.Damage;

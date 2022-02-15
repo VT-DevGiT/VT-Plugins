@@ -50,16 +50,8 @@ namespace VTCustomClass
             new SpawnClassConfig()
             {
                 RoleID = (int)RoleID.Technicien,
-                ReplaceRoleID = (int)RoleID.FacilityGuard,
-                MinRequiredPlayers = 0,
-                MaxSpawn = 1,
-                SpawnChance = 25,
-            },
-            new SpawnClassConfig()
-            {
-                RoleID = (int)RoleID.Technicien,
                 ReplaceRoleID = (int)RoleID.ClassD,
-                MinRequiredPlayers = 1,
+                MinRequiredPlayers = 3,
                 MaxSpawn = 1,
                 SpawnChance = 10,
             },
@@ -160,7 +152,7 @@ namespace VTCustomClass
                 RoleID = (int)RoleID.NtfLieutenantColonel,
                 ReplaceRoleID = (int)RoleID.NtfPrivate,
                 MinRequiredPlayers = 7,
-                MaxRespawn = 2,
+                MaxRespawnPerRound = 2,
                 MaxPerRespawn = 1,
                 SpawnChance = 25,
             },
@@ -220,7 +212,7 @@ namespace VTCustomClass
                 RoleID = (int)RoleID.ChaosSpy,
                 ReplaceRoleID = (int)RoleID.NtfPrivate,
                 MaxAlive = 1,
-                MaxRespawn = 2,
+                MaxRespawnPerRound = 2,
                 MaxPerRespawn = 1,
                 SpawnChance = 10,
             },
@@ -245,9 +237,9 @@ namespace VTCustomClass
             },
             new SpawnReplaceScpClassConfig()
             {
-                RoleID = (int)RoleID.SCP008,
+                RoleID = (int)RoleID.SCP966,
                 MaxRequiredPlayersInGame = 19,
-                MaxSpawn = 1,
+                MaxSpawn = 2,
                 SpawnChance = 10,
             }
         };

@@ -6,7 +6,7 @@ using VT_Api.Core.Enum;
 
 namespace VT_HammerDown
 {
-    internal class EventHandlers
+    public class EventHandlers
     {
         public EventHandlers()
         {
@@ -16,7 +16,7 @@ namespace VT_HammerDown
         private void OnRespawn(TeamRespawnEventArgs ev)
         {
             List<int> Team = new List<int>() { (int)TeamID.AND, (int)TeamID.CHI, (int)TeamID.SHA };
-            if (ev.Team == Respawning.SpawnableTeamType.NineTailedFox && (Server.Get.Players.Where(p => p.RoleType.Is939() || Team.Contains(p.TeamID) ).Count() > 0) && UnityEngine.Random.Range(1f, 100f) <= Plugin.Config.SpawnChance)
+            if (ev.Team == Respawning.SpawnableTeamType.NineTailedFox && (Server.Get.Players.Where(p => p.RoleType.Is939() || Team.Contains(p.TeamID) ).Count() > 0) && UnityEngine.Random.Range(1f, 100f) <= Plugin.Instance.Config.SpawnChance)
                 ev.TeamID = (int)TeamID.CDM;
         }
     }

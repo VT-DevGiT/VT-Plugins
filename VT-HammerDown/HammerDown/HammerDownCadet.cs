@@ -11,7 +11,7 @@ namespace VT_HammerDown
 {
     public class HammerDownCadet : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.PluginTranslation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamManager.Group.MTFenemy.ToList();
 
@@ -23,8 +23,8 @@ namespace VT_HammerDown
 
         protected override int RoleId => (int)RoleID.CdmCadet;
 
-        protected override string RoleName => Plugin.ConfigHammerDownCadet.RoleName;
+        protected override string RoleName => Plugin.Instance.Config.CadName;
 
-        protected override SerializedPlayerRole Config => throw new System.NotImplementedException();
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.CadConfig;
     } 
 }

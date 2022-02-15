@@ -6,9 +6,8 @@ using UnityEngine;
 
 namespace VT_Item
 {
-    internal class EventHandlers
+    public class EventHandlers
     {
-        // https://github.com/sanyae2439/SanyaPlugin_Exiled
         public EventHandlers()
         {
             Server.Get.Events.Player.PlayerShootEvent += OnShootEvent;
@@ -20,9 +19,11 @@ namespace VT_Item
             Server.Get.Logger.Info($"{Physics.Linecast(ev.Player.Position, ev.TargetPosition, out RaycastHit test)}");
             if (ev.TargetPosition != Vector3.zero
                 && Physics.Linecast(ev.Player.Position, ev.TargetPosition, out RaycastHit raycastHit))*/
+            //TODO : FIX this
+            
             if (ev.Player.LookingAt != null)
             {
-                if (Plugin.PluginConfig.ShootMouve)
+                if (Plugin.Instance.Config.ShootMouve)
                 {
                     var pickup = ev.Player.LookingAt.GetComponentInParent<ItemPickupBase>();
                     if (pickup != null && pickup.Rb != null)

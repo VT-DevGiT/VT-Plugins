@@ -104,7 +104,7 @@ namespace Common_Utiles
                     ev.Position = mapPoint.Position;
 
                 if (rotation != null)
-                    ev.Rotation = rotation.Value.x;
+                    ev.Rotation = rotation.x;
                 
                 if (items != null)
                     ev.Items = items;
