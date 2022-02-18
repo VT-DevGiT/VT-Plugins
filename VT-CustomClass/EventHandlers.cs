@@ -53,19 +53,15 @@ namespace VTCustomClass
         {
             Server.Get.Logger.Info($"OnReSpawn !!!!");
             IDRespawnPlayer.Clear();
-            RespawnPlayer = ev.Players;
+            RespawnPlayer = ev.Players ?? new List<Player>();
         }
 
         private void OnClass(PlayerSetClassEventArgs ev)
         {
-            Server.Get.Logger.Info($"OnClass {ev.Player.CustomRole?.GetRoleID()}");
-
             if (RespawnPlayer.Contains(ev.Player))
             {
-                Server.Get.Logger.Info($"OnClass RespawnPlayer");
                 if (ev.Player.CustomRole == null)
                 {
-                    Server.Get.Logger.Info($"OnClass Addeed");
                     IDRespawnPlayer.Add(ev.Player, (int)ev.Role);
                     ev.Allow = false;
                 }
@@ -73,12 +69,10 @@ namespace VTCustomClass
                 RespawnPlayer.Remove(ev.Player);
             }
 
-            if (!RespawnPlayer.Any() && IDRespawnPlayer != null && IDRespawnPlayer.Any())
+            if (!RespawnPlayer.Any() && IDRespawnPlayer.Any())
             {
-                Server.Get.Logger.Info($"RespawnPlayer 1 ");
                 if (Plugin.Instance.Config.SpawnClassConfigs != null && Plugin.Instance.Config.SpawnClassConfigs.Any())
                 {
-                    Server.Get.Logger.Info($"RespawnPlayer 2 ");
                     foreach (var classToSpawn in Plugin.Instance.Config.RespawnClassConfig)
                     {
                         if ((0 < classToSpawn.MaxRequiredPlayersInGame && Server.Get.PlayersAmount > classToSpawn.MaxRequiredPlayersInGame) ||

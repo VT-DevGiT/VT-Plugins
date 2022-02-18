@@ -2,6 +2,7 @@
 using Synapse.Api;
 using Synapse.Api.Plugin;
 using System;
+using System.IO;
 using VT_Api.Core.Plugin;
 
 namespace VTLog
@@ -9,14 +10,13 @@ namespace VTLog
     [PluginInformation(
     Name = "VT-Log",
     Author = "VT",
-    Description = "Log all events",
+    Description = "Save console log",
     LoadPriority = 0,
     SynapseMajor = SynapseController.SynapseMajor,
     SynapseMinor = SynapseController.SynapseMinor,
     SynapsePatch = SynapseController.SynapsePatch,
-    Version = "v.0.0.1"
+    Version = "v.1.0.0"
     )]
-
     public class Plugin : VtAbstractPlugin<EventHandlers>
     {
         public override bool AutoRegister => false;
@@ -25,8 +25,18 @@ namespace VTLog
         {
             Log.CreateNew();
 
-            ServerConsole.ConsoleOutputs.Add(new Logger());//TODO FIX THIS
+
+            AppDomain.CurrentDomain.DomainUnload += (sender, e) =>
+            {
+                Server.Get.Logger.Send("Shoot Down", ConsoleColor.Magenta);
+                Log.Write("--------------- End of Log ---------------");
+            };
+
+            ServerConsole.ConsoleOutputs.Add(new Logger());
         }
+
+
+
 
         public override void Unload(object sender, EventArgs e)
         {

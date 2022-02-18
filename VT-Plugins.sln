@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Map", "VT-Map\VT-Map.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-MultiLoader", "VT-MultieLoader\VT-MultiLoader.csproj", "{ADA97A09-49F5-433A-AC17-389C0A1EB5E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-ModedClientAllow", "VT-ModedClientAllow\VT-ModedClientAllow.csproj", "{75F2DD37-03AA-4502-A28A-E57EFB44D660}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +149,10 @@ Global
 		{ADA97A09-49F5-433A-AC17-389C0A1EB5E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADA97A09-49F5-433A-AC17-389C0A1EB5E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADA97A09-49F5-433A-AC17-389C0A1EB5E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75F2DD37-03AA-4502-A28A-E57EFB44D660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75F2DD37-03AA-4502-A28A-E57EFB44D660}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75F2DD37-03AA-4502-A28A-E57EFB44D660}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75F2DD37-03AA-4502-A28A-E57EFB44D660}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

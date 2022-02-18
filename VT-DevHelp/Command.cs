@@ -73,6 +73,30 @@ namespace VTDevHelp
             return result;
         }
     }
+
+    [CommandInformation(
+    Name = "DevPos",
+    Aliases = new[] { "VTPos" },
+    Description = "",
+    Permission = "",
+    Platforms = new[] { Platform.RemoteAdmin },
+    Usage = ""
+    )]
+    public class PosCommand : ISynapseCommand
+    {
+
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+            var PlayerPos = context.Player.Position;
+
+            Server.Get.Logger.Info($"Vector3  : {PlayerPos.x}, {PlayerPos.y}, {PlayerPos.z}");
+            Server.Get.Logger.Info($"Rotation : {context.Player.Rotation}");
+
+            return result;
+        }
+    }
+
     [CommandInformation(
     Name = "DevSpawnTruc",
     Aliases = new[] { "VTStruc" },

@@ -1,6 +1,7 @@
 ﻿using Synapse.Config;
 using System.Collections.Generic;
 using System.ComponentModel;
+using UnityEngine;
 using VT_Api.Core.Enum;
 
 namespace VTEscape
@@ -16,7 +17,7 @@ namespace VTEscape
         [Description("Modify main escape")]
         public bool MTFEscapeIsEnabled { get; set; } = true;
 
-        [Description("add new one out from IC side")]
+        [Description("Add new one out from IC side")]
         public bool ICEscapeIsEnabled { get; set; } = true;
 
         [Description("Escape Config, if the conditions are met, the player will become the chosen role")]
@@ -60,7 +61,10 @@ namespace VTEscape
             new SerializedEscapeConfig(EscapeType.CHI, (int)RoleID.None, (int)TeamID.RSC, (int)TeamID.None, (int)RoleID.Spectator),
         };
 
-        [Description("the WarHeadEscape cant be disabled")]
+        [Description("The postion of the Chaos Escape")]
+        public SerializedVector3 ICEscapePostion = new SerializedVector3(-56.2f, 988.9f, -49.6f);
+
+        [Description("The WarHeadEscape cant be disabled")]
         public bool WarHeadLockEnabled = false;
     }
 }

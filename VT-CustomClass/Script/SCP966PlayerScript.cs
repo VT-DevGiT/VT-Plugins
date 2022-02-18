@@ -40,7 +40,7 @@ namespace VTCustomClass.PlayerScript
 
         private static void OnAttack(PlayerDamageEventArgs ev)
         {
-            if (ev.Allow && ev.Killer?.CustomRole is AbstractRole && ev.DamageType == DamageType.Scp)
+            if (ev.Allow && ev.Killer?.CustomRole is SCP966cript && ev.DamageType == DamageType.Zombie)
             {
                 ev.Damage = 20;
                 if (!ev.Victim.IsUTR())
@@ -51,12 +51,6 @@ namespace VTCustomClass.PlayerScript
                     ev.Victim.GiveEffect(Effect.Asphyxiated, 1, 5);
                 }
             }
-        }
-
-        public override void DeSpawn()
-        {
-            Server.Get.Events.Player.PlayerDamageEvent -= OnAttack;
-            base.DeSpawn();
         }
     }
 }
