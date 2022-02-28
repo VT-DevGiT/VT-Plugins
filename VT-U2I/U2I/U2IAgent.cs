@@ -18,7 +18,7 @@ namespace VT_U2I
 
         protected override List<int> FriendsList => TeamManager.Group.MTFally.ToList();
 
-        protected override RoleType RoleType => RoleType.FacilityGuard;
+        protected override RoleType RoleType => RoleType.NtfSpecialist;
 
         protected override int RoleTeam => (int)TeamID.U2I;
 
