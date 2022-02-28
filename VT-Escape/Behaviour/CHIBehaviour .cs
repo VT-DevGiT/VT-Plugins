@@ -6,7 +6,7 @@ namespace VTEscape
     {
         public override Vector3 Postion => Plugin.Config.ICEscapePostion;
 
-        public override int Radius => 1;
+        public override int Radius => 2;
 
         public override EscapeType EscapeType => EscapeType.CHI;
     }

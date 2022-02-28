@@ -155,7 +155,7 @@ namespace VT_Item.Item
                     continue;
                 }
 
-                ((SingleBulletHitreg)((AutomaticFirearm)player.ItemInHand.ItemBase).HitregModule).PlaceBullethole(new Ray(player.Hub.PlayerCameraReference.position, player.Hub.PlayerCameraReference.forward), hits[i]);
+                ((SingleBulletHitreg)((AutomaticFirearm)player.ItemInHand.ItemBase).HitregModule).PlaceBulletholeDecal(new Ray(player.Hub.PlayerCameraReference.position, player.Hub.PlayerCameraReference.forward), hits[i]);
             }
 
             if (hit) Hitmarker.SendHitmarker(player.Hub, 1.2f);

@@ -11,12 +11,12 @@ namespace VTMap
         public List<DoorConfig> DoorList = new List<DoorConfig>()
         {
             new DoorConfig() {
-                Position = new SerializedMapPoint("Root_*&*Outside Cams", 14.5f, -3.469971f, -43.58254f),
+                Position = new SerializedMapPoint("Outside", 14.5f, -3.469971f, -43.58254f),
                 Rotation = null,
                 Permissions = null
             },
             new DoorConfig() {
-                Position = new SerializedMapPoint("Root_*&*Outside Cams", 14.5f, -3.469971f, -23.43554f),
+                Position = new SerializedMapPoint("Outside", 14.5f, -3.469971f, -23.43554f),
                 Rotation = null,
                 Permissions = null
             },

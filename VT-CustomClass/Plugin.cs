@@ -20,7 +20,7 @@ namespace VTCustomClass
         SynapseMajor = SynapseController.SynapseMajor,
         SynapseMinor = SynapseController.SynapseMinor,
         SynapsePatch = SynapseController.SynapsePatch,
-        Version = "v.1.3.0")]
+        Version = "v.1.3.2")]
     public class Plugin : VtAbstractPlugin<EventHandlers, Config, Translation>
     {
         //TODO : Fix bug null error Expetion at the start of the round
@@ -72,32 +72,6 @@ namespace VTCustomClass
                     Config.RespawnClassConfig.RemoveAt(i);
                     i--;
                 }
-
-            // Sort by highest MaxRequiredPlayers if is the same by thhe lowest SpawnChance
-            // But if the chance is over or at 100 % is it becoms 
-            Config.SpawnClassConfigs.Sort((a, b) =>
-                a.SpawnChance == 100 ? (b.SpawnChance == 100 ?  0 : 1) :
-                                       (b.SpawnChance == 100 ? -1 :
-                    a.MaxRequiredPlayers == b.MaxRequiredPlayers ?
-                        b.SpawnChance - a.SpawnChance : 
-                        a.MaxRequiredPlayers - b.MaxRequiredPlayers
-                        ));
-
-            Config.SpawnReplaceScpClassConfig.Sort((a, b) =>
-                a.SpawnChance == 100 ? (b.SpawnChance == 100 ? 0 : 1) :
-                                       (b.SpawnChance == 100 ? -1 :
-                    a.MaxRequiredScpPlayers == b.MaxRequiredScpPlayers ?
-                        b.SpawnChance - a.SpawnChance :
-                        a.MaxRequiredScpPlayers - b.MaxRequiredScpPlayers
-                        ));
-
-            Config.RespawnClassConfig.Sort((a, b) =>
-                a.SpawnChance == 100 ? (b.SpawnChance == 100 ? 0 : 1) :
-                                       (b.SpawnChance == 100 ? -1 :
-                    a.MaxRequiredPlayers == b.MaxRequiredPlayers ?
-                        b.SpawnChance - a.SpawnChance :
-                        a.MaxRequiredPlayers - b.MaxRequiredPlayers
-                        ));
         }
 
         public override void ReloadConfigs()

@@ -1,4 +1,5 @@
-﻿using Synapse;
+﻿using HarmonyLib;
+using Synapse;
 using Synapse.Api.Plugin;
 using System;
 using System.Collections.Generic;

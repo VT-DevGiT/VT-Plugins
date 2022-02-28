@@ -12,7 +12,7 @@ namespace VTCustomClass
         [Description("Sizes that are too small are bugged due to anti-cheat. But if you kill him, you won't have anything to verify that a player isn't stealing or cheating. if you choose true is becomes your responsibility")]
         public bool killAntiCheatPatch = false;
 
-        [Description("The config of the spawn of customroles")]
+        [Description("The config of the spawn of customroles (odre import the top is priority)")]
         public List<SpawnClassConfig> SpawnClassConfigs = new List<SpawnClassConfig>()
         {
             new SpawnClassConfig()
@@ -109,6 +109,14 @@ namespace VTCustomClass
         {
             new RespawnClassConfig()
             {
+                RoleID = (int)RoleID.ChaosLeader,
+                ReplaceRoleID = (int)RoleID.ChaosRifleman,
+                MaxAlive = 2,
+                MaxPerRespawn = 1,
+                SpawnChance = 15,
+            },
+            new RespawnClassConfig()
+            {
                 RoleID = (int)RoleID.NtfLieutenant,
                 ReplaceRoleID = (int)RoleID.NtfPrivate,
                 MinRequiredPlayers = 5,
@@ -152,7 +160,7 @@ namespace VTCustomClass
                 RoleID = (int)RoleID.NtfLieutenantColonel,
                 ReplaceRoleID = (int)RoleID.NtfPrivate,
                 MinRequiredPlayers = 7,
-                MaxRespawnPerRound = 2,
+                MaxPerRound = 2,
                 MaxPerRespawn = 1,
                 SpawnChance = 25,
             },
@@ -201,18 +209,10 @@ namespace VTCustomClass
             },
             new RespawnClassConfig()
             {
-                RoleID = (int)RoleID.ChaosLeader,
-                ReplaceRoleID = (int)RoleID.ChaosRifleman,
-                MaxAlive = 2,
-                MaxPerRespawn = 1,
-                SpawnChance = 15,
-            },
-            new RespawnClassConfig()
-            {
                 RoleID = (int)RoleID.ChaosSpy,
                 ReplaceRoleID = (int)RoleID.NtfPrivate,
                 MaxAlive = 1,
-                MaxRespawnPerRound = 2,
+                MaxPerRound = 2,
                 MaxPerRespawn = 1,
                 SpawnChance = 10,
             },
@@ -790,7 +790,7 @@ namespace VTCustomClass
             MaxArtificialHealth = 300,
             SpawnPoints = new List<SerializedMapPoint>()
             {
-                new SerializedMapPoint("Root_*&*Outside Cams", 86.47166f, -10.64563f, -69.14687f)
+                new SerializedMapPoint("Outside", 86.47166f, -10.64563f, -69.14687f)
             },
             Inventory = new SerializedPlayerInventory()
             {

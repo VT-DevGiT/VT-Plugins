@@ -17,7 +17,7 @@ namespace VTEscape
         protected override void Start()
         {
             Player = gameObject.GetPlayer();
-            Refresh();
+            this.enabled = Player.RoleType != RoleType.Spectator;
             base.Start();
         }
 
@@ -25,26 +25,16 @@ namespace VTEscape
         public abstract Vector3 Postion { get; }
         public abstract int Radius { get; }
         public abstract EscapeType EscapeType { get; }
-        public SerializedEscapeConfig EscapeConfig { get; protected set; }
 
 
-        public void Refresh()
+        public SerializedEscapeConfig GetConfig()
         {
-            this.enabled = Player.RoleType != RoleType.Spectator;
-
-            if (Player.RoleType == RoleType.Spectator)
-            {
-                EscapeConfig = null;
-                return;
-            }
-            
             // Get for the roll
-            var configEscape = Plugin.Config.EscapeList.FirstOrDefault(c => Player.RoleID == c.RoleID && EscapeType == c.Escape && 
+            SerializedEscapeConfig configEscape = Plugin.Config.EscapeList.FirstOrDefault(c => Player.RoleID == c.RoleID && EscapeType == c.Escape && 
                 ((Player.Cuffer == null && c.CufferTeamID == (int)TeamID.None) ||  Player.Cuffer?.TeamID == c.CufferTeamID));
             if (configEscape != null)
             {
-                EscapeConfig = configEscape;
-                return;
+                return configEscape;
             }
 
             // Get for the team
@@ -52,17 +42,20 @@ namespace VTEscape
                 ((Player.Cuffer == null && c.CufferTeamID == (int)TeamID.None) || Player.Cuffer?.TeamID == c.CufferTeamID));
             if (configEscape != null)
             {
-                EscapeConfig = configEscape;
-                return;
+                return configEscape;
             }
+            return null;
         }
 
         protected override void BehaviourAction()
         {
+            if (Player.RoleType == RoleType.Spectator)
+                enabled = false;
             if (Vector3.Distance(base.transform.position, Postion) < Radius)
             {
-                if (EscapeConfig != null)
-                    EscapeConfig.Use(Player);
+                var config = GetConfig();
+                if (config != null)
+                    config.Use(Player);
 
                 if (Player.CustomRole != null)
                     Player.TriggerEscape();

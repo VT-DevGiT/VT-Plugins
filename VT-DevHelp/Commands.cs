@@ -11,6 +11,12 @@ using VT_Api.Extension;
 using System.Reflection;
 using VT_Api.Core.Enum;
 using VT_Api.Core.Roles;
+using Synapse.Api.CustomObjects;
+using Synapse.Api.Enum;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.InteropServices;
+using MEC;
 
 namespace VTDevHelp
 {
@@ -98,28 +104,6 @@ namespace VTDevHelp
     }
 
     [CommandInformation(
-    Name = "DevSpawnTruc",
-    Aliases = new[] { "VTStruc" },
-    Description = "",
-    Permission = "",
-    Platforms = new[] { Platform.RemoteAdmin },
-    Usage = ""
-    )]
-    public class SpawnCommand : ISynapseCommand
-    {
-        public CommandResult Execute(CommandContext context)
-        {
-            var result = new CommandResult();
-
-            var door = Synapse.Api.Door.SpawnDoorVariant(Plugin.DoorPosition.Parse().Position, Plugin.DoorRotation);
-            door.Open = true;
-            door.Open = false;
-
-            return result;
-        }
-    }
-
-    [CommandInformation(
   Name = "DevDoorSpawn",
   Aliases = new[] { "VTSdoor" },
   Description = "",
@@ -133,9 +117,7 @@ namespace VTDevHelp
         {
             var result = new CommandResult();
 
-            var door = Synapse.Api.Door.SpawnDoorVariant(Plugin.DoorPosition.Parse().Position, Plugin.DoorRotation);
-            door.Open = true;
-            door.Open = false;
+            var door = new SynapseDoorObject(SpawnableDoorType.LCZ, Plugin.DoorPosition.Parse().Position, Quaternion.Euler(Vector3.zero), Vector3.one);
             
             return result;
         }
@@ -151,14 +133,45 @@ namespace VTDevHelp
      )]
     public class TestCommand : ISynapseCommand
     {
+        Door Door { get; set; }
+        SynapsePrimitiveObject Obj { get; set; }
+        Player Player { get; set; }
+
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
 
-            VtController.Get.MapAction.MtfRespawn(true, RoleType.Spectator.GetPlayers());
+            if (Door == null)
+            {
+                var orgDoor = Map.Get.Doors.Find(d => d.DoorType == DoorType.Escape_Primary);
 
+                Door = new SynapseDoorObject(SpawnableDoorType.EZ, orgDoor.Position + Vector3.forward, orgDoor.Rotation, orgDoor.Scale).Door;
+            }
+            else
+                Door.Position = Vector3.forward * 2;
+
+            if (Obj == null)
+            {
+                var pos = context.Player.Position;
+                pos.x += 2;
+                Obj = new SynapsePrimitiveObject(PrimitiveType.Cube, pos);
+                context.Player.AttachSynapseObject(Obj, Vector3.forward * 2);
+                Obj.ToyBase.enabled = false;
+                Timing.RunCoroutine(Rersh());
+            }
             return result;
         }
+
+        private IEnumerator<float> Rersh()
+        {
+            while (true)
+            {
+                yield return Timing.WaitForSeconds(.00001f);
+                Obj.ToyBase.Position = Player.transform.TransformPoint(Vector3.forward * 2);
+                Obj.ToyBase.UpdatePositionServer();
+            }
+        }
+
     }
 
     [CommandInformation(

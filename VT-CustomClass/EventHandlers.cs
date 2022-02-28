@@ -58,16 +58,18 @@ namespace VTCustomClass
 
         private void OnClass(PlayerSetClassEventArgs ev)
         {
-            if (RespawnPlayer.Contains(ev.Player))
-            {
-                if (ev.Player.CustomRole == null)
-                {
-                    IDRespawnPlayer.Add(ev.Player, (int)ev.Role);
-                    ev.Allow = false;
-                }
+            
+            if (!RespawnPlayer.Contains(ev.Player))
+            
 
-                RespawnPlayer.Remove(ev.Player);
+            if (ev.Player.CustomRole == null)
+            {
+                IDRespawnPlayer.Add(ev.Player, (int)ev.Role);
+                ev.Allow = false;
             }
+
+            RespawnPlayer.Remove(ev.Player);
+            
 
             if (!RespawnPlayer.Any() && IDRespawnPlayer.Any())
             {
@@ -75,9 +77,12 @@ namespace VTCustomClass
                 {
                     foreach (var classToSpawn in Plugin.Instance.Config.RespawnClassConfig)
                     {
+                        if (!RoleIDSpawnedInRound.ContainsKey(classToSpawn.RoleID))
+                            RoleIDSpawnedInRound.Add(classToSpawn.RoleID, 0);
+
                         if ((0 < classToSpawn.MaxRequiredPlayersInGame && Server.Get.PlayersAmount > classToSpawn.MaxRequiredPlayersInGame) ||
                             (0 < classToSpawn.MinRequiredPlayersInGame && Server.Get.PlayersAmount < classToSpawn.MinRequiredPlayersInGame) ||
-                            (0 < classToSpawn.MaxRespawnPerRound && classToSpawn.MaxRespawnPerRound >= RoleIDSpawnedInRound[classToSpawn.RoleID]))
+                            (0 < classToSpawn.MaxPerRound && classToSpawn.MaxPerRound >= RoleIDSpawnedInRound[classToSpawn.RoleID]))
                             continue;
 
                         var playersRoles = IDRespawnPlayer.Where(r => r.Value == classToSpawn.ReplaceRoleID);
@@ -93,6 +98,7 @@ namespace VTCustomClass
                             {
                                 var key = playersRoles.ElementAt(UnityEngine.Random.Range(0, playersRoles.Count() - 1)).Key;
                                 IDRespawnPlayer[key] = classToSpawn.RoleID;
+                                RoleIDSpawnedInRound[classToSpawn.RoleID]++;
                             }
                         }
                     }

@@ -16,7 +16,7 @@ namespace VT_AndersonRobotic
         public float SpawnMax = 1;
 
         [Description("The Spawnpoint where Anderson Robotic spawn")]
-        public SerializedMapPoint SpawnPoint = new SerializedMapPoint("Root_*&*Outside Cams", 86.47166f, -10.64563f, -69.14687f);
+        public SerializedMapPoint SpawnPoint = new SerializedMapPoint("Outside", 86.47166f, -10.64563f, -69.14687f);
 
         [Description("The maximal amount of players that can spawn as Anderson Robotic Unite in one squad")]
         public int SpawnSizeAnderson = 7;
@@ -31,7 +31,7 @@ namespace VT_AndersonRobotic
             Health = 120,
             SpawnPoints = new List<SerializedMapPoint>()
             {
-                new SerializedMapPoint("Root_*&*Outside Cams", 86.47166f, -10.64563f, -69.14687f)
+                new SerializedMapPoint("Outside", 86.47166f, -10.64563f, -69.14687f)
             },
             Inventory = new SerializedPlayerInventory()
             {
@@ -54,7 +54,7 @@ namespace VT_AndersonRobotic
             Health = 100,
             SpawnPoints = new List<SerializedMapPoint>()
             {
-                 new SerializedMapPoint("Root_*&*Outside Cams", 86.47166f, -10.64563f, -69.14687f)
+                 new SerializedMapPoint("Outside", 86.47166f, -10.64563f, -69.14687f)
             },
             Inventory = new SerializedPlayerInventory()
             {
@@ -79,7 +79,7 @@ namespace VT_AndersonRobotic
             Health = 120,
             SpawnPoints = new List<SerializedMapPoint>()
             {
-                 new SerializedMapPoint("Root_*&*Outside Cams", 86.47166f, -10.64563f, -69.14687f)
+                 new SerializedMapPoint("Outside", 86.47166f, -10.64563f, -69.14687f)
             },
             Inventory = new SerializedPlayerInventory()
             {
@@ -102,7 +102,7 @@ namespace VT_AndersonRobotic
             Health = 100,
             SpawnPoints = new List<SerializedMapPoint>()
             {
-                new SerializedMapPoint("Root_*&*Outside Cams", 86.47166f, -10.64563f, -69.14687f)
+                new SerializedMapPoint("Outside", 86.47166f, -10.64563f, -69.14687f)
             },
             Inventory = new SerializedPlayerInventory()
             {

@@ -31,7 +31,7 @@ namespace VTMap
                         //if (Door.Position.Room == "LCZ_Airlock (1)" || Door.Position.Room == "LCZ_Airlock (2)")
                         //    Server.Get.Logger.Warn("You cant sapwn door in AirLock !");
                         //else 
-                            Synapse.Api.Door.SpawnDoorVariant(Door.Position.Parse().Position, Roation, Door.Permissions);
+                            
                     }
                }
         }
