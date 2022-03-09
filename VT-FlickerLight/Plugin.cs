@@ -18,7 +18,7 @@ namespace VT_FlickerLight
         SynapsePatch = SynapseController.SynapsePatch,
         Version = "v.1.0.1"
         )]
-    public class Plugin : VtAbstractPlugin<EventHandler, Config>
+    public class Plugin : VtAbstractPlugin<Plugin, EventHandler, Config>
     {
         public override bool AutoRegister => false;
 

@@ -13,7 +13,7 @@ SynapseMinor = SynapseController.SynapseMinor,
 SynapsePatch = SynapseController.SynapsePatch,
 Version = "v.0.0.1"
 )]
-    public class Plugin : VtAbstractPlugin<EventHandlers, Config>
+    public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config>
     {
         public override bool AutoRegister => false;
     }

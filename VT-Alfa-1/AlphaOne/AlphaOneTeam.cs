@@ -35,21 +35,5 @@ namespace VT_Alpha
             });
             return unitName;
         }
-
-        const uint AmountCommander = 1;
-        const uint AmountLieutenant = 3;
-
-        public override void Spawn(List<Player> players)
-        {
-            for(var i = 0; i < players.Count; i++)
-            {
-                if (i < AmountCommander)
-                    players[i].RoleID = ;//roleID of your commander
-                else if (i < AmountLieutenant + AmountCommander)
-                    players[i].RoleID = ;//roleID of your Lieutenant
-                else
-                    players[i].RoleID = ;//roleID of your Recruit
-            }
-        }
     }
 }

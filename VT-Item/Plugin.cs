@@ -14,7 +14,7 @@ namespace VT_Item
         SynapsePatch = SynapseController.SynapsePatch,
         Version = "v.1.1.1"
         )]
-    public class Plugin : VtAbstractPlugin<EventHandlers, Config, Translation>
+    public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config, Translation>
     {
         public override bool AutoRegister => true;
 

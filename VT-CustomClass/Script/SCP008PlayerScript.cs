@@ -81,7 +81,7 @@ namespace VTCustomClass.PlayerScript
         {
             if (power == (int)PowerType.Zombifaction)
             {
-                Player owner = Map.Get.GetPlayercoprs(Player, 4);
+                Player owner = Player.GetDeadPlayerInRangeOfPlayer(4);
                 if (owner == null)
                 {
                     message = "You cant..";

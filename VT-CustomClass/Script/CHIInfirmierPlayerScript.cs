@@ -51,7 +51,7 @@ namespace VTCustomClass.PlayerScript
             {
                 if ((DateTime.Now - lastPower).TotalSeconds > Plugin.Instance.Config.ChiInfirmierCooldown)
                 {
-                    Player owner = Map.Get.GetPlayercoprs(Player, 2.5f);
+                    Player owner = Player.GetDeadPlayerInRangeOfPlayer(2.5f);
                     if (owner == null)
                     {
                         message = "You cant..";

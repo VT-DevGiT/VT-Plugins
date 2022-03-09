@@ -133,45 +133,16 @@ namespace VTDevHelp
      )]
     public class TestCommand : ISynapseCommand
     {
-        Door Door { get; set; }
-        SynapsePrimitiveObject Obj { get; set; }
-        Player Player { get; set; }
-
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
 
-            if (Door == null)
-            {
-                var orgDoor = Map.Get.Doors.Find(d => d.DoorType == DoorType.Escape_Primary);
+            context.Player.DisplayInfo = "Test\b\b\b\b\b\b\b\b\b\bTest";
 
-                Door = new SynapseDoorObject(SpawnableDoorType.EZ, orgDoor.Position + Vector3.forward, orgDoor.Rotation, orgDoor.Scale).Door;
-            }
-            else
-                Door.Position = Vector3.forward * 2;
+            context.Player.FakeRole(RoleType.Scp173);
 
-            if (Obj == null)
-            {
-                var pos = context.Player.Position;
-                pos.x += 2;
-                Obj = new SynapsePrimitiveObject(PrimitiveType.Cube, pos);
-                context.Player.AttachSynapseObject(Obj, Vector3.forward * 2);
-                Obj.ToyBase.enabled = false;
-                Timing.RunCoroutine(Rersh());
-            }
             return result;
         }
-
-        private IEnumerator<float> Rersh()
-        {
-            while (true)
-            {
-                yield return Timing.WaitForSeconds(.00001f);
-                Obj.ToyBase.Position = Player.transform.TransformPoint(Vector3.forward * 2);
-                Obj.ToyBase.UpdatePositionServer();
-            }
-        }
-
     }
 
     [CommandInformation(

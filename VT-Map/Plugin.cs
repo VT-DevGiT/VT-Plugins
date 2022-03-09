@@ -16,7 +16,7 @@ namespace VTMap
     SynapsePatch = SynapseController.SynapsePatch,
     Version = "v.1.0.3"
     )]
-    public class Plugin : VtAbstractPlugin<EventHandlers, Config>
+    public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config>
     {
         public override bool AutoRegister => false;
 

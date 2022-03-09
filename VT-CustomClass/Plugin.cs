@@ -21,7 +21,7 @@ namespace VTCustomClass
         SynapseMinor = SynapseController.SynapseMinor,
         SynapsePatch = SynapseController.SynapsePatch,
         Version = "v.1.3.2")]
-    public class Plugin : VtAbstractPlugin<EventHandlers, Config, Translation>
+    public class Plugin : VtAbstractPlugin<Plugin,EventHandlers, Config, Translation>
     {
         //TODO : Fix bug null error Expetion at the start of the round
 

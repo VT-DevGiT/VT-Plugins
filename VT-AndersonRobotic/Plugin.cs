@@ -15,7 +15,7 @@ namespace VT_AndersonRobotic
     SynapseMinor = SynapseController.SynapseMinor,
     SynapsePatch = SynapseController.SynapsePatch,
     Version = "v.1.3.3")]
-    public class Plugin : VtAbstractPlugin<EventHandlers, Config, Translation>
+    public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config, Translation>
     {
         public override bool AutoRegister => true;
 

@@ -17,7 +17,7 @@ namespace VTLog
     SynapsePatch = SynapseController.SynapsePatch,
     Version = "v.1.0.0"
     )]
-    public class Plugin : VtAbstractPlugin<EventHandlers>
+    public class Plugin : VtAbstractPlugin<Plugin, EventHandlers>
     {
         public override bool AutoRegister => false;
 
