@@ -23,15 +23,15 @@ namespace VT_FlickerLight
                 if (Plugin.Instance.Config.PlaySound) 
                     Map.Get.PlayAmbientSound(7);
 
-                Map.Get.ChangeRoomsLightColor(((Plugin)Plugin.Instance).firstColor);
+                Map.Get.ChangeRoomsLightColor(Plugin.Instance.Config.FirstColor);
                 
                 yield return Timing.WaitForSeconds(waitTime);
                 
-                Map.Get.ChangeRoomsLightColor(((Plugin)Plugin.Instance).secondColor);
+                Map.Get.ChangeRoomsLightColor(Plugin.Instance.Config.SecondColor);
                 
                 yield return Timing.WaitForSeconds(waitTime);
                 
-                Map.Get.ChangeRoomsLightColor(((Plugin)Plugin.Instance).thirdColor);
+                Map.Get.ChangeRoomsLightColor(Plugin.Instance.Config.ThirdColor);
                 
                 yield return Timing.WaitForSeconds(waitTime);
             }

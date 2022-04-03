@@ -22,27 +22,9 @@ namespace VT_FlickerLight
     {
         public override bool AutoRegister => false;
 
-        public Color firstColor;
-        public Color secondColor;
-        public Color thirdColor;
-
         public override void Load()
         {
             base.Load();
-            SetColorValue();
-        }
-
-        public override void ReloadConfigs()
-        {
-            SetColorValue();
-            base.ReloadConfigs();
-        }
-
-        public void SetColorValue()
-        {
-            firstColor = new Color(Config.FirstColor[0] / byte.MaxValue, Config.FirstColor[1] / byte.MaxValue, Config.FirstColor[2] / byte.MaxValue);
-            secondColor = new Color(Config.SecondColor[0] / byte.MaxValue, Config.SecondColor[1] / byte.MaxValue, Config.SecondColor[2] / byte.MaxValue);
-            thirdColor = new Color(Config.ThirdColor[0] / byte.MaxValue, Config.ThirdColor[1] / byte.MaxValue, Config.ThirdColor[2] / byte.MaxValue);
         }
     }
 }
