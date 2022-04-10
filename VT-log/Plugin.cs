@@ -25,18 +25,8 @@ namespace VTLog
         {
             Log.CreateNew();
 
-
-            AppDomain.CurrentDomain.DomainUnload += (sender, e) =>
-            {
-                Server.Get.Logger.Send("Shoot Down", ConsoleColor.Magenta);
-                Log.Write("--------------- End of Log ---------------");
-            };
-
             ServerConsole.ConsoleOutputs.Add(new Logger());
         }
-
-
-
 
         public override void Unload(object sender, EventArgs e)
         {

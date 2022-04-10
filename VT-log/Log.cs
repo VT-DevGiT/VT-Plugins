@@ -35,12 +35,6 @@ namespace VTLog
             {
                 tw.WriteLine($"[{DateTime.Now}] : {text}");
             }
-
-            /*using (StreamWriter sw = System.IO.File.AppendText(sFileName))
-            {
-                sw.WriteLine($"[{DateTime.Now}] : {text}");
-                sw.Close();
-            }*/
         }
     }
 }
