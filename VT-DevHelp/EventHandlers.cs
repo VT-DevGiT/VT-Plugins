@@ -1,4 +1,5 @@
-﻿using Mirror;
+﻿using InventorySystem.Configs;
+using Mirror;
 using Synapse;
 using Synapse.Api;
 
@@ -17,10 +18,16 @@ namespace VTDevHelp
     {
         public EventHandlers()
         {
-            Server.Get.Events.Round.RoundStartEvent += OnStart;
+            Server.Get.Events.Round.RoundStartEvent += Start;
+            //Server.Get.Events.Round.RoundStartEvent += GetsyncVar;
         }
 
-        private void OnStart()
+        private void Start()
+        {
+           
+        }
+
+        private void GetsyncVar()
         {
             Dictionary<string, ulong> Variables = new Dictionary<string, ulong>();
             foreach (PropertyInfo property in typeof(ServerConsole).Assembly.GetTypes().SelectMany(x => x.GetProperties()).Where(m => m.Name.StartsWith("Network")))

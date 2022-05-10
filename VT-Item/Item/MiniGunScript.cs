@@ -23,78 +23,79 @@ namespace VT_Item.Item
         static Dictionary<Player, DateTime> LastSoot = new Dictionary<Player, DateTime>();
 
         public override string ScreenName => Plugin.Instance.Translation.ActiveTranslation.NameMiniGun;
-        public override ushort Ammos => 0;
+        public override ushort MaxAmmos => 0;
         public override AmmoType AmmoType => AmmoType.Ammo762x39;
         public override int DamageAmmont => Plugin.MiniGunConfig.Damage;
         #endregion
 
         #region Methods
-
-        protected override  void Reload(PlayerReloadEventArgs ev) 
+        public override bool PickUp(Player player)
         {
-            ev.Item.Durabillity = ev.Player.AmmoBox[AmmoType.Ammo762x39];
+            Ammo = player.AmmoBox[AmmoType.Ammo762x39];
+            return true;
         }
 
-        protected override void PickUp(PlayerPickUpItemEventArgs ev)
-        {
-            ev.Item.Durabillity = ev.Player.AmmoBox[AmmoType.Ammo762x39];
-            base.PickUp(ev);
-        }
 
-        protected override void ChangeToItem(PlayerChangeItemEventArgs ev)
-        {
-            if (!Plugin.MiniGunConfig.CanMouveEquip)
-                ev.Player.GetOrAddComponent<MinGunPlayerScript>().enabled = true;
-            ev.NewItem.Durabillity = ev.Player.AmmoBox[AmmoType.Ammo762x39];
-            base.ChangeToItem(ev);
-        }
 
-        protected override void ChangedFromItem(PlayerChangeItemEventArgs ev)
+        public override bool Change(bool isNewItem)
         {
-            if (!Plugin.MiniGunConfig.CanMouveEquip)
-                ev.Player.GetOrAddComponent<MinGunPlayerScript>().enabled = false;
-            base.ChangedFromItem(ev);
-        }
-
-        protected override void Shoot(PlayerShootEventArgs ev)
-        {
-            ev.Weapon.Durabillity = ev.Player.AmmoBox[AmmoType.Ammo762x39];
-            ev.Allow = false;
-            if (LastSoot.ContainsKey(ev.Player))
+            if (!isNewItem)
             {
-                if ((DateTime.Now - LastSoot[ev.Player]).TotalSeconds < Plugin.MiniGunConfig.TimeFir)
+                if (!Plugin.MiniGunConfig.CanMouveEquip)
+                    Holder.GetOrAddComponent<MinGunPlayerScript>().enabled = false;
+            }
+            else
+            {
+                if (!Plugin.MiniGunConfig.CanMouveEquip)
+                    Holder.GetOrAddComponent<MinGunPlayerScript>().enabled = true;
+                Ammo = Holder.AmmoBox[AmmoType.Ammo762x39];
+            }
+            return true;
+        }
+
+        public override bool Shoot(Vector3 targetPosition) => Shoot();
+
+        public override bool Shoot(Vector3 targetPosition, Player target) => Shoot();
+
+        public bool Shoot()
+        {
+            Ammo = Holder.AmmoBox[AmmoType.Ammo762x39];
+            var canShoot = false;
+            if (LastSoot.ContainsKey(Holder))
+            {
+                if ((DateTime.Now - LastSoot[Holder]).TotalSeconds < Plugin.MiniGunConfig.TimeFir)
                 {
-                    ev.Allow = true;
-                    LastSoot[ev.Player] = DateTime.Now;
+                    canShoot = true;
+                    LastSoot[Holder] = DateTime.Now;
                 }
                 else
                 {
-                    LastSoot.Remove(ev.Player);
+                    LastSoot.Remove(Holder);
                 }
             }
-            if (!ev.Allow)
+            if (!canShoot)
             {
-                if (StartShoot.ContainsKey(ev.Player))
+                if (StartShoot.ContainsKey(Holder))
                 {
-                    if ((DateTime.Now - StartShoot[ev.Player]).TotalSeconds >= Plugin.MiniGunConfig.TimeFir)
+                    if ((DateTime.Now - StartShoot[Holder]).TotalSeconds >= Plugin.MiniGunConfig.TimeFir)
                     {
-                        LastSoot[ev.Player] = DateTime.Now;
-                        StartShoot.Remove(ev.Player);
-                        ev.Allow = true;
+                        LastSoot[Holder] = DateTime.Now;
+                        StartShoot.Remove(Holder);
+                        canShoot = true;
                     }
                 }
                 else
                 {
-                    StartShoot[ev.Player] = DateTime.Now;
+                    StartShoot.Add(Holder, DateTime.Now);
                 }
             }
 
-            if (ev.Allow)
+            if (canShoot)
             {
-                ev.Player.GiveEffect(Effect.Ensnared, 1, 2);
-                ev.Player.AmmoBox[AmmoType.Ammo762x39] -= (ushort)MultiShoot(ev.Player, ev.Weapon);
-                ev.Allow = false;
+                Holder.GiveEffect(Effect.Ensnared, 1, 2);
+                Holder.AmmoBox[AmmoType.Ammo762x39] -= (ushort)MultiShoot(Holder);
             }
+            return false;
         }
 
         private Quaternion RandomAimcone()
@@ -106,14 +107,14 @@ namespace VT_Item.Item
                 );
         }
 
-        private int MultiShoot(Player player, Synapse.Api.Items.SynapseItem Weapon)
+        private int MultiShoot(Player player)
         {
 
             player.PlayerInteract.OnInteract();
 
             int bullets = Plugin.MiniGunConfig.bullets;
-            if (Weapon.Durabillity <= bullets)
-                bullets = (int)Weapon.Durabillity;
+            if (Ammo <= bullets)
+                bullets = (int)Math.Floor(Ammo);
             Ray[] rays = new Ray[bullets];
             for (int i = 0; i < rays.Length; i++)
                 rays[i] = new Ray(player.CameraReference.position + player.CameraReference.forward, RandomAimcone() * player.CameraReference.forward);
@@ -124,6 +125,7 @@ namespace VT_Item.Item
                 didHit[i] = Physics.Raycast(rays[i], out hits[i], 100f, (int)LayerID.Hitbox);
 
             bool hit = false;
+            AutomaticFirearm firearm = (AutomaticFirearm)Item.ItemBase;
             for (int i = 0; i < hits.Length; i++)
             {
                 if (!didHit[i]) continue;
@@ -137,7 +139,7 @@ namespace VT_Item.Item
 
                     if (SynapseExtensions.GetHarmPermission(player, target))
                     {
-                        hitbox.Damage(Plugin.MiniGunConfig.Damage, new FirearmDamageHandler(), player.Position);
+                        hitbox.Damage(Plugin.MiniGunConfig.Damage, new FirearmDamageHandler(firearm, Plugin.MiniGunConfig.Damage, false), player.Position);
 
                         Synapse.Server.Get.Map.PlaceBlood(hits[i].point + hits[i].normal * 0.01f);
 
@@ -150,12 +152,12 @@ namespace VT_Item.Item
                 IDestructible window = hits[i].collider.GetComponent<IDestructible>();
                 if (window != null)
                 {
-                    window.Damage(Plugin.MiniGunConfig.Damage, new FirearmDamageHandler(), player.Position);
+                    window.Damage(Plugin.MiniGunConfig.Damage, new FirearmDamageHandler(firearm, Plugin.MiniGunConfig.Damage, false), player.Position);
                     hit = true;
                     continue;
                 }
 
-                ((SingleBulletHitreg)((AutomaticFirearm)player.ItemInHand.ItemBase).HitregModule).PlaceBulletholeDecal(new Ray(player.Hub.PlayerCameraReference.position, player.Hub.PlayerCameraReference.forward), hits[i]);
+                ((SingleBulletHitreg)firearm.HitregModule).PlaceBulletholeDecal(new Ray(player.Hub.PlayerCameraReference.position, player.Hub.PlayerCameraReference.forward), hits[i]);
             }
 
             if (hit) Hitmarker.SendHitmarker(player.Hub, 1.2f);

@@ -28,7 +28,7 @@ namespace VTLog
             ServerConsole.ConsoleOutputs.Add(new Logger());
         }
 
-        public override void Unload(object sender, EventArgs e)
+        public override void Unload()
         {
             Server.Get.Logger.Send("Shoot Down", ConsoleColor.Magenta);
             Log.Write("--------------- End of Log ---------------");

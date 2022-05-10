@@ -17,6 +17,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using MEC;
+using Subtitles;
+using Utils.Networking;
 
 namespace VTDevHelp
 {
@@ -137,7 +139,7 @@ namespace VTDevHelp
         {
             var result = new CommandResult();
 
-            context.Player.DisplayInfo = "Test\b\b\b\b\b\b\b\b\b\bTest";
+            new SubtitleMessage(new[] { new SubtitlePart(SubtitleType.Custom, new[] { "test" }) }).SendToAuthenticated<SubtitleMessage>();
 
             context.Player.FakeRole(RoleType.Scp173);
 
