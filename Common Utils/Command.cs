@@ -1,6 +1,10 @@
 ﻿using Synapse;
 using Synapse.Api;
+using Synapse.Api.Roles;
 using Synapse.Command;
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace Common_Utiles
@@ -272,6 +276,34 @@ namespace Common_Utiles
                 }
             }
 
+            return result;
+        }
+    }
+
+    [CommandInformation(
+    Name = "RolesID",
+    Aliases = new[] { "Roles" },
+    Description = "Get the roles ID of all roles",
+    Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole }
+    )]
+    public class RolesInfoCommand : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+
+            result.Message = "All registred roles :\n";
+            foreach (var role in (RoleType[])Enum.GetValues(typeof(RoleType))
+            {
+                string name = Regex.Replace(role.ToString(), "<.*?>", String.Empty);
+                result.Message += String.Format(" {0,-60} {1,-5} : Vanila\n", name, (int)role);
+            }
+            foreach (var role in Server.Get.RoleManager.CustomRoles.OrderBy(r => r.ID))
+            {
+                string name = Regex.Replace(role.Name, "<.*?>", String.Empty);
+                string pluginName = typeof(IRole).Assembly.GetName().Name;
+                result.Message += String.Format(" {0,-60} {1,-5} : {2}\n", name, role.ID, pluginName);
+            }
             return result;
         }
     }

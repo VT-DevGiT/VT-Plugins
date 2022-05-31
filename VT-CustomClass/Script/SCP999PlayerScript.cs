@@ -37,7 +37,6 @@ namespace VTCustomClass.PlayerScript
             Aura aura = ActiveComponent<Aura>();
             {
                 aura.playerEffect = Effect.Disabled;
-                aura.targetEffect = Effect.ArtificialRegen;
                 aura.targetAddHp = Plugin.Instance.Config.Scp999HealHp;
                 aura.distance = Plugin.Instance.Config.Scp999DistanceForHeal;
             }

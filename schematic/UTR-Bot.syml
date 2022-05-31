@@ -1,0 +1,90 @@
+﻿[UTR-Bot]
+{
+iD: 116
+name: UTR-Bot
+customAttributes:
+- UTR-Head
+primitiveObjects:
+- primitiveType: Cube
+  position:
+    x: 0
+    y: 0.578000069
+    z: 0
+  rotation:
+    x: 0
+    y: 0
+    z: 0
+  scale:
+    x: 0.615970016
+    y: 1
+    z: 0.473120004
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: 0
+    y: -0.19599998
+    z: 0
+  rotation:
+    x: 0
+    y: 0
+    z: 0
+  scale:
+    x: 1.13979089
+    y: 0.679083884
+    z: 1.32880485
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Capsule
+  position:
+    x: -0.800000191
+    y: -0.5
+    z: 0
+  rotation:
+    x: 270
+    y: 0
+    z: 0
+  scale:
+    x: 1
+    y: 1.00000024
+    z: 1.00000024
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Capsule
+  position:
+    x: 0.800000191
+    y: -0.5
+    z: 0
+  rotation:
+    x: 270
+    y: 0
+    z: 0
+  scale:
+    x: 1
+    y: 1.00000024
+    z: 1.00000024
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: ::lcb::::rcb::
+lightObjects: ::lcb::::rcb::
+targetObjects: ::lcb::::rcb::
+itemObjects: ::lcb::::rcb::
+workStationObjects: ::lcb::::rcb::
+doorObjects: ::lcb::::rcb::
+}
+

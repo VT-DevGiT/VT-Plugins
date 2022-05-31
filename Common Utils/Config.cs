@@ -76,7 +76,7 @@ namespace Common_Utiles
             Effect.Asphyxiated,
             Effect.Scp207,
             Effect.Visuals939,
-            Effect.ArtificialRegen,
+            Effect.Vitality,
             Effect.Blinded,
         };
         [Description("makes players passing through 914 have a random life")]

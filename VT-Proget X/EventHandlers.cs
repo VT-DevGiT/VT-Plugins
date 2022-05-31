@@ -1,4 +1,5 @@
-﻿using MEC;
+﻿using LightContainmentZoneDecontamination;
+using MEC;
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
@@ -16,7 +17,7 @@ namespace VTProget_X
             Server.Get.Events.Round.RoundStartEvent += OnRoundStart;
             Server.Get.Events.Round.RoundEndEvent += OnRoundEnd;
             VtController.Get.Events.Player.PlayerSpeakIntercomEvent += OnSpeakIntercom;
-        }
+        }   
 
         private void OnSpeakIntercom(PlayerSpeakIntercomEventEventArgs ev)
         {
@@ -30,18 +31,19 @@ namespace VTProget_X
 
         private void OnRoundEnd()
         {
-            ((Plugin)Plugin.Instance).TeslaEnabled = true;
-            ((Plugin)Plugin.Instance).DecontInProgress = false;
+            Plugin.Instance.TeslaEnabled = true;
+            Plugin.Instance.DecontInProgress = false;
         }
 
         private void OnRoundStart()
         {
+            DecontaminationController.Singleton.disableDecontamination = true;
             Server.Get.Host.GetComponent<Intercom>().gameObject.AddComponent<IntercomBehaviour>();
         }
 
         private void OnTriggerTeslaEvent(TriggerTeslaEventArgs ev)
         {
-            if (!((Plugin)Plugin.Instance).TeslaEnabled)
+            if (!Plugin.Instance.TeslaEnabled)
                 ev.Trigger = false;
             else if (Plugin.Instance.Config.TeslaRadio && ev.Player.Inventory.Items.FirstOrDefault(p => p.ID == (int)ItemType.Radio && !p.IsCustomItem) != null)
             { 

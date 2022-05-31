@@ -1,18 +1,13 @@
-﻿using Interactables.Interobjects.DoorUtils;
-using MEC;
-using Synapse;
-using Synapse.Api.Enum;
-using Synapse.Api.Events.SynapseEventArguments;
-using Synapse.Config;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using VT_Api.Config;
 using VT_Api.Core.Enum;
+using VT_Api.Core.Plugin;
 using VT_Api.Core.Teams;
 
 namespace VTCustomClass.PlayerScript
 {
+    [AutoRegisterManager.Ignore]
     public class AndersonUTRheavyScript : BaseUTRScript
     {
         protected override List<int> EnemysList => TeamManager.Group.ANDennemy.ToList();

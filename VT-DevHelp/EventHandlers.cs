@@ -10,7 +10,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-
+using VT_Api.Core.Events.EventArguments;
+using VT_Api.Core.Items;
 
 namespace VTDevHelp
 {
@@ -24,7 +25,14 @@ namespace VTDevHelp
 
         private void Start()
         {
-           
+            Logger.Get.Info(InventoryLimits.Config.CategoryLimits.Count);
+            foreach (var limit in InventoryLimits.Config.CategoryLimits)
+                Logger.Get.Info(limit);
+            Logger.Get.Info("-----");
+            Logger.Get.Info(ItemManager.Get.ItemCategoryLimit.Count);
+            foreach (var limit in ItemManager.Get.ItemCategoryLimit)
+                Logger.Get.Info(limit);
+
         }
 
         private void GetsyncVar()

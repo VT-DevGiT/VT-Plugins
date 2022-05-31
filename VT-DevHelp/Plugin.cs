@@ -21,5 +21,11 @@ namespace VTDevHelp
 
         public static SerializedMapPoint DoorPosition;
         public static Quaternion DoorRotation;
+
+        public override void Load()
+        {
+            AudioApi.AudioApi.Enable();
+            base.Load();
+        }
     }
 }

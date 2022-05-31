@@ -39,7 +39,6 @@ namespace VTCustomClass.PlayerScript
         {
             aura = ActiveComponent<Aura>();
             {
-                aura.playerEffect = Effect.ArtificialRegen;
                 aura.targetEffect = Effect.Poisoned;
                 aura.effectIntencty = 6;
                 aura.effectTime = 5;

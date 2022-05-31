@@ -1,0 +1,71 @@
+﻿[UTR-Head]
+{
+iD: 117
+name: UTR-Head
+customAttributes:
+- UTR-Head
+primitiveObjects:
+- primitiveType: Cube
+  position:
+    x: 0
+    y: 0
+    z: 0
+  rotation:
+    x: 0
+    y: 0
+    z: 0
+  scale:
+    x: 0.299819261
+    y: 0.29155001
+    z: 0.649741828
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: 0.0629997253
+    y: -0.236000061
+    z: 0
+  rotation:
+    x: 0
+    y: 0
+    z: 17.1396923
+  scale:
+    x: 0.0689224526
+    y: 0.444759578
+    z: 0.0840849429
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: -0.138999939
+    y: -0.385999918
+    z: 0
+  rotation:
+    x: 0
+    y: 0
+    z: 349.22049
+  scale:
+    x: 0.0689224601
+    y: 0.538813591
+    z: 0.0840849429
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: ::lcb::::rcb::
+lightObjects: ::lcb::::rcb::
+targetObjects: ::lcb::::rcb::
+itemObjects: ::lcb::::rcb::
+workStationObjects: ::lcb::::rcb::
+doorObjects: ::lcb::::rcb::
+}
+

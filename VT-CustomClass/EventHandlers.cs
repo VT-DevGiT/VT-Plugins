@@ -51,16 +51,15 @@ namespace VTCustomClass
 
         private void OnReSpawn(TeamRespawnEventArgs ev)
         {
-            Server.Get.Logger.Info($"OnReSpawn !!!!");
             IDRespawnPlayer.Clear();
             RespawnPlayer = ev.Players ?? new List<Player>();
         }
 
         private void OnClass(PlayerSetClassEventArgs ev)
         {
-            
+
             if (!RespawnPlayer.Contains(ev.Player))
-            
+                return;
 
             if (ev.Player.CustomRole == null)
             {

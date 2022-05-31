@@ -46,6 +46,12 @@ namespace VTCustomClass
             }, "FRENCH");
             PatchAll();
 
+            if (Server.Get.TeamManager.IsIDRegistered((int)TeamID.AND))
+            {
+                Server.Get.RoleManager.RegisterCustomRole<AndersonUTRlightScript>();
+                Server.Get.RoleManager.RegisterCustomRole<AndersonUTRheavyScript>();
+            }
+
             // Parse the config
             ParseConfig();
         }

@@ -1,13 +1,13 @@
-﻿using Synapse;
-using VT_Api.Core.Teams;
-using Synapse.Config;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using VT_Api.Core.Enum;
 using VT_Api.Config;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Plugin;
+using VT_Api.Core.Teams;
 
 namespace VTCustomClass.PlayerScript
 {
+    [AutoRegisterManager.Ignore]
     public class AndersonUTRlightScript : BaseUTRScript
     {
         protected override List<int> EnemysList => TeamManager.Group.ANDennemy.ToList();
@@ -24,6 +24,6 @@ namespace VTCustomClass.PlayerScript
 
         protected override SerializedPlayerRole Config => Plugin.Instance.Config.AndUTRLightConfig;
 
-        protected override bool heavyUTR => false;
+        protected override bool HeavyUTR => false;
     }
 }

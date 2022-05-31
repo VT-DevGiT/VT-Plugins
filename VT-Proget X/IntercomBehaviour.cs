@@ -29,7 +29,7 @@ namespace VTProget_X
             else
                 screen = ScreenType.Defaux;
 
-            Methode.SetIntercomScreen(screen);
+            Plugin.Instance.SetIntercomScreen(screen);
 
             if (Plugin.Instance.Config.IntercomInfomationtime * 2 < _timer)
                 _timer = 0;

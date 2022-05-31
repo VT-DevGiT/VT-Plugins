@@ -19,6 +19,8 @@ using System.Runtime.InteropServices;
 using MEC;
 using Subtitles;
 using Utils.Networking;
+using VT_Api.Core;
+using Mirror;
 
 namespace VTDevHelp
 {
@@ -139,10 +141,8 @@ namespace VTDevHelp
         {
             var result = new CommandResult();
 
-            new SubtitleMessage(new[] { new SubtitlePart(SubtitleType.Custom, new[] { "test" }) }).SendToAuthenticated<SubtitleMessage>();
-
-            context.Player.FakeRole(RoleType.Scp173);
-
+            var path = @"C:\Users\valentin\AppData\Roaming\Synapse\dependencies\hitman-le-cobra-philippe-je-sais-ou-tu-te-caches.mp3";
+            AudioApi.AudioApi.Play(path);
             return result;
         }
     }
@@ -162,6 +162,11 @@ namespace VTDevHelp
             var result = new CommandResult();
 
             result.Message = "All registred roles :\n";
+            foreach (var role in (RoleType[])Enum.GetValues(typeof(RoleType))
+            {
+                string name = Regex.Replace(role.ToString(), "<.*?>", String.Empty);
+                result.Message += String.Format("\t{0,-60} {1,-5} : valide Vanila\n", name, (int)role);
+            }
             foreach (var role in Server.Get.RoleManager.CustomRoles.OrderBy(r => r.ID))
             {
                 string name = Regex.Replace(role.Name, "<.*?>", String.Empty);
@@ -252,26 +257,6 @@ Abilitie -> {player.ClassManager.CurRole.abilities.Any()}
                              $"Weapon : Attachments->{iteamHand.WeaponAttachments}, Durabillity->{iteamHand.Durabillity}\n" +
                              $"Other : Scale->{iteamHand.Scale}, Scale->{iteamHand.State}";
             result.State = CommandResultState.Ok;
-            return result;
-        }
-    }
-
-    [CommandInformation(
-    Name = "DevDecont",
-    Aliases = new[] { "VTDecont" },
-    Description = "Dev Decont Test",
-    Permission = "",
-    Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole },
-    Usage = ""
-    )]
-    public class TestDecontCommand : ISynapseCommand
-    {
-        public CommandResult Execute(CommandContext context)
-        {
-            var result = new CommandResult();
-            Server.Get.Map.Decontamination.InstantStart();
-            Server.Get.Map.Decontamination?.Controller?.FinishDecontamination();
-            result.State = CommandResultState.Error;
             return result;
         }
     }

@@ -13,13 +13,13 @@ namespace VTCustomClass.Pouvoir
     public class Aura : RepeatingBehaviour
     {
         private Player player;
-        public byte effectIntencty = 1;
-        public byte effectTime = 1;
-        public Effect? targetEffect = null;
-        public Effect? playerEffect = null;
-        public int playerAddHp = 0;
-        public int targetAddHp = 0;
-        public int distance = 2;
+        public byte effectIntencty { get; set; } = 1;
+        public byte effectTime { get; set; } = 1;
+        public Effect? targetEffect { get; set; } = null;
+        public Effect? playerEffect { get; set; } = null;
+        public int playerAddHp { get; set; } = 0;
+        public int targetAddHp { get; set; } = 0;
+        public int distance { get; set; } = 2;
 
         public List<int> ignoredRole = new List<int>() { (int)RoleID.NtfVirologue, };
         public List<int> ignoredTeam = new List<int>() { (int)TeamID.SCP, (int)TeamID.RIP };

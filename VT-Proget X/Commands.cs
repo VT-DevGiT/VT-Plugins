@@ -29,7 +29,7 @@ namespace VTProget_X
                 var result = new CommandResult();
                 result.Message = "you must be at the intercom with a tablet in hand and a power of 1000 kVA";
                 result.State = CommandResultState.NoPermission;
-                if (((Plugin)Plugin.Instance).DecontInProgress)
+                if (Plugin.Instance.DecontInProgress)
                 {
                     result.Message = "decontamination has already taken place";
                     result.State = CommandResultState.NoPermission;
@@ -41,6 +41,7 @@ namespace VTProget_X
                     Map.Get.GlitchedCassie("Decontamination sequence commencing in 2 minutes");
                     Starting.phase = 0;
                     Server.Get.Logger.Info(DecontaminationController.Singleton.TimeOffset);
+                    DecontaminationController.Singleton.disableDecontamination = false;
                     var phase = DecontaminationController.Singleton.DecontaminationPhases;
                     for(int i = 0; i < phase.Length; i++)
                     {
@@ -80,7 +81,7 @@ namespace VTProget_X
                     });
                     result.Message = "Decontamination Start";
                     result.State = CommandResultState.Ok;
-                    ((Plugin)Plugin.Instance).DecontInProgress = true;
+                    Plugin.Instance.DecontInProgress = true;
                 }
                 return result;
             }
@@ -101,7 +102,7 @@ namespace VTProget_X
                 var result = new CommandResult();
                 if (IsValidInteract(2000, context))
                 {
-                    if (((Plugin)Plugin.Instance).TeslaEnabled)
+                    if (Plugin.Instance.TeslaEnabled)
                     {
                         Map.Get.Cassie("all tesla doors have been disabled .", false);
                         result.Message = "Tesla Diabled";
@@ -111,7 +112,7 @@ namespace VTProget_X
                         Map.Get.Cassie("all tesla doors have been enable .", false);
                         result.Message = "Tesla Enabled";
                     }
-                    ((Plugin)Plugin.Instance).TeslaEnabled = !((Plugin)Plugin.Instance).TeslaEnabled;
+                    Plugin.Instance.TeslaEnabled = !Plugin.Instance.TeslaEnabled;
 
                     result.State = CommandResultState.Ok;
                 }
@@ -170,9 +171,9 @@ namespace VTProget_X
                 result.State = CommandResultState.NoPermission;
                 if (context.Player.UserId == "76561198836602642@steam" && IsValidInteract(0, context))
                 {
-                    ((Plugin)Plugin.Instance).CustomScreen = !((Plugin)Plugin.Instance).CustomScreen;
-                    if (((Plugin)Plugin.Instance).CustomScreen)
-                        Methode.SetIntercomScreen(ScreenType.Custom);
+                    Plugin.Instance.CustomScreen = !Plugin.Instance.CustomScreen;
+                    if (Plugin.Instance.CustomScreen)
+                        Plugin.Instance.SetIntercomScreen(ScreenType.Custom);
 
                     result.Message = "Sa marche :)";
                     result.State = CommandResultState.Ok;
