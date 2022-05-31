@@ -162,7 +162,7 @@ namespace VTDevHelp
             var result = new CommandResult();
 
             result.Message = "All registred roles :\n";
-            foreach (var role in (RoleType[])Enum.GetValues(typeof(RoleType))
+            foreach (var role in (RoleType[])Enum.GetValues(typeof(RoleType)))
             {
                 string name = Regex.Replace(role.ToString(), "<.*?>", String.Empty);
                 result.Message += String.Format("\t{0,-60} {1,-5} : valide Vanila\n", name, (int)role);

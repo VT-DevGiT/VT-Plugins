@@ -293,7 +293,7 @@ namespace Common_Utiles
             var result = new CommandResult();
 
             result.Message = "All registred roles :\n";
-            foreach (var role in (RoleType[])Enum.GetValues(typeof(RoleType))
+            foreach (var role in (RoleType[])Enum.GetValues(typeof(RoleType)))
             {
                 string name = Regex.Replace(role.ToString(), "<.*?>", String.Empty);
                 result.Message += String.Format(" {0,-60} {1,-5} : Vanila\n", name, (int)role);
