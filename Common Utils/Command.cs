@@ -227,8 +227,8 @@ namespace Common_Utiles
     }
 
     [CommandInformation(
-        Name = "ChangeServeur",
-        Aliases = new[] { "SwitchServeur", "MoveServeur" },
+        Name = "MoveServeur",
+        Aliases = new[] { "SwitchServeur", "MoveToServeur" },
         Description = "Move player(s) to an other serveur",
         Permission = "vanilla.PlayersManagement",
         Platforms = new[] { Platform.RemoteAdmin },
@@ -236,7 +236,7 @@ namespace Common_Utiles
         Arguments = new[] { "ServeurPort", "Player", "OtherPlayer", "OtherPlayer..." }
         )]
 
-    class ChangeServer : ISynapseCommand
+    class MoverServeur : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
         {
@@ -256,12 +256,10 @@ namespace Common_Utiles
                 return result;
             }
 
-            var players = new Player[context.Arguments.Count - 1];
-
-            for (int i = 1; i < context.Arguments.Count; i++)
+            if (!Server.Get.TryGetPlayers(context.Arguments.At(1), out var players, context.Player))
             {
-                var player = Server.Get.GetPlayer(context.Arguments.Array[i]);
-                players[i - 1] = player;
+                result.Message = "No player found";
+                result.State = CommandResultState.Error;
             }
 
             result.Message = string.Concat("Players move to serveur port {0} :", server);
@@ -293,7 +291,7 @@ namespace Common_Utiles
             var result = new CommandResult();
 
             result.Message = "All registred roles :\n";
-            foreach (var role in (RoleType[])Enum.GetValues(typeof(RoleType)))
+            foreach (var role in ((RoleType[])Enum.GetValues(typeof(RoleType))).OrderBy(r => (int)r))
             {
                 string name = Regex.Replace(role.ToString(), "<.*?>", String.Empty);
                 result.Message += String.Format(" {0,-60} {1,-5} : Vanila\n", name, (int)role);
@@ -301,7 +299,7 @@ namespace Common_Utiles
             foreach (var role in Server.Get.RoleManager.CustomRoles.OrderBy(r => r.ID))
             {
                 string name = Regex.Replace(role.Name, "<.*?>", String.Empty);
-                string pluginName = typeof(IRole).Assembly.GetName().Name;
+                string pluginName = role.GetType().Assembly.GetName().Name;
                 result.Message += String.Format(" {0,-60} {1,-5} : {2}\n", name, role.ID, pluginName);
             }
             return result;

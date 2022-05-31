@@ -141,7 +141,7 @@ namespace VTDevHelp
         {
             var result = new CommandResult();
 
-            var path = @"C:\Users\valentin\AppData\Roaming\Synapse\dependencies\hitman-le-cobra-philippe-je-sais-ou-tu-te-caches.mp3";
+            var path = @"C:\Users\valentin\AppData\Roaming\Synapse\dependencies\hitman-le-cobra-philippe-je-sais-ou-tu-te-caches.raw";
             AudioApi.AudioApi.Play(path);
             return result;
         }

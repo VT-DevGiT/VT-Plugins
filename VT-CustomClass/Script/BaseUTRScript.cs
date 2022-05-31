@@ -1,4 +1,5 @@
 ﻿using Interactables.Interobjects.DoorUtils;
+using InventorySystem.Items.Armor;
 using Mirror;
 using Synapse;
 using Synapse.Api;
@@ -8,6 +9,7 @@ using Synapse.Api.Events.SynapseEventArguments;
 using System;
 using System.Linq;
 using UnityEngine;
+using VT_Api.Core.Events.EventArguments;
 using VT_Api.Core.Plugin;
 using VT_Api.Core.Roles;
 
@@ -17,13 +19,18 @@ namespace VTCustomClass.PlayerScript
     public abstract class BaseUTRScript : AbstractRole, IUtrRole
     {
         #region Properties & Variable
+        const int BodyID = 115;
+        const int HeadID = 116;
+        const int BotID = 117;
+        const int AllID = 118;
+
         protected virtual bool HeavyUTR => true;
-        protected virtual Color UtrColor => Color.white;
+        protected virtual Color Color => Color.white;
         protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
         protected bool Protected096 { get; set; } = true;
 
-        private float oldStaminaUse;
-    
+        private float _oldStaminaUse;
+        private float _oldGroundMaxDistance;
         protected UtrCorp Corp { get; set; }
 
         #endregion
@@ -31,13 +38,21 @@ namespace VTCustomClass.PlayerScript
         #region Methods
         protected override void AditionalInit(PlayerSetClassEventArgs ev)
         {
-            oldStaminaUse = Player.StaminaUsage; 
+            _oldStaminaUse = Player.StaminaUsage;
+            _oldGroundMaxDistance = Player.FallDamage.groundMaxDistance;
+            
             Player.StaminaUsage = 0;
-            Player.GiveEffect(Effect.Visuals939);
-            Player.FallDamage.groundMaxDistance = 1000; 
-            if (HeavyUTR) Player.GiveEffect(Effect.Disabled);
+            Player.FallDamage.groundMaxDistance = 1000;
 
-            Corp = new UtrCorp(115, 116, 117, ev.Player);
+            MEC.Timing.CallDelayed(1.75f, () => Player.GiveEffect(Effect.Visuals939));
+            if (HeavyUTR) MEC.Timing.CallDelayed(1.75f, () =>
+            {
+                Player.GiveEffect(Effect.Disabled);
+            });
+
+            Corp = new UtrCorp(115, 116, 117, ev.Player, ev.Position, Color);
+
+            ev.Position += Vector3.forward * 2;
 
             // Specific event for this player and not for this role.
             Server.Get.Events.Player.PlayerSetClassEvent += OnScp173Spawn;
@@ -51,6 +66,8 @@ namespace VTCustomClass.PlayerScript
 
         public override void DeSpawn()
         {
+            Player.FallDamage.groundMaxDistance = _oldGroundMaxDistance;
+
             Server.Get.Events.Player.PlayerSetClassEvent -= OnScp173Spawn;
 
             foreach (var player in Server.Get.Players)
@@ -61,7 +78,7 @@ namespace VTCustomClass.PlayerScript
 
             Corp.Destroy();
 
-            Player.StaminaUsage = oldStaminaUse;
+            Player.StaminaUsage = _oldStaminaUse;
 
             base.DeSpawn();
         }
@@ -81,8 +98,15 @@ namespace VTCustomClass.PlayerScript
             Server.Get.Events.Map.DoorInteractEvent += OnDoorInteract;
             Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent += OnAddTarget;
             Server.Get.Events.Player.PlayerEnterFemurEvent += OnFemur;
+            VtController.Get.Events.Item.RemoveLimitAmmoEvent += OnAmmoLimit;
         }
 
+        private static void OnAmmoLimit(RemoveAmmoEventArgs ev)
+        {
+            if (ev.Player.CustomRole is BaseUTRScript)
+                ev.RemovAmmo.Clear();
+            Synapse.Api.Logger.Get.Info("RTR");
+        }
 
         private static void OnFemur(PlayerEnterFemurEventArgs ev)
         {
@@ -136,6 +160,19 @@ namespace VTCustomClass.PlayerScript
                 ev.Player.Scp173Controller.IgnoredPlayers.Add(Player);
         }
 
+        public override bool CallPower(byte power, out string message)
+        {
+            message = "ajaja";
+            switch (power)
+            {
+                case 1:
+                    BodyArmorUtils.RemoveEverythingExceedingLimits(Player.Hub.inventory, Player.Hub.inventory.TryGetBodyArmor(out var bodyArmor) ? bodyArmor : (BodyArmor)null, false);
+                    break;
+            }
+
+            return true;
+        }
+
         #endregion
 
         #region structure
@@ -149,15 +186,16 @@ namespace VTCustomClass.PlayerScript
 
             public SynapseObject bot;
 
-            public UtrCorp(int BodyID, int HeadID, int BotID, Player player, Color color = default)
+            public UtrCorp(int BodyID, int HeadID, int BotID, Player player, Vector3 position, Color color)
             {
-                if (!(player.CustomRole is BaseUTRScript))
-                    throw new ArgumentException("The player is not a UTR, you cant create a UtrCorp !", "player");
-
                 mainObject = new SynapseObject(new SynapseSchematic() { ID = 118, Name = "UTR" });
-                body = SchematicHandler.Get.SpawnSchematic(BodyID, player.Position);
-                head = SchematicHandler.Get.SpawnSchematic(HeadID, player.Position);
-                bot = SchematicHandler.Get.SpawnSchematic(BotID, player.Position);
+                body = SchematicHandler.Get.SpawnSchematic(BodyID, position);
+                head = SchematicHandler.Get.SpawnSchematic(HeadID, position);
+                bot = SchematicHandler.Get.SpawnSchematic(BotID, position);
+
+                if (body == null) throw new Exception("Faild to spawn a body check if you ave a Schematic for the body (ID = " + BodyID + ")");
+                if (head == null) throw new Exception("Faild to spawn a head check if you ave a Schematic for the body (ID = " + BodyID + ")");
+                if (bot  == null) throw new Exception("Faild to spawn a bot check if you ave a Schematic for the body (ID = " + BodyID + ")");
 
                 SetHeight(body);
                 SetHeight(head);
@@ -167,11 +205,13 @@ namespace VTCustomClass.PlayerScript
                 SetChildrens(mainObject, head);
                 SetChildrens(mainObject, bot);
 
-                var teamColor = (player.CustomRole as BaseUTRScript).UtrColor;
+                var teamColor = color;
+
+                
 
                 foreach (var child in mainObject.Childrens)
                 {
-                    if (child.CustomAttributes.FirstOrDefault(s => s.ToLower().Contains("teamcolor")) == null) ;
+                    if (child.CustomAttributes.FirstOrDefault(s => s.ToLower().Contains("teamcolor")) != null)
                     {
                         if (child is Synapse.Api.CustomObjects.SynapsePrimitiveObject primitve)
                             primitve.ToyBase.NetworkMaterialColor = teamColor;
@@ -185,20 +225,22 @@ namespace VTCustomClass.PlayerScript
 
                 void SetHeight(SynapseObject synapseObject)
                 {
-                    var pos = synapseObject.CustomAttributes.FirstOrDefault(s => s.Contains("pos"));
-                    var data = pos.Split(':');
+                    var pos = synapseObject.CustomAttributes?.FirstOrDefault(s => s.ToLower(). Contains("pos"));
+                    var data = pos?.Split(':');
+                    var height = 0f;
 
-                    if (data.Length == 2 && float.TryParse(data[1], out var height))
-                    {
-                        var newPos = synapseObject.Position;
-                        newPos.y += height;
-                        synapseObject.Position = newPos;
-                    }
+                    if (data?.Length == 2)
+                        float.TryParse(data[1], out height);
+                    
+                    var newPos = synapseObject.Position;
+                    newPos.y += height + 1;
+                    synapseObject.Position = newPos;
+                    synapseObject.Rotation = Quaternion.Euler(180, 0, 0);
                 }
 
                 void SetChildrens(SynapseObject parent, SynapseObject children)
                 {
-                    parent.GameObject.transform.parent = children.GameObject.transform;
+                    children.GameObject.transform.parent = parent.GameObject.transform;
                     parent.Childrens.Add(children);
 
                     foreach (var primitiveObject in children.PrimitivesChildrens)
@@ -225,14 +267,22 @@ namespace VTCustomClass.PlayerScript
             }
 
             public void SetPose(Vector3 postion)
-                => mainObject.Position = postion;
+                => mainObject.Position = postion + Vector3.forward * 2;
 
             public void SetRotation(Vector3 rotation)
             {
-                var bodyRotation = new Vector3(rotation.x, 0);
-                var headRotation = new Vector3(0, rotation.y);
-                mainObject.Rotation = Quaternion.Euler(bodyRotation);
-                head.Rotation = Quaternion.Euler(headRotation);
+                var headx = rotation.x;
+                if (338.5f > headx && headx > 24.3f)
+                {
+                    if (headx > 157.1f)
+                        headx = 338.5f;
+                    else
+                        headx = 24.3f;
+                }
+             
+                mainObject.Rotation = Quaternion.Euler(rotation.y, 0, 0);
+                head.Rotation = Quaternion.Euler(headx, 0, 0);
+
             }
 
             public void Destroy()
