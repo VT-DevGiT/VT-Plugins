@@ -31,7 +31,6 @@ namespace VTCustomClass.PlayerScript
         protected override SerializedPlayerRole Config => Plugin.Instance.Config.MastondonteConfig;
 
         public bool shieldActif = true;
-        public float oldusage;
 
         public override bool CallPower(byte power, out string message)
         {
@@ -43,7 +42,6 @@ namespace VTCustomClass.PlayerScript
                     return false;
                 }
                 shieldActif = false;
-                Player.StaminaUsage = oldusage;
                 message = "you have removed your shield !";
                 return true;
             }
@@ -58,19 +56,11 @@ namespace VTCustomClass.PlayerScript
             Server.Get.Events.Player.PlayerItemUseEvent += OnUseItem;
         }
 
-        public override void DeSpawn()
+        public override void Spawning()
         {
-            Player.StaminaUsage = oldusage;
-            base.DeSpawn();
-        }
-
-        protected override void AditionalInit(PlayerSetClassEventArgs ev)
-        {
-            oldusage = Player.StaminaUsage;
-            Player.StaminaUsage = 0;
             Player.GiveEffect(Effect.Disabled, 2);
+            base.Spawning();
         }
-
 
         private static void OnUseItem(PlayerItemInteractEventArgs ev)
         {
@@ -85,6 +75,7 @@ namespace VTCustomClass.PlayerScript
             if (ev.Killer?.CustomRole is CHIMastodonteScript role && ev.DamageType != DamageType.Explosion && !role.shieldActif)
             {
                 ev.Killer.ArtificialHealth += ev.Damage / 4;
+                ev.Killer.Heal(ev.Damage / 8);
                 ev.HollowBullet();
             }
         }

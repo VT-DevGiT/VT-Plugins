@@ -1,0 +1,698 @@
+﻿[UTR-Corp]
+{
+iD: 118
+name: UTR-Corp
+customAttributes:
+- UTR-Corp
+primitiveObjects:
+- primitiveType: Cube
+  position:
+    x: 0.881732941
+    y: -1.08760262
+    z: -0.537913978
+  rotation:
+    x: 274.333923
+    y: 248.03476
+    z: 99.3658066
+  scale:
+    x: -0.150000006
+    y: -0.200000033
+    z: -0.125000015
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: 0.892049789
+    y: -1.08818448
+    z: -0.584018409
+  rotation:
+    x: 274.333923
+    y: 248.03476
+    z: 99.3658066
+  scale:
+    x: -0.183524996
+    y: -0.120000012
+    z: -0.150000021
+  color:
+    r: 0.509433985
+    g: 0.45416519
+    b: 0.45416519
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: 0.896625519
+    y: -1.08685613
+    z: -0.548426449
+  rotation:
+    x: 274.333862
+    y: 248.035461
+    z: 80.8977203
+  scale:
+    x: -0.182500005
+    y: -0.12000002
+    z: -0.150000036
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: 0.980941772
+    y: -1.0838722
+    z: -0.652302325
+  rotation:
+    x: 274.333923
+    y: 248.03476
+    z: 99.3658066
+  scale:
+    x: -0.0925000012
+    y: -0.18250002
+    z: -0.125000015
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: 1.01683617
+    y: -1.08330715
+    z: -0.721385419
+  rotation:
+    x: 274.333862
+    y: 248.035461
+    z: 80.8977203
+  scale:
+    x: -0.075000003
+    y: -0.0487500168
+    z: -0.112500027
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Capsule
+  position:
+    x: 0.874765396
+    y: -1.0916065
+    z: -0.6618945
+  rotation:
+    x: 274.333923
+    y: 248.03476
+    z: 99.3658066
+  scale:
+    x: -0.112499997
+    y: -0.112500004
+    z: -0.112500004
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cylinder
+  position:
+    x: 1.0293808
+    y: -1.05313885
+    z: -0.740736067
+  rotation:
+    x: 274.333923
+    y: 248.03476
+    z: 99.3658066
+  scale:
+    x: -0.0250000004
+    y: -0.0250000041
+    z: -0.0250000022
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cylinder
+  position:
+    x: 1.05132294
+    y: -1.0523237
+    z: -0.832731545
+  rotation:
+    x: 274.333923
+    y: 248.03476
+    z: 99.3658066
+  scale:
+    x: -0.00249999994
+    y: -0.100000016
+    z: -0.00249999994
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: 0.387172699
+    y: -1.09663498
+    z: -0.253881574
+  rotation:
+    x: 274.333954
+    y: 248.034988
+    z: 153.033752
+  scale:
+    x: -0.375
+    y: -0.375
+    z: -0.37499997
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: 0.648000717
+    y: -1.08099997
+    z: -0.349000007
+  rotation:
+    x: 274.333923
+    y: 248.03476
+    z: 99.3658066
+  scale:
+    x: -0.565806568
+    y: -0.219975024
+    z: -0.37500003
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: 0.777402878
+    y: -1.07116282
+    z: -0.322827131
+  rotation:
+    x: 274.333923
+    y: 248.03476
+    z: 99.3658066
+  scale:
+    x: -0.363400608
+    y: -0.452498436
+    z: -0.206654131
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: 1.38299942
+    y: -1.01100004
+    z: 0.296999931
+  rotation:
+    x: 274.333954
+    y: 248.03537
+    z: 68.4758606
+  scale:
+    x: -0.386054873
+    y: -0.37500006
+    z: -0.37500003
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: 1.3579998
+    y: -1.00999999
+    z: 0.402999997
+  rotation:
+    x: 274.333923
+    y: 248.03476
+    z: 99.3658066
+  scale:
+    x: -0.386054903
+    y: -0.37500003
+    z: -0.37500003
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: 0.0750007629
+    y: -1.04499996
+    z: 0.588000059
+  rotation:
+    x: 274.333923
+    y: 248.03476
+    z: 99.3658066
+  scale:
+    x: -1.17159998
+    y: -0.800000131
+    z: -0.730688095
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: 0.329544067
+    y: -1.06384492
+    z: 0.416963577
+  rotation:
+    x: 274.333954
+    y: 248.035248
+    z: 89.8732834
+  scale:
+    x: -0.930496216
+    y: -0.800000012
+    z: -0.557083786
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: -0.145666122
+    y: -1.10280383
+    z: 0.220821619
+  rotation:
+    x: 274.333923
+    y: 248.03476
+    z: 99.3658066
+  scale:
+    x: -0.31554696
+    y: -0.418256074
+    z: -0.730688095
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: -0.256282806
+    y: -1.11065161
+    z: 0.218280077
+  rotation:
+    x: 274.333771
+    y: 248.035156
+    z: 143.276276
+  scale:
+    x: -0.315547019
+    y: -0.418256044
+    z: -0.730688155
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: -0.941843033
+    y: -1.1434741
+    z: 0.356082916
+  rotation:
+    x: 288.686707
+    y: 226.733505
+    z: 183.780182
+  scale:
+    x: -0.615442991
+    y: -0.456752747
+    z: -0.730688274
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: -1.0120182
+    y: -1.19035554
+    z: 0.228403449
+  rotation:
+    x: 288.686737
+    y: 226.733749
+    z: 137.086472
+  scale:
+    x: -0.615442812
+    y: -0.456752628
+    z: -0.730687976
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: -0.269144058
+    y: -1.14941514
+    z: -0.465902925
+  rotation:
+    x: 13.2628679
+    y: 264.268921
+    z: 89.7766418
+  scale:
+    x: -0.29981935
+    y: -0.29155001
+    z: -0.649741888
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: -0.234838486
+    y: -1.07214904
+    z: -0.236733198
+  rotation:
+    x: 18.5106163
+    y: 265.038879
+    z: 106.293266
+  scale:
+    x: -0.0689224601
+    y: -0.575029612
+    z: -0.0840849727
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: -0.0777835846
+    y: -1.24020529
+    z: -0.104641438
+  rotation:
+    x: 9.93730068
+    y: 264.584808
+    z: 79.5897293
+  scale:
+    x: -0.0689224526
+    y: -0.655180752
+    z: -0.0840849727
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cylinder
+  position:
+    x: -0.610906601
+    y: -1.13833046
+    z: -0.469196498
+  rotation:
+    x: 0.217292741
+    y: 354.320496
+    z: 103.262978
+  scale:
+    x: -0.0499999896
+    y: -0.00999999791
+    z: -0.0500000119
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cylinder
+  position:
+    x: -0.570384979
+    y: -1.19633853
+    z: -0.349790215
+  rotation:
+    x: 0.217292741
+    y: 354.320496
+    z: 103.262978
+  scale:
+    x: -0.0499999896
+    y: -0.00999999791
+    z: -0.0500000119
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cylinder
+  position:
+    x: -0.588335037
+    y: -1.20221686
+    z: -0.434713781
+  rotation:
+    x: 0.217292741
+    y: 354.320496
+    z: 103.262978
+  scale:
+    x: -0.0499999896
+    y: -0.00999999791
+    z: -0.0500000119
+  color:
+    r: 1
+    g: 0
+    b: 0
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cylinder
+  position:
+    x: -0.565471649
+    y: -1.29954958
+    z: -0.432810605
+  rotation:
+    x: 0.217292741
+    y: 354.320496
+    z: 103.262978
+  scale:
+    x: -0.0999999791
+    y: -0.00999999791
+    z: -0.100000024
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cylinder
+  position:
+    x: -0.584497452
+    y: -1.30393481
+    z: -0.428484201
+  rotation:
+    x: 0.217292741
+    y: 354.320496
+    z: 103.262978
+  scale:
+    x: -0.0799999982
+    y: -0.00999999791
+    z: -0.0799999982
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: -0.294734955
+    y: -1.157794
+    z: -0.586943626
+  rotation:
+    x: 13.2628679
+    y: 264.268921
+    z: 89.7766418
+  scale:
+    x: -0.222352013
+    y: -0.132956326
+    z: -0.464565456
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: -0.227407455
+    y: -1.31289351
+    z: -0.448044896
+  rotation:
+    x: 13.2628679
+    y: 264.268921
+    z: 89.7766418
+  scale:
+    x: -0.0867606774
+    y: -0.225081772
+    z: -0.544145525
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: 0.074224472
+    y: -1.2341702
+    z: 1.47365713
+  rotation:
+    x: 272.857117
+    y: -1.28459196E-05
+    z: 4.87555122
+  scale:
+    x: -1.17159986
+    y: -0.800000131
+    z: -0.730688095
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: -0.0309677124
+    y: -1.13581252
+    z: 0.89165628
+  rotation:
+    x: 272.857117
+    y: -1.28459196E-05
+    z: 4.87555122
+  scale:
+    x: -0.615969956
+    y: -1.00000012
+    z: -0.473120064
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: 0.82009697
+    y: -1.25186086
+    z: 1.82811046
+  rotation:
+    x: 300.375336
+    y: 90.0145874
+    z: 275.636719
+  scale:
+    x: -0.231625333
+    y: -0.408082008
+    z: -1.03385019
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: 0.788711548
+    y: -1.23938727
+    z: 1.57818198
+  rotation:
+    x: 299.263672
+    y: 113.312279
+    z: 275.175232
+  scale:
+    x: -0.315334678
+    y: -0.408081949
+    z: -1.06104016
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: -0.58181572
+    y: -1.2578218
+    z: 1.94754362
+  rotation:
+    x: 272.857117
+    y: -1.28459196E-05
+    z: 4.87555122
+  scale:
+    x: -0.231625289
+    y: -0.408081949
+    z: -1.03385019
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: -0.613197327
+    y: -1.24534798
+    z: 1.69761491
+  rotation:
+    x: 87.1430206
+    y: 179.999878
+    z: 18.0493526
+  scale:
+    x: -0.315334797
+    y: -0.408081979
+    z: -1.06104052
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+- primitiveType: Cube
+  position:
+    x: 0.0647106171
+    y: -1.22860849
+    z: 1.36220217
+  rotation:
+    x: 272.857117
+    y: -1.28459196E-05
+    z: 4.87555122
+  scale:
+    x: -1.43731868
+    y: -0.28650403
+    z: -0.730688095
+  color:
+    r: 0.509803951
+    g: 0.454901963
+    b: 0.454901963
+    a: 1
+  customAttributes: ::lcb::::rcb::
+lightObjects: ::lcb::::rcb::
+targetObjects: ::lcb::::rcb::
+itemObjects: ::lcb::::rcb::
+workStationObjects: ::lcb::::rcb::
+doorObjects: ::lcb::::rcb::
+}
+

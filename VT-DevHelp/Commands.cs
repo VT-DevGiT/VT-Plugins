@@ -142,7 +142,8 @@ namespace VTDevHelp
             var result = new CommandResult();
 
             var path = @"C:\Users\valentin\AppData\Roaming\Synapse\dependencies\hitman-le-cobra-philippe-je-sais-ou-tu-te-caches.raw";
-            AudioApi.AudioApi.Play(path);
+            new ScpAudio.Audio(path, 100);
+            //AudioApi.AudioApi.Play(path);
             return result;
         }
     }

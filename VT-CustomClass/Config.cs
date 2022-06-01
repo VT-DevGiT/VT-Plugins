@@ -432,7 +432,7 @@ namespace VTCustomClass
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardContainmentEngineer, 1, 0, Vector3.one, 100, false),
-                    new SerializedPlayerItem((int)ItemType.GunLogicer, 75, 0, Vector3.one, 100, true),
+                    new SerializedPlayerItem((int)ItemType.GunLogicer, 100, 0, Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.Medkit, 1, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.GrenadeFlash, 1, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.GrenadeFlash, 1, 0, Vector3.one, 100, false),
@@ -520,7 +520,7 @@ namespace VTCustomClass
                 Ammo = new SerializedAmmo(300, 300, 300, 300, 300),
                 Items = new List<SerializedPlayerItem>()
                 {
-                    new SerializedPlayerItem((int)ItemType.GunLogicer, 75, 0, Vector3.one, 100, true),
+                    new SerializedPlayerItem((int)ItemType.GunLogicer, 100, 0, Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.GunShotgun, 16, 0, Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.ArmorHeavy, 1, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.GrenadeHE, 1, 0, Vector3.one, 100, false),
@@ -544,7 +544,7 @@ namespace VTCustomClass
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem(200, 0, 0, Vector3.one, 100, true),
-                    new SerializedPlayerItem((int)ItemType.GunLogicer, 26, 0, Vector3.one, 100, false),
+                    new SerializedPlayerItem((int)ItemType.GunLogicer, 100, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.Radio, 100, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.ArmorHeavy, 1, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.GrenadeFlash, 1, 0, Vector3.one, 100, false)
@@ -563,7 +563,7 @@ namespace VTCustomClass
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, Vector3.one, 100, false),
-                    new SerializedPlayerItem((int)ItemType.GunLogicer, 75, 0, Vector3.one, 100, true),
+                    new SerializedPlayerItem((int)ItemType.GunLogicer, 100, 0, Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.GrenadeHE, 1, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.GrenadeHE, 1, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.GrenadeHE, 1, 0, Vector3.one, 100, false),
@@ -586,7 +586,7 @@ namespace VTCustomClass
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardNTFCommander, 1, 0, Vector3.one, 100, false),
-                    new SerializedPlayerItem((int)ItemType.GunLogicer, 75,0, Vector3.one, 100, true),
+                    new SerializedPlayerItem((int)ItemType.GunLogicer, 100,0, Vector3.one, 100, true),
                     new SerializedPlayerItem(50, 0, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.Radio, 100, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.ArmorCombat, 1, 0, Vector3.one, 100, false),
@@ -635,7 +635,7 @@ namespace VTCustomClass
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, Vector3.one, 100, false),
-                    new SerializedPlayerItem((int)ItemType.GunLogicer, 75, 0, Vector3.one, 100, true),
+                    new SerializedPlayerItem((int)ItemType.GunLogicer, 100, 0, Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.GrenadeHE, 1, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.Radio, 100,0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.ArmorLight, 1, 0, Vector3.one, 100, false),
@@ -673,13 +673,13 @@ namespace VTCustomClass
             Health = 90,
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
+                Ammo = new SerializedAmmo(40, 0, 60, 14, 18),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.KeycardNTFOfficer, 1, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.GunCrossvec, 50, 0, Vector3.one, 100, true),
-                    new SerializedPlayerItem((int)ItemType.GunLogicer, 1, 0, Vector3.one, 100, true),
+                    new SerializedPlayerItem((int)ItemType.GunLogicer, 100, 0, Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.Radio, 100, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.ArmorLight, 1, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.Medkit, 1, 0, Vector3.one, 100, false),
@@ -797,7 +797,7 @@ namespace VTCustomClass
                 Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
                 Items = new List<SerializedPlayerItem>()
                 {
-                    new SerializedPlayerItem((int)ItemType.GunLogicer, 75, 0, Vector3.one, 100, true),
+                    new SerializedPlayerItem((int)ItemType.GunLogicer, 100, 0, Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.ArmorCombat, 1, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.GrenadeHE, 1,0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.GrenadeHE, 1, 0, Vector3.one, 100, false),
@@ -819,7 +819,7 @@ namespace VTCustomClass
                 Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
                 Items = new List<SerializedPlayerItem> 
                 {
-                    new SerializedPlayerItem((int)ItemType.GunLogicer, 75, 0, Vector3.one, 100, true),
+                    new SerializedPlayerItem((int)ItemType.GunLogicer, 100, 0, Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.ArmorHeavy, 1, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.Flashlight, 1, 0,  Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.Radio, 100, 0, Vector3.one, 100, false),
@@ -899,7 +899,7 @@ namespace VTCustomClass
                 Ammo = new SerializedAmmo(300, 300, 300, 300, 300),
                 Items = new List<SerializedPlayerItem>()
                 {
-                    new SerializedPlayerItem((int)ItemType.GunLogicer, 75, 0, Vector3.one, 100, true),
+                    new SerializedPlayerItem((int)ItemType.GunLogicer, 100, 0, Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.GrenadeHE, 1, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.GrenadeHE, 1, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.GrenadeHE, 1, 0, Vector3.one, 100, false),

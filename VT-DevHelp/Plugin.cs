@@ -24,7 +24,7 @@ namespace VTDevHelp
 
         public override void Load()
         {
-            AudioApi.AudioApi.Enable();
+            //AudioApi.AudioApi.Enable();
             base.Load();
         }
     }

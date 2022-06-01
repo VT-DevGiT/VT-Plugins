@@ -1,17 +1,20 @@
 ﻿using Interactables.Interobjects.DoorUtils;
 using InventorySystem.Items.Armor;
-using Mirror;
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.CustomObjects;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
+using Synapse.Api.Items;
 using System;
 using System.Linq;
 using UnityEngine;
+using VT_Api.Core.Enum;
 using VT_Api.Core.Events.EventArguments;
 using VT_Api.Core.Plugin;
 using VT_Api.Core.Roles;
+using VT_Api.Extension;
+using VT_Api.Reflexion;
 
 namespace VTCustomClass.PlayerScript
 {
@@ -22,7 +25,7 @@ namespace VTCustomClass.PlayerScript
         const int BodyID = 115;
         const int HeadID = 116;
         const int BotID = 117;
-        const int AllID = 118;
+        const int CorpID = 118;
 
         protected virtual bool HeavyUTR => true;
         protected virtual Color Color => Color.white;
@@ -32,27 +35,34 @@ namespace VTCustomClass.PlayerScript
         private float _oldStaminaUse;
         private float _oldGroundMaxDistance;
         protected UtrCorp Corp { get; set; }
-
         #endregion
 
         #region Methods
+        public override void Spawning()
+        {
+            Player.GiveEffect(Effect.Visuals939, 2);
+            Player.Hub.playerEffectsController.ChangeByString("Scp1853".ToLower(), 1, -1);//whait next update
+            Player.Position += Vector3.up * 1.5f;
+            
+            if (HeavyUTR)
+            {
+                Player.GiveEffect(Effect.Disabled);
+                Player.Scale *= 1.1f;
+            }
+            else
+            {
+                Corp.body.Scale *= 0.75f;
+            }
+        }
+
         protected override void AditionalInit(PlayerSetClassEventArgs ev)
         {
             _oldStaminaUse = Player.StaminaUsage;
             _oldGroundMaxDistance = Player.FallDamage.groundMaxDistance;
-            
+
             Player.StaminaUsage = 0;
             Player.FallDamage.groundMaxDistance = 1000;
-
-            MEC.Timing.CallDelayed(1.75f, () => Player.GiveEffect(Effect.Visuals939));
-            if (HeavyUTR) MEC.Timing.CallDelayed(1.75f, () =>
-            {
-                Player.GiveEffect(Effect.Disabled);
-            });
-
-            Corp = new UtrCorp(115, 116, 117, ev.Player, ev.Position, Color);
-
-            ev.Position += Vector3.forward * 2;
+            Corp = new UtrCorp(BodyID, HeadID, BotID, ev.Player, ev.Position, Color);
 
             // Specific event for this player and not for this role.
             Server.Get.Events.Player.PlayerSetClassEvent += OnScp173Spawn;
@@ -79,6 +89,7 @@ namespace VTCustomClass.PlayerScript
             Corp.Destroy();
 
             Player.StaminaUsage = _oldStaminaUse;
+            Player.Scale = Vector3.one;
 
             base.DeSpawn();
         }
@@ -98,14 +109,31 @@ namespace VTCustomClass.PlayerScript
             Server.Get.Events.Map.DoorInteractEvent += OnDoorInteract;
             Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent += OnAddTarget;
             Server.Get.Events.Player.PlayerEnterFemurEvent += OnFemur;
+            //Server.Get.Events.Player.PlayerChangeItemEvent += OnChangeItem; 
+            Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
             VtController.Get.Events.Item.RemoveLimitAmmoEvent += OnAmmoLimit;
         }
+
+        private static void OnDeath(PlayerDeathEventArgs ev)
+        {
+            if (ev.Allow && ev.Victim.CustomRole is BaseUTRScript utr)
+            {
+                ev.Allow = false;
+                ev.Victim.RoleID = (int)RoleID.Spectator;
+                SchematicHandler.Get.SpawnSchematic(CorpID, ev.Victim.Position);
+            }
+        }
+
+        private static void OnChangeItem(PlayerChangeItemEventArgs ev)
+        {
+            if (ev.Allow && ev.Player.CustomRole is BaseUTRScript utr)
+                utr.Corp.ChangeItem(ev.NewItem);
+        }   
 
         private static void OnAmmoLimit(RemoveAmmoEventArgs ev)
         {
             if (ev.Player.CustomRole is BaseUTRScript)
                 ev.RemovAmmo.Clear();
-            Synapse.Api.Logger.Get.Info("RTR");
         }
 
         private static void OnFemur(PlayerEnterFemurEventArgs ev)
@@ -166,7 +194,7 @@ namespace VTCustomClass.PlayerScript
             switch (power)
             {
                 case 1:
-                    BodyArmorUtils.RemoveEverythingExceedingLimits(Player.Hub.inventory, Player.Hub.inventory.TryGetBodyArmor(out var bodyArmor) ? bodyArmor : (BodyArmor)null, false);
+                    //Player lock target
                     break;
             }
 
@@ -175,42 +203,63 @@ namespace VTCustomClass.PlayerScript
 
         #endregion
 
-        #region structure
-        protected struct UtrCorp
+        #region Class
+        protected class UtrCorp
         {
-            public SynapseObject mainObject;
 
-            public SynapseObject body;
+            #region Properties & Variable
 
-            public SynapseObject head;
+            public SynapseObject body { get; private set; }
+            public SynapseObject head { get; private set; }
+            public SynapseObject bot { get; private set; }
+            public SynapseItemObject item { get; private set; }
 
-            public SynapseObject bot;
+            private float rotationHeadMax;
+            private float rotationHeadMin;
+            private float rotationHeadMidle;
+            #endregion
 
+            #region Constructor & Destructor
             public UtrCorp(int BodyID, int HeadID, int BotID, Player player, Vector3 position, Color color)
             {
-                mainObject = new SynapseObject(new SynapseSchematic() { ID = 118, Name = "UTR" });
                 body = SchematicHandler.Get.SpawnSchematic(BodyID, position);
                 head = SchematicHandler.Get.SpawnSchematic(HeadID, position);
-                bot = SchematicHandler.Get.SpawnSchematic(BotID, position);
+                bot  = SchematicHandler.Get.SpawnSchematic(BotID , position);
+                item = body.ItemChildrens.FirstOrDefault(i => i.CustomAttributes.Any(a => a.ToLower() == "item"));
+
+                rotationHeadMax = 380;
+                rotationHeadMin = 000;
+                rotationHeadMidle = 0;
+                
+                var limit = head.CustomAttributes?.FirstOrDefault(s => s.ToLower().Contains("lim"))?.Split(':');
+                if (limit?.Length == 3)
+                {
+                    float.TryParse(limit[1], out rotationHeadMax);
+                    float.TryParse(limit[2], out rotationHeadMin);
+                    rotationHeadMidle = (rotationHeadMax + rotationHeadMin) / 2;
+                }
 
                 if (body == null) throw new Exception("Faild to spawn a body check if you ave a Schematic for the body (ID = " + BodyID + ")");
-                if (head == null) throw new Exception("Faild to spawn a head check if you ave a Schematic for the body (ID = " + BodyID + ")");
-                if (bot  == null) throw new Exception("Faild to spawn a bot check if you ave a Schematic for the body (ID = " + BodyID + ")");
+                if (head == null) throw new Exception("Faild to spawn a head check if you ave a Schematic for the body (ID = " + HeadID + ")");
+                if (bot  == null) throw new Exception("Faild to spawn a bot check if you ave a Schematic for the body (ID = " +  BotID  + ")");
 
                 SetHeight(body);
                 SetHeight(head);
                 SetHeight(bot);
 
-                SetChildrens(mainObject, body);
-                SetChildrens(mainObject, head);
-                SetChildrens(mainObject, bot);
+                SetChildrens(body, head);
+                SetChildrens(body, bot);
 
                 var teamColor = color;
 
-                
-
-                foreach (var child in mainObject.Childrens)
+                foreach (var child in body.Childrens)
                 {
+                    //Maby a good idea but somany bug ;-; SAD
+                    /*                  var hub = child.GameObject.AddComponent<ReferenceHub>();
+                                        var hitbox = child.GameObject.AddComponent<HitboxIdentity>();
+                                        hitbox.TargetHub = player.Hub;
+                                        hub.CopyPropertyAndFeild<ReferenceHub>(player.Hub);*/
+
                     if (child.CustomAttributes.FirstOrDefault(s => s.ToLower().Contains("teamcolor")) != null)
                     {
                         if (child is Synapse.Api.CustomObjects.SynapsePrimitiveObject primitve)
@@ -220,8 +269,7 @@ namespace VTCustomClass.PlayerScript
                     }
                 }
 
-                //mainObject.DespawnForOnePlayer(player);
-
+                //body.DespawnForOnePlayer(player);
 
                 void SetHeight(SynapseObject synapseObject)
                 {
@@ -235,12 +283,12 @@ namespace VTCustomClass.PlayerScript
                     var newPos = synapseObject.Position;
                     newPos.y += height + 1;
                     synapseObject.Position = newPos;
-                    synapseObject.Rotation = Quaternion.Euler(180, 0, 0);
                 }
 
                 void SetChildrens(SynapseObject parent, SynapseObject children)
                 {
                     children.GameObject.transform.parent = parent.GameObject.transform;
+                    children.SetField<SynapseObject>("Parent", parent);
                     parent.Childrens.Add(children);
 
                     foreach (var primitiveObject in children.PrimitivesChildrens)
@@ -265,28 +313,55 @@ namespace VTCustomClass.PlayerScript
                         parent.Childrens.Add(children2);
                 }
             }
+            #endregion
 
+            #region Methods
             public void SetPose(Vector3 postion)
-                => mainObject.Position = postion + Vector3.forward * 2;
+                => body.Position = postion;
+
+            public void ChangeItem(SynapseItem newItem)
+            {
+                if (!newItem.IsDefined())
+                {
+                    this.item.Scale = Vector3.zero;
+                    return;
+                }
+
+                var synapseItemObject = new SynapseItemObject(newItem.ItemType, this.item.Position, new Quaternion(0, 0, 0, 0), newItem.Scale);
+                synapseItemObject.CustomAttributes = this.item.CustomAttributes;
+                
+                this.item.Destroy();
+                item = synapseItemObject;
+
+                body.ItemChildrens.Add(synapseItemObject);
+                body.Childrens.Add(synapseItemObject);
+                
+                synapseItemObject.GameObject.transform.parent = body.GameObject.transform;
+                synapseItemObject.SetField<SynapseObject>("Parent", body);
+            }
 
             public void SetRotation(Vector3 rotation)
             {
                 var headx = rotation.x;
-                if (338.5f > headx && headx > 24.3f)
+                if (rotationHeadMax > headx && headx > rotationHeadMin)
                 {
-                    if (headx > 157.1f)
-                        headx = 338.5f;
+                    if (headx > rotationHeadMidle)
+                        headx = rotationHeadMax;
                     else
-                        headx = 24.3f;
+                        headx = rotationHeadMin;
                 }
-             
-                mainObject.Rotation = Quaternion.Euler(rotation.y, 0, 0);
-                head.Rotation = Quaternion.Euler(headx, 0, 0);
+
+                body.Rotation = Quaternion.Euler(0, rotation.y, 0);
+                head.Rotation = Quaternion.Euler(headx, rotation.y, 0);
+                Synapse.Api.Logger.Get.Info(head.Rotation);
 
             }
 
             public void Destroy()
-                => mainObject.Destroy();
+            {
+                body.Destroy();
+            }
+            #endregion
         }
         #endregion
     }

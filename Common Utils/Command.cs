@@ -1,6 +1,5 @@
 ﻿using Synapse;
 using Synapse.Api;
-using Synapse.Api.Roles;
 using Synapse.Command;
 using System;
 using System.Linq;
@@ -231,12 +230,11 @@ namespace Common_Utiles
         Aliases = new[] { "SwitchServeur", "MoveToServeur" },
         Description = "Move player(s) to an other serveur",
         Permission = "vanilla.PlayersManagement",
-        Platforms = new[] { Platform.RemoteAdmin },
+        Platforms = new[] { Platform.RemoteAdmin, Platform.ClientConsole },
         Usage = "Entre the serveur port and after the player or the players to move to an other serveur, if the player ave a space in the name (use ID)",
-        Arguments = new[] { "ServeurPort", "Player", "OtherPlayer", "OtherPlayer..." }
+        Arguments = new[] { "ServerPort", "Players" }
         )]
-
-    class MoverServeur : ISynapseCommand
+    class MoverServer : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
         {
@@ -256,7 +254,8 @@ namespace Common_Utiles
                 return result;
             }
 
-            if (!Server.Get.TryGetPlayers(context.Arguments.At(1), out var players, context.Player))
+            var me = context.Platform != Platform.ServerConsole ? context.Player : null;
+            if (!Server.Get.TryGetPlayers(context.Arguments.At(1), out var players, me))
             {
                 result.Message = "No player found";
                 result.State = CommandResultState.Error;

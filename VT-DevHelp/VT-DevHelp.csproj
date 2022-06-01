@@ -58,8 +58,13 @@
     <Reference Include="NorthwoodLib-Publicized">
       <HintPath>..\lib\NorthwoodLib-Publicized.dll</HintPath>
     </Reference>
+    <Reference Include="ScpAudio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\ScpAudio.dll</HintPath>
+    </Reference>
     <Reference Include="Synapse, Version=2.10.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.10.0\lib\net472\Synapse.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Synapse.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

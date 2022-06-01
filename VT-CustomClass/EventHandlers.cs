@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using VT_Api.Core.Enum;
+using VT_Api.Extension;
+using VTCustomClass.PlayerScript;
 
 namespace VTCustomClass
 {
@@ -40,10 +42,19 @@ namespace VTCustomClass
                 else
                     ev.Invisible = false;
             }
-            else if(ev.PlayerToShow.RoleID == (int)RoleID.Staff)
+            else if (ev.PlayerToShow.CustomRole is StaffClassScript staff)
+            {
+                if (!staff.Invisible && ev.Player.RoleID != (int)RoleID.Staff)
+                    ev.Invisible = false;
+                else
+                    ev.Invisible = true;
+            }
+            else if (ev.PlayerToShow.IsUTR())
             {
                 if (ev.Player.RoleID != (int)RoleID.Staff)
                     ev.Invisible = true;
+                else if (ev.Player.RoleType == RoleType.Spectator)
+                    ev.Position += UnityEngine.Vector3.forward * 1.5f;
                 else
                     ev.Invisible = false;
             }

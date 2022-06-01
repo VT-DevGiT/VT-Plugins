@@ -26,6 +26,8 @@ namespace VTCustomClass.PlayerScript
 
         protected override SerializedPlayerRole Config => Plugin.Instance.Config.StaffConfig;
 
+        public bool Invisible { get; private set; } = true;
+
         protected override void AditionalInit(PlayerSetClassEventArgs ev)
         {
             Player.Invisible = true;
@@ -40,8 +42,8 @@ namespace VTCustomClass.PlayerScript
 
         private static void OnKeyPress(PlayerKeyPressEventArgs ev)
         {
-            if (ev.Player.CustomRole is StaffClassScript && ev.KeyCode == UnityEngine.KeyCode.Alpha5)
-                ev.Player.Invisible = !ev.Player.Invisible;
+            if (ev.Player.CustomRole is StaffClassScript staff && ev.KeyCode == UnityEngine.KeyCode.Alpha5)
+                staff.Invisible = !staff.Invisible;
         }
 
         public override void DeSpawn()
