@@ -30,7 +30,7 @@ namespace VT_Item
                     {
                         pickup.Rb.AddExplosionForce(Vector3.Distance(ev.TargetPosition, ev.Player.Position) * 0.01f, ev.Player.Position, 500f, 3f, ForceMode.Impulse);
                     }
-                }
+                }//TODO : FIX this
             }
         }
     }

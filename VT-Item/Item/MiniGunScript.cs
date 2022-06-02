@@ -35,7 +35,11 @@ namespace VT_Item.Item
             return true;
         }
 
-
+        public override bool Realod()
+        {
+            Ammo = Holder.AmmoBox[AmmoType.Ammo762x39];
+            return false;
+        }
 
         public override bool Change(bool isNewItem)
         {

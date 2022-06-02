@@ -38,7 +38,8 @@ namespace VTProget_X
         private void OnRoundStart()
         {
             DecontaminationController.Singleton.disableDecontamination = true;
-            Server.Get.Host.GetComponent<Intercom>().gameObject.AddComponent<IntercomBehaviour>();
+            Plugin.Instance.Intercom = Server.Get.Host.GetComponent<Intercom>();
+            Plugin.Instance.Intercom.gameObject.AddComponent<IntercomBehaviour>();
         }
 
         private void OnTriggerTeslaEvent(TriggerTeslaEventArgs ev)

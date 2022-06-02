@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using VT_Api.Config;
 using VT_Api.Core.Enum;
 using VT_Api.Core.Plugin;
@@ -23,5 +24,7 @@ namespace VTCustomClass.PlayerScript
         protected override string RoleName => Plugin.Instance.Config.AndUTRHeavyName;
 
         protected override SerializedPlayerRole Config => Plugin.Instance.Config.AndUTRHeavyConfig;
+
+        protected override Color Color => Color.yellow;
     }
 }

@@ -141,9 +141,33 @@ namespace VTDevHelp
         {
             var result = new CommandResult();
 
+            var truc = "<size=25>You were killed by</size>\\n%PlayerName%\\n<size=25>as</size>\\n%RoleName%".Replace("\\n", "\n").Replace("%PlayerName%", "Ta Mère").Replace("%RoleName%", "UTR");
+            context.Player.Kill(truc);
+            /*
             var path = @"C:\Users\valentin\AppData\Roaming\Synapse\dependencies\hitman-le-cobra-philippe-je-sais-ou-tu-te-caches.raw";
-            new ScpAudio.Audio(path, 100);
-            //AudioApi.AudioApi.Play(path);
+            AudioApi.AudioApi.Play(path);*/
+            return result;
+        }
+    }
+
+    [CommandInformation(
+    Name = "DevScreen",
+    Aliases = new[] { "VTScreen" },
+    Description = "Let's go !",
+    Permission = "",
+    Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole },
+    Usage = ""
+    )]
+    public class ScreenCommand : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+            if (context.Arguments.Count == 0)
+                return result;
+            var player =Server.Get.GetPlayer(context.Arguments.FirstElement());
+            player.DimScreen();
+            MEC.Timing.CallDelayed(1f, () => player.OpenMenu(MenuType.OldFastMenu));
             return result;
         }
     }

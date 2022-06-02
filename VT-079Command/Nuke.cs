@@ -1,4 +1,5 @@
 ﻿using Scp079Rework;
+using Synapse;
 using Synapse.Command;
 using UnityEngine;
 
@@ -24,15 +25,14 @@ namespace VT079.Command
         {
             var result = new CommandResult();
             result.State = CommandResultState.Ok;
-            if (AlphaWarheadController.Host.inProgress)
+            if (Server.Get.Map.Nuke.Active)
             {
-                AlphaWarheadController.Host.CancelDetonation();
+                Server.Get.Map.Nuke.CancelDetonation();
                 result.Message = "Alfa-WarHead Stop";
             }
             else
             {
-                AlphaWarheadController.Host.InstantPrepare();
-                AlphaWarheadController.Host.StartDetonation();
+                Server.Get.Map.Nuke.StartDetonation();
                 result.Message = "Alfa-WarHead Start";
             }
             return result;

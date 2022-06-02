@@ -512,9 +512,7 @@ namespace VTCustomClass
         public string FUTRName = "U.T.R.";
         public SerializedPlayerRole FUTRConfig = new SerializedPlayerRole()
         {
-            Health = 180,
-            ArtificialHealth = 150,
-            MaxArtificialHealth = 150,
+            Health = 500,
             Inventory = new SerializedPlayerInventory()
             {
                 Ammo = new SerializedAmmo(300, 300, 300, 300, 300),
@@ -785,9 +783,7 @@ namespace VTCustomClass
         public string AndUTRHeavyName = "<color=yellow>heavy Anderson U.T.R.</color>";
         public SerializedPlayerRole AndUTRHeavyConfig = new SerializedPlayerRole()
         {
-            Health = 175,
-            ArtificialHealth = 300,
-            MaxArtificialHealth = 300,
+            Health = 800,
             SpawnPoints = new List<SerializedMapPoint>()
             {
                 new SerializedMapPoint("Outside", 86.47166f, -10.64563f, -69.14687f)
@@ -811,9 +807,7 @@ namespace VTCustomClass
         public string AndUTRLightName = "<color=yellow>Light Anderson U.T.R.</color>";
         public SerializedPlayerRole AndUTRLightConfig = new SerializedPlayerRole()
         {
-            Health = 120,
-            ArtificialHealth = 150,
-            MaxArtificialHealth = 150,
+            Health = 600,
             Inventory = new SerializedPlayerInventory()
             {
                 Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
@@ -891,9 +885,7 @@ namespace VTCustomClass
         public string NtfUTRName = "Nine-Tailed Fox U.T.R.";
         public SerializedPlayerRole NtfUTRConfig = new SerializedPlayerRole()
         {
-            Health = 250,
-            ArtificialHealth = 200,
-            MaxArtificialHealth = 200,
+            Health = 600,
             Inventory = new SerializedPlayerInventory()
             {
                 Ammo = new SerializedAmmo(300, 300, 300, 300, 300),

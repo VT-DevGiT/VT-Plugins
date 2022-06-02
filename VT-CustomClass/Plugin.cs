@@ -38,11 +38,18 @@ namespace VTCustomClass
         public override void Load()
         {
             base.Load();
-            Translation.AddTranslation(new Translation {
+            Translation.AddTranslation(new Translation
+            {
                 SpawnMessage = "<color=blue><b>Tu es à présent</b></color> <color=red><b>%RoleName%</b></color>\\n<b>Press Esc pour fermer</b>",
                 VentMessage = "Vous pouvez rester encore %Time% secondes dans la ventilation",
                 NoTimeVentMessage = "Vous vous trouvez dans les ventilation",
-                PowerCooldown = "vous pouvez utiliser ce pouvoir dans %Time% secondes"
+                PowerCooldown = "Vous pouvez utiliser ce pouvoir dans %Time% secondes",
+                KilledMessage = "Vous avez été tuée par %RoleName%",
+                NeedToLookAPlayer = "Vous devez regarder un joueur",
+                NewTargetLock = "Vous avez verrouiller un nouveau joueur enemie",
+                TargetLock = "Vous avez verrouiller un joueur",
+                UnlockTarget = "Vous n'avez plus de cible verrouiller",
+                OnlyOnePower = "Vous n'avez qu'un seul pouvoir"
             }, "FRENCH");
             PatchAll();
 

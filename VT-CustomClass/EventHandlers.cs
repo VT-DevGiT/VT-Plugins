@@ -44,16 +44,16 @@ namespace VTCustomClass
             }
             else if (ev.PlayerToShow.CustomRole is StaffClassScript staff)
             {
-                if (!staff.Invisible && ev.Player.RoleID != (int)RoleID.Staff)
+                if (!staff.Invisible || ev.Player.RoleID != (int)RoleID.Staff)
                     ev.Invisible = false;
                 else
                     ev.Invisible = true;
             }
-            else if (ev.PlayerToShow.IsUTR())
+            else if (ev.PlayerToShow.CustomRole is BaseUTRScript)
             {
                 if (ev.Player.RoleID != (int)RoleID.Staff)
                     ev.Invisible = true;
-                else if (ev.Player.RoleType == RoleType.Spectator)
+                else if (ev.Player.RoleType == RoleType.Spectator && ev.Player.CurrentlySpectating == ev.PlayerToShow)
                     ev.Position += UnityEngine.Vector3.forward * 1.5f;
                 else
                     ev.Invisible = false;

@@ -30,20 +30,21 @@ namespace VTCustomClass.PlayerScript
 
         protected override void AditionalInit(PlayerSetClassEventArgs ev)
         {
-            Player.Invisible = true;
             Player.NoClip = true;
             Player.GodMode = true;
         }
 
-        protected override void InitEvent()
+        public override bool CallPower(byte power, out string message)
         {
-            Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
-        }
-
-        private static void OnKeyPress(PlayerKeyPressEventArgs ev)
-        {
-            if (ev.Player.CustomRole is StaffClassScript staff && ev.KeyCode == UnityEngine.KeyCode.Alpha5)
-                staff.Invisible = !staff.Invisible;
+            switch (power)
+            {
+                case 1:
+                    Invisible = !Invisible;
+                    message = $"You are now {(Invisible ? "invislbe" : "visble")}";
+                    return true;
+            }
+            message = "You can only set if you are visble or not (key : alpha5)";
+            return false;
         }
 
         public override void DeSpawn()

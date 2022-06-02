@@ -40,7 +40,9 @@ namespace VT_U2I
                     new SerializedPlayerItem((int)ItemType.KeycardGuard,0,0,Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.GunFSP9,35,0,Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.GunCOM15,12,0,Vector3.one, 100, true),
-                    new SerializedPlayerItem((int)ItemType.Flashlight,75,0,Vector3.one, 100, true),
+                    new SerializedPlayerItem((int)ItemType.Flashlight,0,0,Vector3.one, 100, true),
+                    new SerializedPlayerItem((int)ItemType.ArmorCombat,0,0,Vector3.one, 100, true),
+
                 }
             },
             SpawnPoints = new List<SerializedMapPoint>()
@@ -74,6 +76,7 @@ namespace VT_U2I
                     new SerializedPlayerItem((int)ItemType.Medkit,0,0,Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.Adrenaline,0,0,Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.GunE11SR,40,0,Vector3.one, 100, true),
+                    new SerializedPlayerItem((int)ItemType.ArmorHeavy,0,0,Vector3.one, 100, true),
                 }
             },
             SpawnPoints = new List<SerializedMapPoint>()

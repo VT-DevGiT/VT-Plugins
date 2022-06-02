@@ -15,7 +15,7 @@ namespace VTRadio
         )]
     public class Avion : ISynapseCommand
     {
-        public CommandResult Execute(CommandContext context)
+        public CommandResult Execute(CommandContext context) // TODO fix this
         {
             var result = new CommandResult();
             if (context.Player.RoleID != (int)RoleID.NtfCommander && context.Player.RoleID != (int)RoleID.CdmCommander
@@ -39,7 +39,7 @@ namespace VTRadio
             }
             else if (!VtController.Get.MapAction.isAirBombCurrently)
             {
-                VtController.Get.MapAction.AirBomb(7, 5);
+                VtController.Get.MapAction.StartAirBombardement(7, 5, context.Player);
                 result.State = CommandResultState.Ok;
                 result.Message = "Air Bomb Start";
                 return result;

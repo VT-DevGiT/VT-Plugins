@@ -39,9 +39,9 @@ Time before decontamination : %DecontTime%
 
         public string SCP106Empty = "EMPTY";
 
-        public string IntercomStatueRestart = "Time before restart : %Temps%";
+        public string IntercomStatueRestart = "Time before restart : %Time%";
 
-        public string IntercomStatuePlayer = "%Player% broadcasts : %Temps%";
+        public string IntercomStatuePlayer = "%Player% broadcasts : %Time%";
 
         public string IntercomStatueAdmin = "%Player% Admin broadcasts ";
 
@@ -61,7 +61,7 @@ Time before decontamination : %DecontTime%
 
         public string AlfaWarheadMessageDisabled = "DISABLED";
 
-        public string RespawnMessageMTF = "%Name% division will arrive in %Temps%";
+        public string RespawnMessageMTF = "%Name% division will arrive in %Time%";
 
         public string RespawnMessageNoMTF = "No squad is on the way";
     }

@@ -34,33 +34,43 @@ namespace VT_U2I
 
         public override void Spawn(List<Player> players)
         {
+            if (players == null || !players.Any())
+                return;
+            Logger.Get.Info("1");
             Player playerChef = players.FirstOrDefault(p => Plugin.Instance.Config.SpawnNeedRank.Contains(p.RankName));
-            if (Plugin.Instance.Config.SpawnSize != 0 && players.Count > Plugin.Instance.Config.SpawnSize)
-                players = players.GetRange(0, Plugin.Instance.Config.SpawnSize - 1);
+            Logger.Get.Info("2");
 
-            if (players.Any())
+            if (Plugin.Instance.Config.SpawnSize > 0 && players.Count > Plugin.Instance.Config.SpawnSize)
+                players = players.GetRange(0, Plugin.Instance.Config.SpawnSize - 1);
+            Logger.Get.Info("3");
+
+            if (!players.Any())
+                return;
+            Logger.Get.Info("4");
+
+            RespawnManager.Singleton.NamingManager.AllUnitNames.Add(new SyncUnit()
             {
-                RespawnManager.Singleton.NamingManager.AllUnitNames.Add(new SyncUnit()
-                {
-                    SpawnableTeam = 2,
-                    UnitName = GetNewUniteName()
-                });
-                if (!string.IsNullOrWhiteSpace(Plugin.Instance.Config.CassieSpawn))
-                {
-                    string SpawnCassie = GetSpawnAnnonce(CurentUnitName);
-                    Map.Get.GlitchedCassie(SpawnCassie);
-                }
-                if (playerChef != null)
-                {
-                    players.Remove(playerChef);
-                    playerChef.RoleID = (int)RoleID.U2IAgentLiaison;
-                    playerChef.UnitName = CurentUnitName;
-                }
-                foreach (var player in players)
-                {
-                    player.RoleID = (int)RoleID.U2IAgent;
-                    player.UnitName = CurentUnitName;
-                }
+                SpawnableTeam = 2,
+                UnitName = GetNewUniteName()
+            });
+            Logger.Get.Info("5");
+            if (!string.IsNullOrWhiteSpace(Plugin.Instance.Config.CassieSpawn))
+            {
+                string SpawnCassie = GetSpawnAnnonce(CurentUnitName);
+                Map.Get.GlitchedCassie(SpawnCassie);
+            }
+            Logger.Get.Info("6");
+            if (playerChef != null)
+            {
+                players.Remove(playerChef);
+                playerChef.RoleID = (int)RoleID.U2IAgentLiaison;
+                playerChef.UnitName = CurentUnitName;
+            }
+            Logger.Get.Info("7");
+            foreach (var player in players)
+            {
+                player.RoleID = (int)RoleID.U2IAgent;
+                player.UnitName = CurentUnitName;
             }
         }
     }

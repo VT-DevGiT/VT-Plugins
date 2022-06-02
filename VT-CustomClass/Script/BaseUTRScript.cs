@@ -1,5 +1,4 @@
 ﻿using Interactables.Interobjects.DoorUtils;
-using InventorySystem.Items.Armor;
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.CustomObjects;
@@ -31,19 +30,22 @@ namespace VTCustomClass.PlayerScript
         protected virtual Color Color => Color.white;
         protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
         protected bool Protected096 { get; set; } = true;
-
+        protected UtrCorp Corp { get; set; }
+        //public Player Target { get; set; }
+        
         private float _oldStaminaUse;
         private float _oldGroundMaxDistance;
-        protected UtrCorp Corp { get; set; }
+
         #endregion
 
         #region Methods
         public override void Spawning()
         {
-            Player.GiveEffect(Effect.Visuals939, 2);
+            base.Spawning();
+            Player.GiveEffect(Effect.Visuals939, 1);
             Player.Hub.playerEffectsController.ChangeByString("Scp1853".ToLower(), 1, -1);//whait next update
             Player.Position += Vector3.up * 1.5f;
-            
+
             if (HeavyUTR)
             {
                 Player.GiveEffect(Effect.Disabled);
@@ -59,7 +61,7 @@ namespace VTCustomClass.PlayerScript
         {
             _oldStaminaUse = Player.StaminaUsage;
             _oldGroundMaxDistance = Player.FallDamage.groundMaxDistance;
-
+            
             Player.StaminaUsage = 0;
             Player.FallDamage.groundMaxDistance = 1000;
             Corp = new UtrCorp(BodyID, HeadID, BotID, ev.Player, ev.Position, Color);
@@ -88,17 +90,34 @@ namespace VTCustomClass.PlayerScript
 
             Corp.Destroy();
 
-            Player.StaminaUsage = _oldStaminaUse;
-            Player.Scale = Vector3.one;
-
+            if (Player != null)
+            {
+                Player.Inventory.Clear();
+                Player.StaminaUsage = _oldStaminaUse;
+                Player.Scale = Vector3.one;
+            }
             base.DeSpawn();
         }
 
+        /*
+        public void RotateToTarget()
+        {
+            Player.Rotation = new Vector2(12, 3);
+            
+            Quaternion quaternion = Quaternion.LookRotation((Target.Position - Player.Position).normalized);
+            Player.Rotation = new Vector2(quaternion.eulerAngles.x, quaternion.eulerAngles.y);
+        }*/
+
+
         public void UpdateBody()
         {
-            //Corp.SetPose(Player.Position);
+            /*if (Target != null)
+                RotateToTarget();*/
+            Corp.SetPose(Player.Position);
             Corp.SetRotation(Player.Rotation);
         }
+
+
         #endregion
 
         #region Events
@@ -120,7 +139,9 @@ namespace VTCustomClass.PlayerScript
             {
                 ev.Allow = false;
                 ev.Victim.RoleID = (int)RoleID.Spectator;
-                SchematicHandler.Get.SpawnSchematic(CorpID, ev.Victim.Position);
+                ev.Victim.Inventory.Clear();
+                if (ev.DamageType != DamageType.Disruptor)
+                    SchematicHandler.Get.SpawnSchematic(CorpID, ev.Victim.Position);
             }
         }
 
@@ -188,18 +209,45 @@ namespace VTCustomClass.PlayerScript
                 ev.Player.Scp173Controller.IgnoredPlayers.Add(Player);
         }
 
+        /* I cant rotate the player :(
         public override bool CallPower(byte power, out string message)
         {
-            message = "ajaja";
+           
             switch (power)
             {
                 case 1:
-                    //Player lock target
-                    break;
+                    if (Target == null)
+                    {
+                        Target = Player.LookingAt.GetPlayer();
+                        if (Target == null || !SynapseExtensions.GetHarmPermission(Player, Target))
+                        {
+                            message = Plugin.Instance.Translation.ActiveTranslation.NeedToLookAPlayer;
+                            return false;
+                        }
+                        else
+                        {
+                            message = Plugin.Instance.Translation.ActiveTranslation.TargetLock;
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        if (Target == null || !SynapseExtensions.GetHarmPermission(Player, Target))
+                        {
+                            message = Plugin.Instance.Translation.ActiveTranslation.UnlockTarget;
+                            return true;
+                        }
+                        else
+                        {
+                            message = Plugin.Instance.Translation.ActiveTranslation.NewTargetLock;
+                            return true;
+                        }
+                    }
             }
 
-            return true;
-        }
+            message = Plugin.Instance.Translation.ActiveTranslation.OnlyOnePower;
+            return false;
+        }*/
 
         #endregion
 
@@ -269,7 +317,7 @@ namespace VTCustomClass.PlayerScript
                     }
                 }
 
-                //body.DespawnForOnePlayer(player);
+                body.DespawnForOnePlayer(player);
 
                 void SetHeight(SynapseObject synapseObject)
                 {
@@ -353,8 +401,6 @@ namespace VTCustomClass.PlayerScript
 
                 body.Rotation = Quaternion.Euler(0, rotation.y, 0);
                 head.Rotation = Quaternion.Euler(headx, rotation.y, 0);
-                Synapse.Api.Logger.Get.Info(head.Rotation);
-
             }
 
             public void Destroy()
