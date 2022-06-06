@@ -97,7 +97,7 @@ namespace VT_Item.Item
             if (canShoot)
             {
                 Holder.GiveEffect(Effect.Ensnared, 1, 2);
-                Holder.AmmoBox[AmmoType.Ammo762x39] -= (ushort)MultiShoot(Holder);
+                Holder.AmmoBox[AmmoType.Ammo762x39] -= (ushort)(MultiShoot(Holder) / 2);
             }
             return false;
         }

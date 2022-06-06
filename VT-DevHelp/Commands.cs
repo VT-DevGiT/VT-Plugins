@@ -1,5 +1,8 @@
-﻿using Synapse;
+﻿using CustomPlayerEffects;
+using Synapse;
 using Synapse.Api;
+using Synapse.Api.CustomObjects;
+using Synapse.Api.Enum;
 using Synapse.Api.Roles;
 using Synapse.Command;
 using Synapse.Config;
@@ -7,20 +10,9 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
-using VT_Api.Extension;
-using System.Reflection;
 using VT_Api.Core.Enum;
 using VT_Api.Core.Roles;
-using Synapse.Api.CustomObjects;
-using Synapse.Api.Enum;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.InteropServices;
-using MEC;
-using Subtitles;
-using Utils.Networking;
-using VT_Api.Core;
-using Mirror;
+using VT_Api.Extension;
 
 namespace VTDevHelp
 {
@@ -28,9 +20,8 @@ namespace VTDevHelp
       Name = "DevDoorInfo",
       Aliases = new[] { "VTFdoor" },
       Description = "For find door",
-      Permission = "",
-      Platforms = new[] { Platform.RemoteAdmin },
-      Usage = ""
+      Permission = "dev",
+      Platforms = new[] { Platform.RemoteAdmin }
       )]
     public class DoorInfoCommand : ISynapseCommand
     {
@@ -61,10 +52,8 @@ namespace VTDevHelp
     [CommandInformation(
     Name = "DevDoorPos",
     Aliases = new[] { "VTPdoor" },
-    Description = "",
-    Permission = "",
-    Platforms = new[] { Platform.RemoteAdmin },
-    Usage = ""
+    Permission = "dev",
+    Platforms = new[] { Platform.RemoteAdmin }
     )]
     public class DoorPosCommand : ISynapseCommand
     {
@@ -87,10 +76,8 @@ namespace VTDevHelp
     [CommandInformation(
     Name = "DevPos",
     Aliases = new[] { "VTPos" },
-    Description = "",
-    Permission = "",
-    Platforms = new[] { Platform.RemoteAdmin },
-    Usage = ""
+    Permission = "dev",
+    Platforms = new[] { Platform.RemoteAdmin }
     )]
     public class PosCommand : ISynapseCommand
     {
@@ -110,10 +97,8 @@ namespace VTDevHelp
     [CommandInformation(
   Name = "DevDoorSpawn",
   Aliases = new[] { "VTSdoor" },
-  Description = "",
-  Permission = "",
-  Platforms = new[] { Platform.RemoteAdmin },
-  Usage = ""
+  Permission = "dev",
+  Platforms = new[] { Platform.RemoteAdmin }
   )]
     public class DoorSpawnCommand : ISynapseCommand
     {
@@ -131,18 +116,36 @@ namespace VTDevHelp
      Name = "DevTest",
      Aliases = new[] { "VTTest" },
      Description = "For TEST",
-     Permission = "",
-     Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole },
-     Usage = ""
+     Permission = "dev",
+     Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole }
      )]
     public class TestCommand : ISynapseCommand
     {
+
+        public class testeffect : PlayerEffect, IDisplayablePlayerEffect
+        {
+            public bool GetSpectatorText(out string s)
+            {
+                s = "SUS";
+                return true;
+            }
+        }
+
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
 
-            var truc = "<size=25>You were killed by</size>\\n%PlayerName%\\n<size=25>as</size>\\n%RoleName%".Replace("\\n", "\n").Replace("%PlayerName%", "Ta Mère").Replace("%RoleName%", "UTR");
-            context.Player.Kill(truc);
+            var effectCtrl = context.Player.PlayerEffectsController;
+            var effect = new testeffect();
+
+            if (!effectCtrl.AllEffects.ContainsKey(typeof(testeffect)))
+                effectCtrl.AllEffects.Add(typeof(testeffect), effect);
+           
+            effectCtrl.EnableEffect(effect, -1);
+
+            //var truc = "<size=25>You were killed by</size>\\n%PlayerName%\\n<size=25>as</size>\\n%RoleName%".Replace("\\n", "\n").Replace("%PlayerName%", "Ta Mère").Replace("%RoleName%", "UTR");
+            //context.Player.Kill(truc);
+
             /*
             var path = @"C:\Users\valentin\AppData\Roaming\Synapse\dependencies\hitman-le-cobra-philippe-je-sais-ou-tu-te-caches.raw";
             AudioApi.AudioApi.Play(path);*/
@@ -154,9 +157,8 @@ namespace VTDevHelp
     Name = "DevScreen",
     Aliases = new[] { "VTScreen" },
     Description = "Let's go !",
-    Permission = "",
-    Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole },
-    Usage = ""
+    Permission = "dev",
+    Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole }
     )]
     public class ScreenCommand : ISynapseCommand
     {
@@ -176,9 +178,8 @@ namespace VTDevHelp
      Name = "DevRoles",
      Aliases = new[] { "VTRoles" },
      Description = "For get all roles info",
-     Permission = "",
-     Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole },
-     Usage = ""
+     Permission = "dev",
+     Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole }
      )]
     public class RolesInfoCommand : ISynapseCommand
     {
@@ -206,9 +207,8 @@ namespace VTDevHelp
      Name = "DevRole",
      Aliases = new[] { "VTRole" },
      Description = "For get this role info",
-     Permission = "",
-     Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole },
-     Usage = ""
+     Permission = "dev",
+     Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole }
      )]
     public class RoleInfoCommand : ISynapseCommand
     {
@@ -257,9 +257,8 @@ Abilitie -> {player.ClassManager.CurRole.abilities.Any()}
      Name = "DevitemInfo",
      Aliases = new[] { "VTIteam" },
      Description = "Dev iteam info",
-     Permission = "",
-     Platforms = new[] { Platform.RemoteAdmin },
-     Usage = ""
+     Permission = "dev",
+     Platforms = new[] { Platform.RemoteAdmin }
      )]
     public class ItemInfoCommand : ISynapseCommand
     {
@@ -290,9 +289,8 @@ Abilitie -> {player.ClassManager.CurRole.abilities.Any()}
     Name = "DevPermitino",
     Aliases = new[] { "VTPerm" },
     Description = "Dev Perm for Test",
-    Permission = "",
-    Platforms = new[] { Platform.RemoteAdmin },
-    Usage = ""
+    Permission = "dev",
+    Platforms = new[] { Platform.RemoteAdmin }
     )]
     public class DevGive : ISynapseCommand
     {
@@ -315,9 +313,8 @@ Abilitie -> {player.ClassManager.CurRole.abilities.Any()}
        Name = "DevSong",
        Aliases = new[] { "VTSong" },
        Description = "Dev Song Test",
-       Permission = "",
-       Platforms = new[] { Platform.RemoteAdmin },
-       Usage = ""
+       Permission = "dev",
+       Platforms = new[] { Platform.RemoteAdmin }
        )]
     public class SongCommand : ISynapseCommand
     {
@@ -338,9 +335,8 @@ Abilitie -> {player.ClassManager.CurRole.abilities.Any()}
     Name = "DevGrenad",
     Aliases = new[] { "VTGrenad" },
     Description = "Dev Test Plugin",
-    Permission = "",
-    Platforms = new[] { Platform.RemoteAdmin },
-    Usage = ""
+    Permission = "dev",
+    Platforms = new[] { Platform.RemoteAdmin }
     )]
     public class GrenadCommand : ISynapseCommand
     {
@@ -363,8 +359,7 @@ Abilitie -> {player.ClassManager.CurRole.abilities.Any()}
     [CommandInformation(
        Name = "DevClear",
        Aliases = new[] { "VTDClear" },
-       Description = "",
-       Permission = "",
+       Permission = "dev",
        Platforms = new[] { Platform.RemoteAdmin },
        Usage = ".VTClear (Iteam, Corp ou All)"
        )]
@@ -375,25 +370,29 @@ Abilitie -> {player.ClassManager.CurRole.abilities.Any()}
             var result = new CommandResult();
             var iteams = Server.Get.Map.Items.Where(p => p.State == Synapse.Api.Enum.ItemState.Map);
             var ragdolls = Server.Get.Map.Ragdolls;
-            switch (context.Arguments.FirstElement())
+            switch (context.Arguments.FirstElement().ToLower())
             {
-                case "Iteam":
+                case "items":
+                case "item":
                     foreach (var iteam in iteams)
                         iteam.Destroy();
                     result.State = CommandResultState.Ok;
                     break;
 
-                case "Corp":
+                case "ragdolls":
+                case "ragdoll":
+                case "corps":
+                case "corp":
                     foreach (var ragdoll in ragdolls)
                         UnityEngine.Object.DestroyImmediate(ragdoll.GameObject, true);
                     result.State = CommandResultState.Ok;
                     break;
 
-                case "All":
+                case "all":
                     foreach (var iteam in iteams)
                         iteam.Despawn();
                     foreach (var ragdoll in ragdolls)
-                        UnityEngine.Object.DestroyImmediate(ragdoll.GameObject, true);
+                        ragdoll.Destroy();
                     result.State = CommandResultState.Ok;
                     break;
             }
@@ -415,7 +414,7 @@ Abilitie -> {player.ClassManager.CurRole.abilities.Any()}
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            result.Message = "Méliodas é bô !";
+            result.Message = "Méliodas é bô !";// oka l'était plus
             result.State = CommandResultState.Ok;
             return result;
         }

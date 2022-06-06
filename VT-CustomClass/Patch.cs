@@ -1,16 +1,21 @@
 ﻿using HarmonyLib;
+using InventorySystem.Items.Radio;
+using VTCustomClass.PlayerScript;
 
 namespace VTCustomClass
 {
-    [HarmonyPatch(typeof(PlayerMovementSync), nameof(PlayerMovementSync.AntiCheatKillPlayer))]
-    internal static class killAntiCheatPatch
+    [HarmonyPriority(Priority.High)]
+    [HarmonyPatch(typeof(RadioItem), nameof(RadioItem.Update))]
+    internal static class InfiniteRadio
     {
-        [HarmonyPrefix]
-        private static bool PatchKillPlayer(PlayerMovementSync __instance, string message, string code)
+        static bool Prefix(RadioItem __instance)
         {
-            if (Plugin.Instance.Config.killAntiCheatPatch)
+            var player = __instance.OwnerInventory.GetPlayer();
+            if (player.CustomRole is BaseUTRScript)
+            {
+                __instance.SendStatusMessage();
                 return false;
-            
+            }
             return true;
         }
     }

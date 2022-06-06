@@ -21,12 +21,12 @@ namespace VTProget_X
 
         private void OnSpeakIntercom(PlayerSpeakIntercomEventEventArgs ev)
         {
-            if (!Plugin.Instance.Config.KeycardSpeak || ev.Player?.IsDummy == true || ev.Player.Bypass)
+            if (!Plugin.Instance.Config.KeycardSpeak || ev.Player.IsDummy || ev.Player == Server.Get.Host || ev.Player.Bypass)
                 return;
-            if (ev.Player?.ItemInHand == null)
+            if (!Map.Get.GetDoor(DoorType.Intercom).DoorPermissions.CheckPermissions(ev.Player.ItemInHand?.ItemBase, ev.Player.Hub) &&
+                !Plugin.Instance.Config.KeycardSpeakIgnorRole.Contains(ev.Player.RoleID))
                 ev.Allow = false;
-            else if (!Map.Get.GetDoor(DoorType.Intercom).DoorPermissions.CheckPermissions(ev.Player.ItemInHand.ItemBase, ev.Player.Hub))
-                ev.Allow = false;           
+            
         }
 
         private void OnRoundEnd()

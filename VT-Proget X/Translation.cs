@@ -4,7 +4,7 @@ namespace VTProget_X
 {
     public class Translation : IPluginTranslation
     {
-        public string IntercomGeneralInformation = 
+        public string IntercomGeneralInformation =
 @"─────────── MTF Information Center ───────────
 Duration of the breach  : %RoundTime%
 Remaining SCP : %nSCP%
@@ -13,7 +13,7 @@ Remaining staff : %nRSC%
 Remaining VIP : %nVIP%
 Deployed military personnel : %nMTF%
 Active generator power : %TotalVoltage% kVA
-Status of the Omega nuclear warhead : PRÊTE
+Status of the Omega nuclear warhead : READY
 Status of the Alfa nuclear warhead : %AlfaWarheadStatut%
 Status of the SCP containment 106 : %IsContain%
 status of the Tesla doors : %Tesla%

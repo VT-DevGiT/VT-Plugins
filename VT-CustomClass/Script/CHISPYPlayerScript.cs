@@ -18,7 +18,7 @@ namespace VTCustomClass.PlayerScript
 
         protected override List<int> EnemysList => TeamManager.Group.CHIenemy.ToList();
 
-        protected override List<int> FriendsList => TeamManager.Group.CHIenemy.ToList();
+        protected override List<int> FriendsList => TeamManager.Group.CHIally.ToList();
 
         protected override RoleType RoleType => RoleType.NtfPrivate;
 

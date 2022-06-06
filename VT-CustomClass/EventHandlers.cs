@@ -1,9 +1,11 @@
-﻿using Synapse;
+﻿using PlayerStatsSystem;
+using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using VT_Api.Core.Enum;
 using VT_Api.Extension;
 using VTCustomClass.PlayerScript;
@@ -37,10 +39,10 @@ namespace VTCustomClass
                 return;
             if (ev.PlayerToShow.RoleID == (int)RoleID.SCP966)
             {
-                if (ev.Player.RoleID != (int)RoleID.Staff && ev.Player.RoleID != (int)RoleID.Spectator && ev.Player.TeamID != (int)TeamID.SCP)
-                    ev.Invisible = true;
-                else
+                if (CanSee966())
                     ev.Invisible = false;
+                else
+                    ev.Invisible = true;
             }
             else if (ev.PlayerToShow.CustomRole is StaffClassScript staff)
             {
@@ -57,6 +59,12 @@ namespace VTCustomClass
                     ev.Position += UnityEngine.Vector3.forward * 1.5f;
                 else
                     ev.Invisible = false;
+            }
+
+            bool CanSee966()
+            {
+                return ev.Player.RoleID == (int)RoleID.Staff || ev.Player.RoleID == (int)RoleID.Spectator || ev.Player.TeamID == (int)TeamID.SCP ||
+                    (ev.Player.ItemInHand?.ItemType == ItemType.Flashlight && Vector3.Distance(ev.Player.Position, ev.PlayerToShow.Position) < 5);
             }
         }
 
@@ -151,7 +159,7 @@ namespace VTCustomClass
                     }
                 }
             }
-
+            
             if (Plugin.Instance.Config.SpawnReplaceScpClassConfig != null && Plugin.Instance.Config.SpawnReplaceScpClassConfig.Any())
             {
                 foreach (var classToSpawn in Plugin.Instance.Config.SpawnReplaceScpClassConfig)

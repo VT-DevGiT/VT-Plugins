@@ -20,14 +20,11 @@ namespace VTCustomClass
         SynapseMajor = SynapseController.SynapseMajor,
         SynapseMinor = SynapseController.SynapseMinor,
         SynapsePatch = SynapseController.SynapsePatch,
-        Version = "v.1.3.2")]
+        Version = "v.1.4.0")]
     public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config, Translation>
     {
-        //TODO : Fix bug null error Expetion at the start of the round
-
         public override bool AutoRegister =>  true;
 
-        //kill Enti-Cheat
         private void PatchAll()
         {
             var instance = new Harmony("VTCustomClass");
@@ -51,7 +48,9 @@ namespace VTCustomClass
                 UnlockTarget = "Vous n'avez plus de cible verrouiller",
                 OnlyOnePower = "Vous n'avez qu'un seul pouvoir"
             }, "FRENCH");
-            PatchAll();
+            
+            if (!SynapseController.PluginLoader.Plugins.Any(p => p.Name == "InfiniteRadio"))
+                PatchAll();
 
             if (Server.Get.TeamManager.IsIDRegistered((int)TeamID.AND))
             {

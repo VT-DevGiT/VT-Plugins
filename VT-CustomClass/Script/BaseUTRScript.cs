@@ -44,7 +44,9 @@ namespace VTCustomClass.PlayerScript
             base.Spawning();
             Player.GiveEffect(Effect.Visuals939, 1);
             Player.Hub.playerEffectsController.ChangeByString("Scp1853".ToLower(), 1, -1);//whait next update
+            
             Player.Position += Vector3.up * 1.5f;
+            
 
             if (HeavyUTR)
             {
@@ -130,7 +132,16 @@ namespace VTCustomClass.PlayerScript
             Server.Get.Events.Player.PlayerEnterFemurEvent += OnFemur;
             //Server.Get.Events.Player.PlayerChangeItemEvent += OnChangeItem; 
             Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
+            Server.Get.Events.Player.PlayerSpeakEvent += OnSpeak;
             VtController.Get.Events.Item.RemoveLimitAmmoEvent += OnAmmoLimit;
+        }
+
+        private static void OnSpeak(PlayerSpeakEventArgs ev)
+        {
+            if (ev.Player.CustomRole is BaseUTRScript)
+            {
+                ev.DissonanceUserSetup.RadioAsHuman = true;
+            }
         }
 
         private static void OnDeath(PlayerDeathEventArgs ev)
@@ -198,7 +209,7 @@ namespace VTCustomClass.PlayerScript
         {
             if (ev.Player?.CustomRole is BaseUTRScript)
             {
-                if (ev.CurrentItem.ItemCategory == ItemCategory.Medical || ev.CurrentItem.ItemCategory == ItemCategory.SCPItem)
+                if (ev.CurrentItem?.ItemCategory == ItemCategory.Medical || ev.CurrentItem?.ItemCategory == ItemCategory.SCPItem)
                     ev.Allow = false;
             }
         }

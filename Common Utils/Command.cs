@@ -32,7 +32,7 @@ namespace Common_Utiles
 
     [CommandInformation(
         Name = "Rotation",
-        Aliases = new[] { "rot" },
+        Aliases = new[] { "rota" },
         Description = "Get a Vector2 for config",
         Permission = "",
         Platforms = new[] { Platform.RemoteAdmin },

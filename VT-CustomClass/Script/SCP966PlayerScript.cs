@@ -42,12 +42,12 @@ namespace VTCustomClass.PlayerScript
         {
             if (ev.Allow && ev.Killer?.CustomRole is SCP966cript && ev.DamageType == DamageType.Zombie)
             {
-                ev.Damage = 20;
+                ev.Damage = 10;
                 if (!ev.Victim.IsUTR())
                 {
-                    ev.Victim.GiveEffect(Effect.Concussed, 1, 10);
-                    ev.Victim.GiveEffect(Effect.Deafened, 1, 10);
-                    ev.Victim.GiveEffect(Effect.Exhausted, 1, 10);
+                    ev.Victim.GiveEffect(Effect.Concussed, 1, 20);
+                    ev.Victim.GiveEffect(Effect.Deafened, 1, 20);
+                    ev.Victim.GiveEffect(Effect.Exhausted, 1, 20);
                     ev.Victim.GiveEffect(Effect.Asphyxiated, 1, 5);
                 }
             }
