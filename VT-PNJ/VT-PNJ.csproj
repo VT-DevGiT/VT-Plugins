@@ -7,8 +7,8 @@
     <ProjectGuid>{2E012409-B70D-4331-B6CC-FC00A765CC66}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VT_PNG</RootNamespace>
-    <AssemblyName>VT-PNG</AssemblyName>
+    <RootNamespace>VT_PNJ</RootNamespace>
+    <AssemblyName>VT-PNJ</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -66,6 +66,9 @@
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SynapseSL.2.10.0\lib\net472\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AIModule">
+      <HintPath>..\lib\UnityEngine.AIModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SynapseSL.2.10.0\lib\net472\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
@@ -80,6 +83,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\BaseNpcScript.cs" />
+    <Compile Include="API\NpcPathZone.cs" />
+    <Compile Include="API\NpcControlCortext.cs" />
+    <Compile Include="API\NpcControlMouvement.cs" />
+    <Compile Include="API\NpcDataInit.cs" />
+    <Compile Include="API\NpcManager.cs" />
+    <Compile Include="API\NpcMapPointRoute.cs" />
+    <Compile Include="API\NpcMapPointType.cs" />
+    <Compile Include="Npc.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="EventHandlers.cs" />
@@ -89,5 +101,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

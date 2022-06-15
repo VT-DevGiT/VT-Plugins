@@ -13,17 +13,17 @@ namespace VT939
     //https://github.com/iopietro/BetterScp939/releases/tag/1.0.7
     public class Scp939Controller : RepeatingBehaviour
     {
-        private Player player;
-        private Scp207 scp207;
-        private SinkHole sinkHole;
-        private DamageType[] excludedDamages;
-        private CoroutineHandle forceSlowDownCoroutine;
-        private CoroutineHandle angerMeterDecayCoroutine;
-        private const float forceSlowDownInterval = 0.1f;
+        public Player player;
+        public Scp207 scp207;
+        public SinkHole sinkHole;
+        public DamageType[] excludedDamages;
+        public CoroutineHandle forceSlowDownCoroutine;
+        public CoroutineHandle angerMeterDecayCoroutine;
+        public const float forceSlowDownInterval = 0.1f;
 
-        public float AngerMeter { get; private set; }
+        public float AngerMeter { get; internal set; }
 
-        private void init()
+        private void Init()
         {
             player = gameObject.GetPlayer();
             scp207 = player.Hub.playerEffectsController.GetEffect<Scp207>();
@@ -41,17 +41,17 @@ namespace VT939
             };
             AngerMeter = Plugin.Instance.Config.StartingAnger;
             sinkHole.slowAmount = Plugin.Instance.Config.SlowAmount;
+
         }
 
         protected override void Start()
         {
-            init();
+            Init();
             base.Start();
         }
 
         protected override void OnEnable()
         {
-            RegisterEvents();
             player.Scale *= Plugin.Instance.Config.Size;
 
             if (Plugin.Instance.Config.ShowSpawnBroadcastMessage)
@@ -67,44 +67,8 @@ namespace VT939
                 player.GiveEffect(Effect.Scp207);
         }
 
-        public void OnDomage(PlayerDamageEventArgs ev)
-        {
-            if (ev.Victim == player)
-            {
-                if (ev.DamageType != DamageType.Scp207)
-                    player.Health += ev.Damage < 0 ? -9999999f : - ev.Damage;
-
-                if (!excludedDamages.Contains(ev.DamageType))
-                {
-                    AngerMeter += ev.Damage;
-                }
-                else
-                {
-                    ev.Damage = 0;
-                    return;
-                }
-
-                ev.Damage = 0;
-
-                if (AngerMeter > Plugin.Instance.Config.AngerMeterMaximum)
-                    AngerMeter = Plugin.Instance.Config.AngerMeterMaximum;
-
-                player.ArtificialHealth = (byte)(AngerMeter / Plugin.Instance.Config.AngerMeterMaximum * player.MaxArtificialHealth);
-
-                if (!angerMeterDecayCoroutine.IsRunning)
-                    angerMeterDecayCoroutine = Timing.RunCoroutine(AngerMeterDecay(Plugin.Instance.Config.AngerMeterDecayTime), Segment.FixedUpdate);
-            }
-            else if (ev.Killer == player && ev.Damage > 0)
-            {
-                ev.Damage = Plugin.Instance.Config.BaseDamage + (AngerMeter / Plugin.Instance.Config.AngerMeterMaximum) * Plugin.Instance.Config.BonusAttackMaximum;
-
-                forceSlowDownCoroutine = Timing.RunCoroutine(ForceSlowDown(Plugin.Instance.Config.ForceSlowDownTime, forceSlowDownInterval), Segment.FixedUpdate);
-            }
-        }
-
         protected override void OnDisable()
         {
-            UnregisterEvents();
             KillCoroutines();
 
             if (player == null)
@@ -114,9 +78,8 @@ namespace VT939
             sinkHole.Disabled();
 
             AngerMeter = 0;
-
-            player.Scale = new Vector3(1, 1, 1);
             player.ArtificialHealth = 0;
+            player.Scale = new Vector3(1, 1, 1);
             base.OnDisable();
         }
 
@@ -126,16 +89,7 @@ namespace VT939
             Kill();
         }
 
-        private void RegisterEvents()
-        {
-            Server.Get.Events.Player.PlayerDamageEvent += OnDomage;
-        }
-        private void UnregisterEvents()
-        {
-            Server.Get.Events.Player.PlayerDamageEvent -= OnDomage;
-        }
-
-        private IEnumerator<float> ForceSlowDown(float totalWaitTime, float interval)
+        internal IEnumerator<float> ForceSlowDown(float totalWaitTime, float interval)
         {
             var waitedTime = 0f;
 
@@ -152,17 +106,12 @@ namespace VT939
             }
 
             sinkHole.Disabled();
-
-            if (Plugin.Instance.Config.ResetAngerAfterHitSlowDown)
-                AngerMeter = player.ArtificialHealth = 0;
         }
 
-        private IEnumerator<float> AngerMeterDecay(float waitTime)
+        internal IEnumerator<float> AngerMeterDecay(float waitTime)
         {
             while (AngerMeter > 0)
             {
-                player.ArtificialHealth = (byte)(AngerMeter / Plugin.Instance.Config.AngerMeterMaximum * player.ArtificialHealth);
-
                 yield return Timing.WaitForSeconds(waitTime);
 
                 AngerMeter -= Plugin.Instance.Config.AngerMeterDecayValue;

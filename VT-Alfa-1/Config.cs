@@ -25,7 +25,7 @@ namespace VT_Alpha
         public string UnitName = "%RandomName%";
 
         [Description("The name of the class")]
-        public string RoleName = "AlphaOne Agent";
+        public string RoleName = "Alpha-1 Agent";
 
         [Description("The Config a Alpha-a unit")]
         public SerializedPlayerRole AlphaOneUnit = new SerializedPlayerRole()

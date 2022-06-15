@@ -53,7 +53,7 @@ namespace VTCustomClass.PlayerScript
 
         private static void OnUseItem(PlayerItemInteractEventArgs ev)
         {
-            if (ev.CurrentItem.ItemCategory == ItemCategory.Medical && ev.Player.CustomRole is CHIMastodonteScript role)
+            if (ev.CurrentItem?.ItemCategory == ItemCategory.Medical && ev.Player.CustomRole is CHIMastodonteScript role)
                 ev.Allow = false;
         }
 

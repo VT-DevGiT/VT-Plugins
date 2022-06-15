@@ -9,7 +9,6 @@ namespace VTEscape
     [API]
     public abstract class BaseEscape : RepeatingBehaviour
     {
-
         public BaseEscape()
         {
             this.RefreshTime = 100;
@@ -25,7 +24,7 @@ namespace VTEscape
         public abstract Vector3 Postion { get; }
         public abstract int Radius { get; }
         public abstract EscapeType EscapeType { get; }
-
+        
 
         public SerializedEscapeConfig GetConfig()
         {
@@ -57,9 +56,9 @@ namespace VTEscape
                 if (config != null)
                     config.Use(Player);
 
-                if (Player.CustomRole != null)
+/*                if (Player.CustomRole != null)
                     Player.TriggerEscape();
-
+*/
                 return;
             }
         }

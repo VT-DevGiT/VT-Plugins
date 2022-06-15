@@ -15,6 +15,8 @@ Version = "v.0.0.1"
 )]
     public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config>
     {
+        public Npc NPC { get; set; }
+
         public override bool AutoRegister => false;
     }
 }

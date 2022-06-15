@@ -230,7 +230,7 @@ namespace Common_Utiles
         Aliases = new[] { "SwitchServeur", "MoveToServeur" },
         Description = "Move player(s) to an other serveur",
         Permission = "vanilla.PlayersManagement",
-        Platforms = new[] { Platform.RemoteAdmin, Platform.ClientConsole },
+        Platforms = new[] { Platform.RemoteAdmin, Platform.ServerConsole },
         Usage = "Entre the serveur port and after the player or the players to move to an other serveur, if the player ave a space in the name (use ID)",
         Arguments = new[] { "ServerPort", "Players" }
         )]
@@ -298,8 +298,44 @@ namespace Common_Utiles
             foreach (var role in Server.Get.RoleManager.CustomRoles.OrderBy(r => r.ID))
             {
                 string name = Regex.Replace(role.Name, "<.*?>", String.Empty);
-                string pluginName = role.GetType().Assembly.GetName().Name;
-                result.Message += String.Format(" {0,-60} {1,-5} : {2}\n", name, role.ID, pluginName);
+                string plugiName = role.RoleScript.Assembly.GetName().Name;
+                result.Message += String.Format(" {0,-60} {1,-5} : {2}\n", name, role.ID, plugiName);
+            }
+            return result;
+        }
+    }
+
+    [CommandInformation(
+       Name = "RoleInfo",
+       Aliases = new[] { "Rinfo", "infoRole", "infoR" },
+       Description = "Get info on the curent role",
+       Usage = "You need to be a custom role, or entre the ID of the role",
+       Permission = "",
+       Platforms = new[] { Platform.ServerConsole },
+       Arguments = new[] { "(roleID)" }
+       )]
+    internal class RoleInfo : ISynapseCommand
+    {
+        public CommandResult Execute(CommandContext context)
+        {
+            var result = new CommandResult();
+            int id;
+            if (context.Arguments.Count == 0)
+                id = context.Player.RoleID;
+            else if (!int.TryParse(context.Arguments.FirstElement(), out id))
+            {
+                result.Message = "it must be a number";
+                result.State = CommandResultState.Error;
+            }
+            else if (CommonUtiles.Instance.Config.RolesInfos.ContainsKey(id))
+            {
+                result.Message = CommonUtiles.Instance.Config.RolesInfos[id];
+                result.State = CommandResultState.Ok;
+            }
+            else
+            {
+                result.Message = "No info";
+                result.State = CommandResultState.Ok;
             }
             return result;
         }

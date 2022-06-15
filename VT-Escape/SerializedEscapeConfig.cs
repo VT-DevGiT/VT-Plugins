@@ -20,7 +20,7 @@ namespace VTEscape
         public SpawnableTeamType TicketsTem { get; set; }
         public int TicketsAmont { get; set; }
 
-        public SerializedEscapeConfig(EscapeType escape, int roleID, int teamID, int cufferTeamID, int newRoleID, EscapeType ticketsTem = EscapeType.NONE, int ticketsAmont = 0, bool startWarHead = false, string escapeMessage = null)
+        public SerializedEscapeConfig(EscapeType escape, int roleID, int teamID, int cufferTeamID, int newRoleID, SpawnableTeamType ticketsTem = SpawnableTeamType.None, int ticketsAmont = 0, bool startWarHead = false, string escapeMessage = null)
         {
             Escape = escape;
             RoleID = roleID;

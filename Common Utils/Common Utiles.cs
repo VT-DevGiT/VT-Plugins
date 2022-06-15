@@ -11,7 +11,6 @@ namespace Common_Utiles
      *   *********
      *     *****
      *       * 
-     * Tu reviendra jamais. Mais, je restera là et j'espère jamais te rejoindre.
      */
     [PluginInformation(
         Name = "Common Utiles",

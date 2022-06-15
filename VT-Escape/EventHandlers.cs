@@ -32,7 +32,7 @@ namespace VTEscape
         {
             var escapes = ev.Player.GetComponents<BaseEscape>();
             foreach (var escape in escapes)
-                escape.GetConfig();
+                escape.enabled = true;
         }
     }
 }

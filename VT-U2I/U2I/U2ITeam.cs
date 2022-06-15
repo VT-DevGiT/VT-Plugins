@@ -67,11 +67,14 @@ namespace VT_U2I
                 playerChef.UnitName = CurentUnitName;
             }
             Logger.Get.Info("7");
+            int i = 0;
             foreach (var player in players)
             {
                 player.RoleID = (int)RoleID.U2IAgent;
+                Logger.Get.Info($"8.{i}.1");
                 player.UnitName = CurentUnitName;
-            }
+                Logger.Get.Info($"8.{i++}.2");
+            }//Bug here
         }
     }
 }

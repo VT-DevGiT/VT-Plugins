@@ -115,6 +115,7 @@ namespace VTCustomClass.PlayerScript
         {
             /*if (Target != null)
                 RotateToTarget();*/
+
             Corp.SetPose(Player.Position);
             Corp.SetRotation(Player.Rotation);
         }
@@ -195,10 +196,14 @@ namespace VTCustomClass.PlayerScript
                     ev.Allow = false;
                 if (ev.Killer != null)
                 {
-                    if (Plugin.Instance.Config.UTRListScpNoDamge != null && Plugin.Instance.Config.UTRListScpNoDamge.Contains(ev.Killer.RoleID))
+                    if (Plugin.Instance.Config.UTRListScpDamge != null && Plugin.Instance.Config.UTRListScpDamge.ContainsKey(ev.Killer.RoleID))
+                    {
+                        int damage = Plugin.Instance.Config.UTRListScpDamge[ev.Killer.RoleID];
+                        if (damage != -1)
+                            ev.Damage = damage;
+                    }
+                    else
                         ev.Allow = false;
-                    else if (Plugin.Instance.Config.UTRListScpDamge != null && Plugin.Instance.Config.UTRListScpDamge.Contains(ev.Killer.RoleID))
-                        ev.Damage = Plugin.Instance.Config.UTRScpDamage;
                 }
             }
             else if (ev.Killer?.CustomRole is BaseUTRScript utr && ev.Victim?.RoleID == (int)RoleType.Scp096)
@@ -319,6 +324,8 @@ namespace VTCustomClass.PlayerScript
                                         hitbox.TargetHub = player.Hub;
                                         hub.CopyPropertyAndFeild<ReferenceHub>(player.Hub);*/
 
+                    child.GameObject.layer = (int)LayerID.PlayerModel;
+                    
                     if (child.CustomAttributes.FirstOrDefault(s => s.ToLower().Contains("teamcolor")) != null)
                     {
                         if (child is Synapse.Api.CustomObjects.SynapsePrimitiveObject primitve)

@@ -1,6 +1,7 @@
 ﻿using MEC;
 using Synapse;
 using Synapse.Api;
+using Synapse.Api.Items;
 using System.Collections.Generic;
 using VT_Api.Extension;
 
@@ -27,9 +28,17 @@ namespace VTEscape
 
         static public void ChangeRole(Player player, int Role)
         {
-            if (!Plugin.Config.keepInvotory)
+            List<SynapseItem> items = new List<SynapseItem>();
+            if (!Plugin.Config.keepInventory)
                 player.Inventory.Clear();
+            else foreach (var item in player.Inventory.Items)
+            {
+                item.Drop();
+                items.Add(item);
+            }
             player.RoleID = Role;
+            foreach (var item in items)
+                item.Position = player.Position;
         }
     }
 }

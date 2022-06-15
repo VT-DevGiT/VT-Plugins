@@ -83,7 +83,7 @@ namespace VTCustomClass.PlayerScript
                 Player owner = Player.GetDeadPlayerInRangeOfPlayer(4);
                 if (owner == null)
                 {
-                    message = "You cant..";
+                    message = "You cant...";
                     return false;
                 }
 

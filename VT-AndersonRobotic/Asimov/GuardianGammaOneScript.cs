@@ -14,7 +14,7 @@ namespace VT_AndersonRobotic
 {
     public class GuardianGammaOneScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessageAnderson;
 
         protected override List<int> EnemysList => TeamManager.Group.MTFenemy.ToList();
 

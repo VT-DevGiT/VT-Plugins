@@ -54,9 +54,6 @@ namespace VT939
             "\nMore anger means more damage inflicted to humans." +
             "\nAfter <color=#FF0000>hurting</color> someone, you'll get slowed down for <color=#FF0000>{0}</color> seconds</color></size>";
 
-        [Description("Whether or not 939's anger meter should be reset after his slowdown from biting someone ends.")]
-        public bool ResetAngerAfterHitSlowDown = false;
-
         [Description("More SCP 939")]
         public bool More939 = false;
         public int Max939 = 5;

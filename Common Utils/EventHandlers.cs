@@ -1,14 +1,10 @@
-﻿using MEC;
-using Synapse;
+﻿using Synapse;
 using Synapse.Api;
-using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Api.Items;
-using Synapse.Config;
-using System.Collections.Generic;
 using System.Linq;
-using VT_Api.Extension;
 using UnityEngine;
+using VT_Api.Extension;
 
 namespace Common_Utiles
 {
@@ -39,8 +35,9 @@ namespace Common_Utiles
 
         private void On914Activate(Scp914ActivateEventArgs ev)
         {
-            if (!ev.Players.Any()) foreach (var player in ev.Players)
-                Player914(player);
+            if (!ev.Players.Any()) 
+                foreach (var player in ev.Players)
+                    Player914(player);
         }
 
         private void Player914(Player player)
@@ -111,7 +108,12 @@ namespace Common_Utiles
                 
                 if (ammos != null)
                     ev.Ammo = ammos;
-            }            
+            }
+            
+            if (cfg.RolesInfos.ContainsKey(roleId))
+            {
+                ev.Player.GiveTextHint(cfg.RolesInfos[roleId]);
+            }
         }
 
     }

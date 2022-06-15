@@ -1,13 +1,16 @@
 ﻿using CustomPlayerEffects;
 using InventorySystem.Items.Firearms;
+using InventorySystem.Items.Firearms.BasicMessages;
 using InventorySystem.Items.Firearms.Modules;
 using PlayerStatsSystem;
+using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils.Networking;
 using VT_Api.Core.Behaviour;
 using VT_Api.Core.Enum;
 using VT_Api.Core.Items;
@@ -15,7 +18,7 @@ using VT_Api.Extension;
 
 namespace VT_Item.Item
 {
-    [VtItemInformation(ID = 200, BasedItemType = ItemType.GunLogicer, Name = "MiniGun")]
+    [VtItemInformation(ID = 200, BasedItemType = ItemType.GunLogicer, Name = "MiniGun")] // Fix Bug 
     class MiniGunScript : AbstractWeapon
     {
         #region Attributes & Properties
@@ -26,13 +29,16 @@ namespace VT_Item.Item
         public override ushort MaxAmmos => 0;
         public override AmmoType AmmoType => AmmoType.Ammo762x39;
         public override int DamageAmmont => Plugin.MiniGunConfig.Damage;
+
+        public int Distance { get; set; } = 100;
+        public ShootSound Sound { get; set; } = ShootSound.Logicer;
         #endregion
 
         #region Methods
         public override bool PickUp(Player player)
         {
             Ammo = player.AmmoBox[AmmoType.Ammo762x39];
-            return true;
+            return base.PickUp(player);
         }
 
         public override bool Realod()
@@ -54,7 +60,7 @@ namespace VT_Item.Item
                     Holder.GetOrAddComponent<MinGunPlayerScript>().enabled = true;
                 Ammo = Holder.AmmoBox[AmmoType.Ammo762x39];
             }
-            return true;
+            return base.Change(isNewItem);
         }
 
         public override bool Shoot(Vector3 targetPosition) => Shoot();
@@ -97,7 +103,8 @@ namespace VT_Item.Item
             if (canShoot)
             {
                 Holder.GiveEffect(Effect.Ensnared, 1, 2);
-                Holder.AmmoBox[AmmoType.Ammo762x39] -= (ushort)(MultiShoot(Holder) / 2);
+                ushort ammo = (ushort)(MultiShoot(Holder) / 2);
+                Holder.AmmoBox[AmmoType.Ammo762x39] -= ammo == 0 ? (ushort)1 : ammo;
             }
             return false;
         }
@@ -111,62 +118,68 @@ namespace VT_Item.Item
                 );
         }
 
+        private Ray GetRay()
+        {
+            return new Ray(Holder.CameraReference.position + Holder.CameraReference.forward, RandomAimcone() * Holder.CameraReference.forward);
+        }
+
         private int MultiShoot(Player player)
         {
-
             player.PlayerInteract.OnInteract();
 
             int bullets = Plugin.MiniGunConfig.bullets;
             if (Ammo <= bullets)
                 bullets = (int)Math.Floor(Ammo);
-            Ray[] rays = new Ray[bullets];
-            for (int i = 0; i < rays.Length; i++)
-                rays[i] = new Ray(player.CameraReference.position + player.CameraReference.forward, RandomAimcone() * player.CameraReference.forward);
 
-            RaycastHit[] hits = new RaycastHit[bullets];
-            bool[] didHit = new bool[hits.Length];
-            for (int i = 0; i < hits.Length; i++)
-                didHit[i] = Physics.Raycast(rays[i], out hits[i], 100f, (int)LayerID.Hitbox);
-
-            bool hit = false;
             AutomaticFirearm firearm = (AutomaticFirearm)Item.ItemBase;
-            for (int i = 0; i < hits.Length; i++)
+
+            for (int i = 0; i < bullets; i++)
             {
-                if (!didHit[i]) continue;
+                if (i != 0)
+                    VT_Api.Core.MapAndRoundManger.Get.PlayShoot(Sound, Holder.Position, (byte)Distance);
 
-                HitboxIdentity hitbox = hits[i].collider.GetComponent<HitboxIdentity>();
-                if (hitbox != null)
-                {
-                    var target = hits[i].collider.GetComponentInParent<Player>();
-                    if (target == player)
-                        continue;
-
-                    if (SynapseExtensions.GetHarmPermission(player, target))
-                    {
-                        hitbox.Damage(Plugin.MiniGunConfig.Damage, new FirearmDamageHandler(firearm, Plugin.MiniGunConfig.Damage, false), player.Position);
-
-                        Synapse.Server.Get.Map.PlaceBlood(hits[i].point + hits[i].normal * 0.01f);
-
-                        hit = true;
-                    }
-                    
-                    continue;
-                }
-
-                IDestructible window = hits[i].collider.GetComponent<IDestructible>();
-                if (window != null)
-                {
-                    window.Damage(Plugin.MiniGunConfig.Damage, new FirearmDamageHandler(firearm, Plugin.MiniGunConfig.Damage, false), player.Position);
-                    hit = true;
-                    continue;
-                }
-
-                ((SingleBulletHitreg)firearm.HitregModule).PlaceBulletholeDecal(new Ray(player.Hub.PlayerCameraReference.position, player.Hub.PlayerCameraReference.forward), hits[i]);
+                var ray = GetRay();
+                
+                if (Physics.Raycast(ray, out var hit, Distance, StandardHitregBase.HitregMask))
+                    ExecuteShoot(ray, hit, firearm, out _);
             }
 
-            if (hit) Hitmarker.SendHitmarker(player.Hub, 1.2f);
-
             return bullets;
+        }
+
+        public bool ExecuteShoot(Ray ray, RaycastHit hit, AutomaticFirearm firearm , out IDestructible destructible)
+        {
+            Synapse.Api.Logger.Get.Info("1");
+
+            if (hit.collider.TryGetComponent(out destructible))
+            {
+                Synapse.Api.Logger.Get.Info("2.1");
+                float damage = Plugin.MiniGunConfig.Damage;
+                Synapse.Api.Logger.Get.Info("2.2");
+                if (destructible.Damage(damage, new FirearmDamageHandler(firearm, damage, false), hit.point))
+                {
+                    Synapse.Api.Logger.Get.Info("3");
+                    if (!ReferenceHub.TryGetHubNetID(destructible.NetworkId, out var hub))
+                    {
+                        Synapse.Api.Logger.Get.Info("4");
+                        var player = hub.GetPlayer();
+                        Synapse.Api.Logger.Get.Info("5");
+                        foreach (var hubPlayer in player.SpectatorManager.ServerCurrentSpectatingPlayers)
+                            hubPlayer.GetPlayer()?.Connection.Send(new GunHitMessage(false, damage, ray.origin));
+
+                            Synapse.Api.Logger.Get.Info("6");
+                        if (player.ClassManager.IsHuman())
+                            new GunHitMessage(hit.point + (ray.origin - hit.point).normalized, ray.direction, true).SendToAuthenticated();
+                    }
+                    Synapse.Api.Logger.Get.Info("7");
+                    Hitmarker.SendHitmarker(Holder.Hub, 1.2f);
+                    Synapse.Api.Logger.Get.Info("8");
+                    return true;
+                }
+            }
+            else new GunHitMessage(hit.point + (ray.origin - hit.point).normalized, ray.direction, false).SendToAuthenticated();
+            Synapse.Api.Logger.Get.Info("9");
+            return false;
         }
 
         private class MinGunPlayerScript : RepeatingBehaviour
@@ -183,12 +196,9 @@ namespace VT_Item.Item
 
             protected override void BehaviourAction()
             {
-                PlayerEffect effect1 = player.PlayerEffectsController.GetEffect<Disabled>();
-                if (effect1 == null || effect1.Duration < 1 )
-                    player.GiveEffect(Effect.Disabled, 1, 0.5f);
+                player.GiveEffect(Effect.Disabled, 1, 0.5f);
 
-                PlayerEffect effect2 = player.PlayerEffectsController.GetEffect<Ensnared>();
-                if ((effect2 == null || effect2.Duration < 1) && !Plugin.MiniGunConfig.ByPasseID.Contains(player.RoleID))
+                if (!Plugin.MiniGunConfig.ByPasseID.Contains(player.RoleID))
                     player.GiveEffect(Effect.Ensnared, 1, 0.5f);
 
                 if (player.ItemInHand.ID != (int)ItemID.MiniGun)

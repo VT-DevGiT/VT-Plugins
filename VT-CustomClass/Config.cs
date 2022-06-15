@@ -249,9 +249,9 @@ namespace VTCustomClass
         public SerializedPlayerRole JanirtorConfig = new SerializedPlayerRole()
         {
             Health = 110,
-            SpawnPoints = new List<SerializedMapPoint>() 
-            { 
-                new SerializedMapPoint("LCZ_Toilets", -5.6f, 2.15f, -9.3f) 
+            SpawnPoints = new List<SerializedMapPoint>()
+            {
+                new SerializedMapPoint("LCZ_Toilets", -5.6f, 2.15f, -9.3f)
             },
             Inventory = new SerializedPlayerInventory()
             {
@@ -269,9 +269,9 @@ namespace VTCustomClass
         public SerializedPlayerRole GuarSupervisorConfig = new SerializedPlayerRole()
         {
             Health = 110,
-            SpawnPoints = new List<SerializedMapPoint>() 
-            { 
-                new SerializedMapPoint("HCZ_EZ_Checkpoint", 7.9f, 2.143616f, 0.02f) 
+            SpawnPoints = new List<SerializedMapPoint>()
+            {
+                new SerializedMapPoint("HCZ_EZ_Checkpoint", 7.9f, 2.143616f, 0.02f)
             },
             Inventory = new SerializedPlayerInventory()
             {
@@ -495,7 +495,7 @@ namespace VTCustomClass
             Inventory = new SerializedPlayerInventory()
             {
                 Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
-                Items = new List<SerializedPlayerItem>() 
+                Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardNTFLieutenant, 1, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.GunCrossvec, 50, 0, Vector3.one, 100, true),
@@ -809,7 +809,7 @@ namespace VTCustomClass
             Inventory = new SerializedPlayerInventory()
             {
                 Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
-                Items = new List<SerializedPlayerItem> 
+                Items = new List<SerializedPlayerItem>
                 {
                     new SerializedPlayerItem((int)ItemType.GunLogicer, 100, 0, Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.ArmorHeavy, 1, 0, Vector3.one, 100, false),
@@ -935,25 +935,22 @@ namespace VTCustomClass
         };
 
         [Description("UTR ignor SCP 173")]
-        public bool UTRIngor173 = true;
+        public bool UTRIngor173 { get; set; } = true;
 
         [Description("UTR ignor SCP 096")]
-        public bool UTRIngor096 = true;
+        public bool UTRIngor096 { get; set; } = true;
 
-        [Description("List of the SCPs can damage UTR")]
-        public List<int> UTRListScpDamge = new List<int>()
+        [Description("List of the SCPs can damage UTR and the amount of damage, if set to -1 is the default damage")]
+        public Dictionary<int, int> UTRListScpDamge { get; set; } = new Dictionary<int, int>()
         {
-            (int)RoleID.Scp0492, (int)RoleID.Scp096, (int)RoleID.Scp106,
-            (int)RoleID.Scp93953, (int)RoleID.Scp93989, (int)RoleID.SCP008,
-            (int)RoleID.SCP966
-        };
-
-        public int UTRScpDamage = 20;
-
-        [Description("List of the SCPs cannot damge UTR")]
-        public List<int> UTRListScpNoDamge = new List<int>()
-        {
-            (int)RoleID.Scp173, (int)RoleID.Scp049
+            { (int)RoleID.Scp049,  100  },
+            { (int)RoleID.Scp0492,  20  },
+            { (int)RoleID.Scp096,   -1  },
+            { (int)RoleID.Scp106,   0   },
+            { (int)RoleID.Scp93953, -1  },
+            { (int)RoleID.Scp93989, -1  },
+            { (int) RoleID.SCP008,  100 },
+            { (int) RoleID.SCP966,  50  }
         };
     }
 }

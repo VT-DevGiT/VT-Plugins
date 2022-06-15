@@ -95,11 +95,11 @@ namespace VTDevHelp
     }
 
     [CommandInformation(
-  Name = "DevDoorSpawn",
-  Aliases = new[] { "VTSdoor" },
-  Permission = "dev",
-  Platforms = new[] { Platform.RemoteAdmin }
-  )]
+    Name = "DevDoorSpawn",
+    Aliases = new[] { "VTSdoor" },
+    Permission = "dev",
+    Platforms = new[] { Platform.RemoteAdmin }
+    )]
     public class DoorSpawnCommand : ISynapseCommand
     {
         public CommandResult Execute(CommandContext context)
@@ -167,9 +167,18 @@ namespace VTDevHelp
             var result = new CommandResult();
             if (context.Arguments.Count == 0)
                 return result;
-            var player =Server.Get.GetPlayer(context.Arguments.FirstElement());
-            player.DimScreen();
-            MEC.Timing.CallDelayed(1f, () => player.OpenMenu(MenuType.OldFastMenu));
+
+            if (Server.Get.TryGetPlayers(context.Arguments.FirstElement(), out var players, context.Platform == Platform.RemoteAdmin ? context.Player : null))
+                return result;
+            
+            foreach(var player in players)
+            {
+                player.SendBroadcast(3, "Au revoir !");
+
+                player.DimScreen();
+                MEC.Timing.CallDelayed(3f, () => player.OpenMenu(MenuType.OldMenu));
+            }
+
             return result;
         }
     }

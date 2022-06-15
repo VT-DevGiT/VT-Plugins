@@ -2,14 +2,14 @@
 using Mirror;
 using Synapse;
 using Synapse.Api;
-
-
+using Synapse.Api.Events.SynapseEventArguments;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Threading;
 using VT_Api.Core.Events.EventArguments;
 using VT_Api.Core.Items;
 
@@ -25,14 +25,7 @@ namespace VTDevHelp
 
         private void Start()
         {
-            Logger.Get.Info(InventoryLimits.Config.CategoryLimits.Count);
-            foreach (var limit in InventoryLimits.Config.CategoryLimits)
-                Logger.Get.Info(limit);
-            Logger.Get.Info("-----");
-            Logger.Get.Info(ItemManager.Get.ItemCategoryLimit.Count);
-            foreach (var limit in ItemManager.Get.ItemCategoryLimit)
-                Logger.Get.Info(limit);
-
+            
         }
 
         private void GetsyncVar()

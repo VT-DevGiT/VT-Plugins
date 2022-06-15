@@ -25,6 +25,6 @@ namespace VTCustomClass.PlayerScript
 
         protected override string RoleName => Plugin.Instance.Config.SciSupervisorName;
 
-        protected override SerializedPlayerRole Config => Plugin.Instance.Config.GuarSupervisorConfig;
+        protected override SerializedPlayerRole Config => Plugin.Instance.Config.SciSupervisorConfig;
     }
 }

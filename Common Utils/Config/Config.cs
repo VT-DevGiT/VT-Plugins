@@ -95,5 +95,9 @@ namespace Common_Utiles
 
         [Description("The percent chance of dying for players passing through 914")]
         public float Rnd914ChanceDie = 50;
+
+        [Description("The information about the roles")]
+        public Dictionary<int, string> RolesInfos = new Dictionary<int, string>();
+
     }
 }

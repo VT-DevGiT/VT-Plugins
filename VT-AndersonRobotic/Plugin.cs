@@ -30,7 +30,7 @@ namespace VT_AndersonRobotic
             }
             Translation.AddTranslation(new Translation()
             {
-                SpawnMessage = "tu es un membre de <color=yellow>AndersonRobotic</color>\\nTon objectif est de volée toute les donnée des serveurs!\\n<b>Press esc pour fermé</b>",
+                SpawnMessageAnderson = "tu es un membre de <color=yellow>AndersonRobotic</color>\\nTon objectif est de volée toute les donnée des serveurs!\\n<b>Press esc pour fermé</b>",
             }, "FRENCH");
         }
     }
