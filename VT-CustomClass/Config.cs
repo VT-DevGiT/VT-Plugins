@@ -297,7 +297,7 @@ namespace VTCustomClass
             Health = 110,
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(10, 10, 10, 10, 100),
+                Ammo = new SerializedAmmo(0, 0, 100, 0, 0),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardResearchCoordinator, 1, 0, Vector3.one, 100, false),
@@ -321,7 +321,7 @@ namespace VTCustomClass
             },
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
+                Ammo = new SerializedAmmo(0, 0, 100, 0, 0),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardFacilityManager, 1, 0, Vector3.one, 100, false),
@@ -347,7 +347,7 @@ namespace VTCustomClass
             },
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(30, 30, 30, 30, 30),
+                Ammo = new SerializedAmmo(0, 0, 30, 0, 0),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardZoneManager, 1, 0, Vector3.one, 100, false),
@@ -365,7 +365,7 @@ namespace VTCustomClass
             Health = 110,
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
+                Ammo = new SerializedAmmo(100, 0, 0, 100, 0),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardNTFLieutenant, 1, 0, Vector3.one, 100, false),
@@ -385,7 +385,7 @@ namespace VTCustomClass
             Health = 120,
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
+                Ammo = new SerializedAmmo(100, 0, 100, 0, 0),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardNTFCommander, 1, 0, Vector3.one, 100, false),
@@ -407,7 +407,7 @@ namespace VTCustomClass
             Health = 130,
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
+                Ammo = new SerializedAmmo(100, 0, 100, 0, 0),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardO5, 1, 0, Vector3.one, 100, false),
@@ -428,7 +428,7 @@ namespace VTCustomClass
             Health = 175,
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
+                Ammo = new SerializedAmmo(0, 100, 0, 0, 0),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardContainmentEngineer, 1, 0, Vector3.one, 100, false),
@@ -450,7 +450,7 @@ namespace VTCustomClass
             Health = 150,
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
+                Ammo = new SerializedAmmo(100, 0, 0, 0, 0),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardNTFLieutenant, 1, 0, Vector3.one, 100, false),
@@ -473,7 +473,7 @@ namespace VTCustomClass
             Health = 105,
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
+                Ammo = new SerializedAmmo(100, 0, 0, 0, 0),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardNTFLieutenant, 1, 0, Vector3.one, 100, false),
@@ -494,8 +494,8 @@ namespace VTCustomClass
             Health = 150,
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
-                Items = new List<SerializedPlayerItem>()
+                Ammo = new SerializedAmmo(0, 0, 100, 0, 0),
+                Items = new List<SerializedPlayerItem>() 
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardNTFLieutenant, 1, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.GunCrossvec, 50, 0, Vector3.one, 100, true),
@@ -515,7 +515,7 @@ namespace VTCustomClass
             Health = 500,
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(300, 300, 300, 300, 300),
+                Ammo = new SerializedAmmo(0, 300, 0, 300, 0),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.GunLogicer, 100, 0, Vector3.one, 100, true),
@@ -536,7 +536,7 @@ namespace VTCustomClass
             Health = 150,
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(50, 520, 520, 520, 520),
+                Ammo = new SerializedAmmo(0, 520, 0, 0, 0),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, Vector3.one, 100, false),
@@ -556,7 +556,7 @@ namespace VTCustomClass
             Health = 120,
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(0, 100, 0, 100, 80),
+                Ammo = new SerializedAmmo(0, 100, 0, 0, 0),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, Vector3.one, 100, false),
@@ -579,7 +579,7 @@ namespace VTCustomClass
             Health = 120,
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(25, 125, 20, 125, 125),
+                Ammo = new SerializedAmmo(0, 125, 60, 0, 0),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardNTFCommander, 1, 0, Vector3.one, 100, false),
@@ -605,7 +605,7 @@ namespace VTCustomClass
             Health = 110,
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
+                Ammo = new SerializedAmmo(0, 0, 100, 0, 0),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, Vector3.one, 100, false),
@@ -628,7 +628,7 @@ namespace VTCustomClass
             Health = 120,
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(0, 100, 100, 100, 100),
+                Ammo = new SerializedAmmo(0, 100, 0, 0, 0),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, Vector3.one, 100, false),
@@ -652,7 +652,7 @@ namespace VTCustomClass
             },
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(50, 50, 50, 50, 50),
+                Ammo = new SerializedAmmo(0, 0, 100, 0, 0),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.GunCOM18, 18, 0, Vector3.one, 100, true),
@@ -670,7 +670,7 @@ namespace VTCustomClass
             Health = 90,
             Inventory = new SerializedPlayerInventory()
             {
-                Ammo = new SerializedAmmo(40, 0, 60, 14, 18),
+                Ammo = new SerializedAmmo(0, 60, 60, 0, 0),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, Vector3.one, 100, false),
@@ -693,6 +693,7 @@ namespace VTCustomClass
             Health = 110,
             Inventory = new SerializedPlayerInventory()
             {
+                Ammo = new SerializedAmmo(0, 0, 70, 0, 0),
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, Vector3.one, 100, false),
@@ -756,8 +757,7 @@ namespace VTCustomClass
                 new SerializedMapPoint("HCZ_EZ_Checkpoint", 5.943375f, 1.329956f, -5.99823f)
             },
             Inventory = new SerializedPlayerInventory()
-            {
-                Ammo = new SerializedAmmo(100, 100, 100, 100, 100),
+            {                
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.Coin, 1, 0, Vector3.one, 100, false),
