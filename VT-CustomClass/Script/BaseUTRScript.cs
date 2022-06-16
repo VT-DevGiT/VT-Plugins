@@ -131,7 +131,7 @@ namespace VTCustomClass.PlayerScript
             Server.Get.Events.Map.DoorInteractEvent += OnDoorInteract;
             Server.Get.Events.Scp.Scp096.Scp096AddTargetEvent += OnAddTarget;
             Server.Get.Events.Player.PlayerEnterFemurEvent += OnFemur;
-            //Server.Get.Events.Player.PlayerChangeItemEvent += OnChangeItem; 
+            //Server.Get.Events.Player.PlayerChangeItemEvent += OnChangeItem;
             Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
             Server.Get.Events.Player.PlayerSpeakEvent += OnSpeak;
             VtController.Get.Events.Item.RemoveLimitAmmoEvent += OnAmmoLimit;

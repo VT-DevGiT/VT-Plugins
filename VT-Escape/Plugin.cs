@@ -1,6 +1,8 @@
 ﻿using HarmonyLib;
 using Synapse;
+using Synapse.Api;
 using Synapse.Api.Plugin;
+using VT_Api.Core.Plugin;
 
 namespace VTEscape
 {
@@ -15,18 +17,30 @@ SynapseMinor = SynapseController.SynapseMinor,
 SynapsePatch = SynapseController.SynapsePatch,
 Version = "v.1.5.3"
 )]
-    public class Plugin : AbstractPlugin
+    public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config>
     {
-        public static Plugin Instance { get; private set; }
+        public override bool AutoRegister => false;
 
         [Synapse.Api.Plugin.Config(section = "VT-Escape")]
-        public static Config Config;
+        public override Config Config { get; protected set; }
 
-        public override void Load()
+
+        public event Synapse.Api.Events.EventHandler.OnSynapseEvent<CustomEscapeEventArgs> CustomEscapePostEvent;
+
+        internal void CallCustomEscapeEvent(Player player, Player cuffer, EscapeType escape, string message, bool nuck, int curentRole, int newRole)
         {
-            Instance = this;
-            base.Load();
-            new EventHandlers();
+            var ev = new CustomEscapeEventArgs()
+            {
+                Player = player,
+                Cuffer = cuffer,
+                Escape = escape,
+                EscapeMessage = message,
+                StartWarHead = nuck,
+                CurentRole = curentRole,
+                NewRole = newRole,
+            };
+
+            CustomEscapePostEvent?.Invoke(ev);
         }
     }
 }

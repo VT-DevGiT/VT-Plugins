@@ -15,14 +15,16 @@ namespace VT_Alpha
         public EventHandlers()
         {
             VtController.Get.Events.Map.WarHeadStartEvent += OnWarHeadStart;
-            Server.Get.Events.Round.RoundRestartEvent += () => AphaOne = 0;
+            Server.Get.Events.Round.RoundRestartEvent += RoundResart;
         }
 
         internal int AphaOne = 0;
 
+        private void RoundResart() => AphaOne = 0;
+
         private void OnWarHeadStart(WarHeadInteracteEventArgs ev)
         {
-            if (AphaOne > Plugin.Instance.Config.MaxRepsawn && UnityEngine.Random.Range(1f, 100f) <= Plugin.Instance.Config.SpawnChance)
+            if ((AphaOne == -1 || AphaOne > Plugin.Instance.Config.MaxRepsawn) && UnityEngine.Random.Range(1f, 100f) <= Plugin.Instance.Config.SpawnChance)
             { 
                 Round.Get.NextRespawn += 120f;
                 

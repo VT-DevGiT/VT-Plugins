@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using VT_Api.Config;
 using VT_Api.Core.Enum;
+using VT_Api.Core.Plugin;
 using VT_Api.Core.Roles;
 using VT_Api.Core.Teams;
 
 namespace VTCustomClass.PlayerScript
 {
+    [AutoRegisterManager.Ignore]
     public class SCP953Script : AbstractRole, IScpDeathAnnonce
     {
         public string ScpName => "9 5 3";

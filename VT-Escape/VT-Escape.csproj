@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Behaviour\BaseEscape.cs" />
+    <Compile Include="CustomEscapeEventArgs.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Config.cs" />

@@ -53,12 +53,11 @@ namespace VTEscape
             if (Vector3.Distance(base.transform.position, Postion) < Radius)
             {
                 var config = GetConfig();
+                Plugin.Instance.CallCustomEscapeEvent(Player, Player.Cuffer, EscapeType, config.EscapeMessage, config.StartWarHead, Player.RoleID, config.NewRoleID);
+
                 if (config != null)
                     config.Use(Player);
 
-/*                if (Player.CustomRole != null)
-                    Player.TriggerEscape();
-*/
                 return;
             }
         }
