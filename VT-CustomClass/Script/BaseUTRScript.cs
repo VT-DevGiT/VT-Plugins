@@ -101,6 +101,10 @@ namespace VTCustomClass.PlayerScript
             base.DeSpawn();
         }
 
+        public bool CanBySee(Player player)
+            =>  Plugin.Instance.Config.UTRListScpDamge.ContainsKey(player.RoleID)
+        
+
         /*
         public void RotateToTarget()
         {
