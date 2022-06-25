@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace VTCustomClass.Pouvoir
 {
-    public static class Reponse
+    public static class Cooldown
     {
-        public static string Cooldown(DateTime lastPower, int Time)
+        public static string Send(DateTime lastPower, int Time)
         {
             int cooldown = Time - (int)(DateTime.Now - lastPower).TotalSeconds;
             return Regex.Replace(Plugin.Instance.Translation.ActiveTranslation.PowerCooldown, "%Time%", cooldown.ToString(), RegexOptions.IgnoreCase);

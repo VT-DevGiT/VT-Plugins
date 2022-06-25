@@ -11,7 +11,7 @@ using VT_Api.Core.Behaviour;
 namespace VT939
 {
     //https://github.com/iopietro/BetterScp939/releases/tag/1.0.7
-    public class Scp939Controller : RepeatingBehaviour
+    public class BetterScp939 : RepeatingBehaviour
     {
         public Player player;
         public Scp207 scp207;
@@ -39,9 +39,7 @@ namespace VT939
                 DamageType.Scp207,
                 DamageType.Unknown
             };
-            AngerMeter = Plugin.Instance.Config.StartingAnger;
             sinkHole.slowAmount = Plugin.Instance.Config.SlowAmount;
-
         }
 
         protected override void Start()
@@ -52,11 +50,16 @@ namespace VT939
 
         protected override void OnEnable()
         {
-            player.Scale *= Plugin.Instance.Config.Size;
+            Timing.CallDelayed(1f, () =>
+            {
+                player.Scale *= Plugin.Instance.Config.Size;
+                AngerMeter = Plugin.Instance.Config.StartingAnger;
+            });
+
 
             if (Plugin.Instance.Config.ShowSpawnBroadcastMessage)
             {
-                player.SendBroadcast(Plugin.Instance.Config.SpawnBroadcastMessageDuration, string.Format(Plugin.Instance.Config.SpawnBroadcastMessage, Plugin.Instance.Config.ForceSlowDownTime));
+                player.SendBroadcast(Plugin.Instance.Config.SpawnBroadcastMessageDuration, string.Format(Plugin.Instance.Translation.ActiveTranslation.SpawnMessage, Plugin.Instance.Config.ForceSlowDownTime));
             }
             base.OnEnable();
         }

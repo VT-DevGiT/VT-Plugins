@@ -124,6 +124,47 @@ namespace VTCustomClass.PlayerScript
             Corp.SetRotation(Player.Rotation);
         }
 
+        public override bool CallPower(byte power, out string message) // debug
+        {
+
+            switch (power)
+            {
+                case 1:
+                    Player.Position = Corp.body.Position;
+                    message = "DEBUG !!!";
+                    return true;
+                    /*                    if (Target == null)
+                                        {
+                                            Target = Player.LookingAt.GetPlayer();
+                                            if (Target == null || !SynapseExtensions.GetHarmPermission(Player, Target))
+                                            {
+                                                message = Plugin.Instance.Translation.ActiveTranslation.NeedToLookAPlayer;
+                                                return false;
+                                            }
+                                            else
+                                            {
+                                                message = Plugin.Instance.Translation.ActiveTranslation.TargetLock;
+                                                return true;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (Target == null || !SynapseExtensions.GetHarmPermission(Player, Target))
+                                            {
+                                                message = Plugin.Instance.Translation.ActiveTranslation.UnlockTarget;
+                                                return true;
+                                            }
+                                            else
+                                            {
+                                                message = Plugin.Instance.Translation.ActiveTranslation.NewTargetLock;
+                                                return true;
+                                            }
+                                        }*/
+            }
+
+            message = Plugin.Instance.Translation.ActiveTranslation.OnlyOnePower;
+            return false;
+        }
 
         #endregion
 
@@ -216,10 +257,12 @@ namespace VTCustomClass.PlayerScript
 
         private static void OnUseIteam(PlayerItemInteractEventArgs ev)
         {
-            if (ev.Player?.CustomRole is BaseUTRScript)
+            if (ev.Player?.CustomRole is BaseUTRScript utr)
             {
                 if (ev.CurrentItem?.ItemCategory == ItemCategory.Medical || ev.CurrentItem?.ItemCategory == ItemCategory.SCPItem)
                     ev.Allow = false;
+                else if (ev.CurrentItem?.ItemCategory == ItemCategory.Firearm && ev.CurrentItem.ID == (int)ItemID.MiniGun)
+                    VT_Api.Core.MapAndRoundManger.Get.PlayShoot((ShootSound)ev.CurrentItem.ItemType, utr.Player.Position, 25);
             }
         }
 
@@ -228,46 +271,6 @@ namespace VTCustomClass.PlayerScript
             if (ev.Role == RoleType.Scp173)
                 ev.Player.Scp173Controller.IgnoredPlayers.Add(Player);
         }
-
-        /* I cant rotate the player :(
-        public override bool CallPower(byte power, out string message)
-        {
-           
-            switch (power)
-            {
-                case 1:
-                    if (Target == null)
-                    {
-                        Target = Player.LookingAt.GetPlayer();
-                        if (Target == null || !SynapseExtensions.GetHarmPermission(Player, Target))
-                        {
-                            message = Plugin.Instance.Translation.ActiveTranslation.NeedToLookAPlayer;
-                            return false;
-                        }
-                        else
-                        {
-                            message = Plugin.Instance.Translation.ActiveTranslation.TargetLock;
-                            return true;
-                        }
-                    }
-                    else
-                    {
-                        if (Target == null || !SynapseExtensions.GetHarmPermission(Player, Target))
-                        {
-                            message = Plugin.Instance.Translation.ActiveTranslation.UnlockTarget;
-                            return true;
-                        }
-                        else
-                        {
-                            message = Plugin.Instance.Translation.ActiveTranslation.NewTargetLock;
-                            return true;
-                        }
-                    }
-            }
-
-            message = Plugin.Instance.Translation.ActiveTranslation.OnlyOnePower;
-            return false;
-        }*/
 
         #endregion
 
@@ -387,7 +390,10 @@ namespace VTCustomClass.PlayerScript
 
             #region Methods
             public void SetPose(Vector3 postion)
-                => body.Position = postion;
+            {
+                body.Position = postion;
+                Synapse.Api.Logger.Get.Info("update Pose"); // Debug
+            }
 
             public void ChangeItem(SynapseItem newItem)
             {

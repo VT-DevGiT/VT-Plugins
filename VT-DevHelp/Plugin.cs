@@ -13,7 +13,7 @@ namespace VTDevHelp
     SynapseMajor = SynapseController.SynapseMajor,
     SynapseMinor = SynapseController.SynapseMinor,
     SynapsePatch = SynapseController.SynapsePatch,
-    Version = "v2.3.5"
+    Version = "v2.4.0"
     )]
     public class Plugin : VtAbstractPlugin<Plugin, EventHandlers>
     {
@@ -24,7 +24,9 @@ namespace VTDevHelp
 
         public override void Load()
         {
-            AudioApi.AudioApi.Enable();
+            Synapse.Api.Teams.TeamManager.Get.RegisterTeam<TestTeam>();
+
+            //AudioApi.AudioApi.Enable();
             base.Load();
         }
     }

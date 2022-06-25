@@ -40,7 +40,7 @@ namespace VTCustomClass.PlayerScript
 
         private static void OnAttack(PlayerDamageEventArgs ev)
         {
-            if (ev.Allow && ev.Killer?.CustomRole is SCP966cript && ev.DamageType == DamageType.Zombie)
+            if (ev.Allow && ev.Killer?.CustomRole is SCP966cript)
             {
                 ev.Damage = 10;
                 if (!ev.Victim.IsUTR())

@@ -32,8 +32,6 @@ namespace VTCustomClass.Pouvoir
             base.Start();
         }
 
-
-
         protected override void BehaviourAction()
         {
             foreach (var target in Server.Get.Players.Where(p => (!ignorUTR || !p.IsUTR()) && !ignoredRole.Contains(p.RoleID) && !ignoredTeam.Contains(p.TeamID)))

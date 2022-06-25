@@ -1,4 +1,5 @@
-﻿using PlayerStatsSystem;
+﻿using MapGeneration;
+using PlayerStatsSystem;
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
@@ -9,31 +10,38 @@ using UnityEngine;
 using VT_Api.Core.Enum;
 using VT_Api.Extension;
 using VTCustomClass.PlayerScript;
+using VTCustomClass.Pouvoir;
 
 namespace VTCustomClass
 {
     public class EventHandlers
     {
-        public List<Player> RespawnPlayer = new List<Player>();
-
-        public Dictionary<int, int> RoleIDSpawnedInRound = new Dictionary<int, int>();
-        public Dictionary<Player, int> IDRespawnPlayer = new Dictionary<Player, int>();
+        public List<Player> RespawnPlayer { get; private set; } = new List<Player>();
+        public Dictionary<int, int> RoleIDSpawnedInRound { get; private set; } = new Dictionary<int, int>();
+        public Dictionary<Player, int> IDRespawnPlayer { get; private set; } = new Dictionary<Player, int>();
 
         public EventHandlers()
         {
             Server.Get.Events.Round.SpawnPlayersEvent += OnSpawn;
             Server.Get.Events.Round.TeamRespawnEvent += OnReSpawn;
             Server.Get.Events.Round.RoundRestartEvent += OnRestart;
+            Server.Get.Events.Map.TriggerTeslaEvent += OnTesla;
             Server.Get.Events.Player.PlayerSetClassEvent += OnClass;
             Server.Get.Events.Server.TransmitPlayerDataEvent += OnTransmitPlayerData;
         }
 
-        private void OnRestart()
+        public void OnTesla(TriggerTeslaEventArgs ev)
         {
+            if (ev.Player.RoleID == (int)RoleID.Staff)
+                ev.Trigger = false;
+        }
+
+        public void OnRestart()
+        {   
             IDRespawnPlayer.Clear();
         }
 
-        private void OnTransmitPlayerData(TransmitPlayerDataEventArgs ev)
+        public void OnTransmitPlayerData(TransmitPlayerDataEventArgs ev)
         {
             if (ev.PlayerToShow == ev.Player)
                 return;
@@ -59,13 +67,13 @@ namespace VTCustomClass
             }
         }
 
-        private void OnReSpawn(TeamRespawnEventArgs ev)
+        public void OnReSpawn(TeamRespawnEventArgs ev)
         {
             IDRespawnPlayer.Clear();
             RespawnPlayer = ev.Players ?? new List<Player>();
         }
 
-        private void OnClass(PlayerSetClassEventArgs ev)
+        public void OnClass(PlayerSetClassEventArgs ev)
         {
 
             if (!RespawnPlayer.Contains(ev.Player))
@@ -120,7 +128,7 @@ namespace VTCustomClass
             }
         }
 
-        private void OnSpawn(SpawnPlayersEventArgs ev)
+        public void OnSpawn(SpawnPlayersEventArgs ev)
         {
             if (ev.SpawnPlayers == null)
                 return;

@@ -10,7 +10,12 @@ namespace VT_FlickerLight
     {
         public EventHandler()
         {
-            Server.Get.Events.Round.RoundStartEvent += () => Timing.RunCoroutine(LigthFlicking());
+            Server.Get.Events.Round.RoundStartEvent += OnRoundStart; 
+        }
+
+        private void OnRoundStart()
+        {
+            Timing.RunCoroutine(LigthFlicking());
         }
 
         private IEnumerator<float> LigthFlicking()

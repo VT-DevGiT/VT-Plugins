@@ -39,7 +39,7 @@ namespace VTCustomClass.PlayerScript
             {
                 if ((DateTime.Now - lastPower).TotalSeconds < Plugin.Instance.Config.LeaderCooldown)
                 {
-                    message = Reponse.Cooldown(lastPower, Plugin.Instance.Config.LeaderCooldown);
+                    message = Cooldown.Send(lastPower, Plugin.Instance.Config.LeaderCooldown);
                     return false;
                 }
 

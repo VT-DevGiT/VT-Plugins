@@ -47,13 +47,6 @@ namespace VT939
         [Description("The amount of anger 939 has when it sees a target")]
         public int Scp939SeeingAhpAmount = 10;
 
-        [Description("The message to broadcast to the 939.")]
-        public string SpawnBroadcastMessage =
-            "<size=20><color=#00FFFF>You've spawned as an upgraded version of <color=#FF0000>SCP-939</color>!" +
-            "\nYou're faster than humans, your <color=#FF0000>anger</color> will increase after taking damage from them." +
-            "\nMore anger means more damage inflicted to humans." +
-            "\nAfter <color=#FF0000>hurting</color> someone, you'll get slowed down for <color=#FF0000>{0}</color> seconds</color></size>";
-
         [Description("More SCP 939")]
         public bool More939 = false;
         public int Max939 = 5;

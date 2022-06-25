@@ -6,7 +6,7 @@ using UnityEngine;
 using VT_Api.Config;
 using VT_Api.Core.Enum;
 
-namespace Common_Utiles
+namespace Common_Utiles.Config
 {
 
     public class Config : AbstractConfigSection
@@ -54,7 +54,19 @@ namespace Common_Utiles
                 new List<int>() { 52, 51 }),
         };
 
-        [Description("makes players passing through 914 have a random size")]
+
+        [Description("Makes the player change roles if he has the chance and the good role, Note if role is -1 is for all roles")]
+        public List<Serialized914Role> Rnd914Roles = new List<Serialized914Role>()
+        {
+            new Serialized914Role()
+            {
+                RoleID = -1,
+                Chance = 25,
+                RoughRoleID = (int)RoleID.Scp0492
+            }
+        };
+
+        [Description("Makes players passing through 914 have a random size")]
         public bool Rnd914Size = false;
 
         [Description("Max and Min Scale in X")]
@@ -70,16 +82,47 @@ namespace Common_Utiles
         public float Min914SizeZ = 0.5f;
 
         [Description("makes players passing through 914 have a random effect")]
-        public List<Effect> list914Effect = new List<Effect>()
+        public List<Serialized914Effect> list914Effect = new List<Serialized914Effect>()
         {
-            Effect.Amnesia,
-            Effect.Asphyxiated,
-            Effect.Scp207,
-            Effect.Visuals939,
-            Effect.Vitality,
-            Effect.Blinded,
+            new Serialized914Effect()
+            {
+                RoleID = -1,
+                Chance = 100,
+                CorseEffect = Effect.Amnesia
+            },
+            new Serialized914Effect()
+            {
+                RoleID = -1,
+                Chance = 50,
+                RoughEffect = Effect.Asphyxiated
+            },
+            new Serialized914Effect()
+            {
+                RoleID = -1,
+                Chance = 25,
+                FineEffect = Effect.Scp207
+            },
+            new Serialized914Effect()
+            {
+                RoleID = -1,
+                Chance = 50,
+                CorseEffect = Effect.Visuals939
+            },
+            new Serialized914Effect()
+            {
+                RoleID = -1,
+                Chance = 50,
+                OneToOneEffect = Effect.Vitality
+            },
+            new Serialized914Effect()
+            {
+                RoleID = -1,
+                Chance = 50,
+                OneToOneEffect = Effect.Bleeding
+            },
         };
-        [Description("makes players passing through 914 have a random life")]
+
+        [Description("Makes players passing through 914 have a random life")]
         public bool Rnd914Life = false;
 
         [Description("Max and Min life")]

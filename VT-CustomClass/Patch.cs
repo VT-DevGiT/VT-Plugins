@@ -10,8 +10,8 @@ namespace VTCustomClass
     {
         static bool Prefix(RadioItem __instance)
         {
-            var player = __instance.OwnerInventory.GetPlayer();
-            if (player.CustomRole is BaseUTRScript)
+            var player = __instance?.OwnerInventory?.GetPlayer();
+            if (player?.CustomRole is BaseUTRScript)
             {
                 __instance.SendStatusMessage();
                 return false;

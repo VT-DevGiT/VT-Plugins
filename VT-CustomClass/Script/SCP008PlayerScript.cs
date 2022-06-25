@@ -2,10 +2,8 @@
 using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
-using Synapse.Config;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using VT_Api.Config;
 using VT_Api.Core.Enum;
 using VT_Api.Core.Roles;
@@ -34,6 +32,20 @@ namespace VTCustomClass.PlayerScript
         protected override string RoleName => Plugin.Instance.Config.Scp008Name;
 
         protected override SerializedPlayerRole Config => Plugin.Instance.Config.Scp008Config;
+
+        private static readonly DamageType[] IgnoredDomageType =
+        {
+            DamageType.MicroHID,
+            DamageType.MicroHid,
+            DamageType.Decontamination,
+            DamageType.PocketDecay,
+            DamageType.Warhead,
+            DamageType.Tesla,
+            DamageType.Disruptor,
+            DamageType.Scp096,
+            DamageType.UsedAs106Bait
+        };
+
         Aura aura;
         protected override void AditionalInit(PlayerSetClassEventArgs ev)
         {
@@ -58,22 +70,62 @@ namespace VTCustomClass.PlayerScript
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnAttack;
             Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
+            Server.Get.Events.Player.PlayerItemUseEvent += OnUseItem;
+        }
+
+
+        private static void OnUseItem(PlayerItemInteractEventArgs ev)
+        {
+            if (ev.Allow && ev.State == ItemInteractState.Finalizing && ev.CurrentItem.ID == (int)ItemID.SCP500)
+            {
+                if (ev.Player.TryGetComponent<Scp008Infected>(out var infected))
+                    infected.enabled = false;
+            }
         }
 
         private static void OnDeath(PlayerDeathEventArgs ev)
         {
+<<<<<<< Updated upstream
             
             if (ev.Victim?.RoleID == 122 && Server.Get.Players.Where(p => p.RoleID == (int)RoleID.SCP008).Count() == 1)
+=======
+            if (ev.Victim.RoleID == (int)RoleID.SCP008 && !Server.Get.Players.Where(p => p.RoleID == (int)RoleID.SCP008).Any())
+            {
+>>>>>>> Stashed changes
                 Map.Get.GlitchedCassie("ALL SCP 0 0 8 SUCCESSFULLY TERMINATED . NOSCPSLEFT");
+            }
+            else if (ev.Victim.TryGetComponent<Scp008Infected>(out var infected) && infected.enabled)
+            {
+                infected.enabled = false;
+
+                if (IgnoredDomageType.Contains(ev.DamageType))
+                    return;
+
+                var pos = ev.Victim.Position;
+                ev.Allow = false;
+                ev.Victim.RoleID = (int)RoleID.SCP008;
+                ev.Victim.Position = pos;
+                infected.Scp008.Health += 100;
+                
+            }
         }
 
         private static void OnAttack(PlayerDamageEventArgs ev)
         {
-            if (ev.Allow && ev.Victim?.CustomRole is SCP008Script && ev.DamageType == DamageType.Zombie)
+            if (ev.Allow && ev.Killer?.RoleID == (int)RoleID.SCP008)
             {
-                if (!ev.Victim.IsUTR())
+                if (!ev.Victim.IsUTR() || ev.Victim.RoleID != (int)RoleID.NtfVirologue)
+                {
+                    ev.Damage = 20;
+                    var infected = ev.Victim.GetOrAddComponent<Scp008Infected>();
+                    infected.enabled = true;
+                    infected.Scp008 = ev.Killer; 
                     ev.Victim.GiveEffect(Effect.Bleeding, 2, 4);
-                ev.Damage = 50;
+                    ev.Victim.GiveEffect(Effect.Blinded, 2, 4);
+                }
+                else
+                    ev.Damage = 60;
+
             }
         }
 
@@ -90,7 +142,9 @@ namespace VTCustomClass.PlayerScript
 
                 var oldteam = VtController.Get.Role.OldTeam(owner);
                 var oldrole = VtController.Get.Role.OldRoleID(owner);
-                if (oldteam != (int)TeamID.SCP && oldteam != (int)TeamID.BerserkSCP && (!Synapse.Api.Roles.RoleManager.Get.IsIDRegistered(oldrole) || !(Synapse.Api.Roles.RoleManager.Get.GetCustomRole(oldrole) is IUtrRole)))
+                if (oldteam != (int)TeamID.SCP && oldteam != (int)TeamID.BerserkSCP && 
+                    ((oldrole >= 0 && oldrole <= Synapse.Api.Roles.RoleManager.HighestRole) // check if it was vanila
+                     || !(Synapse.Api.Roles.RoleManager.Get.GetCustomRole(oldrole) is IUtrRole || oldrole == (int)RoleID.NtfVirologue))) // check if it was not an UTR if it was not vanila
                 {
                     owner.RoleID = (int)RoleID.SCP008;
                     Player.Health += 100;

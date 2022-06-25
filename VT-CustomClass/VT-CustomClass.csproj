@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="Pouvoir\Scp008Infected.cs" />
     <Compile Include="SpawnClassConfig.cs" />
     <Compile Include="CustomTeam\VIPTeam.cs" />
     <Compile Include="Patch.cs" />
@@ -89,7 +90,7 @@
     <Compile Include="Pouvoir\MouveVent.cs" />
     <Compile Include="Translation.cs" />
     <Compile Include="Pouvoir\PowerType.cs" />
-    <Compile Include="Pouvoir\Reponse.cs" />
+    <Compile Include="Pouvoir\Cooldown.cs" />
     <Compile Include="Pouvoir\Aura.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="Plugin.cs" />

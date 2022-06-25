@@ -11,27 +11,30 @@ namespace VT939
         public EventHandlers()
         {
             Server.Get.Events.Player.PlayerSetClassEvent += OnSetClass;
-            Server.Get.Events.Player.PlayerDamageEvent += OnDomage;
+            Server.Get.Events.Player.PlayerDamageEvent += OnDamage;
         }
 
         private void OnSetClass(PlayerSetClassEventArgs ev)
         {
             if (ev.Role.Is939())
-                ev.Player.GetOrAddComponent<Scp939Controller>().enabled = true;
-            else if (ev.Player. TryGetComponent<Scp939Controller>(out var ctr) && ctr.enabled)
+                ev.Player.GetOrAddComponent<BetterScp939>().enabled = true;
+            else if (ev.Player. TryGetComponent<BetterScp939>(out var ctr) && ctr.enabled)
                 ctr.enabled = false;
         }
 
-        public void OnDomage(PlayerDamageEventArgs ev)
+        public void OnDamage(PlayerDamageEventArgs ev)
         {
             if (!ev.Allow)
                 return;
-            var bh = ev.Victim?.GetComponent<Scp939Controller>();
+            var bh = ev.Victim?.GetComponent<BetterScp939>();
             
-            if (bh != null)
+            if (bh != null && bh.enabled)
             {
                 ev.Allow = false;
                 
+                if (ev.Killer != null)
+                    Hitmarker.SendHitmarker(ev.Killer.Hub, 1.2f);
+
                 if (ev.DamageType != DamageType.Scp207)
                     ev.Victim.Health = ev.Damage < 0 ? 0 : ev.Victim.Health - ev.Damage;
 
@@ -57,12 +60,12 @@ namespace VT939
             }
             else
             {
-                bh = ev.Killer?.GetComponent<Scp939Controller>();
-                if (bh != null && ev.Damage > 0)
+                bh = ev.Killer?.GetComponent<BetterScp939>();
+                if (bh != null && bh.enabled && ev.Damage > 0)
                 {
                     ev.Damage = Plugin.Instance.Config.BaseDamage + (bh.AngerMeter / Plugin.Instance.Config.AngerMeterMaximum) * Plugin.Instance.Config.BonusAttackMaximum;
 
-                    bh.forceSlowDownCoroutine = Timing.RunCoroutine(bh.ForceSlowDown(Plugin.Instance.Config.ForceSlowDownTime, Scp939Controller.forceSlowDownInterval), Segment.FixedUpdate);
+                    bh.forceSlowDownCoroutine = Timing.RunCoroutine(bh.ForceSlowDown(Plugin.Instance.Config.ForceSlowDownTime, BetterScp939.forceSlowDownInterval), Segment.FixedUpdate);
                 }
             }
         }

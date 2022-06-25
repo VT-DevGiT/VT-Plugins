@@ -72,7 +72,7 @@ namespace VTCustomClass.PlayerScript
                         message = "You try to revive a scp or a UTR";
                 }
                 else
-                    message = Reponse.Cooldown(lastPower, Plugin.Instance.Config.ChiInfirmierCooldown);
+                    message = Cooldown.Send(lastPower, Plugin.Instance.Config.ChiInfirmierCooldown);
             }
             else message = "You ave only one power";
             return false;

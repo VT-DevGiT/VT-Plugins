@@ -129,26 +129,25 @@ namespace VTDevHelp
                 s = "SUS";
                 return true;
             }
+
+            public static void addEffect(Player player)
+            {
+                var effectCtrl = player.PlayerEffectsController;
+                var effect = new testeffect();
+
+                if (!effectCtrl.AllEffects.ContainsKey(typeof(testeffect)))
+                    effectCtrl.AllEffects.Add(typeof(testeffect), effect);
+
+                effectCtrl.EnableEffect(effect, -1);
+            }
         }
 
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
 
-            var effectCtrl = context.Player.PlayerEffectsController;
-            var effect = new testeffect();
+            Synapse.Api.Logger.Get.Info(context.Player.Scp173Controller.ConfrontingPlayers.Any());
 
-            if (!effectCtrl.AllEffects.ContainsKey(typeof(testeffect)))
-                effectCtrl.AllEffects.Add(typeof(testeffect), effect);
-           
-            effectCtrl.EnableEffect(effect, -1);
-
-            //var truc = "<size=25>You were killed by</size>\\n%PlayerName%\\n<size=25>as</size>\\n%RoleName%".Replace("\\n", "\n").Replace("%PlayerName%", "Ta Mère").Replace("%RoleName%", "UTR");
-            //context.Player.Kill(truc);
-
-            /*
-            var path = @"C:\Users\valentin\AppData\Roaming\Synapse\dependencies\hitman-le-cobra-philippe-je-sais-ou-tu-te-caches.raw";
-            AudioApi.AudioApi.Play(path);*/
             return result;
         }
     }

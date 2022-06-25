@@ -56,7 +56,7 @@ namespace VTCustomClass.PlayerScript
                 }
                 else
                 {
-                    message = Reponse.Cooldown(lastPower, Plugin.Instance.Config.Scp1048CoolDown);
+                    message = Cooldown.Send(lastPower, Plugin.Instance.Config.Scp1048CoolDown);
                     return false;
                 }
                 return true;

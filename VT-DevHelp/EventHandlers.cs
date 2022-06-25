@@ -1,4 +1,5 @@
 ﻿using InventorySystem.Configs;
+using MapGeneration;
 using Mirror;
 using Synapse;
 using Synapse.Api;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Threading;
+using VT_Api.Core.Enum;
 using VT_Api.Core.Events.EventArguments;
 using VT_Api.Core.Items;
 
@@ -19,13 +21,38 @@ namespace VTDevHelp
     {
         public EventHandlers()
         {
-            Server.Get.Events.Round.RoundStartEvent += Start;
+            Server.Get.Events.Round.RoundStartEvent += GetRoomName;
+            Server.Get.Events.Player.PlayerDamageEvent += OnDamager;
+            Server.Get.Events.Round.RoundStartEvent += OnRoundStart;
+            Server.Get.Events.Round.TeamRespawnEvent += OnRespawn;
             //Server.Get.Events.Round.RoundStartEvent += GetsyncVar;
         }
 
-        private void Start()
+        private void OnRoundStart()
         {
-            
+            Round.Get.NextRespawn = 30;
+        }
+
+        private void OnRespawn(TeamRespawnEventArgs ev)
+        {
+            Round.Get.NextRespawn = 20;
+            Logger.Get.Info("Respawn");
+            ev.TeamID = (int)TeamID.SHA;
+        }
+
+        private void OnDamager(PlayerDamageEventArgs ev)
+        {
+            if (ev.Killer?.RoleType == RoleType.Scp0492)
+                Logger.Get.Info(ev.DamageType);
+        }
+
+        private void GetRoomName()
+        {
+            Synapse.Api.Logger.Get.Info("Rooms Name :");
+            foreach (var room in Server.Get.Map.Rooms)
+            {
+                Synapse.Api.Logger.Get.Info(room.RoomName);
+            }
         }
 
         private void GetsyncVar()

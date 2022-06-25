@@ -183,7 +183,6 @@ namespace VTProget_X
         }
 
         public static bool IsValidInteract(int Voltage, CommandContext context)
-            => Map.Get.GetVoltage() >= Voltage && context.Player?.ItemInHand?.ItemType == ItemType.Radio && context.Player?.Room?.RoomType == MapGeneration.RoomName.EzIntercom;
-        
+            => Map.Get.GetVoltage() >= Voltage && context.Player?.Room?.RoomType == MapGeneration.RoomName.EzIntercom;
     }
 }

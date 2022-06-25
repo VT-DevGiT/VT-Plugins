@@ -5,6 +5,7 @@ using Synapse.Api.Items;
 using System.Linq;
 using UnityEngine;
 using VT_Api.Extension;
+using Common_Utiles.Config;
 
 namespace Common_Utiles
 {
@@ -21,8 +22,8 @@ namespace Common_Utiles
 
         System.Func<float, float, float> floatRnd = (min, max) => Random.Range(min, max);
         System.Func<int, int, int> intRnd = (min, max) => Random.Range(min, max);
-        
-        Config cfg => CommonUtiles.Instance.Config;
+
+        Common_Utiles.Config.Config cfg => CommonUtiles.Instance.Config;
         public bool RespawnAllow { get; set; }
         
         private void OnStart() => RespawnAllow = true;
@@ -35,9 +36,8 @@ namespace Common_Utiles
 
         private void On914Activate(Scp914ActivateEventArgs ev)
         {
-            if (!ev.Players.Any()) 
-                foreach (var player in ev.Players)
-                    Player914(player);
+            if (!ev.Players.Any()) foreach (var player in ev.Players)
+                Player914(player);
         }
 
         private void Player914(Player player)
@@ -51,8 +51,13 @@ namespace Common_Utiles
             }
             if (cfg.list914Effect.Any())
             {
-                var effect = cfg.list914Effect[intRnd(0, cfg.list914Effect.Count() - 1)];
-                player.GiveEffect(effect);
+                foreach (var effect in cfg.list914Effect)
+                    effect.Apply(player, Server.Get.Map.Scp914.KnobState);
+            }
+            if (cfg.Rnd914Roles.Any())
+            {
+                foreach (var role in cfg.Rnd914Roles)
+                    role.Apply(player, Server.Get.Map.Scp914.KnobState);
             }
             if (cfg.Rnd914Life)
             {

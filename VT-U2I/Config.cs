@@ -37,7 +37,7 @@ namespace VT_U2I
                 Ammo = new SerializedAmmo(70, 70, 70, 70, 70),
                 Items = new List<SerializedPlayerItem>()
                 {
-                    new SerializedPlayerItem((int)ItemType.KeycardGuard,0,0,Vector3.one, 100, true),
+                    new SerializedPlayerItem((int)ItemType.KeycardNTFLieutenant,0,0,Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.GunFSP9,35,0,Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.GunCOM15,12,0,Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.Flashlight,0,0,Vector3.one, 100, true),
@@ -72,7 +72,7 @@ namespace VT_U2I
                 Ammo = new SerializedAmmo(80, 80, 80, 80, 80),
                 Items = new List<SerializedPlayerItem>()
                 {
-                    new SerializedPlayerItem((int)ItemType.KeycardNTFLieutenant,0,0,Vector3.one, 100, true),
+                    new SerializedPlayerItem((int)ItemType.KeycardNTFCommander,0,0,Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.Medkit,0,0,Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.Adrenaline,0,0,Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.GunE11SR,40,0,Vector3.one, 100, true),

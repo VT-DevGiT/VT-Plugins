@@ -1,7 +1,11 @@
-﻿using Synapse;
+﻿using Achievements;
+using CustomPlayerEffects;
+using InventorySystem.Items.Usables;
+using Mirror;
+using PlayerStatsSystem;
+using Synapse;
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
-using Synapse.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,8 +41,70 @@ namespace VTCustomClass.PlayerScript
         protected override void InitEvent()
         {
             Server.Get.Events.Player.PlayerDamageEvent += OnDammage;
+            Server.Get.Events.Player.PlayerItemUseEvent += OnUseItem;
         }
-        
+
+        static int[] AllowedItems = { (int)ItemID.Medkit, (int)ItemID.XlMedkit, (int)ItemID.Adrenaline, (int)ItemID.Painkillers, (int)ItemID.SCP500 };
+
+        private static void OnUseItem(PlayerItemInteractEventArgs ev)
+        {
+            if (!ev.Allow || ev.CurrentItem == null || ev.State != ItemInteractState.Finalizing)
+                return;
+
+            var cible = ev.Player.LookingAt?.GetPlayer();
+            if (cible == null)
+                return;
+
+            switch (ev.CurrentItem.ID)
+            {
+                case (int)ItemID.Medkit:
+                    {
+                        cible.PlayerStats.GetModule<HealthStat>().ServerHeal(Medkit.HpToHeal);
+                        cible.PlayerEffectsController.UseMedicalItem(ev.CurrentItem.ItemType);
+                        ev.CurrentItem.Destroy();
+                    }
+                    break;
+                case (int)ItemID.Adrenaline:
+                    {
+                        cible.Hub.fpc.ModifyStamina(100f);
+                        cible.PlayerStats.GetModule<AhpStat>().ServerAddProcess(Adrenaline.AhpAddition);
+                        cible.PlayerEffectsController.EnableEffect<Invigorated>(Adrenaline.InvigoratedTargetDuration, true);
+                        cible.PlayerEffectsController.UseMedicalItem(ev.CurrentItem.ItemType);
+                        ev.CurrentItem.Destroy();
+                    }
+                    break;
+                case (int)ItemID.Painkillers:
+                    {
+                        AnimationCurve regenCurve = ((Painkillers)ev.CurrentItem.ItemBase)._healProgress;
+                        UsableItemsController.GetHandler(cible.Hub).ActiveRegenerations.Add(new RegenerationProcess(regenCurve, 0.06666667f, Painkillers.TotalHpToRegenerate));
+                        cible.PlayerEffectsController.UseMedicalItem(ev.CurrentItem.ItemType);
+                        ev.CurrentItem.Destroy();
+                    }
+                    break;
+                case (int)ItemID.SCP500:
+                    {
+                        HealthStat module = cible.PlayerStats.GetModule<HealthStat>();
+                        if (module.CurValue < Scp500.AchievementMaxHp)
+                            AchievementHandlerBase.ServerAchieve((NetworkConnection)cible.NetworkIdentity.connectionToClient, AchievementName.CrisisAverted);
+                        module.ServerHeal(Scp500.TotalHpToRegenerate);
+                        AnimationCurve regenCurve = ((Scp500)ev.CurrentItem.ItemBase)._healProgress;
+                        UsableItemsController.GetHandler(cible.Hub).ActiveRegenerations.Add(new RegenerationProcess(regenCurve, Scp500.TotalRegenerationTime / 100, Scp500.TotalRegenerationTime));
+                        cible.PlayerEffectsController.UseMedicalItem(ev.CurrentItem.ItemType);
+                        ev.CurrentItem.Destroy();
+                    }
+                    break;
+                case (int)ItemID.XlMedkit:
+                    {
+                        cible.PlayerStats.GetModule<HealthStat>().ServerHeal(Medkit.HpToHeal);
+                        cible.PlayerEffectsController.UseMedicalItem(ev.CurrentItem.ItemType); 
+                        ev.Player.Inventory.AddItem(ItemType.Medkit);
+                        ev.CurrentItem.Destroy();
+                    }
+                    break;
+            }
+
+        }
+
         private static void OnDammage(PlayerDamageEventArgs ev)
         {
             if (ev.Killer?.CustomRole is NTFInfirmierScript)
@@ -70,7 +136,7 @@ namespace VTCustomClass.PlayerScript
                         message = "You try to revive a scp";
                 }
                 else
-                    message = Reponse.Cooldown(lastPower, Plugin.Instance.Config.NtfInfirmierCooldown);
+                    message = Cooldown.Send(lastPower, Plugin.Instance.Config.NtfInfirmierCooldown);
             }
             else message = "You ave only one power";
             return false;

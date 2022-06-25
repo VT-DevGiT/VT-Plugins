@@ -3,7 +3,7 @@ using Synapse.Api;
 using System;
 using System.Collections.Generic;
 
-namespace Common_Utiles
+namespace Common_Utiles.Config
 {
 
     [Serializable]

@@ -48,7 +48,7 @@ namespace VTCustomClass.PlayerScript
                     }
                     else
                     {
-                        message = Reponse.Cooldown(lastPowerLight, Plugin.Instance.Config.HackerCoolDownLight);
+                        message = Cooldown.Send(lastPowerLight, Plugin.Instance.Config.HackerCoolDownLight);
                         return false;
                     }
                 case (int)PowerType.DoorHack:
@@ -61,7 +61,7 @@ namespace VTCustomClass.PlayerScript
                     }
                     else
                     {
-                        message = Reponse.Cooldown(lastPowerDoor, Plugin.Instance.Config.HackerCoolDownMessage);
+                        message = Cooldown.Send(lastPowerDoor, Plugin.Instance.Config.HackerCoolDownMessage);
                         return false;
                     }
                 case (int)PowerType.CASSIEHack:
@@ -74,7 +74,7 @@ namespace VTCustomClass.PlayerScript
                     }
                     else
                     {
-                        message = Reponse.Cooldown(lastPowerMessage, Plugin.Instance.Config.HackerCoolDownMessage);
+                        message = Cooldown.Send(lastPowerMessage, Plugin.Instance.Config.HackerCoolDownMessage);
                         return true;
                     }
                 default:
