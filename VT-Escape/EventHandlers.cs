@@ -16,15 +16,15 @@ namespace VTEscape
 
         private void OnLoadComonentsEvent(LoadComponentEventArgs ev)
         {
-            if (Plugin.Config.MTFEscapeIsEnabled)
+            if (Plugin.Instance.Config.MTFEscapeIsEnabled)
                 ev.Player.GetOrAddComponent<NTFEscape>();
-            if (Plugin.Config.ICEscapeIsEnabled)
+            if (Plugin.Instance.Config.ICEscapeIsEnabled)
                 ev.Player.GetOrAddComponent<CHIEscape>();
         }
 
         private void OnEscapesEvent(PlayerEscapeEventArgs ev)
         {
-            if (Plugin.Config.MTFEscapeIsEnabled)
+            if (Plugin.Instance.Config.MTFEscapeIsEnabled)
                 ev.Allow = false;
         }
 

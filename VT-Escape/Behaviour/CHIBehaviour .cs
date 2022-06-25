@@ -4,7 +4,7 @@ namespace VTEscape
 {
     public class CHIEscape : BaseEscape
     {
-        public override Vector3 Postion => Plugin.Config.ICEscapePostion;
+        public override Vector3 Postion => Plugin.Instance.Config.ICEscapePostion;
 
         public override int Radius => 2;
 

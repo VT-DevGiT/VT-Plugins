@@ -35,7 +35,7 @@ namespace VTEscape
             new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.FacilityGuard,           (int)TeamID.None, (int)TeamID.None, (int)RoleID.NtfSergeant),
             new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.GardePrison,             (int)TeamID.None, (int)TeamID.None, (int)RoleID.NtfSergeant),
             new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.ZoneManager,             (int)TeamID.None, (int)TeamID.None, (int)RoleID.NtfSergeant),
-            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.Scp0492,                 (int)TeamID.None, (int)TeamID.None, (int)RoleID.Spectator),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.Scp0492,                 (int)TeamID.None, (int)TeamID.None, (int)RoleID.SerpentsHand),
             
             //escapeMTF Team
             new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None, (int)TeamID.CDP,       (int)TeamID.CDM,  (int)RoleID.CdmCadet),
@@ -46,7 +46,7 @@ namespace VTEscape
             new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None, (int)TeamID.NTF,       (int)TeamID.NTF,  (int)RoleID.NtfPrivate),
             new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None, (int)TeamID.NTF,       (int)TeamID.CHI,  (int)RoleID.ChaosConscript),
             new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None, (int)TeamID.AND,       (int)TeamID.NTF,  (int)RoleID.NtfPrivate),
-            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None, (int)TeamID.SCP,       (int)TeamID.None, (int)RoleID.Spectator, Respawning.SpawnableTeamType.None, 0, true, "LOKI - 5 procedure is engaged . the alfa warhead is started , evacuat immediately ."),
+            new SerializedEscapeConfig(EscapeType.MTF, (int)RoleID.None, (int)TeamID.SCP,       (int)TeamID.None, (int)RoleID.SerpentsHand, Respawning.SpawnableTeamType.None, 0, true, "LOKI - 5 procedure is engaged . the alfa warhead is started , evacuat immediately ."),
             
             //escapeCHI Role
             new SerializedEscapeConfig(EscapeType.CHI, (int)RoleID.ChaosIntrus, (int)TeamID.None, (int)TeamID.None, (int)RoleID.ChaosLeader),
@@ -54,7 +54,7 @@ namespace VTEscape
             new SerializedEscapeConfig(EscapeType.CHI, (int)RoleID.None, (int)TeamID.CDP, (int)TeamID.None, (int)RoleID.ChaosExpertPyrotechnie),
             new SerializedEscapeConfig(EscapeType.CHI, (int)RoleID.None, (int)TeamID.RSC, (int)TeamID.CHI,  (int)RoleID.ChaosConscript),
             new SerializedEscapeConfig(EscapeType.CHI, (int)RoleID.None, (int)TeamID.NTF, (int)TeamID.CHI,  (int)RoleID.ChaosConscript),
-            new SerializedEscapeConfig(EscapeType.CHI, (int)RoleID.None, (int)TeamID.SCP, (int)TeamID.None, (int)RoleID.Spectator),
+            new SerializedEscapeConfig(EscapeType.CHI, (int)RoleID.None, (int)TeamID.SCP, (int)TeamID.None, (int)RoleID.SerpentsHand),
             new SerializedEscapeConfig(EscapeType.CHI, (int)RoleID.None, (int)TeamID.RSC, (int)TeamID.None, (int)RoleID.Spectator),
 
             //other

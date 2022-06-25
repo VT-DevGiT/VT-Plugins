@@ -18,8 +18,8 @@ namespace VTEscape
                 waitforready--;
                 yield return Timing.WaitForSeconds(1f);
             }
-            if (Plugin.Config.WarHeadLockEnabled)
-            {
+            if (Plugin.Instance.Config.WarHeadLockEnabled)
+            {                
                 Map.Get.Nuke.InsidePanel.Locked = true;
             }
             if (Round.Get.RoundIsActive)
@@ -29,7 +29,7 @@ namespace VTEscape
         static public void ChangeRole(Player player, int Role)
         {
             List<SynapseItem> items = new List<SynapseItem>();
-            if (!Plugin.Config.keepInventory)
+            if (!Plugin.Instance.Config.keepInventory)
                 player.Inventory.Clear();
             else foreach (var item in player.Inventory.Items)
             {

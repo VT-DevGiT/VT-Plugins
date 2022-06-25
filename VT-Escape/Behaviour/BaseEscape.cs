@@ -29,7 +29,7 @@ namespace VTEscape
         public SerializedEscapeConfig GetConfig()
         {
             // Get for the roll
-            SerializedEscapeConfig configEscape = Plugin.Config.EscapeList.FirstOrDefault(c => Player.RoleID == c.RoleID && EscapeType == c.Escape && 
+            SerializedEscapeConfig configEscape = Plugin.Instance.Config.EscapeList.FirstOrDefault(c => Player.RoleID == c.RoleID && EscapeType == c.Escape && 
                 ((Player.Cuffer == null && c.CufferTeamID == (int)TeamID.None) ||  Player.Cuffer?.TeamID == c.CufferTeamID));
             if (configEscape != null)
             {
@@ -37,7 +37,7 @@ namespace VTEscape
             }
 
             // Get for the team
-            configEscape = Plugin.Config.EscapeList.FirstOrDefault(c => Player.TeamID == c.TeamID && EscapeType == c.Escape &&
+            configEscape = Plugin.Instance.Config.EscapeList.FirstOrDefault(c => Player.TeamID == c.TeamID && EscapeType == c.Escape &&
                 ((Player.Cuffer == null && c.CufferTeamID == (int)TeamID.None) || Player.Cuffer?.TeamID == c.CufferTeamID));
             if (configEscape != null)
             {
