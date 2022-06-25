@@ -51,15 +51,6 @@ namespace VTCustomClass
                 else
                     ev.Invisible = true;
             }
-            else if (ev.PlayerToShow.CustomRole is BaseUTRScript)
-            {
-                if (ev.Player.RoleID == (int)RoleID.Staff || Plugin.Instance.Config.UTRListScpDamge.ContainsKey(ev.Player.RoleID))
-                    ev.Invisible = false;
-                else if (ev.Player.RoleType == RoleType.Spectator && ev.Player.CurrentlySpectating == ev.PlayerToShow)
-                    ev.Position += UnityEngine.Vector3.forward * 1.5f;
-                else
-                    ev.Invisible = true;
-            }
 
             bool CanSee966()
             {
