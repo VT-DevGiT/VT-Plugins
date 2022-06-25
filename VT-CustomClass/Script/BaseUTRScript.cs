@@ -102,7 +102,7 @@ namespace VTCustomClass.PlayerScript
         }
 
         public bool CanBySee(Player player)
-            =>  Plugin.Instance.Config.UTRListScpDamge.ContainsKey(player.RoleID)
+            => Plugin.Instance.Config.UTRListScpDamge.ContainsKey(player.RoleID);
         
 
         /*
