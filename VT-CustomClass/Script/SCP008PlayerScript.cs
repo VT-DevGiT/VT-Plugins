@@ -95,7 +95,7 @@ namespace VTCustomClass.PlayerScript
                     owner.RoleID = (int)RoleID.SCP008;
                     Player.Health += 100;
                     owner.Position = Player.Position;
-                    message = "You ave new freend !";
+                    message = "You have a new friend !";
                 }
                 else
                 {
@@ -103,7 +103,7 @@ namespace VTCustomClass.PlayerScript
                     return false;
                 }
             }
-            message = "You ave only one power";
+            message = "You have only one power";
             return false;
         }
     }
