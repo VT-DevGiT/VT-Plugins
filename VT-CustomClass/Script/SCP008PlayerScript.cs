@@ -62,7 +62,8 @@ namespace VTCustomClass.PlayerScript
 
         private static void OnDeath(PlayerDeathEventArgs ev)
         {
-            if (ev.Victim?.CustomRole is SCP008Script && !Server.Get.Players.Where(p => p.RoleID == (int)RoleID.SCP008).Any())
+            
+            if (ev.Victim?.RoleID == 122 && Server.Get.Players.Where(p => p.RoleID == (int)RoleID.SCP008).Count() == 1)
                 Map.Get.GlitchedCassie("ALL SCP 0 0 8 SUCCESSFULLY TERMINATED . NOSCPSLEFT");
         }
 
