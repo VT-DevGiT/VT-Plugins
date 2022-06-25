@@ -22,7 +22,7 @@ namespace Common_Utiles
         SynapsePatch = SynapseController.SynapsePatch,
         Version = "v.1.4.0"
         )]
-    public class CommonUtiles : VtAbstractPlugin<CommonUtiles, EventHandlers, Config>
+    public class CommonUtiles : VtAbstractPlugin<CommonUtiles, EventHandlers, Config.Config>
     {
         public override bool AutoRegister => false;
     }

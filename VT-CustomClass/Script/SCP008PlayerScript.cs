@@ -84,14 +84,9 @@ namespace VTCustomClass.PlayerScript
         }
 
         private static void OnDeath(PlayerDeathEventArgs ev)
-        {
-<<<<<<< Updated upstream
-            
-            if (ev.Victim?.RoleID == 122 && Server.Get.Players.Where(p => p.RoleID == (int)RoleID.SCP008).Count() == 1)
-=======
-            if (ev.Victim.RoleID == (int)RoleID.SCP008 && !Server.Get.Players.Where(p => p.RoleID == (int)RoleID.SCP008).Any())
+        {            
+            if (ev.Victim?.RoleID == (int)RoleID.SCP008 && Server.Get.Players.Where(p => p.RoleID == (int)RoleID.SCP008).Count() == 1)
             {
->>>>>>> Stashed changes
                 Map.Get.GlitchedCassie("ALL SCP 0 0 8 SUCCESSFULLY TERMINATED . NOSCPSLEFT");
             }
             else if (ev.Victim.TryGetComponent<Scp008Infected>(out var infected) && infected.enabled)
