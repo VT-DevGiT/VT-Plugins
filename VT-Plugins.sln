@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Grenade", "VT-Grenade\VT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Escape", "VT-Escape\VT-Escape.csproj", "{123BECDE-89C1-45C8-91A3-ED5E1E0B4323}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Intercom", "VT-Proget X\VT-Intercom.csproj", "{6286F0B5-A50E-471F-B674-A5311A8EF0C2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common Utiles", "Common Utils\Common Utiles.csproj", "{B1732CEB-3D38-4502-8B7F-8EEA5B3B842C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-079", "VT-079\VT-079.csproj", "{51168D7C-C3DD-4D3D-9048-BBAFED53C75B}"
@@ -47,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-FlickerLight", "VT-Flick
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-MultiLoader", "VT-MultieLoader\VT-MultiLoader.csproj", "{ADA97A09-49F5-433A-AC17-389C0A1EB5E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VT-Intercom", "VT-Intercom\VT-Intercom.csproj", "{6286F0B5-A50E-471F-B674-A5311A8EF0C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,10 +61,6 @@ Global
 		{123BECDE-89C1-45C8-91A3-ED5E1E0B4323}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{123BECDE-89C1-45C8-91A3-ED5E1E0B4323}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{123BECDE-89C1-45C8-91A3-ED5E1E0B4323}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6286F0B5-A50E-471F-B674-A5311A8EF0C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6286F0B5-A50E-471F-B674-A5311A8EF0C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6286F0B5-A50E-471F-B674-A5311A8EF0C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6286F0B5-A50E-471F-B674-A5311A8EF0C2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B1732CEB-3D38-4502-8B7F-8EEA5B3B842C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B1732CEB-3D38-4502-8B7F-8EEA5B3B842C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1732CEB-3D38-4502-8B7F-8EEA5B3B842C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -141,6 +137,10 @@ Global
 		{ADA97A09-49F5-433A-AC17-389C0A1EB5E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADA97A09-49F5-433A-AC17-389C0A1EB5E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADA97A09-49F5-433A-AC17-389C0A1EB5E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6286F0B5-A50E-471F-B674-A5311A8EF0C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6286F0B5-A50E-471F-B674-A5311A8EF0C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6286F0B5-A50E-471F-B674-A5311A8EF0C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6286F0B5-A50E-471F-B674-A5311A8EF0C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
