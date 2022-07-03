@@ -37,8 +37,10 @@ namespace Common_Utiles
 
         private void On914Activate(Scp914ActivateEventArgs ev)
         {
+            Logger.Get.Info("YO");
             if (ev.Players.Any())
             {
+                Logger.Get.Info("YO 2");
                 foreach (var player in ev.Players)
                 {
                     Player914(player);
