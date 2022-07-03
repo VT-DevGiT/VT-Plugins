@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine;
 using VT_Api.Extension;
 using Common_Utiles.Config;
+using Logger = Synapse.Api.Logger;
 
 namespace Common_Utiles
 {
@@ -36,8 +37,15 @@ namespace Common_Utiles
 
         private void On914Activate(Scp914ActivateEventArgs ev)
         {
-            if (!ev.Players.Any()) foreach (var player in ev.Players)
-                Player914(player);
+            if (ev.Players.Any())
+            {
+                foreach (var player in ev.Players)
+                {
+                    Player914(player);
+                }
+            }
+                
+                
         }
 
         private void Player914(Player player)
@@ -59,29 +67,14 @@ namespace Common_Utiles
                 foreach (var role in cfg.Rnd914Roles)
                     role.Apply(player, Server.Get.Map.Scp914.KnobState);
             }
-            if (cfg.Rnd914Life)
-            {
-                var newLif = intRnd(cfg.Min914Life, cfg.Max914Life);
-                player.Health = newLif;
-            }
-            if (cfg.Rnd914ArtificialLife)
-            {
-                var newLif = intRnd(cfg.Min914ArtificialLife, cfg.Max914ArtificialLife);
-                player.ArtificialHealth = newLif;
-            }
-            if (cfg.Rnd914ChanceDie != 0)
-            {
-                var Rnd = floatRnd(0, 100);
-                if (Rnd >= cfg.Rnd914ChanceDie)
-                    player.Kill("Crush by SCP 914");
-            }
+                 
         }
 
         private void On914Upgrade(VT_Api.Core.Events.EventArguments.Scp914UpgradeItemEventArgs ev)
         {
             var NewIdItems = cfg.Recipes.FirstOrDefault(r => r.ItemID == ev.Item.ID).Parse(ev.Setting);
             if (NewIdItems == null)
-                ev.NewItem = cfg.RemouvRecipes ? SynapseItem.None : null;
+                ev.NewItem =  null;
             else ev.NewItem = new SynapseItem(NewIdItems[intRnd(0, NewIdItems.Count - 1)]);
         }
 
@@ -115,10 +108,6 @@ namespace Common_Utiles
                     ev.Ammo = ammos;
             }
             
-            if (cfg.RolesInfos.ContainsKey(roleId))
-            {
-                ev.Player.GiveTextHint(cfg.RolesInfos[roleId]);
-            }
         }
 
     }

@@ -33,8 +33,10 @@ namespace Common_Utiles.Config
             }},
         };
 
+        /* Si sa fonctionne pas sa dégage
         [Description("If true it will remove the old recipes of 914. Curently not working.")]
         public bool RemouvRecipes = false;
+        */
 
         [Description("A list of recipes to add for SCP 914. Curently not working.")]
         public List<Serialized914Recipe> Recipes = new List<Serialized914Recipe>()
@@ -61,8 +63,78 @@ namespace Common_Utiles.Config
             new Serialized914Role()
             {
                 RoleID = -1,
-                Chance = 25,
-                RoughRoleID = (int)RoleID.Scp0492
+                Chance = 100,
+                RoughRoleID = (int)RoleID.Spectator
+            },
+
+            new Serialized914Role()
+            {
+                RoleID = (int)RoleID.Scientist,
+                Chance = 100,
+                CorseRoleID = 2
+            },
+            new Serialized914Role()
+            {
+                RoleID = (int)RoleID.NtfCaptain,
+                Chance = 100,
+                CorseRoleID = (int)RoleID.NtfSergeant
+            },
+            new Serialized914Role()
+            {
+                RoleID = (int)RoleID.NtfSergeant,
+                Chance = 100,
+                CorseRoleID = (int)RoleID.NtfPrivate
+            },
+            new Serialized914Role()
+            {
+                RoleID = (int)RoleID.NtfSpecialist,
+                Chance = 100,
+                CorseRoleID = (int)RoleID.NtfPrivate
+            },
+            new Serialized914Role()
+            {
+                RoleID = (int)RoleID.Scp049,
+                Chance = 100,
+                CorseRoleID = (int)RoleID.Scp0492
+            },
+            new Serialized914Role()
+            {
+                RoleID = (int)RoleID.Scp096,
+                Chance = 100,
+                CorseRoleID = (int)RoleID.Scp0492
+            },
+            new Serialized914Role()
+            {
+                RoleID = (int)RoleID.Scp173,
+                Chance = 100,
+                CorseRoleID = (int)RoleID.Scp0492
+            },
+            new Serialized914Role()
+            {
+                RoleID = (int)RoleID.Scp106,
+                Chance = 100,
+                CorseRoleID = (int)RoleID.Scp0492
+            },
+            new Serialized914Role()
+            {
+                RoleID = (int)RoleID.SCP008,
+                Chance = 100,
+                CorseRoleID = (int)RoleID.Scp0492
+            },
+
+
+
+            new Serialized914Role()
+            {
+                RoleID = (int)RoleID.ClassD,
+                Chance = 50,
+                OneToOneRoleID = (int)RoleID.Janitor
+            },
+            new Serialized914Role()
+            {
+                RoleID = (int)RoleID.Scientist,
+                Chance = 50,
+                OneToOneRoleID = (int)RoleID.ZoneManager
             }
         };
 
@@ -121,26 +193,6 @@ namespace Common_Utiles.Config
                 OneToOneEffect = Effect.Bleeding
             },
         };
-
-        [Description("Makes players passing through 914 have a random life")]
-        public bool Rnd914Life = false;
-
-        [Description("Max and Min life")]
-        public int Max914Life = 200;
-        public int Min914Life = 10;
-
-        [Description("makes players passing through 914 have a random artificial life")]
-        public bool Rnd914ArtificialLife = false;
-
-        [Description("Max and Min artificial life")]
-        public int Max914ArtificialLife = 200;
-        public int Min914ArtificialLife = 10;
-
-        [Description("The percent chance of dying for players passing through 914")]
-        public float Rnd914ChanceDie = 50;
-
-        [Description("The information about the roles")]
-        public Dictionary<int, string> RolesInfos = new Dictionary<int, string>();
 
     }
 }

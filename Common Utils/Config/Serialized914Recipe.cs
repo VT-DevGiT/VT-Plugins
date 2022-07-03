@@ -35,8 +35,8 @@ namespace Common_Utiles.Config
         {
             switch (setting)
             {
-                case Scp914KnobSetting.Rough: return Fine;
-                case Scp914KnobSetting.Coarse: return Fine;
+                case Scp914KnobSetting.Rough: return Rough;
+                case Scp914KnobSetting.Coarse: return Coarse;
                 case Scp914KnobSetting.OneToOne: return OneToOne;
                 case Scp914KnobSetting.Fine: return Fine;
                 case Scp914KnobSetting.VeryFine: return VeryFine;

@@ -26,7 +26,7 @@ namespace Common_Utiles.Config
             Chance = chance;
             RoughRoleID = roughRoleID;
             CorseRoleID = corseRoleID;
-            OneToOneRoleID = OneToOneRoleID;
+            OneToOneRoleID = oneToOneRoleID;
             FineRoleID = fineRoleID;
             VeryFineRoleID = veryFineRoleID;
         }

@@ -16,10 +16,7 @@ namespace Common_Utiles.Config
         public Effect VeryFineEffect { get; set; }
         public int Chance { get; set; }
 
-        public Serialized914Effect()
-        {
-
-        }
+        public Serialized914Effect(){}
 
         public Serialized914Effect(int roleID, int chance, Effect roughEffect, Effect corseEffect, Effect oneToOneEffect, Effect fineEffect, Effect veryFineRoleID)
         {
@@ -27,7 +24,7 @@ namespace Common_Utiles.Config
             Chance = chance;
             RoughEffect = roughEffect;
             CorseEffect = corseEffect;
-            OneToOneEffect = OneToOneEffect;
+            OneToOneEffect = oneToOneEffect;
             FineEffect = fineEffect;
             VeryFineEffect = veryFineRoleID;
         }
