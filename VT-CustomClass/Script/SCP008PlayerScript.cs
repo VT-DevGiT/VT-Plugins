@@ -16,6 +16,8 @@ namespace VTCustomClass.PlayerScript
 {
     public class SCP008Script : AbstractRole
     {
+
+        #region Properties & Variable
         protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
 
         protected override List<int> EnemysList => TeamManager.Group.SCPenemy.ToList();
@@ -45,9 +47,25 @@ namespace VTCustomClass.PlayerScript
             DamageType.Disruptor,
             DamageType.Scp096,
             DamageType.UsedAs106Bait
-        };        
+        };
 
+        Vector3? spawnPos;
         Aura aura;
+        #endregion
+
+        #region Constructor & Destructor
+        public SCP008Script()
+        {
+            this.spawnPos = null;
+        }
+
+        public SCP008Script(Vector3 spawnPos)
+        {
+            this.spawnPos = spawnPos;
+        }
+        #endregion
+
+        #region Methods
         protected override void AditionalInit(PlayerSetClassEventArgs ev)
         {
             aura = ActiveComponent<Aura>();
@@ -59,6 +77,8 @@ namespace VTCustomClass.PlayerScript
                 aura.targetAddHp = -Plugin.Instance.Config.Scp008AuraDomage;
                 aura.distance = Plugin.Instance.Config.Scp008AuraDistance;
             }
+            if (spawnPos.HasValue)
+                ev.Position = spawnPos.Value;
         }
 
         public override void DeSpawn()
@@ -74,7 +94,46 @@ namespace VTCustomClass.PlayerScript
             Server.Get.Events.Player.PlayerItemUseEvent += OnUseItem;
             
         }
-        
+        public override bool CallPower(byte power, out string message)
+        {
+            if (power == (int)PowerType.Zombifaction)
+            {
+                Player owner = Player.GetDeadPlayerInRangeOfPlayer(4);
+                if (owner == null)
+                {
+                    message = "You cant...";
+                    return false;
+                }
+
+                if (CanZombifid(owner))
+                {
+                    owner.CustomRole = new SCP008Script(Player.Position);
+                    Player.Health += 100;
+                    message = "You have a new friend !";
+                }
+                else
+                {
+                    message = "Impossible sory";
+                    return false;
+                }
+            }
+            message = "You have only one power";
+            return false;
+        }
+
+        public static bool CanZombifid(Player owner)
+        {
+            var oldteam = VtController.Get.Role.OldTeam(owner);
+            var oldrole = VtController.Get.Role.OldRoleID(owner);
+            if (oldteam == (int)TeamID.SCP || oldteam == (int)TeamID.BerserkSCP)        //false if is SCP
+                return false;
+            if (oldrole >= 0 && oldrole <= Synapse.Api.Roles.RoleManager.HighestRole)   //true is not a custom Role
+                return true;                                                            //false is UTR or a Virologue
+            return !(Synapse.Api.Roles.RoleManager.Get.GetCustomRole(oldrole) is IUtrRole) && oldrole != (int)RoleID.NtfVirologue;
+        }
+        #endregion
+
+        #region Events
 
         private static void OnUseItem(PlayerItemInteractEventArgs ev)
         {
@@ -93,7 +152,6 @@ namespace VTCustomClass.PlayerScript
             }
             else if (ev.Victim.TryGetComponent<Scp008Infected>(out var infected) && infected.enabled)
             {                
-
                 infected.enabled = false;                
 
                 if (IgnoredDomageType.Contains(ev.DamageType))
@@ -101,11 +159,8 @@ namespace VTCustomClass.PlayerScript
 
                 var pos = ev.Victim.Position;
                 ev.Allow = false;
-                ev.Victim.RoleID = (int)RoleID.SCP008;
-                ev.Victim.Position = pos;
+                ev.Victim.CustomRole = new SCP008Script(pos);
                 infected.Scp008.Health += 100;
-                     
-
             }
         }
 
@@ -127,37 +182,6 @@ namespace VTCustomClass.PlayerScript
 
             }
         }
-
-        public override bool CallPower(byte power, out string message)
-        {
-            if (power == (int)PowerType.Zombifaction)
-            {
-                Player owner = Player.GetDeadPlayerInRangeOfPlayer(4);
-                if (owner == null)
-                {
-                    message = "You cant...";
-                    return false;
-                }
-
-                var oldteam = VtController.Get.Role.OldTeam(owner);
-                var oldrole = VtController.Get.Role.OldRoleID(owner);
-                if (oldteam != (int)TeamID.SCP && oldteam != (int)TeamID.BerserkSCP && 
-                    ((oldrole >= 0 && oldrole <= Synapse.Api.Roles.RoleManager.HighestRole) // check if it was vanila
-                     || !(Synapse.Api.Roles.RoleManager.Get.GetCustomRole(oldrole) is IUtrRole || oldrole == (int)RoleID.NtfVirologue))) // check if it was not an UTR if it was not vanila
-                {
-                    owner.RoleID = (int)RoleID.SCP008;
-                    Player.Health += 100;
-                    owner.Position = Player.Position;
-                    message = "You have a new friend !";
-                }
-                else
-                {
-                    message = "Impossible sory";
-                    return false;
-                }
-            }
-            message = "You have only one power";
-            return false;
-        }
+        #endregion
     }
 }
