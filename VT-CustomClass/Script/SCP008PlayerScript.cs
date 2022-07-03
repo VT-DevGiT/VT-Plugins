@@ -85,7 +85,7 @@ namespace VTCustomClass.PlayerScript
 
         private static void OnDeath(PlayerDeathEventArgs ev)
         {            
-            if (ev.Victim?.RoleID == (int)RoleID.SCP008 && Server.Get.Players.Where(p => p.RoleID == (int)RoleID.SCP008).Count() == 1)
+            if (ev.Victim?.RoleID == (int)RoleID.SCP008 && Server.Get.Players.Where(p => p?.RoleID == (int)RoleID.SCP008).Count() == 1)
             {
                 Map.Get.GlitchedCassie("ALL SCP 0 0 8 SUCCESSFULLY TERMINATED . NOSCPSLEFT");
             }
@@ -107,7 +107,7 @@ namespace VTCustomClass.PlayerScript
 
         private static void OnAttack(PlayerDamageEventArgs ev)
         {
-            if (ev.Allow && ev.Killer?.RoleID == (int)RoleID.SCP008)
+            if (ev.Allow && ev.Killer?.RoleID != (int)RoleID.SCP008)
             {
                 if (!ev.Victim.IsUTR() || ev.Victim.RoleID != (int)RoleID.NtfVirologue)
                 {
@@ -115,7 +115,7 @@ namespace VTCustomClass.PlayerScript
                     var infected = ev.Victim.GetOrAddComponent<Scp008Infected>();
                     infected.enabled = true;
                     infected.Scp008 = ev.Killer; 
-                    ev.Victim.GiveEffect(Effect.Bleeding, 2, 4);
+                    ev.Victim.GiveEffect(Effect.Bleeding);
                     ev.Victim.GiveEffect(Effect.Blinded, 2, 4);
                 }
                 else
