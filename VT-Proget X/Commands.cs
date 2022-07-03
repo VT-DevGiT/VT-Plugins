@@ -9,10 +9,11 @@ using VT_Api.Extension;
 using VT_Api.Reflexion;
 using static LightContainmentZoneDecontamination.DecontaminationController.DecontaminationPhase;
 
-namespace VTProget_X
+namespace VTIntercom
 {
+    
     public class Commands
-    { 
+    { /*
         [CommandInformation(
             Name = "Decontamination",
             Aliases = new[] { "Decont" },
@@ -182,7 +183,10 @@ namespace VTProget_X
             }
         }
 
+
         public static bool IsValidInteract(int Voltage, CommandContext context)
             => Map.Get.GetVoltage() >= Voltage && context.Player?.Room?.RoomType == MapGeneration.RoomName.EzIntercom;
+        */
     }
+    
 }

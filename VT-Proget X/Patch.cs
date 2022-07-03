@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace VTProget_X
+namespace VTIntercom
 {
 
     [HarmonyPatch(typeof(DecontaminationController), "Update")]
