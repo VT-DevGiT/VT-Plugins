@@ -7,8 +7,8 @@
     <ProjectGuid>{6286F0B5-A50E-471F-B674-A5311A8EF0C2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VTProget_X</RootNamespace>
-    <AssemblyName>VT-Proget X</AssemblyName>
+    <RootNamespace>VTIntercom</RootNamespace>
+    <AssemblyName>VT-Intercom</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

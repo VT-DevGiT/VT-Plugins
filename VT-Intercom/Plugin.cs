@@ -17,11 +17,11 @@ using VT_Api.Core.Enum;
 using VT_Api.Core.Plugin;
 using VT_Api.Extension;
 
-namespace VTProget_X
+namespace VTIntercom
 {
 
     [PluginInformation(
-Name = "VT-Proget-X",
+Name = "VT-Intercom",
 Author = "VT",
 Description = "Adds functionality such as intercom information",
 LoadPriority = 5,
@@ -53,7 +53,7 @@ Version = "v.1.3.3"
         {
             base.Load();
             PatchAll();
-            Translation.AddTranslation(new VTProget_X.Translation
+            Translation.AddTranslation(new VTIntercom.Translation
             {
                IntercomGeneralInformation = 
 @"─────────── Centre d'information FIM ───────────

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using VT_Api.Core.Enum;
 
-namespace VTProget_X
+namespace VTIntercom
 {
     public class Config : AbstractConfigSection
     {
@@ -20,7 +20,7 @@ namespace VTProget_X
         public bool TeslaRadio = true;
 
         [Description("Must have a keycard (intercom level) in your hands to be able to speak")]
-        public bool KeycardSpeak = true;
+        public bool KeycardSpeak = false;
         public List<int> KeycardSpeakIgnorRole = new List<int>()
         {
             (int)RoleID.FoundationUTR,

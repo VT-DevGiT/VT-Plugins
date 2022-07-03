@@ -1,6 +1,6 @@
 ﻿using Synapse.Translation;
 
-namespace VTProget_X
+namespace VTIntercom
 {
     public class Translation : IPluginTranslation
     {

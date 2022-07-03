@@ -1,6 +1,6 @@
 ﻿using VT_Api.Core.Behaviour;
 
-namespace VTProget_X
+namespace VTIntercom
 {
     public class IntercomBehaviour : RepeatingBehaviour
     {
@@ -10,8 +10,7 @@ namespace VTProget_X
         }
 
         protected override void Start()
-        {
-            Synapse.Api.Logger.Get.Info($"IntercomBehaviour Start");
+        {            
             base.Start();
         }
 

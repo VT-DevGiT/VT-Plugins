@@ -7,7 +7,7 @@ using Synapse.Api.Events.SynapseEventArguments;
 using System.Linq;
 using VT_Api.Core.Events.EventArguments;
 
-namespace VTProget_X
+namespace VTIntercom
 {
     public class EventHandlers
     {

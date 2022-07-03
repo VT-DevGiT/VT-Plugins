@@ -1,4 +1,4 @@
-﻿namespace VTProget_X
+﻿namespace VTIntercom
 {
     public enum ScreenType
     {
