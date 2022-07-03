@@ -4,6 +4,7 @@ using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using VT_Api.Config;
 using VT_Api.Core.Enum;
 using VT_Api.Core.Roles;
@@ -44,7 +45,7 @@ namespace VTCustomClass.PlayerScript
             DamageType.Disruptor,
             DamageType.Scp096,
             DamageType.UsedAs106Bait
-        };
+        };        
 
         Aura aura;
         protected override void AditionalInit(PlayerSetClassEventArgs ev)
@@ -71,8 +72,9 @@ namespace VTCustomClass.PlayerScript
             Server.Get.Events.Player.PlayerDamageEvent += OnAttack;
             Server.Get.Events.Player.PlayerDeathEvent += OnDeath;
             Server.Get.Events.Player.PlayerItemUseEvent += OnUseItem;
+            
         }
-
+        
 
         private static void OnUseItem(PlayerItemInteractEventArgs ev)
         {
@@ -90,8 +92,9 @@ namespace VTCustomClass.PlayerScript
                 Map.Get.GlitchedCassie("ALL SCP 0 0 8 SUCCESSFULLY TERMINATED . NOSCPSLEFT");
             }
             else if (ev.Victim.TryGetComponent<Scp008Infected>(out var infected) && infected.enabled)
-            {
-                infected.enabled = false;
+            {                
+
+                infected.enabled = false;                
 
                 if (IgnoredDomageType.Contains(ev.DamageType))
                     return;
@@ -101,13 +104,14 @@ namespace VTCustomClass.PlayerScript
                 ev.Victim.RoleID = (int)RoleID.SCP008;
                 ev.Victim.Position = pos;
                 infected.Scp008.Health += 100;
-                
+                     
+
             }
         }
 
         private static void OnAttack(PlayerDamageEventArgs ev)
         {
-            if (ev.Allow && ev.Killer?.RoleID != (int)RoleID.SCP008)
+            if (ev.Allow && ev.Killer?.RoleID == (int)RoleID.SCP008)
             {
                 if (!ev.Victim.IsUTR() || ev.Victim.RoleID != (int)RoleID.NtfVirologue)
                 {
