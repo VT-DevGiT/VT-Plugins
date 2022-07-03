@@ -29,7 +29,13 @@ namespace VT_Alpha
                 Round.Get.NextRespawn += 120f;
                 
                 var players = new List<Player>();
-                var amount = UnityEngine.Random.Range(Plugin.Instance.Config.MinPlayer, Plugin.Instance.Config.MaxPlayer);
+                int amount;
+                if (Plugin.Instance.Config.MaxPlayer == -1)
+                    amount = Server.Get.PlayersAmount;
+                else if (Plugin.Instance.Config.MinPlayer == -1)
+                    amount = Plugin.Instance.Config.MaxPlayer;
+                else
+                    amount = UnityEngine.Random.Range(Plugin.Instance.Config.MinPlayer, Plugin.Instance.Config.MaxPlayer);
                 
                 TeamManager.Get.RemoveOrFillWithSpectator(players, amount);
                 Server.Get.TeamManager.SpawnTeam((int)TeamID.AL1, players);

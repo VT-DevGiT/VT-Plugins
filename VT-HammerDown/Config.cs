@@ -16,7 +16,7 @@ namespace VT_HammerDown
         public float SpawnChance = 25f;
 
         [Description("The maximal amount of players that can spawn as HamerDown in one squad")]
-        public int SpawnSize = 7;
+        public int SpawnSize = 12;
 
         [Description("The Cassie message when HamerDown spawn")]
         public string CassieSpawn = "";

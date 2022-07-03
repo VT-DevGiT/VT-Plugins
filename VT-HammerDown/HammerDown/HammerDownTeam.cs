@@ -23,7 +23,7 @@ namespace VT_HammerDown
             string unitName = VtController.Get.Team.GenerateNtfUnitName();
             RespawnManager.Singleton.NamingManager.AllUnitNames.Add(new SyncUnit()
             {
-                SpawnableTeam = 2,
+                SpawnableTeam = (int)SpawnableTeamType.NineTailedFox,
                 UnitName = Regex.Replace(Plugin.Instance.Config.UnitName, "%RandomName%", unitName, RegexOptions.IgnoreCase)
             });
             return unitName;
