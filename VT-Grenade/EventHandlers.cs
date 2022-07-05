@@ -24,14 +24,14 @@ namespace VTGrenad
         public void RealoadEventConfig()
         {
             Server.Get.Events.Player.PlayerDropItemEvent -= ItemDropped;
-            VtController.Get.Events.Item.ChangeIntoFragEvent -= OnChangeIntoFragEvent;
+            VtController.Get.Events.Item.ChangeIntoActivGrenadEvent -= OnChangeIntoActivGrenadEvent;
             VtController.Get.Events.Item.CollisionEvent -= OnCollisionGrenade;
 
             if (null != Plugin.Instance.Config.Key)
                 Server.Get.Events.Player.PlayerDropItemEvent += ItemDropped;
 
             if (Plugin.Instance.Config.ChaineFuseFragGrenad)
-                VtController.Get.Events.Item.ChangeIntoFragEvent += OnChangeIntoFragEvent;
+                VtController.Get.Events.Item.ChangeIntoActivGrenadEvent += OnChangeIntoActivGrenadEvent;
 
             if (Plugin.Instance.Config.FlashbangFuseWithCollision)
                 VtController.Get.Events.Item.CollisionEvent += OnCollisionGrenade;
@@ -43,7 +43,7 @@ namespace VTGrenad
                 grenad._fuseTime = 0.01f;
         }
 
-        private void OnChangeIntoFragEvent(ChangeIntoFragEventArgs ev)
+        private void OnChangeIntoActivGrenadEvent(ChangeIntoFragEventArgs ev)
         {
             if (ev.Item != null && ev.Grenade != null)
             { 

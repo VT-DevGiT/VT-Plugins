@@ -1,4 +1,5 @@
-﻿using Synapse;
+﻿using MEC;
+using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
@@ -50,7 +51,6 @@ namespace VTCustomClass.PlayerScript
         };
 
         Vector3? spawnPos;
-        Aura aura;
         #endregion
 
         #region Constructor & Destructor
@@ -68,23 +68,17 @@ namespace VTCustomClass.PlayerScript
         #region Methods
         protected override void AditionalInit(PlayerSetClassEventArgs ev)
         {
-            aura = ActiveComponent<Aura>();
-            {
-                aura.targetEffect = Effect.Poisoned;
-                aura.effectIntencty = 6;
-                aura.effectTime = 5;
-                aura.playerAddHp = Plugin.Instance.Config.Scp008AuraHeal;
-                aura.targetAddHp = -Plugin.Instance.Config.Scp008AuraDomage;
-                aura.distance = Plugin.Instance.Config.Scp008AuraDistance;
-            }
             if (spawnPos.HasValue)
+            {
                 ev.Position = spawnPos.Value;
+                Timing.CallDelayed(0.5f, () => ev.Player.Health = Plugin.Instance.Config.Scp008Config.Health ?? 400);
+                //TODO : Fix le fait qu'il n'a pas le bon Hp au respawn
+            }
         }
 
         public override void DeSpawn()
         {
             base.DeSpawn();
-            KillComponent<Aura>();
         }
 
         protected override void InitEvent()
@@ -139,8 +133,12 @@ namespace VTCustomClass.PlayerScript
         {
             if (ev.Allow && ev.State == ItemInteractState.Finalizing && ev.CurrentItem.ID == (int)ItemID.SCP500)
             {
-                if (ev.Player.TryGetComponent<Scp008Infected>(out var infected))
+                if (ev.Player.TryGetComponent<Scp008Infected>(out var infected) && infected.enabled)
+                {
                     infected.enabled = false;
+                    ev.Player.GiveEffect(Effect.Poisoned, 0, 1);
+                    Synapse.Api.Logger.Get.Info("Enabled = false");
+                }
             }
         }
 
@@ -174,7 +172,7 @@ namespace VTCustomClass.PlayerScript
                     var infected = ev.Victim.GetOrAddComponent<Scp008Infected>();
                     infected.enabled = true;
                     infected.Scp008 = ev.Killer; 
-                    ev.Victim.GiveEffect(Effect.Bleeding);
+                    ev.Victim.GiveEffect(Effect.Bleeding, 1, 10);
                     ev.Victim.GiveEffect(Effect.Blinded, 2, 4);
                 }
                 else

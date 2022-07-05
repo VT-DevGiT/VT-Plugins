@@ -710,9 +710,6 @@ namespace VTCustomClass
 
         [Description("Config of the role Scp008 (ID = 122)")]
         public string Scp008Name = "SCP-008";
-        public int Scp008AuraDomage = 5;
-        public int Scp008AuraHeal = 10;
-        public int Scp008AuraDistance = 2;
         public SerializedPlayerRole Scp008Config = new SerializedPlayerRole()
         {
             Health = 750,

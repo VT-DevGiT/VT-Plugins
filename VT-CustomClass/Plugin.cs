@@ -20,7 +20,7 @@ namespace VTCustomClass
         SynapseMajor = SynapseController.SynapseMajor,
         SynapseMinor = SynapseController.SynapseMinor,
         SynapsePatch = SynapseController.SynapsePatch,
-        Version = "v.1.4.0")]
+        Version = "v.1.4.1")]
     public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config, Translation>
     {
         public override bool AutoRegister =>  true;

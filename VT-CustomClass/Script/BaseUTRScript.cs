@@ -103,7 +103,6 @@ namespace VTCustomClass.PlayerScript
 
         public bool CanBySee(Player player)
             => Plugin.Instance.Config.UTRListScpDamge.ContainsKey(player.RoleID);
-        
 
         /*
         public void RotateToTarget()
@@ -130,7 +129,7 @@ namespace VTCustomClass.PlayerScript
             switch (power)
             {
                 case 1:
-                    Player.Position = Corp.body.Position;
+                    Player.Position = Corp.item.Position;
                     message = "DEBUG !!!";
                     return true;
                     /*                    if (Target == null)
@@ -261,8 +260,11 @@ namespace VTCustomClass.PlayerScript
             {
                 if (ev.CurrentItem?.ItemCategory == ItemCategory.Medical || ev.CurrentItem?.ItemCategory == ItemCategory.SCPItem)
                     ev.Allow = false;
-                else if (ev.CurrentItem?.ItemCategory == ItemCategory.Firearm && ev.CurrentItem.ID == (int)ItemID.MiniGun)
-                    VT_Api.Core.MapAndRoundManger.Get.PlayShoot((ShootSound)ev.CurrentItem.ItemType, utr.Player.Position, 25);
+                else if (ev.CurrentItem?.ItemCategory == ItemCategory.Firearm && ev.CurrentItem.ID != (int)ItemID.MiniGun)
+                {
+                    VT_Api.Core.MapAndRoundManger.Get.PlayShoot((ShootSound)ev.CurrentItem.ItemType, utr.Player.Position, 25, Server.Get.Players.Remove(utr.Player));
+                    Synapse.Api.Logger.Get.Info("Play Shoot sound");
+                }
             }
         }
 

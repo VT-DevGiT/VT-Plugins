@@ -20,7 +20,7 @@ namespace VTIntercom
             Description = "fort Start the for Decontamination",
             Permission = "",
             Platforms = new[] { Platform.ClientConsole },
-            Usage = "Use .Decont and you must be at the intercom with a tablet in hand and a power of 1000 kVA"
+            Usage = "Use .Decont and you must be at the intercom with a radio in hand and a power of 1000 kVA"
         )]
         public class DecontaminationCommand : ISynapseCommand
         {
@@ -28,7 +28,7 @@ namespace VTIntercom
             public CommandResult Execute(CommandContext context)
             {
                 var result = new CommandResult();
-                result.Message = "you must be at the intercom with a tablet in hand and a power of 1000 kVA";
+                result.Message = "you must be at the intercom with a radio in hand and a power of 1000 kVA";
                 result.State = CommandResultState.NoPermission;
                 if (Plugin.Instance.DecontInProgress)
                 {
@@ -94,7 +94,7 @@ namespace VTIntercom
             Description = "A Command for Enable/Diabled all tesla",
             Permission = "",
             Platforms = new[] { Platform.ClientConsole },
-            Usage = "Use .Tesla and you must be at the intercom with a tablet in hand and a power of 2000 kVA"
+            Usage = "Use .Tesla and you must be at the intercom with a radio in hand and a power of 2000 kVA"
             )]
         public class TeslaCommand : ISynapseCommand
         {
@@ -119,7 +119,7 @@ namespace VTIntercom
                 }
                 else
                 {
-                    result.Message = "you must be at the intercom with a tablet in hand and a power of 2000 kVA";
+                    result.Message = "you must be at the intercom with a radio in hand and a power of 2000 kVA";
                     result.State = CommandResultState.NoPermission;
                 }
                 return result;
@@ -133,7 +133,7 @@ namespace VTIntercom
             Description = "A command to deactivate the lights",
             Permission = "",
             Platforms = new[] { Platform.ClientConsole },
-            Usage = "Use .blackout and you must be at the intercom with a tablet in hand and a power of 3000 kVA"
+            Usage = "Use .blackout and you must be at the intercom with a radio in hand and a power of 3000 kVA"
         )]
         public class blackoutCommand : ISynapseCommand
         {
@@ -148,7 +148,7 @@ namespace VTIntercom
                 }
                 else
                 {
-                    result.Message = "you must be at the intercom with a tablet in hand and a power of 3000 kVA";
+                    result.Message = "you must be at the intercom with a radio in hand and a power of 3000 kVA";
                     result.State = CommandResultState.NoPermission;
                 }
                 return result;
