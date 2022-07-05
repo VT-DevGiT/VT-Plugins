@@ -65,9 +65,9 @@ namespace Common_Utiles
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            CommonUtiles.Instance.EventHandler.RespawnAllow = !CommonUtiles.Instance.EventHandler.RespawnAllow;
+            Plugin.Instance.EventHandler.RespawnAllow = !Plugin.Instance.EventHandler.RespawnAllow;
             result.State = CommandResultState.Ok;
-            result.Message = $"the new value of ReSpawnAllow is {CommonUtiles.Instance.EventHandler.RespawnAllow}";
+            result.Message = $"the new value of ReSpawnAllow is {Plugin.Instance.EventHandler.RespawnAllow}";
             return result;
         }
     }

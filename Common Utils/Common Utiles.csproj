@@ -66,14 +66,21 @@
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SynapseSL.2.10.0\lib\net472\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>C:\Users\Admin\Desktop\ServeurSCP\SCPSL_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SynapseSL.2.10.0\lib\net472\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SynapseSL.2.10.0\lib\net472\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
-    <Reference Include="VT-Api">
-      <HintPath>..\lib\VT-Api.dll</HintPath>
+    <Reference Include="VT-Api, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Admin\AppData\Roaming\Synapse\dependencies\VT-Api.dll</HintPath>
+    </Reference>
+    <Reference Include="VT-Intercom">
+      <HintPath>C:\Users\Admin\AppData\Roaming\Synapse\plugins\server-7779\VT-Intercom.dll</HintPath>
     </Reference>
     <Reference Include="YamlDotNet, Version=11.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
       <HintPath>..\packages\YamlDotNet.11.2.1\lib\net45\YamlDotNet.dll</HintPath>
@@ -81,7 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands.cs" />
-    <Compile Include="Common Utiles.cs" />
+    <Compile Include="Plugin.cs" />
     <Compile Include="Config\Config.cs" />
     <Compile Include="Config\Serialized914Effect.cs" />
     <Compile Include="Config\Serialized914Role.cs" />

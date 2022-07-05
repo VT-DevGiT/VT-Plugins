@@ -31,15 +31,26 @@ namespace Common_Utiles.Config
 
         public void Apply(Player player, Scp914KnobSetting setting)
         {
-            if ((player.RoleID == RoleID || player.RoleID == -1) && UnityEngine.Random.Range(0, 100) <= Chance)
+            if ((player.RoleID == RoleID || RoleID == -1) && UnityEngine.Random.Range(0, 100) <= Chance)
             {
                 switch (setting)
                 {
-                    case Scp914KnobSetting.Rough: player.GiveEffect(RoughEffect); return;
-                    case Scp914KnobSetting.Coarse: player.GiveEffect(CorseEffect); return;
-                    case Scp914KnobSetting.OneToOne: player.GiveEffect(OneToOneEffect); return;
-                    case Scp914KnobSetting.Fine: player.GiveEffect(FineEffect); return;
-                    case Scp914KnobSetting.VeryFine: player.GiveEffect(VeryFineEffect); return;
+                    case Scp914KnobSetting.Rough:
+                        
+                        player.GiveEffect(RoughEffect); 
+                        return;
+                    case Scp914KnobSetting.Coarse:
+                        player.GiveEffect(CorseEffect); 
+                        return;
+                    case Scp914KnobSetting.OneToOne:
+                        player.GiveEffect(OneToOneEffect); 
+                        return;
+                    case Scp914KnobSetting.Fine:
+                        player.GiveEffect(FineEffect); 
+                        return;
+                    case Scp914KnobSetting.VeryFine:
+                        player.GiveEffect(VeryFineEffect); 
+                        return;
                 }
             }
         }

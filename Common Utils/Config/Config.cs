@@ -38,12 +38,12 @@ namespace Common_Utiles.Config
         public bool RemouvRecipes = false;
         */
 
-        [Description("A list of recipes to add for SCP 914. Curently not working.")]
+        [Description("A list of recipes to add for SCP 914.")]
         public List<Serialized914Recipe> Recipes = new List<Serialized914Recipe>()
         {
-            new Serialized914Recipe((int)ItemType.KeycardFacilityManager, 
-                new List<int>() { (int)ItemType.Coin },
-                new List<int>() { (int)ItemType.ArmorHeavy, 55 },
+            new Serialized914Recipe(50, 
+                new List<int>() { (int)ItemType.ArmorLight},
+                new List<int>() { (int)ItemType.ArmorLight },
                 new List<int>() { (int)ItemType.Radio, (int)ItemType.Medkit },
                 new List<int>() { (int)ItemType.ArmorHeavy },
                 new List<int>() { (int)ItemType.Painkillers }),
@@ -64,82 +64,129 @@ namespace Common_Utiles.Config
             {
                 RoleID = -1,
                 Chance = 100,
-                RoughRoleID = (int)RoleID.Spectator
+                RoughRoleID = (int)RoleID.Spectator,
+                CorseRoleID = -1,
+                OneToOneRoleID = -1,
+                FineRoleID = -1,
+                VeryFineRoleID = -1
             },
-
             new Serialized914Role()
             {
                 RoleID = (int)RoleID.Scientist,
                 Chance = 100,
-                CorseRoleID = 2
+                RoughRoleID = -1,
+                CorseRoleID = 2,
+                OneToOneRoleID = -1,
+                FineRoleID = -1,
+                VeryFineRoleID = -1
             },
             new Serialized914Role()
             {
                 RoleID = (int)RoleID.NtfCaptain,
                 Chance = 100,
-                CorseRoleID = (int)RoleID.NtfSergeant
+                RoughRoleID = -1,
+                CorseRoleID = (int)RoleID.NtfSergeant,
+                OneToOneRoleID = -1,
+                FineRoleID = -1,
+                VeryFineRoleID = -1
+
             },
             new Serialized914Role()
             {
                 RoleID = (int)RoleID.NtfSergeant,
                 Chance = 100,
-                CorseRoleID = (int)RoleID.NtfPrivate
+                RoughRoleID = -1,
+                CorseRoleID = (int)RoleID.NtfPrivate,
+                OneToOneRoleID = -1,
+                FineRoleID = -1,
+                VeryFineRoleID = -1
             },
             new Serialized914Role()
             {
                 RoleID = (int)RoleID.NtfSpecialist,
                 Chance = 100,
-                CorseRoleID = (int)RoleID.NtfPrivate
+                RoughRoleID = -1,
+                CorseRoleID = (int)RoleID.NtfPrivate,
+                OneToOneRoleID = -1,
+                FineRoleID = -1,
+                VeryFineRoleID = -1
             },
             new Serialized914Role()
             {
                 RoleID = (int)RoleID.Scp049,
                 Chance = 100,
-                CorseRoleID = (int)RoleID.Scp0492
+                RoughRoleID = -1,
+                CorseRoleID = (int)RoleID.Scp0492,
+                OneToOneRoleID = -1,
+                FineRoleID = -1,
+                VeryFineRoleID = -1
             },
             new Serialized914Role()
             {
                 RoleID = (int)RoleID.Scp096,
                 Chance = 100,
-                CorseRoleID = (int)RoleID.Scp0492
+                RoughRoleID = -1,
+                CorseRoleID = (int)RoleID.Scp0492,
+                OneToOneRoleID = -1,
+                FineRoleID = -1,
+                VeryFineRoleID = -1
             },
             new Serialized914Role()
             {
                 RoleID = (int)RoleID.Scp173,
                 Chance = 100,
-                CorseRoleID = (int)RoleID.Scp0492
+                RoughRoleID = -1,
+                CorseRoleID = (int)RoleID.Scp0492,
+                OneToOneRoleID = -1,
+                FineRoleID = -1,
+                VeryFineRoleID = -1
             },
             new Serialized914Role()
             {
                 RoleID = (int)RoleID.Scp106,
                 Chance = 100,
-                CorseRoleID = (int)RoleID.Scp0492
+                RoughRoleID = -1,
+                CorseRoleID = (int)RoleID.Scp0492,
+                OneToOneRoleID = -1,
+                FineRoleID = -1,
+                VeryFineRoleID = -1
             },
             new Serialized914Role()
             {
                 RoleID = (int)RoleID.SCP008,
                 Chance = 100,
-                CorseRoleID = (int)RoleID.Scp0492
+                RoughRoleID = -1,
+                CorseRoleID = (int)RoleID.Scp0492,
+                OneToOneRoleID = -1,
+                FineRoleID = -1,
+                VeryFineRoleID = -1
             },
-
-
 
             new Serialized914Role()
             {
                 RoleID = (int)RoleID.ClassD,
                 Chance = 50,
-                OneToOneRoleID = (int)RoleID.Janitor
+                RoughRoleID = -1,
+                CorseRoleID = -1,
+                OneToOneRoleID = (int)RoleID.Janitor,
+                FineRoleID = -1,
+                VeryFineRoleID = -1
+
             },
             new Serialized914Role()
             {
                 RoleID = (int)RoleID.Scientist,
                 Chance = 50,
-                OneToOneRoleID = (int)RoleID.ZoneManager
+                RoughRoleID = -1,
+                CorseRoleID = -1,
+                OneToOneRoleID = (int)RoleID.ZoneManager,
+                FineRoleID = -1,
+                VeryFineRoleID = -1
             }
         };
 
         [Description("Makes players passing through 914 have a random size")]
-        public bool Rnd914Size = false;
+        public bool Rnd914Size = true;
 
         [Description("Max and Min Scale in X")]
         public float Max914SizeX = 1.2f;
@@ -158,40 +205,16 @@ namespace Common_Utiles.Config
         {
             new Serialized914Effect()
             {
-                RoleID = -1,
+                RoleID = 1,
                 Chance = 100,
-                CorseEffect = Effect.Amnesia
+                CorseEffect = Effect.Asphyxiated,
+                OneToOneEffect = Effect.Amnesia
             },
             new Serialized914Effect()
             {
-                RoleID = -1,
-                Chance = 50,
-                RoughEffect = Effect.Asphyxiated
-            },
-            new Serialized914Effect()
-            {
-                RoleID = -1,
-                Chance = 25,
-                FineEffect = Effect.Scp207
-            },
-            new Serialized914Effect()
-            {
-                RoleID = -1,
-                Chance = 50,
-                CorseEffect = Effect.Visuals939
-            },
-            new Serialized914Effect()
-            {
-                RoleID = -1,
-                Chance = 50,
-                OneToOneEffect = Effect.Vitality
-            },
-            new Serialized914Effect()
-            {
-                RoleID = -1,
-                Chance = 50,
-                OneToOneEffect = Effect.Bleeding
-            },
+                RoleID = (int)RoleID.Scientist,
+                Chance = 100
+            }
         };
 
     }
