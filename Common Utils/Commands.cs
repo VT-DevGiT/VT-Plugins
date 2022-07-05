@@ -65,9 +65,9 @@ namespace Common_Utiles
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            CommonUtiles.Instance.EventHandler.RespawnAllow = !CommonUtiles.Instance.EventHandler.RespawnAllow;
+            Plugin.Instance.EventHandler.RespawnAllow = !Plugin.Instance.EventHandler.RespawnAllow;
             result.State = CommandResultState.Ok;
-            result.Message = $"the new valeur of ReSpawnAllow is {CommonUtiles.Instance.EventHandler.RespawnAllow}";
+            result.Message = $"the new value of ReSpawnAllow is {Plugin.Instance.EventHandler.RespawnAllow}";
             return result;
         }
     }
@@ -75,7 +75,7 @@ namespace Common_Utiles
     [CommandInformation(
         Name = "UnBanSteam",
         Aliases = new[] { "UBSteam", "UnBanS", "UBanS" },
-        Description = "Unbalck list a steam ID",
+        Description = "Unblack list a steam ID",
         Permission = "vanilla.LongTermBanning",
         Platforms = new[] { Platform.RemoteAdmin },
         Usage = "Enter the steamID without the @",
@@ -183,7 +183,7 @@ namespace Common_Utiles
     [CommandInformation(
         Name = "BanDiscord",
         Aliases = new[] { "BDiscord", "BanD" },
-        Description = "Stop all Respawns",
+        Description = "black list a discordID",
         Permission = "vanilla.LongTermBanning",
         Platforms = new[] { Platform.RemoteAdmin },
         Usage = "Enter the DiscordID without the @",
@@ -305,6 +305,7 @@ namespace Common_Utiles
         }
     }
 
+    /* Je sais pas ce que sa fait mais pour moi c'est pas utile
     [CommandInformation(
        Name = "RoleInfo",
        Aliases = new[] { "Rinfo", "infoRole", "infoR" },
@@ -339,5 +340,5 @@ namespace Common_Utiles
             }
             return result;
         }
-    }
+    }*/
 }

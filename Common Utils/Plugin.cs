@@ -1,5 +1,8 @@
 ﻿using Synapse.Api.Plugin;
 using VT_Api.Core.Plugin;
+using HarmonyLib;
+using Synapse;
+
 
 namespace Common_Utiles
 {
@@ -20,10 +23,10 @@ namespace Common_Utiles
         SynapseMajor = SynapseController.SynapseMajor,
         SynapseMinor = SynapseController.SynapseMinor,
         SynapsePatch = SynapseController.SynapsePatch,
-        Version = "v.1.4.0"
+        Version = "v.1.5.0"
         )]
-    public class CommonUtiles : VtAbstractPlugin<CommonUtiles, EventHandlers, Config.Config>
+    public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config.Config>
     {
-        public override bool AutoRegister => false;
+        public override bool AutoRegister => false;        
     }
 }

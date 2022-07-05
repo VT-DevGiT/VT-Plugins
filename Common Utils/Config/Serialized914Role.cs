@@ -20,28 +20,43 @@ namespace Common_Utiles.Config
 
         }
 
-        public Serialized914Role(int roleID, int chance, int roughRoleID, int corseRoleID, int oneToOneRoleID, int fineRoleID, int veryFineRoleID)
+        public Serialized914Role(int roleID , int chance, int roughRoleID, int corseRoleID, int oneToOneRoleID, int fineRoleID, int veryFineRoleID)
         {
             RoleID = roleID;
             Chance = chance;
             RoughRoleID = roughRoleID;
             CorseRoleID = corseRoleID;
-            OneToOneRoleID = OneToOneRoleID;
+            OneToOneRoleID = oneToOneRoleID;
             FineRoleID = fineRoleID;
             VeryFineRoleID = veryFineRoleID;
         }
 
         public void Apply(Player player, Scp914KnobSetting setting)
-        {
-            if ((player.RoleID == RoleID || player.RoleID == -1) && UnityEngine.Random.Range(0, 100) <= Chance)
-            {
+        {            
+            if ((player.RoleID == RoleID || RoleID == -1) && UnityEngine.Random.Range(0, 100) <= Chance)
+            {                
                 switch (setting)
                 {
-                    case Scp914KnobSetting.Rough: player.RoleID = RoughRoleID; return;
-                    case Scp914KnobSetting.Coarse: player.RoleID = CorseRoleID; return;
-                    case Scp914KnobSetting.OneToOne: player.RoleID = OneToOneRoleID; return;
-                    case Scp914KnobSetting.Fine: player.RoleID = FineRoleID; return;
-                    case Scp914KnobSetting.VeryFine: player.RoleID = VeryFineRoleID; return;
+                    case Scp914KnobSetting.Rough: 
+                        if(RoughRoleID != -1)
+                            player.RoleID = RoughRoleID; 
+                        return;
+                    case Scp914KnobSetting.Coarse: 
+                        if(CorseRoleID != -1)
+                            player.RoleID = CorseRoleID; 
+                        return;
+                    case Scp914KnobSetting.OneToOne:
+                        if(OneToOneRoleID != -1)
+                            player.RoleID = OneToOneRoleID; 
+                        return;
+                    case Scp914KnobSetting.Fine:
+                        if(FineRoleID != -1)
+                            player.RoleID = FineRoleID; 
+                        return;
+                    case Scp914KnobSetting.VeryFine:
+                        if(VeryFineRoleID != -1)
+                            player.RoleID = VeryFineRoleID; 
+                        return;
                 }
             }
         }

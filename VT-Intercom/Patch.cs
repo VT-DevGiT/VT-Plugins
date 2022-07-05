@@ -15,7 +15,7 @@ namespace VTIntercom
 {
 
     [HarmonyPatch(typeof(DecontaminationController), "Update")]
-    internal static class Starting
+    public static class Starting
     {
         public static int phase = 0;
         public static DecontaminationController.DecontaminationPhase[] DecontaminationPhases;
@@ -29,7 +29,7 @@ namespace VTIntercom
                     return false;
                 if (DecontaminationPhases[phase].AnnouncementLine !=null)
                 {
-                    Server.Get.Logger.Info($"Sound {phase}");
+                    //Server.Get.Logger.Info($"Sound {phase}");
                    /* var _curFunction = DecontaminationPhases[phase].Function;
                     float b = 0.0f;
                     if (_curFunction == DecontaminationController.DecontaminationPhase.PhaseFunction.Final || _curFunction == DecontaminationController.DecontaminationPhase.PhaseFunction.GloballyAudible)
@@ -38,7 +38,7 @@ namespace VTIntercom
                         b = 1f;
                     Server.Get.Logger.Info($"b {b}");*/
                     __instance.AnnouncementAudioSource.volume = 1f;// Mathf.Lerp(__instance.AnnouncementAudioSource.volume, b, 1f);
-                    Server.Get.Logger.Info($"Vol {__instance.AnnouncementAudioSource.volume}");
+                   // Server.Get.Logger.Info($"Vol {__instance.AnnouncementAudioSource.volume}");
                     __instance.AnnouncementAudioSource.PlayOneShot(__instance.DecontaminationPhases[__instance.DecontaminationPhases.Length - 1].AnnouncementLine);
                 }
                 if (DecontaminationPhases[phase].Function == DecontaminationController.DecontaminationPhase.PhaseFunction.Final)
@@ -49,7 +49,7 @@ namespace VTIntercom
                 if (NetworkServer.active && DecontaminationPhases[phase].Function == DecontaminationController.DecontaminationPhase.PhaseFunction.OpenCheckpoints)
                 {
                     //Map.Get.GlitchedCassie($"danger . LightContainmentZone decontamination start in 2 minutes .");
-                    Server.Get.Logger.Info("Overture Check");
+                    //Server.Get.Logger.Info("Overture Check");
                     DoorEventOpenerExtension.TriggerAction(DoorEventOpenerExtension.OpenerEventType.DeconEvac);
                 }
                 if (phase == DecontaminationPhases.Length - 1)
