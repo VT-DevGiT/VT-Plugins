@@ -47,6 +47,7 @@ namespace Common_Utiles
             if (Map.Get.Generators.Where(p => p.Engaged == true).Count() == 2)
             {
                 Map.Get.Cassie("Decontamination sequence commencing in 2 minutes");
+                
                 VTIntercom.Starting.phase = 0;
                 DecontaminationController.Singleton.disableDecontamination = false;
                 var phase = DecontaminationController.Singleton.DecontaminationPhases;
@@ -55,12 +56,14 @@ namespace Common_Utiles
                     var elem = phase[i];
                 }
                 DecontaminationController.DecontaminationPhase[] newPhase = new DecontaminationController.DecontaminationPhase[3];
+                
                 newPhase[0] = new DecontaminationController.DecontaminationPhase()
                 {
                     TimeTrigger = (float)DecontaminationController.GetServerTime + 1,
                     Function = PhaseFunction.None,
                     AnnouncementLine = phase[phase.Length - 3].AnnouncementLine
                 };
+                
                 newPhase[1] = new DecontaminationController.DecontaminationPhase()
                 {
                     TimeTrigger = (float)DecontaminationController.GetServerTime + 2,
@@ -68,12 +71,14 @@ namespace Common_Utiles
                     AnnouncementLine = phase[phase.Length - 2].AnnouncementLine,
 
                 };
+                
                 newPhase[2] = new DecontaminationController.DecontaminationPhase()
                 {
                     TimeTrigger = (float)DecontaminationController.GetServerTime + 120,
                     Function = PhaseFunction.Final,
                     AnnouncementLine = phase[phase.Length - 1].AnnouncementLine
                 };
+                
                 VTIntercom.Starting.DecontaminationPhases = newPhase;
                 DecontaminationController.Singleton.SetField<int>("_nextPhase", 0);
                 foreach (var room in Server.Get.Map.Rooms.FindAll(p => p.Zone == ZoneType.LCZ)) foreach (var door in room.Doors)
@@ -82,6 +87,12 @@ namespace Common_Utiles
                             door.Locked = true;
                             door.Open = true;
                         }
+                
+                Timing.CallDelayed(60f, () =>
+                {
+                    Map.Get.Cassie("Decontamination sequence commencing in 1 minute");
+                });
+                
                 Timing.CallDelayed(125f, () =>
                 {
                     Map.Get.Cassie("Light Containment Zone is locked down and ready for decontamination .");
@@ -89,8 +100,7 @@ namespace Common_Utiles
                 VTIntercom.Plugin.Instance.DecontInProgress = true;
             }
         }
-
-        //Event Currently Not Working
+        
         private void OnUpgrade(Scp914UpgradeItemEventArgs ev)
         {            
             var NewIdItems = cfg.Recipes.FirstOrDefault(x => x.ItemID == ev.Item.ID);
