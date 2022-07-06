@@ -262,8 +262,8 @@ namespace VTCustomClass.PlayerScript
                     ev.Allow = false;
                 else if (ev.CurrentItem?.ItemCategory == ItemCategory.Firearm && ev.CurrentItem.ID != (int)ItemID.MiniGun)
                 {
-                    VT_Api.Core.MapAndRoundManger.Get.PlayShoot((ShootSound)ev.CurrentItem.ItemType, utr.Player.Position, 25, Server.Get.Players.Remove(utr.Player));
-                    Synapse.Api.Logger.Get.Info("Play Shoot sound");
+                    //VT_Api.Core.MapAndRoundManger.Get.PlayShoot((ShootSound)ev.CurrentItem.ItemType, utr.Player.Position, 25, Server.Get.Players.Remove(utr.Player).);
+                    VT_Api.Core.MapAndRoundManger.Get.PlayShoot((ShootSound)ev.CurrentItem.ItemType, utr.Player.Position, 25, Server.Get.Players);                    
                 }
             }
         }
@@ -394,7 +394,7 @@ namespace VTCustomClass.PlayerScript
             public void SetPose(Vector3 postion)
             {
                 body.Position = postion;
-                Synapse.Api.Logger.Get.Info("update Pose"); // Debug
+                //Synapse.Api.Logger.Get.Info("update Pose"); // Debug
             }
 
             public void ChangeItem(SynapseItem newItem)
