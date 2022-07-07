@@ -633,21 +633,5 @@ namespace Common_Utiles.Config
         public float Min914SizeZ = 0.5f;
 
 
-        // -1 = rien/ -2 = effect positif/ -3 Super effect w maluce
-        [Description("makes players passing through 914 have a random effect")]
-        public List<Serialized914Effect> list914Effect = new List<Serialized914Effect>()
-        {
-            new Serialized914Effect()
-            {
-                RoleID = -1,
-                Chance = 100,
-                RoughEffect = -1,
-                CorseEffect = -1,
-                OneToOneEffect = -1,
-                FineEffect = -2,
-                VeryFineEffect = -3
-            },
-        };
-
     }
 }

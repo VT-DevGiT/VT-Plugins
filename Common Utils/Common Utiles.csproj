@@ -90,7 +90,6 @@
     <Compile Include="Commands.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Config\Config.cs" />
-    <Compile Include="Config\Serialized914Effect.cs" />
     <Compile Include="Config\Serialized914Role.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

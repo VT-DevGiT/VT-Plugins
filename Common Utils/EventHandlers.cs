@@ -22,48 +22,11 @@ namespace Common_Utiles
             VtController.Get.Events.Map.GeneratorActivatedEvent += OnGeneratorActivated;
             VtController.Get.Events.Map.Scp914UpgradeItemEvent += OnUpgrade;
             Server.Get.Events.Player.PlayerSetClassEvent += OnSpawn;
-            Server.Get.Events.Player.PlayerLeaveEvent += OnLeave;
-            Server.Get.Events.Player.PlayerPickUpItemEvent += OnPickUp;
-            Server.Get.Events.Map.Scp914ActivateEvent += On914Activate;          
-            Server.Get.Events.Round.TeamRespawnEvent += OnRespawn;
-            VtController.Get.Events.Player.PlayerDeathReasonEvent += Death;
-            Server.Get.Events.Round.RoundStartEvent += OnRoundStart;            
+            Server.Get.Events.Map.Scp914ActivateEvent += On914Activate;
+            Server.Get.Events.Round.TeamRespawnEvent += OnRespawn;            
+            Server.Get.Events.Round.RoundStartEvent += OnRoundStart;
         }
 
-        private void OnLeave(PlayerLeaveEventArgs ev)
-        {
-            ev.Player.SetData("poseffect", "false");
-            ev.Player.SetData("supeffect", "false");
-        }
-
-        private void Death(PlayerKillEventArgs ev)
-        {
-            ev.Victim.SetData("poseffect", "false");
-            ev.Victim.SetData("supeffect", "false");
-            if (ev.Victim.GetData("1up") == "true")
-            {
-                ev.Victim.SetData("1up", "false");
-                Synapse.Api.Logger.Get.Info(ev.Victim.Position);
-                Synapse.Api.Logger.Get.Info(ev.Victim.RoleID);
-                var pos = ev.Victim.Position;
-                var role = ev.Victim.RoleID;
-                Timing.CallDelayed(10f,() =>
-                {
-                    ev.Victim.RoleID = role;
-                    ev.Victim.Position = pos;
-                });
-            }
-            
-        }
-
-        private void OnPickUp(PlayerPickUpItemEventArgs ev)
-        {
-            if(ev.Player.GetData("poseffect") == "true 6")
-            {
-                ev.Item.Destroy();
-                ev.Player.Inventory.AddItem(new SynapseItem(Random.Range(0, 47)));
-            }
-        }
 
         System.Func<float, float, float> floatRnd = (min, max) => Random.Range(min, max);
         System.Func<int, int, int> intRnd = (min, max) => Random.Range(min, max);
@@ -159,8 +122,7 @@ namespace Common_Utiles
         {
             
             if (ev.Players.Any())
-            {
-                Synapse.Api.Logger.Get.Info("YO");
+            {                
                 foreach (var player in ev.Players)
                 {
                     Player914(player);
@@ -169,20 +131,14 @@ namespace Common_Utiles
         }
 
         private void Player914(Player player)
-        {
-            Synapse.Api.Logger.Get.Info("YO2");
+        {            
             if (Plugin.Instance.Config.Rnd914Size)
             {
                 float newScaleX = floatRnd(cfg.Min914SizeX, cfg.Max914SizeX);
                 float newScaleY = floatRnd(cfg.Min914SizeY, cfg.Max914SizeY);
                 float newScaleZ = floatRnd(cfg.Min914SizeZ, cfg.Max914SizeZ);
                 player.Scale = new Vector3(newScaleX, newScaleY, newScaleZ);
-            }
-            if (cfg.list914Effect.Any())
-            {
-                foreach (var effect in cfg.list914Effect)
-                    effect.Apply(player, Server.Get.Map.Scp914.KnobState);
-            }
+            }     
             if (cfg.Rnd914Roles.Any())
             {
                 foreach (var role in cfg.Rnd914Roles)
