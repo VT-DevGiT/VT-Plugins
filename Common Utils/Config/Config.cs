@@ -62,559 +62,558 @@ namespace Common_Utiles.Config
         {
             new Serialized914Role()
             {
-                RoleID = -1,
+                ID = new TeamOrRole(-1),
                 Chance = 100,
-                RoughRoleID = (int)RoleID.Spectator,
-                CorseRoleID = -1,
-                OneToOneRoleID = -1,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole((int)RoleID.Spectator),
+                CorseID = new TeamOrRole(-1),
+                OneToOneID = new TeamOrRole(-1),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.Scp173,
+                ID = new TeamOrRole((int)RoleID.Scp173),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = (int)RoleID.Scp0492,
-                OneToOneRoleID = -2,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole((int)RoleID.Scp0492),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.SCP),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.ClassD,
+                ID = new TeamOrRole((int)RoleID.ClassD),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 2,
-                OneToOneRoleID = -3,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.Spectator),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.CDP),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
 
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.Scp106,
+                ID = new TeamOrRole((int)RoleID.Scp106),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 10,
-                OneToOneRoleID = -2,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.Scp0492),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.SCP),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.NtfSpecialist,
+                ID = new TeamOrRole(true, (int)RoleID.NtfSpecialist),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = (int)RoleID.NtfPrivate,
-                OneToOneRoleID = -4,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole((int)RoleID.NtfPrivate),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.Scp049,
+                ID = new TeamOrRole(true, (int)RoleID.Scp049),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = (int)RoleID.Scp0492,
-                OneToOneRoleID = -2,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.Scp0492),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.SCP),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.Scientist,
+                ID = new TeamOrRole(true, (int)RoleID.Scientist),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 2,
-                OneToOneRoleID = -6,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.Spectator),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.RSC),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.ChaosConscript,
+                ID = new TeamOrRole(true, (int)RoleID.ChaosConscript),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = (int)RoleID.ChaosRifleman,
-                OneToOneRoleID = -7,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true,(int)RoleID.ChaosRifleman),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.CHI),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.Scp096,
+                ID = new TeamOrRole(true, (int)RoleID.Scp096),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = (int)RoleID.Scp0492,
-                OneToOneRoleID = -2,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.Scp0492),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.SCP),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.Scp0492,
+                ID = new TeamOrRole(true, (int)RoleID.Scp0492),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = (int)RoleID.Spectator,
-                OneToOneRoleID = -2,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.Spectator),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.SCP),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
 
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.NtfSergeant,
+                ID = new TeamOrRole(true, (int)RoleID.NtfSergeant),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = (int)RoleID.NtfPrivate,
-                OneToOneRoleID = -4,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.NtfPrivate),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
 
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.NtfCaptain,
+                ID = new TeamOrRole(true, (int)RoleID.NtfCaptain),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = (int)RoleID.NtfPrivate,
-                OneToOneRoleID = -4,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.NtfPrivate),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.NtfPrivate,
+                ID = new TeamOrRole(true, (int)RoleID.NtfPrivate),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = -2,
-                OneToOneRoleID = -4,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(false, (int)TeamID.SCP),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.FacilityGuard,
+                ID = new TeamOrRole(true, (int)RoleID.FacilityGuard),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = -2,
-                OneToOneRoleID = -5,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(false, (int)TeamID.SCP),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.Scp93953,
+                ID = new TeamOrRole(true, (int)RoleID.Scp93953),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 10,
-                OneToOneRoleID = -2,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.Scp0492),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.SCP),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.Scp93989,
+                ID = new TeamOrRole(true, (int)RoleID.Scp93989),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 10,
-                OneToOneRoleID = -2,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.Scp0492),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.SCP),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.ChaosRifleman,
+                ID = new TeamOrRole(true, (int)RoleID.ChaosRifleman),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 2,
-                OneToOneRoleID = -7,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.Spectator),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.CHI),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.ChaosRepressor,
+                ID = new TeamOrRole(true, (int)RoleID.ChaosRepressor),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = (int)RoleID.ChaosRifleman,
-                OneToOneRoleID = -7,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.ChaosRifleman),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.CHI),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.ChaosMarauder,
+                ID = new TeamOrRole(true, (int)RoleID.ChaosMarauder),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = (int)RoleID.ChaosRifleman,
-                OneToOneRoleID = -7,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.ChaosRifleman),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.CHI),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.SerpentsHand,
+                ID = new TeamOrRole(true, (int)RoleID.SerpentsHand),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 10,
-                OneToOneRoleID = -7,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.Scp0492),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.CHI),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.Scp035,
+                ID = new TeamOrRole(true, (int)RoleID.Scp035),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 10,
-                OneToOneRoleID = -2,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.Scp0492),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.SCP),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.Scp056,
+                ID = new TeamOrRole(true, (int)RoleID.Scp056),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 10,
-                OneToOneRoleID = -2,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.Scp0492),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.SCP),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.Janitor,
+                ID = new TeamOrRole(true, (int)RoleID.Janitor),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 1,
-                OneToOneRoleID = -3,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.ClassD),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.CDP),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.GardeSuperviseur,
+                ID = new TeamOrRole(true, (int)RoleID.GardeSuperviseur),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 15,
-                OneToOneRoleID = -5,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.FacilityGuard),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.ScientifiqueSuperviseur,
+                ID = new TeamOrRole(true, (int)RoleID.ScientifiqueSuperviseur),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 6,
-                OneToOneRoleID = -6,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.Scientist),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.RSC),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.DirecteurSite,
+                ID = new TeamOrRole(true, (int)RoleID.DirecteurSite),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 6,
-                OneToOneRoleID = -6,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.Scientist),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.RSC),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.Technicien,
+                ID = new TeamOrRole(true, (int)RoleID.Technicien),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 15,
-                OneToOneRoleID = -5,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.ClassD),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.NtfLieutenant,
+                ID = new TeamOrRole(true, (int)RoleID.NtfLieutenant),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = (int)RoleID.NtfPrivate,
-                OneToOneRoleID = -4,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.NtfPrivate),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.NtfCommander,
+                ID = new TeamOrRole(true, (int)RoleID.NtfCommander),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 13,
-                OneToOneRoleID = -4,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.NtfPrivate),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.NtfLieutenantColonel,
+                ID = new TeamOrRole(true, (int)RoleID.NtfLieutenantColonel),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 13,
-                OneToOneRoleID = -4,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.NtfPrivate),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.NtfExpertReconfinement,
+                ID = new TeamOrRole(true, (int)RoleID.NtfExpertReconfinement),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 13,
-                OneToOneRoleID = -4,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.NtfPrivate),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.NtfExpertPyrotechnie,
+                ID = new TeamOrRole(true, (int)RoleID.NtfExpertPyrotechnie),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 13,
-                OneToOneRoleID = -4,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.NtfPrivate),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
 
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.NtfInfirmier,
+                ID = new TeamOrRole(true, (int)RoleID.NtfInfirmier),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 13,
-                OneToOneRoleID = -4,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.NtfPrivate),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.NtfVirologue,
+                ID = new TeamOrRole(true, (int)RoleID.NtfVirologue),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 13,
-                OneToOneRoleID = -4,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.NtfPrivate),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.FoundationUTR,
+                ID = new TeamOrRole(true, (int)RoleID.FoundationUTR),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 15,
-                OneToOneRoleID = -5,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.FacilityGuard),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.ChaosMastodonte,
+                ID = new TeamOrRole(true, (int)RoleID.ChaosMastodonte),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = (int)RoleID.ChaosRifleman,
-                OneToOneRoleID = -7,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.ChaosRifleman),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.CHI),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
+            },
+            new Serialized914Role()
+            {
+                ID = new TeamOrRole(true, (int)RoleID.ChaosExpertPyrotechnie),
+                Chance = 100,
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.ChaosRifleman),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.CHI),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
+            },
+            new Serialized914Role()
+            {
+                ID = new TeamOrRole(true, (int)RoleID.ChaosLeader),
+                Chance = 100,
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.ChaosRifleman),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.CHI),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
+            },
+            new Serialized914Role()
+            {
+                ID = new TeamOrRole(true, (int)RoleID.ChaosHacker),
+                Chance = 100,
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.ChaosRifleman),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.CHI),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
+            },
+            new Serialized914Role()
+            {
+                ID = new TeamOrRole(true, (int)RoleID.ChaosKamikaze),
+                Chance = 100,
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.ChaosRifleman),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.CHI),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
+            },
+            new Serialized914Role()
+            {
+                ID = new TeamOrRole(true, (int)RoleID.ChaosIntrus),
+                Chance = 100,
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.ChaosRifleman),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.CHI),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
+            },
+            new Serialized914Role()
+            {
+                ID = new TeamOrRole(true, (int)RoleID.ChaosSpy),
+                Chance = 100,
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.ChaosRifleman),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.CHI),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
+            },
+            new Serialized914Role()
+            {
+                ID = new TeamOrRole(true, (int)RoleID.ChaosInfirmier),
+                Chance = 100,
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.ChaosRifleman),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.CHI),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
+            },
+            new Serialized914Role()
+            {
+                ID = new TeamOrRole(true, (int)RoleID.SCP008),
+                Chance = 100,
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.Scp0492),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.SCP),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
              new Serialized914Role()
             {
-                RoleID = (int)RoleID.ChaosExpertPyrotechnie,
+                ID = new TeamOrRole(true, (int)RoleID.SCP966),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 18,
-                OneToOneRoleID = -7,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.Scp0492),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.SCP),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
-              new Serialized914Role()
-            {
-                RoleID = (int)RoleID.ChaosLeader,
-                Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 18,
-                OneToOneRoleID = -7,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
-            },
-               new Serialized914Role()
-            {
-                RoleID = (int)RoleID.ChaosHacker,
-                Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 18,
-                OneToOneRoleID = -7,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
-            },
-                new Serialized914Role()
-            {
-                RoleID = (int)RoleID.ChaosKamikaze,
-                Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 18,
-                OneToOneRoleID = -7,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
-            },
-                 new Serialized914Role()
-            {
-                RoleID = (int)RoleID.ChaosIntrus,
-                Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 18,
-                OneToOneRoleID = -7,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
-            },
-                  new Serialized914Role()
-            {
-                RoleID = (int)RoleID.ChaosSpy,
-                Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 18,
-                OneToOneRoleID = -7,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
-            },
-                   new Serialized914Role()
-            {
-                RoleID = (int)RoleID.ChaosInfirmier,
-                Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 18,
-                OneToOneRoleID = -7,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
-            },                    
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.SCP008,
+                ID = new TeamOrRole(true, (int)RoleID.SCP999),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 10,
-                OneToOneRoleID = -2,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.Scp0492),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.SCP),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
              new Serialized914Role()
             {
-                RoleID = (int)RoleID.SCP966,
+                ID = new TeamOrRole(true, (int)RoleID.CdmCadet),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 10,
-                OneToOneRoleID = -2,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.NtfPrivate),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
-              new Serialized914Role()
+            new Serialized914Role()
             {
-                RoleID = (int)RoleID.SCP999,
+                ID = new TeamOrRole(true, (int)RoleID.CdmLieutenant),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 10,
-                OneToOneRoleID = -2,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.NtfPrivate),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
-               new Serialized914Role()
+            new Serialized914Role()
             {
-                RoleID = (int)RoleID.CdmCadet,
+                ID = new TeamOrRole(true, (int)RoleID.CdmCommander),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 13,
-                OneToOneRoleID = -4,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
-            },
-                new Serialized914Role()
-            {
-                RoleID = (int)RoleID.CdmLieutenant,
-                Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 13,
-                OneToOneRoleID = -4,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
-            },
-                 new Serialized914Role()
-            {
-                RoleID = (int)RoleID.CdmCommander,
-                Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 13,
-                OneToOneRoleID = -4,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.NtfPrivate),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },              
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.GardePrison,
+                ID = new TeamOrRole(true, (int)RoleID.GardePrison),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 15,
-                OneToOneRoleID = -5,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.FacilityGuard),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },              
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.ZoneManager,
+                ID = new TeamOrRole(true, (int)RoleID.ZoneManager),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 6,
-                OneToOneRoleID = -6,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.Scientist),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.RSC),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },              
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.MTFUTR,
+                ID = new TeamOrRole(true, (int)RoleID.MTFUTR),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 13,
-                OneToOneRoleID = -4,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.NtfPrivate),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },              
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.U2IAgent,
+                ID = new TeamOrRole(true, (int)RoleID.U2IAgent),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 13,
-                OneToOneRoleID = -4,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.NtfPrivate),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },              
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.U2IAgentLiaison,
+                ID = new TeamOrRole(true, (int)RoleID.U2IAgentLiaison),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 13,
-                OneToOneRoleID = -4,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.NtfPrivate),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },    
             new Serialized914Role()
             {
-                RoleID = (int)RoleID.AlphaOneAgent,
+                ID = new TeamOrRole(true, (int)RoleID.AlphaOneAgent),
                 Chance = 100,
-                RoughRoleID = -1,
-                CorseRoleID = 13,
-                OneToOneRoleID = -4,
-                FineRoleID = -1,
-                VeryFineRoleID = -1
+                RoughID = new TeamOrRole(-1),
+                CorseID = new TeamOrRole(true, (int)RoleID.NtfPrivate),
+                OneToOneID = new TeamOrRole(false, (int)TeamID.NTF),
+                FineID = new TeamOrRole(-1),
+                VeryFineID = new TeamOrRole(-1)
             },
-
         };
 
         [Description("Makes players passing through 914 have a random size")]

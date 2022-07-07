@@ -12,6 +12,8 @@ using MEC;
 using Synapse.Api.Enum;
 using VT_Api.Reflexion;
 using static LightContainmentZoneDecontamination.DecontaminationController.DecontaminationPhase;
+using System.Collections.Generic;
+using Synapse.Api.Teams;
 
 namespace Common_Utiles
 {
@@ -26,18 +28,31 @@ namespace Common_Utiles
             Server.Get.Events.Round.RoundStartEvent += OnRoundStart;
         }
 
-
         System.Func<float, float, float> floatRnd = (min, max) => Random.Range(min, max);
         System.Func<int, int, int> intRnd = (min, max) => Random.Range(min, max);
+        Config.Config cfg => Plugin.Instance.Config;
+        
 
-        public Config.Config cfg => Plugin.Instance.Config;
-        public bool RespawnAllow { get; set; }                
-      
-        private void OnRoundStart() => RespawnAllow = true;                
+        bool firstStart = true;
 
+        private void OnRoundStart()
+        {
+            Plugin.Instance.RespawnAllow = true;
+        
+            if (firstStart)
+            {
+                firstStart = false;
+                foreach (var team in Synapse.Api.Teams.TeamManager.Get.GetFieldValueOrPerties<List<ISynapseTeam>>("teams"))
+                {
+                    int teamID = team.Info.ID;
+                    var roles = VT_Api.Core.Roles.RoleManager.Get.GetRoles(teamID);
+                    Plugin.Instance.TeamIDRolesID.Add(teamID, roles);
+                }
+            }
+        }
         private void OnRespawn(TeamRespawnEventArgs ev)
         {
-            if (!RespawnAllow)
+            if (!Plugin.Instance.RespawnAllow)
                 ev.Allow = false;
         }
         

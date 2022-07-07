@@ -65,9 +65,9 @@ namespace Common_Utiles
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-            Plugin.Instance.EventHandler.RespawnAllow = !Plugin.Instance.EventHandler.RespawnAllow;
+            Plugin.Instance.RespawnAllow = !Plugin.Instance.RespawnAllow;
             result.State = CommandResultState.Ok;
-            result.Message = $"the new value of ReSpawnAllow is {Plugin.Instance.EventHandler.RespawnAllow}";
+            result.Message = $"the new value of ReSpawnAllow is {Plugin.Instance.RespawnAllow}";
             return result;
         }
     }
@@ -305,7 +305,7 @@ namespace Common_Utiles
         }
     }
 
-    /* Je sais pas ce que sa fait mais pour moi c'est pas utile
+    /* C'est pas finie c'est pour ça
     [CommandInformation(
        Name = "RoleInfo",
        Aliases = new[] { "Rinfo", "infoRole", "infoR" },

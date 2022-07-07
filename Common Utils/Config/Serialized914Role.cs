@@ -4,24 +4,20 @@ using Synapse.Api;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using PlayerStatsSystem;
+using Subtitles;
 
 namespace Common_Utiles.Config
 {
     [Serializable]
     public class Serialized914Role
     {
-        List<int> SCPs = new List<int>() { 0, 3, 5, 9, 10, 16, 17, 35, 56, 122, 123 };
-        List<int> Ds = new List<int>() { 1, 100 };
-        List<int> NTFs = new List<int>() { 11, 12, 13, 4, 105, 106, 107, 108, 109, 110, 111, 143, 144, 145 };
-        List<int> Guards = new List<int>() { 15, 101, 145, 104 };
-        List<int> Scientists = new List<int>() { 6, 102, 103, 147 };
-        List<int> Chaoss = new List<int>() { 8, 18, 19, 20, 113, 114, 115, 116, 117, 118, 119, 120 };
-        public int RoleID { get; set; }
-        public int RoughRoleID { get; set; }
-        public int CorseRoleID { get; set; }
-        public int OneToOneRoleID { get; set; }
-        public int FineRoleID { get; set; }
-        public int VeryFineRoleID { get; set; }
+        public TeamOrRole ID { get; set; }
+        public TeamOrRole RoughID { get; set; }
+        public TeamOrRole CorseID { get; set; }
+        public TeamOrRole OneToOneID { get; set; }
+        public TeamOrRole FineID { get; set; }
+        public TeamOrRole VeryFineID { get; set; }
         public int Chance { get; set; }
 
         public Serialized914Role()
@@ -29,75 +25,60 @@ namespace Common_Utiles.Config
 
         }
 
-        public Serialized914Role(int roleID , int chance, int roughRoleID, int corseRoleID, int oneToOneRoleID, int fineRoleID, int veryFineRoleID)
+        public Serialized914Role(TeamOrRole roleID , int chance, TeamOrRole roughRoleID, TeamOrRole corseRoleID, TeamOrRole oneToOneRoleID, TeamOrRole fineRoleID, TeamOrRole veryFineRoleID)
         {
-            RoleID = roleID;
+            ID = roleID;
             Chance = chance;
-            RoughRoleID = roughRoleID;
-            CorseRoleID = corseRoleID;
-            OneToOneRoleID = oneToOneRoleID;
-            FineRoleID = fineRoleID;
-            VeryFineRoleID = veryFineRoleID;
+            RoughID = roughRoleID;
+            CorseID = corseRoleID;
+            OneToOneID = oneToOneRoleID;
+            FineID = fineRoleID;
+            VeryFineID = veryFineRoleID;
         }
 
         public void Apply(Player player, Scp914KnobSetting setting)
-        {            
-            if ((player.RoleID == RoleID || RoleID == -1) && UnityEngine.Random.Range(0, 100) <= Chance)
+        {
+            if ((ID.id == -1 || ID.isRoleID ? player.RoleID == ID.id : player.TeamID == ID.id) && UnityEngine.Random.Range(0, 100) <= Chance)
             {
             
                 switch (setting)
                 {
-                    case Scp914KnobSetting.Rough: 
-                        if(RoughRoleID != -1)
-                            player.RoleID = RoughRoleID; 
+                    case Scp914KnobSetting.Rough:
+                        SetTeamOrRole(player, RoughID);
                         return;
-                    case Scp914KnobSetting.Coarse: 
-                        if(CorseRoleID != -1)
-                        {
-                            player.RoleID = CorseRoleID;
-                        }
-                                                                                                         
+                    case Scp914KnobSetting.Coarse:
+                        SetTeamOrRole(player, CorseID);
                         return;
                     case Scp914KnobSetting.OneToOne:
-                        if(OneToOneRoleID != -1) { 
-                            if (OneToOneRoleID == -2)
-                            {                   
-                                
-                                OneToOneRoleID = SCPs[UnityEngine.Random.Range(0, SCPs.Count - 1)];
-                            }
-                            if(OneToOneRoleID == -3)
-                            {
-                                OneToOneRoleID = Ds[UnityEngine.Random.Range(0, Ds.Count - 1)];
-                            }
-                            if (OneToOneRoleID == -4)
-                            {
-                                OneToOneRoleID = NTFs[UnityEngine.Random.Range(0, NTFs.Count - 1)];
-                            }
-                            if (OneToOneRoleID == -5)
-                            {
-                                OneToOneRoleID = Guards[UnityEngine.Random.Range(0, Guards.Count - 1)];
-                            }
-                            if (OneToOneRoleID == -6)
-                            {
-                                OneToOneRoleID = Scientists[UnityEngine.Random.Range(0, Scientists.Count - 1)];
-                            }
-                            if (OneToOneRoleID == -7)
-                            {
-                                OneToOneRoleID = Chaoss[UnityEngine.Random.Range(0, Chaoss.Count - 1)];
-                            }
-                            player.RoleID = OneToOneRoleID;
-                        }
+                        SetTeamOrRole(player, OneToOneID);
                         return;
                     case Scp914KnobSetting.Fine:
-                        if(FineRoleID != -1)
-                            player.RoleID = FineRoleID; 
+                        SetTeamOrRole(player, FineID);
                         return;
                     case Scp914KnobSetting.VeryFine:
-                        if(VeryFineRoleID != -1)
-                            player.RoleID = VeryFineRoleID; 
+                        SetTeamOrRole(player, VeryFineID);
                         return;
                 }
             }
+        }
+
+        private void SetTeamOrRole(Player player, TeamOrRole roleID)
+        {
+            int newRoleID = roleID.isRoleID ?
+                roleID.id :
+                Plugin.Instance.TeamIDRolesID[roleID.id][UnityEngine.Random.Range(0, Plugin.Instance.TeamIDRolesID.Count - 1)];
+            if (newRoleID == -1)
+            {
+                player.PlayerStats.KillPlayer(new UniversalDamageHandler(-1, DeathTranslations.Crushed, new DamageHandlerBase.CassieAnnouncement()
+                {
+                    Announcement = "SUCCESSFULLY TERMINATED . CRUSED BY SCP 914",
+                    SubtitleParts = new[] { new SubtitlePart(SubtitleType.TerminatedBySCP, new[] { "914" }) } // A test
+                }));
+            }
+            else
+            {
+                player.RoleID = newRoleID;
+            } 
         }
     }
 }

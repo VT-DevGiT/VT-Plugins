@@ -2,7 +2,10 @@
 using VT_Api.Core.Plugin;
 using HarmonyLib;
 using Synapse;
-
+using System.Collections.Generic;
+using MEC;
+using Synapse.Api.Teams;
+using VT_Api.Reflexion;
 
 namespace Common_Utiles
 {
@@ -27,6 +30,26 @@ namespace Common_Utiles
         )]
     public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config.Config>
     {
-        public override bool AutoRegister => false;        
+        public override bool AutoRegister => false;
+
+        public bool RespawnAllow { get; set; }
+
+        public Dictionary<int, List<int>> TeamIDRolesID { get; } = new Dictionary<int, List<int>>();
+
+        public override void ReloadConfigs()
+        {
+            base.ReloadConfigs();
+            //whait the realod of all other plugins
+            Timing.CallDelayed(0f, () =>
+            {
+                 foreach (var team in Synapse.Api.Teams.TeamManager.Get.GetFieldValueOrPerties<List<ISynapseTeam>>("teams"))
+                 {
+                    int teamID = team.Info.ID;
+                    var roles = VT_Api.Core.Roles.RoleManager.Get.GetRoles(teamID);
+                    Plugin.Instance.TeamIDRolesID.Add(teamID, roles);
+                 }
+            });
+        }
+
     }
 }

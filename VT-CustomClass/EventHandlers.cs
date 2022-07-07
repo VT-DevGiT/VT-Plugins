@@ -167,7 +167,7 @@ namespace VTCustomClass
                         (0 < classToSpawn.MinRequiredPlayersInGame && Server.Get.PlayersAmount < classToSpawn.MinRequiredPlayersInGame))
                         continue;
 
-                    var playersRoles = ev.SpawnPlayers.Where(r => VT_Api.Core.Roles.RoleManager.VanilaScpID.Contains(r.Value));
+                    var playersRoles = ev.SpawnPlayers.Where(r => VT_Api.Core.Roles.RoleManager.Get.VanilaScpID.Contains(r.Value));
 
                     for (int i = 0; i < classToSpawn.MaxSpawn; i++)
                     {

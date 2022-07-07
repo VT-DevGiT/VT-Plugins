@@ -219,7 +219,7 @@ Temps avent la décontamination : %DecontTime%
             nRSC = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.RSC).Count();
             nVIP = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.VIP).Count();
             nFIM = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.NTF || p.TeamID == (int)TeamID.CDM && p.TeamID == (int)TeamID.AL1).Count();
-            leftdecont = (int)(Math.Truncate(TimeLeftDecon() * 100f) / 100f);
+            leftdecont = (int)TimeLeftDecon();
             leftautowarhead = AlphaWarheadController.Host != null
                 ? (int)Mathf.Clamp(AlphaWarheadController.Host.timeToDetonation - RoundSummary.roundTime, 0, AlphaWarheadController.Host.timeToDetonation)
                 : -1;
@@ -291,7 +291,7 @@ Temps avent la décontamination : %DecontTime%
             #endregion
 
             #region DecontTime
-            decontTime = $"T-{leftdecont / 60:00}:{leftdecont % 60:00}";
+            decontTime = leftdecont == -1 ? $"Decont Disable" : $"T-{leftdecont / 60:00}:{leftdecont % 60:00}";
             #endregion
 
             #region BrecheTime
@@ -352,9 +352,7 @@ Temps avent la décontamination : %DecontTime%
         }
         public static float TimeLeftDecon()
         {
-            var phase = DecontaminationController.Singleton.DecontaminationPhases;
-            return DecontPatch.phase;
-            //return Plugin. DecontInProgress ? phase[phase.Length - 1].TimeTrigger - (float)DecontaminationController.GetServerTime : 180 ;
+            return DecontPatch.DecontaminationPhases.Count() == 3 ? DecontPatch.DecontaminationPhases[2].TimeTrigger - (float)DecontaminationController.GetServerTime : -1;
         }
     }
 }
