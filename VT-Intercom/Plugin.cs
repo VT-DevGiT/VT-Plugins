@@ -353,7 +353,7 @@ Temps avent la décontamination : %DecontTime%
         public static float TimeLeftDecon()
         {
             var phase = DecontaminationController.Singleton.DecontaminationPhases;
-            return Starting.phase;
+            return DecontPatch.phase;
             //return Plugin. DecontInProgress ? phase[phase.Length - 1].TimeTrigger - (float)DecontaminationController.GetServerTime : 180 ;
         }
     }

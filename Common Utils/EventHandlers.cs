@@ -19,7 +19,6 @@ namespace Common_Utiles
     {
         public EventHandlers()
         {
-            VtController.Get.Events.Map.GeneratorActivatedEvent += OnGeneratorActivated;
             VtController.Get.Events.Map.Scp914UpgradeItemEvent += OnUpgrade;
             Server.Get.Events.Player.PlayerSetClassEvent += OnSpawn;
             Server.Get.Events.Map.Scp914ActivateEvent += On914Activate;          
@@ -39,66 +38,6 @@ namespace Common_Utiles
         {
             if (!RespawnAllow)
                 ev.Allow = false;
-        }
-
-        private void OnGeneratorActivated(GeneratorActivatedEventArgs ev)
-        {
-
-            if (Map.Get.Generators.Where(p => p.Engaged == true).Count() == 2)
-            {
-                Map.Get.Cassie("Decontamination sequence commencing in 2 minutes");
-                
-                VTIntercom.Starting.phase = 0;
-                DecontaminationController.Singleton.disableDecontamination = false;
-                var phase = DecontaminationController.Singleton.DecontaminationPhases;
-                for (int i = 0; i < phase.Length; i++)
-                {
-                    var elem = phase[i];
-                }
-                DecontaminationController.DecontaminationPhase[] newPhase = new DecontaminationController.DecontaminationPhase[3];
-                
-                newPhase[0] = new DecontaminationController.DecontaminationPhase()
-                {
-                    TimeTrigger = (float)DecontaminationController.GetServerTime + 1,
-                    Function = PhaseFunction.None,
-                    AnnouncementLine = phase[phase.Length - 3].AnnouncementLine
-                };
-                
-                newPhase[1] = new DecontaminationController.DecontaminationPhase()
-                {
-                    TimeTrigger = (float)DecontaminationController.GetServerTime + 2,
-                    Function = PhaseFunction.OpenCheckpoints,
-                    AnnouncementLine = phase[phase.Length - 2].AnnouncementLine,
-
-                };
-                
-                newPhase[2] = new DecontaminationController.DecontaminationPhase()
-                {
-                    TimeTrigger = (float)DecontaminationController.GetServerTime + 120,
-                    Function = PhaseFunction.Final,
-                    AnnouncementLine = phase[phase.Length - 1].AnnouncementLine
-                };
-                
-                VTIntercom.Starting.DecontaminationPhases = newPhase;
-                DecontaminationController.Singleton.SetField<int>("_nextPhase", 0);
-                foreach (var room in Server.Get.Map.Rooms.FindAll(p => p.Zone == ZoneType.LCZ)) foreach (var door in room.Doors)
-                        if (door.DoorPermissions.RequiredPermissions == KeycardPermissions.None)
-                        {
-                            door.Locked = true;
-                            door.Open = true;
-                        }
-                
-                Timing.CallDelayed(60f, () =>
-                {
-                    Map.Get.Cassie("Decontamination sequence commencing in 1 minute");
-                });
-                
-                Timing.CallDelayed(125f, () =>
-                {
-                    Map.Get.Cassie("Light Containment Zone is locked down and ready for decontamination .");
-                });
-                VTIntercom.Plugin.Instance.DecontInProgress = true;
-            }
         }
         
         private void OnUpgrade(Scp914UpgradeItemEventArgs ev)

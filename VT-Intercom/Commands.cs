@@ -86,7 +86,7 @@ namespace VTIntercom
                 }
                 return result;
             }
-        }
+        }*/
 
         [CommandInformation(
             Name = "Tesla",
@@ -183,10 +183,8 @@ namespace VTIntercom
             }
         }
 
-
         public static bool IsValidInteract(int Voltage, CommandContext context)
             => Map.Get.GetVoltage() >= Voltage && context.Player?.Room?.RoomType == MapGeneration.RoomName.EzIntercom;
-        */
     }
     
 }
