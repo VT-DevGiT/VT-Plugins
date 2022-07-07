@@ -21,15 +21,16 @@ namespace Common_Utiles
         {
             VtController.Get.Events.Map.Scp914UpgradeItemEvent += OnUpgrade;
             Server.Get.Events.Player.PlayerSetClassEvent += OnSpawn;
-            Server.Get.Events.Map.Scp914ActivateEvent += On914Activate;          
-            Server.Get.Events.Round.TeamRespawnEvent += OnRespawn;
-            Server.Get.Events.Round.RoundStartEvent += OnRoundStart;            
+            Server.Get.Events.Map.Scp914ActivateEvent += On914Activate;
+            Server.Get.Events.Round.TeamRespawnEvent += OnRespawn;            
+            Server.Get.Events.Round.RoundStartEvent += OnRoundStart;
         }
+
 
         System.Func<float, float, float> floatRnd = (min, max) => Random.Range(min, max);
         System.Func<int, int, int> intRnd = (min, max) => Random.Range(min, max);
 
-        Common_Utiles.Config.Config cfg => Plugin.Instance.Config;
+        public Config.Config cfg => Plugin.Instance.Config;
         public bool RespawnAllow { get; set; }                
       
         private void OnRoundStart() => RespawnAllow = true;                
@@ -57,7 +58,8 @@ namespace Common_Utiles
         }
 
         private void On914Activate(Synapse.Api.Events.SynapseEventArguments.Scp914ActivateEventArgs ev)
-        {                        
+        {
+            
             if (ev.Players.Any())
             {                
                 foreach (var player in ev.Players)
@@ -68,19 +70,14 @@ namespace Common_Utiles
         }
 
         private void Player914(Player player)
-        {
+        {            
             if (Plugin.Instance.Config.Rnd914Size)
             {
                 float newScaleX = floatRnd(cfg.Min914SizeX, cfg.Max914SizeX);
                 float newScaleY = floatRnd(cfg.Min914SizeY, cfg.Max914SizeY);
                 float newScaleZ = floatRnd(cfg.Min914SizeZ, cfg.Max914SizeZ);
                 player.Scale = new Vector3(newScaleX, newScaleY, newScaleZ);
-            }
-            if (cfg.list914Effect.Any())
-            {
-                foreach (var effect in cfg.list914Effect)
-                    effect.Apply(player, Server.Get.Map.Scp914.KnobState);
-            }
+            }     
             if (cfg.Rnd914Roles.Any())
             {
                 foreach (var role in cfg.Rnd914Roles)
