@@ -19,7 +19,7 @@ namespace VTIntercom
     [HarmonyPatch(typeof(DecontaminationController), nameof(DecontaminationController.Update))]
     public static class DecontPatch
     {
-        public static DecontaminationController.DecontaminationPhase[] DecontaminationPhases;
+        public static DecontaminationController.DecontaminationPhase[] DecontaminationPhases = new DecontaminationController.DecontaminationPhase[] { };
         public static bool Prefix(DecontaminationController __instance)
         {
             if (__instance._stopUpdating || __instance.disableDecontamination)

@@ -116,7 +116,8 @@ namespace VTIntercom
         }
 
         private void OnRoundEnd()
-        {
+        {            
+            DecontPatch.DecontaminationPhases = new DecontaminationController.DecontaminationPhase[] { };
             Plugin.Instance.TeslaEnabled = true;
             Plugin.Instance.DecontInProgress = false;
         }
