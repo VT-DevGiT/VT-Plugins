@@ -15,7 +15,7 @@ using static LightContainmentZoneDecontamination.DecontaminationController;
 
 namespace VTIntercom
 {
-
+/*
     [HarmonyPatch(typeof(DecontaminationController), nameof(DecontaminationController.Update))]
     public static class DecontPatch
     {
@@ -75,5 +75,5 @@ namespace VTIntercom
         {
             return false;
         }
-    }
+    }*/
 }

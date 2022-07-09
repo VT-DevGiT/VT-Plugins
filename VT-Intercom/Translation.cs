@@ -18,7 +18,6 @@ Status of the Alfa nuclear warhead : %AlfaWarheadStatut%
 Status of the SCP containment 106 : %IsContain%
 status of the Tesla doors : %Tesla%
 status of the decontamination : %DecontMessage%
-Time before decontamination : %DecontTime%
 %RespawnMessage%
 ─────────────────────────────────────
 %IntercomStatue%";

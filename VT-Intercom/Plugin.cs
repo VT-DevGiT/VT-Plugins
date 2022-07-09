@@ -28,7 +28,7 @@ LoadPriority = 5,
 SynapseMajor = SynapseController.SynapseMajor,
 SynapseMinor = SynapseController.SynapseMinor,
 SynapsePatch = SynapseController.SynapsePatch,
-Version = "v.1.3.3"
+Version = "v.1.3.4"
 )]
 
     public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config, Translation>
@@ -37,7 +37,7 @@ Version = "v.1.3.3"
 
         public override bool AutoRegister => false;
 
-        public bool DecontInProgress { get; set; } = false;
+        //public bool DecontInProgress { get; set; } = false;
         public bool TeslaEnabled { get; set; } = true;
         public bool CustomScreen { get; set; } = false;
 
@@ -69,7 +69,6 @@ Statut de l'ogive nucléaire ALpha : %AlfaWarheadStatut%
 Statut du briseur de fémur pour SCP-106 : %IsContain%
 Statut des portes tesla : %Tesla%
 Statut de la décontamination : %DecontMessage%
-Temps avent la décontamination : %DecontTime%
 %RespawnMessage%
 ─────────────────────────────────────
 %IntercomStatue%",
@@ -192,7 +191,7 @@ Temps avent la décontamination : %DecontTime%
 
         public string GeneralInfo(string IntercomStatueMessage)
         {
-            int leftdecont;
+            //int leftdecont;
             int leftautowarhead;
             int nextRespawnTime;
             int nSCP;
@@ -204,7 +203,7 @@ Temps avent la décontamination : %DecontTime%
             bool isContain;
             bool isAlreadyUsed;
             string roundTime;
-            string decontTime;
+            //string decontTime;
             string teslaMessage;
             string scp106Message;
             string alfaWarheadMessage;
@@ -219,7 +218,8 @@ Temps avent la décontamination : %DecontTime%
             nRSC = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.RSC).Count();
             nVIP = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.VIP).Count();
             nFIM = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.NTF || p.TeamID == (int)TeamID.CDM && p.TeamID == (int)TeamID.AL1).Count();
-            leftdecont = (int)TimeLeftDecon();
+            //TODO put decont timer
+            //leftdecont = ;
             leftautowarhead = AlphaWarheadController.Host != null
                 ? (int)Mathf.Clamp(AlphaWarheadController.Host.timeToDetonation - RoundSummary.roundTime, 0, AlphaWarheadController.Host.timeToDetonation)
                 : -1;
@@ -228,7 +228,7 @@ Temps avent la décontamination : %DecontTime%
                 : 0);
             isContain = PlayerManager.localPlayer.GetComponent<CharacterClassManager>()._lureSpj.allowContain;
             isAlreadyUsed = OneOhSixContainer.used;
-            leftdecont = Mathf.Clamp(leftdecont, 0, leftdecont);
+            //leftdecont = Mathf.Clamp(leftdecont, 0, leftdecont);
             #endregion
 
             #region Alfa Warhead Message
@@ -291,7 +291,7 @@ Temps avent la décontamination : %DecontTime%
             #endregion
 
             #region DecontTime
-            decontTime = leftdecont == -1 ? $"Decont Disable" : $"T-{leftdecont / 60:00}:{leftdecont % 60:00}";
+            //decontTime = leftdecont == -1 ? $"Decont Disable" : $"T-{leftdecont / 60:00}:{leftdecont % 60:00}";
             #endregion
 
             #region BrecheTime
@@ -311,12 +311,12 @@ Temps avent la décontamination : %DecontTime%
             screenMessage = Regex.Replace(screenMessage, "%Tesla%", teslaMessage, RegexOptions.IgnoreCase);
             screenMessage = Regex.Replace(screenMessage, "%IsContain%", scp106Message, RegexOptions.IgnoreCase);
             screenMessage = Regex.Replace(screenMessage, "%DecontMessage%", decontMessage, RegexOptions.IgnoreCase);
-            screenMessage = Regex.Replace(screenMessage, "%DecontTime%", decontTime.ToString(), RegexOptions.IgnoreCase);
+            //screenMessage = Regex.Replace(screenMessage, "%DecontTime%", decontTime.ToString(), RegexOptions.IgnoreCase);
             screenMessage = Regex.Replace(screenMessage, "%RespawnMessage%", respawnMessage, RegexOptions.IgnoreCase);
             screenMessage = Regex.Replace(screenMessage, "%IntercomStatue%", IntercomStatueMessage, RegexOptions.IgnoreCase);
             return screenMessage;
         }
-
+/*
         public IEnumerator<float> Decontamination(int WaitForStart = 120, int AlertTime = 3)
         {
             DecontInProgress = true;
@@ -353,6 +353,6 @@ Temps avent la décontamination : %DecontTime%
         public static float TimeLeftDecon()
         {
             return DecontPatch.DecontaminationPhases.Count() == 3 ? DecontPatch.DecontaminationPhases[2].TimeTrigger - (float)DecontaminationController.GetServerTime : -1;
-        }
+        }*/
     }
 }
