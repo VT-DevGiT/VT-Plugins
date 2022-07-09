@@ -931,23 +931,25 @@ namespace VTCustomClass
             },
         };
 
+        /* Unused Config
         [Description("UTR ignor SCP 173")]
         public bool UTRIngor173 { get; set; } = true;
 
         [Description("UTR ignor SCP 096")]
         public bool UTRIngor096 { get; set; } = true;
-
+        */
         [Description("List of the SCPs can damage UTR and the amount of damage, if set to -1 is the default damage")]
         public Dictionary<int, int> UTRListScpDamge { get; set; } = new Dictionary<int, int>()
         {
-            { (int)RoleID.Scp049,  100  },
-            { (int)RoleID.Scp0492,  20  },
-            { (int)RoleID.Scp096,   -1  },
-            { (int)RoleID.Scp106,   0   },
-            { (int)RoleID.Scp93953, -1  },
-            { (int)RoleID.Scp93989, -1  },
-            { (int) RoleID.SCP008,  100 },
-            { (int) RoleID.SCP966,  50  }
+            { (int)RoleID.Scp049,  0  },
+            { (int)RoleID.Scp0492, 20  },
+            { (int)RoleID.Scp096,  -1  },
+            { (int)RoleID.Scp106,  9999  },
+            { (int)RoleID.Scp93953, 30  },
+            { (int)RoleID.Scp93989, 30  },
+            { (int) RoleID.SCP008,  0 },
+            { (int) RoleID.SCP966,  20  },
+            { (int) RoleID.Scp173,  0 },
         };
     }
 }

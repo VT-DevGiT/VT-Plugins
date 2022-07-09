@@ -6,6 +6,7 @@ using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
 using Synapse.Api.Items;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using VT_Api.Core.Enum;
@@ -29,7 +30,7 @@ namespace VTCustomClass.PlayerScript
         protected virtual bool HeavyUTR => true;
         protected virtual Color Color => Color.white;
         protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
-        protected bool Protected096 { get; set; } = true;
+        protected bool Protected096 { get; set; } = false;
         protected UtrCorp Corp { get; set; }
         //public Player Target { get; set; }
         
@@ -246,6 +247,14 @@ namespace VTCustomClass.PlayerScript
                         if (damage != -1)
                             ev.Damage = damage;
                     }
+                    else if (ev.DamageType == DamageType.Firearm )
+                    {
+                        ev.Damage = 3;
+                    }
+                    else if (ev.DamageType == DamageType.Explosion)
+                    {
+                        ev.Damage = 20;
+                    }
                     else
                         ev.Allow = false;
                 }
@@ -271,7 +280,14 @@ namespace VTCustomClass.PlayerScript
         private void OnScp173Spawn(PlayerSetClassEventArgs ev)
         {
             if (ev.Role == RoleType.Scp173)
-                ev.Player.Scp173Controller.IgnoredPlayers.Add(Player);
+            {
+                List<Player> players;
+                players = Server.Get.Players.Where(x => x.RoleID == 112 || x.RoleID == 148).ToList();
+                foreach (var player in players)
+                {
+                    ev.Player.Scp173Controller.IgnoredPlayers.Add(player);    
+                }
+            }
         }
 
         #endregion
