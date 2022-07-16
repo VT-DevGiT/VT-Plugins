@@ -15,11 +15,11 @@ using static LightContainmentZoneDecontamination.DecontaminationController;
 
 namespace VTIntercom
 {
-
+/*
     [HarmonyPatch(typeof(DecontaminationController), nameof(DecontaminationController.Update))]
     public static class DecontPatch
     {
-        public static DecontaminationController.DecontaminationPhase[] DecontaminationPhases;
+        public static DecontaminationController.DecontaminationPhase[] DecontaminationPhases = new DecontaminationController.DecontaminationPhase[] { };
         public static bool Prefix(DecontaminationController __instance)
         {
             if (!Plugin.Instance.Config.Decont)
@@ -81,5 +81,5 @@ namespace VTIntercom
         {
             return !Plugin.Instance.Config.Decont;
         }
-    }
+    }*/
 }

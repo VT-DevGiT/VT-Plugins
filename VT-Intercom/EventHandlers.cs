@@ -22,7 +22,6 @@ namespace VTIntercom
             Server.Get.Events.Round.RoundStartEvent += OnRoundStart;
             Server.Get.Events.Round.RoundEndEvent += OnRoundEnd;
             VtController.Get.Events.Player.PlayerSpeakIntercomEvent += OnSpeakIntercom;
-            VtController.Get.Events.Map.GeneratorActivatedEvent += OnGeneratorActivated;
         }
 
         private void OnSpeakIntercom(PlayerSpeakIntercomEventEventArgs ev)
@@ -110,15 +109,16 @@ namespace VTIntercom
                 {
                     if (player.Zone == Synapse.Api.Enum.ZoneType.LCZ)
                         player.Connection.Send(new SubtitleMessage(new[] { subtitle }));
-                }//kep
+                }
             }
         }
 
         private void OnRoundEnd()
         {
             Plugin.Instance.TeslaEnabled = true;
-            Plugin.Instance.DecontInProgress = false;//kep
-        }
+            Plugin.Instance.DecontInProgress = false;
+		}
+
 
         private void OnRoundStart()
         {
