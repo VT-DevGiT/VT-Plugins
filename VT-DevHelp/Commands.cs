@@ -1,4 +1,6 @@
-﻿using CustomPlayerEffects;
+﻿#define TEST
+
+using CustomPlayerEffects;
 using Synapse;
 using Synapse.Api;
 using Synapse.Api.CustomObjects;
@@ -130,23 +132,29 @@ namespace VTDevHelp
                 return true;
             }
 
-            public static void addEffect(Player player)
+            public static void AddEffect(Player player)
             {
+#line 1 "Test Effect"
+                Synapse.Api.Logger.Get.Info("1");
                 var effectCtrl = player.PlayerEffectsController;
                 var effect = new testeffect();
+                Synapse.Api.Logger.Get.Info("2");
 
                 if (!effectCtrl.AllEffects.ContainsKey(typeof(testeffect)))
                     effectCtrl.AllEffects.Add(typeof(testeffect), effect);
+                Synapse.Api.Logger.Get.Info("3");
 
                 effectCtrl.EnableEffect(effect, -1);
+                Synapse.Api.Logger.Get.Info("4");
+
+#line default
             }
         }
 
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
-
-            Synapse.Api.Logger.Get.Info(context.Player.Scp173Controller.ConfrontingPlayers.Any());
+            testeffect.AddEffect(context.Player);
 
             return result;
         }

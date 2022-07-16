@@ -22,6 +22,9 @@ namespace VTIntercom
         public static DecontaminationController.DecontaminationPhase[] DecontaminationPhases;
         public static bool Prefix(DecontaminationController __instance)
         {
+            if (!Plugin.Instance.Config.Decont)
+                return true;
+
             if (__instance._stopUpdating || __instance.disableDecontamination)
                 return false;
 
@@ -41,17 +44,20 @@ namespace VTIntercom
                 __instance._justJoinedCooldown += Time.deltaTime;
             }
 
-            if (!((float)GetServerTime > DecontaminationPhases[__instance._nextPhase].TimeTrigger))
+            var phase = DecontaminationPhases[__instance._nextPhase];
+
+            if (!((float)GetServerTime > phase.TimeTrigger))
             {
                 return false;
             }
 
-            if (DecontaminationPhases[__instance._nextPhase].Function == DecontaminationPhase.PhaseFunction.Final)
+            Synapse.Api.Logger.Get.Info(phase.Function.ToString());
+
+            if (phase.Function == DecontaminationPhase.PhaseFunction.Final)
             {
                 __instance.FinishDecontamination();
             }
-
-            if (NetworkServer.active && DecontaminationPhases[__instance._nextPhase].Function == DecontaminationPhase.PhaseFunction.OpenCheckpoints)
+            else if (phase.Function == DecontaminationPhase.PhaseFunction.OpenCheckpoints)
             {
                 DoorEventOpenerExtension.TriggerAction(DoorEventOpenerExtension.OpenerEventType.DeconEvac);
             }
@@ -73,7 +79,7 @@ namespace VTIntercom
     {
         public static bool Prefix(DecontaminationController __instance)
         {
-            return false;
+            return !Plugin.Instance.Config.Decont;
         }
     }
 }

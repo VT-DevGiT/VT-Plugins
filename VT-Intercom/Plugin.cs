@@ -44,10 +44,24 @@ Version = "v.1.3.3"
 
         private void PatchAll()
         {
-            var instance = new Harmony("VTProget_X");
-            instance.PatchAll();
-            Server.Get.Logger.Info("VT-ProgetX Harmony Patch done!");
+            if (Config.Decont)
+            {
+                var instance = new Harmony("VTProget_X");
+                instance.PatchAll();
+                Server.Get.Logger.Info("VT-ProgetX Harmony Patch done!");
+            }
         }
+
+        public override void ReloadConfigs()
+        {
+            base.ReloadConfigs();
+            var instance = new Harmony("VTProget_X");
+            instance.UnpatchAll();
+
+            if (Config.Decont)
+                instance.PatchAll();
+        }
+
 
         public override void Load()
         {
@@ -350,9 +364,13 @@ Temps avent la décontamination : %DecontTime%
             Server.Get.Map.Decontamination?.Controller?.FinishDecontamination();
             yield break;
         }
+
         public static float TimeLeftDecon()
         {
-            return DecontPatch.DecontaminationPhases.Count() == 3 ? DecontPatch.DecontaminationPhases[2].TimeTrigger - (float)DecontaminationController.GetServerTime : -1;
+            if (Plugin.Instance.Config.Decont)
+                return DecontPatch.DecontaminationPhases.Count() == 3 ? DecontPatch.DecontaminationPhases[2].TimeTrigger - (float)DecontaminationController.GetServerTime : -1;
+            else
+                return DecontaminationController.Singleton.DecontaminationPhases.Last().TimeTrigger - (float)DecontaminationController.GetServerTime;
         }
     }
 }

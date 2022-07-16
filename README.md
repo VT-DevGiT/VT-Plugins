@@ -3,8 +3,8 @@ VT plugins are plugins for SCP sl servers under the [synapse loader](https://git
 
 ## Installation
 1. [Install Synapse](https://github.com/SynapseSL/Synapse/wiki#hosting-guides).
-2. Place the dll VT-API in the synapse reference folder (can be found [here](https://github.com/VT-DevGiT/VT-Api)).
-3. Place the dll file in your plugin directory.
+2. Place the VT-API dll in the synapse reference folder (can be found [here](https://github.com/VT-DevGiT/VT-Api)).
+3. Place the plugins dll in your plugin directory.
 4. Restart/Start your server.
 
 All plugins dll can be download [here](https://github.com/VT-DevGiT/VT-Plugins/releases) 

@@ -37,8 +37,7 @@ namespace VTIntercom
 
         private void OnGeneratorActivated(GeneratorActivatedEventArgs ev)
         {
-
-            if (Map.Get.Generators.Where(p => p.Engaged == true).Count() == 2)
+            if (Plugin.Instance.Config.Decont && Map.Get.Generators.Where(p => p.Engaged == true).Count() == 2)
             {
                 /*
                  * Vanila Phase :
@@ -111,14 +110,14 @@ namespace VTIntercom
                 {
                     if (player.Zone == Synapse.Api.Enum.ZoneType.LCZ)
                         player.Connection.Send(new SubtitleMessage(new[] { subtitle }));
-                }
+                }//kep
             }
         }
 
         private void OnRoundEnd()
         {
             Plugin.Instance.TeslaEnabled = true;
-            Plugin.Instance.DecontInProgress = false;
+            Plugin.Instance.DecontInProgress = false;//kep
         }
 
         private void OnRoundStart()

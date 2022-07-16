@@ -14,6 +14,7 @@ using System.Threading;
 using VT_Api.Core.Enum;
 using VT_Api.Core.Events.EventArguments;
 using VT_Api.Core.Items;
+using static Synapse.Api.Events.EventHandler;
 
 namespace VTDevHelp
 {
@@ -25,7 +26,24 @@ namespace VTDevHelp
             Server.Get.Events.Player.PlayerDamageEvent += OnDamager;
             Server.Get.Events.Round.RoundStartEvent += OnRoundStart;
             Server.Get.Events.Round.TeamRespawnEvent += OnRespawn;
+            VtController.Get.Events.Map.Scp914ActivateEvent += OnScp914A;
+            VtController.Get.Events.Map.Scp914ChangeSettingEvent += OnScp914C;
+            VtController.Get.Events.Map.Scp914UpgradeItemEvent += OnScp914U;
             //Server.Get.Events.Round.RoundStartEvent += GetsyncVar;
+        }
+        private void OnScp914A(VT_Api.Core.Events.EventArguments.Scp914ActivateEventArgs ev)
+        {
+            Logger.Get.Info(ev.GetInfo());
+        }
+
+        private void OnScp914U(Scp914UpgradeItemEventArgs ev)
+        {
+            Logger.Get.Info(ev.GetInfo());
+        }
+
+        private void OnScp914C(Change914KnobSettingEventArgs ev)
+        {
+            Logger.Get.Info(ev.GetInfo());        
         }
 
         private void OnRoundStart()
