@@ -69,7 +69,7 @@ Version = "v.1.3.4"
             PatchAll();
             Translation.AddTranslation(new VTIntercom.Translation
             {
-               IntercomGeneralInformation = 
+               IntercomGeneralInformation =
 @"─────────── Centre d'information FIM ───────────
 Durée de la brèche : %RoundTime%
 SCP restant(s) : %nSCP%
@@ -83,6 +83,7 @@ Statut de l'ogive nucléaire ALpha : %AlfaWarheadStatut%
 Statut du briseur de fémur pour SCP-106 : %IsContain%
 Statut des portes tesla : %Tesla%
 Statut de la décontamination : %DecontMessage%
+Temps avent la décontamination : %DecontTime%
 %RespawnMessage%
 ─────────────────────────────────────
 %IntercomStatue%",
@@ -254,7 +255,7 @@ Statut de la décontamination : %DecontMessage%
             #endregion
 
             #region Deconta Message
-            if (Map.Get.GetVoltage() < 100)
+            if (Map.Get.GetVoltage() < 3000)
                 decontMessage = Translation.ActiveTranslation.DecontMessageNotEnoughEnergy;
             else
             {
@@ -305,7 +306,7 @@ Statut de la décontamination : %DecontMessage%
             #endregion
 
             #region DecontTime
-            //decontTime = leftdecont == -1 ? $"Decont Disable" : $"T-{leftdecont / 60:00}:{leftdecont % 60:00}";
+            decontTime = leftdecont == -1 ? $"Decont Disable" : $"T-{leftdecont / 60:00}:{leftdecont % 60:00}";
             #endregion
 
             #region BrecheTime

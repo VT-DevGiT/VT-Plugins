@@ -16,8 +16,9 @@ Active generator power : %TotalVoltage% kVA
 Status of the Omega nuclear warhead : READY
 Status of the Alfa nuclear warhead : %AlfaWarheadStatut%
 Status of the SCP containment 106 : %IsContain%
-status of the Tesla doors : %Tesla%
-status of the decontamination : %DecontMessage%
+Status of the Tesla doors : %Tesla%
+Status of the decontamination : %DecontMessage%
+Time before decontamination : %DecontTime%
 %RespawnMessage%
 ─────────────────────────────────────
 %IntercomStatue%";
