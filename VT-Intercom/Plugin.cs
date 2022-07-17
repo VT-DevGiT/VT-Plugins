@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using GameCore;
 using UnityEngine;
 using VT_Api.Core.Enum;
 using VT_Api.Core.Plugin;
@@ -37,7 +38,7 @@ Version = "v.1.3.4"
 
         public override bool AutoRegister => false;
 
-        //public bool DecontInProgress { get; set; } = false;
+        public bool DecontInProgress { get; set; } = false;
         public bool TeslaEnabled { get; set; } = true;
         public bool CustomScreen { get; set; } = false;
 
@@ -206,7 +207,7 @@ Temps avent la décontamination : %DecontTime%
 
         public string GeneralInfo(string IntercomStatueMessage)
         {
-            int leftdecont;
+            //int leftdecont;
             int leftautowarhead;
             int nextRespawnTime;
             int nSCP;
@@ -218,7 +219,7 @@ Temps avent la décontamination : %DecontTime%
             bool isContain;
             bool isAlreadyUsed;
             string roundTime;
-            string decontTime;
+            //string decontTime;
             string teslaMessage;
             string scp106Message;
             string alfaWarheadMessage;
@@ -234,7 +235,7 @@ Temps avent la décontamination : %DecontTime%
             nVIP = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.VIP).Count();
             nFIM = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.NTF || p.TeamID == (int)TeamID.CDM && p.TeamID == (int)TeamID.AL1).Count();
             //TODO put decont timer
-            //leftdecont = ;
+            //leftdecont = 0;
             leftautowarhead = AlphaWarheadController.Host != null
                 ? (int)Mathf.Clamp(AlphaWarheadController.Host.timeToDetonation - RoundSummary.roundTime, 0, AlphaWarheadController.Host.timeToDetonation)
                 : -1;
@@ -243,7 +244,7 @@ Temps avent la décontamination : %DecontTime%
                 : 0);
             isContain = PlayerManager.localPlayer.GetComponent<CharacterClassManager>()._lureSpj.allowContain;
             isAlreadyUsed = OneOhSixContainer.used;
-            leftdecont = Mathf.Clamp(leftdecont, 0, leftdecont);
+            //leftdecont = Mathf.Clamp(leftdecont, 0, leftdecont);
             #endregion
 
             #region Alfa Warhead Message
@@ -306,11 +307,11 @@ Temps avent la décontamination : %DecontTime%
             #endregion
 
             #region DecontTime
-            decontTime = leftdecont == -1 ? $"Decont Disable" : $"T-{leftdecont / 60:00}:{leftdecont % 60:00}";
+            //decontTime = leftdecont == -1 ? $"Decont Disable" : $"T-{leftdecont / 60:00}:{leftdecont % 60:00}";
             #endregion
 
             #region BrecheTime
-            roundTime = $"T+{ RoundSummary.roundTime / 60:00}:{ RoundSummary.roundTime % 60:00}";
+            roundTime = RoundStart.RoundLength.ToString("hh\\:mm\\:ss");
             #endregion
 
             screenMessage = Translation.ActiveTranslation.IntercomGeneralInformation;
@@ -326,7 +327,9 @@ Temps avent la décontamination : %DecontTime%
             screenMessage = Regex.Replace(screenMessage, "%Tesla%", teslaMessage, RegexOptions.IgnoreCase);
             screenMessage = Regex.Replace(screenMessage, "%IsContain%", scp106Message, RegexOptions.IgnoreCase);
             screenMessage = Regex.Replace(screenMessage, "%DecontMessage%", decontMessage, RegexOptions.IgnoreCase);
-            screenMessage = Regex.Replace(screenMessage, "%DecontTime%", decontTime.ToString(), RegexOptions.IgnoreCase);
+            //screenMessage = Regex.Replace(screenMessage, "%DecontTime%", decontTime.ToString(), RegexOptions.IgnoreCase);
+            screenMessage = Regex.Replace(screenMessage, "%DecontTime%", "NYI", RegexOptions.IgnoreCase);
+            
             screenMessage = Regex.Replace(screenMessage, "%RespawnMessage%", respawnMessage, RegexOptions.IgnoreCase);
             screenMessage = Regex.Replace(screenMessage, "%IntercomStatue%", IntercomStatueMessage, RegexOptions.IgnoreCase);
             return screenMessage;

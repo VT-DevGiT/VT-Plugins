@@ -21,6 +21,7 @@ namespace VTIntercom
             Server.Get.Events.Map.TriggerTeslaEvent += OnTriggerTeslaEvent;
             Server.Get.Events.Round.RoundStartEvent += OnRoundStart;
             Server.Get.Events.Round.RoundEndEvent += OnRoundEnd;
+            VtController.Get.Events.Map.GeneratorActivatedEvent += OnGeneratorActivated;
             VtController.Get.Events.Player.PlayerSpeakIntercomEvent += OnSpeakIntercom;
         }
 
@@ -76,8 +77,7 @@ namespace VTIntercom
                 DecontPatch.DecontaminationPhases = newPhase;
                 DecontaminationController.Singleton.SetField<int>("_nextPhase", 0);
                 foreach (var room in Server.Get.Map.Rooms.FindAll(p => p.Zone == ZoneType.LCZ)) foreach (var door in room.Doors)
-                    if (door.DoorPermissions.RequiredPermissions == KeycardPermissions.None)
-                    {
+                    if(door.DoorPermissions.RequiredPermissions == KeycardPermissions.None){
                         door.Locked = true;
                         door.Open = true;
                     }
@@ -98,9 +98,11 @@ namespace VTIntercom
                 {
                     Map.Get.Cassie("Light Containment Zone is locked down and ready for decontamination .");
                     Subtitle(new SubtitlePart(SubtitleType.DecontaminationLockdown, null));
+                    SynapseController.Server.Map.Decontamination.InstantStart();
                 });
                 VTIntercom.Plugin.Instance.DecontInProgress = true;
                 DecontaminationController.Singleton._stopUpdating = false;
+                
             }
             
             void Subtitle(SubtitlePart subtitle)
