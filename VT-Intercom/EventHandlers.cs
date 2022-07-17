@@ -76,11 +76,13 @@ namespace VTIntercom
 
                 DecontPatch.DecontaminationPhases = newPhase;
                 DecontaminationController.Singleton.SetField<int>("_nextPhase", 0);
-                foreach (var room in Server.Get.Map.Rooms.FindAll(p => p.Zone == ZoneType.LCZ)) foreach (var door in room.Doors)
-                    if(door.DoorPermissions.RequiredPermissions == KeycardPermissions.None){
-                        door.Locked = true;
-                        door.Open = true;
-                    }
+                foreach (var room in Server.Get.Map.Rooms.FindAll(p => p.Zone == ZoneType.LCZ))
+                foreach (var door in room.Doors)
+                {//NOT TESTED
+                    door.Locked = true;
+                    door.VDoor.ServerChangeLock(DoorLockReason.DecontEvacuate, true);
+                    door.Open = true;
+                }
 
                 Map.Get.Cassie("Decontamination sequence commencing in 2 minutes");
                 Subtitle(new SubtitlePart(SubtitleType.DecontaminationMinutes, new string[1]

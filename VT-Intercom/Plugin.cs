@@ -84,7 +84,7 @@ Statut de l'ogive nucléaire ALpha : %AlfaWarheadStatut%
 Statut du briseur de fémur pour SCP-106 : %IsContain%
 Statut des portes tesla : %Tesla%
 Statut de la décontamination : %DecontMessage%
-Temps avent la décontamination : %DecontTime%
+Temps avant la décontamination : %DecontTime%
 %RespawnMessage%
 ─────────────────────────────────────
 %IntercomStatue%",
@@ -92,7 +92,7 @@ Temps avent la décontamination : %DecontTime%
                 IntercomScpInformation079 = "%Name% : Tier %Tier%",
                 IntercomNoScpInformation = "PAS DE SCP RESTANT",
                 TeslaOn = "ACTIVÉES",
-                TeslaOff = "DÉSSACTIVÉES",
+                TeslaOff = "DÉSACTIVÉES",
                 SCP106Ready = "ACTIVÉES",
                 SCP106Use = "UTILISÉ",
                 SCP106Empty = "VIDE",
@@ -207,7 +207,7 @@ Temps avent la décontamination : %DecontTime%
 
         public string GeneralInfo(string IntercomStatueMessage)
         {
-            //int leftdecont;
+            int leftdecont;
             int leftautowarhead;
             int nextRespawnTime;
             int nSCP;
@@ -219,7 +219,7 @@ Temps avent la décontamination : %DecontTime%
             bool isContain;
             bool isAlreadyUsed;
             string roundTime;
-            //string decontTime;
+            string decontTime;
             string teslaMessage;
             string scp106Message;
             string alfaWarheadMessage;
@@ -234,8 +234,7 @@ Temps avent la décontamination : %DecontTime%
             nRSC = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.RSC).Count();
             nVIP = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.VIP).Count();
             nFIM = Server.Get.Players.Where(p => p.TeamID == (int)TeamID.NTF || p.TeamID == (int)TeamID.CDM && p.TeamID == (int)TeamID.AL1).Count();
-            //TODO put decont timer
-            //leftdecont = 0;
+            leftdecont = (int)(Math.Truncate(TimeLeftDecon() * 100f) / 100f);;
             leftautowarhead = AlphaWarheadController.Host != null
                 ? (int)Mathf.Clamp(AlphaWarheadController.Host.timeToDetonation - RoundSummary.roundTime, 0, AlphaWarheadController.Host.timeToDetonation)
                 : -1;
@@ -244,7 +243,7 @@ Temps avent la décontamination : %DecontTime%
                 : 0);
             isContain = PlayerManager.localPlayer.GetComponent<CharacterClassManager>()._lureSpj.allowContain;
             isAlreadyUsed = OneOhSixContainer.used;
-            //leftdecont = Mathf.Clamp(leftdecont, 0, leftdecont);
+            leftdecont = Mathf.Clamp(leftdecont, 0, leftdecont);
             #endregion
 
             #region Alfa Warhead Message
@@ -307,7 +306,7 @@ Temps avent la décontamination : %DecontTime%
             #endregion
 
             #region DecontTime
-            //decontTime = leftdecont == -1 ? $"Decont Disable" : $"T-{leftdecont / 60:00}:{leftdecont % 60:00}";
+            decontTime = leftdecont == -1 ? $"Decont Disable" : $"T-{leftdecont / 60:00}:{leftdecont % 60:00}";
             #endregion
 
             #region BrecheTime
@@ -327,9 +326,7 @@ Temps avent la décontamination : %DecontTime%
             screenMessage = Regex.Replace(screenMessage, "%Tesla%", teslaMessage, RegexOptions.IgnoreCase);
             screenMessage = Regex.Replace(screenMessage, "%IsContain%", scp106Message, RegexOptions.IgnoreCase);
             screenMessage = Regex.Replace(screenMessage, "%DecontMessage%", decontMessage, RegexOptions.IgnoreCase);
-            //screenMessage = Regex.Replace(screenMessage, "%DecontTime%", decontTime.ToString(), RegexOptions.IgnoreCase);
-            screenMessage = Regex.Replace(screenMessage, "%DecontTime%", "NYI", RegexOptions.IgnoreCase);
-            
+            screenMessage = Regex.Replace(screenMessage, "%DecontTime%", decontTime.ToString(), RegexOptions.IgnoreCase);
             screenMessage = Regex.Replace(screenMessage, "%RespawnMessage%", respawnMessage, RegexOptions.IgnoreCase);
             screenMessage = Regex.Replace(screenMessage, "%IntercomStatue%", IntercomStatueMessage, RegexOptions.IgnoreCase);
             return screenMessage;
