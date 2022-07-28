@@ -10,7 +10,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class StaffClassScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.GetForPlayer(Player).SpawnMessage;
         
         protected override List<int> EnemysList => new List<int> { };
 

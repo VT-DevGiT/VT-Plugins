@@ -14,7 +14,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class CHISPYScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.GetForPlayer(Player).SpawnMessage;
 
         protected override List<int> EnemysList => TeamManager.Group.CHIenemy.ToList();
 
@@ -65,7 +65,7 @@ namespace VTCustomClass.PlayerScript
                 ev.Victim.ChangeRoleAtPosition(RoleType.ChaosConscript);
             else if (ev.Killer?.CustomRole is CHISPYScript role)
             {
-                string message = Plugin.Instance.Translation.ActiveTranslation.KilledMessage.Replace("%RoleName%", role.RoleName);
+                string message = Plugin.Instance.Translation.GetForPlayer(Player).KilledMessage.Replace("%RoleName%", role.RoleName);
                 ev.Victim.OpenReportWindow(message);
             }
         }

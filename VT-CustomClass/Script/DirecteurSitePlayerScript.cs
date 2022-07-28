@@ -9,7 +9,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class DirecteurSiteScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.GetForPlayer(Player).SpawnMessage;
 
         protected override List<int> EnemysList => TeamManager.Group.VIPennemy.ToList();
 

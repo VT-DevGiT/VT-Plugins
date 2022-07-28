@@ -12,7 +12,7 @@ namespace VTCustomClass.PlayerScript
     [AutoRegisterManager.Ignore]
     public class TestClassScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.GetForPlayer(Player).SpawnMessage;
         protected override List<int> EnemysList => new List<int> { };
 
         protected override List<int> FriendsList => new List<int> { };

@@ -19,7 +19,7 @@ namespace VTCustomClass.PlayerScript
     {
 
         #region Properties & Variable
-        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.GetForPlayer(Player).SpawnMessage;
 
         protected override List<int> EnemysList => TeamManager.Group.SCPenemy.ToList();
 

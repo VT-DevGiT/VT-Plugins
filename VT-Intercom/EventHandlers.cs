@@ -7,6 +7,7 @@ using Synapse;
 using Synapse.Api;
 using Synapse.Api.Enum;
 using Synapse.Api.Events.SynapseEventArguments;
+using System.Collections.Generic;
 using System.Linq;
 using VT_Api.Core.Events.EventArguments;
 using VT_Api.Reflexion;
@@ -24,6 +25,8 @@ namespace VTIntercom
             VtController.Get.Events.Map.GeneratorActivatedEvent += OnGeneratorActivated;
             VtController.Get.Events.Player.PlayerSpeakIntercomEvent += OnSpeakIntercom;
         }
+
+        private CoroutineHandle CoroutineAnnonce;
 
         private void OnSpeakIntercom(PlayerSpeakIntercomEventEventArgs ev)
         {
@@ -84,29 +87,35 @@ namespace VTIntercom
                     door.Open = true;
                 }
 
-                Map.Get.Cassie("Decontamination sequence commencing in 2 minutes");
-                Subtitle(new SubtitlePart(SubtitleType.DecontaminationMinutes, new string[1]
-                            {
-                            "2"
-                            }));
+                CoroutineAnnonce = Timing.RunCoroutine(DoAnnoncement());
 
-                Timing.CallDelayed(60f, () =>
-                {
-                    Map.Get.Cassie("Decontamination sequence commencing in 1 minute");
-                    Subtitle(new SubtitlePart(SubtitleType.Decontamination1Minute, null));
-                });
-
-                Timing.CallDelayed(125f, () =>
-                {
-                    Map.Get.Cassie("Light Containment Zone is locked down and ready for decontamination .");
-                    Subtitle(new SubtitlePart(SubtitleType.DecontaminationLockdown, null));
-                    SynapseController.Server.Map.Decontamination.InstantStart();
-                });
                 VTIntercom.Plugin.Instance.DecontInProgress = true;
                 DecontaminationController.Singleton._stopUpdating = false;
                 
             }
-            
+           
+        }
+
+        public IEnumerator<float> DoAnnoncement()
+        {
+            Map.Get.Cassie("Decontamination sequence commencing in 2 minutes");
+            Subtitle(new SubtitlePart(SubtitleType.DecontaminationMinutes, new string[1]
+            {
+                "2"
+            }));
+
+            yield return Timing.WaitForSeconds(60f);
+
+            Map.Get.Cassie("Decontamination sequence commencing in 1 minute");
+            Subtitle(new SubtitlePart(SubtitleType.Decontamination1Minute, null));
+
+            yield return Timing.WaitForSeconds(65f);
+
+            Map.Get.Cassie("Light Containment Zone is locked down and ready for decontamination .");
+            Subtitle(new SubtitlePart(SubtitleType.DecontaminationLockdown, null));
+            SynapseController.Server.Map.Decontamination.InstantStart();
+
+
             void Subtitle(SubtitlePart subtitle)
             {
                 foreach (var player in Server.Get.Players)
@@ -121,7 +130,8 @@ namespace VTIntercom
         {
             Plugin.Instance.TeslaEnabled = true;
             Plugin.Instance.DecontInProgress = false;
-		}
+            CoroutineAnnonce.IsRunning = false;
+        }
 
 
         private void OnRoundStart()

@@ -13,7 +13,7 @@ namespace VTCustomClass.Pouvoir
         public static string Send(DateTime lastPower, int Time)
         {
             int cooldown = Time - (int)(DateTime.Now - lastPower).TotalSeconds;
-            return Regex.Replace(Plugin.Instance.Translation.ActiveTranslation.PowerCooldown, "%Time%", cooldown.ToString(), RegexOptions.IgnoreCase);
+            return Regex.Replace(Plugin.Instance.Translation.GetForPlayer(Player).PowerCooldown, "%Time%", cooldown.ToString(), RegexOptions.IgnoreCase);
         }
     }
 }

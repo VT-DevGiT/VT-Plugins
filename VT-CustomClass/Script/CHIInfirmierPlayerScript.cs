@@ -15,7 +15,7 @@ namespace VTCustomClass.PlayerScript
 {
     public class CHIInfirmierScript : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.GetForPlayer(Player).SpawnMessage;
 
         protected override List<int> EnemysList => TeamManager.Group.CHIenemy.ToList();
 

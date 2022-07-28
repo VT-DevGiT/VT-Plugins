@@ -13,7 +13,7 @@ namespace VTCustomClass.PlayerScript
     public class SCP682Script : AbstractRole, IScpDeathAnnonce
     {
         public string ScpName => "6 8 2";
-        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.GetForPlayer(Player).SpawnMessage;
 
         protected override List<int> EnemysList => TeamManager.Group.BerserkSCPennemy.ToList();
 

@@ -343,7 +343,7 @@ namespace VTCustomClass
             Health = 100,
             SpawnPoints = new List<SerializedMapPoint>()
             {
-                new SerializedMapPoint("HCZ_Room3ar", -1.792f, 1.330017f, -0.004005589f)//TODO Change to serveur 
+                new SerializedMapPoint("HCZ_Servers", -0.7484283f, 2.161987f, -3.400543f)
             },
             Inventory = new SerializedPlayerInventory()
             {

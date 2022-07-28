@@ -16,7 +16,7 @@ namespace VTCustomClass.PlayerScript
     public class SCP1048cript : AbstractRole, IScpDeathAnnonce
     {
         public string ScpName => "1 0 4 8";
-        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.GetForPlayer(Player).SpawnMessage;
 
         protected override List<int> EnemysList => TeamManager.Group.SCPenemy.ToList();
 

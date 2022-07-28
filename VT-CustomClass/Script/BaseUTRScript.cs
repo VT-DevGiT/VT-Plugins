@@ -29,7 +29,7 @@ namespace VTCustomClass.PlayerScript
 
         protected virtual bool HeavyUTR => true;
         protected virtual Color Color => Color.white;
-        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.GetForPlayer(Player).SpawnMessage;
         protected bool Protected096 { get; set; } = false;
         protected UtrCorp Corp { get; set; }
         //public Player Target { get; set; }
@@ -138,12 +138,12 @@ namespace VTCustomClass.PlayerScript
                                             Target = Player.LookingAt.GetPlayer();
                                             if (Target == null || !SynapseExtensions.GetHarmPermission(Player, Target))
                                             {
-                                                message = Plugin.Instance.Translation.ActiveTranslation.NeedToLookAPlayer;
+                                                message = Plugin.Instance.Translation.GetForPlayer(Player).NeedToLookAPlayer;
                                                 return false;
                                             }
                                             else
                                             {
-                                                message = Plugin.Instance.Translation.ActiveTranslation.TargetLock;
+                                                message = Plugin.Instance.Translation.GetForPlayer(Player).TargetLock;
                                                 return true;
                                             }
                                         }
@@ -151,18 +151,18 @@ namespace VTCustomClass.PlayerScript
                                         {
                                             if (Target == null || !SynapseExtensions.GetHarmPermission(Player, Target))
                                             {
-                                                message = Plugin.Instance.Translation.ActiveTranslation.UnlockTarget;
+                                                message = Plugin.Instance.Translation.GetForPlayer(Player).UnlockTarget;
                                                 return true;
                                             }
                                             else
                                             {
-                                                message = Plugin.Instance.Translation.ActiveTranslation.NewTargetLock;
+                                                message = Plugin.Instance.Translation.GetForPlayer(Player).NewTargetLock;
                                                 return true;
                                             }
                                         }*/
             }
 
-            message = Plugin.Instance.Translation.ActiveTranslation.OnlyOnePower;
+            message = Plugin.Instance.Translation.GetForPlayer(Player).OnlyOnePower;
             return false;
         }
 

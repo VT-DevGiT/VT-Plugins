@@ -7,7 +7,7 @@ using VT_Api.Extension;
 
 namespace VTEscape
 {
-    public class Method
+    public static class Method
     {
         public static IEnumerator<float> WarHeadEscape(int waitforready = 3)
         {
@@ -33,12 +33,12 @@ namespace VTEscape
                 player.Inventory.Clear();
             else foreach (var item in player.Inventory.Items)
             {
-                item.Drop();
+                item.Despawn();
                 items.Add(item);
             }
             player.RoleID = Role;
             foreach (var item in items)
-                item.Position = player.Position;
+                item.PickUp(player);
         }
     }
 }

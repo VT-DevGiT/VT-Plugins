@@ -6,12 +6,13 @@ using VT_Api.Config;
 using VT_Api.Core.Enum;
 using VT_Api.Core.Roles;
 using VT_Api.Core.Teams;
+using VT_Api.Extension;
 
 namespace VTCustomClass.PlayerScript
 {
     public class NTFLieutenantColonel : AbstractRole
     {
-        protected override string SpawnMessage => Plugin.Instance.Translation.ActiveTranslation.SpawnMessage;
+        protected override string SpawnMessage => Plugin.Instance.Translation.GetForPlayer(Player).SpawnMessage;
 
         protected override List<int> EnemysList => TeamManager.Group.MTFenemy.ToList();
 
