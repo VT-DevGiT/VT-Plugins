@@ -11,6 +11,7 @@ using VT_Api.Config;
 using VT_Api.Core.Enum;
 using VT_Api.Core.Roles;
 using VT_Api.Core.Teams;
+using VT_Api.Extension;
 using VTCustomClass.Pouvoir;
 
 namespace VTCustomClass.PlayerScript
@@ -43,12 +44,12 @@ namespace VTCustomClass.PlayerScript
                     {
                         light();
                         lastPowerLight = DateTime.Now;
-                        message = "Light Hacked"; //here
+                        message = "Light Hacked";
                         return true;
                     }
                     else
                     {
-                        message = Cooldown.Send(lastPowerLight, Plugin.Instance.Config.HackerCoolDownLight);
+                        message = Cooldown.Send(Player, lastPowerLight, Plugin.Instance.Config.HackerCoolDownLight);
                         return false;
                     }
                 case (int)PowerType.DoorHack:
@@ -56,12 +57,12 @@ namespace VTCustomClass.PlayerScript
                     {
                         Door();
                         lastPowerDoor = DateTime.Now;
-                        message = "Door Hacked"; //here
+                        message = "Door Hacked";
                         return true;
                     }
                     else
                     {
-                        message = Cooldown.Send(lastPowerDoor, Plugin.Instance.Config.HackerCoolDownMessage);
+                        message = Cooldown.Send(Player, lastPowerDoor, Plugin.Instance.Config.HackerCoolDownMessage);
                         return false;
                     }
                 case (int)PowerType.CASSIEHack:
@@ -69,16 +70,16 @@ namespace VTCustomClass.PlayerScript
                     {
                         Message();
                         lastPowerMessage = DateTime.Now;
-                        message = "Cassie Hacked"; //here
+                        message = "Cassie Hacked";
                         return true;
                     }
                     else
                     {
-                        message = Cooldown.Send(lastPowerMessage, Plugin.Instance.Config.HackerCoolDownMessage);
+                        message = Cooldown.Send(Player, lastPowerMessage, Plugin.Instance.Config.HackerCoolDownMessage);
                         return true;
                     }
                 default:
-                    message = "You ave only 3 power"; //here
+                    message = string.Format(Plugin.Instance.Translation.GetForPlayer(Player).OnlyNPower, 3);
                     return false;
             }
         }

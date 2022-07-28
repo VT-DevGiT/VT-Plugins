@@ -39,14 +39,17 @@ namespace VTCustomClass
             {
                 SpawnMessage = "<color=blue><b>Tu es à présent</b></color> <color=red><b>%RoleName%</b></color>\\n<b>Press Esc pour fermer</b>",
                 VentMessage = "Vous pouvez rester encore %Time% secondes dans la ventilation",
-                NoTimeVentMessage = "Vous vous trouvez dans les ventilation",
+                NoTimeVentMessage = "Vous vous trouvez dans les ventilations",
+                GoInTheVent = "Vous voula dans les ventilations",
+                ExitTheVent = "Vous voula en dehors des ventilations",
                 PowerCooldown = "Vous pouvez utiliser ce pouvoir dans %Time% secondes",
                 KilledMessage = "Vous avez été tuée par %RoleName%",
                 NeedToLookAPlayer = "Vous devez regarder un joueur",
                 NewTargetLock = "Vous avez verrouiller un nouveau joueur enemie",
                 TargetLock = "Vous avez verrouiller un joueur",
                 UnlockTarget = "Vous n'avez plus de cible verrouiller",
-                OnlyOnePower = "Vous n'avez qu'un seul pouvoir"
+                OnlyOnePower = "Vous n'avez qu'un seul pouvoir",
+                OnlyNPower = "Vous n'avez que {0} pouvoirs"
             }, "FRENCH");
             
             if (!SynapseController.PluginLoader.Plugins.Any(p => p.Name == "InfiniteRadio"))

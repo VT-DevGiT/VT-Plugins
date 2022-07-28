@@ -8,13 +8,14 @@ using VT_Api.Core.Roles;
 using System.Linq;
 using VT_Api.Core.Enum;
 using VT_Api.Config;
+using VT_Api.Extension;
 
 namespace VTCustomClass.PlayerScript
 {
     public class CHIExpertPyrotechnieScript : AbstractRole
     {
         protected override string SpawnMessage => Plugin.Instance.Translation.GetForPlayer(Player).SpawnMessage;
-        
+
         protected override List<int> EnemysList => TeamManager.Group.CHIenemy.ToList();
 
         protected override List<int> FriendsList => TeamManager.Group.CHIally.ToList();

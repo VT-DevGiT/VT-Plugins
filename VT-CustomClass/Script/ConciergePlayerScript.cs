@@ -9,6 +9,7 @@ using VT_Api.Config;
 using VT_Api.Core.Enum;
 using VT_Api.Core.Roles;
 using VT_Api.Core.Teams;
+using VT_Api.Extension;
 using VTCustomClass.Pouvoir;
 
 namespace VTCustomClass.PlayerScript

@@ -8,6 +8,7 @@ using VT_Api.Core.Enum;
 using VT_Api.Core.Plugin;
 using VT_Api.Core.Roles;
 using VT_Api.Core.Teams;
+using VT_Api.Extension;
 using VTCustomClass.Pouvoir;
 
 namespace VTCustomClass.PlayerScript
@@ -41,17 +42,17 @@ namespace VTCustomClass.PlayerScript
                 if (Player.gameObject.GetComponent<MouveVent>() == null && (DateTime.Now - lastPower).TotalSeconds > Plugin.Instance.Config.Scp1048CoolDown)
                 {
                     Player.gameObject.AddComponent<MouveVent>();
-                    message = "Here you are in the ventilation !";
+                    message = Plugin.Instance.Translation.GetForPlayer(Player).GoInTheVent;
                 }
                 else if (Player.gameObject.GetComponent<MouveVent>() != null)
                 {
                     Player.gameObject.GetComponent<MouveVent>().Kill();
                     lastPower = DateTime.Now;
-                    message = "you came out of ventilation !";
+                    message = Plugin.Instance.Translation.GetForPlayer(Player).ExitTheVent;
                 }
                 else 
                 {
-                    message = Cooldown.Send(lastPower, Plugin.Instance.Config.Scp1048CoolDown);
+                    message = Cooldown.Send(Player, lastPower, Plugin.Instance.Config.Scp1048CoolDown);
                     return false;
                 }
                 return true;

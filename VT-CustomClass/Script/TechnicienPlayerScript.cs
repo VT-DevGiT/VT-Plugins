@@ -9,6 +9,7 @@ using VT_Api.Config;
 using VT_Api.Core.Enum;
 using VT_Api.Core.Roles;
 using VT_Api.Core.Teams;
+using VT_Api.Extension;
 using VTCustomClass.Pouvoir;
 
 namespace VTCustomClass.PlayerScript
@@ -56,7 +57,7 @@ namespace VTCustomClass.PlayerScript
                 }
                 else
                 {
-                    message = Cooldown.Send(lastPower, Plugin.Instance.Config.Scp1048CoolDown);
+                    message = Cooldown.Send(Player, lastPower, Plugin.Instance.Config.Scp1048CoolDown);
                     return false;
                 }
                 return true;

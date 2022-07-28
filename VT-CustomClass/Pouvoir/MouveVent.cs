@@ -2,6 +2,7 @@
 using Synapse.Api;
 using Synapse.Api.Events.SynapseEventArguments;
 using VT_Api.Core.Behaviour;
+using VT_Api.Extension;
 
 namespace VTCustomClass.Pouvoir
 {
@@ -23,13 +24,13 @@ namespace VTCustomClass.Pouvoir
         {
             if (duraction > 0)
             {
-                string message = Plugin.Instance.Translation.GetForPlayer(Player).VentMessage.Replace("%Time%", duraction.ToString());
+                string message = Plugin.Instance.Translation.GetForPlayer(player).VentMessage.Replace("%Time%", duraction.ToString());
                 player.SendBroadcast(1, message);
                 duraction--;
             }
             else if (duraction < 0)
             {
-                player.BroadcastMessage(Plugin.Instance.Translation.GetForPlayer(Player).NoTimeVentMessage, 1);
+                player.BroadcastMessage(Plugin.Instance.Translation.GetForPlayer(player).NoTimeVentMessage, 1);
             }
             else Kill();
         }

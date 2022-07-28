@@ -8,6 +8,7 @@ using VT_Api.Config;
 using VT_Api.Core.Enum;
 using VT_Api.Core.Roles;
 using VT_Api.Core.Teams;
+using VT_Api.Extension;
 using VTCustomClass.Pouvoir;
 
 namespace VTCustomClass.PlayerScript
@@ -65,7 +66,7 @@ namespace VTCustomClass.PlayerScript
                 ev.Victim.ChangeRoleAtPosition(RoleType.ChaosConscript);
             else if (ev.Killer?.CustomRole is CHISPYScript role)
             {
-                string message = Plugin.Instance.Translation.GetForPlayer(Player).KilledMessage.Replace("%RoleName%", role.RoleName);
+                string message = Plugin.Instance.Translation.GetForPlayer(ev.Victim).KilledMessage.Replace("%RoleName%", role.RoleName);
                 ev.Victim.OpenReportWindow(message);
             }
         }
