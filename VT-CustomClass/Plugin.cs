@@ -132,9 +132,9 @@ namespace VTCustomClass
             Server.Get.RoleManager.RegisterCustomRole<NTFVirologueScript>();
             Server.Get.RoleManager.RegisterCustomRole<FoundationUTRScript>();
             Server.Get.RoleManager.RegisterCustomRole<SCP008Script>();
-            Server.Get.RoleManager.RegisterCustomRole<SCP1048cript>();
-            Server.Get.RoleManager.RegisterCustomRole<SCP682Script>();
-            Server.Get.RoleManager.RegisterCustomRole<SCP953Script>();
+            //Server.Get.RoleManager.RegisterCustomRole<SCP1048cript>();
+            //Server.Get.RoleManager.RegisterCustomRole<SCP682Script>();
+            //Server.Get.RoleManager.RegisterCustomRole<SCP953Script>();
             Server.Get.RoleManager.RegisterCustomRole<SCP966cript>();
             Server.Get.RoleManager.RegisterCustomRole<SCP999Script>();
             Server.Get.RoleManager.RegisterCustomRole<StaffClassScript>();

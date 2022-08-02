@@ -101,7 +101,7 @@ namespace VTCustomClass
                 ReplaceRoleID = (int)RoleID.FacilityGuard,
                 MinRequiredPlayers = 3,
                 MaxSpawn = 1,
-                SpawnChance = 20,
+                SpawnChance = 0,
             }
         };
 
@@ -222,7 +222,7 @@ namespace VTCustomClass
                 ReplaceRoleID = (int)RoleID.NtfCaptain,
                 MaxAlive = 1,
                 MaxPerRespawn = 1,
-                SpawnChance = 25,
+                SpawnChance = 0,
             }
         };
 
@@ -245,7 +245,7 @@ namespace VTCustomClass
         };
 
         [Description("Config of the role Janirtor (ID = 100)")]
-        public string JanirtorName = "Concierge";
+        public string JanirtorName = "Janitor";
         public SerializedPlayerRole JanirtorConfig = new SerializedPlayerRole()
         {
             Health = 110,
@@ -265,7 +265,7 @@ namespace VTCustomClass
         };
 
         [Description("Config of the role Facility Guard Supervisor (ID = 101)")]
-        public string GuarSupervisorName = "Garde Superviseur";
+        public string GuarSupervisorName = "Guard Supervisor";
         public SerializedPlayerRole GuarSupervisorConfig = new SerializedPlayerRole()
         {
             Health = 110,
@@ -291,7 +291,7 @@ namespace VTCustomClass
         };
 
         [Description("Config of the role Scientist Supervisor (ID = 102)")]
-        public string SciSupervisorName = "Scientifique Superviseur";
+        public string SciSupervisorName = "Scientist Supervisor";
         public SerializedPlayerRole SciSupervisorConfig = new SerializedPlayerRole()
         {
             Health = 110,
@@ -311,7 +311,7 @@ namespace VTCustomClass
         };
 
         [Description("Config of the role Scientist Supervisor (ID = 103)")]
-        public string DirectorName = "Directeur du Site";
+        public string DirectorName = "Site Director";
         public SerializedPlayerRole DirectorConfig = new SerializedPlayerRole()
         {
             Health = 125,
@@ -337,7 +337,7 @@ namespace VTCustomClass
         [Description("Config of the role Technicien (ID = 104)")]
         public int TechnicieCoolDown = 90;
         public int TechniciePowerTime = 20;
-        public string TechnicienName = "Technicien";
+        public string TechnicienName = "Technician";
         public SerializedPlayerRole TechnicienConfig = new SerializedPlayerRole()
         {
             Health = 100,
@@ -362,7 +362,7 @@ namespace VTCustomClass
         public string LieutenantName = "Nine-Tailed Fox Lieutenant";
         public SerializedPlayerRole LieutenantConfig = new SerializedPlayerRole()
         {
-            Health = 110,
+            Health = 125,
             Inventory = new SerializedPlayerInventory()
             {
                 Ammo = new SerializedAmmo(100, 0, 0, 100, 0),
@@ -379,10 +379,10 @@ namespace VTCustomClass
             }
         };
         [Description("Config of the role NTF Commander (ID = 106)")]
-        public string CommanderName = "Nine-Tailed Fox Commandant";
+        public string CommanderName = "Nine-Tailed Fox Commander";
         public SerializedPlayerRole PCommanderConfig = new SerializedPlayerRole()
         {
-            Health = 120,
+            Health = 140,
             Inventory = new SerializedPlayerInventory()
             {
                 Ammo = new SerializedAmmo(100, 0, 100, 0, 0),
@@ -422,10 +422,10 @@ namespace VTCustomClass
         };
 
         [Description("Config of the role NTF Reconfinement Expert (ID = 108)")]
-        public string ReconfinementExpName = "Nine-Tailed Fox Expert en reconfinement";
+        public string ReconfinementExpName = "Nine-Tailed Fox Reconfinement expert";
         public SerializedPlayerRole ReconfinementExpConfig = new SerializedPlayerRole()
         {
-            Health = 175,
+            Health = 125,
             Inventory = new SerializedPlayerInventory()
             {
                 Ammo = new SerializedAmmo(0, 100, 0, 0, 0),
@@ -444,10 +444,10 @@ namespace VTCustomClass
         };
 
         [Description("Config of the role NTF Pyrotechnie Expert (ID = 109)")]
-        public string NtfPyrotechnieExpName = "Nine-Tailed Fox Expert en explosif";
+        public string NtfPyrotechnieExpName = "Nine-Tailed Fox Expert in explosives";
         public SerializedPlayerRole NtfPyrotechnieExpConfig = new SerializedPlayerRole()
         {
-            Health = 150,
+            Health = 125,
             Inventory = new SerializedPlayerInventory()
             {
                 Ammo = new SerializedAmmo(100, 0, 0, 0, 0),
@@ -467,10 +467,10 @@ namespace VTCustomClass
 
         [Description("Config of the role NTF Infirmier (ID = 110)")]
         public int NtfInfirmierCooldown = 105;
-        public string NtfInfirmierName = "Nine-Tailed Fox Infirmier";
+        public string NtfInfirmierName = "Nine-Tailed Fox Medic";
         public SerializedPlayerRole NtfInfirmierConfig = new SerializedPlayerRole()
         {
-            Health = 105,
+            Health = 120,
             Inventory = new SerializedPlayerInventory()
             {
                 Ammo = new SerializedAmmo(100, 0, 0, 0, 0),
@@ -488,10 +488,10 @@ namespace VTCustomClass
         };
 
         [Description("Config of the role NTF Virologue (ID = 111)")]
-        public string VirologueName = "Nine-Tailed Fox Virologue";
+        public string VirologueName = "Nine-Tailed Fox Virologist";
         public SerializedPlayerRole VirologueConfig = new SerializedPlayerRole()
         {
-            Health = 150,
+            Health = 120,
             Inventory = new SerializedPlayerInventory()
             {
                 Ammo = new SerializedAmmo(0, 0, 100, 0, 0),
@@ -533,7 +533,7 @@ namespace VTCustomClass
         {
             ArtificialHealth = 230,
             MaxArtificialHealth = 100,
-            Health = 150,
+            Health = 180,
             Inventory = new SerializedPlayerInventory()
             {
                 Ammo = new SerializedAmmo(0, 520, 0, 0, 0),
@@ -550,7 +550,7 @@ namespace VTCustomClass
         };
 
         [Description("Config of the role CHI Pyrotechnie Expert (ID = 114)")]
-        public string ChiPyrotechnieExpName = "Expert en explosif";
+        public string ChiPyrotechnieExpName = "Expert in explosives";
         public SerializedPlayerRole ChiPyrotechnieExpConfig = new SerializedPlayerRole()
         {
             Health = 120,
@@ -576,7 +576,7 @@ namespace VTCustomClass
         public int LeaderCooldown = 120;
         public SerializedPlayerRole LeaderConfig = new SerializedPlayerRole()
         {
-            Health = 120,
+            Health = 130,
             Inventory = new SerializedPlayerInventory()
             {
                 Ammo = new SerializedAmmo(0, 125, 60, 0, 0),
@@ -642,7 +642,7 @@ namespace VTCustomClass
         };
 
         [Description("Config of the role CHI Intruder (ID = 118)")]
-        public string IntruderName = "Intrus";
+        public string IntruderName = "Intruder";
         public SerializedPlayerRole IntruderConfig = new SerializedPlayerRole()
         {
             Health = 110,
@@ -664,10 +664,10 @@ namespace VTCustomClass
         };
 
         [Description("Config of the role CHI Spy (ID = 119)")]
-        public string SpyName = "Infiltré";
+        public string SpyName = "Spy";
         public SerializedPlayerRole SpyConfig = new SerializedPlayerRole()
         {
-            Health = 90,
+            Health = 100,
             Inventory = new SerializedPlayerInventory()
             {
                 Ammo = new SerializedAmmo(0, 60, 60, 0, 0),
@@ -686,7 +686,7 @@ namespace VTCustomClass
         };
 
         [Description("Config of the role CHI Infirmier (ID = 120)")]
-        public string ChiInfirmierName = "Infirmier";
+        public string ChiInfirmierName = "Medic";
         public int ChiInfirmierCooldown = 105;
         public SerializedPlayerRole ChiInfirmierConfig = new SerializedPlayerRole()
         {
@@ -748,7 +748,7 @@ namespace VTCustomClass
         public string Scp999Name = "SCP-999";
         public SerializedPlayerRole Scp999Config = new SerializedPlayerRole()
         {
-            Health = 100,
+            Health = 999,
             SpawnPoints = new List<SerializedMapPoint>()
             {
                 new SerializedMapPoint("HCZ_EZ_Checkpoint", 5.943375f, 1.329956f, -5.99823f)
@@ -831,10 +831,10 @@ namespace VTCustomClass
         };
 
         [Description("Config of the role Guardian (ID = 146)")]
-        public string GuardianName = "Gardien";
+        public string GuardianName = "Guardian";
         public SerializedPlayerRole GuardianConfig = new SerializedPlayerRole()
         {
-            Health = 100,
+            Health = 110,
             SpawnPoints = new List<SerializedMapPoint>()
             {
                  new SerializedMapPoint("LCZ_ClassDSpawn (1)", 13f, 1.33f, 1f)
