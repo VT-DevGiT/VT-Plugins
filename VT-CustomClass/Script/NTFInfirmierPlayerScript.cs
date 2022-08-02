@@ -136,7 +136,7 @@ namespace VTCustomClass.PlayerScript
                         message = "You try to revive a scp";
                 }
                 else
-                    message = Cooldown.Send(lastPower, Plugin.Instance.Config.NtfInfirmierCooldown);
+                    message = Cooldown.Send(Player, lastPower, Plugin.Instance.Config.NtfInfirmierCooldown);
             }
             else message = "You ave only one power";
             return false;
