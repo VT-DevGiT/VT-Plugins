@@ -48,6 +48,15 @@ namespace Common_Utiles
                     var roles = VT_Api.Core.Roles.RoleManager.Get.GetRoles(teamID);
                     Plugin.Instance.TeamIDRolesID.Add(teamID, roles);
                 }
+                List<int> vanillateam = new List<int>()
+                {
+                    0, 1, 2, 3, 4
+                };
+                foreach (var team in vanillateam)
+                {
+                    var roles = VT_Api.Core.Roles.RoleManager.Get.GetRoles(team);
+                    Plugin.Instance.TeamIDRolesID.Add(team, roles);
+                }
             }
         }
         private void OnRespawn(TeamRespawnEventArgs ev)

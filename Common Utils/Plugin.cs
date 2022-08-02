@@ -5,6 +5,8 @@ using Synapse;
 using System.Collections.Generic;
 using MEC;
 using Synapse.Api.Teams;
+using VT_Api.Core.Roles;
+using VT_Api.Extension;
 using VT_Api.Reflexion;
 
 namespace Common_Utiles
@@ -47,6 +49,16 @@ namespace Common_Utiles
                     int teamID = team.Info.ID;
                     var roles = VT_Api.Core.Roles.RoleManager.Get.GetRoles(teamID);
                     Plugin.Instance.TeamIDRolesID.Add(teamID, roles);
+                 }
+
+                 List<int> vanillateam = new List<int>()
+                 {
+                     0, 1, 2, 3, 4
+                 };
+                 foreach (var team in vanillateam)
+                 {
+                     var roles = RoleManager.Get.GetRoles(team);
+                     Plugin.Instance.TeamIDRolesID.Add(team, roles);
                  }
             });
         }

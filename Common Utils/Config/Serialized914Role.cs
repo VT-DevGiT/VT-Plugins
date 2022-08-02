@@ -66,7 +66,7 @@ namespace Common_Utiles.Config
         {
             int newRoleID = roleID.isRoleID ?
                 roleID.id :
-                Plugin.Instance.TeamIDRolesID[roleID.id][UnityEngine.Random.Range(0, Plugin.Instance.TeamIDRolesID.Count - 1)];
+                Plugin.Instance.TeamIDRolesID[roleID.id][UnityEngine.Random.Range(0, Plugin.Instance.TeamIDRolesID[roleID.id].Count - 1)];
             if (newRoleID == -1)
             {
                 player.PlayerStats.KillPlayer(new UniversalDamageHandler(-1, DeathTranslations.Crushed, new DamageHandlerBase.CassieAnnouncement()
