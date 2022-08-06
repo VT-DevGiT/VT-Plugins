@@ -540,7 +540,7 @@ namespace VTCustomClass
                 Items = new List<SerializedPlayerItem>()
                 {
                     new SerializedPlayerItem((int)ItemType.KeycardChaosInsurgency, 1, 0, Vector3.one, 100, false),
-                    new SerializedPlayerItem(200, 0, 0, Vector3.one, 100, true),
+                    //new SerializedPlayerItem(200, 0, 0, Vector3.one, 100, true),
                     new SerializedPlayerItem((int)ItemType.GunLogicer, 100, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.Radio, 100, 0, Vector3.one, 100, false),
                     new SerializedPlayerItem((int)ItemType.ArmorHeavy, 1, 0, Vector3.one, 100, false),
