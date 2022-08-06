@@ -47,20 +47,23 @@ Version = "v.1.3.4"
         {
             if (Config.Decont)
             {
-                var instance = new Harmony("VTProget_X");
+                var instance = new Harmony("VT-Intercom");
                 instance.PatchAll();
-                Server.Get.Logger.Info("VT-ProgetX Harmony Patch done!");
+                Server.Get.Logger.Info("VT-Intercom Harmony Patch done!");
             }
         }
 
         public override void ReloadConfigs()
         {
             base.ReloadConfigs();
-            var instance = new Harmony("VTProget_X");
-            instance.UnpatchAll();
-
+            /*
             if (Config.Decont)
-                instance.PatchAll();
+            {
+                var instance = new Harmony("VT-Intercom");
+                instance.UnpatchAll();
+                
+                instance.PatchAll();    
+            }*/
         }
 
 
