@@ -20,7 +20,7 @@ namespace VTIntercom
         public bool TeslaRadio { get; set; } = true;
 
         [Description("Must have a keycard (intercom level) in your hands to be able to speak")]
-        public bool KeycardSpeak { get; set; } = false;
+        public bool KeycardSpeak { get; set; } = true;
         public List<int> KeycardSpeakIgnorRole { get; set; } = new List<int>()
         {
             (int)RoleID.FoundationUTR,
