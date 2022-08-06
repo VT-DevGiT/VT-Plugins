@@ -24,7 +24,7 @@ Version = "v.1.1.3"
             base.Load();
             Translation.AddTranslation(new Translation()
             {
-                SpawnMessage = "tu es un membre des <color=blue>HammerDown</color>. tu est %RoleName%\\nTon objectif est de stoper toute les intrus et de tuée les SCP 939\\n<b>Press esc pour fermé</b>",
+                SpawnMessage = "tu es un membre des <color=blue>HammerDown</color>. tu est %RoleName%\\nTon objectif est de stoper toute les intrus et de tuer les SCP 939\\n<b>Press esc pour fermé</b>",
             }, "FRENCH");
         }
     }
