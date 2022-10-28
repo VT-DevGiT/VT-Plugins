@@ -103,6 +103,7 @@
     <Compile Include="Commands.cs" />
     <Compile Include="item\TerminatorDeGameObject.cs" />
     <Compile Include="EventHandlers.cs" />
+    <Compile Include="paths\EffectName.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflexion.cs" />

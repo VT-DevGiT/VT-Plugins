@@ -33,10 +33,9 @@ namespace Common_Utiles.Config
             }},
         };
 
-        /* Si sa fonctionne pas sa dégage
-        [Description("If true it will remove the old recipes of 914. Curently not working.")]
+        [Description("If true it will remove the old recipes of 914.")]
         public bool RemouvRecipes = false;
-        */
+        
 
         [Description("A list of recipes to add for SCP 914.")]
         public List<Serialized914Recipe> Recipes = new List<Serialized914Recipe>()

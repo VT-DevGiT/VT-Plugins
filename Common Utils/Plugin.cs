@@ -9,6 +9,9 @@ using VT_Api.Core.Roles;
 using VT_Api.Extension;
 using VT_Api.Reflexion;
 
+using SynapseTeamManager = Synapse.Api.Teams.TeamManager;
+using VtRoleManager = VT_Api.Core.Roles.RoleManager;
+
 namespace Common_Utiles
 {
     /*
@@ -44,11 +47,11 @@ namespace Common_Utiles
             //whait the realod of all other plugins
             Timing.CallDelayed(0f, () =>
             {
-                 foreach (var team in Synapse.Api.Teams.TeamManager.Get.GetFieldValueOrPerties<List<ISynapseTeam>>("teams"))
+                 foreach (var team in SynapseTeamManager.Get.GetFieldValueOrPerties<List<ISynapseTeam>>("teams"))
                  {
                     int teamID = team.Info.ID;
-                    var roles = VT_Api.Core.Roles.RoleManager.Get.GetRoles(teamID);
-                    Plugin.Instance.TeamIDRolesID.Add(teamID, roles);
+                    var roles = VtRoleManager.Get.GetRoles(teamID);
+                    TeamIDRolesID.Add(teamID, roles);
                  }
 
                  List<int> vanillateam = new List<int>()
@@ -57,8 +60,8 @@ namespace Common_Utiles
                  };
                  foreach (var team in vanillateam)
                  {
-                     var roles = RoleManager.Get.GetRoles(team);
-                     Plugin.Instance.TeamIDRolesID.Add(team, roles);
+                     var roles = VtRoleManager.Get.GetRoles(team);
+                     TeamIDRolesID.Add(team, roles);
                  }
             });
         }

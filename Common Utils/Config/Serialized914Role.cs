@@ -64,9 +64,9 @@ namespace Common_Utiles.Config
 
         private void SetTeamOrRole(Player player, TeamOrRole roleID)
         {
-            int newRoleID = roleID.isRoleID ?
-                roleID.id :
-                Plugin.Instance.TeamIDRolesID[roleID.id][UnityEngine.Random.Range(0, Plugin.Instance.TeamIDRolesID[roleID.id].Count - 1)];
+            List<int> roles = Plugin.Instance.TeamIDRolesID[roleID.id];
+            int random = UnityEngine.Random.Range(0, roles.Count - 1);
+            int newRoleID = roleID.isRoleID ? roleID.id : roles[random];
             if (newRoleID == -1)
             {
                 player.PlayerStats.KillPlayer(new UniversalDamageHandler(-1, DeathTranslations.Crushed, new DamageHandlerBase.CassieAnnouncement()

@@ -1,4 +1,6 @@
-﻿using Synapse.Api.Plugin;
+﻿using HarmonyLib;
+using Synapse;
+using Synapse.Api.Plugin;
 using Synapse.Config;
 using UnityEngine;
 using VT_Api.Core.Plugin;
@@ -17,17 +19,25 @@ namespace VTDevHelp
     )]
     public class Plugin : VtAbstractPlugin<Plugin, EventHandlers>
     {
-        public override bool AutoRegister => true;
+        public static SerializedMapPoint DoorPosition { get; internal set; }
+        public static Quaternion DoorRotation { get; internal set; }
 
-        public static SerializedMapPoint DoorPosition;
-        public static Quaternion DoorRotation;
+        public override bool AutoRegister => true;
 
         public override void Load()
         {
-            Synapse.Api.Teams.TeamManager.Get.RegisterTeam<TestTeam>();
+            PatchAll();
+            //Synapse.Api.Teams.TeamManager.Get.RegisterTeam<TestTeam>();
 
             //AudioApi.AudioApi.Enable();
             base.Load();
+        }
+
+        private void PatchAll()
+        {
+            var instance = new Harmony("VTTest");
+            instance.PatchAll();
+            Server.Get.Logger.Info("Harmony Patch done!");
         }
     }
 }
