@@ -33,24 +33,7 @@ namespace VT079.Command
 
             var annoces = VT079.Plugin.Instance.Config.Annonces;
 
-
-            if (arg.ToLower() == "help")
-            {
-                result.Message = "Do \".079 id\" to play the cassie message:";
-                result.State = CommandResultState.Ok;
-
-                var length = annoces.Count;
-                var i = 0;
-                
-                foreach (string cassie in annoces.Keys)
-                {
-                    i++;
-                    result.Message += $"\n{i} - \"{cassie}\"";
-                }
-                
-                ResteCooldown();
-            }
-            else if (int.TryParse(arg, out int index))
+            if (int.TryParse(arg, out int index))
             {
                 Map.Get.Cassie(annoces.ElementAt(index + 1).Value);
                 
@@ -66,18 +49,21 @@ namespace VT079.Command
             }
             else
             {
+
+                result.Message = "Do \".079 [id]\" to play the cassie message:";
                 result.State = CommandResultState.Error;
-                result.Message = "Do \".079 FakeCassie Help\" to get the list of posisble cassie.";
-                ResteCooldown();
+
+                var length = annoces.Count;
+                var i = 0;
+
+                foreach (string cassie in annoces.Keys)
+                {
+                    i++;
+                    result.Message += $"\n{i} - \"{cassie}\"";
+                }
             }
 
             return result;
-        }
-        
-        public void ResteCooldown()
-        {
-            var cooldown = typeof(Scp079SynapseCommand).GetFieldOrPropertyValue<Dictionary<string, float>>("cooldown");
-            cooldown[CommandName] = 0f;
         }
     }
 }
