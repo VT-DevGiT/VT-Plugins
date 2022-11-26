@@ -25,8 +25,6 @@ namespace VT079.Command
 
         public float Cooldown => PluginExtensions.GetCooldown(Name, 420f);
 
-        public System.Random()
-
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
@@ -35,12 +33,13 @@ namespace VT079.Command
 
             if (Plugin.Instance.SCPRoleDeconf.Any() && Spectator.Any())
             {
-               Map.Get.Cassie($"Alert . New containment .g1 breach detected . Code .g4 red .");
+                Map.Get.Cassie($"Alert . New containment .g1 breach detected . Code .g4 red .");
                
-               context.Player.Hub.scp079PlayerScript.Network_curLvl -= 2;
-               int newRole = Plugin.Instance.SCPRoleDeconf.ElementAt( UnityEngine.Random.Range(0, Plugin.Instance.SCPRoleDeconf.Count);
-               Player player = Spectator.ElementAt(new System.Random().Next(0, Spectator.Count - 1));
-               player.RoleID = newRole;
+                context.Player.Hub.scp079PlayerScript.Network_curLvl -= 2;
+                int index = UnityEngine.Random.Range(0, Plugin.Instance.SCPRoleDeconf.Count);
+                int newRole = Plugin.Instance.SCPRoleDeconf.ElementAt(index);
+                Player player = Spectator.ElementAt(UnityEngine.Random.Range(0, Spectator.Count));
+                player.RoleID = newRole;
             }
             else
             {

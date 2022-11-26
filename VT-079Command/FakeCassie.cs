@@ -1,13 +1,17 @@
 ﻿using Scp079Rework;
 using Synapse.Api;
 using Synapse.Command;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using VT_Api.Reflexion;
 
 namespace VT079.Command
 {
-    internal class FakeCassie
+    public class FakeCassie : I079Command
     {
+        const string CommandName = "FakeCassie";
+
         public KeyCode Key => KeyCode.None;
 
         public int RequiredLevel => PluginExtensions.GetRequiredLevel(Name, 3);
@@ -16,7 +20,7 @@ namespace VT079.Command
 
         public float Exp => PluginExtensions.GetEnergy(Name, 20);
 
-        public string Name => "FakeCassie";
+        public string Name => CommandName;
 
         public string Description => "Play a custom cassie, use help to now the list of the custom cassie";
 
@@ -27,15 +31,14 @@ namespace VT079.Command
             var result = new CommandResult();
             var arg = string.Join(" ", context.Arguments.ToArray());
 
-            Synapse.Api.Logger.Get.Info('"' + arg + '"');
+            var annoces = VT079.Plugin.Instance.Config.Annonces;
 
-            var annoces = VT079.Plugin.Config.Annonces;
 
-            if (arg == "help")
+            if (arg.ToLower() == "help")
             {
                 result.Message = "Do \".079 id\" to play the cassie message:";
                 result.State = CommandResultState.Ok;
-                
+
                 var length = annoces.Count;
                 var i = 0;
                 
@@ -43,8 +46,9 @@ namespace VT079.Command
                 {
                     i++;
                     result.Message += $"\n{i} - \"{cassie}\"";
-
                 }
+                
+                ResteCooldown();
             }
             else if (int.TryParse(arg, out int index))
             {
@@ -63,10 +67,17 @@ namespace VT079.Command
             else
             {
                 result.State = CommandResultState.Error;
-                result.Message = "Do \".079 FakeCassie\" help to get the list of posisble cassie.";
+                result.Message = "Do \".079 FakeCassie Help\" to get the list of posisble cassie.";
+                ResteCooldown();
             }
 
             return result;
+        }
+        
+        public void ResteCooldown()
+        {
+            var cooldown = typeof(Scp079SynapseCommand).GetFieldOrPropertyValue<Dictionary<string, float>>("cooldown");
+            cooldown[CommandName] = 0f;
         }
     }
 }

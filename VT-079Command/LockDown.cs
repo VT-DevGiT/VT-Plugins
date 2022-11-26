@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace VT079.Command
 {
-    internal class LockDown
+    public class LockDown : I079Command
     {
         public KeyCode Key => KeyCode.None;
 
