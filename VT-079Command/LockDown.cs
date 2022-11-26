@@ -1,4 +1,5 @@
-﻿using Scp079Rework;
+﻿using MEC;
+using Scp079Rework;
 using Synapse.Api;
 using Synapse.Command;
 using System.Linq;
@@ -28,13 +29,23 @@ namespace VT079.Command
             
             if (Map.Get.Nuke.Active)
             {
-                result.State = CommandResultState.Ok;
+                result.State = CommandResultState.Error;
                 result.Message = "The nuck is active you can do that";
             }
             else 
             {
                 foreach (var door in Map.Get.Doors)
+                { 
                     door.Open = false;
+                    door.Locked = true;
+                }
+
+                Timing.CallDelayed(10f, () =>
+                {
+                    foreach (var door in Map.Get.Doors)
+                        door.Locked = false;
+                });
+
                 result.State = CommandResultState.Ok;
                 result.Message = "All door are lock";
             }
