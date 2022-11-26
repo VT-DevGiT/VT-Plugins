@@ -24,7 +24,7 @@ namespace VT_Alpha
 
         private void OnWarHeadStart(WarHeadInteracteEventArgs ev)
         {
-            if ((AphaOne == -1 || AphaOne > Plugin.Instance.Config.MaxRepsawn) && UnityEngine.Random.Range(1f, 100f) <= Plugin.Instance.Config.SpawnChance)
+            if ((AphaOne == -1 || AphaOne > Plugin.Instance.Config.MaxRepsawn) && UnityEngine.Random.Range(0, 100) <= Plugin.Instance.Config.SpawnChance)
             { 
                 Round.Get.NextRespawn += 120f;
                 

@@ -111,9 +111,9 @@ namespace VTCustomClass
                                 (0 < classToSpawn.MinRequiredPlayers && Server.Get.PlayersAmount < classToSpawn.MinRequiredPlayers))
                                 break;
 
-                            if (classToSpawn.SpawnChance >= UnityEngine.Random.Range(1, 100))
+                            if (UnityEngine.Random.Range(0, 100) <= classToSpawn.SpawnChance)
                             {
-                                var key = playersRoles.ElementAt(UnityEngine.Random.Range(0, playersRoles.Count() - 1)).Key;
+                                var key = playersRoles.ElementAt(UnityEngine.Random.Range(0, playersRoles.Count())).Key;
                                 IDRespawnPlayer[key] = classToSpawn.RoleID;
                                 RoleIDSpawnedInRound[classToSpawn.RoleID]++;
                             }
@@ -150,9 +150,9 @@ namespace VTCustomClass
                             (0 < classToSpawn.MinRequiredPlayers && Server.Get.PlayersAmount < classToSpawn.MinRequiredPlayers))
                             break;
 
-                        if (classToSpawn.SpawnChance >= UnityEngine.Random.Range(1, 100))
+                        if (UnityEngine.Random.Range(1, 100) <= classToSpawn.SpawnChance)
                         {
-                            var key = playersRoles.ElementAt(UnityEngine.Random.Range(0, playersRoles.Count() - 1)).Key;
+                            var key = playersRoles.ElementAt(UnityEngine.Random.Range(0, playersRoles.Count())).Key;
                             ev.SpawnPlayers[key] = classToSpawn.RoleID;
                         }
                     }
@@ -176,9 +176,9 @@ namespace VTCustomClass
                             (0 < classToSpawn.MinRequiredScpPlayers && Server.Get.PlayersAmount < classToSpawn.MinRequiredScpPlayers))
                             break;
 
-                        if (classToSpawn.SpawnChance >= UnityEngine.Random.Range(1, 100))
+                        if (UnityEngine.Random.Range(1, 100) <= classToSpawn.SpawnChance)
                         {
-                            var key = playersRoles.ElementAt(UnityEngine.Random.Range(0, playersRoles.Count() - 1)).Key;
+                            var key = playersRoles.ElementAt(UnityEngine.Random.Range(0, playersRoles.Count())).Key;
                             ev.SpawnPlayers[key] = classToSpawn.RoleID;
                         }
                     }

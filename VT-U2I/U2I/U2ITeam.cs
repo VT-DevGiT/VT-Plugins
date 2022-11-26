@@ -41,7 +41,7 @@ namespace VT_U2I
             Logger.Get.Info("2");
 
             if (Plugin.Instance.Config.SpawnSize > 0 && players.Count > Plugin.Instance.Config.SpawnSize)
-                players = players.GetRange(0, Plugin.Instance.Config.SpawnSize - 1);
+                players = players.GetRange(0, Plugin.Instance.Config.SpawnSize);
             Logger.Get.Info("3");
 
             if (!players.Any())

@@ -16,7 +16,7 @@ namespace VT_HammerDown
 
         private void OnRespawn(TeamRespawnEventArgs ev)
         {
-            if (ev.Team == Respawning.SpawnableTeamType.NineTailedFox && Scp939PresentOrEnemy() && UnityEngine.Random.Range(1f, 100f) <= Plugin.Instance.Config.SpawnChance)
+            if (ev.Team == Respawning.SpawnableTeamType.NineTailedFox && Scp939PresentOrEnemy() && UnityEngine.Random.Range(0, 100) <= Plugin.Instance.Config.SpawnChance)
             {
                 ev.TeamID = (int)TeamID.CDM;
                 TeamManager.Get.RemoveOrFillWithSpectator(ev.Players, Plugin.Instance.Config.CmdMaxPerRespawn);

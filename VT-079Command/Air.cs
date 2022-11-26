@@ -34,7 +34,7 @@ namespace VT079.Command
             }
             if (!VtController.Get.MapAction.isAirBombCurrently)
             {
-                VtController.Get.MapAction.StartAirBombardement(10, 5);
+                VtController.Get.MapAction.StartAirBombardement(15, 5);
                 result.State = CommandResultState.Ok;
                 result.Message = "Air Bomb Start";
             }

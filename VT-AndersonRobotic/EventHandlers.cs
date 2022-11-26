@@ -24,7 +24,7 @@ namespace VT_AndersonRobotic
         private void Respawn(TeamRespawnEventArgs ev)
         {
             if ((Plugin.Instance.Config.SpawnMax != -1 || andersonSapwn > Plugin.Instance.Config.SpawnMax) && ev.Team == Respawning.SpawnableTeamType.ChaosInsurgency && 
-                UnityEngine.Random.Range(1f, 100f) <= Plugin.Instance.Config.SpawnChance)
+                UnityEngine.Random.Range(1, 100) <= Plugin.Instance.Config.SpawnChance)
             {
                 ev.TeamID = (int)TeamID.AND;
                 andersonSapwn++;

@@ -85,6 +85,8 @@
   <ItemGroup>
     <Compile Include="Air.cs" />
     <Compile Include="DeconfSCP.cs" />
+    <Compile Include="LockDown.cs" />
+    <Compile Include="FakeCassie.cs" />
     <Compile Include="Gaz.cs" />
     <Compile Include="HackUTR.cs" />
     <Compile Include="Nuke.cs" />

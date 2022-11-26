@@ -1,5 +1,8 @@
-﻿using Synapse.Api.Plugin;
+﻿using HarmonyLib;
+using Synapse.Api.Plugin;
 using System.Collections.Generic;
+using System.Linq;
+using VT_Api.Core.Plugin;
 
 namespace VT079
 {
@@ -14,19 +17,22 @@ SynapsePatch = SynapseController.SynapsePatch,
 Version = "079v.1.4.1 079Commandv1.3.1"
 )]
 
-    public class Plugin : AbstractPlugin
+    public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config>
     {
-        public static Plugin Instance { get; private set; }
-        public static List<int> SCPRoleDeconf;
+        public const int CASSIE = 3999;
 
-        [Synapse.Api.Plugin.Config(section = "VT-079")]
-        public static Config Config;
+        public override bool AutoRegister => true;
+
+        public Harmony Harmony { get; private set; }
+
+        public List<int> SCPRoleDeconf;
 
         public override void Load()
         {
-            Instance = this;
-            new EventHandlers();
-            SCPRoleDeconf = Config.Scp079ScpDeconf;
+            base.Load();
+            SCPRoleDeconf = Config.Scp079ScpDeconf.ToList();
+            Harmony = new Harmony("VT079");
+            Harmony.PatchAll();
         }
 
         internal void ChangeCost(Scp079PlayerScript player079Script)
@@ -36,68 +42,69 @@ Version = "079v.1.4.1 079Commandv1.3.1"
                 switch (ability.label)
                 {
                     case "Camera Switch":
-                        ability.mana = Plugin.Config.Scp079CostCamera;
+                        ability.mana = Config.Scp079CostCamera;
                         break;
                     case "Door Lock":
-                        ability.mana = Plugin.Config.Scp079CostLock;
+                        ability.mana = Config.Scp079CostLock;
                         break;
                     case "Door Lock Start":
-                        ability.mana = Plugin.Config.Scp079CostLockStart;
+                        ability.mana = Config.Scp079CostLockStart;
                         break;
                     case "Door Lock Minimum":
-                        ability.mana = Plugin.Config.Scp079ConstLockMinimum;
+                        ability.mana = Config.Scp079ConstLockMinimum;
                         break;
-                    case "Door Interaction DEFAULT":
-                        ability.mana = Plugin.Config.Scp079CostDoorDefault;
-                        break;
+                    case "Door Interact ion DEFAULT":
+                        ability.mana = Config.Scp079CostDoorDefault;
+                        break;  
                     case "Door Interaction CONT_LVL_1":
-                        ability.mana = Plugin.Config.Scp079CostDoorContlv1;
+                        ability.mana = Config.Scp079CostDoorContlv1;
                         break;
                     case "Door Interaction CONT_LVL_2":
-                        ability.mana = Plugin.Config.Scp079CostDoorContlv2;
+                        ability.mana = Config.Scp079CostDoorContlv2;
                         break;
                     case "Door Interaction CONT_LVL_3":
-                        ability.mana = Plugin.Config.Scp079CostDoorContlv3;
+                        ability.mana = Config.Scp079CostDoorContlv3;
                         break;
                     case "Door Interaction ARMORY_LVL_1":
-                        ability.mana = Plugin.Config.Scp079CostDoorArmlv1;
+                        ability.mana = Config.Scp079CostDoorArmlv1;
                         break;
                     case "Door Interaction ARMORY_LVL_2":
-                        ability.mana = Plugin.Config.Scp079CostDoorArmlv2;
+                        ability.mana = Config.Scp079CostDoorArmlv2;
                         break;
                     case "Door Interaction ARMORY_LVL_3":
-                        ability.mana = Plugin.Config.Scp079CostDoorArmlv3;
+                        ability.mana = Config.Scp079CostDoorArmlv3;
                         break;
                     case "Door Interaction EXIT_ACC":
-                        ability.mana = Plugin.Config.Scp079CostDoorExit;
+                        ability.mana = Config.Scp079CostDoorExit;
                         break;
                     case "Door Interaction INCOM_ACC":
-                        ability.mana = Plugin.Config.Scp079CostDoorIntercom;
+                        ability.mana = Config.Scp079CostDoorIntercom;
                         break;
                     case "Door Interaction CHCKPOINT_ACC":
-                        ability.mana = Plugin.Config.Scp079CostDoorCheckpoint;
+                        ability.mana = Config.Scp079CostDoorCheckpoint;
                         break;
                     case "Room Lockdown":
-                        ability.mana = Plugin.Config.Scp079CostLockDown;
+                        ability.mana = Config.Scp079CostLockDown;
                         break;
                     case "Tesla Gate Burst":
-                        ability.mana = Plugin.Config.Scp079CostTesla;
+                        ability.mana = Config.Scp079CostTesla;
                         break;
                     case "Elevator Teleport":
-                        ability.mana = Plugin.Config.Scp079CostElevatorTeleport;
+                        ability.mana = Config.Scp079CostElevatorTeleport;
                         break;
                     case "Elevator Use":
-                        ability.mana = Plugin.Config.Scp079CostElevatorUse;
+                        ability.mana = Config.Scp079CostElevatorUse;
                         break;
                     case "Speaker Start":
-                        ability.mana = Plugin.Config.Scp079CostSpeakerStart;
+                        ability.mana = Config.Scp079CostSpeakerStart;
                         break;
                     case "Speaker Update":
-                        ability.mana = Plugin.Config.Scp079CostSpeakerUpdate;
+                        ability.mana = Config.Scp079CostSpeakerUpdate;
                         break;
                 }
             }
         }
+
     }
 
 }

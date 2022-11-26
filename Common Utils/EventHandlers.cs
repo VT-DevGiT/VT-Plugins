@@ -74,7 +74,7 @@ namespace Common_Utiles
             if (NewIdItems != null)
             {
                 var Ids = NewIdItems.Parse(Map.Get.Scp914.KnobState);
-                ev.NewItem = new SynapseItem(Ids[intRnd(0, Ids.Count - 1)]);
+                ev.NewItem = new SynapseItem(Ids[intRnd(0, Ids.Count)]);
             }
             else if(config.RemouvRecipes)
             {

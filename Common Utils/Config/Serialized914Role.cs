@@ -38,7 +38,7 @@ namespace Common_Utiles.Config
 
         public void Apply(Player player, Scp914KnobSetting setting)
         {
-            if ((ID.id == -1 || ID.isRoleID ? player.RoleID == ID.id : player.TeamID == ID.id) && UnityEngine.Random.Range(0, 100) <= Chance)
+            if ((ID.id == -1 || ID.isRoleID ? player.RoleID == ID.id : player.TeamID == ID.id) && UnityEngine.Random.Range(0, 100) < Chance)
             {
             
                 switch (setting)
@@ -65,7 +65,7 @@ namespace Common_Utiles.Config
         private void SetTeamOrRole(Player player, TeamOrRole roleID)
         {
             List<int> roles = Plugin.Instance.TeamIDRolesID[roleID.id];
-            int random = UnityEngine.Random.Range(0, roles.Count - 1);
+            int random = UnityEngine.Random.Range(0, roles.Count);
             int newRoleID = roleID.isRoleID ? roleID.id : roles[random];
             if (newRoleID == -1)
             {

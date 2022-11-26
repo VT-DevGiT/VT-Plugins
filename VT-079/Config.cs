@@ -1,6 +1,7 @@
 ﻿using Synapse.Config;
 using System.Collections.Generic;
 using System.ComponentModel;
+using VT_Api.Config;
 using VT_Api.Core.Enum;
 
 namespace VT079
@@ -68,8 +69,23 @@ namespace VT079
         [Description("Prix for use a speaker")]
         public float Scp079CostSpeakerUpdate = 0f;
 
+        [Description("If 079 shoold be not reconfine when no SCP left")]
+        public bool NotReconfineWhenNoSCPLeft = false;
+
         [Description("The list of SCPs that 079 can confined for the Deconf command of VT-079Command")]
         public List<int> Scp079ScpDeconf = new List<int>() { (int)RoleID.SCP008, (int)RoleID.Scp173, (int)RoleID.SCP966, (int)RoleID.Scp93989
             , (int)RoleID.Scp93953, (int)RoleID.Scp106, (int)RoleID.Scp049, (int)RoleID.Scp096};
+
+        [Description("The list of possible annonce for 079 for the Annonce command of VT-079Command")]
+        public Dictionary<string, string> Annonces = new Dictionary<string, string>()
+        {
+            { "MTF annonce", "MtfUnit Epsilon 11 Designated NineTailedFox HasEntered AllRemaining AwaitingRecontainment %SCP_Count% SCP subject's" },
+            { "GRUP annonce", "pitch_0.85 .g4 . .g4 . .g4 pitch_1Attention G R U D P Detected . Please Evacuate Entrance Zone and Surface zone Immediately pitch_0.85 .g4 . .g4 . .g4" },
+            { "Chaos annonce", "pitch_0.85 .g4 . .g4 . .g4 pitch_1Attention ChaosInsurgency Detected . Please Evacuate Entrance Zone and Surface zone Immediately pitch_0.85 .g4 . .g4 . .g4" }
+        };
+
+
+        [Description("The spawn message of Cassie")]
+        internal string SpawnMessage = "<color=blue><b>You are now</b></color> <color=red><b>%RoleName%</b></color>\\n<b>Press Esc to close</b>";
     }
 }

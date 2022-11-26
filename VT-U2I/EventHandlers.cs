@@ -16,7 +16,7 @@ namespace VT_U2I
         {
             if (ev.Team == Respawning.SpawnableTeamType.NineTailedFox 
                 && (ev.Players.Where(p => Plugin.Instance.Config.SpawnNeedRank.Contains(p.RankName)).Count() > 0 || !Plugin.Instance.Config.SpawnNeedRank.Any())
-                && UnityEngine.Random.Range(1f, 100f) <= Plugin.Instance.Config.SpawnChance)
+                && UnityEngine.Random.Range(0, 100) <= Plugin.Instance.Config.SpawnChance)
                 ev.TeamID = (int)TeamID.U2I;
         }
     }

@@ -1,14 +1,22 @@
-﻿using Synapse;
+﻿ using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
+using System;
+using System.Linq;
 
 namespace VT079
 {
-    internal class EventHandlers
+    public class EventHandlers
     {
         public EventHandlers()
         {
             Server.Get.Events.Player.PlayerSetClassEvent += OnPlayerSet;
             Server.Get.Events.Map.DoorInteractEvent += OnDoorInteract;
+            Server.Get.Events.Round.RoundRestartEvent += OnRestart;
+        }
+
+        private void OnRestart()
+        {
+            Plugin.Instance.SCPRoleDeconf = Plugin.Instance.Config.Scp079ScpDeconf.ToList();
         }
 
         private void OnDoorInteract(DoorInteractEventArgs ev)
@@ -23,8 +31,8 @@ namespace VT079
             if (ev.Role == RoleType.Scp079)
                 ev.Player.gameObject.AddComponent<Scp079Behaviour>();
 
-            if (Plugin.SCPRoleDeconf.Contains((int)ev.Role))
-                Plugin.SCPRoleDeconf.Remove((int)ev.Role);
+            if (Plugin.Instance.SCPRoleDeconf.Contains((int)ev.Role))
+                Plugin.Instance.SCPRoleDeconf.Remove((int)ev.Role);
         }
     }
 }

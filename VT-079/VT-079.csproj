@@ -80,6 +80,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cassie.cs" />
+    <Compile Include="Patchs.cs" />
     <Compile Include="Scp079Behaviour.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Config.cs" />
